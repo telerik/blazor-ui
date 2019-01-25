@@ -1,0 +1,32 @@
+﻿@page "/grid/index"
+
+@using TelerikBlazor.App.Services
+@inject WeatherForecastService ForecastService
+
+
+<KendoGrid Data=@GridData>
+    <KendoGridColumn Field="Date">
+        <Template>
+            @((context as WeatherForecast).Date.ToString("MMMM dd, yyyy"))
+        </Template>
+    </KendoGridColumn>
+    <KendoGridColumn Field="TemperatureC">
+    </KendoGridColumn>
+    <KendoGridColumn Field="Summary"></KendoGridColumn>
+</KendoGrid>
+
+
+
+@functions {
+    public IEnumerable<WeatherForecast> GridData { get; set; }
+
+    protected override async Task OnInitAsync()
+    {
+        await LoadData();
+    }
+
+    private async Task LoadData()
+    {
+        GridData = await ForecastService.GetForecastAsync(DateTime.Now);
+    }
+}

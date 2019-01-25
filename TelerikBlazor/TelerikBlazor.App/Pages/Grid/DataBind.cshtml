@@ -1,0 +1,39 @@
+﻿@page "/grid/databind"
+
+@using TelerikBlazor.App.Services
+@using TelerikBlazor.App.Models
+@inject WeatherForecastService ForecastService
+@inject NorthwindContext nwContext
+
+
+<KendoGrid Data=@GridData
+           Height=@Height
+           Sortable=@Sortable
+           Pageable=@Pageable PageSize=@PageSize Page=1>
+    <KendoGridColumn Field=@nameof(Product.ProductId)></KendoGridColumn>
+    <KendoGridColumn Field=@nameof(Product.ProductName)></KendoGridColumn>
+    <KendoGridColumn Field=@nameof(Product.UnitPrice)>
+        <Template>
+            @(String.Format("{0:C2}", (context as Product).UnitPrice))
+        </Template>
+    </KendoGridColumn>
+</KendoGrid>
+
+@functions {
+    public IQueryable<Product> GridData { get; set; }
+    bool columnVisible = true;
+    int PageSize = 10;
+    bool Pageable = false;
+    bool Sortable = false;
+    decimal Height = 400;
+
+    protected override async Task OnInitAsync()
+    {
+        await LoadData();
+    }
+
+    private async Task LoadData()
+    {
+        GridData = await Task.FromResult(nwContext.Products.AsQueryable());
+    }
+}

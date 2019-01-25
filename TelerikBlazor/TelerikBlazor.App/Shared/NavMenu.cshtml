@@ -1,0 +1,94 @@
+﻿@using TelerikBlazor.App.Services
+@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
+
+<div class="top-row pl-4 navbar">
+    <NavLink href="/">
+        <img alt="Telerik Blazor Logo" class="w-100" src="/css/logos/logo-dark.svg" />
+    </NavLink>
+</div>
+
+<div>
+    <ul class="nav flex-column">
+        <li class="nav-item px-3">
+            <div class="component" onclick="@(() => Toggle("button"))">
+                <span class="@ButtonToggleIcon" aria-hidden="true"></span>
+                Button
+            </div>
+            @if (!@ButtonCollapsed)
+            {
+                <NavLink class="nav-link" href="button/index">
+                    Index
+                </NavLink>
+            }
+        </li>
+        <li class="nav-item px-3">
+            <div class="component" onclick="@(() => Toggle("tabstrip"))">
+                <span class="@TabStripToggleIcon" aria-hidden="true"></span>
+                TabStrip
+            </div>
+            @if (!@TabstripCollapsed)
+            {
+                <NavLink class="nav-link" href="tabstrip/index">
+                    Index
+                </NavLink>
+            }
+        </li>
+        <li class="nav-item px-3">
+            <div class="component" onclick="@(() => Toggle("grid"))">
+                <span class="@GridToggleIcon" aria-hidden="true"></span>
+                Grid
+            </div>
+            @if (!@GridCollapsed)
+            {
+                <NavLink class="nav-link" href="grid/index">
+                    Index
+                </NavLink>
+                <NavLink class="nav-link" href="grid/databind">
+                    DataBind
+                </NavLink>
+            }
+        </li>
+    </ul>
+</div>
+@functions {
+    private string Collapsed = "oi oi-chevron-right";
+    private string Expanded = "oi oi-chevron-bottom";
+    public bool GridCollapsed = true;
+    public bool TabstripCollapsed = true;
+    public bool ButtonCollapsed = true;
+    public string ButtonToggleIcon;
+    public string TabStripToggleIcon;
+    public string GridToggleIcon;
+
+
+    protected override void OnInit()
+    {
+        var uri = new Uri(UriHelper.GetAbsoluteUri());
+        var path = uri.AbsolutePath;
+
+        ButtonToggleIcon = TabStripToggleIcon = GridToggleIcon = Collapsed;
+
+        Toggle(path);
+    }
+
+    void Toggle(string component)
+    {
+        if (component.Contains("grid"))
+        {
+            GridCollapsed = !GridCollapsed;
+            GridToggleIcon = GridCollapsed ? Collapsed : Expanded;
+        }
+        else if (component.Contains("tabstrip"))
+        {
+            TabstripCollapsed = !TabstripCollapsed;
+            TabStripToggleIcon = TabstripCollapsed ? Collapsed : Expanded;
+        }
+        else if (component.Contains("button"))
+        {
+            ButtonCollapsed = !ButtonCollapsed;
+            ButtonToggleIcon = ButtonCollapsed ? Collapsed : Expanded;
+        }
+
+        StateHasChanged();
+    }
+}

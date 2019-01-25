@@ -1,0 +1,13 @@
+obj/
+bin/
+**/.vs
+*.dll
+*.tmp
+*.gpState
+*.pdb
+*.suo
+*.swp
+*.user
+*.mdb
+*/node_modules
+*package-lock.json

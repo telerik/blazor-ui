@@ -1,0 +1,10 @@
+﻿<span class="@Forecast.ToString().ToLower()">&nbsp;</span>
+<div class="weather">
+    <h2>@TempC<span>ºC</span></h2>
+    <p>@Forecast weather in @City.</p>
+</div>
+@functions {
+[Parameter] protected int TempC { get; set; }
+[Parameter] protected string City { get; set; }
+[Parameter] protected ForecastType Forecast { get; set; }
+}
