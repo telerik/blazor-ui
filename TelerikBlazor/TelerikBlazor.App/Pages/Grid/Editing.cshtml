@@ -1,0 +1,29 @@
+﻿@page "/grid/editing"
+@using TelerikBlazor.App.Services
+@using TelerikBlazor.App.Models
+@inject NorthwindContext nwContext
+
+<span>Double click on a cell to enter edit mode. Then alter its value</span>
+
+<KendoGrid Data=@GridData
+           Pageable="true" PageSize=@PageSize >
+    <KendoGridColumn Field=@nameof(Product.ProductName)></KendoGridColumn>
+    <KendoGridColumn Field=@nameof(Product.UnitPrice)>
+    </KendoGridColumn>
+    <KendoGridColumn Field=@nameof(Product.UnitsInStock)>
+    </KendoGridColumn>
+</KendoGrid>
+@functions {
+    public IQueryable<Product> GridData { get; set; }
+    int PageSize = 15;
+
+    protected override async Task OnInitAsync()
+    {
+        await LoadData();
+    }
+
+    private async Task LoadData()
+    {
+        GridData = await Task.FromResult(nwContext.Products.AsQueryable());
+    }
+}
