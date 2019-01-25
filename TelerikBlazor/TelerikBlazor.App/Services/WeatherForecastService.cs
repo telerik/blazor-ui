@@ -18,6 +18,7 @@ namespace TelerikBlazor.App.Services
             {
                 Date = startDate.AddDays(index),
                 TemperatureC = rng.Next(-20, 55),
+                TemperatureF = rng.Next(-20, 55) * 9 / 5 + 32,
                 Summary = Summaries[rng.Next(Summaries.Length)]
             }).ToArray());
         }

@@ -92,6 +92,10 @@ app {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
+div .k-button {
+    margin-right: 1rem;
+}
+
 @media (max-width: 767.98px) {
     .main .top-row {
         display: none;

@@ -1,14 +1,16 @@
-﻿@page "/grid/databind"
+﻿@page "/grid/sorting"
 
 @using TelerikBlazor.App.Services
 @using TelerikBlazor.App.Models
+
+@inject WeatherForecastService ForecastService
 @inject NorthwindContext nwContext
 
+<h4> Sortable </h4>
 
 <KendoGrid Data=@GridData
            Height=@Height
-           Sortable=@Sortable
-           Pageable=@Pageable PageSize=@PageSize Page=1>
+           Sortable=@Sortable>
     <KendoGridColumn Field=@nameof(Product.ProductId)></KendoGridColumn>
     <KendoGridColumn Field=@nameof(Product.ProductName)></KendoGridColumn>
     <KendoGridColumn Field=@nameof(Product.UnitPrice)>
@@ -20,10 +22,7 @@
 
 @functions {
     public IQueryable<Product> GridData { get; set; }
-    bool columnVisible = true;
-    int PageSize = 10;
-    bool Pageable = false;
-    bool Sortable = false;
+    bool Sortable = true;
     decimal Height = 400;
 
     protected override async Task OnInitAsync()

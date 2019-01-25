@@ -1,0 +1,55 @@
+﻿@page "/grid/templates"
+
+@using TelerikBlazor.App.Services
+@using TelerikBlazor.App.Models
+@inject NorthwindContext nwContext
+
+<h4> Row Template </h4>
+
+<KendoGrid Data=@GridData Height="@Height">
+    <RowTemplate>
+        <td>
+            <img class="rounded-circle" src="@($"/images/{context.ProductId}.jpg")" alt="Alternate Text" />
+            @context.ProductName
+        </td>
+        <td>
+            @(String.Format("{0:C2}", context.UnitPrice))
+        </td>
+    </RowTemplate>
+    <ChildContent>
+        <KendoGridColumn Field=@nameof(Product.ProductName)></KendoGridColumn>
+        <KendoGridColumn Field=@nameof(Product.UnitPrice)></KendoGridColumn>
+    </ChildContent>
+</KendoGrid>
+
+
+<h4> Column Templates </h4>
+
+<KendoGrid Data=@GridData Height="@Height">
+    <KendoGridColumn Field=@nameof(Product.ProductName)>
+        <Template>
+            <img class="rounded-circle" src="@($"/images/{(context as Product).ProductId}.jpg")" alt="Alternate Text" />
+            @(String.Format("{0:C2}", (context as Product).ProductName))
+        </Template>
+    </KendoGridColumn>
+    <KendoGridColumn Field=@nameof(Product.UnitPrice)>
+        <Template>
+            @(String.Format("{0:C2}", (context as Product).UnitPrice))
+        </Template>
+    </KendoGridColumn>
+</KendoGrid>
+
+@functions {
+public IQueryable<Product> GridData { get; set; }
+public int Height = 500;
+
+protected override async Task OnInitAsync()
+{
+    await LoadData();
+}
+
+private async Task LoadData()
+{
+    GridData = await Task.FromResult(nwContext.Products.AsQueryable().Take(10));
+}
+}
