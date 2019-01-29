@@ -1,0 +1,34 @@
+﻿@page "/tabstrip/tabposition"
+@using Shared.Components
+@using Kendo.Blazor.Components.TabStrip
+
+<select bind=@tabPosition class="form-control col-sm-1" style="margin-bottom:2rem;">
+    <option value=@KendoTabPosition.Top>Top</option>
+    <option value=@KendoTabPosition.Left>Left</option>
+    <option value=@KendoTabPosition.Right>Right</option>
+    <option value=@KendoTabPosition.Bottom>Bottom</option>
+</select>
+
+<KendoTabStrip TabPosition=@tabPosition>
+    <KendoTab Title="Sofia">
+        <Weather City="Sofia"
+                 TempC="23"
+                 Forecast="ForecastType.Sunny">
+        </Weather>
+    </KendoTab>
+    <KendoTab Title="London">
+        <Weather City="London"
+                 TempC="21"
+                 Forecast="ForecastType.Cloudy">
+        </Weather>
+    </KendoTab>
+    <KendoTab Title="Paris">
+        <Weather City="Paris"
+                 TempC="17"
+                 Forecast="ForecastType.Rainy">
+        </Weather>
+    </KendoTab>
+</KendoTabStrip>
+@functions {
+    KendoTabPosition tabPosition = KendoTabPosition.Top;
+}
