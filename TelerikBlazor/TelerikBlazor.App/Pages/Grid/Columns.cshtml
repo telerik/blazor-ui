@@ -1,0 +1,75 @@
+@page "/grid/columns"
+
+@using TelerikBlazor.App.Services
+@using Kendo.Blazor.Components.Grid
+@inject WeatherForecastService ForecastService
+
+<h4> Columns </h4>
+
+<div class="d-flex flex-row my-2">
+    <KendoButton OnButtonClick="@ToggleColumn">Show / Hide Summary Column</KendoButton>
+    <KendoButton Enable="@IsAddEnabled" OnButtonClick="@AddColumn">Add TemperatureF Column</KendoButton>
+    <KendoButton Enable="@IsDeleteEnabled" OnButtonClick="@DeleteColumn">Delete TemperatureF Column</KendoButton>
+</div>
+
+<KendoGrid Data=@GridData ref="Grid">
+    <KendoGridColumn Field="Date">
+        <Template>
+            @((context as WeatherForecast).Date.ToString("MMMM dd, yyyy"))
+        </Template>
+    </KendoGridColumn>
+    <KendoGridColumn Field="TemperatureC">
+    </KendoGridColumn>
+    @if (columnVisible)
+    {
+        <KendoGridColumn Field="Summary"></KendoGridColumn>
+    }
+</KendoGrid>
+
+
+
+@functions {
+    KendoGrid<WeatherForecast> Grid;
+    KendoGridColumn Fahrenheit = new KendoGridColumn
+    {
+        Field = "TemperatureF"
+    };
+    bool columnVisible = true;
+    bool IsAddEnabled = true;
+    bool IsDeleteEnabled = false;
+    public IEnumerable<WeatherForecast> GridData { get; set; }
+
+    protected override async Task OnInitAsync()
+    {
+        await LoadData();
+    }
+
+    private async Task LoadData()
+    {
+        GridData = await ForecastService.GetForecastAsync(DateTime.Now);
+    }
+
+    void AddColumn()
+    {
+        Grid.AddColumn(Fahrenheit);
+
+        IsAddEnabled = false;
+        IsDeleteEnabled = true;
+        StateHasChanged();
+    }
+
+    void DeleteColumn()
+    {
+        Grid.RemoveColumn(Fahrenheit);
+
+        IsAddEnabled = true;
+        IsDeleteEnabled = false;
+        StateHasChanged();
+    }
+
+    void ToggleColumn()
+    {
+        columnVisible = !columnVisible;
+        StateHasChanged();
+    }
+}

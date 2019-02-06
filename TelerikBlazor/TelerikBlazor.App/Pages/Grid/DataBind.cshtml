@@ -9,7 +9,7 @@
            Height=@Height
            Sortable=@Sortable
            Pageable=@Pageable PageSize=@PageSize Page=1>
-    <Columns>
+    <KendoGridColumns>
         <KendoGridColumn Field=@nameof(Product.ProductId)></KendoGridColumn>
         <KendoGridColumn Field=@nameof(Product.ProductName)></KendoGridColumn>
         <KendoGridColumn Field=@nameof(Product.UnitPrice)>
@@ -17,7 +17,7 @@
                 @(String.Format("{0:C2}", (context as Product).UnitPrice))
             </Template>
         </KendoGridColumn>
-    </Columns>
+    </KendoGridColumns>
 </KendoGrid>
 
 @functions {

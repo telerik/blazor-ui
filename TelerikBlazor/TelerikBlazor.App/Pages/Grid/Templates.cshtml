@@ -1,4 +1,4 @@
-﻿@page "/grid/templates"
+@page "/grid/templates"
 
 @using TelerikBlazor.App.Services
 @using TelerikBlazor.App.Models
@@ -16,17 +16,17 @@
             @(String.Format("{0:C2}", context.UnitPrice))
         </td>
     </RowTemplate>
-    <Columns>
+    <KendoGridColumns>
         <KendoGridColumn Field=@nameof(Product.ProductName)></KendoGridColumn>
         <KendoGridColumn Field=@nameof(Product.UnitPrice)></KendoGridColumn>
-    </Columns>
+    </KendoGridColumns>
 </KendoGrid>
 
 
 <h4> Column Templates </h4>
 
 <KendoGrid Data=@GridData Height="@Height">
-    <Columns>
+    <KendoGridColumns>
         <KendoGridColumn Field=@nameof(Product.ProductName)>
             <Template>
                 <img class="rounded-circle" src="@($"/images/{(context as Product).ProductId}.jpg")" alt="Alternate Text" />
@@ -38,7 +38,7 @@
                 @(String.Format("{0:C2}", (context as Product).UnitPrice))
             </Template>
         </KendoGridColumn>
-    </Columns>
+    </KendoGridColumns>
 </KendoGrid>
 
 @functions {

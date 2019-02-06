@@ -1,11 +1,11 @@
-﻿@page "/grid/index"
+@page "/grid/index"
 
 @using TelerikBlazor.App.Services
 @inject WeatherForecastService ForecastService
 
 
 <KendoGrid Data=@GridData Height=@Height>
-    <Columns>
+    <KendoGridColumns>
         <KendoGridColumn Field="Date">
             <Template>
                 @((context as WeatherForecast).Date.ToString("MMMM dd, yyyy"))
@@ -14,7 +14,7 @@
         <KendoGridColumn Field="TemperatureC">
         </KendoGridColumn>
         <KendoGridColumn Field="Summary"></KendoGridColumn>
-    </Columns>
+    </KendoGridColumns>
 </KendoGrid>
 
 
