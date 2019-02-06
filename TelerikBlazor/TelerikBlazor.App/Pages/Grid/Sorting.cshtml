@@ -11,13 +11,15 @@
 <KendoGrid Data=@GridData
            Height=@Height
            Sortable=@Sortable>
-    <KendoGridColumn Field=@nameof(Product.ProductId)></KendoGridColumn>
-    <KendoGridColumn Field=@nameof(Product.ProductName)></KendoGridColumn>
-    <KendoGridColumn Field=@nameof(Product.UnitPrice)>
-        <Template>
-            @(String.Format("{0:C2}", (context as Product).UnitPrice))
-        </Template>
-    </KendoGridColumn>
+    <Columns>
+        <KendoGridColumn Field=@nameof(Product.ProductId)></KendoGridColumn>
+        <KendoGridColumn Field=@nameof(Product.ProductName)></KendoGridColumn>
+        <KendoGridColumn Field=@nameof(Product.UnitPrice)>
+            <Template>
+                @(String.Format("{0:C2}", (context as Product).UnitPrice))
+            </Template>
+        </KendoGridColumn>
+    </Columns>
 </KendoGrid>
 
 @functions {

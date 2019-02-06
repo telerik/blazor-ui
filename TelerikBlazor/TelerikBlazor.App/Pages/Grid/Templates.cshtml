@@ -16,27 +16,29 @@
             @(String.Format("{0:C2}", context.UnitPrice))
         </td>
     </RowTemplate>
-    <ChildContent>
+    <Columns>
         <KendoGridColumn Field=@nameof(Product.ProductName)></KendoGridColumn>
         <KendoGridColumn Field=@nameof(Product.UnitPrice)></KendoGridColumn>
-    </ChildContent>
+    </Columns>
 </KendoGrid>
 
 
 <h4> Column Templates </h4>
 
 <KendoGrid Data=@GridData Height="@Height">
-    <KendoGridColumn Field=@nameof(Product.ProductName)>
-        <Template>
-            <img class="rounded-circle" src="@($"/images/{(context as Product).ProductId}.jpg")" alt="Alternate Text" />
-            @(String.Format("{0:C2}", (context as Product).ProductName))
-        </Template>
-    </KendoGridColumn>
-    <KendoGridColumn Field=@nameof(Product.UnitPrice)>
-        <Template>
-            @(String.Format("{0:C2}", (context as Product).UnitPrice))
-        </Template>
-    </KendoGridColumn>
+    <Columns>
+        <KendoGridColumn Field=@nameof(Product.ProductName)>
+            <Template>
+                <img class="rounded-circle" src="@($"/images/{(context as Product).ProductId}.jpg")" alt="Alternate Text" />
+                @(String.Format("{0:C2}", (context as Product).ProductName))
+            </Template>
+        </KendoGridColumn>
+        <KendoGridColumn Field=@nameof(Product.UnitPrice)>
+            <Template>
+                @(String.Format("{0:C2}", (context as Product).UnitPrice))
+            </Template>
+        </KendoGridColumn>
+    </Columns>
 </KendoGrid>
 
 @functions {

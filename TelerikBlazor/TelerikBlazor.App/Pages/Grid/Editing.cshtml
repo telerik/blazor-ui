@@ -6,12 +6,14 @@
 <span>Double click on a cell to enter edit mode. Then alter its value</span>
 
 <KendoGrid Data=@GridData
-           Pageable="true" PageSize=@PageSize >
-    <KendoGridColumn Field=@nameof(Product.ProductName)></KendoGridColumn>
-    <KendoGridColumn Field=@nameof(Product.UnitPrice)>
-    </KendoGridColumn>
-    <KendoGridColumn Field=@nameof(Product.UnitsInStock)>
-    </KendoGridColumn>
+           Pageable="true" PageSize=@PageSize>
+    <Columns>
+        <KendoGridColumn Field=@nameof(Product.ProductName)></KendoGridColumn>
+        <KendoGridColumn Field=@nameof(Product.UnitPrice)>
+        </KendoGridColumn>
+        <KendoGridColumn Field=@nameof(Product.UnitsInStock)>
+        </KendoGridColumn>
+    </Columns>
 </KendoGrid>
 @functions {
     public IQueryable<Product> GridData { get; set; }

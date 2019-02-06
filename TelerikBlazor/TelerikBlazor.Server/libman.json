@@ -1,0 +1,27 @@
+{
+  "version": "1.0",
+  "defaultProvider": "unpkg",
+  "libraries": [
+    {
+      "library": "@progress/kendo-theme-default@3.0.0",
+      "destination": "wwwroot/css/kendo-themes/default",
+      "files": [
+        "dist/all.css"
+      ]
+    },
+    {
+      "library": "@progress/kendo-theme-bootstrap@3.0.0",
+      "destination": "wwwroot/css/kendo-themes/bootstrap",
+      "files": [
+        "dist/all.css"
+      ]
+    },
+    {
+      "library": "@progress/kendo-theme-material@2.0.0",
+      "destination": "wwwroot/css/kendo-themes/material",
+      "files": [
+        "dist/all.css"
+      ]
+    }
+  ]
+}
