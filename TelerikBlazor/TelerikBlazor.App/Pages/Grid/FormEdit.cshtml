@@ -1,0 +1,68 @@
+@page "/grid/formedit"
+@using TelerikBlazor.App.Services
+@using TelerikBlazor.App.Models
+@inject NorthwindContext nwContext
+
+<KendoGrid Data=@GridData
+           Height=@Height
+           Pageable="true" PageSize=@PageSize>
+    <KendoGridColumns>
+        <KendoGridColumn Field=@nameof(Product.ProductId)>
+            <Template>
+                <KendoButton OnButtonClick="@(()=> SelectedProduct(context as Product))">Select</KendoButton>
+            </Template>
+        </KendoGridColumn>
+        <KendoGridColumn Field=@nameof(Product.ProductName)/>
+        <KendoGridColumn Field=@nameof(Product.UnitPrice)/>
+    </KendoGridColumns>
+</KendoGrid>
+<hr />
+@if (selectedProduct != null)
+{
+    <div class="form-group ">
+        <label class="control-label" for="productName">
+            Product Name
+        </label>
+        <input class="form-control" bind="@selectedProduct.ProductName" id="name" name="name" type="text" />
+    </div>
+    <div class="form-group ">
+        <label class="control-label" for="unitPrice">
+            Unit Price
+        </label>
+        <input class="form-control" bind="@selectedProduct.UnitPrice" id="unitPrice" name="unitPrice" type="number" />
+    </div>
+    <div class="form-group">
+        <div>
+            <KendoButton OnButtonClick="@Save">Save</KendoButton>
+            <KendoButton OnButtonClick="@(()=> SelectedProduct(null))">Cancel</KendoButton>
+        </div>
+    </div>
+}
+
+@functions {
+    public IQueryable<Product> GridData { get; set; }
+    int PageSize = 10;
+    decimal Height = 400;
+    Product selectedProduct { get; set; }
+
+    void SelectedProduct(Product item)
+    {
+        selectedProduct = item;
+        StateHasChanged();
+    }
+
+    void Save()
+    {
+        nwContext.SaveChanges();
+    }
+
+    protected override async Task OnInitAsync()
+    {
+        await LoadData();
+    }
+
+    private async Task LoadData()
+    {
+        GridData = await Task.FromResult(nwContext.Products.AsQueryable());
+    }
+}
