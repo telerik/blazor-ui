@@ -14,11 +14,10 @@ namespace TelerikBlazor.App.Services
         public Task<WeatherForecast[]> GetForecastAsync(DateTime startDate)
         {
             var rng = new Random();
-            return Task.FromResult(Enumerable.Range(1, 20).Select(index => new WeatherForecast
+            return Task.FromResult(Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = startDate.AddDays(index),
                 TemperatureC = rng.Next(-20, 55),
-                TemperatureF = rng.Next(-20, 55) * 9 / 5 + 32,
                 Summary = Summaries[rng.Next(Summaries.Length)]
             }).ToArray());
         }

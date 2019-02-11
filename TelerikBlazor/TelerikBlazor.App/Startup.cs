@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Blazor.Builder;
+using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,8 +14,7 @@ namespace TelerikBlazor.App
 
         public void ConfigureServices(IServiceCollection services)
         {
-            // Since Blazor is running on the server, we can use an application service
-            // to read the forecast data.
+            // Example of a data service
             services.AddSingleton<WeatherForecastService>();
 
             var connection = Configuration["ConnectionStrings:NorthwindDB"];
@@ -23,9 +22,11 @@ namespace TelerikBlazor.App
                                 .UseSqlServer(connection)
                                 .Options;
             services.AddSingleton(new NorthwindContext(options));
+
+            services.AddKendoBlazor();
         }
 
-        public void Configure(IBlazorApplicationBuilder app)
+        public void Configure(IComponentsApplicationBuilder app)
         {
             app.AddComponent<App>("app");
         }

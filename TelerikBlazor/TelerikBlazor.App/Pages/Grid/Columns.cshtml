@@ -1,4 +1,4 @@
-﻿@page "/grid/columns"
+@page "/grid/columns"
 
 @using TelerikBlazor.App.Services
 @using Kendo.Blazor.Components.Grid
@@ -13,17 +13,19 @@
 </div>
 
 <KendoGrid Data=@GridData ref="Grid">
-    <KendoGridColumn Field="Date">
-        <Template>
-            @((context as WeatherForecast).Date.ToString("MMMM dd, yyyy"))
-        </Template>
-    </KendoGridColumn>
-    <KendoGridColumn Field="TemperatureC">
-    </KendoGridColumn>
-    @if (columnVisible)
-    {
-        <KendoGridColumn Field="Summary"></KendoGridColumn>
-    }
+    <KendoGridColumns>
+        <KendoGridColumn Field="Date">
+            <Template>
+                @((context as WeatherForecast).Date.ToString("MMMM dd, yyyy"))
+            </Template>
+        </KendoGridColumn>
+        <KendoGridColumn Field="TemperatureC">
+        </KendoGridColumn>
+        @if (columnVisible)
+        {
+            <KendoGridColumn Field="Summary"></KendoGridColumn>
+        }
+    </KendoGridColumns>
 </KendoGrid>
 
 

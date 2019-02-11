@@ -1,4 +1,4 @@
-﻿@page "/grid/sorting"
+@page "/grid/sorting"
 
 @using TelerikBlazor.App.Services
 @using TelerikBlazor.App.Models
@@ -11,13 +11,15 @@
 <KendoGrid Data=@GridData
            Height=@Height
            Sortable=@Sortable>
-    <KendoGridColumn Field=@nameof(Product.ProductId)></KendoGridColumn>
-    <KendoGridColumn Field=@nameof(Product.ProductName)></KendoGridColumn>
-    <KendoGridColumn Field=@nameof(Product.UnitPrice)>
-        <Template>
-            @(String.Format("{0:C2}", (context as Product).UnitPrice))
-        </Template>
-    </KendoGridColumn>
+    <KendoGridColumns>
+        <KendoGridColumn Field=@nameof(Product.ProductId)></KendoGridColumn>
+        <KendoGridColumn Field=@nameof(Product.ProductName)></KendoGridColumn>
+        <KendoGridColumn Field=@nameof(Product.UnitPrice)>
+            <Template>
+                @(String.Format("{0:C2}", (context as Product).UnitPrice))
+            </Template>
+        </KendoGridColumn>
+    </KendoGridColumns>
 </KendoGrid>
 
 @functions {

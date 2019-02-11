@@ -1,15 +1,17 @@
-﻿@page "/grid/paging"
+@page "/grid/paging"
 @using TelerikBlazor.App.Services
 @using TelerikBlazor.App.Models
 @inject NorthwindContext nwContext
 
 <KendoGrid Data=@GridData
            Height=@Height
-           Pageable="true" PageSize=@PageSize >
-    <KendoGridColumn Field=@nameof(Product.ProductId)></KendoGridColumn>
-    <KendoGridColumn Field=@nameof(Product.ProductName)></KendoGridColumn>
-    <KendoGridColumn Field=@nameof(Product.UnitPrice)>
-    </KendoGridColumn>
+           Pageable="true" PageSize=@PageSize>
+    <KendoGridColumns>
+        <KendoGridColumn Field=@nameof(Product.ProductId)></KendoGridColumn>
+        <KendoGridColumn Field=@nameof(Product.ProductName)></KendoGridColumn>
+        <KendoGridColumn Field=@nameof(Product.UnitPrice)>
+        </KendoGridColumn>
+    </KendoGridColumns>
 </KendoGrid>
 @functions {
     public IQueryable<Product> GridData { get; set; }

@@ -1,9 +1,8 @@
-﻿@using TelerikBlazor.App.Services
-@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
+﻿@inject Microsoft.AspNetCore.Components.Services.IUriHelper UriHelper
 
 <div class="top-row pl-4 navbar">
     <NavLink href="/">
-        <img alt="Telerik Blazor Logo" class="w-100" src="/css/logos/logo-dark.svg" />
+        <img alt="Telerik Blazor Logo" class="w-100" src="css/logos/logo-dark.svg" />
     </NavLink>
 </div>
 
@@ -43,27 +42,12 @@
             </div>
             @if (!@GridCollapsed)
             {
-                <NavLink class="nav-link" href="grid/index">
-                    Index
+                foreach (var item in GridMenuItems)
+                {
+                <NavLink class="nav-link" href="@($"grid/{item.ToLower().Replace(" ","")}")">
+                    @item
                 </NavLink>
-                <NavLink class="nav-link" href="grid/databind">
-                    DataBind
-                </NavLink>
-                <NavLink class="nav-link" href="grid/sorting">
-                    Sorting
-                </NavLink>
-                <NavLink class="nav-link" href="grid/templates">
-                    Templates
-                </NavLink>
-                <NavLink class="nav-link" href="grid/columns">
-                    Columns
-                </NavLink>
-                <NavLink class="nav-link" href="grid/paging">
-                    Paging
-                </NavLink>
-                <NavLink class="nav-link" href="grid/editing">
-                    Editing
-                </NavLink>
+                }
             }
         </li>
     </ul>
@@ -77,6 +61,7 @@
     public string ButtonToggleIcon;
     public string TabStripToggleIcon;
     public string GridToggleIcon;
+    public string[] GridMenuItems = { "Index", "DataBind", "Sorting", "Templates", "Columns", "Paging", "Editing", "Form Edit" };
 
 
     protected override void OnInit()

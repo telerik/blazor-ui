@@ -50,31 +50,31 @@ app {
         top: -2px;
     }
 
-    .nav-item {
-        font-size: 0.9rem;
-        padding-bottom: 0.7rem;
-    }
+.nav-item {
+    font-size: 0.9rem;
+    padding-bottom: 0.7rem;
+}
 
-    .component {
-        font-size: 1rem;
-        font-weight: 600;
-        cursor: pointer;
-    }
+.component {
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
 
-    .nav-item:first-of-type {
-        padding-top: 1rem;
-    }
+.nav-item:first-of-type {
+    padding-top: 1rem;
+}
 
-    .nav-item:last-of-type {
-        padding-bottom: 1rem;
-    }
+.nav-item:last-of-type {
+    padding-bottom: 1rem;
+}
 
-    .nav-item a {
-        color: #555555;
-        display: flex;
-        padding-left: 2rem;
-        align-items: center;
-    }
+.nav-item a {
+    color: #555555;
+    display: flex;
+    padding-left: 2rem;
+    align-items: center;
+}
 
     .nav-item a.active {
         color: #007bff;
