@@ -11,13 +11,10 @@
                 @((context as WeatherForecast).Date.ToString("MMMM dd, yyyy"))
             </Template>
         </KendoGridColumn>
-        <KendoGridColumn Field="TemperatureC">
-        </KendoGridColumn>
-        <KendoGridColumn Field="Summary"></KendoGridColumn>
+        <KendoGridColumn Field="TemperatureC" Title="Temp. C"/>
+        <KendoGridColumn Field="Summary"/>
     </KendoGridColumns>
 </KendoGrid>
-
-
 
 @functions {
     public IEnumerable<WeatherForecast> GridData { get; set; }
