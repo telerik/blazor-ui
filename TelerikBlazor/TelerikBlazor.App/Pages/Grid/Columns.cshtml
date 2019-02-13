@@ -19,16 +19,13 @@
                 @((context as WeatherForecast).Date.ToString("MMMM dd, yyyy"))
             </Template>
         </KendoGridColumn>
-        <KendoGridColumn Field="TemperatureC">
-        </KendoGridColumn>
+        <KendoGridColumn Field="TemperatureC"/>
         @if (columnVisible)
         {
-            <KendoGridColumn Field="Summary"></KendoGridColumn>
+            <KendoGridColumn Field="Summary"/>
         }
     </KendoGridColumns>
 </KendoGrid>
-
-
 
 @functions {
     KendoGrid<WeatherForecast> Grid;
