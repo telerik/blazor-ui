@@ -6,7 +6,7 @@ This repository contains Telerik UI for Blazor preview examples. We use it to pr
 
 The Grid sample uses a Northwind DB Entity Model
 
-1. Right click on the application, and select [**Manage User Secrets**](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-2.2&tabs=windows) from the context menu
+1. Right click on the .Server application, and select [**Manage User Secrets**](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-2.2&tabs=windows) from the context menu
 2. Replace the contents of the `secrets.json` with the following connection string where you should set the `<path-to-DB>` to the location of your database
 
 ```
