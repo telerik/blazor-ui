@@ -1,0 +1,56 @@
+@page "/window/actions"
+
+@using Kendo.Blazor
+@using Kendo.Blazor.Components.Window
+
+<span>Window support predefined actions - Maximize Minimize and Close - as well as custom ones.</span>
+
+<KendoWindow ref="@Wnd" Size="@Size.Small" Centered="true" Visible="true">
+    <KendoWindowTitle>
+        <strong>Status</strong>
+    </KendoWindowTitle>
+    <KendoWindowActions>
+        <KendoWindowAction Name="Custom" Icon="@IconName" OnClick="CustomAction"></KendoWindowAction>
+    </KendoWindowActions>
+    <KendoWindowContent>
+        <form class="k-form">
+            <fieldset>
+                <legend>User Details</legend>
+
+                <label class="k-form-field">
+                    <span>First Name</span>
+                    <input class="k-textbox" placeholder="Your Name" />
+                </label>
+                <label class="k-form-field">
+                    <span>Last Name</span>
+                    <input class="k-textbox" placeholder="Your Last Name" />
+                </label>
+            </fieldset>
+        </form>
+    </KendoWindowContent>
+</KendoWindow>
+
+@functions {
+    public KendoWindow Wnd { get; set; }
+    public string IconName { get; set; } = "edit";
+    KendoWindowAction action = new KendoWindowAction
+    {
+        Name = "Cancel",
+        Icon = "cancel"
+    };
+    public void CustomAction()
+    {
+        IconName = IconName == "edit" ? "save" : "edit";
+
+        if (Wnd.ActionCollection.Find(a => a.Name == "Cancel") != null)
+        {
+            Wnd.RemoveAction(action);
+        }
+        else
+        {
+            Wnd.AddAction(action);
+        }
+
+        StateHasChanged();
+    }
+}

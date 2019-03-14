@@ -1,0 +1,27 @@
+﻿@inherits LayoutComponentBase
+
+<div class="sidebar">
+    <NavMenu />
+</div>
+
+<div class="main">
+    <div class="top-row d-flex flex-row-reverse">
+        <div class="p-2">
+            <NavLink class="nav-link" href="https://themebuilder.telerik.com/" Match=NavLinkMatch.All>
+                ThemeBuilder
+            </NavLink>
+        </div>
+        <div class="p-2">
+            <ThemeManager />
+        </div>
+
+    </div>
+
+    <div class="content px-4">
+        @Body
+    </div>
+</div>
+
+@functions {
+
+}

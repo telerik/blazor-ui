@@ -1,0 +1,66 @@
+@page "/grid/customformedit"
+@using TelerikBlazor.Shared
+@inject HttpClient Http
+
+<KendoGrid Data=@GridData
+           Height=@Height
+           Pageable="true" PageSize=@PageSize>
+    <KendoGridColumns>
+        <KendoGridColumn Field=@nameof(Product.ProductId) Title="Id">
+            <Template>
+                <KendoButton Icon="edit" OnClick="@(()=> SelectedProduct((Product)context))">Edit</KendoButton>
+            </Template>
+        </KendoGridColumn>
+        <KendoGridColumn Field=@nameof(Product.ProductName) Title="Product Name" />
+        <KendoGridColumn Field=@nameof(Product.UnitPrice) Title="Unit Price" />
+    </KendoGridColumns>
+</KendoGrid>
+<hr />
+@if (selectedProduct != null)
+{
+    <div class="form-group ">
+        <label class="control-label" for="productName">
+            Product Name
+        </label>
+        <input class="form-control" bind="@selectedProduct.ProductName" id="name" name="name" type="text" />
+    </div>
+    <div class="form-group ">
+        <label class="control-label" for="unitPrice">
+            Unit Price
+        </label>
+        <input class="form-control" bind="@selectedProduct.UnitPrice" id="unitPrice" name="unitPrice" type="number" />
+    </div>
+    <div class="form-group">
+        <div>
+            <KendoButton Icon="save" Class="k-primary" OnClick="@Save">Save</KendoButton>
+            <KendoButton Icon="cancel" OnClick="@(()=> SelectedProduct(null))">Cancel</KendoButton>
+        </div>
+    </div>
+}
+
+@functions {
+    public IEnumerable<Product> GridData { get; set; }
+    int PageSize = 10;
+    decimal Height = 400;
+    Product selectedProduct { get; set; }
+
+    void SelectedProduct(Product item)
+    {
+        selectedProduct = item;
+        StateHasChanged();
+    }
+
+    void Save()
+    {
+    }
+
+    protected override async Task OnInitAsync()
+    {
+        await LoadData();
+    }
+
+    private async Task LoadData()
+    {
+        GridData = await Http.GetJsonAsync<Product[]>("api/NorthwindData/Products");
+    }
+}

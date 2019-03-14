@@ -1,0 +1,143 @@
+﻿@inject Microsoft.AspNetCore.Components.Services.IUriHelper UriHelper
+
+<div class="top-row pl-4 navbar">
+    <NavLink href="/">
+        <img alt="Telerik Blazor Logo" class="w-100" src="css/logos/logo-dark.svg" />
+    </NavLink>
+</div>
+
+<div>
+    <ul class="nav flex-column">
+        <li class="nav-item px-3">
+            <div class="component" onclick="@(() => Toggle("button"))">
+                <span class="@ButtonToggleIcon" aria-hidden="true"></span>
+                Button
+            </div>
+            @if (!@ButtonCollapsed)
+            {
+                <NavLink class="nav-link" href="button/index">
+                    Index
+                </NavLink>
+            }
+        </li>
+        <li class="nav-item px-3">
+            <div class="component" onclick="@(() => Toggle("tabstrip"))">
+                <span class="@TabStripToggleIcon" aria-hidden="true"></span>
+                TabStrip
+            </div>
+            @if (!@TabstripCollapsed)
+            {
+                <NavLink class="nav-link" href="tabstrip/index">
+                    Index
+                </NavLink>
+                <NavLink class="nav-link" href="tabstrip/tabposition">
+                    Tab Position
+                </NavLink>
+            }
+        </li>
+        <li class="nav-item px-3">
+            <div class="component" onclick="@(() => Toggle("grid"))">
+                <span class="@GridToggleIcon" aria-hidden="true"></span>
+                Grid
+            </div>
+            @if (!@GridCollapsed)
+            {
+                foreach (var item in GridMenuItems)
+                {
+                    <NavLink class="nav-link" href="@($"grid/{item.ToLower().Replace(" ","")}")">
+                        @item
+                    </NavLink>
+                }
+            }
+        </li>
+        <li class="nav-item px-3">
+            <div class="component" onclick="@(() => Toggle("numerictextbox"))">
+                <span class="@NumericTextBoxToggleIcon" aria-hidden="true"></span>
+                Numeric Textbox
+            </div>
+            @if (!@NumerictextboxCollapsed)
+            {
+                foreach (var item in NumerictextboxMenuItems)
+                {
+                    <NavLink class="nav-link" href="@($"numerictextbox/{item.ToLower().Replace(" ","")}")">
+                        @item
+                    </NavLink>
+                }
+            }
+        </li>
+        <li class="nav-item px-3">
+            <div class="component" onclick="@(() => Toggle("window"))">
+                <span class="@WindowToggleIcon" aria-hidden="true"></span>
+                Window
+            </div>
+            @if (!@WindowCollapsed)
+            {
+                foreach (var item in WindowMenuItems)
+                {
+                    <NavLink class="nav-link" href="@($"window/{item.ToLower().Replace(" ","")}")">
+                        @item
+                    </NavLink>
+                }
+            }
+        </li>
+    </ul>
+</div>
+@functions {
+    private string Collapsed = "oi oi-chevron-right";
+    private string Expanded = "oi oi-chevron-bottom";
+    public bool GridCollapsed = true;
+    public bool TabstripCollapsed = true;
+    public bool ButtonCollapsed = true;
+    public bool WindowCollapsed = true;
+    public bool NumerictextboxCollapsed = true;
+    public string ButtonToggleIcon;
+    public string TabStripToggleIcon;
+    public string GridToggleIcon;
+    public string WindowToggleIcon;
+    public string NumericTextBoxToggleIcon;
+    public string[] GridMenuItems = { "Index", "DataBind", "Sorting", "Templates", "Columns", "Paging", "Incell Editing", "Inline Editing", "Popup Editing", "Custom Form Edit", "Custom Editor" };
+    public string[] WindowMenuItems = { "Index", "Dimensions", "Actions", "Position" };
+    public string[] NumerictextboxMenuItems = { "Index" };
+
+
+    protected override void OnInit()
+    {
+        var uri = new Uri(UriHelper.GetAbsoluteUri());
+        var path = uri.AbsolutePath;
+
+        ButtonToggleIcon = NumericTextBoxToggleIcon = TabStripToggleIcon = WindowToggleIcon = GridToggleIcon = Collapsed;
+
+        Toggle(path);
+    }
+
+    void Toggle(string component)
+    {
+        if (component.Contains("grid"))
+        {
+            GridCollapsed = !GridCollapsed;
+            GridToggleIcon = GridCollapsed ? Collapsed : Expanded;
+        }
+        else if (component.Contains("tabstrip"))
+        {
+            TabstripCollapsed = !TabstripCollapsed;
+            TabStripToggleIcon = TabstripCollapsed ? Collapsed : Expanded;
+        }
+        else if (component.Contains("button"))
+        {
+            ButtonCollapsed = !ButtonCollapsed;
+            ButtonToggleIcon = ButtonCollapsed ? Collapsed : Expanded;
+        }
+        else if (component.Contains("window"))
+        {
+            WindowCollapsed = !WindowCollapsed;
+            WindowToggleIcon = WindowCollapsed ? Collapsed : Expanded;
+        }
+        else if (component.Contains("numerictextbox"))
+        {
+            NumerictextboxCollapsed = !NumerictextboxCollapsed;
+            NumericTextBoxToggleIcon = NumerictextboxCollapsed ? Collapsed : Expanded;
+        }
+
+        StateHasChanged();
+    }
+}

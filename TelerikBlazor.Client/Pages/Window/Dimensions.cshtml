@@ -1,0 +1,71 @@
+@page "/window/dimensions"
+@using Kendo.Blazor
+
+<span>Window Dimensions could be set via <strong>Size</strong> attribute, or via <strong>Width</strong> and <strong>Height</strong></span>
+
+<select onchange="@OnChange" class="form-control col-sm-1" style="margin-bottom:2rem;">
+    <option value=@Size.Small>Small</option>
+    <option value=@Size.Medium>Medium</option>
+    <option value=@Size.Large>Large</option>
+</select>
+
+<input type="number" bind="@Width" onchange="@ResetSize" placeholder="Set Width" />
+<input type="number" bind="@Height" onchange="@ResetSize" placeholder="Set Height" />
+
+<KendoWindow Width="@Width" Height="@Height" Size="@PredefinedSize" Centered="true" Visible="true">
+    <KendoWindowTitle>
+        <strong>Status</strong>
+    </KendoWindowTitle>
+    <KendoWindowActions>
+        <KendoWindowAction Name="Minimize"></KendoWindowAction>
+        <KendoWindowAction Name="Maximize"></KendoWindowAction>
+        <KendoWindowAction Name="Close"></KendoWindowAction>
+    </KendoWindowActions>
+    <KendoWindowContent>
+        <form class="k-form">
+            <fieldset>
+                <legend>User Details</legend>
+
+                <label class="k-form-field">
+                    <span>First Name</span>
+                    <input class="k-textbox" placeholder="Your Name" />
+                </label>
+                <label class="k-form-field">
+                    <span>Last Name</span>
+                    <input class="k-textbox" placeholder="Your Last Name" />
+                </label>
+            </fieldset>
+        </form>
+    </KendoWindowContent>
+</KendoWindow>
+@functions {
+    public Size? PredefinedSize { get; set; }
+    public int? Width { get; set; }
+    public int? Height { get; set; }
+
+    public void OnChange(UIChangeEventArgs e)
+    {
+        Width = Height = null;
+        switch (e.Value)
+        {
+            case "Small":
+                PredefinedSize = Size.Small;
+                break;
+            case "Medium":
+                PredefinedSize = Size.Medium;
+                break;
+            case "Large":
+                PredefinedSize = Size.Large;
+                break;
+            default:
+                break;
+        }
+        StateHasChanged();
+    }
+    
+    public void ResetSize(UIChangeEventArgs e)
+    {
+        PredefinedSize = null;
+        StateHasChanged();
+    }
+}

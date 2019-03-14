@@ -1,0 +1,53 @@
+@page "/window/position"
+@using Kendo.Blazor
+
+<span>Window Position could be set via <strong>Centered</strong> attribute, or via <strong>Top</strong> and <strong>Left</strong></span>
+
+<div>
+    <label>
+        Centered:
+        <input type="checkbox" onchange="@SetCentered" />
+    </label>
+    <input type="number" bind="@Top" placeholder="Set Top" />
+    <input type="number" bind="@Left" placeholder="Set Left" />
+</div>
+
+<KendoWindow Size="@Size.Small" Centered="@Centered" Top="@Top" Left="@Left" Visible="true">
+    <KendoWindowTitle>
+        <strong>Status</strong>
+    </KendoWindowTitle>
+    <KendoWindowActions>
+        <KendoWindowAction Name="Minimize"></KendoWindowAction>
+        <KendoWindowAction Name="Maximize"></KendoWindowAction>
+        <KendoWindowAction Name="Close"></KendoWindowAction>
+    </KendoWindowActions>
+    <KendoWindowContent>
+        <form class="k-form">
+            <fieldset>
+                <legend>User Details</legend>
+
+                <label class="k-form-field">
+                    <span>First Name</span>
+                    <input class="k-textbox" placeholder="Your Name" />
+                </label>
+                <label class="k-form-field">
+                    <span>Last Name</span>
+                    <input class="k-textbox" placeholder="Your Last Name" />
+                </label>
+            </fieldset>
+        </form>
+    </KendoWindowContent>
+</KendoWindow>
+@functions {
+    public bool Centered { get; set; }
+    public int? Top { get; set; }
+    public int? Left { get; set; }
+    public void SetCentered (UIChangeEventArgs e)
+    {
+        var isCentered = bool.Parse(e.Value.ToString());
+        Top = Left = null;
+
+        Centered = isCentered;
+        StateHasChanged();
+    }
+}

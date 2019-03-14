@@ -1,0 +1,19 @@
+﻿@using Microsoft.JSInterop;
+@inject IJSRuntime JsRuntime;
+
+<select class="form-control d-inline" onchange=@HandleThemeChange>
+    @foreach (var t in themes)
+    {
+        <option value=@t>@t</option>
+    }
+</select>
+
+@functions {
+    string[] themes = { "Default", "Bootstrap", "Material" };
+
+    async void HandleThemeChange(UIChangeEventArgs e)
+    {
+        string themePath = $"css/kendo-themes/{e.Value}/dist/all.css".ToLower();
+        await JsRuntime.InvokeAsync<string>("theme.changeCss", themePath);
+    }
+}

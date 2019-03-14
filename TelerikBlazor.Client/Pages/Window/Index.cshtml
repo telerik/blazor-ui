@@ -1,0 +1,28 @@
+@page "/window/index"
+
+<KendoWindow Width="500" Height="300" Centered="true" Visible="true">
+    <KendoWindowTitle>
+        <strong>Status</strong>
+    </KendoWindowTitle>
+    <KendoWindowActions>
+        <KendoWindowAction Name="Minimize"></KendoWindowAction>
+        <KendoWindowAction Name="Maximize"></KendoWindowAction>
+        <KendoWindowAction Name="Close"></KendoWindowAction>
+    </KendoWindowActions>
+    <KendoWindowContent>
+        <form class="k-form">
+            <fieldset>
+                <legend>User Details</legend>
+
+                <label class="k-form-field">
+                    <span>First Name</span>
+                    <input class="k-textbox" placeholder="Your Name" />
+                </label>
+                <label class="k-form-field">
+                    <span>Last Name</span>
+                    <input class="k-textbox" placeholder="Your Last Name" />
+                </label>
+            </fieldset>
+        </form>
+    </KendoWindowContent>
+</KendoWindow>

@@ -1,0 +1,63 @@
+@page "/grid/index"
+
+@using Kendo.Blazor.Components.Grid
+@using TelerikBlazor.Shared
+@inject HttpClient Http
+
+<KendoGrid Data=@GridData Height=@Height EditMode="inline">
+    <KendoGridToolBar>
+        <KendoGridCommandButton Command="Create" Icon="add">Add Product</KendoGridCommandButton>
+    </KendoGridToolBar>
+    <KendoGridColumns>
+        <KendoGridColumn Field="Date">
+            <Template>
+                @((context as WeatherForecast).Date.ToString("MMMM dd, yyyy"))
+            </Template>
+        </KendoGridColumn>
+        <KendoGridColumn Field="TemperatureC" Title="Temp. C" />
+        <KendoGridColumn Field="Summary" />
+        <KendoGridCommandColumn>
+            <KendoGridCommandButton Command="Edit" Icon="edit" OnClick="TriggerEdit">Edit</KendoGridCommandButton>
+            <KendoGridCommandButton Command="Update" Icon="save" ShowInEdit="true" OnClick="UpdateItem">Update</KendoGridCommandButton>
+            <KendoGridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true" OnClick="CancelItem">Cancel</KendoGridCommandButton>
+        </KendoGridCommandColumn>
+    </KendoGridColumns>
+</KendoGrid>
+@logger
+
+@functions {
+    public IEnumerable<WeatherForecast> GridData { get; set; }
+    public decimal Height { get; set; }    
+	MarkupString logger;
+
+    protected override async Task OnInitAsync()
+    {
+        await LoadData();
+        Height = 300;
+    }
+    private void AppendToLog(string commandName, GridCommandEventArgs args)
+    {
+        string currAction = string.Format(
+            "<br />Command: <strong>{0}</strong>; is cancelled: <strong>{1}</strong>; is the item new: <strong>{2}</strong>",
+                commandName,
+                args.IsCancelled,
+                args.IsNew
+            );
+        logger = new MarkupString(logger + currAction);
+        StateHasChanged();
+    }
+    private async Task LoadData()
+    {
+        GridData = await Http.GetJsonAsync<WeatherForecast[]>("api/SampleData/WeatherForecasts");
+    }
+    
+    private void UpdateItem(GridCommandEventArgs args)
+    {
+    }
+    private void TriggerEdit(GridCommandEventArgs args)
+    {
+    }
+    private void CancelItem(GridCommandEventArgs args)
+    {
+    }
+}
