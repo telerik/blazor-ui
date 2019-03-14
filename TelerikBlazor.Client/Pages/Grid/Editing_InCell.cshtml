@@ -3,8 +3,8 @@
 @using Kendo.Blazor
 @using Kendo.Blazor.Components.Grid
 @using TelerikBlazor.Shared
-@inject HttpClient Http
 
+<span> OnUpdate event prevent update of item if the value length < 3</span>
 <KendoGrid Data=@GridData EditMode="incell"
            Pageable="true" PageSize=@PageSize>
     <KendoGridEvents>
@@ -20,15 +20,23 @@
 @functions {
     public IEnumerable<Product> GridData { get; set; }
     int PageSize = 15;
-
-    protected override async Task OnInitAsync()
+    
+    protected override void OnInit()
     {
-        await LoadData();
-    }
+        List<Product> products = new List<Product>();
+        for (int i = 0; i < 100; i++)
+        {
+            products.Add(new Product()
+            {
+                ProductId = i,
+                ProductName = "Product" + i.ToString(),
+                SupplierId = i,
+                UnitPrice = (decimal)(i * 3.14),
+                UnitsInStock = (short)(i * 1),
+            });
+        }
 
-    private async Task LoadData()
-    {
-        GridData = await Http.GetJsonAsync<Product[]>("api/NorthwindData/Products");
+        GridData = products.AsQueryable();
     }
 
     public void OnUpdate(GridCommandEventArgs args)

@@ -1,8 +1,6 @@
 @page "/grid/sorting"
 
 @using TelerikBlazor.Shared
-@inject HttpClient Http
-
 <h4> Sortable </h4>
 
 <KendoGrid Data=@GridData
@@ -23,14 +21,22 @@
     public IEnumerable<Product> GridData { get; set; }
     bool Sortable = true;
     decimal Height = 400;
-
-    protected override async Task OnInitAsync()
+    
+    protected override void OnInit()
     {
-        await LoadData();
-    }
+        List<Product> products = new List<Product>();
+        for (int i = 0; i < 100; i++)
+        {
+            products.Add(new Product()
+            {
+                ProductId = i,
+                ProductName = "Product" + i.ToString(),
+                SupplierId = i,
+                UnitPrice = (decimal)(i * 3.14),
+                UnitsInStock = (short)(i * 1),
+            });
+        }
 
-    private async Task LoadData()
-    {
-        GridData = await Http.GetJsonAsync<Product[]>("api/NorthwindData/Products");
+        GridData = products.AsQueryable();
     }
 }

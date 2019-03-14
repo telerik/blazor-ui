@@ -35,15 +35,23 @@
     public IEnumerable<Product> GridData { get; set; }
     public Product ProductToEdit { get; set; }
     int PageSize = 15;
-
-    protected override async Task OnInitAsync()
+    
+    protected override void OnInit()
     {
-        await LoadData();
-    }
+        List<Product> products = new List<Product>();
+        for (int i = 0; i < 100; i++)
+        {
+            products.Add(new Product()
+            {
+                ProductId = i,
+                ProductName = "Product" + i.ToString(),
+                SupplierId = i,
+                UnitPrice = (decimal)(i * 3.14),
+                UnitsInStock = (short)(i * 1),
+            });
+        }
 
-    private async Task LoadData()
-    {
-        GridData = await Http.GetJsonAsync<Product[]>("api/NorthwindData/Products");
+        GridData = products.AsQueryable();
     }
 
     private void SaveItem(UIChangeEventArgs args)

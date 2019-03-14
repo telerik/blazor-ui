@@ -3,9 +3,8 @@
 @using Kendo.Blazor
 @using Kendo.Blazor.Components.Grid
 @using TelerikBlazor.Shared
-@inject HttpClient Http
 
-<span>Edit is cancelled for Chai Product</span>
+<span>Edit is cancelled for Product 1</span>
 <KendoGrid Data=@GridData EditMode="inline"
            Pageable="true" PageSize=@PageSize>
     <KendoGridToolBar>
@@ -17,6 +16,7 @@
         <KendoGridColumn Field=@nameof(Product.UnitsInStock) Title="Units In Stock" />
         <KendoGridCommandColumn>
             <KendoGridCommandButton Command="Edit" Icon="edit" OnClick="TriggerEdit">Edit</KendoGridCommandButton>
+            <KendoGridCommandButton Command="Delete" Icon="delete">Delete</KendoGridCommandButton>
             <KendoGridCommandButton Command="Update" Icon="save" ShowInEdit="true" OnClick="UpdateItem">Update</KendoGridCommandButton>
             <KendoGridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true" OnClick="CancelItem">Cancel</KendoGridCommandButton>
         </KendoGridCommandColumn>
@@ -25,23 +25,32 @@
 
 @functions {
     public IEnumerable<Product> GridData { get; set; }
+    public Product ProductToEdit { get; set; }
     int PageSize = 15;
 
-    protected override async Task OnInitAsync()
+    protected override void OnInit()
     {
-        await LoadData();
-    }
+        List<Product> products = new List<Product>();
+        for (int i = 0; i < 100; i++)
+        {
+            products.Add(new Product()
+            {
+                ProductId = i,
+                ProductName = "Product" + i.ToString(),
+                SupplierId = i,
+                UnitPrice = (decimal)(i * 3.14),
+                UnitsInStock = (short)(i * 1),
+            });
+        }
 
-    private async Task LoadData()
-    {
-        GridData = await Http.GetJsonAsync<Product[]>("api/NorthwindData/Products");
+        GridData = products.AsQueryable();
     }
 
     private void TriggerEdit(GridCommandEventArgs args)
     {
-        var ProductName = (args.Item as Product).ProductName;
+        var product = (args.Item as Product);
 
-        if (ProductName == "Chai")
+        if (product.ProductName == "Product1")
         {
             args.IsCancelled = true;
         }
