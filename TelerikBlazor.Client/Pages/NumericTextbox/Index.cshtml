@@ -19,31 +19,39 @@
 
 <h4>ValueChanged Event</h4>
 
-
-@functions {
-	private KendoNumericTextBox myNumericTextboxRef;
-
-	private string result;
-	private string originalText;
-
-	private void MyValueChangeHandler(object newValue)
-	{
-		//the event argument is an object you can cast to the type you are actually using
-		result = newValue.ToString();
-		originalText = myNumericTextboxRef.Text;
-		StateHasChanged();
-	}
-}
 <KendoNumericTextBox Format="C" Max="5" Min="-5" Step="0.33m" Value="3.456m" ref="myNumericTextboxRef" ValueChanged="@MyValueChangeHandler"></KendoNumericTextBox>
 @if (!string.IsNullOrEmpty(result))
 {
-<br />
-	@:The new value is: @result
+    <br />
+    @:The new value is: @result
 }
 @if (!string.IsNullOrEmpty(originalText))
 {
-<br />
-	@:The original text is: @originalText
+    <br />
+    @:The original text is: @originalText
 }
+
+<h4>Arrow Display</h4>
+<KendoNumericTextBox Arrows=@hasArrows Decimals="4" Step="0.5m" Value="4.56789m"></KendoNumericTextBox>
+<label for="toggleArrows">Toggle Arrows &nbsp;</label><input id="toggleArrows" type="checkbox" bind=@hasArrows />
+
+
+@functions {
+    private KendoNumericTextBox myNumericTextboxRef;
+
+    private string result;
+    private string originalText;
+
+    private bool hasArrows;
+
+    private void MyValueChangeHandler(object newValue)
+    {
+        //the event argument is an object you can cast to the type you are actually using
+        result = newValue.ToString();
+        originalText = myNumericTextboxRef.Text;
+        StateHasChanged();
+    }
+}
+
 
 
