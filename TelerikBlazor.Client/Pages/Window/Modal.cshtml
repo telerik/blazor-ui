@@ -1,0 +1,19 @@
+@page "/window/modal"
+
+<KendoButton Icon=@IconName.Window OnClick=@(()=> WindowVisible = true)>Open Modal</KendoButton>
+
+<KendoWindow Width="500" Height="300" Centered="true" Visible=@WindowVisible Modal="true">
+    <KendoWindowTitle>
+        <strong>Modal Window</strong>
+    </KendoWindowTitle>
+    <KendoWindowActions>
+        <KendoWindowAction Name="Close"/>
+    </KendoWindowActions>
+    <KendoWindowContent>
+        <p>Click the close button to dismiss this modal dialog.</p>
+    </KendoWindowContent>
+</KendoWindow>
+
+@functions {
+    bool WindowVisible = true;
+}
