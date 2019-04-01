@@ -1,13 +1,57 @@
 ﻿@page "/calendar/selection"
 @using Kendo.Blazor.Components.Calendar
 
-<KendoCalendar SelectionMode="@CalendarSelectionMode.Multiple" DisabledDates="@DisabledDates">
-</KendoCalendar>
+The user will not be able to select the first and second of April 2019.
 
-<KendoCalendar SelectionMode="@CalendarSelectionMode.Single" DisabledDates="@DisabledDates">
+<h4>Single Selection</h4>
+
+<KendoCalendar SelectionMode="@CalendarSelectionMode.Single" ValueChanged="@SingleSelectionChangeHandler" DisabledDates="@DisabledDates" Date="@startDate">
 </KendoCalendar>
+<br />
+@if(selectedDate != null)
+{
+	@selectedDate.ToString("dd MMM yyyy");
+}
+
+
+<h4>Multiple Selection</h4>
+
+<KendoCalendar SelectionMode="@CalendarSelectionMode.Multiple" ValueChanged="@MultipleSelectionChangeHandler" DisabledDates="@DisabledDates" Date="@startDate">
+</KendoCalendar>
+<br />
+@if (chosenDates != null && chosenDates.Count > 0)
+{
+	<ul>
+		@foreach (DateTime date in chosenDates)
+		{
+			<li>@date.ToString("dd MMM yyyy")</li>
+		}
+	</ul>
+}
 
 @functions {
+	private DateTime startDate = new DateTime(2019, 4, 1);//set the initial date of the calendar
 
-    private List<DateTime> DisabledDates = new List<DateTime>() { new DateTime(2019, 4, 15), new DateTime(2019, 4, 19) };
+	//set dates the user can't select
+	private List<DateTime> DisabledDates = new List<DateTime>() { new DateTime(2019, 4, 1), new DateTime(2019, 4, 2) };
+
+	//fields to store and render the user selection
+	private DateTime selectedDate { get; set; }
+	private List<DateTime> chosenDates { get; set; }
+
+	private void SingleSelectionChangeHandler(object newValue)
+	{
+		//with single selection, the argument is a single DateTime object
+		selectedDate = (DateTime)newValue;
+
+		StateHasChanged();
+	}
+
+	private void MultipleSelectionChangeHandler(object newValue)
+	{
+		//with multiple selection, the argument is a list of DateTime objects
+		chosenDates = (List<DateTime>)newValue;
+
+		StateHasChanged();
+	}
 }
