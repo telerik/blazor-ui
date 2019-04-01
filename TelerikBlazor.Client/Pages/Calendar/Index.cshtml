@@ -1,0 +1,20 @@
+﻿@page "/calendar/index"
+@using Kendo.Blazor.Components.Calendar
+
+<KendoCalendar Min="@min" Max="@max" ValueChanged="@MyValueChangeHandler" BottomView="@CalendarView.Year" View="CalendarView.Decade">
+</KendoCalendar>
+
+The selected date is: @selectedDate
+
+@functions {
+
+    private DateTime min = new DateTime(2015, 1, 1);
+    private DateTime max = new DateTime(2025, 12, 31);
+    private string selectedDate = "";
+
+    private void MyValueChangeHandler(object newValue)
+    {
+        selectedDate = ((DateTime)newValue).ToString();
+        StateHasChanged();
+    }
+}

@@ -1,0 +1,13 @@
+﻿@page "/calendar/selection"
+@using Kendo.Blazor.Components.Calendar
+
+<KendoCalendar SelectionMode="@CalendarSelectionMode.Multiple" DisabledDates="@DisabledDates">
+</KendoCalendar>
+
+<KendoCalendar SelectionMode="@CalendarSelectionMode.Single" DisabledDates="@DisabledDates">
+</KendoCalendar>
+
+@functions {
+
+    private List<DateTime> DisabledDates = new List<DateTime>() { new DateTime(2019, 4, 15), new DateTime(2019, 4, 19) };
+}

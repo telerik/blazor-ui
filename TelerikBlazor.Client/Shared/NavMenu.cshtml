@@ -21,6 +21,21 @@
             }
         </li>
         <li class="nav-item px-3">
+            <div class="component" onclick="@(() => Toggle("calendar"))">
+                <span class="@CalendarToggleIcon" aria-hidden="true"></span>
+                Calendar
+            </div>
+            @if (!@CalendarCollapsed)
+            {
+                foreach (var item in CalendarMenuItems)
+                {
+                    <NavLink class="nav-link" href="@($"calendar/{item.ToLower().Replace(" ","")}")">
+                        @item
+                    </NavLink>
+                }
+            }
+        </li>
+        <li class="nav-item px-3">
             <div class="component" onclick="@(() => Toggle("tabstrip"))">
                 <span class="@TabStripToggleIcon" aria-hidden="true"></span>
                 TabStrip
@@ -88,15 +103,18 @@
     public bool GridCollapsed = true;
     public bool TabstripCollapsed = true;
     public bool ButtonCollapsed = true;
+    public bool CalendarCollapsed = true;
     public bool WindowCollapsed = true;
     public bool NumerictextboxCollapsed = true;
     public string ButtonToggleIcon = Collapsed;
+    public string CalendarToggleIcon = Collapsed;
     public string TabStripToggleIcon = Collapsed;
     public string GridToggleIcon = Collapsed;
     public string WindowToggleIcon = Collapsed;
     public string NumericTextBoxToggleIcon = Collapsed;
     public string[] GridMenuItems = { "Index", "Sorting", "Templates", "Columns", "Paging", "Incell Editing", "Inline Editing", "Popup Editing", "Custom Form Edit", "Custom Editor" };
     public string[] WindowMenuItems = { "Index", "Dimensions", "Actions", "Position", "Modal" };
+    public string[] CalendarMenuItems = { "Index", "Selection" };
     public string[] NumerictextboxMenuItems = { "Index" };
 
 
@@ -124,6 +142,11 @@
         {
             ButtonCollapsed = !ButtonCollapsed;
             ButtonToggleIcon = ButtonCollapsed ? Collapsed : Expanded;
+        }
+        else if (component.Contains("calendar"))
+        {
+            CalendarCollapsed = !CalendarCollapsed;
+            CalendarToggleIcon = CalendarCollapsed ? Collapsed : Expanded;
         }
         else if (component.Contains("window"))
         {
