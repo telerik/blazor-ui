@@ -10,7 +10,7 @@ The user will not be able to select the first and second of April 2019.
 <br />
 @if(selectedDate != null)
 {
-	@selectedDate.ToString("dd MMM yyyy");
+	@selectedDate.Value.ToString("dd MMM yyyy");
 }
 
 
@@ -36,7 +36,7 @@ The user will not be able to select the first and second of April 2019.
 	private List<DateTime> DisabledDates = new List<DateTime>() { new DateTime(2019, 4, 1), new DateTime(2019, 4, 2) };
 
 	//fields to store and render the user selection
-	private DateTime selectedDate { get; set; }
+	private DateTime? selectedDate { get; set; } = null;
 	private List<DateTime> chosenDates { get; set; }
 
 	private void SingleSelectionChangeHandler(object newValue)
