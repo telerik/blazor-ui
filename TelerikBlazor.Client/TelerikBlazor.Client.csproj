@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\kendo-blazor\Telerik.Blazor\Telerik.Blazor.csproj" />
+    <ProjectReference Include="..\..\blazor\Telerik.Blazor\Telerik.Blazor.csproj" />
     <ProjectReference Include="..\TelerikBlazor.Shared\TelerikBlazor.Shared.csproj" />
   </ItemGroup>
 
