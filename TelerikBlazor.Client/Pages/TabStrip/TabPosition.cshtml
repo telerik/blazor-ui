@@ -3,10 +3,10 @@
 @using Telerik.Blazor.Components.TabStrip
 
 <select bind=@tabPosition class="form-control col-sm-1" style="margin-bottom:2rem;">
-    <option value=@TelerikTabPosition.Top>Top</option>
-    <option value=@TelerikTabPosition.Left>Left</option>
-    <option value=@TelerikTabPosition.Right>Right</option>
-    <option value=@TelerikTabPosition.Bottom>Bottom</option>
+    <option value=@TabPosition.Top>Top</option>
+    <option value=@TabPosition.Left>Left</option>
+    <option value=@TabPosition.Right>Right</option>
+    <option value=@TabPosition.Bottom>Bottom</option>
 </select>
 
 <TelerikTabStrip TabPosition=@tabPosition>
@@ -30,5 +30,5 @@
     </TelerikTab>
 </TelerikTabStrip>
 @functions {
-    TelerikTabPosition tabPosition = TelerikTabPosition.Top;
+    TabPosition tabPosition = TabPosition.Top;
 }
