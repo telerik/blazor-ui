@@ -1,18 +1,18 @@
 @page "/window/actions"
 
-@using Kendo.Blazor
-@using Kendo.Blazor.Components.Window
+@using Telerik.Blazor
+@using Telerik.Blazor.Components.Window
 
 <span>Window support predefined actions - Maximize Minimize and Close - as well as custom ones.</span>
 
-<KendoWindow ref="@Wnd" Size="@Size.Small" Centered="true" Visible="true">
-    <KendoWindowTitle>
+<TelerikWindow ref="@Wnd" Size="@Size.Small" Centered="true" Visible="true">
+    <TelerikWindowTitle>
         <strong>Status</strong>
-    </KendoWindowTitle>
-    <KendoWindowActions>
-        <KendoWindowAction Name="Custom" Icon="@IconName" OnClick="CustomAction"></KendoWindowAction>
-    </KendoWindowActions>
-    <KendoWindowContent>
+    </TelerikWindowTitle>
+    <TelerikWindowActions>
+        <TelerikWindowAction Name="Custom" Icon="@IconName" OnClick="CustomAction"></TelerikWindowAction>
+    </TelerikWindowActions>
+    <TelerikWindowContent>
         <form class="k-form">
             <fieldset>
                 <legend>User Details</legend>
@@ -27,13 +27,13 @@
                 </label>
             </fieldset>
         </form>
-    </KendoWindowContent>
-</KendoWindow>
+    </TelerikWindowContent>
+</TelerikWindow>
 
 @functions {
-    public KendoWindow Wnd { get; set; }
+    public TelerikWindow Wnd { get; set; }
     public string IconName { get; set; } = "edit";
-    KendoWindowAction action = new KendoWindowAction
+    TelerikWindowAction action = new TelerikWindowAction
     {
         Name = "Cancel",
         Icon = "cancel"

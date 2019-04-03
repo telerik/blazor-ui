@@ -1,27 +1,27 @@
 @page "/grid/inlineediting"
 
-@using Kendo.Blazor
-@using Kendo.Blazor.Components.Grid
+@using Telerik.Blazor
+@using Telerik.Blazor.Components.Grid
 @using TelerikBlazor.Shared
 
 <span>Edit is cancelled for Product 1</span>
-<KendoGrid Data=@GridData EditMode="inline"
+<TelerikGrid Data=@GridData EditMode="inline"
            Pageable="true" PageSize=@PageSize>
-    <KendoGridToolBar>
-        <KendoGridCommandButton Command="Create" Icon="add">Add Product</KendoGridCommandButton>
-    </KendoGridToolBar>
-    <KendoGridColumns>
-        <KendoGridColumn Field=@nameof(Product.ProductName) Title="Product Name" />
-        <KendoGridColumn Field=@nameof(Product.UnitPrice) Title="Unit Price" />
-        <KendoGridColumn Field=@nameof(Product.UnitsInStock) Title="Units In Stock" />
-        <KendoGridCommandColumn>
-            <KendoGridCommandButton Command="Edit" Icon="edit" OnClick="TriggerEdit">Edit</KendoGridCommandButton>
-            <KendoGridCommandButton Command="Delete" Icon="delete">Delete</KendoGridCommandButton>
-            <KendoGridCommandButton Command="Update" Icon="save" ShowInEdit="true" OnClick="UpdateItem">Update</KendoGridCommandButton>
-            <KendoGridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true" OnClick="CancelItem">Cancel</KendoGridCommandButton>
-        </KendoGridCommandColumn>
-    </KendoGridColumns>
-</KendoGrid>
+    <TelerikGridToolBar>
+        <TelerikGridCommandButton Command="Create" Icon="add">Add Product</TelerikGridCommandButton>
+    </TelerikGridToolBar>
+    <TelerikGridColumns>
+        <TelerikGridColumn Field=@nameof(Product.ProductName) Title="Product Name" />
+        <TelerikGridColumn Field=@nameof(Product.UnitPrice) Title="Unit Price" />
+        <TelerikGridColumn Field=@nameof(Product.UnitsInStock) Title="Units In Stock" />
+        <TelerikGridCommandColumn>
+            <TelerikGridCommandButton Command="Edit" Icon="edit" OnClick="TriggerEdit">Edit</TelerikGridCommandButton>
+            <TelerikGridCommandButton Command="Delete" Icon="delete">Delete</TelerikGridCommandButton>
+            <TelerikGridCommandButton Command="Update" Icon="save" ShowInEdit="true" OnClick="UpdateItem">Update</TelerikGridCommandButton>
+            <TelerikGridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true" OnClick="CancelItem">Cancel</TelerikGridCommandButton>
+        </TelerikGridCommandColumn>
+    </TelerikGridColumns>
+</TelerikGrid>
 
 @functions {
     public IEnumerable<Product> GridData { get; set; }

@@ -1,5 +1,5 @@
 @page "/window/position"
-@using Kendo.Blazor
+@using Telerik.Blazor
 
 <span>Window Position could be set via <strong>Centered</strong> attribute, or via <strong>Top</strong> and <strong>Left</strong></span>
 
@@ -12,16 +12,16 @@
     <input type="number" bind="@Left" placeholder="Set Left" />
 </div>
 
-<KendoWindow Size="@Size.Small" Centered="@Centered" Top="@Top" Left="@Left" Visible="true">
-    <KendoWindowTitle>
+<TelerikWindow Size="@Size.Small" Centered="@Centered" Top="@Top" Left="@Left" Visible="true">
+    <TelerikWindowTitle>
         <strong>Status</strong>
-    </KendoWindowTitle>
-    <KendoWindowActions>
-        <KendoWindowAction Name="Minimize"></KendoWindowAction>
-        <KendoWindowAction Name="Maximize"></KendoWindowAction>
-        <KendoWindowAction Name="Close"></KendoWindowAction>
-    </KendoWindowActions>
-    <KendoWindowContent>
+    </TelerikWindowTitle>
+    <TelerikWindowActions>
+        <TelerikWindowAction Name="Minimize"></TelerikWindowAction>
+        <TelerikWindowAction Name="Maximize"></TelerikWindowAction>
+        <TelerikWindowAction Name="Close"></TelerikWindowAction>
+    </TelerikWindowActions>
+    <TelerikWindowContent>
         <form class="k-form">
             <fieldset>
                 <legend>User Details</legend>
@@ -36,8 +36,8 @@
                 </label>
             </fieldset>
         </form>
-    </KendoWindowContent>
-</KendoWindow>
+    </TelerikWindowContent>
+</TelerikWindow>
 @functions {
     public bool Centered { get; set; }
     public int? Top { get; set; }

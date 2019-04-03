@@ -1,56 +1,29 @@
 ﻿@page "/numerictextbox/index"
-@using Kendo.Blazor.Components.NumericTextBox
+@using Telerik.Blazor.Components.NumericTextBox
 
 <h4>General Number Format</h4>
 
-<KendoNumericTextBox Decimals="4" Max="5" Min="-5" Step="0.5m" Value="4.56789m"></KendoNumericTextBox>
+<TelerikNumericTextBox Decimals="4" Max="5" Min="-5" Step="0.5m" Value="4.56789m"></TelerikNumericTextBox>
 
 <h4>Currency Format</h4>
 
-<KendoNumericTextBox Decimals="2" Format="C" Max="5" Min="-5" Step="0.5m" Value="4.56789m"></KendoNumericTextBox>
+<TelerikNumericTextBox Decimals="2" Format="C" Max="5" Min="-5" Step="0.5m" Value="4.56789m"></TelerikNumericTextBox>
 
 <h4>Percentage</h4>
 
-<KendoNumericTextBox Decimals="4" Format="P" Max="5" Min="-5" Step="0.5m" Value="4.56789m"></KendoNumericTextBox>
+<TelerikNumericTextBox Decimals="4" Format="P" Max="5" Min="-5" Step="0.5m" Value="4.56789m"></TelerikNumericTextBox>
 
 <h4>Custom Format</h4>
 
-<KendoNumericTextBox Decimals="2" Format="#.00 kg" Max="5" Min="-5" Step="0.5m" Value="4.56789m"></KendoNumericTextBox>
-
-<h4>ValueChanged Event</h4>
-
-<KendoNumericTextBox Format="C" Max="5" Min="-5" Step="0.33m" Value="3.456m" ref="myNumericTextboxRef" ValueChanged="@MyValueChangeHandler"></KendoNumericTextBox>
-@if (!string.IsNullOrEmpty(result))
-{
-    <br />
-    @:The new value is: @result
-}
-@if (!string.IsNullOrEmpty(originalText))
-{
-    <br />
-    @:The original text is: @originalText
-}
+<TelerikNumericTextBox Decimals="2" Format="#.00 kg" Max="5" Min="-5" Step="0.5m" Value="4.56789m"></TelerikNumericTextBox>
 
 <h4>Arrow Display</h4>
-<KendoNumericTextBox Arrows=@hasArrows Decimals="4" Step="0.5m" Value="4.56789m"></KendoNumericTextBox>
+<TelerikNumericTextBox Arrows=@hasArrows Decimals="4" Step="0.5m" Value="4.56789m"></TelerikNumericTextBox>
 <label for="toggleArrows">Toggle Arrows &nbsp;</label><input id="toggleArrows" type="checkbox" bind=@hasArrows />
 
 
 @functions {
-    private KendoNumericTextBox myNumericTextboxRef;
-
-    private string result;
-    private string originalText;
-
     private bool hasArrows;
-
-    private void MyValueChangeHandler(object newValue)
-    {
-        //the event argument is an object you can cast to the type you are actually using
-        result = newValue.ToString();
-        originalText = myNumericTextboxRef.Text;
-        StateHasChanged();
-    }
 }
 
 

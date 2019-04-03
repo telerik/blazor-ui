@@ -1,20 +1,20 @@
 @page "/grid/index"
 
-@using Kendo.Blazor.Components.Grid
+@using Telerik.Blazor.Components.Grid
 @using TelerikBlazor.Shared
 @inject HttpClient Http
 
-<KendoGrid Data=@GridData Height=@Height>
-    <KendoGridColumns>
-        <KendoGridColumn Field="Date">
+<TelerikGrid Data=@GridData Height=@Height>
+    <TelerikGridColumns>
+        <TelerikGridColumn Field="Date">
             <Template>
                 @((context as WeatherForecast).Date.ToString("MMMM dd, yyyy"))
             </Template>
-        </KendoGridColumn>
-        <KendoGridColumn Field="TemperatureC" Title="Temp. C" />
-        <KendoGridColumn Field="Summary" />
-    </KendoGridColumns>
-</KendoGrid>
+        </TelerikGridColumn>
+        <TelerikGridColumn Field="TemperatureC" Title="Temp. C" />
+        <TelerikGridColumn Field="Summary" />
+    </TelerikGridColumns>
+</TelerikGrid>
 @logger
 
 @functions {

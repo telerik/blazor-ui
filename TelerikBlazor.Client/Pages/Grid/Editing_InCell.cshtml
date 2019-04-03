@@ -1,20 +1,20 @@
 @page "/grid/incellediting"
 
-@using Kendo.Blazor.Components.Grid
+@using Telerik.Blazor.Components.Grid
 @using TelerikBlazor.Shared
 
 <span>OnUpdate event prevent update of item if the value length &lt; 3</span>
-<KendoGrid Data=@GridData EditMode="incell"
+<TelerikGrid Data=@GridData EditMode="incell"
            Pageable="true" PageSize=@PageSize>
-    <KendoGridEvents>
+    <TelerikGridEvents>
         <EventsManager OnUpdate="OnUpdate"></EventsManager>
-    </KendoGridEvents>
-    <KendoGridColumns>
-        <KendoGridColumn Field=@nameof(Product.ProductName) Title="Product Name" />
-        <KendoGridColumn Field=@nameof(Product.UnitPrice) Title="Unit Price" />
-        <KendoGridColumn Field=@nameof(Product.UnitsInStock) Title="Units In Stock" />
-    </KendoGridColumns>
-</KendoGrid>
+    </TelerikGridEvents>
+    <TelerikGridColumns>
+        <TelerikGridColumn Field=@nameof(Product.ProductName) Title="Product Name" />
+        <TelerikGridColumn Field=@nameof(Product.UnitPrice) Title="Unit Price" />
+        <TelerikGridColumn Field=@nameof(Product.UnitsInStock) Title="Units In Stock" />
+    </TelerikGridColumns>
+</TelerikGrid>
 
 @functions {
     public IEnumerable<Product> GridData { get; set; }

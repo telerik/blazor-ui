@@ -1,12 +1,11 @@
 ﻿@page "/calendar/selection"
-@using Kendo.Blazor.Components.Calendar
 
 The user will not be able to select the first and second of April 2019.
 
 <h4>Single Selection</h4>
 
-<KendoCalendar SelectionMode="@CalendarSelectionMode.Single" ValueChanged="@SingleSelectionChangeHandler" DisabledDates="@DisabledDates" Date="@startDate">
-</KendoCalendar>
+<TelerikCalendar SelectionMode="@CalendarSelectionMode.Single" ValueChanged="@SingleSelectionChangeHandler" DisabledDates="@DisabledDates" Date="@startDate">
+</TelerikCalendar>
 <br />
 @if(selectedDate != null)
 {
@@ -16,8 +15,8 @@ The user will not be able to select the first and second of April 2019.
 
 <h4>Multiple Selection</h4>
 
-<KendoCalendar SelectionMode="@CalendarSelectionMode.Multiple" ValueChanged="@MultipleSelectionChangeHandler" DisabledDates="@DisabledDates" Date="@startDate">
-</KendoCalendar>
+<TelerikCalendar SelectionMode="@CalendarSelectionMode.Multiple" ValueChanged="@MultipleSelectionChangeHandler" DisabledDates="@DisabledDates" Date="@startDate">
+</TelerikCalendar>
 <br />
 @if (chosenDates != null && chosenDates.Count > 0)
 {
