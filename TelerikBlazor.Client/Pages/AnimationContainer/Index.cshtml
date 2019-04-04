@@ -1,0 +1,36 @@
+﻿@page "/animation/index"
+
+<div>
+    <select bind="@AnimType">
+        <option value="@AnimationType.Fade">Fade</option>
+        <option value="@AnimationType.SlideDown">SlideDown</option>
+        <option value="@AnimationType.SlideIn">SlideIn</option>
+        <option value="@AnimationType.SlideLeft">SlideLeft</option>
+        <option value="@AnimationType.SlideRight">SlideRight</option>
+        <option value="@AnimationType.PushDown">PushDown</option>
+        <option value="@AnimationType.PushLeft">PushLeft</option>
+        <option value="@AnimationType.PushRight">PushRight</option>
+        <option value="@AnimationType.PushUp">PushUp</option>
+        <option value="@AnimationType.ZoomIn">ZoomIn</option>
+        <option value="@AnimationType.ZoomOut">ZoomOut</option>
+    </select>
+
+    <TelerikButton OnClick="@ToggleAnimation">Show/Hide Animation Container</TelerikButton>
+</div>
+
+<div style="position:absolute;">
+    <TelerikAnimationContainer Width=200 Height=250 Visible=@Visible AnimationType=@AnimType Class="k-popup">
+        Test Content
+    </TelerikAnimationContainer>
+</div>
+
+@functions {
+    public bool Visible { get; set; } = false;
+    public AnimationType AnimType { get; set; } = AnimationType.Fade;
+
+    public void ToggleAnimation()
+    {
+        Visible = !Visible;
+        StateHasChanged();
+    }
+}

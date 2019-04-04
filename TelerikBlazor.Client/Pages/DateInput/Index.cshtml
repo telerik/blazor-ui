@@ -1,0 +1,17 @@
+﻿@page "/dateinput/index"
+
+@using TelerikBlazor.Shared
+
+<EditForm Model="@person">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <TelerikDateInput bind-Value="@person.HireDate" Format="MM/dd/yyyy"></TelerikDateInput>
+
+    <TelerikDateInput bind-Value="@person.HireDate" Format="MM/dd/yyyy T HH/mm/ss"></TelerikDateInput>
+</EditForm>
+
+
+@functions  {
+    Person person = new Person();
+}

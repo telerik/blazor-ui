@@ -1,0 +1,36 @@
+﻿@page "/dropdownlist/validation"
+
+@using TelerikBlazor.Shared
+
+<EditForm Model="@employee">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <TelerikDropDownList bind-Value="@employee.EmployeeId" Height="40" DefaultItem="@DefaultItem" Data="@DropDownListData" ValueField="EmployeeId" TextField="Name">
+    </TelerikDropDownList>
+</EditForm>
+
+
+@functions  {
+    public IEnumerable<Person> DropDownListData { get; set; }
+    public Person employee { get; set; } = new Person();
+    public Person DefaultItem { get; set; } = new Person()
+    {
+        Name = "Choose an employee"
+    };
+
+    protected override void OnInit()
+    {
+        List<Person> employees = new List<Person>();
+        for (int i = 0; i < 10; i++)
+        {
+            employees.Add(new Person()
+            {
+                Name = "John " + i.ToString(),
+                EmployeeId = i
+            });
+        }
+
+        DropDownListData = employees.AsQueryable();
+        base.OnInit();
+    }
+}

@@ -1,0 +1,21 @@
+﻿@page "/textbox/index"
+
+@using TelerikBlazor.Shared
+
+<EditForm Model="@person">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <TelerikTextBox bind-Value="@person.Name" Label="First Name"></TelerikTextBox>
+
+    <button class="k-button" type="submit">Submit</button>
+</EditForm>
+
+
+@functions  {
+    Person person = new Person() {
+        HireDate = new DateTime(2017, 10, 10),
+        GraduateGrade = 5,
+        AgeInYears = 20
+    };
+}
