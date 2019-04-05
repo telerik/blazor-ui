@@ -96,9 +96,12 @@
             </div>
             @if (!@TextBoxCollapsed)
             {
-                <NavLink class="nav-link" href="textbox/index">
-                    Index
-                </NavLink>
+                foreach (var item in TextboxMenuItems)
+                {
+                    <NavLink class="nav-link" href="@($"textbox/{item.ToLower().Replace(" ","")}")">
+                        @item
+                    </NavLink>
+                }
             }
         </li>
         <li class="nav-item">
@@ -187,6 +190,7 @@
     public string[] WindowMenuItems = { "Index", "Dimensions", "Actions", "Position", "Modal" };
     public string[] CalendarMenuItems = { "Index", "Selection" };
     public string[] NumerictextboxMenuItems = { "Index" };
+    public string[] TextboxMenuItems = { "Index", "Validation" };
     public string[] AnimationMenuItems = { "Index", "Tooltip", "Notification" };
     public string[] DropDownListMenuItems = { "Index", "Templates", "Validation" };
 

@@ -2,21 +2,17 @@
 
 @using TelerikBlazor.Shared
 
-<EditForm Model="@person">
-    <DataAnnotationsValidator />
-    <TelerikTextBox bind-Value="@person.Name" Label="First Name"></TelerikTextBox>
-    <ValidationMessage For="@(() => person.Name)"></ValidationMessage>
+<h4>Floating label</h4>
 
-    <button class="k-button" type="submit">Submit</button>
-</EditForm>
+<TelerikTextBox Label="First Name"></TelerikTextBox>
 
+<h4>Length Restriction</h4>
 
-@functions  {
-    Person person = new Person() {
-        HireDate = new DateTime(2017, 10, 10),
-        GraduateGrade = 5,
-        AgeInYears = 20,
-        EmployeeId = 1,
-        MeetingDate = new DateTime(2019, 03, 03)
-    };
-}
+<p>
+    Text is restricted to 10 characters
+</p>
+<TelerikTextBox MaxLength="10"></TelerikTextBox>
+
+<h4>Disabled TextBox</h4>
+
+<TelerikTextBox Enabled="false" Value="Disabled"></TelerikTextBox>
