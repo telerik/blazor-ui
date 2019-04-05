@@ -1,4 +1,7 @@
 ﻿@inherits LayoutComponentBase
+@inject Microsoft.AspNetCore.Components.Services.IUriHelper UriHelper
+@using Microsoft.JSInterop;
+@inject IJSRuntime JsRuntime;
 
 <div class="sidebar">
     <NavMenu />
@@ -19,9 +22,30 @@
 
     <div class="content px-4">
         @Body
+        <div id="codecontainer">
+        </div>
     </div>
-</div>
 
+</div>
 @functions {
 
+    protected override void OnInit()
+    {
+        UriHelper.OnLocationChanged += OnLocationChanged;
+    }
+
+    private async void OnLocationChanged(object sender, string newUriAbsolute)
+    {
+        if (newUriAbsolute.Contains("//"))
+        {
+            string[] parts = newUriAbsolute.Split(new char[] {'/'});
+            await JsRuntime.InvokeAsync<string>("codeManager.renderCode", string.Format("/{0}/{1}", parts[parts.Length-2], parts[parts.Length-1]));
+            StateHasChanged();
+        }
+    }
+
+    public void Dispose()
+    {
+        UriHelper.OnLocationChanged -= OnLocationChanged;
+    }
 }
