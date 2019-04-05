@@ -4,10 +4,10 @@
 
 <TelerikDropDownList TItem="Product" T="int" Height="40" Data="@DropDownListData" ValueField="ProductId" TextField="ProductName">
     <Header>
-        <div class="k-group-header" style="margin-top: 30px">Header</div>
+        <div class="k-header" style="margin-top: 10px; padding-bottom: 10px">Header</div>
     </Header>
     <Footer>
-        <div class="k-footer" style="margin-top: 30px">Footer</div>
+        <div class="k-footer" style="margin-top: 10px">Footer</div>
     </Footer>
     <ValueTemplate>
         Selection: <strong>@((context as Product).ProductName)</strong>
