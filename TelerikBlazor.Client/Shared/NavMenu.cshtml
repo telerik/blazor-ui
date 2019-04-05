@@ -1,6 +1,6 @@
 ﻿@inject Microsoft.AspNetCore.Components.Services.IUriHelper UriHelper
 
-<div class="top-row pl-4 navbar">
+<div class="top-row navbar">
     <NavLink href="/">
         <img alt="Telerik Blazor Logo" class="w-100" src="css/logos/logo-dark.svg" />
     </NavLink>
@@ -8,8 +8,15 @@
 
 <div>
     <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <div class="component" onclick="@(() => Toggle("button"))">
+        <li class="nav-item">
+            <div class="component">
+                <NavLink class="nav-link p-0" href="/">
+                    Overview
+                </NavLink>
+            </div>
+        </li>
+        <li class="nav-item">
+            <div class="component @((ButtonCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("button"))">
                 <span class="@ButtonToggleIcon" aria-hidden="true"></span>
                 Button
             </div>
@@ -20,8 +27,9 @@
                 </NavLink>
             }
         </li>
-        <li class="nav-item px-3">
-            <div class="component" onclick="@(() => Toggle("calendar"))">
+
+        <li class="nav-item">
+            <div class="component @((CalendarCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("calendar"))">
                 <span class="@CalendarToggleIcon" aria-hidden="true"></span>
                 Calendar
             </div>
@@ -35,8 +43,9 @@
                 }
             }
         </li>
-        <li class="nav-item px-3">
-            <div class="component" onclick="@(() => Toggle("tabstrip"))">
+
+        <li class="nav-item">
+            <div class="component @((TabstripCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("tabstrip"))">
                 <span class="@TabStripToggleIcon" aria-hidden="true"></span>
                 TabStrip
             </div>
@@ -50,8 +59,8 @@
                 </NavLink>
             }
         </li>
-        <li class="nav-item px-3">
-            <div class="component" onclick="@(() => Toggle("grid"))">
+        <li class="nav-item">
+            <div class="component @((GridCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("grid"))">
                 <span class="@GridToggleIcon" aria-hidden="true"></span>
                 Grid
             </div>
@@ -65,8 +74,8 @@
                 }
             }
         </li>
-        <li class="nav-item px-3">
-            <div class="component" onclick="@(() => Toggle("numerictextbox"))">
+        <li class="nav-item">
+            <div class="component @((NumerictextboxCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("numerictextbox"))">
                 <span class="@NumericTextBoxToggleIcon" aria-hidden="true"></span>
                 Numeric Textbox
             </div>
@@ -80,8 +89,8 @@
                 }
             }
         </li>
-        <li class="nav-item px-3">
-            <div class="component" onclick="@(() => Toggle("textbox"))">
+        <li class="nav-item">
+            <div class="component @((TextBoxCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("textbox"))">
                 <span class="@TextBoxToggleIcon" aria-hidden="true"></span>
                 TextBox
             </div>
@@ -92,8 +101,8 @@
                 </NavLink>
             }
         </li>
-        <li class="nav-item px-3">
-            <div class="component" onclick="@(() => Toggle("dateinput"))">
+        <li class="nav-item">
+            <div class="component @((DateInputCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("dateinput"))">
                 <span class="@DateInputToggleIcon" aria-hidden="true"></span>
                 DateInput
             </div>
@@ -104,8 +113,8 @@
                 </NavLink>
             }
         </li>
-        <li class="nav-item px-3">
-            <div class="component" onclick="@(() => Toggle("dropdownlist"))">
+        <li class="nav-item">
+            <div class="component @((DropDownListCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("dropdownlist"))">
                 <span class="@DropDownListToggleIcon" aria-hidden="true"></span>
                 DropDownList
             </div>
@@ -119,8 +128,8 @@
                 }
             }
         </li>
-        <li class="nav-item px-3">
-            <div class="component" onclick="@(() => Toggle("animation"))">
+        <li class="nav-item">
+            <div class="component @((@AnimationCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("animation"))">
                 <span class="@AnimationToggleIcon" aria-hidden="true"></span>
                 AnimationContainer
             </div>
@@ -134,8 +143,8 @@
                 }
             }
         </li>
-        <li class="nav-item px-3">
-            <div class="component" onclick="@(() => Toggle("window"))">
+        <li class="nav-item">
+            <div class="component @((WindowCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("window"))">
                 <span class="@WindowToggleIcon" aria-hidden="true"></span>
                 Window
             </div>
@@ -152,8 +161,8 @@
     </ul>
 </div>
 @functions {
-    const string Collapsed = "k-icon k-i-" + IconName.Arrow60Right;
-    const string Expanded = "k-icon k-i-" + IconName.Arrow60Down;
+    const string Collapsed = "k-icon k-i-" + IconName.ArrowChevronRight;
+    const string Expanded = "k-icon k-i-" + IconName.ArrowChevronDown;
     public bool GridCollapsed = true;
     public bool TabstripCollapsed = true;
     public bool ButtonCollapsed = true;

@@ -1,0 +1,344 @@
+@font-face {
+  font-family: 'widgets';
+  src:  url('fonts/widgets.eot?dch2i');
+  src:  url('fonts/widgets.eot?dch2i#iefix') format('embedded-opentype'),
+    url('fonts/widgets.ttf?dch2i') format('truetype'),
+    url('fonts/widgets.woff?dch2i') format('woff'),
+    url('fonts/widgets.svg?dch2i#widgets') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="i-"], [class*=" i-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'widgets' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.i-actionsheet:before {
+  content: "\e800";
+}
+.i-application:before {
+  content: "\e801";
+}
+.i-areacharts:before {
+  content: "\e802";
+}
+.i-autocomplete:before {
+  content: "\e803";
+}
+.i-barcharts:before {
+  content: "\e804";
+}
+.i-barcode:before {
+  content: "\e805";
+}
+.i-boxplotcharts:before {
+  content: "\e806";
+}
+.i-bubblecharts:before {
+  content: "\e807";
+}
+.i-bulletcharts:before {
+  content: "\e808";
+}
+.i-button:before {
+  content: "\e809";
+}
+.i-buttongroup:before {
+  content: "\e80a";
+}
+.i-calendar:before {
+  content: "\e80b";
+}
+.i-colorpicker:before {
+  content: "\e80c";
+}
+.i-datasource:before {
+  content: "\e80d";
+}
+.i-datepicker:before {
+  content: "\e80e";
+}
+.i-diagram:before {
+  content: "\e80f";
+}
+.i-donutcharts:before {
+  content: "\e810";
+}
+.i-draganddrop:before {
+  content: "\e811";
+}
+.i-drawer:before {
+  content: "\e812";
+}
+.i-dropdownlist:before {
+  content: "\e813";
+}
+.i-editor:before {
+  content: "\e814";
+}
+.i-effects:before {
+  content: "\e815";
+}
+.i-funnelcharts:before {
+  content: "\e816";
+}
+.i-globalization:before {
+  content: "\e817";
+}
+.i-grid:before {
+  content: "\e818";
+}
+.i-layout:before {
+  content: "\e819";
+}
+.i-lineargauge:before {
+  content: "\e81a";
+}
+.i-linecharts:before {
+  content: "\e81b";
+}
+.i-listview:before {
+  content: "\e81c";
+}
+.i-map:before {
+  content: "\e81d";
+}
+.i-maskedtextbox:before {
+  content: "\e81e";
+}
+.i-menu:before {
+  content: "\e81f";
+}
+.i-modalview:before {
+  content: "\e820";
+}
+.i-multiselect:before {
+  content: "\e821";
+}
+.i-mvvm:before {
+  content: "\e822";
+}
+.i-navbar:before {
+  content: "\e823";
+}
+.i-notification:before {
+  content: "\e824";
+}
+.i-numerictextbox:before {
+  content: "\e825";
+}
+.i-panelbar:before {
+  content: "\e826";
+}
+.i-piecharts:before {
+  content: "\e827";
+}
+.i-polarcharts:before {
+  content: "\e828";
+}
+.i-popover:before {
+  content: "\e829";
+}
+.i-progressbar:before {
+  content: "\e82a";
+}
+.i-qrcode:before {
+  content: "\e82b";
+}
+.i-radarcharts:before {
+  content: "\e82c";
+}
+.i-radialgauge:before {
+  content: "\e82d";
+}
+.i-scattercharts:before {
+  content: "\e82e";
+}
+.i-scheduler:before {
+  content: "\e82f";
+}
+.i-scroller:before {
+  content: "\e830";
+}
+.i-scrollview:before {
+  content: "\e831";
+}
+.i-singlepageapp:before {
+  content: "\e832";
+}
+.i-slider:before {
+  content: "\e833";
+}
+.i-sortable:before {
+  content: "\e834";
+}
+.i-sparklines:before {
+  content: "\e835";
+}
+.i-splitter:before {
+  content: "\e836";
+}
+.i-splitview:before {
+  content: "\e837";
+}
+.i-stockchart:before {
+  content: "\e838";
+}
+.i-switch:before {
+  content: "\e839";
+}
+.i-tabstrip:before {
+  content: "\e83a";
+}
+.i-tabstrip-mobile:before {
+  content: "\e83b";
+}
+.i-templates:before {
+  content: "\e83c";
+}
+.i-timepicker:before {
+  content: "\e83d";
+}
+.i-tooltip:before {
+  content: "\e83e";
+}
+.i-treeview:before {
+  content: "\e83f";
+}
+.i-upload:before {
+  content: "\e840";
+}
+.i-validator:before {
+  content: "\e841";
+}
+.i-window:before {
+  content: "\e842";
+}
+.i-gantt:before {
+  content: "\e843";
+}
+.i-pivotgrid:before {
+  content: "\e844";
+}
+.i-treemap:before {
+  content: "\e845";
+}
+.i-rangebarcharts:before {
+  content: "\e846";
+}
+.i-waterfallcharts:before {
+  content: "\e847";
+}
+.i-combobox:before {
+  content: "\e848";
+}
+.i-responsivepanel:before {
+  content: "\e849";
+}
+.i-collapsible:before {
+  content: "\e84a";
+}
+.i-spreadsheet:before {
+  content: "\e84b";
+}
+.i-wordprocessing:before {
+  content: "\e84c";
+}
+.i-spreadprocessing:before {
+  content: "\e84d";
+}
+.i-pdf:before {
+  content: "\e84e";
+}
+.i-datetimepicker:before {
+  content: "\e84f";
+}
+.i-styling:before {
+  content: "\e850";
+}
+.i-touchevents:before {
+  content: "\e851";
+}
+.i-toolbar:before {
+  content: "\e852";
+}
+.i-treelist:before {
+  content: "\e853";
+}
+.i-forms:before {
+  content: "\e854";
+}
+.i-view:before {
+  content: "\e855";
+}
+.i-listview-mobile:before {
+  content: "\e856";
+}
+.i-dialog:before {
+  content: "\e857";
+}
+.i-mediaplayer:before {
+  content: "\e858";
+}
+.i-localization:before {
+  content: "\e859";
+}
+.i-accessibility:before {
+  content: "\e85a";
+}
+.i-listbox:before {
+  content: "\e85b";
+}
+.i-dateinput:before {
+  content: "\e85c";
+}
+.i-ziplibrary:before {
+  content: "\e900";
+}
+.i-spreadstreamprocessing:before {
+  content: "\e901";
+}
+.i-rangeareacharts:before {
+  content: "\e902";
+}
+.i-dropdownbutton:before {
+  content: "\e903";
+}
+.i-splitbutton:before {
+  content: "\e904";
+}
+.i-textbox:before {
+  content: "\e905";
+}
+.i-ripple:before {
+  content: "\e906";
+}
+.i-chat:before {
+  content: "\e907";
+}
+.i-dropdowntree:before {
+  content: "\e908";
+}
+.i-daterangepicker:before {
+  content: "\e909";
+}
+.i-multiviewcalendar:before {
+  content: "\e90a";
+}
+.i-multicolumncombobox:before {
+  content: "\e90b";
+}
+.i-arcgauge:before {
+  content: "\e90c";
+}

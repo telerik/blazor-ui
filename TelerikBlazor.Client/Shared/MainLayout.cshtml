@@ -9,37 +9,65 @@
 
 <div class="main">
     <div class="top-row d-flex flex-row-reverse">
-        <div class="p-2">
-            <NavLink class="nav-link" href="https://themebuilder.telerik.com/" Match=NavLinkMatch.All>
-                ThemeBuilder
-            </NavLink>
+        <div>
+            <NavLink class="btn-accent nav-link nav-btn" href="#" Match=NavLinkMatch.All>Try Now</NavLink>
         </div>
-        <div class="p-2">
+        <div>
             <ThemeManager />
         </div>
 
     </div>
 
     <div class="content px-4">
-        @Body
-        <div id="codecontainer">
+        <div class="example-wrapper py-4">
+            @Body
         </div>
-    </div>
+
+        @if (ShowCodeExample)
+        {
+            <div class="code-sample-wrapper py-5">
+                <h2>Sample </h2>
+                <div class="code-sample mt-4">
+
+                    <ul class="code-sample-tabs p-2">
+                        <li><a class="nav-link active" href="#">Index.cshtml</a></li>
+                    </ul>
+
+                    <div id="codecontainer" class="code-sample-content p-4"></div>
+
+                </div>
+            </div>
+        }
+    </div> 
 
 </div>
 @functions {
 
+    public bool ShowCodeExample = false;
+
     protected override void OnInit()
     {
         UriHelper.OnLocationChanged += OnLocationChanged;
+        InvokeCodeRender(UriHelper.GetAbsoluteUri());
     }
 
     private async void OnLocationChanged(object sender, string newUriAbsolute)
     {
-        if (newUriAbsolute.Contains("//"))
+        InvokeCodeRender(newUriAbsolute);
+    }
+
+    private async void InvokeCodeRender(string absolutePath)
+    {
+        if (absolutePath.Contains("//") && absolutePath != UriHelper.GetBaseUri())
         {
-            string[] parts = newUriAbsolute.Split(new char[] {'/'});
+            string[] parts = absolutePath.Split(new char[] {'/'});
             await JsRuntime.InvokeAsync<string>("codeManager.renderCode", string.Format("/{0}/{1}", parts[parts.Length-2], parts[parts.Length-1]));
+
+            ShowCodeExample = true;
+            StateHasChanged();
+        } else
+        {
+            ShowCodeExample = false;
             StateHasChanged();
         }
     }

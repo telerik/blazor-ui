@@ -1,19 +1,55 @@
 ﻿@using Microsoft.JSInterop;
 @inject IJSRuntime JsRuntime;
 
-<select class="form-control d-inline" onchange=@HandleThemeChange>
-    @foreach (var t in themes)
+<div class="theme-chooser-wrapper">
+    <div class="theme-chooser-toggle-btn nav-btn py-2 pl-2 @((ThemeDropdownToggled ? "opened" : ""))" onclick="@(() => ToggleThemeDropdown())">
+        <span class="px-2">@SelectedTheme</span>
+        <span class="k-icon k-i-arrow-chevron-down" aria-hidden="true"></span>
+    </div>
+
+    @if (@ThemeDropdownToggled)
     {
-        <option value=@t>@t</option>
+    <div class="theme-chooser-dropdown">
+        <ul class="p-2 mb-0">
+            @foreach (var t in themes)
+            {
+                <li class="p-2" onclick="@(() => ChangeTheme(t))">
+                    <span class="pr-2">
+                        <span class="k-icon k-i-paint" aria-hidden="true"></span>
+                    </span>
+                    <span class="theme-name">@t</span>
+                </li>
+            }
+        </ul>
+        <div class="triangle"></div>
+        <div class="theme-builder">
+            <div class="theme-builder-title p-2">
+                themebuilder
+            </div>
+            <a href="https://themebuilder.telerik.com/" class="theme-builder-btn btn btn-accent">
+                Start Theming
+            </a>
+        </div>
+    </div>
     }
-</select>
+</div>
 
 @functions {
     string[] themes = { "Default", "Bootstrap", "Material" };
+    public bool ThemeDropdownToggled = false;
+    public string SelectedTheme = "Choose Theme";
 
-    async void HandleThemeChange(UIChangeEventArgs e)
+    void ToggleThemeDropdown()
     {
-        string themePath = $"css/kendo-themes/{e.Value}/dist/all.css".ToLower();
+        ThemeDropdownToggled = !ThemeDropdownToggled;
+    }
+
+    async void ChangeTheme(string theme)
+    {
+        string themePath = $"css/kendo-themes/{theme}/dist/all.css".ToLower();
         await JsRuntime.InvokeAsync<string>("theme.changeCss", themePath);
+        SelectedTheme = theme;
+        ToggleThemeDropdown();
+        StateHasChanged();
     }
 }
