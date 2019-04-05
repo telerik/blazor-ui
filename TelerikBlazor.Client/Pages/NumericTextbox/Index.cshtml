@@ -1,55 +1,38 @@
 ﻿@page "/numerictextbox/index"
-@using Telerik.Blazor.Components.NumericTextBox
-@using TelerikBlazor.Shared
 
-<h4>General Number Format</h4>
+<h4>Int Value (@IntValue)</h4>
 
-<TelerikNumericTextBox Decimals="4" Max="5" Min="-5" Step="0.5m" Value="4.56789m"></TelerikNumericTextBox>
+<TelerikNumericTextBox bind-Value=@IntValue></TelerikNumericTextBox>
 
-<h4>Currency Format</h4>
+<h4>Double Value (@DoubleValue)</h4>
 
-<TelerikNumericTextBox Decimals="2" Format="C" Max="5" Min="-5" Step="0.5m" Value="4.56789m"></TelerikNumericTextBox>
+<TelerikNumericTextBox bind-Value=@DoubleValue></TelerikNumericTextBox>
 
-<h4>Percentage</h4>
+<h4>Decimal Value (@DecimalValue)</h4>
 
-<TelerikNumericTextBox Decimals="4" Format="P" Max="5" Min="-5" Step="0.5m" Value="4.56789m"></TelerikNumericTextBox>
+<TelerikNumericTextBox bind-Value=@DecimalValue></TelerikNumericTextBox>
 
-<h4>Custom Format</h4>
+<h4>Step (@DecimalStepValue)</h4>
 
-<TelerikNumericTextBox Decimals="2" Format="#.00 kg" Max="5" Min="-5" Step="0.5m" Value="4.56789m"></TelerikNumericTextBox>
+<TelerikNumericTextBox bind-Value=@DecimalStepValue Step="0.01m"></TelerikNumericTextBox>
+
+<h4>Min and Max </h4>
+
+<TelerikNumericTextBox bind-Value=@DecimalMinMax Min="10m" Max="20m"></TelerikNumericTextBox>
 
 <h4>Arrow Display</h4>
 <TelerikNumericTextBox Arrows=@hasArrows Decimals="4" Step="0.5m" Value="4.56789m"></TelerikNumericTextBox>
 <label for="toggleArrows">Toggle Arrows &nbsp;</label><input id="toggleArrows" type="checkbox" bind=@hasArrows />
 
-<h4>Validation</h4>
-
-<EditForm Model="@person">
-    <DataAnnotationsValidator />
-
-    <TelerikNumericTextBox bind-Value="@person.GraduateGrade"></TelerikNumericTextBox>
-    <ValidationMessage For="@(() => person.GraduateGrade)"></ValidationMessage>
-
-    <button class="k-button" type="submit">Submit</button>
-</EditForm>
-
-
 
 @functions {
     private bool hasArrows;
-    Person person = new Person()
-    {
-        HireDate = new DateTime(2017, 10, 10),
-        Name = "John",
-        AgeInYears = 20,
-        EmployeeId = 1,
-        MeetingDate = new DateTime(2019, 03, 03)
-    };
 
-    protected void ValueChanged(UIChangeEventArgs args)
-    {
-
-    }
+    private int IntValue = 12;
+    private double DoubleValue = 42.1;
+    private decimal DecimalValue = 12.3m;
+    private decimal DecimalStepValue = 12.3m;
+    private decimal DecimalMinMax = 12m;
 }
 
 
