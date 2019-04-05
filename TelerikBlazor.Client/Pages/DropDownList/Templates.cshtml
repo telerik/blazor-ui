@@ -2,7 +2,7 @@
 
 @using TelerikBlazor.Shared
 
-<TelerikDropDownList TItem="Product" T="string" Height="40" Data="@DropDownListData" ValueField="ProductId" TextField="ProductName">
+<TelerikDropDownList TItem="Product" T="int" Height="40" Data="@DropDownListData" ValueField="ProductId" TextField="ProductName">
     <Header>
         <div class="k-group-header" style="margin-top: 30px">Header</div>
     </Header>
@@ -10,7 +10,7 @@
         <div class="k-footer" style="margin-top: 30px">Footer</div>
     </Footer>
     <ValueTemplate>
-        <strong>@((context as Product).ProductName)</strong>
+        Selection: <strong>@((context as Product).ProductName)</strong>
     </ValueTemplate>
     <ItemTemplate>
         <strong>@((context as Product).ProductName) - @(String.Format("{0:C2}", (context as Product).UnitPrice))</strong>
