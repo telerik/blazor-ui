@@ -1,4 +1,5 @@
 ﻿@page "/calendar/selection"
+@using Telerik.Blazor.Components.Calendar
 
 The user will not be able to select the first and second of April 2019.
 
@@ -15,7 +16,7 @@ The user will not be able to select the first and second of April 2019.
 
 <h4>Multiple Selection</h4>
 
-<TelerikCalendar SelectionMode="@CalendarSelectionMode.Multiple" ValueChanged="@MultipleSelectionChangeHandler" DisabledDates="@DisabledDates" Date="@startDate">
+<TelerikCalendar SelectionMode="@CalendarSelectionMode.Multiple" ValueChanged="@MultipleSelectionChangeHandler" DisabledDates="@DisabledDates" Date="@startDate" ref="@multipleSelectionCalendar">
 </TelerikCalendar>
 <br />
 @if (chosenDates != null && chosenDates.Count > 0)
@@ -29,28 +30,29 @@ The user will not be able to select the first and second of April 2019.
 }
 
 @functions {
-	private DateTime startDate = new DateTime(2019, 4, 1);//set the initial date of the calendar
+    private DateTime startDate = new DateTime(2019, 4, 1);//set the initial date of the calendar
 
-	//set dates the user can't select
-	private List<DateTime> DisabledDates = new List<DateTime>() { new DateTime(2019, 4, 1), new DateTime(2019, 4, 2) };
+    //set dates the user can't select
+    private List<DateTime> DisabledDates = new List<DateTime>() { new DateTime(2019, 4, 1), new DateTime(2019, 4, 2) };
 
-	//fields to store and render the user selection
-	private DateTime? selectedDate { get; set; } = null;
-	private List<DateTime> chosenDates { get; set; }
+    //fields to store and render the user selection
+    private DateTime? selectedDate { get; set; } = null;
+    private List<DateTime> chosenDates { get; set; }
 
-	private void SingleSelectionChangeHandler(object newValue)
-	{
-		//with single selection, the argument is a single DateTime object
-		selectedDate = (DateTime)newValue;
+    private TelerikCalendar multipleSelectionCalendar;
 
-		StateHasChanged();
-	}
+    private void SingleSelectionChangeHandler(DateTime newValue)
+    {
+        //with single selection, the argument is a single DateTime object
+        selectedDate = (DateTime)newValue;
 
-	private void MultipleSelectionChangeHandler(object newValue)
-	{
-		//with multiple selection, the argument is a list of DateTime objects
-		chosenDates = (List<DateTime>)newValue;
+        StateHasChanged();
+    }
 
-		StateHasChanged();
-	}
+    private void MultipleSelectionChangeHandler()
+    {
+        chosenDates = multipleSelectionCalendar.SelectedDates;
+
+        StateHasChanged();
+    }
 }

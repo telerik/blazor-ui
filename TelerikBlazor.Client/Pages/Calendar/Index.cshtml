@@ -12,7 +12,7 @@ The selected date is: @selectedDate
     private DateTime max = new DateTime(2025, 12, 31);
     private string selectedDate = "";
 
-    private void MyValueChangeHandler(object newValue)
+    private void MyValueChangeHandler(DateTime newValue)
     {
         selectedDate = ((DateTime)newValue).ToString();
         StateHasChanged();
