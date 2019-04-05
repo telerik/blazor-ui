@@ -2,14 +2,17 @@
 
 @using TelerikBlazor.Shared
 
-<EditForm Model="@person">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+    <EditForm Model="@person">
+        <DataAnnotationsValidator />
 
-    <TelerikDateInput bind-Value="@person.HireDate" Format="MM/dd/yyyy"></TelerikDateInput>
+        <strong> Hire Date</strong>
+        <TelerikDateInput bind-Value="@person.HireDate" Format="MM/dd/yyyy"></TelerikDateInput>
+        <ValidationMessage For="@(() => person.HireDate)"></ValidationMessage>
 
-    <TelerikDateInput bind-Value="@person.MeetingDate" Format="MM/dd/yyyy HH:mm:ss"></TelerikDateInput>
-</EditForm>
+        <strong> Interview Meeting Date</strong>
+        <TelerikDateInput bind-Value="@person.MeetingDate" Format="MM/dd/yyyy HH:mm:ss"></TelerikDateInput>
+        <ValidationMessage For="@(() => person.HireDate)"></ValidationMessage>
+    </EditForm>
 
 
 @functions  {

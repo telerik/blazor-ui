@@ -2,7 +2,9 @@
 
 @using TelerikBlazor.Shared
 
-<TelerikDropDownList TItem="Product" T="string" Height="40" PopupHeight="170" Data="@DropDownListData" DefaultItem="@DefaultItem" ValueField="ProductId" TextField="ProductName"></TelerikDropDownList>
+<span>Select a product:</span>
+<TelerikDropDownList TItem="Product" T="int" Height="40" PopupHeight="170" Data="@DropDownListData" DefaultItem="@DefaultItem" ValueField="ProductId" TextField="ProductName">
+</TelerikDropDownList>
 
 @functions  {
     public IEnumerable<Product> DropDownListData { get; set; }

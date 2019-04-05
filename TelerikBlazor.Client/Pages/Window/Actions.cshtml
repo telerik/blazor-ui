@@ -5,11 +5,14 @@
 
 <span>Window support predefined actions - Maximize Minimize and Close - as well as custom ones.</span>
 
-<TelerikWindow ref="@Wnd" Size="@Size.Small" Centered="true" Visible="true">
+<TelerikWindow ref="@Wnd" Size="@Size.Small" Centered="true" Visible="true" Width="400">
     <TelerikWindowTitle>
         <strong>Status</strong>
     </TelerikWindowTitle>
     <TelerikWindowActions>
+        <TelerikWindowAction Name="Minimize"></TelerikWindowAction>
+        <TelerikWindowAction Name="Maximize"></TelerikWindowAction>
+        <TelerikWindowAction Name="Close"></TelerikWindowAction>
         <TelerikWindowAction Name="Custom" Icon="@IconName" OnClick="CustomAction"></TelerikWindowAction>
     </TelerikWindowActions>
     <TelerikWindowContent>

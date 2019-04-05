@@ -1,5 +1,6 @@
 ﻿@page "/numerictextbox/index"
 @using Telerik.Blazor.Components.NumericTextBox
+@using TelerikBlazor.Shared
 
 <h4>General Number Format</h4>
 
@@ -21,9 +22,34 @@
 <TelerikNumericTextBox Arrows=@hasArrows Decimals="4" Step="0.5m" Value="4.56789m"></TelerikNumericTextBox>
 <label for="toggleArrows">Toggle Arrows &nbsp;</label><input id="toggleArrows" type="checkbox" bind=@hasArrows />
 
+<h4>Validation</h4>
+
+<EditForm Model="@person">
+    <DataAnnotationsValidator />
+
+    <TelerikNumericTextBox bind-Value="@person.GraduateGrade"></TelerikNumericTextBox>
+    <ValidationMessage For="@(() => person.GraduateGrade)"></ValidationMessage>
+
+    <button class="k-button" type="submit">Submit</button>
+</EditForm>
+
+
 
 @functions {
     private bool hasArrows;
+    Person person = new Person()
+    {
+        HireDate = new DateTime(2017, 10, 10),
+        Name = "John",
+        AgeInYears = 20,
+        EmployeeId = 1,
+        MeetingDate = new DateTime(2019, 03, 03)
+    };
+
+    protected void ValueChanged(UIChangeEventArgs args)
+    {
+
+    }
 }
 
 

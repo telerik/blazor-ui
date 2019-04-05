@@ -4,9 +4,9 @@
 
 <EditForm Model="@employee">
     <DataAnnotationsValidator />
-    <ValidationSummary />
     <TelerikDropDownList bind-Value="@employee.EmployeeId" Height="40" DefaultItem="@DefaultItem" Data="@DropDownListData" ValueField="EmployeeId" TextField="Name">
     </TelerikDropDownList>
+    <ValidationMessage For="@(() => employee.EmployeeId)"></ValidationMessage>
 </EditForm>
 
 
