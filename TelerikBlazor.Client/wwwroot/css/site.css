@@ -20,18 +20,17 @@ app {
 }
 
 .top-row {
-    height: 3.5rem;
+    min-height: 3.5rem;
     display: flex;
-    align-items: center;
+    background-color: #f3f4f5;
+    box-shadow: 0 0 6px #f3f4f5;
+    flex-direction: column;
 }
 
 .main {
-    flex: 1;
-}
-
-.main .top-row {
-    background-color: #f3f4f5;
-    box-shadow: 0 0 6px #f3f4f5;
+    flex: 1 1 auto;
+    overflow-x: auto;
+    overflow-y: auto;
 }
 
 .main h4 {
@@ -71,7 +70,6 @@ app {
 .component {
     font-size: 1rem;
     cursor: pointer;
-    text-transform: uppercase;
 }
 
 .component .k-icon {     
@@ -260,9 +258,30 @@ div .k-button {
     color: #9098a5
 }
 
+.box-content {
+    max-width: 400px;
+    box-shadow: 0 1px 2px 1px rgba(0,0,0,.08), 0 3px 6px rgba(0,0,0,.08);
+    border: 1px solid rgba(20,53,80,0.14);
+    padding: 3em;
+}
+
+.box-content h4 {
+    font-size: 12px;
+    line-height: 1em;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-bottom: 0.5em;
+}
+
+.box-content > h4:first-child {
+    padding-top: 0;
+}
+
+.box-content p {
+    margin-bottom: 0;
+}
 
 /* Code example prettyprint styles */
-
 .prettyprint {
     font-size: 12px;
 }
@@ -316,27 +335,33 @@ pre .dec {
 
 
 @media (max-width: 767.98px) {
-.main .top-row {
+.top-row {
         display: none;
     }
 }
 
 @media (min-width: 768px) {
-    app {
+
+    .top-row {
+        position: sticky;
+        top: 0;
+        z-index: 99999;
+        flex-direction: row;
+    }
+
+    .main-content {
+        display: flex;
         flex-direction: row;
     }
 
     .sidebar {
         width: 250px;
-        height: 100vh;
-        position: sticky;
-        top: 0;
+        flex: 0 0 auto;
+        min-height: 100vh;
     }
 
-    .main .top-row {
-        position: sticky;
-        top: 0;
-        z-index: 1;
+    .logo {
+        width: 250px;
     }
 
     .main > div {

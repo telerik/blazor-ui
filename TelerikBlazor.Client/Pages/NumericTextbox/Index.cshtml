@@ -1,28 +1,30 @@
 ﻿@page "/numerictextbox/index"
 
-<h4>Int Value (@IntValue)</h4>
+<div class="box-content">
+    <h4>Int Value (@IntValue)</h4>
 
-<TelerikNumericTextBox bind-Value=@IntValue></TelerikNumericTextBox>
+    <TelerikNumericTextBox bind-Value=@IntValue></TelerikNumericTextBox>
 
-<h4>Double Value (@DoubleValue)</h4>
+    <h4>Double Value (@DoubleValue)</h4>
 
-<TelerikNumericTextBox bind-Value=@DoubleValue></TelerikNumericTextBox>
+    <TelerikNumericTextBox bind-Value=@DoubleValue></TelerikNumericTextBox>
 
-<h4>Decimal Value (@DecimalValue)</h4>
+    <h4>Decimal Value (@DecimalValue)</h4>
 
-<TelerikNumericTextBox bind-Value=@DecimalValue></TelerikNumericTextBox>
+    <TelerikNumericTextBox bind-Value=@DecimalValue></TelerikNumericTextBox>
 
-<h4>Step (@DecimalStepValue)</h4>
+    <h4>Step (@DecimalStepValue)</h4>
 
-<TelerikNumericTextBox bind-Value=@DecimalStepValue Step="0.01m"></TelerikNumericTextBox>
+    <TelerikNumericTextBox bind-Value=@DecimalStepValue Step="0.01m"></TelerikNumericTextBox>
 
-<h4>Min and Max </h4>
+    <h4>Min and Max </h4>
 
-<TelerikNumericTextBox bind-Value=@DecimalMinMax Min="10m" Max="20m"></TelerikNumericTextBox>
+    <TelerikNumericTextBox bind-Value=@DecimalMinMax Min="10m" Max="20m"></TelerikNumericTextBox>
 
-<h4>Arrow Display</h4>
-<TelerikNumericTextBox Arrows=@hasArrows Decimals="4" Step="0.5m" Value="4.56789m"></TelerikNumericTextBox>
-<label for="toggleArrows">Toggle Arrows &nbsp;</label><input id="toggleArrows" type="checkbox" bind=@hasArrows />
+    <h4>Arrow Display</h4>
+    <TelerikNumericTextBox Arrows=@hasArrows Decimals="4" Step="0.5m" Value="4.56789m"></TelerikNumericTextBox>
+    <label for="toggleArrows">Toggle Arrows &nbsp;</label><input id="toggleArrows" type="checkbox" bind=@hasArrows />
+</div>
 
 
 @functions {

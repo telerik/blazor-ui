@@ -9,8 +9,15 @@
     <option value=@Size.Large>Large</option>
 </select>
 
-<input type="number" bind="@Width" onchange="@ResetSize" placeholder="Set Width" />
-<input type="number" bind="@Height" onchange="@ResetSize" placeholder="Set Height" />
+<div class="row mb-3">
+    <div class="col col-xs-6 col-sm-1">
+        <input type="number" bind="@Width" onchange="@ResetSize" placeholder="Set Width" class="form-control" />
+    </div>
+    <div class="col col-xs-6 col-sm-1">
+        <input type="number" bind="@Height" onchange="@ResetSize" placeholder="Set Height" class="form-control" />
+    </div>
+</div>
+
 
 <TelerikWindow Width="@Width" Height="@Height" Size="@PredefinedSize" Centered="true" Visible="true">
     <TelerikWindowTitle>
@@ -62,7 +69,7 @@
         }
         StateHasChanged();
     }
-    
+
     public void ResetSize(UIChangeEventArgs e)
     {
         PredefinedSize = null;
@@ -71,8 +78,9 @@
 }
 
 <style type="text/css">
+
     .example-wrapper {
-        min-height: 500px;
+        min-height: 700px;
         position: relative;
     }
 </style>

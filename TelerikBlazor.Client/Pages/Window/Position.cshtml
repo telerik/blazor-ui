@@ -4,12 +4,20 @@
 <span>Window Position could be set via <strong>Centered</strong> attribute, or via <strong>Top</strong> and <strong>Left</strong></span>
 
 <div>
-    <label>
-        Centered:
-        <input type="checkbox" onchange="@SetCentered" />
-    </label>
-    <input type="number" bind="@Top" placeholder="Set Top" />
-    <input type="number" bind="@Left" placeholder="Set Left" />
+    <div class="form-check mt-3">
+        <input class="form-check-input" type="checkbox" onchange="@SetCentered" />
+        <label class="form-check-label" for="defaultCheck1">
+            Centered
+        </label>
+    </div>
+    <div class="row my-3">
+        <div class="col col-sm-1">
+            <input type="number" bind="@Top" placeholder="Set Top" class="form-control" />
+        </div>
+        <div class="col col-sm-1">
+            <input type="number" bind="@Left" placeholder="Set Left" class="form-control" />
+        </div>
+    </div>
 </div>
 
 <TelerikWindow Size="@Size.Small" Centered="@Centered" Top="@Top" Left="@Left" Visible="true">
@@ -42,7 +50,7 @@
     public bool Centered { get; set; }
     public int? Top { get; set; }
     public int? Left { get; set; }
-    public void SetCentered (UIChangeEventArgs e)
+    public void SetCentered(UIChangeEventArgs e)
     {
         var isCentered = bool.Parse(e.Value.ToString());
         Top = Left = null;

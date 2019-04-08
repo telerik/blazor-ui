@@ -3,43 +3,51 @@
 @using Microsoft.JSInterop;
 @inject IJSRuntime JsRuntime;
 
-<div class="sidebar">
-    <NavMenu />
-</div>
-
-<div class="main">
-    <div class="top-row d-flex flex-row-reverse">
-        <div>
-            <NavLink class="btn-accent nav-link nav-btn" href="#" Match=NavLinkMatch.All>Try Now</NavLink>
-        </div>
-        <div>
-            <ThemeManager />
-        </div>
-
+<div class="top-row d-flex justify-content-between">
+    <div class="navbar logo">
+        <NavLink href="/">
+            <img alt="Telerik Blazor Logo" class="w-100" src="css/logos/logo-dark.svg" />
+        </NavLink>
     </div>
 
-    <div class="content px-4">
-        <div class="example-wrapper py-4">
-            @Body
-        </div>
+    <div class="d-flex flex-row-reverse">    
+        <NavLink class="btn-accent nav-link nav-btn" href="#" Match=NavLinkMatch.All>Try Now</NavLink>
+        <ThemeManager />
+    </div>
+      
+</div>
 
-        @if (ShowCodeExample)
-        {
-            <div class="code-sample-wrapper py-5">
-                <h2>Source </h2>
-                <div class="code-sample mt-4">
 
-                    <ul class="code-sample-tabs p-2">
-                        <li><a class="nav-link active" href="#">@string.Format("{0}.cshtml", ViewName.Replace("-", "_").Split(new char[] {'/'}).Last())</a></li>
-                    </ul>
+<div class="main-content">
+    
+    <div class="sidebar">
+        <NavMenu />
+    </div>
 
-                    <div id="codecontainer" class="code-sample-content p-4"></div>
+    <div class="main">
 
-                </div>
+        <div class="content px-4">
+            <div class="example-wrapper py-4">
+                @Body
             </div>
-        }
-    </div> 
 
+            @if (ShowCodeExample)
+            {
+                <div class="code-sample-wrapper py-5">
+                    <h2>Source </h2>
+                    <div class="code-sample mt-4">
+
+                        <ul class="code-sample-tabs p-2">
+                            <li><a class="nav-link active" href="#">@string.Format("{0}.cshtml", ViewName.Replace("-", "_").Split(new char[] { '/' }).Last())</a></li>
+                        </ul>
+
+                        <div id="codecontainer" class="code-sample-content p-4"></div>
+
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
 </div>
 @functions {
 
@@ -61,13 +69,14 @@
     {
         if (absolutePath.Contains("//") && absolutePath != UriHelper.GetBaseUri())
         {
-            string[] parts = absolutePath.Split(new char[] {'/'});
+            string[] parts = absolutePath.Split(new char[] { '/' });
             ViewName = string.Format("{0}/{1}", parts[parts.Length - 2], parts[parts.Length - 1]);
             await JsRuntime.InvokeAsync<string>("codeManager.renderCode", string.Format("/{0}", ViewName));
 
             ShowCodeExample = true;
             StateHasChanged();
-        } else
+        }
+        else
         {
             ShowCodeExample = false;
             StateHasChanged();

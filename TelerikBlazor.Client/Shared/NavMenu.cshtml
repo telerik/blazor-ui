@@ -1,11 +1,5 @@
 ﻿@inject Microsoft.AspNetCore.Components.Services.IUriHelper UriHelper
 
-<div class="top-row navbar">
-    <NavLink href="/">
-        <img alt="Telerik Blazor Logo" class="w-100" src="css/logos/logo-dark.svg" />
-    </NavLink>
-</div>
-
 <div>
     <ul class="nav flex-column">
         <li class="nav-item">
@@ -157,6 +151,7 @@
                 foreach (var item in WindowMenuItems)
                 {
                     <NavLink class="nav-link" href="@($"window/{item.ToLower().Replace(" ","")}")">
+                        @item
                     </NavLink>
                 }
             }

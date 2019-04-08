@@ -1,36 +1,37 @@
 ﻿@page "/button/index"
 
-<h4>Basic Button</h4>
+<div class="box-content">
+    <h4>Basic Button</h4>
 
-<TelerikButton OnClick="@MyClickHandler">Click me!</TelerikButton>
-@thankYoString
+    <TelerikButton OnClick="@MyClickHandler">Click me!</TelerikButton>
+    @thankYoString
 
-@functions {
-	string thankYoString;
+    @functions {
+        string thankYoString;
 
-	protected void MyClickHandler()
-	{
-		thankYoString = string.Format("Thank you for clicking me at {0:HH:mm:ss} on {0:dd MMM yy}. Now you can write front-end with C#, yay!", DateTime.Now);
-		StateHasChanged();
-	}
-}
+        protected void MyClickHandler()
+        {
+            thankYoString = string.Format("Thank you for clicking me at {0:HH:mm:ss} on {0:dd MMM yy}. Now you can write front-end with C#, yay!", DateTime.Now);
+            StateHasChanged();
+        }
+    }
 
-<h4>Styled Buttons</h4>
+    <h4>Styled Buttons</h4>
 
-<TelerikButton Primary="true">Primary Button</TelerikButton>
+    <TelerikButton Primary="true">Primary Button</TelerikButton>
 
-<TelerikButton Class="RedText">Red Text Button</TelerikButton>
+    <TelerikButton Class="RedText">Red Text Button</TelerikButton>
 
-<h4>Buttons with icons</h4>
+    <h4>Buttons with icons</h4>
 
-<TelerikButton SpriteClass="k-icon netherlandsFlag">Sprite</TelerikButton>
-<TelerikButton Icon="filter">Icon</TelerikButton>
-<TelerikButton ImageUrl="https://demos.telerik.com/kendo-ui/content/shared/icons/sports/snowboarding.png">Image Url</TelerikButton>
+    <TelerikButton SpriteClass="k-icon netherlandsFlag">Sprite</TelerikButton>
+    <TelerikButton Icon="filter">Icon</TelerikButton>
+    <TelerikButton ImageUrl="https://demos.telerik.com/kendo-ui/content/shared/icons/sports/snowboarding.png">Image Url</TelerikButton>
 
-<h4>Disabled Button</h4>
+    <h4>Disabled Button</h4>
 
-<TelerikButton Enabled="false">Disabled Button</TelerikButton>
-
+    <TelerikButton Enabled="false">Disabled Button</TelerikButton>
+</div>
 
 <style>
 	.RedText,

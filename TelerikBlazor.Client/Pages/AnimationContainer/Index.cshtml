@@ -1,7 +1,7 @@
 ﻿@page "/animationcontainer/index"
 
-<div>
-    <select bind="@AnimType">
+<div class="row">
+    <select class="form-control col-xs-6 col-sm-1" bind="@AnimType">
         <option value="@AnimationType.Fade">Fade</option>
         <option value="@AnimationType.SlideDown">SlideDown</option>
         <option value="@AnimationType.SlideIn">SlideIn</option>
@@ -15,7 +15,9 @@
         <option value="@AnimationType.ZoomOut">ZoomOut</option>
     </select>
 
-    <TelerikButton OnClick="@ToggleAnimation">Show/Hide Animation Container</TelerikButton>
+    <div class="col-xs-6 col-sm-1">
+        <TelerikButton OnClick="@ToggleAnimation">Show/Hide Animation Container</TelerikButton>
+    </div>
 </div>
 
 <div style="position:absolute;">
@@ -34,3 +36,9 @@
         StateHasChanged();
     }
 }
+
+<style type="text/css">
+    .example-wrapper {
+        min-height: 300px;
+    }
+</style>
