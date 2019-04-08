@@ -61,18 +61,30 @@
         </li>
 
         <li class="nav-item">
-            <div class="component @((TabstripCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("tabstrip"))">
-                <span class="@TabStripToggleIcon" aria-hidden="true"></span>
-                TabStrip
+            <div class="component @((DateInputCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("dateinput"))">
+                <span class="@DateInputToggleIcon" aria-hidden="true"></span>
+                DateInput
             </div>
-            @if (!@TabstripCollapsed)
+            @if (!DateInputCollapsed)
             {
-                <NavLink class="nav-link" href="tabstrip/index">
+                <NavLink class="nav-link" href="dateinput/index">
                     Index
                 </NavLink>
-                <NavLink class="nav-link" href="tabstrip/tabposition">
-                    Tab Position
-                </NavLink>
+            }
+        </li>
+        <li class="nav-item">
+            <div class="component @((DropDownListCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("dropdownlist"))">
+                <span class="@DropDownListToggleIcon" aria-hidden="true"></span>
+                DropDownList
+            </div>
+            @if (!DropDownListCollapsed)
+            {
+                foreach (var item in DropDownListMenuItems)
+                {
+                    <NavLink class="nav-link" href="@($"dropdownlist/{item.ToLower().Replace(" ","")}")">
+                        @item
+                    </NavLink>
+                }
             }
         </li>
         <li class="nav-item">
@@ -106,6 +118,21 @@
             }
         </li>
         <li class="nav-item">
+            <div class="component @((TabstripCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("tabstrip"))">
+                <span class="@TabStripToggleIcon" aria-hidden="true"></span>
+                TabStrip
+            </div>
+            @if (!@TabstripCollapsed)
+            {
+                <NavLink class="nav-link" href="tabstrip/index">
+                    Index
+                </NavLink>
+                <NavLink class="nav-link" href="tabstrip/tabposition">
+                    Tab Position
+                </NavLink>
+            }
+        </li>
+        <li class="nav-item">
             <div class="component @((TextBoxCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("textbox"))">
                 <span class="@TextBoxToggleIcon" aria-hidden="true"></span>
                 TextBox
@@ -121,28 +148,15 @@
             }
         </li>
         <li class="nav-item">
-            <div class="component @((DateInputCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("dateinput"))">
-                <span class="@DateInputToggleIcon" aria-hidden="true"></span>
-                DateInput
+            <div class="component @((WindowCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("window"))">
+                <span class="@WindowToggleIcon" aria-hidden="true"></span>
+                Window
             </div>
-            @if (!DateInputCollapsed)
+            @if (!@WindowCollapsed)
             {
-                <NavLink class="nav-link" href="dateinput/index">
-                    Index
-                </NavLink>
-            }
-        </li>
-        <li class="nav-item">
-            <div class="component @((DropDownListCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("dropdownlist"))">
-                <span class="@DropDownListToggleIcon" aria-hidden="true"></span>
-                DropDownList
-            </div>
-            @if (!DropDownListCollapsed)
-            {
-                foreach (var item in DropDownListMenuItems)
+                foreach (var item in WindowMenuItems)
                 {
-                    <NavLink class="nav-link" href="@($"dropdownlist/{item.ToLower().Replace(" ","-")}")">
-                        @item
+                    <NavLink class="nav-link" href="@($"window/{item.ToLower().Replace(" ","")}")">
                     </NavLink>
                 }
             }
@@ -157,21 +171,6 @@
                 foreach (var item in AnimationMenuItems)
                 {
                     <NavLink class="nav-link" href="@($"animationcontainer/{item.ToLower().Replace(" ","-")}")">
-                        @item
-                    </NavLink>
-                }
-            }
-        </li>
-        <li class="nav-item">
-            <div class="component @((WindowCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("window"))">
-                <span class="@WindowToggleIcon" aria-hidden="true"></span>
-                Window
-            </div>
-            @if (!@WindowCollapsed)
-            {
-                foreach (var item in WindowMenuItems)
-                {
-                    <NavLink class="nav-link" href="@($"window/{item.ToLower().Replace(" ","-")}")">
                         @item
                     </NavLink>
                 }
