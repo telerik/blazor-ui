@@ -67,7 +67,7 @@
 
     private async void InvokeCodeRender(string absolutePath)
     {
-        if (absolutePath.Contains("//") && absolutePath != UriHelper.GetBaseUri())
+        if (absolutePath.TrimEnd('/') != UriHelper.GetBaseUri().TrimEnd('/'))
         {
             string[] parts = absolutePath.Split(new char[] { '/' });
             ViewName = string.Format("{0}/{1}", parts[parts.Length - 2], parts[parts.Length - 1]);
