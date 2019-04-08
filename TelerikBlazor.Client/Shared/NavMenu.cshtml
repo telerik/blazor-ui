@@ -68,7 +68,7 @@
             {
                 foreach (var item in GridMenuItems)
                 {
-                    <NavLink class="nav-link" href="@($"grid/{item.ToLower().Replace(" ","")}")">
+                    <NavLink class="nav-link" href="@($"grid/{item.ToLower().Replace(" ","-")}")">
                         @item
                     </NavLink>
                 }
@@ -83,7 +83,7 @@
             {
                 foreach (var item in NumerictextboxMenuItems)
                 {
-                    <NavLink class="nav-link" href="@($"numerictextbox/{item.ToLower().Replace(" ","")}")">
+                    <NavLink class="nav-link" href="@($"numerictextbox/{item.ToLower().Replace(" ","-")}")">
                         @item
                     </NavLink>
                 }
@@ -98,7 +98,7 @@
             {
                 foreach (var item in TextboxMenuItems)
                 {
-                    <NavLink class="nav-link" href="@($"textbox/{item.ToLower().Replace(" ","")}")">
+                    <NavLink class="nav-link" href="@($"textbox/{item.ToLower().Replace(" ","-")}")">
                         @item
                     </NavLink>
                 }
@@ -125,7 +125,7 @@
             {
                 foreach (var item in DropDownListMenuItems)
                 {
-                    <NavLink class="nav-link" href="@($"dropdownlist/{item.ToLower().Replace(" ","")}")">
+                    <NavLink class="nav-link" href="@($"dropdownlist/{item.ToLower().Replace(" ","-")}")">
                         @item
                     </NavLink>
                 }
@@ -140,7 +140,7 @@
             {
                 foreach (var item in AnimationMenuItems)
                 {
-                    <NavLink class="nav-link" href="@($"animation/{item.ToLower().Replace(" ","")}")">
+                    <NavLink class="nav-link" href="@($"animationcontainer/{item.ToLower().Replace(" ","-")}")">
                         @item
                     </NavLink>
                 }
@@ -155,7 +155,7 @@
             {
                 foreach (var item in WindowMenuItems)
                 {
-                    <NavLink class="nav-link" href="@($"window/{item.ToLower().Replace(" ","")}")">
+                    <NavLink class="nav-link" href="@($"window/{item.ToLower().Replace(" ","-")}")">
                         @item
                     </NavLink>
                 }
@@ -186,7 +186,7 @@
     public string DateInputToggleIcon = Collapsed;
     public string TextBoxToggleIcon = Collapsed;
     public string AnimationToggleIcon = Collapsed;
-    public string[] GridMenuItems = { "Index", "Sorting", "Templates", "Columns", "Paging", "Incell Editing", "Inline Editing", "Popup Editing", "Custom Form Edit", "Custom Editor" };
+    public string[] GridMenuItems = { "Index", "Sorting", "Templates", "Columns", "Paging", "Editing Incell", "Editing Inline", "Editing Popup", "Editing Custom Form", "Custom Editor" };
     public string[] WindowMenuItems = { "Index", "Dimensions", "Actions", "Position", "Modal" };
     public string[] CalendarMenuItems = { "Index", "Selection" };
     public string[] NumerictextboxMenuItems = { "Index", "Formats", "Validation" };
