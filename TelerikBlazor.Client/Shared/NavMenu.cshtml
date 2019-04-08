@@ -45,6 +45,22 @@
         </li>
 
         <li class="nav-item">
+            <div class="component @((ChartCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("chart"))">
+                <span class="@ChartToggleIcon" aria-hidden="true"></span>
+                Chart
+            </div>
+            @if (!@ChartCollapsed)
+            {
+                foreach (var item in ChartMenuItems)
+                {
+                    <NavLink class="nav-link" href="@($"chart/{item.ToLower().Replace(" ","-")}")">
+                        @item
+                    </NavLink>
+                }
+            }
+        </li>
+
+        <li class="nav-item">
             <div class="component @((TabstripCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("tabstrip"))">
                 <span class="@TabStripToggleIcon" aria-hidden="true"></span>
                 TabStrip
@@ -170,6 +186,7 @@
     public bool TabstripCollapsed = true;
     public bool ButtonCollapsed = true;
     public bool CalendarCollapsed = true;
+    public bool ChartCollapsed = true;
     public bool WindowCollapsed = true;
     public bool NumerictextboxCollapsed = true;
     public bool AnimationCollapsed = true;
@@ -178,6 +195,7 @@
     public bool TextBoxCollapsed = true;
     public string ButtonToggleIcon = Collapsed;
     public string CalendarToggleIcon = Collapsed;
+    public string ChartToggleIcon = Collapsed;
     public string TabStripToggleIcon = Collapsed;
     public string GridToggleIcon = Collapsed;
     public string WindowToggleIcon = Collapsed;
@@ -189,6 +207,7 @@
     public string[] GridMenuItems = { "Index", "Sorting", "Templates", "Columns", "Paging", "Editing Incell", "Editing Inline", "Editing Popup", "Editing Custom Form", "Custom Editor" };
     public string[] WindowMenuItems = { "Index", "Dimensions", "Actions", "Position", "Modal" };
     public string[] CalendarMenuItems = { "Index", "Selection" };
+    public string[] ChartMenuItems = { "Index", "Column chart", "Pie chart", "Donut chart", "Area chart", "Line chart" };
     public string[] NumerictextboxMenuItems = { "Index", "Formats", "Validation" };
     public string[] TextboxMenuItems = { "Index", "Validation" };
     public string[] AnimationMenuItems = { "Index", "Tooltip", "Notification" };
@@ -224,6 +243,11 @@
         {
             CalendarCollapsed = !CalendarCollapsed;
             CalendarToggleIcon = CalendarCollapsed ? Collapsed : Expanded;
+        }
+        else if (component.Contains("chart"))
+        {
+            ChartCollapsed = !ChartCollapsed;
+            ChartToggleIcon = ChartCollapsed ? Collapsed : Expanded;
         }
         else if (component.Contains("window"))
         {
