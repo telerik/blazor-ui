@@ -2,7 +2,7 @@
 
 @using TelerikBlazor.Shared
 
-<TelerikDropDownList TItem="Product" T="int" Height="40" Data="@DropDownListData" ValueField="ProductId" TextField="ProductName">
+<TelerikDropDownList bind-Value=@SelectedValue Height="40" Data="@DropDownListData" ValueField="ProductId" TextField="ProductName">
     <Header>
         <div class="k-header" style="margin-top: 10px; padding-bottom: 10px">Header</div>
     </Header>
@@ -19,6 +19,7 @@
 
 @functions  {
     public IEnumerable<Product> DropDownListData { get; set; }
+    public int SelectedValue { get; set; } = 2;
 
     protected override void OnInit()
     {

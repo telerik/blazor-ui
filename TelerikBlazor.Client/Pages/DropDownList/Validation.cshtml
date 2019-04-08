@@ -1,29 +1,46 @@
 ﻿@page "/dropdownlist/validation"
 
 @using TelerikBlazor.Shared
+@using System.ComponentModel.DataAnnotations
 
-<EditForm Model="@employee">
+<EditForm Model="@employee" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
+    <ValidationSummary></ValidationSummary>
+
     <TelerikDropDownList bind-Value="@employee.EmployeeId" Height="40" DefaultItem="@DefaultItem" Data="@DropDownListData" ValueField="EmployeeId" TextField="Name">
     </TelerikDropDownList>
-    <ValidationMessage For="@(() => employee.EmployeeId)"></ValidationMessage>
+
+    <button class="k-button" type="submit">Submit</button>
 </EditForm>
+
+<p>
+    @SuccessMessage
+</p>
 
 
 @functions  {
-    public IEnumerable<Person> DropDownListData { get; set; }
-    public Person employee { get; set; } = new Person();
-    public Person DefaultItem { get; set; } = new Person()
+
+    class DropDownValidationModel
+    {
+        [Required(ErrorMessage = "Choose an employee")]
+        public int? EmployeeId { get; set; }
+
+        public string Name { get; set; }
+    }
+
+    IEnumerable<DropDownValidationModel> DropDownListData { get; set; }
+    DropDownValidationModel employee { get; set; } = new DropDownValidationModel();
+    DropDownValidationModel DefaultItem { get; set; } = new DropDownValidationModel()
     {
         Name = "Choose an employee"
     };
 
     protected override void OnInit()
     {
-        List<Person> employees = new List<Person>();
+        List<DropDownValidationModel> employees = new List<DropDownValidationModel>();
         for (int i = 0; i < 10; i++)
         {
-            employees.Add(new Person()
+            employees.Add(new DropDownValidationModel()
             {
                 Name = "John " + i.ToString(),
                 EmployeeId = i
@@ -32,5 +49,12 @@
 
         DropDownListData = employees.AsQueryable();
         base.OnInit();
+    }
+
+    string SuccessMessage = string.Empty;
+
+    void HandleValidSubmit()
+    {
+        SuccessMessage = "Form Submitted Successfully!";
     }
 }

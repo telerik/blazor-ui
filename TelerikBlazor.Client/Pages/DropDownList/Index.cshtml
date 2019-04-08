@@ -3,7 +3,7 @@
 @using TelerikBlazor.Shared
 
 <span>Select a product:</span>
-<TelerikDropDownList TItem="Product" T="int" Height="40" PopupHeight="170" Data="@DropDownListData" DefaultItem="@DefaultItem" ValueField="ProductId" TextField="ProductName">
+<TelerikDropDownList Data="@DropDownListData" bind-Value=@SelectedValue Height="40" PopupHeight="170" DefaultItem="@DefaultItem" ValueField="ProductId" TextField="ProductName">
 </TelerikDropDownList>
 
 @functions  {
@@ -13,6 +13,7 @@
         ProductId = 0,
         ProductName = "Select a product..."
     };
+    public int SelectedValue { get; set; } = 2;
 
     protected override void OnInit()
     {
