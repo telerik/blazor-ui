@@ -30,7 +30,7 @@
                 <div class="code-sample mt-4">
 
                     <ul class="code-sample-tabs p-2">
-                        <li><a class="nav-link active" href="#">Index.cshtml</a></li>
+                        <li><a class="nav-link active" href="#">@string.Format("{0}.cshtml", ViewName.Replace("-", "_").Split(new char[] {'/'}).Last())</a></li>
                     </ul>
 
                     <div id="codecontainer" class="code-sample-content p-4"></div>
@@ -44,6 +44,7 @@
 @functions {
 
     public bool ShowCodeExample = false;
+    public string ViewName = "";
 
     protected override void OnInit()
     {
@@ -61,7 +62,8 @@
         if (absolutePath.Contains("//") && absolutePath != UriHelper.GetBaseUri())
         {
             string[] parts = absolutePath.Split(new char[] {'/'});
-            await JsRuntime.InvokeAsync<string>("codeManager.renderCode", string.Format("/{0}/{1}", parts[parts.Length-2], parts[parts.Length-1]));
+            ViewName = string.Format("{0}/{1}", parts[parts.Length - 2], parts[parts.Length - 1]);
+            await JsRuntime.InvokeAsync<string>("codeManager.renderCode", string.Format("/{0}", ViewName));
 
             ShowCodeExample = true;
             StateHasChanged();
