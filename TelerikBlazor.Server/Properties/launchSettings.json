@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:45071/",
+      "applicationUrl": "http://localhost:45071/blazor/",
       "sslPort": 0
     }
   },
