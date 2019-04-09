@@ -7,7 +7,7 @@
 <TelerikGrid Data=@GridData Height="@Height">
     <RowTemplate Context="product">
         <td>
-            <img class="rounded-circle" src="@($"/images/{product.ProductId}.jpg")" alt="Alternate Text" />
+            <img class="rounded-circle" src="@($"images/{product.ProductId}.jpg")" alt="Alternate Text" />
             @product.ProductName
         </td>
         <td>
@@ -28,7 +28,7 @@
             <Template>
                 @{
                     var product = context as Product;
-                    <img class="rounded-circle" src="@($"/images/{product.ProductId}.jpg")" alt="Alternate Text" />
+                    <img class="rounded-circle" src="@($"images/{product.ProductId}.jpg")" alt="Alternate Text" />
                     <span>@String.Format("{0:C2}", product.ProductName)</span>
                 }
             </Template>
