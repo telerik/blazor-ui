@@ -46,7 +46,7 @@
 
     async void ChangeTheme(string theme)
     {
-        string themePath = $"css/kendo-themes/{theme}/dist/all.css".ToLower();
+        string themePath = $"https://unpkg.com/@progress/kendo-theme-{theme}@latest/dist/all.css".ToLower();
         await JsRuntime.InvokeAsync<string>("theme.changeCss", themePath);
         SelectedTheme = theme;
         ToggleThemeDropdown();
