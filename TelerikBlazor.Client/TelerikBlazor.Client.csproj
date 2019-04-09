@@ -14,10 +14,10 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Blazor" Version="0.9.0-preview3-19154-02" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.Build" Version="0.9.0-preview3-19154-02" PrivateAssets="all" />
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="0.3.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\blazor\Telerik.Blazor\Telerik.Blazor.csproj" />
     <ProjectReference Include="..\TelerikBlazor.Shared\TelerikBlazor.Shared.csproj" />
   </ItemGroup>
 

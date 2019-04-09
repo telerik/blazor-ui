@@ -1,0 +1,20 @@
+﻿@page "/calendar/index"
+@using Telerik.Blazor.Components.Calendar
+
+<TelerikCalendar Min="@min" Max="@max" ValueChanged="@MyValueChangeHandler" BottomView="@CalendarView.Year" View="CalendarView.Decade">
+</TelerikCalendar>
+
+<div class="pt-4">The selected date is: @selectedDate</div>
+
+@functions {
+
+    private DateTime min = new DateTime(2015, 1, 1);
+    private DateTime max = new DateTime(2025, 12, 31);
+    private string selectedDate = "";
+
+    private void MyValueChangeHandler(DateTime newValue)
+    {
+        selectedDate = ((DateTime)newValue).ToString();
+        StateHasChanged();
+    }
+}

@@ -1,35 +1,35 @@
 @page "/grid/columns"
 
-@using Kendo.Blazor.Components.Grid
+@using Telerik.Blazor.Components.Grid
 @using TelerikBlazor.Shared
 @inject HttpClient Http
 
 <h4> Columns </h4>
 
 <div class="d-flex flex-row my-2">
-    <KendoButton OnClick="@ToggleColumn">Show / Hide Summary Column</KendoButton>
-    <KendoButton Enabled="@IsAddEnabled" OnClick="@AddColumn">Add TemperatureF Column</KendoButton>
-    <KendoButton Enabled="@IsDeleteEnabled" OnClick="@DeleteColumn">Delete TemperatureF Column</KendoButton>
+    <TelerikButton OnClick="@ToggleColumn">Show / Hide Summary Column</TelerikButton>
+    <TelerikButton Enabled="@IsAddEnabled" OnClick="@AddColumn">Add TemperatureF Column</TelerikButton>
+    <TelerikButton Enabled="@IsDeleteEnabled" OnClick="@DeleteColumn">Delete TemperatureF Column</TelerikButton>
 </div>
 
-<KendoGrid Data=@GridData ref="Grid">
-    <KendoGridColumns>
-        <KendoGridColumn Field="Date">
+<TelerikGrid Data=@GridData ref="Grid">
+    <TelerikGridColumns>
+        <TelerikGridColumn Field="Date">
             <Template>
                 @((context as WeatherForecast).Date.ToString("MMMM dd, yyyy"))
             </Template>
-        </KendoGridColumn>
-        <KendoGridColumn Field="TemperatureC" />
+        </TelerikGridColumn>
+        <TelerikGridColumn Field="TemperatureC" />
         @if (columnVisible)
         {
-            <KendoGridColumn Field="Summary" />
+            <TelerikGridColumn Field="Summary" />
         }
-    </KendoGridColumns>
-</KendoGrid>
+    </TelerikGridColumns>
+</TelerikGrid>
 
 @functions {
-    KendoGrid<WeatherForecast> Grid;
-    KendoGridColumn Fahrenheit = new KendoGridColumn
+    TelerikGrid<WeatherForecast> Grid;
+    TelerikGridColumn Fahrenheit = new TelerikGridColumn
     {
         Field = "TemperatureF"
     };

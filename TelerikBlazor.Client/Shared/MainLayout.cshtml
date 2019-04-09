@@ -1,27 +1,93 @@
 ﻿@inherits LayoutComponentBase
+@inject Microsoft.AspNetCore.Components.Services.IUriHelper UriHelper
+@using Microsoft.JSInterop;
+@inject IJSRuntime JsRuntime;
 
-<div class="sidebar">
-    <NavMenu />
-</div>
-
-<div class="main">
-    <div class="top-row d-flex flex-row-reverse">
-        <div class="p-2">
-            <NavLink class="nav-link" href="https://themebuilder.telerik.com/" Match=NavLinkMatch.All>
-                ThemeBuilder
-            </NavLink>
-        </div>
-        <div class="p-2">
-            <ThemeManager />
-        </div>
-
+<div class="top-row d-flex justify-content-between">
+    <div class="navbar logo">
+        <NavLink href="/">
+            <img alt="Telerik Blazor Logo" class="w-100" src="css/logos/logo-dark.svg" />
+        </NavLink>
     </div>
 
-    <div class="content px-4">
-        @Body
+    <div class="d-flex flex-row-reverse">    
+        <NavLink class="btn-accent nav-link nav-btn" href="#" Match=NavLinkMatch.All>Try Now</NavLink>
+        <ThemeManager />
     </div>
+      
 </div>
 
+
+<div class="main-content">
+    
+    <div class="sidebar">
+        <NavMenu ref="@Menu"/>
+    </div>
+
+    <div class="main">
+
+        <div class="content px-4">
+            <div class="example-wrapper py-4">
+                @Body
+            </div>
+
+            @if (ShowCodeExample)
+            {
+                <div class="code-sample-wrapper py-5">
+                    <h2>Source </h2>
+                    <div class="code-sample mt-4">
+
+                        <ul class="code-sample-tabs p-2">
+                            <li><a class="nav-link active" href="#">@string.Format("{0}.cshtml", ViewName.Replace("-", "_").Split(new char[] { '/' }).Last())</a></li>
+                        </ul>
+
+                        <div id="codecontainer" class="code-sample-content p-4"></div>
+
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
 @functions {
 
+    public bool ShowCodeExample = false;
+    public string ViewName = "";
+    protected NavMenu Menu { get; set; }
+
+    protected override void OnInit()
+    {
+        UriHelper.OnLocationChanged += OnLocationChanged;
+        InvokeCodeRender(UriHelper.GetAbsoluteUri());
+    }
+
+    private async void OnLocationChanged(object sender, string newUriAbsolute)
+    {
+        InvokeCodeRender(newUriAbsolute);
+    }
+
+    private async void InvokeCodeRender(string absolutePath)
+    {
+        if (absolutePath.Contains("//") && absolutePath != UriHelper.GetBaseUri())
+        {
+            string[] parts = absolutePath.Split(new char[] { '/' });
+            ViewName = string.Format("{0}/{1}", parts[parts.Length - 2], parts[parts.Length - 1]);
+            await JsRuntime.InvokeAsync<string>("codeManager.renderCode", string.Format("/{0}", ViewName));
+
+            Menu.Expand(absolutePath);
+
+            ShowCodeExample = true;
+            StateHasChanged();
+        }
+        else
+        {
+            ShowCodeExample = false;
+            StateHasChanged();
+        }
+    }
+
+    public void Dispose()
+    {
+        UriHelper.OnLocationChanged -= OnLocationChanged;
+    }
 }

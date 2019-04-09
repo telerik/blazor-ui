@@ -1,15 +1,16 @@
 ﻿@inject Microsoft.AspNetCore.Components.Services.IUriHelper UriHelper
 
-<div class="top-row pl-4 navbar">
-    <NavLink href="/">
-        <img alt="Telerik Blazor Logo" class="w-100" src="css/logos/logo-dark.svg" />
-    </NavLink>
-</div>
-
 <div>
     <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <div class="component" onclick="@(() => Toggle("button"))">
+        <li class="nav-item">
+            <div class="component">
+                <NavLink class="nav-link p-0" href="/">
+                    Overview
+                </NavLink>
+            </div>
+        </li>
+        <li class="nav-item">
+            <div class="component @((ButtonCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("button"))">
                 <span class="@ButtonToggleIcon" aria-hidden="true"></span>
                 Button
             </div>
@@ -20,8 +21,98 @@
                 </NavLink>
             }
         </li>
-        <li class="nav-item px-3">
-            <div class="component" onclick="@(() => Toggle("tabstrip"))">
+
+        <li class="nav-item">
+            <div class="component @((CalendarCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("calendar"))">
+                <span class="@CalendarToggleIcon" aria-hidden="true"></span>
+                Calendar
+            </div>
+            @if (!@CalendarCollapsed)
+            {
+                foreach (var item in CalendarMenuItems)
+                {
+                    <NavLink class="nav-link" href="@($"calendar/{item.ToLower().Replace(" ","")}")">
+                        @item
+                    </NavLink>
+                }
+            }
+        </li>
+
+        <li class="nav-item">
+            <div class="component @((ChartCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("chart"))">
+                <span class="@ChartToggleIcon" aria-hidden="true"></span>
+                Chart
+            </div>
+            @if (!@ChartCollapsed)
+            {
+                foreach (var item in ChartMenuItems)
+                {
+                    <NavLink class="nav-link" href="@($"chart/{item.ToLower().Replace(" ","-")}")">
+                        @item
+                    </NavLink>
+                }
+            }
+        </li>
+
+        <li class="nav-item">
+            <div class="component @((DateInputCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("dateinput"))">
+                <span class="@DateInputToggleIcon" aria-hidden="true"></span>
+                DateInput
+            </div>
+            @if (!DateInputCollapsed)
+            {
+                <NavLink class="nav-link" href="dateinput/index">
+                    Index
+                </NavLink>
+            }
+        </li>
+        <li class="nav-item">
+            <div class="component @((DropDownListCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("dropdownlist"))">
+                <span class="@DropDownListToggleIcon" aria-hidden="true"></span>
+                DropDownList
+            </div>
+            @if (!DropDownListCollapsed)
+            {
+                foreach (var item in DropDownListMenuItems)
+                {
+                    <NavLink class="nav-link" href="@($"dropdownlist/{item.ToLower().Replace(" ","")}")">
+                        @item
+                    </NavLink>
+                }
+            }
+        </li>
+        <li class="nav-item">
+            <div class="component @((GridCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("grid"))">
+                <span class="@GridToggleIcon" aria-hidden="true"></span>
+                Grid
+            </div>
+            @if (!@GridCollapsed)
+            {
+                foreach (var item in GridMenuItems)
+                {
+                    <NavLink class="nav-link" href="@($"grid/{item.ToLower().Replace(" ","-")}")">
+                        @item
+                    </NavLink>
+                }
+            }
+        </li>
+        <li class="nav-item">
+            <div class="component @((NumerictextboxCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("numerictextbox"))">
+                <span class="@NumericTextBoxToggleIcon" aria-hidden="true"></span>
+                Numeric Textbox
+            </div>
+            @if (!@NumerictextboxCollapsed)
+            {
+                foreach (var item in NumerictextboxMenuItems)
+                {
+                    <NavLink class="nav-link" href="@($"numerictextbox/{item.ToLower().Replace(" ","-")}")">
+                        @item
+                    </NavLink>
+                }
+            }
+        </li>
+        <li class="nav-item">
+            <div class="component @((TabstripCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("tabstrip"))">
                 <span class="@TabStripToggleIcon" aria-hidden="true"></span>
                 TabStrip
             </div>
@@ -35,38 +126,23 @@
                 </NavLink>
             }
         </li>
-        <li class="nav-item px-3">
-            <div class="component" onclick="@(() => Toggle("grid"))">
-                <span class="@GridToggleIcon" aria-hidden="true"></span>
-                Grid
+        <li class="nav-item">
+            <div class="component @((TextBoxCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("textbox"))">
+                <span class="@TextBoxToggleIcon" aria-hidden="true"></span>
+                TextBox
             </div>
-            @if (!@GridCollapsed)
+            @if (!@TextBoxCollapsed)
             {
-                foreach (var item in GridMenuItems)
+                foreach (var item in TextboxMenuItems)
                 {
-                    <NavLink class="nav-link" href="@($"grid/{item.ToLower().Replace(" ","")}")">
+                    <NavLink class="nav-link" href="@($"textbox/{item.ToLower().Replace(" ","-")}")">
                         @item
                     </NavLink>
                 }
             }
         </li>
-        <li class="nav-item px-3">
-            <div class="component" onclick="@(() => Toggle("numerictextbox"))">
-                <span class="@NumericTextBoxToggleIcon" aria-hidden="true"></span>
-                Numeric Textbox
-            </div>
-            @if (!@NumerictextboxCollapsed)
-            {
-                foreach (var item in NumerictextboxMenuItems)
-                {
-                    <NavLink class="nav-link" href="@($"numerictextbox/{item.ToLower().Replace(" ","")}")">
-                        @item
-                    </NavLink>
-                }
-            }
-        </li>
-        <li class="nav-item px-3">
-            <div class="component" onclick="@(() => Toggle("window"))">
+        <li class="nav-item">
+            <div class="component @((WindowCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("window"))">
                 <span class="@WindowToggleIcon" aria-hidden="true"></span>
                 Window
             </div>
@@ -80,24 +156,56 @@
                 }
             }
         </li>
+        <li class="nav-item">
+            <div class="component @((@AnimationCollapsed ? "" : "expanded"))" onclick="@(() => Toggle("animation"))">
+                <span class="@AnimationToggleIcon" aria-hidden="true"></span>
+                AnimationContainer
+            </div>
+            @if (!@AnimationCollapsed)
+            {
+                foreach (var item in AnimationMenuItems)
+                {
+                    <NavLink class="nav-link" href="@($"animationcontainer/{item.ToLower().Replace(" ","-")}")">
+                        @item
+                    </NavLink>
+                }
+            }
+        </li>
     </ul>
 </div>
 @functions {
-    const string Collapsed = "k-icon k-i-" + IconName.Arrow60Right;
-    const string Expanded = "k-icon k-i-" + IconName.Arrow60Down;
+    const string Collapsed = "k-icon k-i-" + IconName.ArrowChevronRight;
+    const string Expanded = "k-icon k-i-" + IconName.ArrowChevronDown;
     public bool GridCollapsed = true;
     public bool TabstripCollapsed = true;
     public bool ButtonCollapsed = true;
+    public bool CalendarCollapsed = true;
+    public bool ChartCollapsed = true;
     public bool WindowCollapsed = true;
     public bool NumerictextboxCollapsed = true;
+    public bool AnimationCollapsed = true;
+    public bool DropDownListCollapsed = true;
+    public bool DateInputCollapsed = true;
+    public bool TextBoxCollapsed = true;
     public string ButtonToggleIcon = Collapsed;
+    public string CalendarToggleIcon = Collapsed;
+    public string ChartToggleIcon = Collapsed;
     public string TabStripToggleIcon = Collapsed;
     public string GridToggleIcon = Collapsed;
     public string WindowToggleIcon = Collapsed;
     public string NumericTextBoxToggleIcon = Collapsed;
-    public string[] GridMenuItems = { "Index", "Sorting", "Templates", "Columns", "Paging", "Incell Editing", "Inline Editing", "Popup Editing", "Custom Form Edit", "Custom Editor" };
+    public string DropDownListToggleIcon = Collapsed;
+    public string DateInputToggleIcon = Collapsed;
+    public string TextBoxToggleIcon = Collapsed;
+    public string AnimationToggleIcon = Collapsed;
+    public string[] GridMenuItems = { "Index", "Sorting", "Templates", "Columns", "Paging", "Editing Incell", "Editing Inline", "Editing Popup", "Editing Custom Form", "Custom Editor" };
     public string[] WindowMenuItems = { "Index", "Dimensions", "Actions", "Position", "Modal" };
-    public string[] NumerictextboxMenuItems = { "Index" };
+    public string[] CalendarMenuItems = { "Index", "Selection" };
+    public string[] ChartMenuItems = { "Index", "Column chart", "Pie chart", "Donut chart", "Area chart", "Line chart" };
+    public string[] NumerictextboxMenuItems = { "Index", "Formats", "Validation" };
+    public string[] TextboxMenuItems = { "Index", "Validation" };
+    public string[] AnimationMenuItems = { "Index", "Tooltip", "Notification" };
+    public string[] DropDownListMenuItems = { "Index", "Templates", "Validation" };
 
 
     protected override void OnInit()
@@ -106,6 +214,67 @@
         var path = uri.AbsolutePath;
 
         Toggle(path);
+    }
+
+    internal void Expand(string component)
+    {
+        if (component.Contains("grid"))
+        {
+            GridCollapsed = false;
+            GridToggleIcon = Expanded;
+        }
+        else if (component.Contains("tabstrip"))
+        {
+            TabstripCollapsed = false;
+            TabStripToggleIcon = Expanded;
+        }
+        else if (component.Contains("button"))
+        {
+            ButtonCollapsed = false;
+            ButtonToggleIcon = Expanded;
+        }
+        else if (component.Contains("calendar"))
+        {
+            CalendarCollapsed = false;
+            CalendarToggleIcon = Expanded;
+        }
+        else if (component.Contains("chart"))
+        {
+            ChartCollapsed = false;
+            ChartToggleIcon = Expanded;
+        }
+        else if (component.Contains("window"))
+        {
+            WindowCollapsed = false;
+            WindowToggleIcon = Expanded;
+        }
+        else if (component.Contains("numerictextbox"))
+        {
+            NumerictextboxCollapsed = false;
+            NumericTextBoxToggleIcon = Expanded;
+        }
+        else if (component.Contains("textbox"))
+        {
+            TextBoxCollapsed = false;
+            TextBoxToggleIcon = Expanded;
+        }
+        else if (component.Contains("dateinput"))
+        {
+            DateInputCollapsed = false;
+            DateInputToggleIcon = Expanded;
+        }
+        else if (component.Contains("dropdownlist"))
+        {
+            DropDownListCollapsed = false;
+            DropDownListToggleIcon = Expanded;
+        }
+        else if (component.Contains("animation"))
+        {
+            AnimationCollapsed = false;
+            AnimationToggleIcon = Expanded;
+        }
+
+        StateHasChanged();
     }
 
     void Toggle(string component)
@@ -125,6 +294,16 @@
             ButtonCollapsed = !ButtonCollapsed;
             ButtonToggleIcon = ButtonCollapsed ? Collapsed : Expanded;
         }
+        else if (component.Contains("calendar"))
+        {
+            CalendarCollapsed = !CalendarCollapsed;
+            CalendarToggleIcon = CalendarCollapsed ? Collapsed : Expanded;
+        }
+        else if (component.Contains("chart"))
+        {
+            ChartCollapsed = !ChartCollapsed;
+            ChartToggleIcon = ChartCollapsed ? Collapsed : Expanded;
+        }
         else if (component.Contains("window"))
         {
             WindowCollapsed = !WindowCollapsed;
@@ -134,6 +313,26 @@
         {
             NumerictextboxCollapsed = !NumerictextboxCollapsed;
             NumericTextBoxToggleIcon = NumerictextboxCollapsed ? Collapsed : Expanded;
+        }
+        else if (component.Contains("textbox"))
+        {
+            TextBoxCollapsed = !TextBoxCollapsed;
+            TextBoxToggleIcon = TextBoxCollapsed ? Collapsed : Expanded;
+        }
+        else if (component.Contains("dateinput"))
+        {
+            DateInputCollapsed = !DateInputCollapsed;
+            DateInputToggleIcon = DateInputCollapsed ? Collapsed : Expanded;
+        }
+        else if (component.Contains("dropdownlist"))
+        {
+            DropDownListCollapsed = !DropDownListCollapsed;
+            DropDownListToggleIcon = DropDownListCollapsed ? Collapsed : Expanded;
+        }
+        else if (component.Contains("animation"))
+        {
+            AnimationCollapsed = !AnimationCollapsed;
+            AnimationToggleIcon = AnimationCollapsed ? Collapsed : Expanded;
         }
 
         StateHasChanged();

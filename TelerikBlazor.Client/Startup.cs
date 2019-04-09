@@ -7,7 +7,7 @@ namespace TelerikBlazor.Client
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddKendoBlazor();
+            services.AddTelerikBlazor();
         }
 
         public void Configure(IComponentsApplicationBuilder app)

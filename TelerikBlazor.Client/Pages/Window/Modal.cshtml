@@ -1,18 +1,18 @@
 @page "/window/modal"
 
-<KendoButton Icon=@IconName.Window OnClick=@(()=> WindowVisible = true)>Open Modal</KendoButton>
+<TelerikButton Icon=@IconName.Window OnClick=@(()=> WindowVisible = true)>Open Modal</TelerikButton>
 
-<KendoWindow Width="500" Height="300" Centered="true" Visible=@WindowVisible Modal="true">
-    <KendoWindowTitle>
+<TelerikWindow Width="500" Height="300" Centered="true" Visible=@WindowVisible Modal="true">
+    <TelerikWindowTitle>
         <strong>Modal Window</strong>
-    </KendoWindowTitle>
-    <KendoWindowActions>
-        <KendoWindowAction Name="Close"/>
-    </KendoWindowActions>
-    <KendoWindowContent>
+    </TelerikWindowTitle>
+    <TelerikWindowActions>
+        <TelerikWindowAction Name="Close"/>
+    </TelerikWindowActions>
+    <TelerikWindowContent>
         <p>Click the close button to dismiss this modal dialog.</p>
-    </KendoWindowContent>
-</KendoWindow>
+    </TelerikWindowContent>
+</TelerikWindow>
 
 @functions {
     bool WindowVisible = true;

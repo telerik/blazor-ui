@@ -1,0 +1,56 @@
+@page "/chart/donut-chart"
+
+<TelerikChart>
+    <TelerikChartTitle Text="What is you favourite sport?"></TelerikChartTitle>
+    <TelerikChartLegend  Visible="true"  Position="ChartLegendPosition.Top"></TelerikChartLegend>
+
+    <TelerikChartSeriesItems>
+        <TelerikChartSeries Type="ChartSeriesType.Donut" Data="@Data" Field="@nameof(ModelData.Value)" CategoryField="@nameof(ModelData.Category)">
+            <TelerikChartSeriesLabels
+                Position="ChartSeriesLabelsPosition.OutsideEnd"
+                Visible="true"
+                Background="transparent"
+                Template="#= dataItem.Category # - #= percentage #%"
+            ></TelerikChartSeriesLabels>
+        </TelerikChartSeries>
+    </TelerikChartSeriesItems>
+
+</TelerikChart>
+
+@functions {
+    public class ModelData
+    {
+        public string Category { get; set; }
+        public Int32 Value { get; set; }
+    }
+
+    public List<ModelData> Data = new List<ModelData>()
+    {
+        new ModelData()
+        {
+            Category = "Football",
+            Value = 35
+        },
+        new ModelData()
+        {
+            Category = "Basketball",
+            Value = 25
+        },
+        new ModelData()
+        {
+            Category = "Volleyball",
+            Value = 20
+        },
+        new ModelData()
+        {
+            Category = "Rugby",
+            Value = 10
+        },
+        new ModelData()
+        {
+            Category = "Tennis",
+            Value = 10
+        },
+
+    };
+}

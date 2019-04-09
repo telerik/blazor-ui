@@ -1,0 +1,44 @@
+﻿@page "/animationcontainer/index"
+
+<div class="row">
+    <select class="form-control col-xs-6 col-sm-1" bind="@AnimType">
+        <option value="@AnimationType.Fade">Fade</option>
+        <option value="@AnimationType.SlideDown">SlideDown</option>
+        <option value="@AnimationType.SlideIn">SlideIn</option>
+        <option value="@AnimationType.SlideLeft">SlideLeft</option>
+        <option value="@AnimationType.SlideRight">SlideRight</option>
+        <option value="@AnimationType.PushDown">PushDown</option>
+        <option value="@AnimationType.PushLeft">PushLeft</option>
+        <option value="@AnimationType.PushRight">PushRight</option>
+        <option value="@AnimationType.PushUp">PushUp</option>
+        <option value="@AnimationType.ZoomIn">ZoomIn</option>
+        <option value="@AnimationType.ZoomOut">ZoomOut</option>
+    </select>
+
+    <div class="col-xs-6 col-sm-1">
+        <TelerikButton OnClick="@ToggleAnimation">Show/Hide Animation Container</TelerikButton>
+    </div>
+</div>
+
+<div style="position:relative; height: 150px;">
+    <TelerikAnimationContainer Top="50" Width=200 Height=150 Visible=@Visible AnimationType=@AnimType Class="k-popup">
+        Test Content
+    </TelerikAnimationContainer>
+</div>
+
+@functions {
+    public bool Visible { get; set; } = false;
+    public AnimationType AnimType { get; set; } = AnimationType.Fade;
+
+    public void ToggleAnimation()
+    {
+        Visible = !Visible;
+        StateHasChanged();
+    }
+}
+
+<style type="text/css">
+    .example-wrapper {
+        min-height: 300px;
+    }
+</style>

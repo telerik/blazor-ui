@@ -1,0 +1,48 @@
+﻿@page "/dropdownlist/templates"
+
+@using TelerikBlazor.Shared
+
+<TelerikDropDownList bind-Value=@SelectedValue Height="40" Data="@DropDownListData" ValueField="ProductId" TextField="ProductName">
+    <Header>
+        <div class="k-header" style="margin-top: 10px; padding-bottom: 10px">Header</div>
+    </Header>
+    <Footer>
+        <div class="k-footer" style="margin-top: 10px">Footer</div>
+    </Footer>
+    <ValueTemplate>
+        Selection: <strong>@((context as Product).ProductName)</strong>
+    </ValueTemplate>
+    <ItemTemplate>
+        <strong>@((context as Product).ProductName) - @(String.Format("{0:C2}", (context as Product).UnitPrice))</strong>
+    </ItemTemplate>
+</TelerikDropDownList>
+
+@functions  {
+    public IEnumerable<Product> DropDownListData { get; set; }
+    public int SelectedValue { get; set; } = 2;
+
+    protected override void OnInit()
+    {
+        List<Product> products = new List<Product>();
+        for (int i = 0; i < 10; i++)
+        {
+            products.Add(new Product()
+            {
+                ProductId = i,
+                ProductName = "Product" + i.ToString(),
+                SupplierId = i,
+                UnitPrice = (decimal)(i * 3.14),
+                UnitsInStock = (short)(i * 1),
+            });
+        }
+
+        DropDownListData = products.AsQueryable();
+        base.OnInit();
+    }
+}
+
+<style type="text/css">
+    .example-wrapper {
+        min-height: 250px;
+    }
+</style>

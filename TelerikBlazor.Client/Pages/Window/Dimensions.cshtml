@@ -1,5 +1,5 @@
 @page "/window/dimensions"
-@using Kendo.Blazor
+@using Telerik.Blazor
 
 <span>Window Dimensions could be set via <strong>Size</strong> attribute, or via <strong>Width</strong> and <strong>Height</strong></span>
 
@@ -9,19 +9,26 @@
     <option value=@Size.Large>Large</option>
 </select>
 
-<input type="number" bind="@Width" onchange="@ResetSize" placeholder="Set Width" />
-<input type="number" bind="@Height" onchange="@ResetSize" placeholder="Set Height" />
+<div class="row mb-3">
+    <div class="col col-xs-6 col-sm-1">
+        <input type="number" bind="@Width" onchange="@ResetSize" placeholder="Set Width" class="form-control" />
+    </div>
+    <div class="col col-xs-6 col-sm-1">
+        <input type="number" bind="@Height" onchange="@ResetSize" placeholder="Set Height" class="form-control" />
+    </div>
+</div>
 
-<KendoWindow Width="@Width" Height="@Height" Size="@PredefinedSize" Centered="true" Visible="true">
-    <KendoWindowTitle>
+
+<TelerikWindow Width="@Width" Height="@Height" Size="@PredefinedSize" Centered="true" Visible="true">
+    <TelerikWindowTitle>
         <strong>Status</strong>
-    </KendoWindowTitle>
-    <KendoWindowActions>
-        <KendoWindowAction Name="Minimize"></KendoWindowAction>
-        <KendoWindowAction Name="Maximize"></KendoWindowAction>
-        <KendoWindowAction Name="Close"></KendoWindowAction>
-    </KendoWindowActions>
-    <KendoWindowContent>
+    </TelerikWindowTitle>
+    <TelerikWindowActions>
+        <TelerikWindowAction Name="Minimize"></TelerikWindowAction>
+        <TelerikWindowAction Name="Maximize"></TelerikWindowAction>
+        <TelerikWindowAction Name="Close"></TelerikWindowAction>
+    </TelerikWindowActions>
+    <TelerikWindowContent>
         <form class="k-form">
             <fieldset>
                 <legend>User Details</legend>
@@ -36,8 +43,8 @@
                 </label>
             </fieldset>
         </form>
-    </KendoWindowContent>
-</KendoWindow>
+    </TelerikWindowContent>
+</TelerikWindow>
 @functions {
     public Size? PredefinedSize { get; set; }
     public int? Width { get; set; }
@@ -62,10 +69,18 @@
         }
         StateHasChanged();
     }
-    
+
     public void ResetSize(UIChangeEventArgs e)
     {
         PredefinedSize = null;
         StateHasChanged();
     }
 }
+
+<style type="text/css">
+
+    .example-wrapper {
+        min-height: 700px;
+        position: relative;
+    }
+</style>
