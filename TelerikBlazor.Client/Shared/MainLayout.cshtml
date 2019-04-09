@@ -21,7 +21,7 @@
 <div class="main-content">
     
     <div class="sidebar">
-        <NavMenu />
+        <NavMenu ref="@Menu"/>
     </div>
 
     <div class="main">
@@ -53,6 +53,7 @@
 
     public bool ShowCodeExample = false;
     public string ViewName = "";
+    protected NavMenu Menu { get; set; }
 
     protected override void OnInit()
     {
@@ -72,6 +73,8 @@
             string[] parts = absolutePath.Split(new char[] { '/' });
             ViewName = string.Format("{0}/{1}", parts[parts.Length - 2], parts[parts.Length - 1]);
             await JsRuntime.InvokeAsync<string>("codeManager.renderCode", string.Format("/{0}", ViewName));
+
+            Menu.Expand(absolutePath);
 
             ShowCodeExample = true;
             StateHasChanged();

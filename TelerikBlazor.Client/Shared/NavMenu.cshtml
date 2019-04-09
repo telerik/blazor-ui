@@ -216,6 +216,67 @@
         Toggle(path);
     }
 
+    internal void Expand(string component)
+    {
+        if (component.Contains("grid"))
+        {
+            GridCollapsed = false;
+            GridToggleIcon = Expanded;
+        }
+        else if (component.Contains("tabstrip"))
+        {
+            TabstripCollapsed = false;
+            TabStripToggleIcon = Expanded;
+        }
+        else if (component.Contains("button"))
+        {
+            ButtonCollapsed = false;
+            ButtonToggleIcon = Expanded;
+        }
+        else if (component.Contains("calendar"))
+        {
+            CalendarCollapsed = false;
+            CalendarToggleIcon = Expanded;
+        }
+        else if (component.Contains("chart"))
+        {
+            ChartCollapsed = false;
+            ChartToggleIcon = Expanded;
+        }
+        else if (component.Contains("window"))
+        {
+            WindowCollapsed = false;
+            WindowToggleIcon = Expanded;
+        }
+        else if (component.Contains("numerictextbox"))
+        {
+            NumerictextboxCollapsed = false;
+            NumericTextBoxToggleIcon = Expanded;
+        }
+        else if (component.Contains("textbox"))
+        {
+            TextBoxCollapsed = false;
+            TextBoxToggleIcon = Expanded;
+        }
+        else if (component.Contains("dateinput"))
+        {
+            DateInputCollapsed = false;
+            DateInputToggleIcon = Expanded;
+        }
+        else if (component.Contains("dropdownlist"))
+        {
+            DropDownListCollapsed = false;
+            DropDownListToggleIcon = Expanded;
+        }
+        else if (component.Contains("animation"))
+        {
+            AnimationCollapsed = false;
+            AnimationToggleIcon = Expanded;
+        }
+
+        StateHasChanged();
+    }
+
     void Toggle(string component)
     {
         if (component.Contains("grid"))
