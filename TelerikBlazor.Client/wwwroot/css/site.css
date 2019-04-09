@@ -15,22 +15,36 @@ a:hover {
 
 app {
     position: relative;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-direction: column;
     flex-direction: column;
 }
 
 .top-row {
     min-height: 3.5rem;
-    display: flex;
     background-color: #f3f4f5;
-    box-shadow: 0 0 6px #f3f4f5;
+
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
     flex-direction: column;
+
+    -webkit-box-shadow: 0 0 6px #f3f4f5;
+    -moz-box-shadow: 0 0 6px #f3f4f5;
+    box-shadow: 0 0 6px #f3f4f5;
+}
+
+.main-content {
+    position: relative;
+    overflow: hidden;
 }
 
 .main {
-    flex: 1 1 auto;
     overflow-x: auto;
     overflow-y: auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
 }
 
 .main h4 {
@@ -38,9 +52,64 @@ app {
     padding-bottom: 1rem;
 }
 
+.toggle-mobile {
+    margin-right: auto;
+    line-height: 3rem;
+}
+
+.toggle-mobile span {
+    display: inline-block;
+    position: relative;
+    width: 20px;
+    height: 2px;
+    background-color: #4b4e52;
+}
+
+.toggle-mobile span:before,
+.toggle-mobile span:after {
+    display: block;
+    content: " ";
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background-color: #4b4e52;
+}
+
+.toggle-mobile span:before {
+    top: -6px;
+}
+
+.toggle-mobile span:after {
+    bottom: -6px;
+}
+
 .sidebar {
+    width: 250px;
+    min-height: 100vh;
+    height: 100%;
+    position: absolute;
     background-color: #e8ecef;
-    box-shadow: 0 6px 0 0 #e8ecef;
+    z-index: 9;
+
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+
+    -webkit-transition: -webkit-transform .2s ease-out;
+    -ms-transition: -ms-transform .2s ease-out;
+    transition: transform .2s ease-out;
+}
+
+.sidebar.toggled {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+
+    -webkit-box-shadow: 5px 0 15px 0 rgba(0,0,0,.15);
+    -moz-box-shadow: 5px 0 15px 0 rgba(0,0,0,.15);
+    box-shadow: 5px 0 15px 0 rgba(0,0,0,.15);
+
+    -webkit-transition: -webkit-transform .2s ease-out;
+    -ms-transition: -ms-transform .2s ease-out;
+    transition: transform .2s ease-out;
 }
 
 .sidebar .top-row {
@@ -90,8 +159,10 @@ app {
 }
 
 .nav-item a {
-    color: #555555;
     display: flex;
+    display: -ms-flexbox;
+
+    color: #555555;
     padding-left: 1rem;
     align-items: center;
 }
@@ -100,10 +171,6 @@ app {
 .nav-item a:hover,
 .nav-item .component > a:hover {
     color: #00b5dc;
-}
-
-.nav-item .component > a {
-    color: inherit;
 }
 
 .content {
@@ -154,6 +221,8 @@ div .k-button {
     position: absolute;
     right: 1rem;
     top: 50%;
+
+    -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
 }
 
@@ -163,8 +232,11 @@ div .k-button {
     right: 0;
     white-space: nowrap;
     background-color: #fff;
+    z-index: 2;
+
+    -webkit-box-shadow: 0 0 6px #e2e4e7;
+    -moz-box-shadow: 0 0 6px #e2e4e7;
     box-shadow: 0 0 6px #e2e4e7;
-    z-index: 1;
 }
 
 .theme-chooser-dropdown ul li {
@@ -260,6 +332,8 @@ div .k-button {
 
 .box-content {
     max-width: 400px;
+    -webkit-box-shadow: 0 1px 2px 1px rgba(0,0,0,.08), 0 3px 6px rgba(0,0,0,.08);
+    -moz-box-shadow: 0 1px 2px 1px rgba(0,0,0,.08), 0 3px 6px rgba(0,0,0,.08);
     box-shadow: 0 1px 2px 1px rgba(0,0,0,.08), 0 3px 6px rgba(0,0,0,.08);
     border: 1px solid rgba(20,53,80,0.14);
     padding: 3em;
@@ -347,17 +421,36 @@ pre .dec {
         top: 0;
         z-index: 99999;
         flex-direction: row;
+        -ms-flex-direction: row;
     }
 
     .main-content {
+        display: -ms-flexbox;
         display: flex;
+        -ms-flex-direction: row;
         flex-direction: row;
     }
 
+    .toggle-mobile {
+        display: none;
+    }
+
     .sidebar {
-        width: 250px;
+        position: static;
+        -ms-flex: 0 0 auto;
         flex: 0 0 auto;
-        min-height: 100vh;
+
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+
+        -webkit-box-shadow: 0 6px 0 0 #e8ecef;
+        -moz-box-shadow: 0 6px 0 0 #e8ecef;
+        box-shadow: 0 6px 0 0 #e8ecef;
+    }
+
+    .sidebar.toggled {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
     }
 
     .logo {

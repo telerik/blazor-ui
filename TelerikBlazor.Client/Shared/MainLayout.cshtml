@@ -13,6 +13,10 @@
     <div class="d-flex flex-row-reverse">    
         <NavLink class="btn-accent nav-link nav-btn" href="https://www.telerik.com/download-trial-file/v2-b/ui-for-blazor" Match=NavLinkMatch.All>Try Now</NavLink>
         <ThemeManager />
+        
+        <div class="toggle-mobile px-4" onclick="@(() => ToggleMobileMenu())">
+            <span></span>
+        </div>
     </div>
       
 </div>
@@ -20,11 +24,11 @@
 
 <div class="main-content">
     
-    <div class="sidebar">
+    <div class="sidebar @((MobileMenuToggled ? "toggled" : ""))">
         <NavMenu ref="@Menu"/>
     </div>
 
-    <div class="main">
+    <div class="main" onclick="@(() => HideMobileMenu())">
 
         <div class="content px-4">
             <div class="example-wrapper py-4">
@@ -52,6 +56,7 @@
 @functions {
 
     public bool ShowCodeExample = false;
+    public bool MobileMenuToggled = false;
     public string ViewName = "";
     protected NavMenu Menu { get; set; }
 
@@ -68,6 +73,8 @@
 
     private async void InvokeCodeRender(string absolutePath)
     {
+        MobileMenuToggled = false;
+
         if (absolutePath.TrimEnd('/') != UriHelper.GetBaseUri().TrimEnd('/'))
         {
             string[] parts = absolutePath.Split(new char[] { '/' });
@@ -89,5 +96,15 @@
     public void Dispose()
     {
         UriHelper.OnLocationChanged -= OnLocationChanged;
+    }
+
+    void ToggleMobileMenu()
+    {
+        MobileMenuToggled = !MobileMenuToggled;
+    }
+ 
+    void HideMobileMenu()
+    {
+        MobileMenuToggled = false;
     }
 }
