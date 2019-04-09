@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using System.Threading;
 
 namespace TelerikBlazor.Client
 {
@@ -13,6 +14,11 @@ namespace TelerikBlazor.Client
         public void Configure(IComponentsApplicationBuilder app)
         {
             app.AddComponent<App>("app");
+        }
+
+        public Startup()
+        {
+            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
         }
     }
 }
