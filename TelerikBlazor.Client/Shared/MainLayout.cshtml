@@ -25,7 +25,7 @@
 <div class="main-content">
     
     <div class="sidebar @((MobileMenuToggled ? "toggled" : ""))">
-        <NavMenu ref="@Menu"/>
+        <NavMenu/>
     </div>
 
     <div class="main" onclick="@(() => HideMobileMenu())">
@@ -58,7 +58,6 @@
     public bool ShowCodeExample = false;
     public bool MobileMenuToggled = false;
     public string ViewName = "";
-    protected NavMenu Menu { get; set; }
 
     protected override void OnInit()
     {
@@ -81,7 +80,6 @@
             ViewName = string.Format("{0}/{1}", parts[parts.Length - 2], parts[parts.Length - 1]);
             await JsRuntime.InvokeAsync<string>("codeManager.renderCode", string.Format("/{0}", ViewName));
             await JsRuntime.InvokeAsync<string>("scroller.scrollToTop");
-            Menu.Expand(absolutePath);
 
             ShowCodeExample = true;
             StateHasChanged();
