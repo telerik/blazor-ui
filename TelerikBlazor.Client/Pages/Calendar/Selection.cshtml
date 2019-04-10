@@ -1,39 +1,36 @@
 ﻿@page "/calendar/selection"
 @using Telerik.Blazor.Components.Calendar
 
+<div>
+    The user will not be able to select the first and second of April 2019.
+</div>
+<div class="d-inline-flex p-2">
+    <div style="margin-right:5em;">
+        <h4>Single Selection</h4>
+
+        <TelerikCalendar SelectionMode="@CalendarSelectionMode.Single" ValueChanged="@SingleSelectionChangeHandler" DisabledDates="@DisabledDates" Date="@startDate">
+        </TelerikCalendar>
+        <br />
+        @selectedDate?.ToString("dd MMM yyyy")
+
+    </div>
     <div>
-        The user will not be able to select the first and second of April 2019.
+        <h4>Multiple Selection</h4>
+
+        <TelerikCalendar SelectionMode="@CalendarSelectionMode.Multiple" ValueChanged="@MultipleSelectionChangeHandler" DisabledDates="@DisabledDates" Date="@startDate" ref="@multipleSelectionCalendar">
+        </TelerikCalendar>
+        <br />
+        @if (chosenDates != null && chosenDates.Count > 0)
+        {
+            <ul>
+                @foreach (DateTime date in chosenDates)
+                {
+                    <li>@date.ToString("dd MMM yyyy")</li>
+                }
+            </ul>
+        }
     </div>
-    <div class="d-inline-flex p-2">
-        <div style="margin-right:5em;">
-            <h4>Single Selection</h4>
-
-            <TelerikCalendar SelectionMode="@CalendarSelectionMode.Single" ValueChanged="@SingleSelectionChangeHandler" DisabledDates="@DisabledDates" Date="@startDate">
-            </TelerikCalendar>
-            <br />
-            @if (selectedDate != null)
-            {
-                @selectedDate.Value.ToString("dd MMM yyyy");
-            }
-
-        </div>
-        <div>
-            <h4>Multiple Selection</h4>
-
-            <TelerikCalendar SelectionMode="@CalendarSelectionMode.Multiple" ValueChanged="@MultipleSelectionChangeHandler" DisabledDates="@DisabledDates" Date="@startDate" ref="@multipleSelectionCalendar">
-            </TelerikCalendar>
-            <br />
-            @if (chosenDates != null && chosenDates.Count > 0)
-            {
-                <ul>
-                    @foreach (DateTime date in chosenDates)
-                    {
-                        <li>@date.ToString("dd MMM yyyy")</li>
-                    }
-                </ul>
-            }
-        </div>
-    </div>
+</div>
 @functions {
     private DateTime startDate = new DateTime(2019, 4, 1);//set the initial date of the calendar
 
@@ -50,7 +47,7 @@
     private void SingleSelectionChangeHandler(DateTime newValue)
     {
         //with single selection, the argument is a single DateTime object
-        selectedDate = (DateTime)newValue;
+        selectedDate = newValue;
 
         StateHasChanged();
     }

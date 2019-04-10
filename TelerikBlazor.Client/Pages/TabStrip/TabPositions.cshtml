@@ -1,12 +1,13 @@
-﻿@page "/tabstrip/tabposition"
+﻿@page "/tabstrip/tabpositions"
+
 @using TelerikBlazor.Shared
 @using Telerik.Blazor.Components.TabStrip
 
 <select bind=@tabPosition class="form-control col-sm-1" style="margin-bottom:2rem;">
-    <option value=@Telerik.Blazor.Components.TabStrip.TabPosition.Top>Top</option>
-    <option value=@Telerik.Blazor.Components.TabStrip.TabPosition.Left>Left</option>
-    <option value=@Telerik.Blazor.Components.TabStrip.TabPosition.Right>Right</option>
-    <option value=@Telerik.Blazor.Components.TabStrip.TabPosition.Bottom>Bottom</option>
+    <option value=@TabPosition.Top>Top</option>
+    <option value=@TabPosition.Left>Left</option>
+    <option value=@TabPosition.Right>Right</option>
+    <option value=@TabPosition.Bottom>Bottom</option>
 </select>
 
 <TelerikTabStrip TabPosition=@tabPosition>
@@ -30,5 +31,5 @@
     </TelerikTab>
 </TelerikTabStrip>
 @functions {
-    Telerik.Blazor.Components.TabStrip.TabPosition tabPosition = Telerik.Blazor.Components.TabStrip.TabPosition.Top;
+    TabPosition tabPosition = TabPosition.Top;
 }
