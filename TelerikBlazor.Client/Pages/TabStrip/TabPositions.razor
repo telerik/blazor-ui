@@ -1,0 +1,35 @@
+﻿@page "/tabstrip/tab-positions"
+
+@using TelerikBlazor.Shared
+@using Telerik.Blazor.Components.TabStrip
+
+<select bind=@tabPosition class="form-control col-sm-1" style="margin-bottom:2rem;">
+    <option value=@TabPosition.Top>Top</option>
+    <option value=@TabPosition.Left>Left</option>
+    <option value=@TabPosition.Right>Right</option>
+    <option value=@TabPosition.Bottom>Bottom</option>
+</select>
+
+<TelerikTabStrip TabPosition=@tabPosition>
+    <TelerikTab Title="Sofia">
+        <Weather City="Sofia"
+                 TempC="23"
+                 Forecast="ForecastType.Sunny">
+        </Weather>
+    </TelerikTab>
+    <TelerikTab Title="London">
+        <Weather City="London"
+                 TempC="21"
+                 Forecast="ForecastType.Cloudy">
+        </Weather>
+    </TelerikTab>
+    <TelerikTab Title="Paris">
+        <Weather City="Paris"
+                 TempC="17"
+                 Forecast="ForecastType.Rainy">
+        </Weather>
+    </TelerikTab>
+</TelerikTabStrip>
+@functions {
+    TabPosition tabPosition = TabPosition.Top;
+}

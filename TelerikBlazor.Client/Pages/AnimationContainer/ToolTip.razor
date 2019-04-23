@@ -1,0 +1,60 @@
+﻿@page "/animationcontainer/tooltip"
+@using Telerik.Blazor
+@using Telerik.Blazor.Components.AnimationContainer
+
+<span> Hover over the image to show the tooltip. </span>
+<div style="position: relative; height: 150px">
+    <img style="width: 150px; height: 150px;" onmouseout="@OnMouseOut" onmousemove="@OnMouseMove" onmouseover="@OnMouseOver" src="@($"images/1.jpg")" alt="Alternate Text" />
+</div>
+
+<TelerikAnimationContainer Top=@Top Left=@Left Width=100 Height=100 Visible=@Visible AnimationType=@AnimationType.Fade>
+    <div role="tooltip" class="k-widget k-tooltip k-tooltip-closable k-popup k-group k-reset k-state-border-up" style="margin-left: 12px;">
+        <div class="k-tooltip-content">
+            <div class="template-wrapper">
+                <p><strong>Chai</strong> <br />drink</p>
+            </div>
+        </div>
+        <div class="k-callout k-callout-w"></div>
+    </div>
+</TelerikAnimationContainer>
+
+@functions {
+    public bool Visible { get; set; } = false;
+    public int Top { get; set; }
+    public int Left { get; set; }
+    public int Offset { get; set; } = 20;
+
+    public void ToggleAnimation()
+    {
+        Visible = !Visible;
+        StateHasChanged();
+    }
+
+    public void OnMouseMove(UIMouseEventArgs args)
+    {
+        Top = (int)args.ClientY - Offset;
+        Left = (int)args.ClientX + Offset;
+        StateHasChanged();
+    }
+
+    public void OnMouseOver(UIMouseEventArgs args)
+    {
+        Top = (int)args.ClientY - Offset;
+        Left = (int)args.ClientX + Offset;
+        Visible = true;
+        StateHasChanged();
+    }
+
+    public void OnMouseOut(UIMouseEventArgs args)
+    {
+        Visible = false;
+        StateHasChanged();
+    }
+}
+
+<style type="text/css">
+
+    .example-wrapper {
+        min-height: 200px;
+    }
+</style>

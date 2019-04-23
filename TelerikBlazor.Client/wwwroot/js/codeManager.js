@@ -2,7 +2,7 @@
     renderCode: function (url) {
 
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/blazor/source/index?path=/Pages/' + url.replace(/-/g, '_') + '.cshtml');
+        xhr.open('GET', '/blazor/source/index?path=/Pages' + url.replace(/-/g, '_') + '.razor');
         xhr.onload = function () {
             if (xhr.status === 200) {
                 var snippetContainer = document.getElementById("codecontainer");

@@ -1,0 +1,43 @@
+@page "/grid/sorting"
+
+@using TelerikBlazor.Shared
+@using Telerik.Blazor.Components.Grid
+<h4> Sortable </h4>
+
+<TelerikGrid Data=@GridData
+             Height=@Height
+             Sortable=@Sortable>
+    <TelerikGridColumns>
+        <TelerikGridColumn Field=@nameof(Product.ProductId) Title="Id" />
+        <TelerikGridColumn Field=@nameof(Product.ProductName) Title="Product Name" />
+        <TelerikGridColumn Field=@nameof(Product.UnitPrice) Title="Unit Price">
+            <Template>
+                @(String.Format("{0:C2}", (context as Product).UnitPrice))
+            </Template>
+        </TelerikGridColumn>
+    </TelerikGridColumns>
+</TelerikGrid>
+
+@functions {
+    public IEnumerable<Product> GridData { get; set; }
+    bool Sortable = true;
+    decimal Height = 400;
+
+    protected override void OnInit()
+    {
+        List<Product> products = new List<Product>();
+        for (int i = 0; i < 100; i++)
+        {
+            products.Add(new Product()
+            {
+                ProductId = i,
+                ProductName = "Product" + i.ToString(),
+                SupplierId = i,
+                UnitPrice = (decimal)(i * 3.14),
+                UnitsInStock = (short)(i * 1),
+            });
+        }
+
+        GridData = products.AsQueryable();
+    }
+}

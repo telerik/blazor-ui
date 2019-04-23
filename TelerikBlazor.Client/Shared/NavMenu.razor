@@ -1,0 +1,36 @@
+﻿<div>
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <div class="component">
+                <NavLink class="nav-link p-0" href="/blazor/" Match=NavLinkMatch.All>
+                    Overview
+                </NavLink>
+            </div>
+        </li>
+        <NavItem Title="Button" MenuItems="@IndexOnly" />
+        <NavItem Title="Calendar" MenuItems="@CalendarMenuItems" />
+        <NavItem Title="Chart" MenuItems="@ChartMenuItems" />
+        <NavItem Title="Date Input" MenuItems="@IndexOnly" />
+        <NavItem Title="Date Picker" MenuItems="@IndexOnly" />
+        <NavItem Title="DropDownList" MenuItems="@DropDownListMenuItems" />
+        <NavItem Title="Grid" MenuItems="@GridMenuItems" />
+        <NavItem Title="Numeric Textbox" MenuItems="@NumerictextboxMenuItems" />
+        <NavItem Title="TabStrip" MenuItems="@TabStripMenuItems" />
+        <NavItem Title="TextBox" MenuItems="@TextboxMenuItems" />
+        <NavItem Title="Window" MenuItems="@WindowMenuItems" />
+        <NavItem Title="Animation Container" MenuItems="@AnimationMenuItems" />
+    </ul>
+</div>
+@functions {
+    private string[] IndexOnly = { "Index" };
+    private string[] TabStripMenuItems = { "Index", "Tab Positions" };
+    private string[] GridMenuItems = { "Index", "Sorting", "Templates", "Columns", "Paging", "Editing Incell", "Editing Inline", "Editing Popup", "Editing Custom Form", "Custom Editor" };
+    private string[] WindowMenuItems = { "Index", "Dimensions", "Actions", "Position", "Modal" };
+    private string[] CalendarMenuItems = { "Index", "Selection" };
+    private string[] ChartMenuItems = { "Index", "Column chart", "Pie chart", "Donut chart", "Area chart", "Line chart" };
+    private string[] NumerictextboxMenuItems = { "Index", "Formats", "Validation" };
+    private string[] TextboxMenuItems = { "Index", "Validation" };
+    private string[] AnimationMenuItems = { "Index", "Tooltip", "Notification" };
+    private string[] DropDownListMenuItems = { "Index", "Templates", "Validation" };
+
+}

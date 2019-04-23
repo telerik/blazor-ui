@@ -1,0 +1,22 @@
+@page "/window/modal"
+@using Telerik.Blazor
+@using Telerik.Blazor.Components.Window
+@using Telerik.Blazor.Components.Button
+
+<TelerikButton Icon=@IconName.Window OnClick=@(()=> WindowVisible = true)>Open Modal</TelerikButton>
+
+<TelerikWindow Width="500" Height="300" Centered="true" Visible=@WindowVisible Modal="true">
+    <TelerikWindowTitle>
+        <strong>Modal Window</strong>
+    </TelerikWindowTitle>
+    <TelerikWindowActions>
+        <TelerikWindowAction Name="Close" />
+    </TelerikWindowActions>
+    <TelerikWindowContent>
+        <p>Click the close button to dismiss this modal dialog.</p>
+    </TelerikWindowContent>
+</TelerikWindow>
+
+@functions {
+    bool WindowVisible = true;
+}
