@@ -1,0 +1,40 @@
+﻿@page "/textbox/validation"
+
+@using System.ComponentModel.DataAnnotations
+@using Telerik.Blazor.Components.TextBox
+
+<EditForm Model="@validationModel" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary></ValidationSummary>
+
+    <TelerikTextBox bind-Value="@validationModel.RequiredField"></TelerikTextBox>
+
+
+    <TelerikTextBox bind-Value="@validationModel.LengthField"></TelerikTextBox>
+    <button class="k-button" type="submit">Submit</button>
+</EditForm>
+
+<p>
+    @SuccessMessage
+</p>
+
+
+@functions  {
+    class TextValidationModel
+    {
+        [Required]
+        public string RequiredField { get; set; }
+
+        [StringLength(10, ErrorMessage = "That text is too long")]
+        public string LengthField { get; set; }
+    }
+
+    TextValidationModel validationModel = new TextValidationModel() { LengthField = "Too long text" };
+
+    string SuccessMessage = string.Empty;
+
+    void HandleValidSubmit()
+    {
+        SuccessMessage = "Form Submitted Successfully!";
+    }
+}

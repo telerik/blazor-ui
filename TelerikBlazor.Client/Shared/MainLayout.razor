@@ -1,0 +1,108 @@
+﻿@inherits Microsoft.AspNetCore.Components.Layouts.LayoutComponentBase
+@inject Microsoft.AspNetCore.Components.IUriHelper UriHelper
+@using Microsoft.JSInterop;
+@inject IJSRuntime JsRuntime;
+
+<div class="top-row d-flex justify-content-between">
+    <div class="navbar logo">
+        <NavLink href="https://www.telerik.com/blazor-ui">
+            <img alt="Telerik Blazor Logo" class="w-100" src="css/logos/logo-dark.svg" />
+        </NavLink>
+    </div>
+
+    <div class="d-flex flex-row-reverse">    
+        <NavLink class="btn-accent nav-link nav-btn" href="https://www.telerik.com/download-trial-file/v2-b/ui-for-blazor" Match=NavLinkMatch.All>Try Now</NavLink>
+        <ThemeManager />
+        
+        <div class="toggle-mobile px-4" onclick="@ToggleMobileMenu">
+            <span></span>
+        </div>
+    </div>
+      
+</div>
+
+
+<div class="main-content">
+    
+    <div class="sidebar @((MobileMenuToggled ? "toggled" : ""))">
+        <NavMenu/>
+    </div>
+
+    <div class="main" onclick="@HideMobileMenu">
+
+        <div class="content px-4">
+            <div class="example-wrapper py-4">
+                @Body
+            </div>
+
+            @if (ShowCodeExample)
+            {
+                <div class="code-sample-wrapper py-5">
+                    <h2>Source </h2>
+                    <div class="code-sample mt-4">
+
+                        <ul class="code-sample-tabs p-2">
+                            <li><span class="nav-link active">@string.Format("{0}.cshtml", ViewName.Replace("-", "_").Split(new char[] { '/' }).Last())</span></li>
+                        </ul>
+
+                        <div id="codecontainer" class="code-sample-content p-4"></div>
+
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@functions {
+
+    public bool ShowCodeExample = false;
+    public bool MobileMenuToggled = false;
+    public string ViewName = "";
+
+    protected override void OnInit()
+    {
+        UriHelper.OnLocationChanged += OnLocationChanged;
+        InvokeCodeRender(UriHelper.GetAbsoluteUri());
+    }
+
+    private async void OnLocationChanged(object sender, string newUriAbsolute)
+    {
+        InvokeCodeRender(newUriAbsolute);
+    }
+
+    private async void InvokeCodeRender(string absolutePath)
+    {
+        MobileMenuToggled = false;
+
+        if (absolutePath.TrimEnd('/') != UriHelper.GetBaseUri().TrimEnd('/'))
+        {
+            string[] parts = absolutePath.Split(new char[] { '/' });
+            ViewName = string.Format("{0}/{1}", parts[parts.Length - 2], parts[parts.Length - 1]);
+            await JsRuntime.InvokeAsync<string>("codeManager.renderCode", string.Format("/{0}", ViewName));
+            await JsRuntime.InvokeAsync<string>("scroller.scrollToTop");
+
+            ShowCodeExample = true;
+            StateHasChanged();
+        }
+        else
+        {
+            ShowCodeExample = false;
+            StateHasChanged();
+        }
+    }
+
+    public void Dispose()
+    {
+        UriHelper.OnLocationChanged -= OnLocationChanged;
+    }
+
+    void ToggleMobileMenu()
+    {
+        MobileMenuToggled = !MobileMenuToggled;
+    }
+ 
+    void HideMobileMenu()
+    {
+        MobileMenuToggled = false;
+    }
+}

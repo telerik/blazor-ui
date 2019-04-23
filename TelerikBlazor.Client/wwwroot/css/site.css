@@ -21,15 +21,67 @@ app {
     flex-direction: column;
 }
 
+.loading-section {
+    text-align: center;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.loading-section h2 {
+    color: #00b5dc;
+}
+
+.loader-dot {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: #00b5dc;
+    display: inline-block;
+    -webkit-animation: grow 2.1s infinite ease-in-out both;
+    animation: grow 2.1s infinite ease-in-out both;
+}
+
+.loader-dot.dot1 {
+    -webkit-animation-delay: -0.96s;
+    animation-delay: -0.96s;
+}
+
+.loader-dot.dot2 {
+    -webkit-animation-delay: -0.48s;
+    animation-delay: -0.48s;
+}
+
+@-webkit-keyframes grow {
+    0%, 80%, 100% {
+        -webkit-transform: scale(0)
+    }
+
+    40% {
+        -webkit-transform: scale(1.0)
+    }
+}
+
+@keyframes grow {
+    0%, 80%, 100% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+
+    40% {
+        -webkit-transform: scale(1.0);
+        transform: scale(1.0);
+    }
+}
+
 .top-row {
     min-height: 3.5rem;
     background-color: #f3f4f5;
-
     display: -ms-flexbox;
     display: flex;
     -ms-flex-direction: column;
     flex-direction: column;
-
     -webkit-box-shadow: 0 0 6px #f3f4f5;
     -moz-box-shadow: 0 0 6px #f3f4f5;
     box-shadow: 0 0 6px #f3f4f5;
@@ -326,7 +378,7 @@ div .k-button {
     font-weight: 600;
 }
 
-.components-list .short-description {
+.short-description {
     color: #9098a5
 }
 
@@ -437,6 +489,7 @@ pre .dec {
 
     .sidebar {
         position: static;
+        height: auto;
         -ms-flex: 0 0 auto;
         flex: 0 0 auto;
 

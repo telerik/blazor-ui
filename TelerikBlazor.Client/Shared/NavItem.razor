@@ -1,0 +1,52 @@
+﻿@inject Microsoft.AspNetCore.Components.IUriHelper UriHelper
+@using Telerik.Blazor;
+@using Microsoft.AspNetCore.Components
+
+<li class="nav-item">
+    <div class="component @((isHidden ? "" : "expanded"))" onclick="@Toggle">
+        <span class="@ToggleIcon" aria-hidden="true"></span>
+        @Title
+    </div>
+    @if (!isHidden)
+    {
+        foreach (var item in MenuItems)
+        {
+            <NavLink class="nav-link" href="@($"{Title.Replace(" ", "").ToLower()}/{item.ToLower().Replace(" ","-")}")">
+                @item
+            </NavLink>
+        }
+    }
+</li>
+
+@functions      {
+
+    bool isHidden = true;
+    const string CollapsedClass = "k-icon k-i-" + IconName.ArrowChevronRight;
+    const string ExpandedClass = "k-icon k-i-" + IconName.ArrowChevronDown;
+    string ToggleIcon = CollapsedClass;
+    [Parameter] protected string Title { get; set; }
+
+    [Parameter] protected string[] MenuItems { get; set; }
+
+    void Toggle()
+    {
+        isHidden = !isHidden;
+        ToggleIcon = isHidden ? CollapsedClass : ExpandedClass;
+    }
+
+    private void OnLocationChanges(object sender, string location)
+    {
+        if (location.Contains(Title.Replace(" ", "").ToLower()))
+        {
+            isHidden = false;
+        }
+        StateHasChanged();
+
+    }
+
+    protected override void OnInit()
+    {
+        UriHelper.OnLocationChanged += OnLocationChanges;
+        OnLocationChanges(this, UriHelper.GetAbsoluteUri());
+    }
+}
