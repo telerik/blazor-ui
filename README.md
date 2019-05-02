@@ -1,7 +1,11 @@
-# Telerik UI for Blazor demos
+# Kendo UI for Blazor
 
-This repository contains Telerik UI for Blazor preview examples. We use it to present the initially shipped components along with their functionalities. The repo will be continuously updated to cover the latest version of Blazor.
+Kendo UI for Blazor uses GitHub Issues as an official bug tracker.
 
-You can find the demos live at [https://demos.telerik.com/blazor](https://demos.telerik.com/blazor)
+This repository is intended to support users by providing information on new and fixed issues, as well as future features and enhancements.
 
-You can find documentaion at [https://docs.telerik.com/blazor/introduction](https://docs.telerik.com/blazor/introduction)
+This repository does not contain the actual source code of the components, or the demos application.
+
+You can find the demos live at [https://demos.telerik.com/blazor-ui](https://demos.telerik.com/blazor-ui)
+
+You can find documentaion at [https://docs.telerik.com/blazor-ui/introduction](https://docs.telerik.com/blazor-ui/introduction)
