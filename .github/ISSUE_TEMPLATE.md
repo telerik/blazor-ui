@@ -18,4 +18,5 @@ Explain what the expected behavior of the functionality is
 ### Environment
 
 * **Telerik UI for Blazor version:** x.y.z
-* **Browser:** [all | Chrome XX | Firefox XX ]
+* **Browser:** [all | Chrome XX | Firefox XX | Edge XX]
+* **App Type** [server | client]
