@@ -1,0 +1,59 @@
+﻿@page "/"
+@inherits IndexBase
+@using BatchEditingMimic.Data
+
+@* Upon "Save All" click all changes go to the service at once. New items are added at the end because the service is implemented that way
+    while the UI adds them at the top for easier consumption by the user.*@
+
+<TelerikGrid Data=@LocalData EditMode="@GridEditMode.Incell" Pageable="true"
+             OnUpdate="@UpdateHandler" OnEdit="@EditHandler" OnDelete="@DeleteHandler" OnCreate="@CreateHandler"
+             Groupable="true" Sortable="true" FilterMode="@GridFilterMode.FilterMenu"
+             SelectionMode="@GridSelectionMode.Multiple" @bind-SelectedItems="@SelectedItems">
+    <GridToolBar>
+        @{
+            if (GridIsDirty())
+            {
+                <TelerikButton Icon="@IconName.Save" OnClick="@SaveAllChanges" Primary="true">Save All Changes</TelerikButton>
+                <TelerikButton Icon="@IconName.Cancel" OnClick="@RevertAllChanges">Cancel All Changes</TelerikButton>
+            }
+            <GridCommandButton Command="Add" Icon="add">Add Employee</GridCommandButton>
+            if (SelectedItems.Count() > 0)
+            {
+                <TelerikButton Icon="@IconName.Delete" OnClick="@DeleteSelected">Delete Selected</TelerikButton>
+                if (SelectionIsDirty())
+                {
+                    <TelerikButton Icon="@IconName.Undo" OnClick="@RevertSelected">Revert Selected</TelerikButton>
+                }
+            }
+        }
+    </GridToolBar>
+    <GridColumns>
+        <GridCheckboxColumn />
+        <GridColumn Title="Changes" Editable="false" Field="IsDirty" Width="130px">
+            <Template>
+                @{
+                    BatchEditModel currItem = context as BatchEditModel;
+                    if (currItem.IsNew)
+                    {
+                        <span style="color: green;">Unsaved item</span>
+                    }
+                    else if (currItem.IsDeleted)
+                    {
+                        <TelerikButton Icon="@IconName.ArrowUp" OnClick="@( () => UndeleteItem(currItem) )">Undelete</TelerikButton>
+                    }
+                    else if (currItem.IsChanged)
+                    {
+                        <TelerikButton Icon="@IconName.Undo" OnClick="@( () => RevertItem(currItem) )">Revert</TelerikButton>
+                    }
+                }
+            </Template>
+        </GridColumn>
+        <GridCommandColumn Width="150px">
+            <GridCommandButton Command="Save" Icon="save" ShowInEdit="true">Save</GridCommandButton>
+            <GridCommandButton Command="Delete" Icon="delete">Delete</GridCommandButton>
+        </GridCommandColumn>
+        <GridColumn Field=@nameof(BatchEditModel.Id) Title="Id" Editable="false" Width="100px" />
+        <GridColumn Field=@nameof(BatchEditModel.Name) Title="Name" />
+        <GridColumn Field=@nameof(BatchEditModel.Age) Title="Age" />
+    </GridColumns>
+</TelerikGrid>
