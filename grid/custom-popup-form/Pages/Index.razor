@@ -1,0 +1,146 @@
+﻿@page "/"
+
+@using custom_popup_form.Data
+@using System.Collections.ObjectModel
+
+<TelerikGrid Data=@GridData Sortable="true" Pageable="true">
+    <GridColumns>
+        <GridCommandColumn>
+            <GridCommandButton OnClick="@((args)=> SelectEmployee(args.Item as Employee))" Icon="edit">Edit</GridCommandButton>
+        </GridCommandColumn>
+        <GridColumn Field=@nameof(Employee.Id) Title="Id" />
+        <GridColumn Field=@nameof(Employee.Name) Title="Name" />
+        <GridColumn Field=@nameof(Employee.LastName) Title="Last Name" />
+        <GridColumn Field=@nameof(Employee.OnLeave) Title="On Vacation" />
+        <GridColumn Field=@nameof(Employee.HireDate) Title="Hire Date">
+            <Template>
+                @((context as Employee).HireDate.ToLongDateString())
+            </Template>
+        </GridColumn>
+    </GridColumns>
+    <GridToolBar>
+        <TelerikButton OnClick="@( () => SelectEmployee(null) )" Icon="add">Add Employee</TelerikButton>
+    </GridToolBar>
+</TelerikGrid>
+
+<TelerikWindow Visible="@(selectedEmployee != null)" Modal="true">
+    <WindowTitle>
+        @{
+            if (selectedEmployee.Id < 0)
+            {
+                <strong>Add Employee</strong>
+            }
+            else
+            {
+                <strong>Edit Employee</strong>
+            }
+        }
+    </WindowTitle>
+    <WindowContent>
+        @*Implement the desired layout here*@
+        <EditForm Model="@selectedEmployee" OnValidSubmit="@Save">
+            <DataAnnotationsValidator />
+            <div class="form-row">
+                <div class="col">
+                    <TelerikTextBox @bind-Value="@selectedEmployee.Name" Label="First Name"></TelerikTextBox>
+                </div>
+                <div class="col">
+                    <TelerikTextBox @bind-Value="@selectedEmployee.LastName" Label="Last Name"></TelerikTextBox>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <TelerikDatePicker @bind-Value="@selectedEmployee.HireDate"></TelerikDatePicker>
+                </div>
+                <div class="col">
+                    <label>
+                        Is on vacation:
+                        <InputCheckbox @bind-Value="@selectedEmployee.OnLeave" />
+                    </label>
+                </div>
+            </div>
+            <div class="form-row">
+                <ValidationSummary />
+                <TelerikButton Icon="save" Primary="true" ButtonType="@ButtonType.Submit">Save</TelerikButton>
+                <TelerikButton Icon="cancel" OnClick="@ClearSelection" ButtonType="@ButtonType.Button">Cancel</TelerikButton>
+            </div>
+        </EditForm>
+    </WindowContent>
+</TelerikWindow>
+
+@code {
+    public ObservableCollection<Employee> GridData { get; set; }
+    Employee selectedEmployee { get; set; }
+    Employee originalEmployee { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+    }
+
+    private async Task LoadData()
+    {
+        var data = await Task.FromResult<IEnumerable<Employee>>(Enumerable.Range(1, 50).Select(x => new Employee
+        {
+            Id = x,
+            Name = $"Name {x}",
+            LastName = $"Surname {x}",
+            HireDate = DateTime.Now.Date.AddDays(-x),
+            OnLeave = x % 4 == 0
+        }));
+
+        GridData = new ObservableCollection<Employee>(data);
+    }
+
+
+    void SelectEmployee(Employee item)
+    {
+        if (item != null)
+        {
+            originalEmployee = item;//we keep a reference to the original item so we don't change it immediately, in case the uses clickc Cancel
+            selectedEmployee = new Employee()
+            {
+                Id = originalEmployee.Id,
+                Name = originalEmployee.Name,
+                LastName = originalEmployee.LastName,
+                OnLeave = originalEmployee.OnLeave,
+                HireDate = originalEmployee.HireDate
+            }; //consider implementing ICloneable instead of manually copying field values
+        }
+        else
+        {
+            selectedEmployee = new Employee() { Id = -(GridData.Count + 1) };
+        }
+
+        StateHasChanged();
+    }
+
+    void Save()
+    {
+        if (originalEmployee != null)
+        {
+            originalEmployee.Name = selectedEmployee.Name;
+            originalEmployee.LastName = selectedEmployee.LastName;
+            originalEmployee.OnLeave = selectedEmployee.OnLeave;
+            originalEmployee.HireDate = selectedEmployee.HireDate;
+
+            //call the actual Update service here
+        }
+        else
+        {
+            GridData.Insert(0, selectedEmployee);
+
+            //call the actual Insert service here. Consider updating the ID with the actual ID after insertion
+            //this sample uses negative IDs to denote newly added items
+        }
+
+        //the Delete operation is not implemented for brevity and to let this sample focus on editing/inserting with a custom popup form
+
+        ClearSelection();
+    }
+
+    void ClearSelection()
+    {
+        originalEmployee = selectedEmployee = null;
+    }
+}
