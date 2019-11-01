@@ -1,0 +1,28 @@
+﻿@page "/"
+
+@* This is just some sample "responsive" layout. The resizing logic is shown in the IndividualChart component  *@
+<style>
+    .div100 {
+        width: 100%;
+    }
+
+    .div50 {
+        width: 50%;
+        float: left;
+    }
+</style>
+
+Resize the browser window to see the charts respond to the size change
+
+<div class="div100">
+    <IndividualChart />
+</div>
+<div class="div100">
+    <div class="div50">
+        <IndividualChart />
+    </div>
+    <div class="div50">
+        <IndividualChart />
+    </div>
+    <div class="clearDiv"></div>
+</div>
