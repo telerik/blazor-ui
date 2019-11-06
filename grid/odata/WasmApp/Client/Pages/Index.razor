@@ -1,0 +1,38 @@
+﻿@page "/"
+
+@inject HttpClient Http
+@using Telerik.Blazor.ExtensionMethods
+@using WasmApp.Shared
+
+<TelerikGrid Data=@GridData
+             Height="460px"
+             RowHeight="60"
+             PageSize="10"
+             Pageable="true"
+             Sortable="true"
+             FilterMode="@GridFilterMode.FilterRow"
+             OnRead=@ReadItems
+             TotalCount=@Total>
+    <GridColumns>
+        <GridColumn Field="ProductID" />
+        <GridColumn Field="ProductName" />
+        <GridColumn Field="Discontinued" />
+    </GridColumns>
+</TelerikGrid>
+
+@code{
+    public List<ODataProduct> GridData { get; set; } = new List<ODataProduct>();
+    public int Total { get; set; } = 0;
+
+    protected async Task ReadItems(GridReadEventArgs args)
+    {
+        var baseUrl = "https://demos.telerik.com/kendo-ui/service-v4/odata/Products?";
+
+        var requestUrl = $"{baseUrl}{args.Request.ToODataString()}";
+
+        ODataResponseOrders response = await Http.GetJsonAsync<ODataResponseOrders>(requestUrl);
+
+        GridData = response.Products;
+        Total = response.Total;
+    }
+}

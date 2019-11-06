@@ -1,0 +1,34 @@
+﻿@page "/"
+
+@inject ODataOrdersService OrdersService
+@using ServerApp.Data
+
+<TelerikGrid Data=@GridDataOrders
+             Height="460px"
+             RowHeight="60"
+             PageSize="10"
+             Pageable="true"
+             Sortable="true"
+             FilterMode="@GridFilterMode.FilterRow"
+             OnRead=@ReadOrders
+             TotalCount=@TotalOrders>
+    <GridColumns>
+        <GridColumn Field="OrderID" />
+        <GridColumn Field="ShipName" />
+        <GridColumn Field="OrderDate" />
+    </GridColumns>
+</TelerikGrid>
+
+@code{
+    public List<ODataOrder> GridDataOrders { get; set; } = new List<ODataOrder>();
+
+    public int TotalOrders { get; set; } = 0;
+
+    protected async Task ReadOrders(GridReadEventArgs args)
+    {
+        ODataOrdersResponse data = await OrdersService.GetOrders(args.Request);
+
+        GridDataOrders = data.Orders;
+        TotalOrders = data.Total;
+    }
+}
