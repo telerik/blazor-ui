@@ -5,9 +5,9 @@
 }
 
 //throttle resize event, taken from https://stackoverflow.com/a/668185/812369
-var TO = false;
+var timeout = false;
 window.addEventListener("resize", function () {
-    if (TO !== false)
-        clearTimeout(TO);
-    TO = setTimeout(raiseResizeEvent, 200);
+    if (timeout !== false)
+        clearTimeout(timeout);
+    timeout = setTimeout(raiseResizeEvent, 200);
 });

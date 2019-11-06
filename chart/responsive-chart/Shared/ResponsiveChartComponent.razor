@@ -2,7 +2,7 @@
 @implements IDisposable
 
 @code {
-    TelerikChart theChart { get; set; } // you need references to the charts you need to resize
+    TelerikChart ChartRef { get; set; } // you need references to the charts you need to resize
 
     protected override void OnInitialized()
     {
@@ -17,7 +17,7 @@
     protected async Task ResizeChart()
     {
         // now that you know the size of the chart container changed, re-render the chart
-        theChart.Refresh(); 
+        ChartRef.Refresh(); 
         
         //you can do this for more than one chart if the component has more than one chart
 
@@ -53,7 +53,7 @@
     public string[] xAxisItems = new string[] { "Q1", "Q2", "Q3", "Q4" };
 }
 
-<TelerikChart @ref="@theChart">
+<TelerikChart @ref="@ChartRef">
     <ChartSeriesItems>
         <ChartSeries Type="ChartSeriesType.Line" Name="Product 1 (bound to simple data)" Data="@simpleData">
         </ChartSeries>
