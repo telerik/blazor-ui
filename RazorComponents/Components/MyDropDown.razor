@@ -1,0 +1,21 @@
+﻿@using Telerik.Blazor.Components.Grid
+@using BlazorInRazorPages.Models
+
+<h3>MyGrid</h3>
+
+
+<TelerikRootComponent>
+	@* This component must wrap the entire Blazor component when Telerik components are used in it
+		more: https://docs.telerik.com/blazor-ui/getting-started/what-you-need#project-configuration *@
+    @SelectedCustomerId
+    <br />
+	<TelerikDropDownList Data="@Customers" @bind-Value="@SelectedCustomerId" TextField="Name" ValueField="Id"></TelerikDropDownList>
+
+</TelerikRootComponent>
+
+@code {
+    [Parameter]
+    public IEnumerable<Customer> Customers { get; set; }
+
+    private int SelectedCustomerId { get; set; } = 5;
+}
