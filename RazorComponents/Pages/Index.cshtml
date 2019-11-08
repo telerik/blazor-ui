@@ -1,5 +1,5 @@
 ﻿@page
-@model IndexModel
+@model BlazorInRazorPages.Pages.IndexModel
 @using BlazorInRazorPages.Components
 
 @{
@@ -20,16 +20,19 @@
     different (through an HTML helper and anonymous object for parameters), but it seems Blazor no longer works in Razor Pages.
 *@
 
-<component type="typeof(Counter)" render-mode="ServerPrerendered" />
+@*<component type="typeof(Counter)" render-mode="ServerPrerendered" />*@
 
 @*If the basic Blazor components start working, the Telerik ones should too*@
-<component type="typeof(MyWindow)" render-mode="ServerPrerendered"  />
+
+@*<component type="typeof(MyWindow)" render-mode="ServerPrerendered" />*@
+
+@*(await Html.RenderComponentAsync<MyDropDown>(RenderMode.Server, new { Customers = Model.BlazorGridData }))*@
 
 @*<component type="typeof(MyDropDown)" render-mode="ServerPrerendered" param-Customers="@Model.BlazorGridData.Take(15)" />*@
 
 @*<component type="typeof(MyGrid)" render-mode="ServerPrerendered" param-Customers="@Model.BlazorGridData" />
 
-For the sake of the demo, we will add a second grid with similar data here*@
+    For the sake of the demo, we will add a second grid with similar data here*@
 
-@*<component type="typeof(MyGrid)" render-mode="ServerPrerendered" param-Customers="@Model.BlazorGridData.Take(5)" />*@
+<component type="typeof(MyList)" render-mode="ServerPrerendered" param-Customers="@Model.BlazorGridData.Take(15)" />
 

@@ -1,0 +1,21 @@
+﻿@using BlazorInRazorPages.Models
+
+<h3>MyList</h3>
+
+@if (Customers == null)
+{
+    <p><em>Loading Customers...</em></p>
+}
+else
+{
+    @foreach (var items in Customers)
+    {
+        <li>@items.Name</li>
+    }
+}
+
+
+@code {
+    [Parameter]
+    public IEnumerable<Customer> Customers { get; set; }
+}
