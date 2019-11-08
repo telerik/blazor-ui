@@ -1,3 +1,5 @@
+# Blazor Components in an ASP.NET Core Razor Page - Razor Components Scenario
+
 This example shows how you can use Blazor components in a Razor page.
 
 Here are the key points (comments in the code offer more details):
