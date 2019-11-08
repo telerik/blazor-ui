@@ -1,3 +1,5 @@
+# Responsive Chart
+
 This example shows how to make the Telerik Chart component respond to a change in the browser size and re-render with the new dimensions.
 
 The key points are:
