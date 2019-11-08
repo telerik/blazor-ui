@@ -1,3 +1,5 @@
+# Get Telerik Grid Data from an OData v4 Service
+
 This example shows how you can consume OData services to feed data to the Telerik Blazor Grid.
 
 You can perform the actual requests for the OData service in any way suitable to your app, the Telerik Grid needs the data for the current page and the total count, and provides you with an easy serialization method of its state.
