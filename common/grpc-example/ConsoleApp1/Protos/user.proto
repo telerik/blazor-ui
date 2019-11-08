@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcUsers";
+
+package users;
+
+service Users {
+  // Sends the users from a department
+  rpc GetUsers (UsersRequest) returns (UsersReply);
+}
+
+// The request message containing the user's department name.
+message UsersRequest {
+  string departmentName = 1;
+}
+
+// The response message containing the users.
+message UsersReply {
+    repeated User listOfUsers = 1;
+}
+
+message User {
+    string name = 1;
+    int32 id = 2;
+}

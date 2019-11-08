@@ -1,0 +1,24 @@
+﻿@page "/"
+
+@inject GrpcInBlazor.Services.GrpcUsersService DepartmentUsersService
+
+<TelerikDropDownList Data="@Departments" ValueChanged="@( (string v) => GetUsersFromDepartment(v) )"></TelerikDropDownList>
+
+<TelerikGrid Data="@users" FilterMode="GridFilterMode.FilterRow" Sortable="true" Pageable="true" PageSize="5"
+             Groupable="true" Resizable="true" Reorderable="true">
+    <GridColumns>
+        <GridColumn Field="@(nameof(GrpcUsers.User.Id))" />
+        <GridColumn Field="@(nameof(GrpcUsers.User.Name))" />
+    </GridColumns>
+</TelerikGrid>
+
+@code {
+    List<string> Departments = new List<string>() { "sales", "marketing", "IT" };
+
+    List<GrpcUsers.User> users { get; set; } // the namespace and model come from the gRPC server
+
+    private async Task GetUsersFromDepartment(string theUserChoice)
+    {
+        users = await DepartmentUsersService.GetUsersAsync(theUserChoice);
+    }
+}
