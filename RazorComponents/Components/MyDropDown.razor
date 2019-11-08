@@ -1,7 +1,7 @@
 ﻿@using Telerik.Blazor.Components.Grid
 @using BlazorInRazorPages.Models
 
-<h3>MyGrid</h3>
+<h3>My DropDown</h3>
 
 
 <TelerikRootComponent>
@@ -18,4 +18,14 @@
     public IEnumerable<Customer> Customers { get; set; }
 
     private int SelectedCustomerId { get; set; } = 5;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        if(Customers == null)
+        {
+            //we did not get data from the parent component/page, we will get (generate) some
+            Customers = Enumerable.Range(1, 15).Select(x => new Customer { Id = x, Name = "Name " + x });
+        }
+    }
 }

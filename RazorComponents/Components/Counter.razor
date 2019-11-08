@@ -1,9 +1,18 @@
-﻿
+﻿@using BlazorInRazorPages.Models
+
 <h1>Counter</h1>
 
 <p>Current count: @currentCount</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@if (Customers != null)
+{
+    @foreach (Customer item in Customers)
+    {
+        <div>@item.Id @item.Name</div>
+    }
+}
 
 @code {
     int currentCount = 0;
@@ -12,6 +21,9 @@
     {
         currentCount++;
     }
+
+    [Parameter]
+    public IEnumerable<Customer> Customers { get; set; }
 }
 
 

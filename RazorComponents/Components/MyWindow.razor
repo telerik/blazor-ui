@@ -1,7 +1,9 @@
-﻿<TelerikButton Icon=@IconName.Window OnClick=@(()=> WindowVisible = true)>Open Modal</TelerikButton>
+﻿<h3>My Window</h3>
+
+<TelerikButton Icon=@IconName.Window OnClick=@(()=> WindowVisible = true)>Open Modal</TelerikButton>
 
 <TelerikRootComponent>
-    <TelerikWindow Class="demo-window" Width="500px" Height="300px" Centered="true" Visible=@WindowVisible Modal="true">
+    <TelerikWindow Class="demo-window" Width="500px" Height="300px" Centered="true" @bind-Visible=@WindowVisible Modal="true">
         <WindowTitle>
             <strong>Modal Window</strong>
         </WindowTitle>
@@ -15,18 +17,5 @@
 </TelerikRootComponent>
 
 @code {
-
     protected bool WindowVisible { get; set; }
-
-    protected override void OnInitialized()
-    {
-        WindowVisible = false;
-    }
 }
-
-
-<style type="text/css">
-    .demo-window {
-        z-index: 44444;
-    }
-</style>

@@ -1,6 +1,5 @@
 ﻿@page
 @model IndexModel
-@using BlazorInRazorPages.Components
 
 @{
     ViewData["Title"] = "Home page";
@@ -11,25 +10,42 @@
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
-@* add Blazor components, their Parameters are passed as model fields *@
+@* This is the namespace where the Blazor components reside, shortens the type parameter of the component tag helper *@
+@using BlazorInRazorPages.Components
 
-@*
-    Even the basic Counter component does not seem to work. It looks like Blazor does not work at all, because there are no Messages
-    in the network tab of the browser - while the assets are there and server pre-rendering works, it seems like interactions do not.
-    This used to work around .NET Core 3.0 Preview 4, even though back then the syntax for rendering a Blazor component was
-    different (through an HTML helper and anonymous object for parameters), but it seems Blazor no longer works in Razor Pages.
-*@
+
+@* add Blazor components, read the comments about the issues with Parameters*@
 
 <component type="typeof(Counter)" render-mode="ServerPrerendered" />
 
-@*If the basic Blazor components start working, the Telerik ones should too*@
-<component type="typeof(MyWindow)" render-mode="ServerPrerendered"  />
+@*
+    There seems to be an issue in the framework with passing parameters to Blazor components.
+    Adding the following will throw an error in the console similar to
+    Error: The list of component records is not valid.
+    Which seems related to the following issue that was supposedly fixed in .NET Core 3.1 Preview 2
+    but it seems that it still manifests
+        https://github.com/aspnet/AspNetCore/issues/14966
+        https://github.com/aspnet/AspNetCore/issues/14474
+    So, it seems, that components should handle their own data and receiving parameters may be impossible
+*@
 
-@*<component type="typeof(MyDropDown)" render-mode="ServerPrerendered" param-Customers="@Model.BlazorGridData.Take(15)" />*@
+@*<component type="typeof(Counter)" render-mode="ServerPrerendered" param-Customers="@Model.BlazorGridData.Take(4)" />*@
 
-@*<component type="typeof(MyGrid)" render-mode="ServerPrerendered" param-Customers="@Model.BlazorGridData" />
 
-For the sake of the demo, we will add a second grid with similar data here*@
+@*If the basic Blazor components start working properly with parameters, the Telerik ones should too*@
 
-@*<component type="typeof(MyGrid)" render-mode="ServerPrerendered" param-Customers="@Model.BlazorGridData.Take(5)" />*@
+@*
 
+     <component type="typeof(MyGrid)" render-mode="ServerPrerendered" param-Customers="@Model.BlazorGridData" />
+
+      For the sake of the demo, we will add a second grid with similar data here
+
+    <component type="typeof(MyGrid)" render-mode="ServerPrerendered" param-Customers="@Model.BlazorGridData.Take(5)" />
+
+*@
+
+<component type="typeof(MyWindow)" render-mode="ServerPrerendered" />
+
+<component type="typeof(MyDropDown)" render-mode="ServerPrerendered" />
+
+<component type="typeof(MyGrid)" render-mode="ServerPrerendered" />
