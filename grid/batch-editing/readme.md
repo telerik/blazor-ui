@@ -1,3 +1,5 @@
+# Batch Editing
+
 This example shows how you can implement behavior similar to batch editing available in other component suites (for example, in [Kendo UI](https://demos.telerik.com/kendo-ui/grid/editing)).
 
 It relies on the [InCell edit mode](https://docs.telerik.com/blazor-ui/components/grid/editing/incell) and implements the batch operations by storing metadata in the models of the grid, as well as copies of the original data upon edit so that updates can be reverted. Through [selection](https://docs.telerik.com/blazor-ui/components/grid/selection/multiple), you can also revert or delete multiple rows at a time.
