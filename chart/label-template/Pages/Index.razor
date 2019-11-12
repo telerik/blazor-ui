@@ -1,0 +1,98 @@
+﻿@page "/"
+
+<TelerikChart>
+    <ChartSeriesItems>
+        <ChartSeries Type="ChartSeriesType.Pie" Data="@pieData"
+                     Field="@nameof(MyPieChartModel.SegmentValue)" CategoryField="@nameof(MyPieChartModel.SegmentName)">
+            <ChartSeriesLabels Visible="true" Template="@segmentTemplate" />
+        </ChartSeries>
+    </ChartSeriesItems>
+
+    <ChartTitle Text="Revenue per product" />
+
+    <ChartLegend Position="ChartLegendPosition.Right" />
+</TelerikChart>
+
+@code {
+    //this is where we call our custom rounding function
+    string segmentTemplate = "#=value#\n#= round(percentage * 100, 1)#%";
+
+    //below is just some data to feed the display
+    public class MyPieChartModel
+    {
+        public string SegmentName { get; set; }
+        public double SegmentValue { get; set; }
+    }
+
+    public List<MyPieChartModel>
+    pieData = new List<MyPieChartModel>
+    {
+            new MyPieChartModel
+            {
+                SegmentName = "Product 1",
+                SegmentValue = 1
+            },
+            new MyPieChartModel
+            {
+                SegmentName = "Product 2",
+                SegmentValue = 3
+            },
+            new MyPieChartModel
+            {
+                SegmentName = "Product 3",
+                SegmentValue = 5
+            }
+            };
+}
+
+<h4>More examples</h4>
+
+<TelerikChart>
+    <ChartSeriesItems>
+        <ChartSeries Type="ChartSeriesType.Line" Data="@chartData"
+                     Field="@nameof(MyChartDataModel.TheValue)" CategoryField="@nameof(MyChartDataModel.TheCategory)">
+            <ChartSeriesLabels Visible="true" Template="@MyIfTemplate"></ChartSeriesLabels>
+        </ChartSeries>
+    </ChartSeriesItems>
+
+    <ChartCategoryAxes>
+        <ChartCategoryAxis>
+            <ChartCategoryAxisLabels Template="@MyLoopTemplate"></ChartCategoryAxisLabels>
+        </ChartCategoryAxis>
+    </ChartCategoryAxes>
+
+</TelerikChart>
+
+@code {
+    public string MyIfTemplate = "#= conditionalRendering(dataItem) #";
+    public string MyLoopTemplate = "#= forLoop(value) #";
+
+    public class MyChartDataModel
+    {
+        public double TheValue { get; set; }
+        public string ExtraData { get; set; }
+        public string TheCategory { get; set; }
+    }
+
+    public List<MyChartDataModel> chartData = new List<MyChartDataModel>
+{
+        new MyChartDataModel
+        {
+            ExtraData = "one",
+            TheValue = 2,
+            TheCategory = "first"
+        },
+        new MyChartDataModel
+        {
+            ExtraData = "two\nlines",
+            TheValue = 3,
+            TheCategory = "second"
+        },
+        new MyChartDataModel
+        {
+            //no extra data here
+            TheValue = 4,
+            TheCategory = "third"
+        }
+    };
+}
