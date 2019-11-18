@@ -8,7 +8,7 @@ namespace ServerLocalizationResx.Services
 {
     public class SampleResxLocalizer : ITelerikStringLocalizer
     {
-        // this is the indexed you must implement
+        // this is the indexer you must implement
         public string this[string name]
         {
             get
@@ -17,7 +17,7 @@ namespace ServerLocalizationResx.Services
             }
         }
 
-        // sample implementation - uses .resx files in the ~/Resources folder names Messages.<culture-locale>.resx
+        // sample implementation - uses .resx files in the ~/Resources folder names TelerikMessages.<culture-locale>.resx
         public string GetStringFromResource(string key)
         {
             return Resources.TelerikMessages.ResourceManager.GetString(key, Resources.TelerikMessages.Culture); ;

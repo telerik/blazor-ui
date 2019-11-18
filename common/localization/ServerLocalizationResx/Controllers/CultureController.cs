@@ -17,6 +17,9 @@ namespace ServerLocalizationResx.Controllers
                 HttpContext.Response.Cookies.Append(
                     CookieRequestCultureProvider.DefaultCookieName,
                     CookieRequestCultureProvider.MakeCookieValue(new RequestCulture("en-US", culture)));
+                // for the time being the thread culture is hardcoded to "en-US"
+                // until culture-aware number and date formats are implemented
+                // so here we only change the UICulture of the thread to the new culture
             }
 
             return LocalRedirect(redirectUri);

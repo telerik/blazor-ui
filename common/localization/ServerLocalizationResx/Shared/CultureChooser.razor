@@ -11,6 +11,10 @@
                          TextField="@nameof(CultureData.Text)"
                          ValueField="@nameof(CultureData.Value)">
     </TelerikDropDownList>
+    <br />
+    Current UI culture (used for localization): @Thread.CurrentThread.CurrentUICulture.Name
+    <br />
+    Current thread culture (used for date and number formatting): @Thread.CurrentThread.CurrentCulture.Name
 </div>
 
 @code{

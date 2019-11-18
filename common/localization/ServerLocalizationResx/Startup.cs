@@ -52,14 +52,19 @@ namespace ServerLocalizationResx
                 options.SupportedUICultures = supportedCultures;
             });
 
-            // register a custom localizer for the Telerik components
-            services.AddSingleton(typeof(ITelerikStringLocalizer), typeof(SampleResxLocalizer));
+            // the custom localizer service is registered later, after the Telerik services
 
             #endregion
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
+
+
             services.AddTelerikBlazor();
+            // register a custom localizer for the Telerik components, after registering the Telerik services
+            services.AddSingleton(typeof(ITelerikStringLocalizer), typeof(SampleResxLocalizer));
+
+
             services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<WeatherForecastServiceMod>();
         }
@@ -93,7 +98,6 @@ namespace ServerLocalizationResx
             app.UseEndpoints(endpoints =>
             {
                 // enable controllers for the culture controller
-                endpoints.MapDefaultControllerRoute();
                 endpoints.MapControllers();
 
                 endpoints.MapBlazorHub();
