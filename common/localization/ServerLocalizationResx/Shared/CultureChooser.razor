@@ -1,0 +1,51 @@
+﻿@using System.Threading
+
+@inject NavigationManager NavigationManager
+
+<div style="margin-bottom: 20px;">
+    Select your language:
+    <TelerikDropDownList Data="@Cultures"
+                         Value="@SelectedCulture"
+                         ValueChanged="@((string value) => { OnValueChanged(value); })"
+                         PopupHeight=""
+                         TextField="@nameof(CultureData.Text)"
+                         ValueField="@nameof(CultureData.Value)">
+    </TelerikDropDownList>
+    <br />
+    Current UI culture (used for localization): @Thread.CurrentThread.CurrentUICulture.Name
+    <br />
+    Current thread culture (used for date and number formatting): @Thread.CurrentThread.CurrentCulture.Name
+</div>
+
+@code{
+    public class CultureData
+    {
+        public string Text { get; set; }
+        public string Value { get; set; }
+    }
+
+    public List<CultureData> Cultures { get; set; } = new List<CultureData>()
+    {
+        new  CultureData() { Text = "English", Value = "en-US" },
+        new  CultureData() { Text = "French", Value = "fr-FR" },
+        new  CultureData() { Text = "Bulgarian", Value = "bg-BG" },
+    };
+
+    public string SelectedCulture { get; set; } = Thread.CurrentThread.CurrentUICulture.Name;
+
+    public void OnValueChanged(string eventArgs)
+    {
+        SelectedCulture = eventArgs;
+
+        SetCulture(eventArgs);
+    }
+
+    public void SetCulture(string culture)
+    {
+        var uri = new Uri(NavigationManager.Uri).GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
+        var query = $"?culture={Uri.EscapeDataString(culture)}&redirectUri={Uri.EscapeDataString(uri)}";
+
+        // use a path that matches your culture redirect controller from the previous steps
+        NavigationManager.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
+    }
+}
