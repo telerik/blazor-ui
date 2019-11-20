@@ -1,0 +1,84 @@
+using System; 
+  
+namespace ClientLocalizationResx.Shared.Translations
+{
+	public class TelerikMessages_fr_FR
+	{
+		public static string Grid_Create => "Insérer";
+		public static string Grid_Delete => "Effacer";
+		public static string Grid_Cancel => "Annuler";
+		public static string Grid_Update => "Mettre à jour";
+		public static string Grid_Edit => "Éditer";
+		public static string Grid_Select => "Sélectionner";
+		public static string Pager_Page => "Page";
+		public static string Pager_Display => "Afficher les items {0} - {1} de {2}";
+		public static string Pager_Of => "de {0}";
+		public static string Filter_Filter => "Filtrer";
+		public static string Filter_And => "Et";
+		public static string Filter_Clear => "Effacer filtre";
+		public static string Filter_DateIsEqualTo => "Est égal à";
+		public static string Filter_DateIsGreaterThanOrEqualTo => "Est postérieur ou égal à";
+		public static string Filter_DateIsGreaterThan => "Est postérieur";
+		public static string Filter_DateIsLessThanOrEqualTo => "Est antérieur ou égal à";
+		public static string Filter_DateIsLessThan => "Est antérieur";
+		public static string Filter_DateIsNotEqualTo => "N’est pas égal à";
+		public static string Filter_NumberIsEqualTo => "Est égal à";
+		public static string Filter_NumberIsGreaterThanOrEqualTo => "Est supérieur ou égal à";
+		public static string Filter_NumberIsGreaterThan => "Est supérieur à";
+		public static string Filter_NumberIsLessThanOrEqualTo => "Est inférieur ou égal à";
+		public static string Filter_NumberIsLessThan => "Est inférieur à";
+		public static string Filter_NumberIsNotEqualTo => "N’est pas égal à";
+		public static string Filter_Info => "Afficher les lignes avec la valeur qui";
+		public static string Filter_StringEndsWith => "Se termine par";
+		public static string Filter_StringIsEqualTo => "Est égal à";
+		public static string Filter_StringIsNotEqualTo => "N’est pas égal à";
+		public static string Filter_StringStartsWith => "Commence par";
+		public static string Filter_StringContains => "Contient";
+		public static string Group_Empty => "Faites glisser un en-tête de colonne et déposer ici pour grouper par cette colonne.";
+		public static string Filter_EnumIsEqualTo => "Est égal à";
+		public static string Filter_EnumIsNotEqualTo => "N’est pas égal à";
+		public static string Filter_SelectValue => "-Sélectionner-";
+		public static string Grid_Confirmation => "Êtes-vous sûr de vouloir supprimer cet enregistrement?";
+		public static string Filter_IsFalse => "est fausse";
+		public static string Filter_IsTrue => "est vrai";
+		public static string Pager_Empty => "Aucun enregistrement à afficher.";
+		public static string Grid_CancelChanges => "Annuler les modifications";
+		public static string Grid_SaveChanges => "Enregistrer les modifications";
+		public static string Pager_Refresh => "Actualiser";
+		public static string Filter_StringDoesNotContain => "Ne contient pas";
+		public static string Filter_Or => "Ou";
+		public static string Pager_First => "Aller à la première page";
+		public static string Pager_ItemsPerPage => "articles par page";
+		public static string Pager_Last => "Aller à la dernière page";
+		public static string Pager_Next => "Aller à la page suivante";
+		public static string Pager_Previous => "Aller à la page précédente";
+		public static string Grid_Columns => "Colonnes";
+		public static string Grid_SortAscending => "Tri croissant";
+		public static string Grid_SortDescending => "Tri décroissant";
+		public static string Filter_Cancel => "Annuler";
+		public static string Filter_Operator => "Opérateur";
+		public static string Filter_Value => "Valeur";
+		public static string Filter_AdditionalOperator => "Opérateur supplémentaire";
+		public static string Filter_AdditionalValue => "Valeur supplémentaire";
+		public static string Filter_Logic => "Logique des filtres";
+		public static string Grid_CheckAll => "Choisir toutes";
+		public static string Grid_CancelDelete => "Annuler";
+		public static string Grid_ColumnSettings => "Paramètres de colonne";
+		public static string Grid_ConfirmDelete => "Effacer";
+		public static string Grid_Done => "Done";
+		public static string Pager_MorePages => "Plusieurs pages";
+		public static string Grid_Lock => "Bloquer";
+		public static string Grid_Unlock => "Ouvrir";
+		public static string Grid_Excel => "Exporter vers Excel";
+		public static string Grid_NoRecords => "Aucun enregistrement disponible.";
+		public static string Pager_AllPages => "All";
+		public static string Filter_StringIsEmpty => "Is empty";
+		public static string Filter_StringIsNotEmpty => "Is not empty";
+		public static string Filter_StringIsNotNull => "Is not null";
+		public static string Filter_StringIsNull => "Is null";
+		public static string Filter_DateIsNotNull => "Is not null";
+		public static string Filter_DateIsNull => "Is null";
+		public static string Filter_EnumIsNotNull => "Is not null";
+		public static string Filter_EnumIsNull => "Is null";
+	}
+}

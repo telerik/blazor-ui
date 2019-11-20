@@ -1,0 +1,77 @@
+﻿@page "/"
+
+@inject HttpClient Http
+
+@using ClientLocalizationResx.Shared
+@using Telerik.Blazor.Services
+
+@* You can use the service for Telerik localization for your own code as well - for example the grid command buttons *@
+@inject ITelerikStringLocalizer Localizer
+@* This is the namespace that is generated from the resx files in the shared project *@
+@using ClientLocalizationResx.Shared.Translations
+
+
+Current UI culture (used for localization): @System.Threading.Thread.CurrentThread.CurrentUICulture.Name
+<br />
+Current thread culture (used for date and number formatting): @System.Threading.Thread.CurrentThread.CurrentCulture.Name
+
+<TelerikGrid Data="@forecasts"
+             Pageable="true" Groupable="true" Sortable="true"
+             OnUpdate="@UpdateHandler" OnDelete="@DeleteHandler" OnCreate="@CreateHandler">
+    <GridToolBar>
+        <GridCommandButton Command="Add" Icon="add">@Localizer[nameof(TelerikMessages.Grid_Create)]</GridCommandButton>
+    </GridToolBar>
+    <GridColumns>
+        <GridColumn Field="@(nameof(WeatherForecast.Date))">
+            <Template>
+                @((context as WeatherForecast).Date.ToShortDateString())
+            </Template>
+        </GridColumn>
+        <GridColumn Field="@(nameof(WeatherForecast.TemperatureC))" />
+        <GridColumn Field="@(nameof(WeatherForecast.TemperatureF))" />
+        <GridColumn Field="@(nameof(WeatherForecast.Summary))" />
+        <GridCommandColumn>
+            <GridCommandButton Command="Edit" Icon="edit">@Localizer[nameof(TelerikMessages.Grid_Edit)]</GridCommandButton>
+            <GridCommandButton Command="Delete" Icon="delete">@Localizer[nameof(TelerikMessages.Grid_Delete)]</GridCommandButton>
+            <GridCommandButton Command="Save" Icon="save" ShowInEdit="true">@Localizer[nameof(TelerikMessages.Grid_Update)]</GridCommandButton>
+            <GridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true">@Localizer[nameof(TelerikMessages.Grid_Cancel)]</GridCommandButton>
+        </GridCommandColumn>
+    </GridColumns>
+</TelerikGrid>
+
+
+@code {
+    List<WeatherForecast> forecasts { get; set; } = new List<WeatherForecast>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await Http.GetJsonAsync<List<WeatherForecast>>("WeatherForecast");
+    }
+
+    // sample CUD operations to showcase how to localize command buttons as well
+    public void UpdateHandler(GridCommandEventArgs args)
+    {
+        WeatherForecast item = (WeatherForecast)args.Item;
+        var matchingItem = forecasts.FirstOrDefault(c => c.Id == item.Id);
+        if (matchingItem != null)
+        {
+            matchingItem.Summary = item.Summary;
+            matchingItem.TemperatureC = item.TemperatureC;
+            matchingItem.Date = item.Date;
+        }
+    }
+
+    public void DeleteHandler(GridCommandEventArgs args)
+    {
+        WeatherForecast item = (WeatherForecast)args.Item;
+        forecasts.Remove(item);
+    }
+
+    public void CreateHandler(GridCommandEventArgs args)
+    {
+        WeatherForecast item = (WeatherForecast)args.Item;
+
+        item.Id = forecasts.Count;
+        forecasts.Insert(0, item);
+    }
+}
