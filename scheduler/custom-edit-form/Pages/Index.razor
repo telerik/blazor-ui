@@ -63,7 +63,9 @@
         }
         else
         {
-            // new appointment
+            CustomEditFormShown = true;
+            //TODO Expose API to get the current time slot from the event
+            CurrentAppointment = new Appointment() { Start = DateTime.Now, End = DateTime.Now.AddHours(1) };
         }
     }
 
