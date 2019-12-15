@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29521.150
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "custom_edit_form", "custom_edit_form.csproj", "{A186DAAD-B36B-4C59-BBFC-C82FDD4361AB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A186DAAD-B36B-4C59-BBFC-C82FDD4361AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A186DAAD-B36B-4C59-BBFC-C82FDD4361AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A186DAAD-B36B-4C59-BBFC-C82FDD4361AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A186DAAD-B36B-4C59-BBFC-C82FDD4361AB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A6772611-C368-4808-8256-CB4564C266AE}
+	EndGlobalSection
+EndGlobal

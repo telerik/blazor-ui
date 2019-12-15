@@ -1,0 +1,82 @@
+﻿@page "/"
+@using custom_edit_form.Models
+@using custom_edit_form.Data
+@inject AppointmentService ApptService
+
+<TelerikScheduler Data="@Appointments" OnDelete="@DeleteAppointment" OnEdit="@EditHandler"
+                  AllowCreate="true" AllowDelete="true" AllowUpdate="true"
+                  @bind-Date="@StartDate" Height="600px" @bind-View="@CurrView">
+    <SchedulerViews>
+        <SchedulerDayView StartTime="@DayStart" />
+        <SchedulerWeekView StartTime="@DayStart" />
+        <SchedulerMultiDayView StartTime="@DayStart" NumberOfDays="10" />
+    </SchedulerViews>
+</TelerikScheduler>
+
+<TelerikWindow Modal="true" Size="WindowSize.Medium" Visible="@CustomEditFormShown">
+    <WindowTitle>Appointment Data</WindowTitle>
+    <WindowActions>
+        <WindowAction Name="Close" OnClick="@CancelEditing" />
+    </WindowActions>
+    <WindowContent>
+        @* This component is in the Pages folder *@
+        <AppointmentEditor Appointment="@CurrentAppointment" OnAppointmentChanged="@RefreshData" />
+    </WindowContent>
+</TelerikWindow>
+
+@code {
+    bool CustomEditFormShown { get; set; }
+    Appointment CurrentAppointment { get; set; } // we will put here a copy of the appointment for editing
+
+    void CancelEditing()
+    {
+        RefreshData();
+    }
+
+    void DeleteAppointment(SchedulerDeleteEventArgs args)
+    {
+        Appointment item = (Appointment)args.Item;
+        ApptService.DeleteAppointment(item);
+    }
+
+    async void RefreshData()
+    {
+        //an event callback needs to be raised in this component context to re-render the contents and to hide the dialog
+        CustomEditFormShown = false;
+        CurrentAppointment = null;
+        //we also use it to fetch the fresh data from the service - in a real case other updates may have occurred
+        //which is why I chose to use a separate event and not two-way binding. It is also used for refreshing on Cancel
+        Appointments = ApptService.GetAppointments();
+    }
+
+    void EditHandler(SchedulerEditEventArgs args)
+    {
+        args.IsCancelled = true;//prevent built-in edit form from showing up
+        Appointment item = args.Item as Appointment;
+        if (item != null) // an edit operation, otherwise - an insert operation
+        {
+            CustomEditFormShown = true;
+            //copying is implemented in the appointment model and it is needed because
+            //this is a reference to the data collection so modifying it directly
+            //will immediately modify the data and no cancelling will be possible
+            CurrentAppointment = item.ShallowCopy();
+        }
+        else
+        {
+            // new appointment
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        Appointments = ApptService.GetAppointments();
+        base.OnInitialized();
+    }
+
+
+    // sample data and scheduler settings
+    public SchedulerView CurrView { get; set; } = SchedulerView.Week;
+    public DateTime StartDate { get; set; } = new DateTime(2019, 12, 2);
+    public DateTime DayStart { get; set; } = new DateTime(2000, 1, 1, 8, 0, 0); //the time portion is important
+    List<Appointment> Appointments { get; set; }
+}
