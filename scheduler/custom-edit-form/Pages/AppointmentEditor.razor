@@ -6,50 +6,66 @@
     .msg {
         color: rgba(243,23,0,0.5);
     }
+
+    form label.width100 {
+        width: 100%;
+    }
 </style>
 
 <EditForm Model="@Appointment" OnValidSubmit="@SaveAppointment">
     <DataAnnotationsValidator />
-
-    <TelerikTextBox @bind-Value="@Appointment.Title" Width="100%" />
+    <label class="width100">Title:<br/>
+        <TelerikTextBox @bind-Value="@Appointment.Title" Width="100%" />
+    </label>
     <br />
     <input type="checkbox" id="allDayCb" class="k-checkbox" @bind="@Appointment.IsAllDay">
     <label class="k-checkbox-label" for="allDayCb">All day appointment</label>
 
     @if (Appointment.IsAllDay)
     {
-        <TelerikDatePicker Value="@Appointment.Start" ValueChanged="@( (DateTime d) => StartChanged(d) )"
-                           ValueExpression="@( () => Appointment.Start )"
-                           Max="@GetHigherDate()" Width="100%" />
+        <label class="width100">Start:<br />
+            <TelerikDatePicker Value="@Appointment.Start" ValueChanged="@( (DateTime d) => StartChanged(d) )"
+                                ValueExpression="@( () => Appointment.Start )"
+                                Max="@GetHigherDate()" Width="100%" />
+        </label>
+        <label class="width100">End:<br />
+            <TelerikDatePicker Value="@Appointment.End" ValueChanged="@( (DateTime d) => EndChanged(d) )"
+                               ValueExpression="@( () => Appointment.End)"
+                               Min="@GetLowerDate()" Width="100%" />
+            @*<TelerikDatePicker Value="@StartDate" OnChange="@StartChangedNotImmediate" Max="@GetHigherDate()" Width="100%" />
         <br />
-        <TelerikDatePicker Value="@Appointment.End" ValueChanged="@( (DateTime d) => EndChanged(d) )"
-                           ValueExpression="@( () => Appointment.End)"
-                           Min="@GetLowerDate()" Width="100%" />
-        @*<TelerikDatePicker Value="@StartDate" OnChange="@StartChangedNotImmediate" Max="@GetHigherDate()" Width="100%" />
-            <br />
-            <TelerikDatePicker Value="@EndDate" OnChange="@EndChangedNotImmediate" Min="@GetLowerDate()" Width="100%" />*@
+        <TelerikDatePicker Value="@EndDate" OnChange="@EndChangedNotImmediate" Min="@GetLowerDate()" Width="100%" />*@
+        </label>
     }
     else
     {
-        <TelerikDateTimePicker Value="@Appointment.Start" ValueChanged="@( (DateTime d) => StartChanged(d) )"
-                               ValueExpression="@( () => Appointment.Start)"
-                               Max="@GetHigherDate()" Width="100%" />
-        <br />
-        <TelerikDateTimePicker Value="@Appointment.End" ValueChanged="@( (DateTime d) => EndChanged(d) )"
-                               ValueExpression="@( () => Appointment.End )"
-                               Min="@GetLowerDate()" Width="100%" />
+        <label class="width100">Start:<br />
+            <TelerikDateTimePicker Value="@Appointment.Start" ValueChanged="@( (DateTime d) => StartChanged(d) )"
+                                ValueExpression="@( () => Appointment.Start)"
+                                Max="@GetHigherDate()" Width="100%" />
+        </label>
+        <label class="width100">End:<br />
+            <TelerikDateTimePicker Value="@Appointment.End" ValueChanged="@( (DateTime d) => EndChanged(d) )"
+                                ValueExpression="@( () => Appointment.End )"
+                                Min="@GetLowerDate()" Width="100%" />
+        </label>
     }
     @if (ShowErrorMessage)
     {
         <span class="msg">@WrongRangeMessage</span>
     }
 
-    <TelerikTextBox @bind-Value="@Appointment.Description" Width="100%" />
+    <label class="width100">
+        Description:<br />
+        <TelerikTextBox @bind-Value="@Appointment.Description" Width="100%" />
+    </label>
+    <label class="width100">
+        Notes:<br />
+        <TelerikTextBox @bind-Value="@Appointment.Notes" Width="100%" />
+    </label>
 
-    <TelerikTextBox @bind-Value="@Appointment.Notes" Width="100%" />
 
     <ValidationSummary />
-
 
     <TelerikButton Enabled="@IsValid()" Primary="true">Save</TelerikButton>
 
