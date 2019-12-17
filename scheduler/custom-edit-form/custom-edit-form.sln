@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.29521.150
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "custom_edit_form", "custom_edit_form.csproj", "{A186DAAD-B36B-4C59-BBFC-C82FDD4361AB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telerik.Blazor", "..\..\..\blazor\Telerik.Blazor\Telerik.Blazor.csproj", "{8F7A63A9-DE8F-4736-AA41-A8FA6561D30D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{A186DAAD-B36B-4C59-BBFC-C82FDD4361AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A186DAAD-B36B-4C59-BBFC-C82FDD4361AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A186DAAD-B36B-4C59-BBFC-C82FDD4361AB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8F7A63A9-DE8F-4736-AA41-A8FA6561D30D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8F7A63A9-DE8F-4736-AA41-A8FA6561D30D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8F7A63A9-DE8F-4736-AA41-A8FA6561D30D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8F7A63A9-DE8F-4736-AA41-A8FA6561D30D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
