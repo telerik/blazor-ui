@@ -22,6 +22,7 @@ namespace custom_edit_form.Data
             }
             else
             {
+                appt.Id = AppointmentsList.Count + 1;
                 AppointmentsList.Add(appt);
             }
         }

@@ -53,9 +53,9 @@
     {
         args.IsCancelled = true;//prevent built-in edit form from showing up
         Appointment item = args.Item as Appointment;
-        if (item != null) // an edit operation, otherwise - an insert operation
+        CustomEditFormShown = true;
+        if (!args.IsNew) // an edit operation, otherwise - an insert operation
         {
-            CustomEditFormShown = true;
             //copying is implemented in the appointment model and it is needed because
             //this is a reference to the data collection so modifying it directly
             //will immediately modify the data and no cancelling will be possible
@@ -63,9 +63,7 @@
         }
         else
         {
-            CustomEditFormShown = true;
-            //TODO Expose API to get the current time slot from the event
-            CurrentAppointment = new Appointment() { Start = DateTime.Now, End = DateTime.Now.AddHours(1) };
+            CurrentAppointment = new Appointment() { Start = args.Start, End = args.End, IsAllDay = args.IsAllDay };
         }
     }
 
