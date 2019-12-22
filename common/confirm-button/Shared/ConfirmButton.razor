@@ -1,0 +1,24 @@
+﻿
+<TelerikButton Icon="@Icon" OnClick="@( _ => WindowVisible = true )">
+    @ButtonText
+</TelerikButton>
+
+<ConfirmWindow ConfirmText="@ConfirmText"
+               ConfirmTitle="@ConfirmTitle"
+               OnConfirm="@RaiseConfirm" 
+               OnCancel="@( _ => WindowVisible = false )"
+               Visible="@WindowVisible" />
+
+@code {
+    [Parameter] public string ButtonText { get; set; }
+    [Parameter] public string ConfirmTitle { get; set; }
+    [Parameter] public string ConfirmText { get; set; }
+    [Parameter] public string Icon { get; set; }
+    [Parameter] public EventCallback OnClick { get; set; }
+    bool WindowVisible { get; set; }
+    async void RaiseConfirm()
+    {
+        WindowVisible = false;
+        await OnClick.InvokeAsync(null);
+    }
+}

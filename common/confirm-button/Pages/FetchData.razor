@@ -1,0 +1,104 @@
+﻿@page "/fetchdata"
+@using confirm_button.Data
+@using System.Collections.ObjectModel
+@inject WeatherForecastService ForecastService
+
+<TelerikGrid Data="@forecasts" OnUpdate="@UpdateHandler" OnCreate="@CreateHandler">
+    <GridColumns>
+        <GridColumn Field="Date" />
+        <GridColumn Field="TemperatureC" />
+        <GridColumn Field="TemperatureF" />
+        <GridColumn Field="Summary" />
+        <GridColumn Field="Id">
+            <Template>
+                @{
+                    //Approach 1: custom button in a template column
+                    WeatherForecast currItem = context as WeatherForecast;
+                    <span>@currItem.Id</span> @* If you use only the built-in command column, you can have a separate column for the ID, I put it here for brevity *@
+                    <ConfirmButton OnClick="@( () => CustomDelete(currItem) )"
+                                   ConfirmText="@( $"Are you sure you want to delete forecast {currItem.Id}?" )"
+                                   ButtonText="Delete"
+                                   ConfirmTitle="Please confirm!"
+                                   Icon="@IconName.Delete"/>
+                }
+            </Template>
+        </GridColumn>
+        <GridCommandColumn Width="300px">
+            <GridCommandButton Command="Save" Icon="save" ShowInEdit="true">Update</GridCommandButton>
+            <GridCommandButton Command="Edit" Icon="edit">Edit</GridCommandButton>
+            <GridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true">Cancel</GridCommandButton>
+
+            @* Approach 2: overriding the built-in Delete command functionality *@
+            <GridCommandButton Command="Delete" Icon="delete" OnClick="@DeleteWithConfirmation">Delete</GridCommandButton>
+        </GridCommandColumn>
+    </GridColumns>
+    <GridToolBar>
+        <GridCommandButton Command="Add" Icon="add">Add Forecast</GridCommandButton>
+    </GridToolBar>
+</TelerikGrid>
+
+@* for Approach 2 *@
+<ConfirmWindow OnConfirm="@DeleteCallback" Visible="@( ItemToDelete != null )" OnCancel="@( _ => ItemToDelete = null )"
+               ConfirmText="@( $"Do you really want to delete {ItemToDelete?.Id}" )"
+               ConfirmTitle="Delete confirmation"/>
+
+@code {
+    //there is no built-in handler for the Delete command of the grid, it is handled separately in this example
+
+    //only this method is needed for Approach 1, but it requires a separate column/button in the grid
+    async Task CustomDelete(WeatherForecast itemToDelete)
+    {
+        //sample deletion from the current data, call the actual data service as well
+        var matchingItem = forecasts.FirstOrDefault(c => c.Id == itemToDelete.Id);
+        if(matchingItem != null)
+        {
+            forecasts.Remove(matchingItem);
+        }
+    }
+
+    //for Approach 2 - a few more lines of code but can step on built-in commands and UX/UI
+    WeatherForecast ItemToDelete;
+    void DeleteWithConfirmation(GridCommandEventArgs args)
+    {
+        args.IsCancelled = true;//prevent the built-in delete operation from firing
+        ItemToDelete = args.Item as WeatherForecast;
+    }
+
+    async void DeleteCallback()
+    {
+        if(ItemToDelete != null)
+        {
+            await CustomDelete(ItemToDelete);
+            ItemToDelete = null;
+        }
+    }
+
+    //data binding and some sample insert/update operations, not relevant to the confirmation logic
+    ObservableCollection<WeatherForecast> forecasts; //observable collection is used because code outside of the grid modifies the data collection and we want live updates on the data in the grid
+
+    protected override async Task OnInitializedAsync()
+    {
+        List<WeatherForecast> tempData = await ForecastService.GetForecastAsync(DateTime.Now);
+        forecasts = new ObservableCollection<WeatherForecast>(tempData);
+    }
+
+    public void UpdateHandler(GridCommandEventArgs args)
+    {
+        WeatherForecast item = (WeatherForecast)args.Item;
+        var matchingItem = forecasts.FirstOrDefault(c => c.Id == item.Id);
+        if (matchingItem != null)
+        {
+            matchingItem.Summary = item.Summary;
+            matchingItem.TemperatureC = item.TemperatureC;
+            matchingItem.Date = item.Date;
+        }
+    }
+
+    public void CreateHandler(GridCommandEventArgs args)
+    {
+        WeatherForecast item = (WeatherForecast)args.Item;
+
+        item.Id = forecasts.Count;
+        forecasts.Insert(0, item);
+    }
+}

@@ -1,0 +1,32 @@
+﻿<TelerikWindow @bind-Visible="@Visible" Modal="true">
+    <WindowTitle>
+        <strong>@ConfirmTitle</strong>
+    </WindowTitle>
+    <WindowContent>
+        <div class="k-content k-window-content k-dialog-content">
+            @ConfirmText
+        </div>
+        <div class="k-dialog-buttongroup k-dialog-button-layout-stretched">
+            <TelerikButton OnClick="@RaiseCancel">Cancel</TelerikButton>
+            <TelerikButton OnClick="@RaiseConfirm" Primary="true">Confirm</TelerikButton>
+        </div>
+    </WindowContent>
+</TelerikWindow>
+
+@code{
+    [Parameter] public string ConfirmTitle { get; set; }
+    [Parameter] public string ConfirmText { get; set; }
+    [Parameter] public bool Visible { get; set; }
+    [Parameter] public EventCallback OnConfirm { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; }
+    async void RaiseConfirm()
+    {
+        Visible = false;
+        await OnConfirm.InvokeAsync(null);
+    }
+    async void RaiseCancel()
+    {
+        Visible = false;
+        await OnCancel.InvokeAsync(null);
+    }
+}
