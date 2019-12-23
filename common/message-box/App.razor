@@ -1,0 +1,14 @@
+﻿@using MessageBoxControl.Controls.MessageBox
+
+<Router AppAssembly="typeof(Program).Assembly">
+    <Found Context="routeData">
+        <TelerikRootComponent>
+            <MessageBoxContainer />
+            <RouteView RouteData="routeData" DefaultLayout="typeof(MainLayout)" />
+        </TelerikRootComponent>
+    </Found>
+  <NotFound>
+    <h1>Page not found</h1>
+    <p>Sorry, but there's nothing here!</p>
+  </NotFound>
+</Router>
