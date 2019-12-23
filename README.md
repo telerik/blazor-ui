@@ -2,7 +2,7 @@
 
 This repository contains examples related to Telerik UI for Blazor that are not part of the documentation or demos.
 
-**Issues and Pull Requests are welcome.**
+**Issues and Pull Requests are welcome.** To submit a pull request, you should first fork the repo.
 
 This repository does not contain the actual source code of the components, or the demos application.
 
