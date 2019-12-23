@@ -10,3 +10,5 @@ Key points of interset:
 * The `Index` page shows a confirm dialog that shows an alert dialog when the user presses Yes. The `FetchData` page shows how you can confirm the deletion of a record in a grid through a custom command button.
 
 Thanks to [sylvainonweb](https://github.com/sylvainonweb) for sharing this example.
+
+You can also find a component approach that implements similar logic in the [Confirm Button](https://github.com/telerik/blazor-ui/tree/master/common/confirm-button) example.
