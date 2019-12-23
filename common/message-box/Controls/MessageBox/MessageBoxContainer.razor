@@ -1,7 +1,7 @@
 ﻿@using Telerik.Blazor.Components
 @using MessageBoxControl.Controls.MessageBox
 
-<TelerikWindow Class="window" Visible="@Visible" Modal="true" Centered="true" Width="@Width" Height="@Height">
+<TelerikWindow Visible="@Visible" Modal="true" Centered="true" Width="@Width" Height="@Height">
 
     <WindowTitle>
         @Title
@@ -20,15 +20,15 @@
             }
             @if (this.ButtonType == MessageBoxButtonTypeEnum.YesNo || this.ButtonType == MessageBoxButtonTypeEnum.YesNoCancel)
             {
-                <TelerikButton OnClick="@(() => { InvokeAction(MessageBoxResultEnum.Yes); })">Oui</TelerikButton>
+                <TelerikButton OnClick="@(() => { InvokeAction(MessageBoxResultEnum.Yes); })">Yes</TelerikButton>
             }
             @if (this.ButtonType == MessageBoxButtonTypeEnum.YesNo || this.ButtonType == MessageBoxButtonTypeEnum.YesNoCancel)
             {
-                <TelerikButton OnClick="@(() => { InvokeAction(MessageBoxResultEnum.No); })">Non</TelerikButton>
+                <TelerikButton OnClick="@(() => { InvokeAction(MessageBoxResultEnum.No); })">No</TelerikButton>
             }
             @if (this.ButtonType == MessageBoxButtonTypeEnum.OKCancel || this.ButtonType == MessageBoxButtonTypeEnum.YesNoCancel)
             {
-                <TelerikButton OnClick="@(() => { InvokeAction(MessageBoxResultEnum.Cancel); this.Visible = false;})">Annuler</TelerikButton>
+                <TelerikButton OnClick="@(() => { InvokeAction(MessageBoxResultEnum.Cancel); this.Visible = false;})">Cancel</TelerikButton>
             }
 
         </div>

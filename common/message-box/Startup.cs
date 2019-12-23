@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MessageBoxControl.Controls.MessageBox;
+using MessageBoxControl.Data;
 
 namespace MessageBoxControl
 {
@@ -23,8 +24,10 @@ namespace MessageBoxControl
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddTelerikBlazor();
+            services.AddSingleton<WeatherForecastService>();
 
-            services.AddSingleton<MessageBoxService>();
+            services.AddScoped<MessageBoxService>();
+            //scoped to ensure it does not affect other users
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
