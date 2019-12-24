@@ -1,0 +1,84 @@
+﻿@page "/"
+
+<TelerikGrid Data=@GridData
+             SelectionMode="GridSelectionMode.Multiple"
+             SelectedItemsChanged="@((IEnumerable<Employee> employeeList) => OnSelect(employeeList))"
+             SelectedItems="@PersistedSelectedItems"
+             @bind-Page="@CurrentPage"
+             PageSize="@PageSize"
+             Pageable="true">
+    <GridColumns>
+        <GridCheckboxColumn />
+        <GridColumn Field=@nameof(Employee.EmployeeId) />
+        <GridColumn Field=@nameof(Employee.Name) />
+        <GridColumn Field=@nameof(Employee.Team) />
+    </GridColumns>
+</TelerikGrid>
+
+@if (PersistedSelectedItems != null)
+{
+    <ul>
+        @foreach (Employee employee in PersistedSelectedItems.OrderBy(e => e.EmployeeId))
+        {
+            <li>
+                @employee.EmployeeId
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    public List<Employee> PersistedSelectedItems { get; set; } = new List<Employee>();
+    int CurrentPage { get; set; }
+    int PageSize { get; set; } = 5;
+
+    protected void OnSelect(IEnumerable<Employee> employees)
+    {
+        IEnumerable<Employee> CurrentPageEmployees = GridData.Skip(PageSize * (CurrentPage - 1)).Take(PageSize);
+
+        if (employees == null || employees.Count() == 0)
+        {
+            //the user de-selected all items with the header checkbox
+            PersistedSelectedItems = PersistedSelectedItems.Except(CurrentPageEmployees).ToList();
+        }
+        else
+        {
+            //handle any deselected items
+            var UnselectedEmployees = CurrentPageEmployees.Except(employees);
+            PersistedSelectedItems = PersistedSelectedItems.Except(UnselectedEmployees).ToList();
+
+            //add any new items if they were not selected already
+            foreach (var item in employees)
+            {
+                if (!PersistedSelectedItems.Contains(item))
+                {
+                    PersistedSelectedItems.Add(item);
+                }
+            }
+        }
+    }
+
+    //data binding and sample data
+    public List<Employee> GridData { get; set; }
+
+    protected override void OnInitialized()
+    {
+        GridData = new List<Employee>();
+        for (int i = 0; i < 15; i++)
+        {
+            GridData.Add(new Employee()
+            {
+                EmployeeId = i,
+                Name = "Employee " + i.ToString(),
+                Team = "Team " + i % 3
+            });
+        }
+    }
+
+    public class Employee
+    {
+        public int EmployeeId { get; set; }
+        public string Name { get; set; }
+        public string Team { get; set; }
+    }
+}
