@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29521.150
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrintGrid", "PrintGrid.csproj", "{AA07C25C-13E1-4ABC-9E51-E24284071011}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA07C25C-13E1-4ABC-9E51-E24284071011}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA07C25C-13E1-4ABC-9E51-E24284071011}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA07C25C-13E1-4ABC-9E51-E24284071011}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA07C25C-13E1-4ABC-9E51-E24284071011}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {265B7F90-3E0B-474B-BCC4-38ADEAC178FD}
+	EndGlobalSection
+EndGlobal
