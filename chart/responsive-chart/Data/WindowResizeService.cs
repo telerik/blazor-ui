@@ -17,7 +17,19 @@ namespace ResponsiveChart.Data
         {
             WindowWidth = width;
             WindowHeight = height;
-            await WindowResize?.Invoke();
+            bool canRaiseEvent = true;
+            try
+            {
+                _ = WindowResize.Target.ToString();
+            }
+            catch (Exception ex)
+            {
+                canRaiseEvent = false;
+            }
+            if (canRaiseEvent)
+            {
+                await WindowResize?.Invoke();
+            }
         }
     }
 }
