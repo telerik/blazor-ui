@@ -1,0 +1,32 @@
+﻿@inherits ComponentBase
+ @inject PopupControl.Controls.Popup.PopupService PopupService
+
+<TelerikWindow Class="window" Visible="true" Modal="true" Centered="true" Width="@Width" Height="@Height">
+
+    <WindowTitle>
+        @Title
+    </WindowTitle>
+
+    <WindowContent>
+        @ChildContent
+    </WindowContent>
+
+    <WindowActions>
+        <WindowAction Icon="@IconName.Close" OnClick="@Close"></WindowAction>
+    </WindowActions>
+
+</TelerikWindow>
+
+@code {
+    [Parameter] public string Title { get; set; }
+    [Parameter] public string Width { get; set; }
+    [Parameter] public string Height { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    private void Close()
+    {
+        PopupService.Close(false);
+    }
+}
+
+

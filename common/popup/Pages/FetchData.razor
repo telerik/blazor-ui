@@ -1,0 +1,56 @@
+﻿@page "/fetchdata"
+@using PopupControl.Data
+@using System.Collections.ObjectModel
+@using PopupControl.Controls.Popup
+@inject WeatherForecastService ForecastService
+@inject PopupService PopupService
+
+
+<TelerikGrid Data="@forecasts">
+    <GridColumns>
+        <GridColumn Field="Date" />
+        <GridColumn Field="TemperatureC" />
+        <GridColumn Field="TemperatureF" />
+        <GridColumn Field="Summary" />
+        <GridCommandColumn Width="150px">
+            <GridCommandButton OnClick="@AddForecast" Icon="@IconName.Plus"></GridCommandButton>
+            <GridCommandButton OnClick="@((args)=> EditForecast(args.Item as WeatherForecast))" Icon="@IconName.ArrowChevronRight"></GridCommandButton>
+        </GridCommandColumn>
+    </GridColumns>
+</TelerikGrid>
+
+
+@code {
+    ObservableCollection<WeatherForecast> forecasts;
+    protected override async Task OnInitializedAsync()
+    {
+        await Refresh();
+    }
+
+    private async void AddForecast()
+    {
+        var result = await PopupService.Show(typeof(ForecastEditView));
+        if (result.Success)
+        {
+            await Refresh();
+            await InvokeAsync(() => StateHasChanged());
+        }
+    }
+
+    private async void EditForecast(WeatherForecast forecast)
+    {
+        var result = await PopupService.Show(typeof(ForecastEditView), 
+            new PopupParameters().Add(nameof(ForecastEditView.Id), forecast.Id));
+        if (result.Success)
+        {
+            await Refresh();
+            await InvokeAsync(() => StateHasChanged());
+        }
+    }
+
+    private async Task Refresh()
+    {
+        List<WeatherForecast> tempData = await ForecastService.GetForecastAsync();
+        forecasts = new ObservableCollection<WeatherForecast>(tempData);
+    }
+}

@@ -1,0 +1,30 @@
+﻿@inherits ComponentBase
+
+    <div class="m-2">
+        <EditForm Model="@Model" OnValidSubmit="@(() => { OnSubmit.Invoke(); })">
+
+            @ChildContent
+
+            <div class="d-flex justify-content-end mt-3">
+                <TelerikButton class="save-button">
+                    Save
+                </TelerikButton>
+
+                @if (this.OnClose != null)
+                {
+                    <TelerikButton class="close-button ml-2" ButtonType="ButtonType.Button" OnClick="@(() => { OnClose.Invoke(); })">
+                        Close
+                    </TelerikButton>
+                }
+            </div>
+
+            <DataAnnotationsValidator />
+        </EditForm>
+    </div>
+
+@code{
+    [Parameter] public object Model { get; set; }
+    [Parameter] public Func<Task> OnSubmit { get; set; }
+    [Parameter] public Action OnClose { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
+}
