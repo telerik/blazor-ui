@@ -1,0 +1,29 @@
+﻿@inherits ComponentBase
+@implements IDisposable
+@inject PopupService PopupService
+
+@{
+    foreach (var popup in this.Popups.Reverse())
+    {
+        @popup.Content
+    }
+}
+
+@code  {
+    private IEnumerable<Popup> Popups => PopupService.Popups;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        PopupService.OnPopupsUpdated += () =>
+        {
+            InvokeAsync(StateHasChanged);
+        };
+    }
+
+    public void Dispose()
+    {
+        PopupService.OnPopupsUpdated -= StateHasChanged;
+    }
+}
+

@@ -1,0 +1,83 @@
+﻿@inherits ComponentBase
+@using System.ComponentModel.DataAnnotations
+@using PopupControl.Data
+@using PopupControl.Controls.Popup
+@inject PopupControl.Data.WeatherForecastService ForecastService
+@inject PopupControl.Controls.Popup.PopupService PopupService
+
+
+<PopupLayout Title="@Title">
+    <EditionLayout Model="@this" OnSubmit="@Submit" OnClose="@Close">
+        <div class="form-group">
+            Date : <TelerikDatePicker @bind-Value="@Date" />
+        </div>
+        <div class="form-group">
+            Température (C) :  <TelerikNumericTextBox @bind-Value="@TemperatureC" />
+        </div>
+        <div class="form-group">
+            Température (F) :  <TelerikNumericTextBox @bind-Value="@TemperatureF" Enabled="false" />
+        </div>
+        <div class="form-group">
+            Summary : <TelerikTextBox Label="Summary" @bind-Value="@Summary" />
+        </div>
+    </EditionLayout>
+</PopupLayout>
+
+@code  {
+
+    public string Title { get; set; }
+    [Parameter] public int? Id { get; set; }
+    [Required] public DateTime Date { get; set; }
+    [Required] public int TemperatureC { get; set; }
+    [Required] public string Summary { get; set; }
+    public int TemperatureF { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (this.Id.HasValue)
+        {
+            var forecast = await ForecastService.GetForecastAsync(this.Id.Value);
+            this.Date = forecast.Date;
+            this.TemperatureC = forecast.TemperatureC;
+            this.TemperatureF = 32 + (int)(TemperatureC / 0.5556);
+            this.Summary = forecast.Summary;
+            this.Title = "Edit a forecast";
+        }
+        else
+        {
+            this.Title = "New forecast";
+        }
+
+        await base.OnInitializedAsync();
+    }
+
+    protected async Task Submit()
+    {
+        WeatherForecast forecast = null;
+
+        if (this.Id.HasValue)
+        {
+            forecast = await ForecastService.GetForecastAsync(this.Id.Value);
+            forecast.Date = this.Date;
+            forecast.TemperatureC = this.TemperatureC;
+            forecast.Summary = this.Summary;
+        }
+        else
+        {
+            var lastForecast = ForecastService.GetLastForecastAsync();
+            forecast = new WeatherForecast { Id = lastForecast.Id + 1 };
+            forecast.Date = this.Date;
+            forecast.TemperatureC = this.TemperatureC;
+            forecast.Summary = this.Summary;
+            ForecastService.AddForecast(forecast);
+        }
+
+        var parameters = new PopupParameters().Add(nameof(ForecastEditView.Id), forecast.Id);
+        InvokeAsync(() => PopupService.Close(true, parameters));
+    }
+
+    protected void Close()
+    {
+        PopupService.Close(false);
+    }
+}
