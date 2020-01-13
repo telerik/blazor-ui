@@ -426,4 +426,91 @@
   <data name="DateTimePicker_Set" xml:space="preserve">
     <value>Избери</value>
   </data>
+  <data name="Filter_StringIsNotNullOrEmpty" xml:space="preserve">
+    <value>Има стойност</value>
+  </data>
+  <data name="Filter_StringIsNullOrEmpty" xml:space="preserve">
+    <value>Няма стойност</value>
+  </data>
+  <data name="Scheduler_Delete" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="Scheduler_Next" xml:space="preserve">
+    <value>Следващ</value>
+  </data>
+  <data name="Scheduler_Previous" xml:space="preserve">
+    <value>Предишен</value>
+  </data>
+  <data name="Scheduler_ShowFullDay" xml:space="preserve">
+    <value>Покажи цял ден</value>
+  </data>
+  <data name="Scheduler_ShowWorkDay" xml:space="preserve">
+    <value>Покажи работни часове</value>
+  </data>
+  <data name="Scheduler_Today" xml:space="preserve">
+    <value>Днес</value>
+  </data>
+  <data name="Scheduler_Day" xml:space="preserve">
+    <value>Ден</value>
+  </data>
+  <data name="Scheduler_MultiDay" xml:space="preserve">
+    <value>Многодневен</value>
+  </data>
+  <data name="Scheduler_Week" xml:space="preserve">
+    <value>Седмица</value>
+  </data>
+  <data name="Scheduler_Editor_Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="Scheduler_Editor_EditorTitle" xml:space="preserve">
+    <value>Събитие</value>
+  </data>
+  <data name="Scheduler_Editor_End" xml:space="preserve">
+    <value>Край</value>
+  </data>
+  <data name="Scheduler_Editor_IsAllDay" xml:space="preserve">
+    <value>Целодневно събитие</value>
+  </data>
+  <data name="Scheduler_Editor_Start" xml:space="preserve">
+    <value>Начало</value>
+  </data>
+  <data name="Scheduler_Editor_Title" xml:space="preserve">
+    <value>Заглавие</value>
+  </data>
+  <data name="Scheduler_Cancel" xml:space="preserve">
+    <value>Откажи</value>
+  </data>
+  <data name="Scheduler_Save" xml:space="preserve">
+    <value>Запази</value>
+  </data>
+  <data name="Scheduler_Editor_EndTimeRequiredValidationMessage" xml:space="preserve">
+    <value>Крайно време е задължително.</value>
+  </data>
+  <data name="Scheduler_Editor_EndTimeValueValidationMessage" xml:space="preserve">
+    <value>Крайното време трябва да е след началното.</value>
+  </data>
+  <data name="Scheduler_Editor_StartTimeRequiredValidationMessage" xml:space="preserve">
+    <value>Стартово време е задължително.</value>
+  </data>
+  <data name="Scheduler_Editor_TitleRequiredValidationMessage" xml:space="preserve">
+    <value>Заглавието е задължително.</value>
+  </data>
+  <data name="Scheduler_Editor_StartTimeValueValidationMessage" xml:space="preserve">
+    <value>Стартовото време трябва да е преди крайното.</value>
+  </data>
+  <data name="Calendar_GoToNext" xml:space="preserve">
+    <value>Oтиди на следващ период</value>
+  </data>
+  <data name="Calendar_GoToPrevious" xml:space="preserve">
+    <value>Oтиди на предишен период</value>
+  </data>
+  <data name="Calendar_Choose_Decade" xml:space="preserve">
+    <value>Избери десетилетие</value>
+  </data>
+  <data name="Calendar_Choose_Month" xml:space="preserve">
+    <value>Избери месец</value>
+  </data>
+  <data name="Calendar_Choose_Year" xml:space="preserve">
+    <value>Избери година</value>
+  </data>
 </root>

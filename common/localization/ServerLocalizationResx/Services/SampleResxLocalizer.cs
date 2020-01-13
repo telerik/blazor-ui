@@ -20,7 +20,14 @@ namespace ServerLocalizationResx.Services
         // sample implementation - uses .resx files in the ~/Resources folder names TelerikMessages.<culture-locale>.resx
         public string GetStringFromResource(string key)
         {
-            return Resources.TelerikMessages.ResourceManager.GetString(key, Resources.TelerikMessages.Culture);
+            try
+            {
+                return Resources.TelerikMessages.ResourceManager.GetString(key, Resources.TelerikMessages.Culture);
+            }
+            catch (Exception ex)//something failed (like a missing resource key or something else, this is a sample fail-safe
+            {
+                return key;
+            }
         }
     }
 }

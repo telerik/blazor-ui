@@ -61,6 +61,69 @@ namespace ServerLocalizationResx.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string AutoComplete_Clear {
+            get {
+                return ResourceManager.GetString("AutoComplete_Clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No data.
+        /// </summary>
+        public static string AutoComplete_NoData {
+            get {
+                return ResourceManager.GetString("AutoComplete_NoData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose a decade.
+        /// </summary>
+        public static string Calendar_Choose_Decade {
+            get {
+                return ResourceManager.GetString("Calendar_Choose_Decade", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose a month.
+        /// </summary>
+        public static string Calendar_Choose_Month {
+            get {
+                return ResourceManager.GetString("Calendar_Choose_Month", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose an year.
+        /// </summary>
+        public static string Calendar_Choose_Year {
+            get {
+                return ResourceManager.GetString("Calendar_Choose_Year", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to the next period.
+        /// </summary>
+        public static string Calendar_GoToNext {
+            get {
+                return ResourceManager.GetString("Calendar_GoToNext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to the previous period.
+        /// </summary>
+        public static string Calendar_GoToPrevious {
+            get {
+                return ResourceManager.GetString("Calendar_GoToPrevious", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Today.
         /// </summary>
         public static string Calendar_Today {
@@ -903,6 +966,213 @@ namespace ServerLocalizationResx.Resources {
         public static string Pager_Refresh {
             get {
                 return ResourceManager.GetString("Pager_Refresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to all day.
+        /// </summary>
+        public static string Scheduler_AllDay {
+            get {
+                return ResourceManager.GetString("Scheduler_AllDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Scheduler_Cancel {
+            get {
+                return ResourceManager.GetString("Scheduler_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Day.
+        /// </summary>
+        public static string Scheduler_Day {
+            get {
+                return ResourceManager.GetString("Scheduler_Day", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Scheduler_Delete {
+            get {
+                return ResourceManager.GetString("Scheduler_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string Scheduler_Editor_Description {
+            get {
+                return ResourceManager.GetString("Scheduler_Editor_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Event.
+        /// </summary>
+        public static string Scheduler_Editor_EditorTitle {
+            get {
+                return ResourceManager.GetString("Scheduler_Editor_EditorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End.
+        /// </summary>
+        public static string Scheduler_Editor_End {
+            get {
+                return ResourceManager.GetString("Scheduler_Editor_End", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End time is required..
+        /// </summary>
+        public static string Scheduler_Editor_EndTimeRequiredValidationMessage {
+            get {
+                return ResourceManager.GetString("Scheduler_Editor_EndTimeRequiredValidationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End time must be after the Start time..
+        /// </summary>
+        public static string Scheduler_Editor_EndTimeValueValidationMessage {
+            get {
+                return ResourceManager.GetString("Scheduler_Editor_EndTimeValueValidationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All Day Event.
+        /// </summary>
+        public static string Scheduler_Editor_IsAllDay {
+            get {
+                return ResourceManager.GetString("Scheduler_Editor_IsAllDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start.
+        /// </summary>
+        public static string Scheduler_Editor_Start {
+            get {
+                return ResourceManager.GetString("Scheduler_Editor_Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start time is required..
+        /// </summary>
+        public static string Scheduler_Editor_StartTimeRequiredValidationMessage {
+            get {
+                return ResourceManager.GetString("Scheduler_Editor_StartTimeRequiredValidationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start time must be before End time..
+        /// </summary>
+        public static string Scheduler_Editor_StartTimeValueValidationMessage {
+            get {
+                return ResourceManager.GetString("Scheduler_Editor_StartTimeValueValidationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        public static string Scheduler_Editor_Title {
+            get {
+                return ResourceManager.GetString("Scheduler_Editor_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title is required..
+        /// </summary>
+        public static string Scheduler_Editor_TitleRequiredValidationMessage {
+            get {
+                return ResourceManager.GetString("Scheduler_Editor_TitleRequiredValidationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MultiDay.
+        /// </summary>
+        public static string Scheduler_MultiDay {
+            get {
+                return ResourceManager.GetString("Scheduler_MultiDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        public static string Scheduler_Next {
+            get {
+                return ResourceManager.GetString("Scheduler_Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previous.
+        /// </summary>
+        public static string Scheduler_Previous {
+            get {
+                return ResourceManager.GetString("Scheduler_Previous", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Scheduler_Save {
+            get {
+                return ResourceManager.GetString("Scheduler_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show full day.
+        /// </summary>
+        public static string Scheduler_ShowFullDay {
+            get {
+                return ResourceManager.GetString("Scheduler_ShowFullDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show business hours.
+        /// </summary>
+        public static string Scheduler_ShowWorkDay {
+            get {
+                return ResourceManager.GetString("Scheduler_ShowWorkDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Today.
+        /// </summary>
+        public static string Scheduler_Today {
+            get {
+                return ResourceManager.GetString("Scheduler_Today", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Week.
+        /// </summary>
+        public static string Scheduler_Week {
+            get {
+                return ResourceManager.GetString("Scheduler_Week", resourceCulture);
             }
         }
         

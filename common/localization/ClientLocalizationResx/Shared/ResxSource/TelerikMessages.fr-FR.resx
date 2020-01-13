@@ -345,4 +345,10 @@
   <data name="Filter_EnumIsNull" xml:space="preserve">
     <value>Is null</value>
   </data>
+  <data name="AutoComplete_Clear" xml:space="preserve">
+    <value>Effacer</value>
+  </data>
+  <data name="AutoComplete_NoData" xml:space="preserve">
+    <value>Aucune donnée disponible</value>
+  </data>
 </root>

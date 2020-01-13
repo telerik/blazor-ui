@@ -48,9 +48,16 @@ namespace ClientLocalizationResx.Client.Services
         {
             EnsureInstance();
 
-            string result = SharedAssembly.GetType(CurrLocalizationType).GetProperty(key).GetValue(LocalizationClassInstance, null) as string;
+            try
+            {
+                string result = SharedAssembly.GetType(CurrLocalizationType).GetProperty(key).GetValue(LocalizationClassInstance, null) as string;
 
-            return result;
+                return result;
+            }
+            catch (Exception ex)//something failed (like a missing resource key or something else, this is a sample fail-safe
+            {
+                return key;
+            }
         }
     }
 }

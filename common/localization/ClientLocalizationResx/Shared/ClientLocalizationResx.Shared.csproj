@@ -5,4 +5,20 @@
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Remove="ResxSource\TelerikMessages.bg-BG.resx" />
+    <EmbeddedResource Remove="ResxSource\TelerikMessages.fr-FR.resx" />
+    <EmbeddedResource Remove="ResxSource\TelerikMessages.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Translations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="ResxSource\TelerikMessages.bg-BG.resx" />
+    <None Include="ResxSource\TelerikMessages.fr-FR.resx" />
+    <None Include="ResxSource\TelerikMessages.resx" />
+  </ItemGroup>
+
 </Project>

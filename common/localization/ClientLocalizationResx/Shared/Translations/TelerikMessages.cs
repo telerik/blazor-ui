@@ -113,5 +113,35 @@ namespace ClientLocalizationResx.Shared.Translations
 		public static string DateTimePicker_Time => "Time";
 		public static string DateTimePicker_Cancel => "Cancel";
 		public static string DateTimePicker_Set => "Set";
+		public static string Scheduler_Next => "Next";
+		public static string Scheduler_Previous => "Previous";
+		public static string Scheduler_ShowFullDay => "Show full day";
+		public static string Scheduler_ShowWorkDay => "Show business hours";
+		public static string Scheduler_Today => "Today";
+		public static string Scheduler_Delete => "Delete";
+		public static string Scheduler_Day => "Day";
+		public static string Scheduler_MultiDay => "MultiDay";
+		public static string Scheduler_Week => "Week";
+		public static string Scheduler_Cancel => "Cancel";
+		public static string Scheduler_Editor_Description => "Description";
+		public static string Scheduler_Editor_EditorTitle => "Event";
+		public static string Scheduler_Editor_End => "End";
+		public static string Scheduler_Editor_IsAllDay => "All Day Event";
+		public static string Scheduler_Editor_Start => "Start";
+		public static string Scheduler_Editor_Title => "Title";
+		public static string Scheduler_Save => "Save";
+		public static string Scheduler_AllDay => "all day";
+		public static string Scheduler_Editor_EndTimeRequiredValidationMessage => "End time is required.";
+		public static string Scheduler_Editor_EndTimeValueValidationMessage => "End time must be after the Start time.";
+		public static string Scheduler_Editor_StartTimeRequiredValidationMessage => "Start time is required.";
+		public static string Scheduler_Editor_StartTimeValueValidationMessage => "Start time must be before End time.";
+		public static string Scheduler_Editor_TitleRequiredValidationMessage => "Title is required.";
+		public static string Calendar_GoToNext => "Go to the next period";
+		public static string Calendar_GoToPrevious => "Go to the previous period";
+		public static string Calendar_Choose_Decade => "Choose a decade";
+		public static string Calendar_Choose_Month => "Choose a month";
+		public static string Calendar_Choose_Year => "Choose an year";
+		public static string AutoComplete_Clear => "Clear";
+		public static string AutoComplete_NoData => "No data";
 	}
 }

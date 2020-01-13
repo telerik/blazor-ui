@@ -80,5 +80,7 @@ namespace ClientLocalizationResx.Shared.Translations
 		public static string Filter_DateIsNull => "Is null";
 		public static string Filter_EnumIsNotNull => "Is not null";
 		public static string Filter_EnumIsNull => "Is null";
+		public static string AutoComplete_Clear => "Effacer";
+		public static string AutoComplete_NoData => "Aucune donnée disponible";
 	}
 }

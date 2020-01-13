@@ -107,5 +107,34 @@ namespace ClientLocalizationResx.Shared.Translations
 		public static string DateTimePicker_Time => "Време";
 		public static string DateTimePicker_Cancel => "Отказ";
 		public static string DateTimePicker_Set => "Избери";
+		public static string Filter_StringIsNotNullOrEmpty => "Има стойност";
+		public static string Filter_StringIsNullOrEmpty => "Няма стойност";
+		public static string Scheduler_Delete => "Изтрий";
+		public static string Scheduler_Next => "Следващ";
+		public static string Scheduler_Previous => "Предишен";
+		public static string Scheduler_ShowFullDay => "Покажи цял ден";
+		public static string Scheduler_ShowWorkDay => "Покажи работни часове";
+		public static string Scheduler_Today => "Днес";
+		public static string Scheduler_Day => "Ден";
+		public static string Scheduler_MultiDay => "Многодневен";
+		public static string Scheduler_Week => "Седмица";
+		public static string Scheduler_Editor_Description => "Описание";
+		public static string Scheduler_Editor_EditorTitle => "Събитие";
+		public static string Scheduler_Editor_End => "Край";
+		public static string Scheduler_Editor_IsAllDay => "Целодневно събитие";
+		public static string Scheduler_Editor_Start => "Начало";
+		public static string Scheduler_Editor_Title => "Заглавие";
+		public static string Scheduler_Cancel => "Откажи";
+		public static string Scheduler_Save => "Запази";
+		public static string Scheduler_Editor_EndTimeRequiredValidationMessage => "Крайно време е задължително.";
+		public static string Scheduler_Editor_EndTimeValueValidationMessage => "Крайното време трябва да е след началното.";
+		public static string Scheduler_Editor_StartTimeRequiredValidationMessage => "Стартово време е задължително.";
+		public static string Scheduler_Editor_TitleRequiredValidationMessage => "Заглавието е задължително.";
+		public static string Scheduler_Editor_StartTimeValueValidationMessage => "Стартовото време трябва да е преди крайното.";
+		public static string Calendar_GoToNext => "Oтиди на следващ период";
+		public static string Calendar_GoToPrevious => "Oтиди на предишен период";
+		public static string Calendar_Choose_Decade => "Избери десетилетие";
+		public static string Calendar_Choose_Month => "Избери месец";
+		public static string Calendar_Choose_Year => "Избери година";
 	}
 }

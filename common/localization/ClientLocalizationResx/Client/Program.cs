@@ -7,7 +7,9 @@ namespace ClientLocalizationResx.Client
         public static void Main(string[] args)
         {
             // in this sample, we set the culture that way, change it to fr-FR or something else (or remove entirely) to test
-            System.Globalization.CultureInfo.CurrentUICulture = new System.Globalization.CultureInfo("fr-FR");
+            var desiredCulture = new System.Globalization.CultureInfo("fr-FR");
+            System.Globalization.CultureInfo.CurrentUICulture = desiredCulture;
+            System.Globalization.CultureInfo.CurrentCulture = desiredCulture;
 
             CreateHostBuilder(args).Build().Run();
         }

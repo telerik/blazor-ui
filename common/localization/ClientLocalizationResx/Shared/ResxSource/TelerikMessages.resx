@@ -444,4 +444,94 @@
   <data name="DateTimePicker_Set" xml:space="preserve">
     <value>Set</value>
   </data>
+  <data name="Scheduler_Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Scheduler_Previous" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="Scheduler_ShowFullDay" xml:space="preserve">
+    <value>Show full day</value>
+  </data>
+  <data name="Scheduler_ShowWorkDay" xml:space="preserve">
+    <value>Show business hours</value>
+  </data>
+  <data name="Scheduler_Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="Scheduler_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Scheduler_Day" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="Scheduler_MultiDay" xml:space="preserve">
+    <value>MultiDay</value>
+  </data>
+  <data name="Scheduler_Week" xml:space="preserve">
+    <value>Week</value>
+  </data>
+  <data name="Scheduler_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Scheduler_Editor_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Scheduler_Editor_EditorTitle" xml:space="preserve">
+    <value>Event</value>
+  </data>
+  <data name="Scheduler_Editor_End" xml:space="preserve">
+    <value>End</value>
+  </data>
+  <data name="Scheduler_Editor_IsAllDay" xml:space="preserve">
+    <value>All Day Event</value>
+  </data>
+  <data name="Scheduler_Editor_Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Scheduler_Editor_Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="Scheduler_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Scheduler_AllDay" xml:space="preserve">
+    <value>all day</value>
+  </data>
+  <data name="Scheduler_Editor_EndTimeRequiredValidationMessage" xml:space="preserve">
+    <value>End time is required.</value>
+  </data>
+  <data name="Scheduler_Editor_EndTimeValueValidationMessage" xml:space="preserve">
+    <value>End time must be after the Start time.</value>
+  </data>
+  <data name="Scheduler_Editor_StartTimeRequiredValidationMessage" xml:space="preserve">
+    <value>Start time is required.</value>
+  </data>
+  <data name="Scheduler_Editor_StartTimeValueValidationMessage" xml:space="preserve">
+    <value>Start time must be before End time.</value>
+  </data>
+  <data name="Scheduler_Editor_TitleRequiredValidationMessage" xml:space="preserve">
+    <value>Title is required.</value>
+  </data>
+  <data name="Calendar_GoToNext" xml:space="preserve">
+    <value>Go to the next period</value>
+  </data>
+  <data name="Calendar_GoToPrevious" xml:space="preserve">
+    <value>Go to the previous period</value>
+  </data>
+  <data name="Calendar_Choose_Decade" xml:space="preserve">
+    <value>Choose a decade</value>
+  </data>
+  <data name="Calendar_Choose_Month" xml:space="preserve">
+    <value>Choose a month</value>
+  </data>
+  <data name="Calendar_Choose_Year" xml:space="preserve">
+    <value>Choose an year</value>
+  </data>
+  <data name="AutoComplete_Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="AutoComplete_NoData" xml:space="preserve">
+    <value>No data</value>
+  </data>
 </root>
