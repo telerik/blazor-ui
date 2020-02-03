@@ -1,6 +1,6 @@
 using System;
 
-namespace BatchEditingMimic.Data
+namespace BatchEditing.Data
 {
     public class WeatherForecast
     {

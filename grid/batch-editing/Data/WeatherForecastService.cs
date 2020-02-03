@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BatchEditingMimic.Data
+namespace BatchEditing.Data
 {
     public class WeatherForecastService
     {

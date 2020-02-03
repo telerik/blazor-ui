@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29319.158
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchEditingMimic", "BatchEditingMimic.csproj", "{3970E137-F632-4981-95CB-D1A674E4B454}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchEditing", "BatchEditing.csproj", "{3970E137-F632-4981-95CB-D1A674E4B454}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

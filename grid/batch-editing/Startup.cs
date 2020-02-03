@@ -9,9 +9,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using BatchEditingMimic.Data;
+using BatchEditing.Data;
 
-namespace BatchEditingMimic
+namespace BatchEditing
 {
     public class Startup
     {

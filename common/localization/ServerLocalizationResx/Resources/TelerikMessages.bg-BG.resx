@@ -513,4 +513,16 @@
   <data name="Calendar_Choose_Year" xml:space="preserve">
     <value>Избери година</value>
   </data>
+  <data name="AutoComplete_Clear" xml:space="preserve">
+    <value>Изчисти</value>
+  </data>
+  <data name="AutoComplete_NoData" xml:space="preserve">
+    <value>Няма намерени данни</value>
+  </data>
+  <data name="MultiSelect_Clear" xml:space="preserve">
+    <value>Изчисти</value>
+  </data>
+  <data name="MultiSelect_NoData" xml:space="preserve">
+    <value>Няма намерени данни</value>
+  </data>
 </root>

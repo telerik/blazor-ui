@@ -534,4 +534,10 @@
   <data name="AutoComplete_NoData" xml:space="preserve">
     <value>No data</value>
   </data>
+  <data name="MultiSelect_Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="MultiSelect_NoData" xml:space="preserve">
+    <value>No data</value>
+  </data>
 </root>

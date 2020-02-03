@@ -136,5 +136,9 @@ namespace ClientLocalizationResx.Shared.Translations
 		public static string Calendar_Choose_Decade => "Избери десетилетие";
 		public static string Calendar_Choose_Month => "Избери месец";
 		public static string Calendar_Choose_Year => "Избери година";
+		public static string AutoComplete_Clear => "Изчисти";
+		public static string AutoComplete_NoData => "Няма намерени данни";
+		public static string MultiSelect_Clear => "Изчисти";
+		public static string MultiSelect_NoData => "Няма намерени данни";
 	}
 }

@@ -143,5 +143,7 @@ namespace ClientLocalizationResx.Shared.Translations
 		public static string Calendar_Choose_Year => "Choose an year";
 		public static string AutoComplete_Clear => "Clear";
 		public static string AutoComplete_NoData => "No data";
+		public static string MultiSelect_Clear => "Clear";
+		public static string MultiSelect_NoData => "No data";
 	}
 }

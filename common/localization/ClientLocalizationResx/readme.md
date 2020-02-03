@@ -12,5 +12,5 @@ Key points of the implementation:
     * These localization classes are dynamically generated so Reflection is used to fetch the correct ones in this example. You can implement any other approach you prefer.
     * Make sure to update the resource (`.resx`) files regularly - as the component suite grows more resource keys will be added.
     * Set the `Build Action` of the `resx` files to `None`, otherwise the framework will fail to build the project - it seems to attempt to generate resource assemblies from those files, but throws exceptions that they are duplicated.
-* The Telerik-specific bits are the custom localization service registered in the `Client` app in `Startup.cs` and the `.resx` files in `Shared` under `~/ResxSource`. Both of those are to be implemented by the application.
+* The Telerik-specific bits are the custom localization service registered in the `Client` app in `Program.cs` and the `.resx` files in `Shared` under `~/ResxSource`. Both of those are to be implemented by the application.
     * You can also see how to use those same resources for other texts in the `Index.razor` component where they are used to localize grid command buttons.

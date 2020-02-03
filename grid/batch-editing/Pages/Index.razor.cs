@@ -6,9 +6,9 @@ using System.Collections.ObjectModel;
 using Microsoft.AspNetCore.Components;
 using Telerik.Blazor.Components;
 using Telerik.Blazor;
-using BatchEditingMimic.Data;
+using BatchEditing.Data;
 
-namespace BatchEditingMimic.Pages
+namespace BatchEditing.Pages
 {
     public class IndexBase : ComponentBase
     {
