@@ -1,0 +1,33 @@
+﻿@using Telerik.Blazor.Components.Grid
+@using BlazorInMVC.Models
+
+<h3>Grid</h3>
+
+
+<TelerikRootComponent>
+    @* This component must wrap the entire Blazor component when Telerik components are used in it
+        more: https://docs.telerik.com/blazor-ui/getting-started/what-you-need#project-configuration *@
+
+    <TelerikGrid Data="@Customers" FilterMode="GridFilterMode.FilterMenu" Sortable="true" Pageable="true"
+                 Reorderable="true" Resizable="true" Groupable="true">
+        <GridColumns>
+            <GridColumn Field="Id" Title="Customer Id" />
+            <GridColumn Field="Name" Title="Name" />
+        </GridColumns>
+    </TelerikGrid>
+
+</TelerikRootComponent>
+
+@code {
+    [Parameter]
+    public IEnumerable<Customer> Customers { get; set; }
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        if (Customers == null)
+        {
+            //we did not get data from the parent component/page, we will get (generate) some
+            Customers = Enumerable.Range(1, 200).Select(x => new Customer { Id = x, Name = "Name " + x });
+        }
+    }
+}
