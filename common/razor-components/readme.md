@@ -1,6 +1,6 @@
 # Blazor Components in an ASP.NET Core Razor Page - Razor Components Scenario
 
-This example shows how you can use Blazor components in a Razor page.
+These examples show how you can use Blazor components in Razor pages and MVC views.
 
 Here are the key points (comments in the code offer more details):
 * You must include a reference to Server-side Blazor packages. In this sample, they come as dependencies to the Telerik UI for Blazor package.
