@@ -30,6 +30,10 @@ namespace TooltipForGridElements.Services
 
         public async Task<EmployeeDetailsModel> GetEmplyeeDetails(int employeeId)
         {
+            // you can implement a dictionary here with the requests that have come in and their data
+            // and perhaps a time stamp. So, when a request comes along, you can check if it was alrady
+            // cached and if it was recently enough - skip calling the database and return from memory
+            // the data caching and retrieval is entirely up to the application and its practices/needs
             BasicEmployee employee = data.Where(empl => empl.Id == employeeId).FirstOrDefault();
             EmployeeDetailsModel details = new EmployeeDetailsModel(employee);
             details.Salary = rnd.Next(1000, 5000);
