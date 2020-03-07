@@ -17,8 +17,13 @@
             <Template>
                 @{
                     BasicEmployee employee = context as BasicEmployee;
-                    <span data-employeeId="@employee.Id" class="tooltip-target">@employee.Name</span>
-                    @* This element will act as target for the tooltips *@
+                    <span data-employeeId="@employee.Id" id="@( "tooltip-target" + employee.Id)">@employee.Name</span>
+                    <TelerikTooltip TargetSelector="@( "#tooltip-target" +  employee.Id)"
+                                    Width="350px" Height="250px" Position="@TooltipPosition.Right">
+                        <Template Context="ttipContext">
+                            <EmployeeDetails TargetData="@ttipContext.TargetDataAttributes" />
+                        </Template>
+                    </TelerikTooltip>
                 }
             </Template>
         </GridColumn>
@@ -26,12 +31,7 @@
     </GridColumns>
 </TelerikGrid>
 
-<TelerikTooltip TargetSelector=".k-grid .tooltip-target"
-                Width="350px" Height="250px" Position="@TooltipPosition.Right">
-    <Template>
-        <EmployeeDetails TargetData="@context.TargetDataAttributes" />
-    </Template>
-</TelerikTooltip>
+
 
 @code {
     public List<BasicEmployee> GridData { get; set; }
