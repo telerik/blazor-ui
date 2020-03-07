@@ -27,7 +27,7 @@ namespace TooltipForGridElements
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddServerSideBlazor();
+            services.AddServerSideBlazor(o => o.DetailedErrors = true);
             services.AddTelerikBlazor();
             services.AddScoped<EmployeeService>();
         }

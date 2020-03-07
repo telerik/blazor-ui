@@ -36,7 +36,7 @@ namespace TooltipForGridElements.Services
             details.ActiveProjects = rnd.Next(2, 10);
             details.HireDate = DateTime.Now.AddYears(-rnd.Next(1, 10)).AddMonths(-rnd.Next(0, 10)).AddDays(-rnd.Next(0, 10));
 
-            await Task.Delay(500); // simulate real life delay. Remove this in a real app
+            await Task.Delay(800); // simulate real life delay. Remove this in a real app
 
             return details;
         }

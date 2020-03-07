@@ -6,6 +6,8 @@
 @inject EmployeeService EmployeeService
 This example shows how to load content on demant for tooltips that target elements inside a grid.
 
+@GridData?.Count
+
 <TelerikGrid Data="@GridData" Height="400px"
              Pageable="true" Sortable="true" Groupable="true"
              FilterMode="Telerik.Blazor.GridFilterMode.FilterRow"
@@ -25,7 +27,8 @@ This example shows how to load content on demant for tooltips that target elemen
     </GridColumns>
 </TelerikGrid>
 
-<TelerikTooltip TargetSelector=".k-grid .tooltip-target" Width="400px" Height="250px">
+<TelerikTooltip TargetSelector=".k-grid .tooltip-target"
+                Width="350px" Height="250px" Position="@TooltipPosition.Right">
     <Template>
         <EmployeeDetails TargetData="@context.TargetDataAttributes" />
     </Template>
@@ -37,5 +40,9 @@ This example shows how to load content on demant for tooltips that target elemen
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         GridData = await EmployeeService.GetEmployees();
+        // we update the data outside of the standard cycle, so we need this call
+        // if we did it in OnInitializedAsync we wouldn't. We do it here to load it only once
+        // and avoid loading during pre-rendering, just as an example
+        StateHasChanged();
     }
 }
