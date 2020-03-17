@@ -21,7 +21,7 @@
                     <TelerikTooltip TargetSelector="@( "#tooltip-target" +  employee.Id)"
                                     Width="350px" Height="250px" Position="@TooltipPosition.Right">
                         <Template Context="ttipContext">
-                            <EmployeeDetails TargetData="@ttipContext.TargetDataAttributes" />
+                            <EmployeeDetails TargetData="@ttipContext.DataAttributes" />
                         </Template>
                     </TelerikTooltip>
                 }
