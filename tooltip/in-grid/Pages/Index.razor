@@ -1,0 +1,47 @@
+﻿@page "/"
+
+@using TooltipForGridElements.Models
+@using TooltipForGridElements.Services
+
+@inject EmployeeService EmployeeService
+
+<p>This example shows how to load content on demant for tooltips that target elements inside a grid.</p>
+
+<TelerikGrid Data="@GridData" Height="400px"
+             Pageable="true" Sortable="true" Groupable="true"
+             FilterMode="Telerik.Blazor.GridFilterMode.FilterRow"
+             Resizable="true" Reorderable="true">
+    <GridColumns>
+        <GridColumn Field="@(nameof(BasicEmployee.Id))" Width="120px" />
+        <GridColumn Field="@(nameof(BasicEmployee.Name))" Title="Employee Name" Groupable="false">
+            <Template>
+                @{
+                    BasicEmployee employee = context as BasicEmployee;
+                    <span data-employeeId="@employee.Id" id="@( "tooltip-target" + employee.Id)">@employee.Name</span>
+                    <TelerikTooltip TargetSelector="@( "#tooltip-target" +  employee.Id)"
+                                    Width="350px" Height="250px" Position="@TooltipPosition.Right">
+                        <Template Context="ttipContext">
+                            <EmployeeDetails TargetData="@ttipContext.TargetDataAttributes" />
+                        </Template>
+                    </TelerikTooltip>
+                }
+            </Template>
+        </GridColumn>
+        <GridColumn Field="@(nameof(BasicEmployee.Team))" Title="Team" />
+    </GridColumns>
+</TelerikGrid>
+
+
+
+@code {
+    public List<BasicEmployee> GridData { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        GridData = await EmployeeService.GetEmployees();
+        // we update the data outside of the standard cycle, so we need this call
+        // if we did it in OnInitializedAsync we wouldn't. We do it here to load it only once
+        // and avoid loading during pre-rendering, just as an example
+        StateHasChanged();
+    }
+}

@@ -1,0 +1,45 @@
+﻿@using TooltipForGridElements.Models
+@using TooltipForGridElements.Services
+
+@inject EmployeeService EmployeeService
+
+<h6>Employee Details</h6>
+<hr />
+
+@if (EmployeeDetailsData == null)
+{
+    <p>Please wait..loading employee details</p>
+    @* You can add a loading animation here too *@
+}
+else
+{
+    <div style="float:left; width: 100px;">
+        <img alt="Photo of @EmployeeDetailsData.Name"
+             src="employee-images/@(EmployeeDetailsData.Id).jpg"
+             style="border-radius: 50%:" />
+    </div>
+    <div style="float:left; margin-left: 20px;">
+        <p><strong>Name</strong>: @EmployeeDetailsData.Name</p>
+        <p><strong>Team</strong>: @EmployeeDetailsData.Team</p>
+        <p><strong>Salary</strong>: $@EmployeeDetailsData.Salary</p>
+        <p><strong>Hire date</strong>: @EmployeeDetailsData.HireDate.ToShortDateString()</p>
+        <p><strong>Working on</strong>: @EmployeeDetailsData.ActiveProjects projects</p>
+        <p><strong>Data loaded at</strong>: @DateTime.Now.ToString("HH:mm:ss")</p>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public Dictionary<string, string> TargetData { get; set; }
+
+    EmployeeDetailsModel EmployeeDetailsData { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        // in a real app, add defensive checks here
+        // the key names is the data attribute, lowercase
+        int EmployeeId = int.Parse(TargetData?["employeeid"]);
+
+        EmployeeDetailsData = await EmployeeService.GetEmplyeeDetails(EmployeeId);
+    }
+}
