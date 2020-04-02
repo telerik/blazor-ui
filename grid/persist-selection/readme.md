@@ -1,5 +1,7 @@
 # Persist Selection Across Pages
 
+> As of `2.10.0` this behavior is available out of the box. The new `SelectAllMode` parameter of the selection column can provide you with more flexibility as well. You can read more about it in the [Multi-row selection](https://docs.telerik.com/blazor-ui/components/grid/selection/multiple) article.
+
 This example shows how you can keep the selected rows across different pages, so that the user can select multiple items from different pages without losing previous selection. With the built-in functionality of the grid, they can do that by using the individual row checkboxes, or by holding the Ctrl key when selecting/deselecting concrete rows. With the built-in functionality, using the header checkbox clears all other selection apart from the current page. This example shows how you can add rows to the selection without using the keyboard and by using the header checkbox.
 
 Key points of the implementation:
