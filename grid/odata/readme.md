@@ -9,3 +9,5 @@ The approaches for requesting a remote services are different in a server-side a
 * You need a Telerik UI for Blazor version `>=2.3.0` or later to get the OData formatting of the grid state (its `ToODataString()` extension method is in the `Telerik.Blazor.ExtensionMethods` namespace).
 * To get the grid state and to provide the data to the grid, you must use the [manual operations](https://docs.telerik.com/blazor-ui/components/grid/manual-operations) of the grid.
 * You need a model for the grid data and an envelope for the response object. The response model (envelope) must have `System.Text.Json.Serialization.JsonPropertyName` attributes set to point to the OData fields in the response.
+
+> Tip: if you will be using nested models, you may need to add an `$expand` to your base URL and properly deserialize and expand them in the service handler.
