@@ -27,10 +27,11 @@
     protected async Task ReadItems(GridReadEventArgs args)
     {
         // we pass the request to the service, and there Telerik DataSource Extension methods will shape the data
-        var datasourceResult = await ForecastService.GetForecastListAsync(args.Request);
+        // then the service returns our project-specific envelope so that the data can be serialized by the framework
+        DataEnvelope<WeatherForecast> datasourceResult = await ForecastService.GetForecastListAsync(args.Request);
 
-        GridData = (datasourceResult.Data as IEnumerable<WeatherForecast>).ToList();
-        Total = datasourceResult.Total;
+        GridData = datasourceResult.CurrentPageData;
+        Total = datasourceResult.TotalItemCount;
 
         StateHasChanged();
     }

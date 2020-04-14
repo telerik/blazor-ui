@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 // these two using statements provide the data source operations
 using Telerik.DataSource;
 using Telerik.DataSource.Extensions;
+using System.Text.Json;
 
 namespace WasmApp.Server.Controllers
 {
@@ -31,7 +32,7 @@ namespace WasmApp.Server.Controllers
         private static List<WeatherForecast> _forecasts { get; set; }
 
         [HttpPost]
-        public async Task<DataSourceResult> Post([FromBody]DataSourceRequest gridRequest)
+        public async Task<DataEnvelope<WeatherForecast>> Post([FromBody]string dsRequest)
         {
             // generate some data for the sake of this demo
             if (_forecasts == null)
@@ -51,9 +52,19 @@ namespace WasmApp.Server.Controllers
             // in a real case, you would be fetching the data from the service, not generating it here
             IQueryable<WeatherForecast> queriableData = _forecasts.AsQueryable();
 
+            // deserialize the DataSourceRequest from the HTTP query
+            DataSourceRequest gridRequest = JsonSerializer.Deserialize<DataSourceRequest>(dsRequest);
+
             // use the Telerik DataSource Extensions to perform the query on the data
             // the Telerik extension methods can also work on "regular" collections like List<T> and IQueriable<T>
-            DataSourceResult dataToReturn = await queriableData.ToDataSourceResultAsync(gridRequest);
+            DataSourceResult processedData = await queriableData.ToDataSourceResultAsync(gridRequest);
+
+            // we now need to make this serializable because the framework cannot serialize IEnumerable
+            DataEnvelope<WeatherForecast> dataToReturn = new DataEnvelope<WeatherForecast>
+            {
+                CurrentPageData = processedData.Data as List<WeatherForecast>,
+                TotalItemCount = processedData.Total
+            };
 
             return dataToReturn;
         }

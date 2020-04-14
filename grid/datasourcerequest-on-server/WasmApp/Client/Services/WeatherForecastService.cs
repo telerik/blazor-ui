@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Components;
 // these two using statements provide the data source operations
 using Telerik.DataSource;
 using Telerik.DataSource.Extensions;
+using System.Text.Json;
 
 namespace WasmApp.Services
 {
@@ -22,9 +23,10 @@ namespace WasmApp.Services
             Http = client;
         }
 
-        public async Task<DataSourceResult> GetForecastListAsync(DataSourceRequest gridRequest)
+        public async Task<DataEnvelope<WeatherForecast>> GetForecastListAsync(DataSourceRequest gridRequest)
         {
-            DataSourceResult result = await Http.PostJsonAsync<DataSourceResult>("WeatherForecast", gridRequest);
+            DataEnvelope<WeatherForecast> result = 
+                await Http.PostJsonAsync<DataEnvelope<WeatherForecast>>("WeatherForecast", JsonSerializer.Serialize<DataSourceRequest>(gridRequest));
 
             return result;
         }
