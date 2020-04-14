@@ -59,7 +59,9 @@ namespace WasmApp.Server.Controllers
             // the Telerik extension methods can also work on "regular" collections like List<T> and IQueriable<T>
             DataSourceResult processedData = await queriableData.ToDataSourceResultAsync(gridRequest);
 
-            // we now need to make this serializable because the framework cannot serialize IEnumerable
+            // We now need to make this deserializable because the framework cannot deserialize IEnumerable
+			// So we will use an envelope class that will contain the exact type of the data items instead of DataSourceResult directly
+			// This is required as System.Text.Json cannot successfully deserialize interface properties
             DataEnvelope<WeatherForecast> dataToReturn = new DataEnvelope<WeatherForecast>
             {
                 CurrentPageData = processedData.Data as List<WeatherForecast>,
