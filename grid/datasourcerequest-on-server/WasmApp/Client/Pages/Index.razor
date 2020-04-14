@@ -1,0 +1,41 @@
+﻿@page "/"
+
+@using WasmApp.Shared
+@using WasmApp.Services
+@inject WeatherForecastService ForecastService
+
+<TelerikGrid Height="550px" FilterMode="@GridFilterMode.FilterMenu"
+             Sortable="true" Pageable="true" PageSize="20"
+             Data=@GridData TotalCount=@Total OnRead=@ReadItems>
+    <GridColumns>
+        <GridColumn Field="Id" Title="Id" Width="100px" />
+        <GridColumn Field="Date">
+            <Template>
+                @((context as WeatherForecast).Date.ToString("dddd, dd MMM yyyy"))
+            </Template>
+        </GridColumn>
+        <GridColumn Field="TemperatureC" Title="Temp. C" />
+        <GridColumn Field="TemperatureF" Title="Temp. F" />
+        <GridColumn Field="Summary" />
+    </GridColumns>
+</TelerikGrid>
+
+@code {
+    List<WeatherForecast> GridData { get; set; }
+    public int Total { get; set; } = 0;
+
+    protected async Task ReadItems(GridReadEventArgs args)
+    {
+        // we pass the request to the service, and there Telerik DataSource Extension methods will shape the data
+        // then the service returns our project-specific envelope so that the data can be serialized by the framework
+        DataEnvelope<WeatherForecast> datasourceResult = await ForecastService.GetForecastListAsync(args.Request);
+
+        GridData = datasourceResult.CurrentPageData;
+        Total = datasourceResult.TotalItemCount;
+
+        StateHasChanged();
+    }
+
+
+    // for brevity, CUD operations are not implemented, only Read
+}
