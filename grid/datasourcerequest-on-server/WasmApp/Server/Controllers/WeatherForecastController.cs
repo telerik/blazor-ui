@@ -1,24 +1,37 @@
-﻿using System;
+﻿using WasmApp.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ServerApp.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 // these two using statements provide the data source operations
 using Telerik.DataSource;
 using Telerik.DataSource.Extensions;
 
-namespace ServerApp.Services
+namespace WasmApp.Server.Controllers
 {
-    public class WeatherForecastService
+    [ApiController]
+    [Route("[controller]")]
+    public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
                 "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
             };
 
-        private List<WeatherForecast> _forecasts { get; set; }
+        private readonly ILogger<WeatherForecastController> logger;
 
-        public async Task<DataSourceResult> GetForecastListAsync(DataSourceRequest gridRequest)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        {
+            this.logger = logger;
+        }
+
+        // this static list acts as our "database" in this sample
+        private static List<WeatherForecast> _forecasts { get; set; }
+
+        [HttpPost]
+        public async Task<DataSourceResult> Post([FromBody]DataSourceRequest gridRequest)
         {
             // generate some data for the sake of this demo
             if (_forecasts == null)
