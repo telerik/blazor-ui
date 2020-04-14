@@ -1,0 +1,108 @@
+﻿@using ServerApp.Models
+
+<style>
+    /*
+        Styles normally go in a .css file.
+        This is just a simple example to get you started.
+        Feel free to relocate this to site.css if you wish.
+    */
+    .k-nav.k-link {
+        padding: 6px 12px;
+        line-height: 1.4285714286;
+    }
+    .k-nav.k-state-active {
+        font-weight: bold;
+        color: #656565;
+    }
+    .k-menu-group .k-item > .k-menu-link {
+        line-height: 1.4285714286;
+        padding: 4px 8px;
+        padding-right: 32px;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -ms-flex-align: center;
+        align-items: center;
+        position: relative;
+    }
+</style>
+
+<TelerikMenu Data="@MenuItems">
+    <ItemTemplate Context="item">
+        @{
+            <NavLink href="@item.Url"
+                     target="@(IsInternalPage(item.Url) ? "" : "_blank")"
+                     class="k-nav k-link k-menu-link"
+                     ActiveClass="k-state-active"
+                     Match="@(item.Url == "/" ? NavLinkMatch.All : NavLinkMatch.Prefix)">
+                @item.Text
+            </NavLink>
+        }
+    </ItemTemplate>
+</TelerikMenu>
+
+@code {
+    List<MenuItem> MenuItems { get; set; }
+
+    MenuItem SelectedMenuItem { get; set; }
+
+    bool IsInternalPage(string url)
+    {
+        if (string.IsNullOrEmpty(url)) return false;
+
+        var protocols = new string[] { "//", "http://", "https://" };
+        return !protocols.Any(p => url.StartsWith(p.ToLower()));
+    }
+
+    protected override void OnInitialized()
+    {
+        MenuItems = new List<MenuItem>()
+    {
+            new MenuItem()
+            {
+                Text = "Home",
+                Url = "/",
+            },
+            new MenuItem()
+            {
+                Text = "Grid",
+                Url = "/grid"
+            },
+            new MenuItem()
+            {
+                Text = "Chart",
+                Url = "/chart"
+            },
+            new MenuItem()
+            {
+                Text = "Form",
+                Url = "/form"
+            },
+            new MenuItem()
+            {
+                Text = "Telerik UI for Blazor",
+                Url = "https://www.telerik.com/blazor-ui",
+                Items = new List<MenuItem>()
+                {
+                    new MenuItem()
+                    {
+                        Text = "Documentation",
+                        Url = "https://docs.telerik.com/blazor-ui/introduction"
+                    },
+                    new MenuItem()
+                    {
+                        Text = "Live Demos",
+                        Url = "https://demos.telerik.com/blazor-ui"
+                    }
+                    ,
+                    new MenuItem()
+                    {
+                        Text = "Theme Builder",
+                        Url = "https://themebuilder.telerik.com"
+                    }
+                }
+            }
+        };
+    }
+}
