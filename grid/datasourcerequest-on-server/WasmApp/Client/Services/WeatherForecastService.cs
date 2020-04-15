@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Components;
 using Telerik.DataSource;
 using Telerik.DataSource.Extensions;
 using System.Text.Json;
+using System.Net.Http.Json;
 
 namespace WasmApp.Services
 {
@@ -25,13 +26,20 @@ namespace WasmApp.Services
 
         public async Task<DataEnvelope<WeatherForecast>> GetForecastListAsync(DataSourceRequest gridRequest)
         {
-            DataEnvelope<WeatherForecast> result = 
-                await Http.SendJsonAsync<DataEnvelope<WeatherForecast>>(
-                    HttpMethod.Post,
-                    "WeatherForecast",
-                    JsonSerializer.Serialize<DataSourceRequest>(gridRequest));
+            
+            HttpResponseMessage data = await Http.PostAsJsonAsync(
+                "WeatherForecast",
+                JsonSerializer.Serialize(gridRequest));
 
-            return result;
+            if(data.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                DataEnvelope<WeatherForecast> result =
+                    await HttpContentJsonExtensions.ReadFromJsonAsync<DataEnvelope<WeatherForecast>>(data.Content);
+                
+                return await Task.FromResult(result);
+            }
+
+            throw new Exception($"The service returned with status {data.StatusCode}");
         }
 
         // for brevity, CUD operations are not implemented, only Read
