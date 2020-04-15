@@ -1,0 +1,70 @@
+﻿@page "/"
+
+<TelerikCalendar Min="@min"
+                 Max="@max"
+                 Views="@NumOfViews"
+                 Date="@initialDate"
+                 DateChanged="@DateChangedHandler"
+                 DisabledDates="@DisabledDates"
+                 SelectionMode="CalendarSelectionMode.Multiple" />
+
+@code{
+    DateTime initialDate { get; set; } = DateTime.Now;
+    DateTime min;
+    DateTime max;
+
+    int NumOfViews = 3;
+
+    // set dates the user can't select
+    private List<DateTime> DisabledDates = new List<DateTime>() { };
+
+    private List<DateTime> AllowedDates = new List<DateTime>() { };
+
+    protected override void OnInitialized()
+    {
+        min = new DateTime(initialDate.AddYears(-5).Year, 1, 1);
+        max = new DateTime(initialDate.AddYears(5).Year, 12, 31);
+
+        //Populate a list of allowed dates
+        for (DateTime i = new DateTime(initialDate.Year, 01, 01); i < new DateTime(initialDate.AddYears(1).Year, 01, 01); i = i.AddDays(1))
+        {
+            if (i.Date.Day % 2 is 0)
+                AllowedDates.Add(i);
+        }
+
+        //Call to fill initial dispaly page with disabled/allowed
+        DisableDates(initialDate);
+    }
+
+    void DateChangedHandler(DateTime firstDateOfNewRange)
+    {
+        DisableDates(firstDateOfNewRange);
+
+        // if you don't do this, navigating adjacent ranges will be effectively disabled
+        initialDate = firstDateOfNewRange;
+    }
+
+    void DisableDates(DateTime currentDate)
+    {
+        //Add the disabled dates we calculated into the DisabledDates parameter
+        var disabledDates = GetDisabledDates(currentDate);
+        DisabledDates = new List<DateTime>(disabledDates);
+    }
+
+    IEnumerable<DateTime> GetDisabledDates(DateTime rangeStart)
+    {
+        //Start date of currently displayed month(s)
+        var start = new DateTime(rangeStart.Year, rangeStart.Month, 1);
+        //Compensate for the number of months displayed by the views number
+        var end = start.AddMonths(NumOfViews).AddDays(-1);
+
+        //Enumerate the number of days from the visible start-date till the end-date of the visible views
+        //Except the dates available in AllowedDates
+        var dateRange = Enumerable
+            .Range(0, (int)(end - start).TotalDays + 1)
+            .Select(i => start.AddDays(i))
+            .Except(AllowedDates);
+
+        return dateRange;
+    }
+}
