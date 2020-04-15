@@ -15,7 +15,7 @@ As shown in [Index.razor][SourceCode] you have to call `DisableDates(DateTime)` 
 This will detect what month(s) are currently displayed by your calendar and add the  displayed days to the `DisabledDates` list iff they are not available in your `AllowedDates` list.
 
 What happens if the user changes the current view?
-Using the `DateChangedHandler` we call the `DisableDates(DateTime)` function to clear the old `DisabledDates` list and create a new list that contains the disabled days to the navigated view.
+- Using the `DateChangedHandler` we call the `DisableDates(DateTime)` function to clear the old `DisabledDates` list and create a new list that contains the disabled days to the navigated view.
 
 The project contains the following methods: 
 - `protected override void OnInitialized()`: Initializes the current view
