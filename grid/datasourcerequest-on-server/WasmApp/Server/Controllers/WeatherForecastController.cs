@@ -53,6 +53,7 @@ namespace WasmApp.Server.Controllers
             IQueryable<WeatherForecast> queriableData = _forecasts.AsQueryable();
 
             // deserialize the DataSourceRequest from the HTTP query
+			// make sure to use the System.Text.Json serializer
             DataSourceRequest gridRequest = JsonSerializer.Deserialize<DataSourceRequest>(dsRequest);
 
             // use the Telerik DataSource Extensions to perform the query on the data
