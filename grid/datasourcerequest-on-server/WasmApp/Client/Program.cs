@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using WasmApp.Services;
+using System.Net.Http;
+using System;
 
 namespace WasmApp.Client
 {
@@ -11,7 +13,7 @@ namespace WasmApp.Client
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
-            builder.Services.AddBaseAddressHttpClient();
+            builder.Services.AddSingleton(new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddScoped<WeatherForecastService>();
             builder.Services.AddTelerikBlazor();
 

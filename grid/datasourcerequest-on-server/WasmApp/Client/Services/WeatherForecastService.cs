@@ -27,19 +27,16 @@ namespace WasmApp.Services
         public async Task<DataEnvelope<WeatherForecast>> GetForecastListAsync(DataSourceRequest gridRequest)
         {
             
-            HttpResponseMessage data = await Http.PostAsJsonAsync(
+            HttpResponseMessage response = await Http.PostAsJsonAsync(
                 "WeatherForecast",
                 JsonSerializer.Serialize(gridRequest)); // make sure to use the System.Text.Json serializer
 
-            if(data.StatusCode == System.Net.HttpStatusCode.OK)
+            if(response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                DataEnvelope<WeatherForecast> result =
-                    await HttpContentJsonExtensions.ReadFromJsonAsync<DataEnvelope<WeatherForecast>>(data.Content);
-                
-                return await Task.FromResult(result);
+                return await response.Content.ReadFromJsonAsync<DataEnvelope<WeatherForecast>>();
             }
 
-            throw new Exception($"The service returned with status {data.StatusCode}");
+            throw new Exception($"The service returned with status {response.StatusCode}");
         }
 
         // for brevity, CUD operations are not implemented, only Read
