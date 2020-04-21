@@ -3,17 +3,17 @@
 @inject HttpClient Http
 
 @using ClientLocalizationResx.Shared
+@using ClientLocalizationResx.Shared.Resources
 @using Telerik.Blazor.Services
 
 @* You can use the service for Telerik localization for your own code as well - for example the grid command buttons *@
 @inject ITelerikStringLocalizer Localizer
-@* This is the namespace that is generated from the resx files in the shared project *@
-@using ClientLocalizationResx.Shared.Translations
-
 
 Current UI culture (used for localization): @System.Threading.Thread.CurrentThread.CurrentUICulture.Name
 <br />
 Current thread culture (used for date and number formatting): @System.Threading.Thread.CurrentThread.CurrentCulture.Name
+
+<CultureChooser />
 
 <TelerikGrid Data="@forecasts"
              Pageable="true" Groupable="true" Sortable="true"
@@ -39,13 +39,22 @@ Current thread culture (used for date and number formatting): @System.Threading.
     </GridColumns>
 </TelerikGrid>
 
+<p>The Calendar will also take the names of the months, days of the week and the first day of the week from the culture.</p>
+
+<TelerikCalendar @bind-Date="@today" />
+
+<p>The numeric textbox also reacts to the culture and uses its standard numeric formats.</p>
+<TelerikNumericTextBox @bind-Value="@numericTextBoxValue" />
+
 
 @code {
+    decimal numericTextBoxValue { get; set; } = 1234567.89123m;
+    DateTime today { get; set; } = DateTime.Now.Date;
     List<WeatherForecast> forecasts { get; set; } = new List<WeatherForecast>();
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetJsonAsync<List<WeatherForecast>>("WeatherForecast");
+        forecasts = await Http.GetFromJsonAsync<List<WeatherForecast>>("WeatherForecast?count=150");
     }
 
     // sample CUD operations to showcase how to localize command buttons as well
