@@ -1,0 +1,134 @@
+﻿@page "/ResponsiveGrid"
+
+@implements IDisposable
+@using System.Globalization
+@inject CityService cityService
+@inject ResizeListener listener
+
+
+<div style="margin: 0; padding: 0; border-width: 0; height: 90vh;">
+    @if (_gettingData)
+    {
+        <h3>Loading...</h3>
+    }
+    else
+    {
+        <TelerikGrid Data="@CityList"
+                     Height="100%"
+                     Pageable="true"
+                     PageSize="_itemsPerPage"
+                     RowHeight="_rowHeightPX"
+                     Sortable="true">
+            <GridColumns>
+                <GridColumn Field="@(nameof(City.city))" Title="City" />
+
+                <GridColumn Field="@(nameof(City.population))" Title="Population">
+                    <Template>
+                        @((context as City).population.ToString("#,##0"))
+                    </Template>
+                </GridColumn>
+
+                @if (_isMediumUp)
+                {
+                    <GridColumn Field="@(nameof(City.country))" Title="Country" />
+                }
+
+                @if (_isLargeUp)
+                {
+                    <GridColumn Field="@(nameof(City.lat))" Title="Latitude" />
+
+                    <GridColumn Field="@(nameof(City.lng))" Title="Longitude" />
+                }
+            </GridColumns>
+        </TelerikGrid>
+    }
+</div>
+
+@code {
+    public List<City> CityList { get; set; } = new List<City>();
+
+    // Used with BlazorSize To referance Browser Dimensions
+    BrowserWindowSize browser = new BrowserWindowSize();
+
+    bool _gettingData = true;
+
+    // Flag for storing Media Break point
+    bool _isMediumUp = true;
+    bool _isLargeUp = true;
+
+
+
+    // NavBar
+    // Default Blazor site.css set 'top-bar' to 3.5rem based on 16px per rem this is 56px
+    int _navBarHeightPX = 56;
+
+    // Row Height
+    // Default Telerik Grid Row height is 36, but this depends on Font Size and padding
+    // using a tool like Chrome 'Inspect' can be used to determine exact height in pixels
+    int _rowHeightPX = 36;
+
+    // Pager
+    // Default (k-pager-wrap) appears to be 47px (Top Border 1px, Padding (Top + Bottom) 16px, Pager Control 36px)
+    // using a tool like Chrome 'Inspect' can be used to determine exact height in pixels
+    int _pagerHeightPX = 47;
+
+    // Default value -- this will get set in WindowResize event
+    int _itemsPerPage = 50;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        CityList = await cityService.GetCitiesAsync();
+
+        _gettingData = false;
+    }
+
+    #region Blazor Size Configuration
+    // All BlazorSize code is copied from https://github.com/EdCharbeneau/BlazorSize
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Subscribe to the OnResized event. This will do work when the browser is resized.
+            listener.OnResized += WindowResized;
+        }
+    }
+
+
+    // This method will be called when the window resizes.
+    // It is ONLY called when the user stops dragging the window's edge. (It is already throttled to protect your app from perf. nightmares)
+    async void WindowResized(object _, BrowserWindowSize window)
+    {
+        // Get the browsers's width / height
+        browser = window;
+
+        // Check a media query to see if it was matched. We can do this at any time, but it's best to check on each resize
+        _isMediumUp = await listener.MatchMedia(Breakpoints.MediumUp);
+        _isLargeUp = await listener.MatchMedia(Breakpoints.LargeUp);
+
+        // Determine how much space is available for the grid
+        // - Since the container div is set to 90% of the ViewPort Height ('height: 90vh;')
+        //      adjust the current browser height to get the total available height
+        // - Deduct the height of any other elements that are sharing space in the div
+        //      in this case the NavBar and the Grid Pager
+        var adjustedHeight = Math.Round(browser.Height * .9) - _navBarHeightPX - _pagerHeightPX;
+
+        // Now that we have determined the height of the grid, calculate how many rows will fit on a page
+        _itemsPerPage = Convert.ToInt32((adjustedHeight / (double)_rowHeightPX));
+
+        // We're outside of the component's lifecycle, be sure to let it know it has to re-render.
+        StateHasChanged();
+    }
+
+    void IDisposable.Dispose()
+    {
+        // Always use IDisposable in your component to unsubscribe from the event.
+        // Be a good citizen and leave things how you found them.
+        // This way event handlers aren't called when nobody is listening.
+        listener.OnResized -= WindowResized;
+    }
+
+    #endregion
+
+}

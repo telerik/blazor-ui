@@ -1,0 +1,97 @@
+﻿@page "/FindAndSelectRow"
+@inject CityService cityService
+@inject IJSRuntime js
+
+<h3>Find And Select Row</h3>
+
+@if (_gettingData)
+{
+    <h3>Loading...</h3>
+}
+else
+{
+    <div class="text-center m-3">
+        <div class="d-inline-block">
+            <TelerikButton Primary="true" ButtonType="ButtonType.Button" @onclick="@(() => SelectItem("Bucharest"))">Select Bucharest</TelerikButton>
+            <TelerikButton Primary="true" ButtonType="ButtonType.Button" @onclick="@(() => SelectItem("Frankfurt"))">Select Frankfurt</TelerikButton>
+            <TelerikButton Primary="true" ButtonType="ButtonType.Button" @onclick="@(() => SelectItem("Havana"))">Select Havana</TelerikButton>
+            <TelerikButton Primary="true" ButtonType="ButtonType.Button" @onclick="@(() => SelectItem("New York"))">Select New York</TelerikButton>
+        </div>
+    </div>
+
+    <TelerikGrid Data="@CityList"
+                 Height="500px"
+                 SelectionMode="GridSelectionMode.Single"
+                 Pageable="true"
+                 PageSize="_itemsPerPage"
+                 @bind-Page="_currentPage"
+                 @bind-SelectedItems="SelectedCityList"
+                 Class="@gridClass"
+                 Sortable="false">
+        <GridColumns>
+            <GridColumn Field="@(nameof(City.city))" Title="City" />
+
+            <GridColumn Field="@(nameof(City.population))" Title="Population">
+                <Template>
+                    @((context as City).population.ToString("#,##0"))
+                </Template>
+            </GridColumn>
+
+            <GridColumn Field="@(nameof(City.country))" Title="Country" />
+            <GridColumn Field="@(nameof(City.lat))" Title="Latitude" />
+            <GridColumn Field="@(nameof(City.lng))" Title="Longitude" />
+        </GridColumns>
+    </TelerikGrid>
+
+}
+
+
+@code {
+    List<City> CityList { get; set; } = new List<City>();
+    IEnumerable<City> SelectedCityList { get; set; } = Enumerable.Empty<City>();
+
+    bool _gettingData = true;
+    int _itemsPerPage = 20;
+    int _currentPage = 1;
+
+    public string gridClass { get; set; } = "citydata-grid";
+
+    protected override async Task OnInitializedAsync()
+    {
+        CityList = await cityService.GetCitiesAsync();
+
+        _gettingData = false;
+    }
+
+    private async Task SelectItem(string cityName)
+    {
+
+        // Find the item to be selected in the LogItems
+        var cityToSelect = CityList.FirstOrDefault(x => x.city == cityName);
+
+        // If item was found
+        if (cityToSelect != null)
+        {
+            // Determine where it appears on the list
+            var index = CityList.IndexOf(cityToSelect);
+
+            // Divide Index by _itemsPerPage to determine which page it's on
+            var onPage = (index / _itemsPerPage) + 1;
+
+            // Select Page
+            _currentPage = onPage;
+
+            // Add to Selected Items
+            SelectedCityList = CityList.Where(x => x.city == cityName).ToList();
+
+            // Highlight Item using Javascript
+            // See wwwroot/js/utilities.js for code
+            // Be sure to include reference to utilities.js in _Host.html (for server side)
+            await Task.Delay(20);//rougly one rendering frame so this has the chance to render in the browser
+            await js.InvokeVoidAsync("scrollToSelectedRow", "." + gridClass);
+        }
+
+    }
+
+
+}

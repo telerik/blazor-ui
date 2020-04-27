@@ -1,0 +1,145 @@
+﻿@page "/Formatting"
+@inject CityService cityService
+
+
+<style>
+    .mygrid-formatting th.k-header {
+        padding: 5px;
+    }
+
+    .mygrid-formatting .k-master-row td {
+        padding: 2px 4px;
+        border-bottom: 1px solid rgba(33, 37, 41, 0.15);        
+        line-height: 1.25rem;
+        vertical-align: @_verticalAlignment;
+    }
+
+    .mygrid-formatting .k-grid-table .k-master-row {
+        background-color: @_backGroundColor;
+    }
+
+        .mygrid-formatting .k-grid-table .k-master-row:hover {
+            background-color: rgba(220, 238, 239, 0.50);
+        }
+
+        .mygrid-formatting .k-grid-table .k-master-row.k-alt {
+            background-color: @_backGroundColor;
+        }
+
+            .mygrid-formatting .k-grid-table .k-master-row.k-alt:hover {
+                background-color: rgba(220, 238, 239, 0.50);
+            }
+</style>
+
+<h3>Formatting</h3>
+
+@if (_gettingData)
+{
+    <h3>Loading...</h3>
+}
+else
+{
+    <div class="d-inline-block">
+        <label for="alignment">Alignment: </label>
+        <TelerikDropDownList Id="alignment"
+                             Value="@_verticalAlignment"
+                             Data="@Alignments"
+                             Width="150px"
+                             ValueChanged="@( (string c) => AlignmentSelected(c) )">
+        </TelerikDropDownList>
+
+        <label for="background">Background: </label>
+        <TelerikDropDownList Id="background"
+                             Value="@_backGroundColor"
+                             Data="@Colors"
+                             Width="150px"
+                             ValueChanged="@( (string c) => ColorSelected(c) )">
+        </TelerikDropDownList>
+    </div>
+    <hr />
+
+    <TelerikGrid Data="@CityList"
+                 Class="mygrid-formatting"
+                 Height="500px"
+                 SelectionMode="GridSelectionMode.Single"
+                 Pageable="true"
+                 PageSize="_itemsPerPage"
+                 RowHeight="45"
+                 Sortable="true">
+        <GridColumns>
+            <GridColumn Field="@(nameof(City.city))" Title="City" />
+
+            <GridColumn Field="@(nameof(City.population))" Title="Population">
+                <Template>
+                    <td style="@PopulationColor((context as City).population)">
+                        @((context as City).population.ToString("#,##0"))
+                    </td>
+                </Template>
+            </GridColumn>
+
+            <GridColumn Field="@(nameof(City.country))" Title="Country" />
+
+            <GridColumn Field="@(nameof(City.lat))" Title="Latitude" />
+
+            <GridColumn Field="@(nameof(City.lng))" Title="Longitude" />
+        </GridColumns>
+    </TelerikGrid>
+}
+
+@code {
+    List<City> CityList { get; set; } = new List<City>();
+    IEnumerable<City> SelectedCityList { get; set; } = Enumerable.Empty<City>();
+
+    List<string> Alignments = new List<string> { "Top", "Center", "Bottom" };
+    List<string> Colors = new List<string> { "White", "Honeydew", "Azure", "LightCyan" };
+
+    bool _gettingData = true;
+    int _itemsPerPage = 20;
+    string _verticalAlignment = "Center";
+    string _backGroundColor = "White";
+
+    protected override async Task OnInitializedAsync()
+    {
+        CityList = await cityService.GetCitiesAsync();
+
+        _gettingData = false;
+    }
+
+    private void AlignmentSelected(string alignment)
+    {
+        _verticalAlignment = alignment;
+        StateHasChanged();
+    }
+
+    private void ColorSelected(string color)
+    {
+        _backGroundColor = color;
+        StateHasChanged();
+    }
+
+    private string PopulationColor(int population)
+    {
+        string style = "border-bottom: none;";
+
+        if (population > 10000000)
+        {
+            style += "color: red;";
+        }
+        else if (population > 5000000)
+        {
+            style += "color: green;";
+        }
+        else if (population > 1000000)
+        {
+            style += "color: blue;";
+        }
+        else
+        {
+            style += "color: black;";
+        }
+
+        return style;
+
+    }
+
+}

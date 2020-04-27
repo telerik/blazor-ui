@@ -1,0 +1,53 @@
+﻿@page "/"
+
+<div>
+    This project was created using the Telerik 'Blank Server Project' template
+    and includes the <b>'BlazorPro.BlazorSize'</b> NuGet package by Ed Charbeneau to access browser dimensions.
+    It is meant to provide an example for how to address three common requirements for representing data using a grid for database applications.
+    <br />
+    Sample date provided by: https://simplemaps.com/data/world-cities
+</div>
+
+<div class="m-3">
+    <h5 style="color: blueviolet">
+        <a href="/ResponsiveGrid">
+            Responsive Grid
+        </a>
+    </h5>
+    * This uses the <b>BlazorSize</b> package to detect the browser size
+    <br />
+    * Determine how many rows will fit within the available grid height (to eliminate or minimize vertical scroll bar)
+    <br />
+    * Uses media breakpoints to determine which columns should be displayed based upon the browser width.  (Resize width of browser to see columns subtracted / added)
+    <br />
+</div>
+
+<div class="m-3">
+    <h5 style="color: blueviolet">
+        <a href="/FindAndSelectRow">
+            Find and Select Row
+        </a>
+    </h5>
+    * Demonstrates how to <b>bind-Page</b> select a page
+    <br />
+    * Uses java script to make sure row is visible on page
+</div>
+
+<div class="m-3">
+    <h5 style="color: blueviolet">
+        <a href="/Formatting">
+            Formatting
+        </a>
+    </h5>
+    * Demonstrastes how to change background colors and eliminate alternate row backgroud color
+    <br />
+    * Changes data alignment to top of row
+    <br />
+    * Conditionally Set font color for population based on data
+    <br />
+</div>
+
+
+@code {
+
+}
