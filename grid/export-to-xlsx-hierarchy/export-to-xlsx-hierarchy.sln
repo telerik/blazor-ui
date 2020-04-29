@@ -1,0 +1,17 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "export-to-xlsx-hierarchy", "export-to-xlsx-hierarchy.csproj", "{06C7973A-40F9-445E-BB0E-772AEA7F5B8F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{06C7973A-40F9-445E-BB0E-772AEA7F5B8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06C7973A-40F9-445E-BB0E-772AEA7F5B8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06C7973A-40F9-445E-BB0E-772AEA7F5B8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06C7973A-40F9-445E-BB0E-772AEA7F5B8F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
