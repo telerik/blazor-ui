@@ -1,0 +1,29 @@
+﻿@using SharedClasses
+@using WebApiFromServerApp.Services
+@inject WeatherForecastServiceForWebApi _service
+
+<h3>URL to POST to: @ActionUrl</h3>
+
+<TelerikGrid Data=@GridData TotalCount=@Total OnRead=@ReadItems
+             FilterMode=@GridFilterMode.FilterRow Sortable=true Pageable=true Height="300px">
+    <GridColumns>
+        <GridColumn Field=@nameof(WeatherForecast.Id) />
+        <GridColumn Field=@nameof(WeatherForecast.Date) Title="Date" />
+        <GridColumn Field=@nameof(WeatherForecast.Summary) Title="Summary" />
+        <GridColumn Field=@nameof(WeatherForecast.TemperatureC) Title="Temp C" />
+    </GridColumns>
+</TelerikGrid>
+
+@code {
+    [Parameter] public string ActionUrl { get; set; }
+    public List<WeatherForecast> GridData { get; set; }
+    public int Total { get; set; } = 0;
+
+    protected async Task ReadItems(GridReadEventArgs args)
+    {
+        DataEnvelope<WeatherForecast> dataEnvelope = await _service.GetData(args.Request, ActionUrl);
+        GridData = dataEnvelope.CurrentPageData;
+        Total = dataEnvelope.TotalItemCount;
+        StateHasChanged();
+    }
+}
