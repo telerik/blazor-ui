@@ -6,8 +6,7 @@
     <DetailTemplate>
         @{
             Employee employee = context as Employee;
-            int employeeId = employee.EmployeeId;
-           <MyNestedGrid EmployeeId="@employeeId" />
+           <MyNestedGrid EmployeeId="@employee.EmployeeId" />
         }
     </DetailTemplate>
     <GridColumns>

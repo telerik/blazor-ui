@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using LoadOnDemandHierarchyGrid.Data;
 using LoadOnDemandHierarchyGrid.Services;
 
 namespace LoadOnDemandHierarchyGrid
@@ -30,7 +29,6 @@ namespace LoadOnDemandHierarchyGrid
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddTelerikBlazor();
-            services.AddSingleton<WeatherForecastService>();
             services.AddScoped<EmployeeService>();
             services.AddScoped<ProjectsService>();
         }
