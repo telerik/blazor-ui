@@ -1,0 +1,30 @@
+﻿@inject LoadOnDemandHierarchyGrid.Services.ProjectsService ProjectsService
+
+@if (ProjectsData == null)
+{
+    <div>Please wait...loading the hierarchy data...</div>
+}
+else
+{
+    <TelerikGrid Data="@ProjectsData"
+                 Pageable="true"
+                 PageSize="5">
+        <GridColumns>
+            <GridColumn Field="@nameof(Projects.ProjectId)"></GridColumn>
+            <GridColumn Field="@nameof(Projects.ProjectName)"></GridColumn>
+            <GridColumn Field="@nameof(Projects.DeliveryDate)"></GridColumn>
+        </GridColumns>
+    </TelerikGrid>
+}
+
+@code {
+    [Parameter] public int EmployeeId { get; set; }
+    public List<Projects> ProjectsData { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await Task.Delay(1000);//simulate database delay, remove this in a real app
+
+        ProjectsData = await ProjectsService.GetProjects(EmployeeId);
+    }
+}
