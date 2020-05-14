@@ -1,0 +1,27 @@
+﻿@page "/"
+
+@inject LoadOnDemandHierarchyGrid.Services.EmployeeService EmployeeService
+
+<TelerikGrid Data="@GridData" Pageable="true" PageSize="10">
+    <DetailTemplate>
+        @{
+            Employee employee = context as Employee;
+            int employeeId = employee.EmployeeId;
+           <MyNestedGrid EmployeeId="@employeeId" />
+        }
+    </DetailTemplate>
+    <GridColumns>
+        <GridColumn Field="@nameof(Employee.EmployeeId)"></GridColumn>
+        <GridColumn Field="@nameof(Employee.FirstName)"></GridColumn>
+        <GridColumn Field="@nameof(Employee.LastName)"></GridColumn>
+    </GridColumns>
+</TelerikGrid>
+
+@code {
+    public List<Employee> GridData { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        GridData = await EmployeeService.GetEmployeesAsync();
+    }
+}
