@@ -1,0 +1,25 @@
+﻿@page "/"
+
+
+@inject ConvertICSToModel convertSerice
+
+<TelerikScheduler Data="@Appointments" 
+                  @bind-Date="@StartDate" 
+                  @bind-View="@CurrView" 
+                  Height="600px" 
+                  Width="800px">
+    <SchedulerViews>
+        <SchedulerDayView StartTime="@DayStart" />
+        <SchedulerWeekView StartTime="@DayStart" />
+        <SchedulerMultiDayView StartTime="@DayStart" NumberOfDays="10" />
+    </SchedulerViews>
+</TelerikScheduler>
+
+@code {
+    public DateTime StartDate { get; set; } = new DateTime(2019, 11, 29);
+    public SchedulerView CurrView { get; set; } = SchedulerView.Week;
+    public DateTime DayStart { get; set; } = new DateTime(2000, 1, 1, 8, 0, 0);//the time portion is important
+
+    public List<CalendarAppointments> Appointments { get; set; } // we will get this from a service;
+}
+
