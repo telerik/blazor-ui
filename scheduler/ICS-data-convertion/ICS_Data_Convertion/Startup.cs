@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ICS_Data_Convertion.Data;
 using ICS_Data_Convertion.Services;
 
 namespace ICS_Data_Convertion
@@ -30,7 +29,6 @@ namespace ICS_Data_Convertion
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddTelerikBlazor();
-            services.AddSingleton<WeatherForecastService>();
             services.AddScoped<SchedulerAppointmentsService>();
         }
 
