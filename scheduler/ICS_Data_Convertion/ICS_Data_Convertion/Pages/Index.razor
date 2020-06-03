@@ -1,0 +1,32 @@
+﻿@page "/"
+
+@inject SchedulerAppointmentsService appointmentService
+
+<TelerikScheduler Data="@Appointments" 
+                  @bind-Date="@StartDate" 
+                  @bind-View="@CurrView" 
+                  Height="600px" 
+                  Width="800px">
+    <SchedulerViews>
+        <SchedulerDayView StartTime="@DayStart" />
+        <SchedulerWeekView StartTime="@DayStart" />
+        <SchedulerMultiDayView StartTime="@DayStart" NumberOfDays="10" />
+        <SchedulerMonthView />
+    </SchedulerViews>
+</TelerikScheduler>
+
+@code {
+    public DateTime StartDate { get; set; } = new DateTime(2020, 6, 8);
+    public SchedulerView CurrView { get; set; } = SchedulerView.Month;
+    public DateTime DayStart { get; set; } = new DateTime(2020, 6, 7, 8, 0, 0);//the time portion is important
+
+    //We are populating this data source from a service
+    public List<CalendarAppointment> Appointments { get; set; }
+
+    protected override Task OnInitializedAsync()
+    {
+        Appointments = appointmentService.GetAppointments();
+        return base.OnInitializedAsync();
+    }
+}
+

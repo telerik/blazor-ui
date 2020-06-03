@@ -31,7 +31,7 @@ namespace ICS_Data_Convertion
             services.AddServerSideBlazor();
             services.AddTelerikBlazor();
             services.AddSingleton<WeatherForecastService>();
-            services.AddScoped<ConvertICSToModel>();
+            services.AddScoped<SchedulerAppointmentsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
