@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Appointments\**" />
+    <Content Remove="Appointments\**" />
+    <EmbeddedResource Remove="Appointments\**" />
+    <None Remove="Appointments\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="2.14.0" />
+  </ItemGroup>
+  
+</Project>
