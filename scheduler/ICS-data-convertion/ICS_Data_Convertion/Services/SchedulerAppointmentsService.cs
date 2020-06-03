@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Newtonsoft.Json.Linq;
 using ICS_Data_Convertion.Models;
+using ICS_Data_Convertion.Extensions;
 using System.Text.RegularExpressions;
 using System.Globalization;
 
@@ -45,8 +46,8 @@ namespace ICS_Data_Convertion.Services
         {
             CalendarAppointment calendarAppointment = new CalendarAppointment();
 
-            calendarAppointment.DTStart = Regex.Match(appointment, @"(?<=DTSTART([\S\s]*?):).*").Value;
-            calendarAppointment.DTEnd = Regex.Match(appointment, @"(?<=DTEND([\S\s]*?):).*").Value;
+            calendarAppointment.Start = (Regex.Match(appointment, @"(?<=DTSTART([\S]*?):).\S*").Value).ParseDateFromICalString();
+            calendarAppointment.End = (Regex.Match(appointment, @"(?<=DTEND([\S]*?):).\S*").Value).ParseDateFromICalString();
             calendarAppointment.Title = Regex.Match(appointment, @"(?<=SUMMARY:).*").Value;
             calendarAppointment.Description = Regex.Match(appointment, @"(?<=DESCRIPTION:).*").Value;
             calendarAppointment.RecurrenceRule = Regex.Match(appointment, @"(?<=RRULE:).*").Value;
