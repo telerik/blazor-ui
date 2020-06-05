@@ -1,0 +1,53 @@
+﻿@page "/"
+
+@using item_selection.Data 
+
+@inject WeatherForecastService _dataService
+
+<TelerikListView Data="@ListViewData" Width="700px" Pageable="true">
+    <HeaderTemplate>
+        <h2>Employee List</h2>
+    </HeaderTemplate>
+    <Template>
+        <div class="listview-item @( context.Selected ? "selected-item" : "" )" @onclick="@( _ => SelectItem(context.Id) )">
+            <h4>@context.Date.ToShortDateString()</h4>
+            <h5>@context.TemperatureC &deg;C</h5>
+            <h6>@context.Summary</h6>
+        </div>
+    </Template>
+</TelerikListView>
+
+@code{
+    List<WeatherForecast> ListViewData { get; set; }
+
+    void SelectItem(int itemId)
+    {
+        WeatherForecast currItem = ListViewData.Where(itm => itm.Id == itemId).FirstOrDefault();
+        if (currItem != null)
+        {
+            currItem.Selected = !currItem.Selected;
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        ListViewData = await _dataService.GetForecastAsync(DateTime.Now);
+    }
+}
+
+<style>
+    .listview-item {
+        height: 150px;
+        width: 150px;
+        display: inline-block;
+        margin: 10px;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+        .listview-item.selected-item {
+            background: cyan;
+            border: 2px solid red;
+        }
+</style>
