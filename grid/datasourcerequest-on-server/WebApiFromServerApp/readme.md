@@ -15,4 +15,4 @@ There are a few specifics to this scenario:
 
 * Due to the behaviors described above, it is important to specify the deserialization options in the blazor app service to ignore casing - the API returns, by default, the field names in camelCase, as opposed to the PascalCase expected in C#. This can break the deserialization of the list of the data.
 
-In this sample, both apps start up immediately for brevity. It is expected that you see two browser tabs open when you run the solution and that the one calling the WebAPI will be empty - it does not have a Get action.
+In this sample, both apps start up immediately for brevity. It is expected that you see two browser tabs open when you run the solution and that the one calling the WebAPI will be empty - it does not have a Get action. If both projects don't start on their own, start the WebAPI project yourself so the Blazor app can call it.
