@@ -27,11 +27,11 @@ namespace WasmApp.Services
         public async Task<DataEnvelope<WeatherForecast>> GetForecastListAsync(DataSourceRequest gridRequest)
         {
             
-            HttpResponseMessage response = await Http.PostAsJsonAsync(
-                "WeatherForecast",
-                JsonSerializer.Serialize(gridRequest)); // make sure to use the System.Text.Json serializer
+            HttpResponseMessage response = await Http.PostAsJsonAsync("WeatherForecast", gridRequest);
+            // make sure to use the System.Text.Json serializer
+            // e.g., JsonSerializer.Serialize(gridRequest) for the second argument if you have some other implementations
 
-            if(response.StatusCode == System.Net.HttpStatusCode.OK)
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 return await response.Content.ReadFromJsonAsync<DataEnvelope<WeatherForecast>>();
             }
