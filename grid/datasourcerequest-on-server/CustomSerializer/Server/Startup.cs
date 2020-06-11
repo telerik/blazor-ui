@@ -26,6 +26,7 @@ namespace CustomSerializer.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            // the custom converter that tackles the Telerik filter descriptors must be implemented and registered
             var convertersList = new List<JsonConverter>()
             {
                 new FilterDescriptorJsonConverter()
@@ -33,7 +34,8 @@ namespace CustomSerializer.Server
 
             services.AddMvc()
                     .AddNewtonsoftJson(op => op.SerializerSettings.Converters = convertersList);
-                        
+
+
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

@@ -7,6 +7,9 @@ using Telerik.DataSource;
 
 namespace CustomSerializer.Server.JsonConverters
 { 
+    /// <summary>
+    /// Handles serialization and deserialization of the Telerik DataSourceRequest filter descriptors for Newtonsoft.Json
+    /// </summary>
     public class FilterDescriptorJsonConverter : JsonConverter
     {
         public override bool CanConvert(Type objectType)

@@ -25,42 +25,15 @@ namespace CustomSerializer.Client.Services
 
         public async Task<DataEnvelope<WeatherForecast>> GetForecastListAsync(DataSourceRequest gridRequest)
         {
-            HttpResponseMessage response = await Http.PostAsJsonAsync(
-                "WeatherForecast", gridRequest);
+            // in this sample the Blazor app uses the System.Text.Json serializer and deserializer
+            // and the server-side API can handle that through a custom converter for Newtsonsoft
+            // you can choose to carry a newtonsoft package to the Blazor app and use that instead,
+            // just make sure that serialization and deserialization both work correctly
+            HttpResponseMessage response = await Http.PostAsJsonAsync("WeatherForecast", gridRequest);
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-
                 return await response.Content.ReadFromJsonAsync<DataEnvelope<WeatherForecast>>();
-
-                ///////remnants of attempts to deserialize the entire datasourceresult
-
-
-                //string responseData = await response.Content.ReadAsStringAsync();
-                //try
-                //{
-                //    DefaultContractResolver contractResolver = new DefaultContractResolver
-                //    {
-                //        NamingStrategy = new CamelCaseNamingStrategy()
-                //    };
-
-                //    DataSourceResult result = JsonConvert.DeserializeObject<DataSourceResult>(responseData, 
-                //        new JsonSerializerSettings
-                //        {
-                //            ContractResolver = new DefaultContractResolver(),//contractResolver,
-                //           // Formatting = Formatting.Indented
-                           
-                //        });
-
-                //   // JsonConvert.DeserializeObject<DataSourceResult>(responseData, )
-
-                //    return await Task.FromResult(result);
-                //}
-                //catch (Exception ex)
-                //{
-                //    throw ex;
-                //}
-
             }
 
             throw new Exception($"The service returned with status {response.StatusCode}");
