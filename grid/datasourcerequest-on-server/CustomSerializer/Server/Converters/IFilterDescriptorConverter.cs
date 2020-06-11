@@ -18,12 +18,26 @@ namespace CustomSerializer.Server.JsonConverters
         {
             JObject filterDescriptor = JObject.Load(reader);
 
-            return filterDescriptor.ToObject<FilterDescriptor>(serializer);
+            if (filterDescriptor.ContainsKey("logicalOperator"))
+            {
+                return filterDescriptor.ToObject<CompositeFilterDescriptor>(serializer);
+            }
+            else
+            {
+                return filterDescriptor.ToObject<FilterDescriptor>(serializer);
+            }
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            serializer.Serialize(writer, (FilterDescriptor)value);
+            if (value is CompositeFilterDescriptor)
+            {
+                serializer.Serialize(writer, (CompositeFilterDescriptor)value);
+            }
+            else if (value is FilterDescriptor)
+            {
+                serializer.Serialize(writer, (FilterDescriptor)value);
+            }
         }
     }
 }
