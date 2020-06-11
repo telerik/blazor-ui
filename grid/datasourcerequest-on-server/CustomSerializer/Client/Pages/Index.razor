@@ -5,7 +5,7 @@
 @using Telerik.DataSource 
 @inject WeatherForecastService ForecastService
 
-<TelerikGrid Height="550px" FilterMode="@GridFilterMode.FilterRow"
+<TelerikGrid Height="550px" FilterMode="@GridFilterMode.FilterMenu"
              Sortable="true" Pageable="true" PageSize="20"
              Data=@GridData TotalCount=@Total OnRead=@ReadItems>
     <GridColumns>
