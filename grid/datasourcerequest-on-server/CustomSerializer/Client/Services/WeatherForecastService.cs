@@ -1,18 +1,17 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Components;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Net.Http;
-using System.Threading.Tasks;
-using WasmApp.Shared;
-using Microsoft.AspNetCore.Components;
-// these two using statements provide the data source operations
-using Telerik.DataSource;
-using Telerik.DataSource.Extensions;
-using System.Text.Json;
 using System.Net.Http.Json;
+using System.Threading.Tasks;
+using Telerik.DataSource;
+using Newtonsoft.Json.Serialization;
+using System.Text.Json;
+using CustomSerializer.Shared;
 
-namespace WasmApp.Services
+namespace CustomSerializer.Client.Services
 {
     public class WeatherForecastService
     {
@@ -26,10 +25,11 @@ namespace WasmApp.Services
 
         public async Task<DataEnvelope<WeatherForecast>> GetForecastListAsync(DataSourceRequest gridRequest)
         {
-            
+            // in this sample the Blazor app uses the System.Text.Json serializer and deserializer
+            // and the server-side API can handle that through a custom converter for Newtsonsoft
+            // you can choose to carry a newtonsoft package to the Blazor app and use that instead,
+            // just make sure that serialization and deserialization both work correctly
             HttpResponseMessage response = await Http.PostAsJsonAsync("WeatherForecast", gridRequest);
-            // make sure to use the System.Text.Json serializer
-            // e.g., JsonSerializer.Serialize(gridRequest) for the second argument if you have some other implementations
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {

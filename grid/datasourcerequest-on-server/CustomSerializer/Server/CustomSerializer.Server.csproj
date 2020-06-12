@@ -6,12 +6,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="3.2.0" />
-    <PackageReference Include="Telerik.DataSource" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.5" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Client\WasmApp.Client.csproj" />
-    <ProjectReference Include="..\Shared\WasmApp.Shared.csproj" />
+    <ProjectReference Include="..\Client\CustomSerializer.Client.csproj" />
+    <ProjectReference Include="..\Shared\CustomSerializer.Shared.csproj" />
   </ItemGroup>
 
 </Project>

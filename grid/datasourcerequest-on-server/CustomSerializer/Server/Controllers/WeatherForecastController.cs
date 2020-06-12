@@ -1,16 +1,16 @@
-﻿using WasmApp.Shared;
+﻿using CustomSerializer.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-// these two using statements provide the data source operations
 using Telerik.DataSource;
 using Telerik.DataSource.Extensions;
-using System.Text.Json;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
-namespace WasmApp.Server.Controllers
+namespace CustomSerializer.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -32,7 +32,7 @@ namespace WasmApp.Server.Controllers
         private static List<WeatherForecast> _forecasts { get; set; }
 
         [HttpPost]
-        public async Task<DataEnvelope<WeatherForecast>> Post([FromBody]DataSourceRequest gridRequest)
+        public async Task<DataEnvelope<WeatherForecast>> Post([FromBody] DataSourceRequest request)
         {
             // generate some data for the sake of this demo
             if (_forecasts == null)
@@ -55,11 +55,11 @@ namespace WasmApp.Server.Controllers
 
             // use the Telerik DataSource Extensions to perform the query on the data
             // the Telerik extension methods can also work on "regular" collections like List<T> and IQueriable<T>
-            DataSourceResult processedData = await queriableData.ToDataSourceResultAsync(gridRequest);
+            DataSourceResult processedData = await queriableData.ToDataSourceResultAsync(request);
 
-            // We now need to make this deserializable because the framework cannot deserialize IEnumerable
-			// So we will use an envelope class that will contain the exact type of the data items instead of DataSourceResult directly
-			// This is required as System.Text.Json cannot successfully deserialize interface properties
+            // We now need to make this deserializable because the framework (and Newtonsoft) cannot deserialize IEnumerable
+            // So we will use an envelope class that will contain the exact type of the data items instead of DataSourceResult directly
+            // This is required as neither System.Text.Json nor Newtonsoft can successfully deserialize interface properties
             DataEnvelope<WeatherForecast> dataToReturn = new DataEnvelope<WeatherForecast>
             {
                 CurrentPageData = processedData.Data as List<WeatherForecast>,
