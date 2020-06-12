@@ -1,6 +1,6 @@
 # Telerik UI for Blazor Sample Projects
 
-This repository contains examples related to Telerik UI for Blazor that are not part of the documentation or demos.
+This repository contains examples related to [Telerik UI for Blazor](https://www.telerik.com/blazor-ui) that are not part of the documentation or demos.
 
 ## Contribution
 
