@@ -52,10 +52,6 @@ namespace WasmApp.Server.Controllers
             // in a real case, you would be fetching the data from the service, not generating it here
             IQueryable<WeatherForecast> queriableData = _forecasts.AsQueryable();
 
-            // deserialize the DataSourceRequest from the HTTP query if it comes as a string like
-            // Post([FromBody]string dsRequest)
-            // make sure to use the System.Text.Json serializer
-            //DataSourceRequest gridRequest = JsonSerializer.Deserialize<DataSourceRequest>(dsRequest);
 
             // use the Telerik DataSource Extensions to perform the query on the data
             // the Telerik extension methods can also work on "regular" collections like List<T> and IQueriable<T>

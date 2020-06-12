@@ -52,12 +52,6 @@ namespace CustomSerializer.Server.Controllers
             // in a real case, you would be fetching the data from the service, not generating it here
             IQueryable<WeatherForecast> queriableData = _forecasts.AsQueryable();
 
-            // deserialize the DataSourceRequest from the HTTP query if it comes as a string like
-            // Post([FromBody]string dsRequest)
-            // for example, here's how this could look like with the default System.Text.Json serializer
-            // in this example, it comes in as a type parameter that the framework should deserialize for you
-            // which is catered for by the custom converter that is registered to Newtsonsoft in Startup.cs
-            //DataSourceRequest gridRequest = JsonSerializer.Deserialize<DataSourceRequest>(dsRequest);
 
             // use the Telerik DataSource Extensions to perform the query on the data
             // the Telerik extension methods can also work on "regular" collections like List<T> and IQueriable<T>
