@@ -18,7 +18,7 @@ namespace BindingToExpandoObject.Services
                     ExpandoObject employee = new ExpandoObject();
                     employee.TryAdd("EmployeeId", i);
                     employee.TryAdd("FirstName", $"Employee {i}");
-                    employee.TryAdd("LastName", $"Employee {i}");
+                    employee.TryAdd("LastName", $"Employee {i} Last name");
                     employee.TryAdd("IsActive", i % 2 == 0);
                     employee.TryAdd("HireDate", DateTime.Now.AddMonths(-i));
                     Data.Add(employee);

@@ -12,6 +12,10 @@
     <GridColumns>
         @if (GridData != null && GridData.Any())
         {
+            // this sample uses the first data item to create columns for all keys present in it
+            // which assumes all items have the same keys in them. If this is not your case
+            // you may want to create your own list of column descriptors or any other logic to define the columns
+
             var firstItem = GridData.First();
             var dictionaryItem = (IDictionary<string, object>)firstItem;
 
@@ -25,10 +29,13 @@
     </GridColumns>
 </TelerikGrid>
 
-@code { public List<ExpandoObject> GridData { get; set; }
+@code { 
+    public List<ExpandoObject> GridData { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         GridData = await EmployeeService.GetEmployeesAsync();
     } 
+
+    // for sample CUD operations, see the main sample with the explicitly defined columns
 }

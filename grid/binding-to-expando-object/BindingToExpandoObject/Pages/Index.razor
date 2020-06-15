@@ -4,26 +4,68 @@
 
 @inject EmployeeService EmployeeService
 
-<TelerikGrid Data="@GridData" 
-             Pageable="true" 
-             Sortable="true" 
-             Groupable="true" 
-             FilterMode="@GridFilterMode.FilterMenu">
+<TelerikGrid Data="@GridData"
+             Pageable="true"
+             Sortable="true"
+             Groupable="true"
+             FilterMode="@GridFilterMode.FilterMenu"
+             OnUpdate="@UpdateHandler"
+             OnCreate="@CreateHandler"
+             OnDelete="@DeleteHandler">
     <GridColumns>
         @*Field Type is mandatory when you are binding to ExpandoObject or Dictionary*@
-        <GridColumn Field="EmployeeId" FieldType="@typeof(int)"></GridColumn>
+        <GridColumn Field="EmployeeId" FieldType="@typeof(int)" Editable="false"></GridColumn>
         <GridColumn Field="FirstName" FieldType="@typeof(string)"></GridColumn>
-        <GridColumn Field="LastName" FieldType="@typeof(string)"></GridColumn>
         <GridColumn Field="IsActive" FieldType="@typeof(bool)"></GridColumn>
         <GridColumn Field="HireDate" FieldType="@typeof(DateTime)"></GridColumn>
+        <GridCommandColumn>
+            <GridCommandButton Command="Edit" Icon="edit">Edit</GridCommandButton>
+            <GridCommandButton Command="Save" Icon="save" ShowInEdit="true">Update</GridCommandButton>
+            <GridCommandButton Command="Delete" Icon="delete">Delete</GridCommandButton>
+            <GridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true">Cancel</GridCommandButton>
+        </GridCommandColumn>
     </GridColumns>
 </TelerikGrid>
 
-@code { 
+@code {
     public List<ExpandoObject> GridData { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         GridData = await EmployeeService.GetEmployeesAsync();
-    } 
+    }
+
+    // CUD operations happen as usual - the grid events provide you with the model that the user works on
+    // so you can cast it to its corresponding type and perform the actual data source operations
+    // https://docs.telerik.com/blazor-ui/components/grid/editing/overview
+    // this example shows one way of updating the view-model data
+    // you should also update the actual data source (e.g., through a data service)
+    public void UpdateHandler(GridCommandEventArgs args)
+    {
+        var model = (ExpandoObject)args.Item;
+
+        var matchingItem = GridData.Where(itm => (itm as dynamic).EmployeeId == (model as dynamic).EmployeeId).FirstOrDefault();
+
+        if (matchingItem != null)
+        {
+            ((dynamic)matchingItem).FirstName = (model as dynamic).FirstName;
+            //((dynamic)matchingItem).LastName = (model as dynamic).LastName; // we don't define this field in the markup so it is not available in the grid for editing, which is why we don't update it here
+            ((dynamic)matchingItem).IsActive = (model as dynamic).IsActive;
+            ((dynamic)matchingItem).HireDate = (model as dynamic).HireDate;
+        }
+    }
+
+    public void DeleteHandler(GridCommandEventArgs args)
+    {
+        var model = (ExpandoObject)args.Item;
+
+        GridData.Remove(model);
+    }
+
+    public void CreateHandler(GridCommandEventArgs args)
+    {
+        var model = (ExpandoObject)args.Item;
+
+        GridData.Insert(0, model);
+    }
 }
