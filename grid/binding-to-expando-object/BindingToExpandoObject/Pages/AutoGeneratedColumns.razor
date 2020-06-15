@@ -1,0 +1,34 @@
+﻿@page "/auto-generated-columns"
+
+@using System.Dynamic;
+
+@inject EmployeeService EmployeeService
+
+<TelerikGrid Data="@GridData"
+             Pageable="true"
+             Sortable="true"
+             Groupable="true"
+             FilterMode="@GridFilterMode.FilterMenu">
+    <GridColumns>
+        @if (GridData != null && GridData.Any())
+        {
+            var firstItem = GridData.First();
+            var dictionaryItem = (IDictionary<string, object>)firstItem;
+
+            var fields = dictionaryItem.Keys;
+
+            foreach (var item in dictionaryItem)
+            {
+                <GridColumn Field="@item.Key" FieldType="@item.Value.GetType()"></GridColumn>
+            }
+        }
+    </GridColumns>
+</TelerikGrid>
+
+@code { public List<ExpandoObject> GridData { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        GridData = await EmployeeService.GetEmployeesAsync();
+    } 
+}
