@@ -2,16 +2,16 @@
 
 This example shows how to bind the TelerikGrid to Expando object. ExpandoObject is IDictionary<string, object> under the hood. This means that you can use the same approach to bind the grid to Dictionary too.
 
-In this project you will find two examples with binding.
+In this project, you will find two examples with binding.
 
 1. Binding to ExpandoObject and manually defining GridColumns
 2. Binding to expando and automatically generate GridColumns
 
 Key points:
    
-- Setup a Grid with columns and define the `FieldType` parameter of each column. `FieldType` is mandatory parameter when you are using dynamic objects.
+- Set up a Grid with columns and define the `FieldType` parameter of each column. `FieldType` is a mandatory parameter when you are using dynamic objects.
 
-- Specify type of the `Data` to be `IEnumerable<ExpandoObject>`
+- Specify the type of the `Data` to be `IEnumerable<ExpandoObject>`
 
 - Customize the grid depending on your needs. You can set groping, sorting filtering, etc.
 
