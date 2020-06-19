@@ -5,13 +5,13 @@
 @inject EmployeeService EmployeeService
 
 <TelerikGrid Data="@GridData"
-             Pageable="true"
-             Sortable="true"
-             Groupable="true"
-             FilterMode="@GridFilterMode.FilterMenu"
-             OnUpdate="@UpdateHandler"
-             OnCreate="@CreateHandler"
-             OnDelete="@DeleteHandler">
+                Pageable="true"
+                Sortable="true"
+                Groupable="true"
+                FilterMode="@GridFilterMode.FilterMenu"
+                OnUpdate="@UpdateHandler"
+                OnCreate="@CreateHandler"
+                OnDelete="@DeleteHandler">
     <GridColumns>
         @*Field Type is mandatory when you are binding to ExpandoObject or Dictionary*@
         <GridColumn Field="EmployeeId" FieldType="@typeof(int)" Editable="false"></GridColumn>
@@ -25,6 +25,9 @@
             <GridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true">Cancel</GridCommandButton>
         </GridCommandColumn>
     </GridColumns>
+    <GridToolBar>
+        <GridCommandButton Command="Add" Icon="add">Add Employee</GridCommandButton>
+    </GridToolBar>
 </TelerikGrid>
 
 @code {
@@ -65,6 +68,7 @@
     public void CreateHandler(GridCommandEventArgs args)
     {
         var model = (ExpandoObject)args.Item;
+        ((dynamic)model).EmployeeId = GridData.Count() + 1;
 
         GridData.Insert(0, model);
     }
