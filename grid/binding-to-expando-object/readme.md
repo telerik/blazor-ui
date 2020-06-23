@@ -1,6 +1,6 @@
 # Binding to Expando object
 
-This example shows how to bind the TelerikGrid to Expando objects. An `ExpandoObject` is an `IDictionary<string, object>` under the hood. This means that you can use the same approach to bind the grid to `Dictionary` too.
+This example shows how to bind the TelerikGrid to `ExpandoObject` collections.
 
 Such binding can be useful when you cannot or do not yet have actual models to use.
 
