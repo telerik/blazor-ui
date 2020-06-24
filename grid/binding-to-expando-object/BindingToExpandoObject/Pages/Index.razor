@@ -51,10 +51,11 @@
 
         if (matchingItem != null)
         {
-            ((dynamic)matchingItem).FirstName = (model as dynamic).FirstName;
+            // ?? null will handles setting the default value if you leave the Grid column empty
+            ((dynamic)matchingItem).FirstName = (model as dynamic).FirstName ?? null;
             //((dynamic)matchingItem).LastName = (model as dynamic).LastName; // we don't define this field in the markup so it is not available in the grid for editing, which is why we don't update it here
-            ((dynamic)matchingItem).IsActive = (model as dynamic).IsActive;
-            ((dynamic)matchingItem).HireDate = (model as dynamic).HireDate;
+            ((dynamic)matchingItem).IsActive = (model as dynamic).IsActive ?? false; ;
+            ((dynamic)matchingItem).HireDate = (model as dynamic).HireDate ?? DateTime.Now; ;
         }
     }
 
@@ -70,6 +71,20 @@
         var model = (ExpandoObject)args.Item;
         ((dynamic)model).EmployeeId = GridData.Count() + 1;
 
+        // When the values are not set in the Grid columns, we receive the ExpandoObject without fields. 
+        // We need to handle setting default values by ourself
+        SetExpandoDefaultValue(model, "FirstName", default(string));
+        SetExpandoDefaultValue(model, "IsActive", false);
+        SetExpandoDefaultValue(model, "HireDate", DateTime.Now);
+
         GridData.Insert(0, model);
+    }
+
+    public void SetExpandoDefaultValue<T>(ExpandoObject model, string key, T value)
+    {
+        if (!(model as IDictionary<string, object>).ContainsKey(key))
+        {
+            (model as IDictionary<string, object>)[key] = value;
+        }
     }
 }
