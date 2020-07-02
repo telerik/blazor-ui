@@ -5,10 +5,10 @@
 @inject WeatherForecastService ForecastService
 
 <TelerikGrid Height="550px" FilterMode="@GridFilterMode.FilterMenu"
-             Sortable="true" Pageable="true" PageSize="20"
+             Sortable="true" Pageable="true" Groupable="true" PageSize="20"
              Data=@GridData TotalCount=@Total OnRead=@ReadItems>
     <GridColumns>
-        <GridColumn Field="Id" Title="Id" Width="100px" />
+        <GridColumn Field="Id" Title="Id" Width="100px" Groupable="false" />
         <GridColumn Field="Date">
             <Template>
                 @((context as WeatherForecast).Date.ToString("dddd, dd MMM yyyy"))
@@ -21,7 +21,8 @@
 </TelerikGrid>
 
 @code {
-    List<WeatherForecast> GridData { get; set; }
+    //List<WeatherForecast> GridData { get; set; } // if you won't be using grouping you can go with this
+    List<object> GridData { get; set; } // for grouping
     public int Total { get; set; } = 0;
 
     protected async Task ReadItems(GridReadEventArgs args)
@@ -29,7 +30,9 @@
         // we pass the request to the service, and there Telerik DataSource Extension methods will shape the data
         var datasourceResult = await ForecastService.GetForecastListAsync(args.Request);
 
-        GridData = (datasourceResult.Data as IEnumerable<WeatherForecast>).ToList();
+        //GridData = (datasourceResult.Data as IEnumerable<WeatherForecast>).ToList(); // if you won't be using grouping you can go with this
+        GridData = datasourceResult.Data.Cast<object>().ToList(); // with grouping
+
         Total = datasourceResult.Total;
 
         StateHasChanged();
