@@ -6,7 +6,7 @@
 @inject WeatherForecastService ForecastService
 
 <TelerikGrid Height="550px" FilterMode="@GridFilterMode.FilterMenu"
-             Sortable="true" Pageable="true" PageSize="20"
+             Sortable="true" Pageable="true" PageSize="20" Groupable="true"
              Data=@GridData TotalCount=@Total OnRead=@ReadItems>
     <GridColumns>
         <GridColumn Field="Id" Title="Id" Width="100px" />
@@ -22,18 +22,27 @@
 </TelerikGrid>
 
 @code {
-    List<WeatherForecast> GridData { get; set; }
+    List<object> GridData { get; set; }
     public int Total { get; set; } = 0;
 
     protected async Task ReadItems(GridReadEventArgs args)
     {
         // we pass the request to the service, and there Telerik DataSource Extension methods will shape the data
         // then the service returns our project-specific envelope so that the data can be serialized by the framework
+        DataEnvelope<WeatherForecast> result = await ForecastService.GetForecastListAsync(args.Request);
 
-        DataEnvelope<WeatherForecast> data = await ForecastService.GetForecastListAsync(args.Request);
 
-        GridData = data.CurrentPageData;
-        Total = data.TotalItemCount;
+        if (args.Request.Groups.Count > 0)
+        {
+            var data = GroupDataHelpers.DeserializeGroups<WeatherForecast>(result.GroupedData);
+            GridData = data.Cast<object>().ToList();
+        }
+        else
+        {
+            GridData = result.CurrentPageData.Cast<object>().ToList();
+        }
+
+        Total = result.TotalItemCount;
 
         StateHasChanged();
     }
