@@ -10,7 +10,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Build" Version="3.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="3.2.0" />
     <PackageReference Include="System.Net.Http.Json" Version="3.2.1" />
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="2.14.1" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="2.15.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Shared\WasmApp.Shared.csproj" />
