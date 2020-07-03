@@ -12,3 +12,5 @@ Review the individual projects, the comments in the code and their own readme fi
 * a sample of a custom serializer (Newtonsoft.Json) that you can use as base for using similar scenarios
  
 > The application must make sure that serialization and deserialization of the information work properly on both the Blazor app and the server endpoint (all the data is present, correct, strongly typed, and there are no errors), as this is not something the Telerik components can influence.
+
+These samples include grouping, which alters the Data collection of the grid. Comments in the code showcase where the difference is so if you don't use grouping you may be able to go with slightly simpler controller code and grid binding.

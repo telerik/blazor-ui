@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Telerik.DataSource;
@@ -80,6 +82,8 @@ namespace SampleWebApi.Controllers
         public async Task<IActionResult> ActionResultReturn([FromBody]DataSourceRequest request)
         {
             GenerateForecasts();
+
+            //DataSourceRequest gridRequest = JsonSerializer.Deserialize<DataSourceRequest>(dsRequest);
 
             DataSourceResult result = await _forecasts.ToDataSourceResultAsync(request);
 

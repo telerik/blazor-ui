@@ -7,10 +7,15 @@
 <TelerikGrid Data=@GridData TotalCount=@Total OnRead=@ReadItems Groupable="true"
              FilterMode=@GridFilterMode.FilterMenu Sortable=true Pageable=true Height="300px">
     <GridColumns>
-        <GridColumn Field=@nameof(WeatherForecast.Id) Groupable="false" />
-        <GridColumn Field=@nameof(WeatherForecast.Date) Title="Date" />
-        <GridColumn Field=@nameof(WeatherForecast.Summary) Title="Summary" />
-        <GridColumn Field=@nameof(WeatherForecast.TemperatureC) Title="Temp C" />
+        <GridColumn Field="Id" FieldType="@(typeof(int))" Title="Id" Width="100px" Groupable="false" />
+        <GridColumn Field="Date" FieldType="@(typeof(DateTime))">
+            <Template>
+                @((context as WeatherForecast).Date.ToString("dddd, dd MMM yyyy"))
+            </Template>
+        </GridColumn>
+        <GridColumn Field="TemperatureC" FieldType="@(typeof(int))" Title="Temp. C" />
+        <GridColumn Field="TemperatureF" FieldType="@(typeof(int))" Title="Temp. F" />
+        <GridColumn Field="Summary" FieldType="@(typeof(string))" />
     </GridColumns>
 </TelerikGrid>
 

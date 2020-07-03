@@ -9,15 +9,15 @@
              Sortable="true" Pageable="true" PageSize="20" Groupable="true"
              Data=@GridData TotalCount=@Total OnRead=@ReadItems>
     <GridColumns>
-        <GridColumn Field="Id" Title="Id" Width="100px" />
-        <GridColumn Field="Date">
+        <GridColumn Field="Id" FieldType="@(typeof(int))" Title="Id" Width="100px" Groupable="false" />
+        <GridColumn Field="Date" FieldType="@(typeof(DateTime))">
             <Template>
                 @((context as WeatherForecast).Date.ToString("dddd, dd MMM yyyy"))
             </Template>
         </GridColumn>
-        <GridColumn Field="TemperatureC" Title="Temp. C" />
-        <GridColumn Field="TemperatureF" Title="Temp. F" />
-        <GridColumn Field="Summary" />
+        <GridColumn Field="TemperatureC" FieldType="@(typeof(int))" Title="Temp. C" />
+        <GridColumn Field="TemperatureF" FieldType="@(typeof(int))" Title="Temp. F" />
+        <GridColumn Field="Summary" FieldType="@(typeof(string))" />
     </GridColumns>
 </TelerikGrid>
 

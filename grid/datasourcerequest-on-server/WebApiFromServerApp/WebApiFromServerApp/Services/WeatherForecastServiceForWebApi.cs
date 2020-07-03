@@ -25,7 +25,13 @@ namespace WebApiFromServerApp.Services
 
         public async Task<DataEnvelope<WeatherForecast>> GetData(DataSourceRequest dsRequest, string actionSuffix)
         {
-            string content = JsonSerializer.Serialize(dsRequest);
+            string content = JsonSerializer.Serialize(
+                dsRequest//, // if serialization does not work as expected, start by adding this and also see the Startup.cs of the webAPI project - the goal is to have the same serialization settings on both ends so serialization can work
+                //new JsonSerializerOptions()
+                //{
+                //    PropertyNameCaseInsensitive = true
+                //}
+            );
 
             var request = new HttpRequestMessage(HttpMethod.Post, actionSuffix);
             request.Headers.Add("Accept", "*/*");
