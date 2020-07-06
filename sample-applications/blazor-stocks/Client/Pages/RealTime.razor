@@ -12,7 +12,11 @@
                      ScrollMode="@GridScrollMode.Virtual"
                      Height="600px" RowHeight="60" PageSize="48" Width="100%">
             <GridColumns>
-                <GridColumn Field="@nameof(RealTimeData.Symbol)" Width="80px" Title="Symbol" />
+                <GridColumn Field="@nameof(RealTimeData.Symbol)" Width="80px" Title="Symbol" Locked="true">
+                    <Template>
+                        <strong>@( (context as RealTimeData).Symbol )</strong>
+                    </Template>
+                </GridColumn>
                 <GridColumn Field="@nameof(RealTimeData.Name)" Width="130px" Title="Name" />
                 <GridColumn Field="@nameof(RealTimeData.Currency)" Width="80px" Title="Currency">
                     <Template>

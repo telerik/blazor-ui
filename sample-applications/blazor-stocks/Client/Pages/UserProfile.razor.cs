@@ -15,6 +15,7 @@ namespace BlazorFinancePortfolio.Client.Pages
     public partial class UserProfile : IDisposable
     {
         [Inject] NavigationManager NavManager { get; set; }
+        [Inject] IJSRuntime _js { get; set; }
         [Inject] StocksListService StocksListService {get;set;}
         [Inject] ResizeListener listener { get; set; }
         [CascadingParameter] public Currency SelectedCurrency { get; set; }
@@ -27,6 +28,7 @@ namespace BlazorFinancePortfolio.Client.Pages
         bool ChartLabelsVisible { get; set; } = true;
 
         int LastViewPortWidth { get; set; }
+        DateTime LastDataRequestTime { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -35,8 +37,12 @@ namespace BlazorFinancePortfolio.Client.Pages
                 IsProfileVisible = true;
             }
 
-            Stocks = await StocksListService.GetStocks(true);
             await ResizeChart(null);
+            
+            if (IsProfileVisible)
+            {
+                await _js.InvokeVoidAsync("toggleScroll", false);
+            }
 
             await base.OnInitializedAsync();
         }
@@ -51,8 +57,28 @@ namespace BlazorFinancePortfolio.Client.Pages
             await base.OnAfterRenderAsync(firstRender);
         }
 
+        protected override async Task OnParametersSetAsync()
+        {
+            if (IsProfileVisible && ShouldRequestData())
+            {
+                Stocks = await StocksListService.GetStocks(true);
+                LastDataRequestTime = DateTime.Now;
+            }
+        }
+
+        bool ShouldRequestData()
+        {
+            if(LastDataRequestTime == null)
+            {
+                return true;
+            }
+            DateTime currTime = DateTime.Now;
+            return (currTime - LastDataRequestTime).TotalSeconds > 3;
+        }
+
         async void CloseProfile()
         {
+            await _js.InvokeVoidAsync("toggleScroll", true);
             if (IsCurrentPageProfile())
             {
                 NavManager.NavigateTo("");

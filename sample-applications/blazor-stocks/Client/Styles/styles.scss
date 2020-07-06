@@ -541,7 +541,7 @@ td:last-of-type {
 .real-time-data {
     .k-grid {
         max-width: 100%;
-        
+
         tbody td {
             white-space: nowrap;
             line-height: 20px;
@@ -559,10 +559,13 @@ td:last-of-type {
         .price-down {
             color: $negative-value;
         }
+
+        .k-grid-header th {
+            font-weight: bold;
+        }
     }
 
-    .price-down,
-    .price-up {
+    .price-down, .price-up {
         animation-duration: 700ms;
         animation-name: blink;
         animation-iteration-count: 1;
