@@ -1,0 +1,17 @@
+﻿<div class="k-button-group">
+    <NavLink href="" 
+             Match="@NavLinkMatch.All" 
+             ActiveClass="@ActiveClass" 
+             class="k-button k-group-start">
+        Result List
+    </NavLink>
+    <NavLink href="real-time" 
+             Match="@NavLinkMatch.All"
+             ActiveClass="@ActiveClass"
+             class="k-button k-group-end">
+        Data Virtualization
+    </NavLink>
+</div>
+@code{
+    string ActiveClass = "k-state-active k-primary";
+}

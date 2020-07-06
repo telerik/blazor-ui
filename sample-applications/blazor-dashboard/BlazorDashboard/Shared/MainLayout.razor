@@ -1,0 +1,91 @@
+@inherits LayoutComponentBase
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+
+<TelerikRootComponent>
+	<div class="row">
+		<div id="top-bar" class="top-bar col-xs-12 bg-dark d-md-none"></div>
+		@if (IsNavAllowed())
+		{
+			<div id="nav"
+				 class="col-xs-3 bg-dark text-white py-5 k-vbox @( expandNavMenu ? "expand" : "" )">
+				<span id="nav-toggle" class="nav-toggle d-md-none" @onclick="@ToggleNavMenu">
+					<span class="k-icon k-i-hamburger"></span>
+				</span>
+				<h1 id="app-title">Blazor UI</h1>
+				<p id="app-subtitle">Sample Dashboard</p>
+				<hr />
+				<p class="h4 mt-5">Project</p>
+				<ul class="nav nav-pills flex-column">
+					<li class="nav-item" id="dashbaord">
+						<NavLink class="@(IsAtRoot() ? "nav-link active" : "nav-link")" href="dashboard">Dashboard</NavLink>
+					</li>
+					<li class="nav-item" id="issues">
+						<NavLink class="nav-link" href="issues">Issues</NavLink>
+					</li>
+				</ul>
+				<p class="h4 mt-5">Account</p>
+				<ul class="nav nav-pills flex-column">
+					<li class="nav-item" id="profile">
+						<NavLink class="nav-link" href="profile">My Profile</NavLink>
+					</li>
+					<li class="nav-item" id="signin">
+						<NavLink class="nav-link" href="signin">Sign Out</NavLink>
+					</li>
+				</ul>
+				<hr class="py-5" />
+				<div id="copy">
+					<p>
+						Copyright
+						&copy;
+						@DateTime.Now.Year,<br /><a href="http://www.progress.com">Progress Software Corporation</a> and/or its subsidiaries or affiliates.
+					</p>
+					<p>All Rights Reserved.</p>
+					<p class="py-3"><a href="https://github.com/telerik/blazor-ui/sample-applications/blazor-dashboard" target="_blank">Source code</a></p>
+				</div>
+			</div>
+		}
+		<main class="col-xs p-4 py-5">
+			@Body
+		</main>
+	</div>
+</TelerikRootComponent>
+
+@code {
+	bool expandNavMenu = false;
+
+	void ToggleNavMenu()
+	{
+		expandNavMenu = !expandNavMenu;
+	}
+
+	bool IsNavAllowed()
+	{
+		string currUrl = navigationManager.Uri; 
+		if (currUrl.EndsWith("signin"))
+		{
+			return false;
+		}
+		return true;
+	}
+
+	bool IsAtRoot()
+	{
+		string currUrl = navigationManager.Uri;
+		if (currUrl.EndsWith("/") || currUrl.EndsWith("/dashboard"))
+		{
+			return true;
+		}
+		return false;
+	}
+
+	protected override void OnInitialized()
+	{
+		navigationManager.LocationChanged += OnLocationChanges;
+	}
+
+	private void OnLocationChanges(object sender, LocationChangedEventArgs args)
+	{
+		expandNavMenu = false;
+		StateHasChanged();
+	}
+}

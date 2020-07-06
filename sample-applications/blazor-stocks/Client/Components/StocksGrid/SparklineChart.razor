@@ -1,0 +1,28 @@
+﻿@using BlazorFinancePortfolio.Models
+
+<TelerikChart Width="100%" Height="60px" Transitions="false" RenderAs="@RenderingMode.SVG">
+    <ChartSeriesItems>
+        <ChartSeries Type="ChartSeriesType.Area" 
+                     Data="@(StockData.IntraDayChart.Cast<object>())" 
+                     Color="@(StockData.DayChange >= 0 ? "#5CB85C" : "#D9534F")" />
+        <ChartLegend Visible="false" />
+        <ChartValueAxes>
+            <ChartValueAxis Visible="false">
+                <ChartValueAxisLabels Visible="false" />
+                <ChartValueAxisMajorGridLines Visible="false" />
+                <ChartValueAxisMinorGridLines Visible="false" />
+            </ChartValueAxis>
+        </ChartValueAxes>
+        <ChartCategoryAxes>
+            <ChartCategoryAxis Visible="false">
+                <ChartCategoryAxisLabels Visible="false" />
+                <ChartCategoryAxisMajorGridLines Visible="false" />
+                <ChartCategoryAxisMinorGridLines Visible="false" />
+            </ChartCategoryAxis>
+        </ChartCategoryAxes>
+    </ChartSeriesItems>
+</TelerikChart>
+
+@code {
+    [Parameter] public Stock StockData { get; set; }
+}

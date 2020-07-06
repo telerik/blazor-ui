@@ -1,0 +1,73 @@
+﻿@page "/real-time"
+
+@using BlazorFinancePortfolio.Models
+@using BlazorFinancePortfolio.Client.Components
+
+<div class="container" style="padding-bottom: 100px;">
+    <div class="d-flex justify-content-center py-5 align-items-center">
+        <GridSwitcher />
+    </div>
+    <div class="row d-flex justify-content-center real-time-data">
+        <TelerikGrid Data=@GridData
+                     ScrollMode="@GridScrollMode.Virtual"
+                     Height="600px" RowHeight="60" PageSize="48" Width="100%">
+            <GridColumns>
+                <GridColumn Field="@nameof(RealTimeData.Symbol)" Width="80px" Title="Symbol" />
+                <GridColumn Field="@nameof(RealTimeData.Name)" Width="130px" Title="Name" />
+                <GridColumn Field="@nameof(RealTimeData.Currency)" Width="80px" Title="Currency">
+                    <Template>
+                        @SelectedCurrency.Symbol
+                    </Template>
+                </GridColumn>
+                <GridColumn Field="@nameof(RealTimeData.Price)" Width="100px" Title="Price">
+                    <Template>
+                        @{
+                            RealTimeData dataItem = context as RealTimeData;
+                            <span class="grid-price-cell p-0 @( GetPriceChangeClass(dataItem.Change) )">
+                                @string.Format(SelectedCurrency.Sign + "{0:0.00}", dataItem.Price)
+                            </span>
+                        }
+                    </Template>
+                </GridColumn>
+                <GridColumn Field="@nameof(RealTimeData.Change)" Width="100px" Title="Change">
+                    <Template>
+                        @{
+                            RealTimeData dataItem = context as RealTimeData;
+                            string sign = dataItem.Change > 0 ? "+" : "";
+                            <span class="grid-price-cell p-0 @( GetPriceChangeClass(dataItem.Change) )">
+                                @string.Format(sign + "{0:0.00}%", dataItem.Change)
+                            </span>
+                        }
+                    </Template>
+                </GridColumn>
+                <GridColumn Field="@nameof(RealTimeData.StockExchangeLong)" Width="230px" Title="Stock Exchange" />
+                <GridColumn Field="@nameof(RealTimeData.StockExchangeShort)" Width="100px" Title="SE Short" />
+                <GridColumn Field="@nameof(RealTimeData.TimeZone)" Width="100px" Title="Time Zone" />
+                <GridColumn Field="@nameof(RealTimeData.TimeZoneName)" Width="180px" Title="Time Zone Name" />
+                @if (ShowAllColumns)
+                {
+                    <GridColumn Field="@nameof(RealTimeData.YearLow)" Width="80px" Title="Year Low">
+                        <Template>
+                            @string.Format("{0:0.00}", (context as RealTimeData).YearLow)
+                        </Template>
+                    </GridColumn>
+                    <GridColumn Field="@nameof(RealTimeData.YearHigh)" Width="90px" Title="Year High">
+                        <Template>
+                            @string.Format("{0:0.00}", (context as RealTimeData).YearHigh)
+                        </Template>
+                    </GridColumn>
+                    <GridColumn Field="@nameof(RealTimeData.Volume)" Width="130px" Title="Volume">
+                        <Template>
+                            @string.Format("{0:0}", (context as RealTimeData).Volume)
+                        </Template>
+                    </GridColumn>
+                    <GridColumn Field="@nameof(RealTimeData.MarketCap)" Width="150px" Title="Market Cap">
+                        <Template>
+                            @string.Format("{0:0}", (context as RealTimeData).MarketCap)
+                        </Template>
+                    </GridColumn>
+                }
+            </GridColumns>
+        </TelerikGrid>
+    </div>
+</div>

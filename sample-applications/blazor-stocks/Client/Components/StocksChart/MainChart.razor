@@ -1,0 +1,128 @@
+﻿@implements IDisposable
+
+@using BlazorFinancePortfolio.Models
+@using BlazorFinancePortfolio.Helpers
+@using BlazorPro.BlazorSize
+
+@inject ResizeListener listener
+
+<TelerikChart Transitions="true" RenderAs="@RenderingMode.SVG" @ref="@ChartRef">
+    <ChartSeriesItems>
+        <ChartSeries Type="@MainChartType" Data="@ChartData"
+                     Field="@( nameof(StockIntervalDetails.Close) )"
+                     CategoryField="@( nameof(StockIntervalDetails.Date) )"
+                     Style="@ChartSeriesStyle.Smooth"
+                     Color="@( MainChartType == ChartSeriesType.Line ? "#2D73F5" : "#007BFF" )">
+            <ChartSeriesLine Style="@ChartSeriesLineStyle.Smooth" />
+        </ChartSeries>
+        <ChartSeries Type="@ChartSeriesType.Column" Data="@ChartData"
+                     Field="@( nameof(StockIntervalDetails.Volume) )"
+                     CategoryField="@( nameof(StockIntervalDetails.Date) )"
+                     ColorField="@( nameof(StockIntervalDetails.ColumnColor) )"
+                     Aggregate="@ChartSeriesAggregate.Sum"
+                     Gap="0.75"
+                     Axis="Volume"></ChartSeries>
+    </ChartSeriesItems>
+    <ChartCategoryAxes>
+        <ChartCategoryAxis Type="@ChartCategoryAxisType.Date"
+                           BaseUnit="@IntervalFilter.Interval.Unit"
+                           BaseUnitStep="@IntervalFilter.Interval.Step"
+                           MaxDateGroups="20">
+            <ChartCategoryAxisLabels Format="dd/yyyy">
+                <ChartCategoryAxisLabels Step="@LabelStep"></ChartCategoryAxisLabels>
+            </ChartCategoryAxisLabels>
+            <ChartCategoryAxisMajorGridLines Visible="true" />
+            <ChartCategoryAxisMinorGridLines Visible="false" />
+        </ChartCategoryAxis>
+    </ChartCategoryAxes>
+    <ChartValueAxes>
+        <ChartValueAxis>
+            <ChartValueAxisLabels Format="@( SelectedCurrency.Sign + "{0}" )" />
+            <ChartValueAxisMinorGridLines Visible="false" />
+        </ChartValueAxis>
+        <ChartValueAxis Name="Volume" Min="0" Max="@VolumeValueAxisMax()" Visible="false"></ChartValueAxis>
+    </ChartValueAxes>
+    <ChartLegend Visible="false" />
+</TelerikChart>
+
+@code{
+    [Parameter] public ChartSeriesType MainChartType { get; set; }
+    [Parameter] public List<StockIntervalDetails> ChartData { get; set; }
+    [Parameter] public int LabelStep { get; set; }
+    [Parameter] public IntervalFilter IntervalFilter { get; set; }
+
+    [CascadingParameter] public Currency SelectedCurrency { get; set; }
+    TelerikChart ChartRef { get; set; }
+    int LastViewPortWidth { get; set; }
+    long VolumeValueAxisMax()
+    {
+        if (ChartData == null || ChartData.Count == 0)
+        {
+            return 100;
+        }
+        return (long)Math.Round(ChartData.Max(d => d.Volume) * 6);
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if(IntervalFilter == null)
+        {
+            IntervalFilter = GetDefaultFilter();
+        }
+        await AdjustLabelStep(null);
+        await base.OnParametersSetAsync();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            listener.OnResized += ResizeChart;
+        }
+    }
+
+    async void ResizeChart(object _, BrowserWindowSize window)
+    {
+        if (ChartRef != null && LastViewPortWidth != window.Width)
+        {
+            LastViewPortWidth = window.Width;
+            await AdjustLabelStep(window.Width);
+            ChartRef.Refresh();
+        }
+    }
+
+    async Task AdjustLabelStep(int? WindowWidth)
+    {
+        if (ChartData.Any())
+        {
+            var chartDataTimeRangeInMs = (long)(ChartData.Last().Date - ChartData.First().Date).TotalMilliseconds;
+            int currStep = (int)(chartDataTimeRangeInMs / IntervalFilter.Duration / Constants.MaxLabelStepsInStocksChart);
+            if (WindowWidth == null)
+            {
+                BrowserWindowSize size = await listener.GetBrowserWindowSize();
+                WindowWidth = size.Width;
+                LastViewPortWidth = WindowWidth.Value;
+            }
+            if (WindowWidth < 768)
+            {
+                currStep = currStep * 5;
+            }
+            LabelStep = currStep;
+            StateHasChanged();
+        }
+    }
+
+    public void Dispose()
+    {
+        listener.OnResized -= ResizeChart;
+    }
+
+    IntervalFilter GetDefaultFilter()
+    {
+        return new IntervalFilter()
+        { 
+            Duration = Constants.MS_1_HOUR, 
+            Interval = new Interval { Step = 60, Unit = ChartCategoryAxisBaseUnit.Minutes } 
+        };
+    }
+}

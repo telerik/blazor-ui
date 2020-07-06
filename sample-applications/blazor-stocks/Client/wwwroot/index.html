@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Telerik Blazor Stocks Portfolio</title>
+    <base href="/blazor-financial-portfolio/" />
+    <link href="favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/styles.min.css" rel="stylesheet" />
+    <link href="_content/Telerik.UI.for.Blazor.Trial/css/kendo-theme-bootstrap/all.css" rel="stylesheet" />
+    <script src="_content/Telerik.UI.for.Blazor.Trial/js/telerik-blazor.js" defer></script>
+    <link href="manifest.json" rel="manifest" />
+
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <app>
+        <div class="loading-section">
+            <h2>Telerik Blazor Stocks Portfolio</h2>
+            <div class="short-description">You can review and manage your stocks and their performance. Please wait while the app initializes.</div>
+            <div class="loader mt-5">
+                <div class="loader-dot dot1"></div>
+                <div class="loader-dot dot2"></div>
+                <div class="loader-dot dot3"></div>
+            </div>
+        </div>
+    </app>
+
+    <div id="blazor-error-ui" class="alert alert-warning text-center py-3">
+        An error has occurred. This application may no longer respond until reloaded.
+        <div class="pt-3">
+            <a href class="reload btn-warning p-2"><span class="oi oi-reload"></span> Reload</a>
+        </div>
+    </div>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="_content/BlazorPro.BlazorSize/blazorSize.min.js"></script>
+    <script>navigator.serviceWorker.register('service-worker.js');</script>
+    <script src="custom-install-prompt.js"></script>
+</body>
+
+</html>

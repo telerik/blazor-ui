@@ -1,0 +1,44 @@
+@using BlazorDashboard.Models
+@using BlazorDashboard.DataRetrieval
+
+<TelerikChart>
+	<ChartSeriesItems>
+		<ChartSeries Type="ChartSeriesType.Bar" Name="Closed Issues" Data="@closed" Color="#27c46d">
+			<ChartSeriesStack Enabled="true" Type="@ChartSeriesStackType.Stack100"></ChartSeriesStack>
+		</ChartSeries>
+		<ChartSeries Type="ChartSeriesType.Bar" Name="Open Issues" Data="@open" Color="#CF3268"></ChartSeries>
+	</ChartSeriesItems>
+
+	<ChartCategoryAxes>
+		<ChartCategoryAxis Visible="false"></ChartCategoryAxis>
+	</ChartCategoryAxes>
+
+	<ChartValueAxes>
+		<ChartValueAxis Visible="false">
+			<ChartValueAxisMajorGridLines Visible="false"></ChartValueAxisMajorGridLines>
+		</ChartValueAxis>
+	</ChartValueAxes>
+
+
+	<ChartLegend Visible="false">
+	</ChartLegend>
+</TelerikChart>
+
+
+@code {
+	[Parameter]
+	public int Open { get; set; }
+	[Parameter]
+	public int Closed { get; set; }
+
+	private List<object> open = new List<object>();
+	private List<object> closed = new List<object>();
+
+	protected override void OnParametersSet()
+    {
+		open.Clear();
+		closed.Clear();
+        open.Add(Open);
+		closed.Add(Closed);
+    }
+}

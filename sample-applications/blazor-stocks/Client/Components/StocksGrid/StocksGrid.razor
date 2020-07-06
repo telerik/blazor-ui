@@ -1,0 +1,107 @@
+﻿@using BlazorFinancePortfolio.Models
+@using BlazorFinancePortfolio.Helpers
+
+<div class="row py-4 d-flex justify-content-between stocks-grid-buttons">
+    <div class="col d-flex justify-content-start px-0">
+        @if (UncategorizedStocks != null)
+        {
+            <TelerikDropDownList Data="@UncategorizedStocks"
+                                 Value="@SelectedValue"
+                                 OnChange="OnAdd"
+                                 TextField="Name"
+                                 ValueField="Symbol"
+                                 DefaultText="+ Add new stock"
+                                 PopupWidth="270px"
+                                 Width="165px"
+                                 Class="ddl-no-bg">
+            </TelerikDropDownList>
+        }
+
+        <ConfirmButton Enabled="@( SelectedStock != null )" OnConfirm="@OnRemoveConfirm" />
+    </div>
+    <div class="col text-center mt-4 mt-md-0">
+        <GridSwitcher />
+    </div>
+    <div class="col d-none d-md-block"></div>
+</div>
+<div class="row stocks-grid">
+    <TelerikGrid Data="@Data" Sortable="true" SelectionMode="GridSelectionMode.Single" SelectedItems="@SelectedStocks" SelectedItemsChanged="@((IEnumerable<Stock> stocks) => OnSelect(stocks))">
+        <GridColumns>
+            <GridCheckboxColumn SelectAll="false" Width="40px" />
+            <GridColumn Field="Symbol" Title="Symbol" />
+            <GridColumn Field="Name" Title="Name" />
+            <GridColumn Field="Price" Title="Price">
+                <Template>
+                    @{
+                        var stock = context as Stock;
+                        <strong>@(SelectedCurrency?.Sign + stock.Price * SelectedCurrency.Multiplier)</strong>
+                    }
+                </Template>
+            </GridColumn>
+            @if (LargerThanPhone)
+            {
+                <GridColumn Field="DayChange" Title="Day Change">
+                    <Template>
+                        @{
+                            var stock = context as Stock;
+                            <span class="@NumbersHelper.GetChangeNumberClass(stock.DayChange)">@NumbersHelper.FormatDecimal(stock.DayChange * SelectedCurrency.Multiplier)</span>
+                        }
+                    </Template>
+                </GridColumn>
+                @*<GridColumn Field="ChangePercentage" Title="Change Percentage">
+                    <Template>
+                        @{
+                            var stock = context as Stock;
+                            <span class="@NumbersHelper.GetChangeNumberClass(stock.ChangePercentage)">@(stock.ChangePercentage)%</span>
+                        }
+                    </Template>
+                </GridColumn>*@
+                <GridColumn Field="Volume" Title="Volume">
+                    <Template>
+                        @{
+                            var stock = context as Stock;
+                            <span>@NumbersHelper.FormatDecimal(stock.Volume * SelectedCurrency.Multiplier)</span>
+                        }
+                    </Template>
+                </GridColumn>
+                @*<GridColumn Field="VolumeAvg" Title="Avg. Volume">
+                    <Template>
+                        @{
+                            var stock = context as Stock;
+                            <span>@NumbersHelper.FormatDecimal(stock.VolumeAvg * SelectedCurrency.Multiplier)</span>
+                        }
+                    </Template>
+                </GridColumn>*@
+                @if (LargerThanTablet)
+                {
+                    <GridColumn Field="MarketCap" Title="Market Cap">
+                        <Template>
+                            @{
+                                var stock = context as Stock;
+                                <span>@NumbersHelper.FormatDecimal(stock.MarketCap * SelectedCurrency.Multiplier)</span>
+                            }
+                        </Template>
+                    </GridColumn>
+                    <GridColumn Field="PricePerEarningRatio" Title="PE Ratio">
+                        <Template>
+                            @{
+                                var stock = context as Stock;
+                                <span>
+                                    @(stock.PricePerEarningRatio != null
+                                                ? NumbersHelper.FormatDecimal(stock.PricePerEarningRatio.Value * SelectedCurrency.Multiplier)
+                                                : null)
+                                </span>
+                            }
+                        </Template>
+                    </GridColumn>
+                    <GridColumn Title="Last Day Chart">
+                        <Template>
+                            <SparklineChart StockData="@( context as Stock )" />
+                        </Template>
+                    </GridColumn>
+                }
+            }
+        </GridColumns>
+    </TelerikGrid>
+
+</div>

@@ -1,0 +1,64 @@
+@using BlazorDashboard.Models
+@using BlazorDashboard.DataRetrieval
+
+<TelerikChart>
+    <ChartSeriesItems>
+        <ChartSeries Type="ChartSeriesType.Donut" Data="@ChartData" HoleSize="60"
+                        Field="@nameof(IssuesByTypeChartModel.IssueCount)" CategoryField="@nameof(IssuesByTypeChartModel.CategoryName)">
+            <ChartSeriesLabels Visible="true" Position="ChartSeriesLabelsPosition.Center" Template="#=Math.round(percentage * 100)#%" Background="transparent"></ChartSeriesLabels>
+			<ChartSeriesTooltip Visible="true">
+				<Template>
+					@{ 
+                        IssuesByTypeChartModel currItem = context.DataItem as IssuesByTypeChartModel;
+						<strong>@currItem.CategoryName - @context.Percentage.ToString("P")</strong>
+					}
+				</Template>
+			</ChartSeriesTooltip>
+        </ChartSeries>
+    </ChartSeriesItems>
+
+    <ChartLegend Position="ChartLegendPosition.Bottom">
+    </ChartLegend>
+</TelerikChart>
+
+
+@code {
+	[Parameter]
+	public IEnumerable<Issue> Issues { get; set; }
+
+	private List<IssuesByTypeChartModel> ChartData = new List<IssuesByTypeChartModel>();
+
+	protected override void OnParametersSet()
+	{
+		ChartData.Clear();
+		ChartData.Add(new IssuesByTypeChartModel
+		{
+			CategoryName = "Enhancement",
+			IssueCount = IssuesFilter.GetEnhancements(Issues).Count()
+		});
+
+		ChartData.Add(new IssuesByTypeChartModel
+		{
+			CategoryName = "Feature",
+			IssueCount = IssuesFilter.GetFeatures(Issues).Count()
+		});
+
+		ChartData.Add(new IssuesByTypeChartModel
+		{
+			CategoryName = "SEV: Low",
+			IssueCount = IssuesFilter.GetLowSevBugs(Issues).Count()
+		});
+
+		ChartData.Add(new IssuesByTypeChartModel
+		{
+			CategoryName = "SEV: Medium",
+			IssueCount = IssuesFilter.GetMedSevBugs(Issues).Count()
+		});
+
+		ChartData.Add(new IssuesByTypeChartModel
+		{
+			CategoryName = "SEV: High",
+			IssueCount = IssuesFilter.GetHighSevBugs(Issues).Count()
+		});
+	}
+}

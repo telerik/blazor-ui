@@ -1,0 +1,46 @@
+﻿@page "/"
+
+@using BlazorFinancePortfolio.Models
+@using BlazorFinancePortfolio.Services
+@using BlazorFinancePortfolio.Client.Components.StocksChart
+@using BlazorFinancePortfolio.Client.Components.StocksGrid
+
+@inject StocksListService StocksListService
+
+
+    <div class="container">
+        @if (ShowChart)
+        {
+            <TopAreaContainer SelectedStock="@SelectedStock" />
+        }
+
+        <div class="text-primary text-right mt-2">
+            <span class="collapse-expand-button" @onclick="@( () => ShowChart = !ShowChart )">
+                @( ShowChart ? "Hide Chart" : "Show Chart" )
+                <TelerikIcon Icon="@( ShowChart ? IconName.ArrowChevronUp : IconName.ArrowChevronDown )" />
+            </span>
+        </div>
+
+    </div>
+
+
+
+<div class="d-flex justify-content-center mx-0">
+    <div class="row">
+        @if (SelectedStock != null)
+        {
+            <div class="selected-stock-badge d-flex align-items-center badge-@( SelectedStock.ChangePercentage > 0 ? "positive" : "negative" )-value">
+                <span>@SelectedStock.Symbol&nbsp;</span><span>@SelectedStock.Price</span>
+            </div>
+        }
+    </div>
+</div>
+<div class="container">
+    <StocksGrid @bind-SelectedStock="@SelectedStock"></StocksGrid>
+</div>
+
+@code {
+    Stock SelectedStock { get; set; }
+    bool ShowChart { get; set; } = true;
+}
+

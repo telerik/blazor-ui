@@ -1,0 +1,52 @@
+@using BlazorDashboard.Models
+@using BlazorDashboard.DataRetrieval
+
+<TelerikChart>
+    <ChartSeriesItems>
+        <ChartSeries Type="ChartSeriesType.Line" Name="Enhancements" Data="@(IssuesFilter.GetEnhancements(Issues))" Style="ChartSeriesStyle.Smooth"
+                        Field="@nameof(Issue.Id)" Aggregate="@ChartSeriesAggregate.Count" CategoryField="@nameof(Issue.CreatedOn)">
+            <ChartSeriesMarkers Visible="false"></ChartSeriesMarkers>
+        </ChartSeries>
+        <ChartSeries Type="ChartSeriesType.Line" Name="Features" Data="@(IssuesFilter.GetFeatures(Issues))" Style="ChartSeriesStyle.Smooth"
+                        Field="@nameof(Issue.Id)" Aggregate="@ChartSeriesAggregate.Count" CategoryField="@nameof(Issue.CreatedOn)">
+            <ChartSeriesMarkers Visible="false"></ChartSeriesMarkers>
+        </ChartSeries>
+        <ChartSeries Type="ChartSeriesType.Line" Name="SEV: Low" Data="@(IssuesFilter.GetLowSevBugs(Issues))" Style="ChartSeriesStyle.Smooth"
+                        Field="@nameof(Issue.Id)" Aggregate="@ChartSeriesAggregate.Count" CategoryField="@nameof(Issue.CreatedOn)">
+            <ChartSeriesMarkers Visible="false"></ChartSeriesMarkers>
+        </ChartSeries>
+        <ChartSeries Type="ChartSeriesType.Line" Name="SEV: Medium" Data="@(IssuesFilter.GetMedSevBugs(Issues))" Style="ChartSeriesStyle.Smooth"
+                        Field="@nameof(Issue.Id)" Aggregate="@ChartSeriesAggregate.Count" CategoryField="@nameof(Issue.CreatedOn)">
+            <ChartSeriesMarkers Visible="false"></ChartSeriesMarkers>
+        </ChartSeries>
+        <ChartSeries Type="ChartSeriesType.Line" Name="SEV: High" Data="@(IssuesFilter.GetHighSevBugs(Issues))" Style="ChartSeriesStyle.Smooth"
+                        Field="@nameof(Issue.Id)" Aggregate="@ChartSeriesAggregate.Count" CategoryField="@nameof(Issue.CreatedOn)">
+            <ChartSeriesMarkers Visible="false"></ChartSeriesMarkers>
+        </ChartSeries>
+    </ChartSeriesItems>
+
+    <ChartCategoryAxes>
+        <ChartCategoryAxis BaseUnit="@ChartCategoryAxisBaseUnit.Weeks" Type="ChartCategoryAxisType.Date">
+            <ChartCategoryAxisLabels Format="{0:dd MMM}"></ChartCategoryAxisLabels>
+            <ChartCategoryAxisMajorGridLines Visible="false"></ChartCategoryAxisMajorGridLines>
+            <ChartCategoryAxisMinorGridLines Visible="false"></ChartCategoryAxisMinorGridLines>
+        </ChartCategoryAxis>
+    </ChartCategoryAxes>
+
+    <ChartValueAxes>
+        <ChartValueAxis>
+            <ChartValueAxisMinorGridLines Visible="false"></ChartValueAxisMinorGridLines>
+        </ChartValueAxis>
+    </ChartValueAxes>
+
+    <ChartLegend Position="ChartLegendPosition.Top">
+    </ChartLegend>
+
+    <ChartTooltip Visible="true" Shared="true"></ChartTooltip>
+</TelerikChart>
+
+
+@code {
+	[Parameter]
+	public IEnumerable<Issue> Issues { get; set; }
+}

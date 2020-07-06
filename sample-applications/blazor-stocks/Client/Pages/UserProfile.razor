@@ -1,0 +1,79 @@
+﻿@page "/profile"
+
+@using BlazorFinancePortfolio.Models
+@using BlazorFinancePortfolio.Helpers
+
+<TelerikWindow Visible="@IsProfileVisible" State="WindowState.Maximized">
+    <WindowContent>
+        <div class="container py-5">
+            <div class="col d-flex justify-content-between align-items-center py-5">
+                <h1>My Portfolio</h1>
+
+                <span @onclick="@CloseProfile" class="k-icon icon-close"></span>
+            </div>
+            <div class=" row d-flex justify-content-between pt-5">
+                <div class="col col-3">
+                    <div class="user-profile-wrapper d-flex flex-column align-self-end">
+                        <div class="profile-image"></div>
+                        <h3 class="pt-4 pb-5">Collin Johnson</h3>
+                    </div>
+                    <table>
+                        <tr>
+                            <td>CURRENT VALUE:</td>
+                            <td class="current-value">@(SelectedCurrency.Sign)@NumbersHelper.FormatDecimal(1694.88m * SelectedCurrency.Multiplier) </td>
+                        </tr>
+                        <tr>
+                            <td>24H CHANGE:</td>
+                            <td class="green">@(SelectedCurrency.Sign)@NumbersHelper.FormatDecimal(20m * SelectedCurrency.Multiplier)</td>
+                        </tr>
+                        <tr>
+                            <td>% CHANGE:</td>
+                            <td class="green">+1.2%</td>
+                        </tr>
+                        <tr>
+                            <td>TOTAL COST:</td>
+                            <td>@(SelectedCurrency.Sign)@NumbersHelper.FormatDecimal(9.185m * SelectedCurrency.Multiplier) </td>
+                        </tr>
+                        <tr>
+                            <td>TOTAL PROFIT:</td>
+                            <td class="red">@(SelectedCurrency.Sign)@NumbersHelper.FormatDecimal(-2.638m * SelectedCurrency.Multiplier) </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col user-data">
+                    <TelerikGrid Data="@Stocks">
+                        <GridColumns>
+                            <GridColumn Field="Symbol" Title="Symbol" Width="100px">
+                                <Template>
+                                    <span class="symbol-col">@( (context as Stock).Symbol )</span>
+                                </Template>
+                            </GridColumn>
+                            <GridColumn Field="Name" Title="Name" />
+                            <GridColumn Field="Price" Title="Price" Width="100px">
+                                <Template>
+                                    @{
+                                        var stock = context as Stock;
+                                        <strong>@(SelectedCurrency?.Sign + stock.Price)</strong>
+                                    }
+                                </Template>
+                            </GridColumn>
+                        </GridColumns>
+                    </TelerikGrid>
+                </div>
+                <div class="col col-5 pb-5">
+                    <TelerikChart Width="100%" Height="100%" @ref="@ChartRef">
+                        <ChartSeriesItems>
+                            <ChartSeries Type="ChartSeriesType.Pie" Data="@Stocks"
+                                         Field="@nameof(Stock.Price)" CategoryField="@nameof(Stock.Symbol)">
+                                <ChartSeriesLabels Template="@( $"#=category#\n{SelectedCurrency.Sign}#=value#" )" Visible="@ChartLabelsVisible" />
+                            </ChartSeries>
+                        </ChartSeriesItems>
+
+                        <ChartLegend Position="ChartLegendPosition.Bottom">
+                        </ChartLegend>
+                    </TelerikChart>
+                </div>
+            </div>
+        </div>
+    </WindowContent>
+</TelerikWindow>
