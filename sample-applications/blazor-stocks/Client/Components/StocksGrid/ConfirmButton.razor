@@ -1,0 +1,27 @@
+﻿<TelerikButton Icon="@IconName.Delete" Class="text-danger" OnClick="@( _ => WindowVisible = true )" Enabled="@Enabled">
+    Remove
+</TelerikButton>
+
+<TelerikWindow @bind-Visible="@WindowVisible" Modal="true">
+    <WindowTitle>
+        <strong>Confirm deleting</strong>
+    </WindowTitle>
+    <WindowContent>
+        Are you sure you want to delete this?
+        <div class="k-dialog-buttongroup k-dialog-button-layout-stretched mt-3">
+            <TelerikButton OnClick="@(() => WindowVisible = false)">Cancel</TelerikButton>
+            <TelerikButton OnClick="@RaiseConfirm" Primary="true">Confirm</TelerikButton>
+        </div>
+    </WindowContent>
+</TelerikWindow>
+
+@code {
+    [Parameter] public bool Enabled { get; set; }
+    [Parameter] public EventCallback OnConfirm { get; set; }
+    bool WindowVisible { get; set; }
+    async void RaiseConfirm()
+    {
+        WindowVisible = false;
+        await OnConfirm.InvokeAsync(null);
+    }
+}

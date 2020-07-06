@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <RazorLangVersion>3.0</RazorLangVersion>
+        <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="3.2.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Build" Version="3.2.0" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="3.2.0" PrivateAssets="all" />
+        <PackageReference Include="System.Net.Http.Json" Version="3.2.0" />
+        <PackageReference Include="Telerik.UI.for.Blazor.Trial" Version="2.14.1" />
+        <PackageReference Include="BuildWebCompiler" Version="1.12.405" />
+        <PackageReference Include="BlazorPro.BlazorSize" Version="1.2.2" />
+    </ItemGroup>
+
+    <Target Name="CopyStyles" AfterTargets="BeforeCompile">
+        <Copy SourceFiles="$(MSBuildProjectDirectory)\Styles\styles.min.css" DestinationFolder="$(MSBuildProjectDirectory)\wwwroot\css" />
+        <Message Importance="high" Text="Copying the minified builld styles to WWWROOT" />
+    </Target>
+
+    <ItemGroup>
+        <Content Include="Styles\styles.scss" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Shared\BlazorFinancePortfolio.Shared.csproj" />
+    </ItemGroup>
+
+    <!-- When publishing, swap service-worker.published.js in place of service-worker.js -->
+    <ItemGroup Condition="'$(DesignTimeBuild)' != 'true'">
+        <Content Remove="wwwroot\service-worker.js" />
+        <Content Update="wwwroot\service-worker.published.js" Link="wwwroot\service-worker.js" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Include="Components\GridSwitcher.razor" />
+      <None Include="Components\StocksChart\MainChart.razor" />
+      <None Include="Components\StocksChart\TopAreaContainer.razor" />
+      <None Include="Components\StocksGrid\ConfirmButton.razor" />
+      <None Include="Components\StocksGrid\SparklineChart.razor" />
+      <None Include="Components\StocksGrid\StocksGrid.razor" />
+      <None Include="Pages\Index.razor" />
+      <None Include="Pages\RealTime.razor" />
+      <None Include="Pages\UserProfile.razor" />
+      <None Include="Shared\MainLayout.razor" />
+      <None Include="wwwroot\images\cross-out.svg" />
+      <None Include="wwwroot\images\footer-bg.svg" />
+      <None Include="wwwroot\images\header-bg.svg" />
+      <None Include="wwwroot\images\progress-logo.svg" />
+    </ItemGroup>
+
+</Project>

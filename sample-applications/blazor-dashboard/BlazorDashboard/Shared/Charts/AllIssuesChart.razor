@@ -1,0 +1,52 @@
+@using BlazorDashboard.Models
+@using BlazorDashboard.DataRetrieval
+
+	<TelerikChart>
+		<ChartSeriesItems>
+			<ChartSeries Type="ChartSeriesType.Column" Name="Closed Issues" Data="@(Data.Where(x => x.IsOpen == false))" Color="#27c46d" Gap="0.6"
+								Field="@nameof(Issue.Id)" Aggregate="@ChartSeriesAggregate.Count" CategoryField="@nameof(Issue.CreatedOn)">
+				<ChartSeriesStack Enabled="true" />
+			</ChartSeries>
+			<ChartSeries Type="ChartSeriesType.Column" Name="Open Issues" Data="@(Data.Where(x => x.IsOpen == true))" Color="#CF3268"
+								Field="@nameof(Issue.Id)" Aggregate="@ChartSeriesAggregate.Count" CategoryField="@nameof(Issue.CreatedOn)">
+			</ChartSeries>
+		</ChartSeriesItems>
+
+		<ChartCategoryAxes>
+			<ChartCategoryAxis BaseUnit="@ChartCategoryAxisBaseUnit.Fit" Type="ChartCategoryAxisType.Date">
+				<ChartCategoryAxisLabels Format="{0:dd MMM}"></ChartCategoryAxisLabels>
+				<ChartCategoryAxisMajorGridLines Visible="false"></ChartCategoryAxisMajorGridLines>
+				<ChartCategoryAxisMinorGridLines Visible="false"></ChartCategoryAxisMinorGridLines>
+			</ChartCategoryAxis>
+		</ChartCategoryAxes>
+
+		<ChartValueAxes>
+			<ChartValueAxis>
+				<ChartValueAxisMinorGridLines Visible="false"></ChartValueAxisMinorGridLines>
+			</ChartValueAxis>
+		</ChartValueAxes>
+
+		<ChartLegend Visible="false">
+		</ChartLegend>
+
+		<ChartTooltip Visible="true">
+			<Template>
+				@context.SeriesName
+				<br />
+                <strong>@context.FormattedValue</strong>
+			</Template>
+		</ChartTooltip>
+	</TelerikChart>
+
+
+@code {
+	[Parameter]
+	public IEnumerable<Issue> Data { get; set; }
+
+	//TODO base unit and/or step as parameter depending on date range
+
+	private string[] GetCategories(IEnumerable<Issue> issues)
+	{
+		return issues.Select(x => x.CreatedOn.ToString("dd MMM")).ToArray<string>();
+	}
+}

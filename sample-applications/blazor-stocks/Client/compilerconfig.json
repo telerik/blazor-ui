@@ -1,0 +1,13 @@
+﻿[
+  {
+    "outputFile": "Styles/styles.css",
+    "inputFile": "Styles/styles.scss",
+    "minify": {
+      "enabled": true
+    },
+    "includeInProject": true,
+    "options": {
+      "sourceMap": true
+    }
+  }
+]

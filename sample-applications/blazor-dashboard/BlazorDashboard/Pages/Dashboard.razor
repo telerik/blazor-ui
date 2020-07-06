@@ -1,0 +1,167 @@
+@page "/"
+@page "/dashboard"
+
+@inject IssuesGenerator IssuesGeneratorService
+@implements IDisposable
+
+@using BlazorDashboard.Models
+@using BlazorDashboard.DataRetrieval
+@using BlazorDashboard.Shared.Charts
+@using System.Threading
+
+<div class="dashboard">
+	<div class="row mb-4">
+		<div class="col-sm">
+			<h2>
+				<span class="small text-uppercase text-muted d-block">Statistics</span>
+				@IssuesFilter.GetRangeFromNumber(timeRange).ToString("ddd, dd MMM yyyy")
+				- @DateTime.Now.ToString("ddd, dd MMM yyyy")
+			</h2>
+		</div>
+		<div class="col-sm text-sm-right">
+			<TelerikDropDownList Data="@DateFilterData" TextField="Text" ValueField="Value" Value="timeRange"
+                                 ValueChanged="@( (int v) => LoadIssuesData(v) )" PopupHeight="120">
+			</TelerikDropDownList>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<h3 class="card-header">Active Issues</h3>
+				<div class="card-body">
+
+					<div class="row">
+
+						<div class="col-sm-12 col-md-6 col-lg active-issues">
+							<span class="comp-label">
+								<strong>@IssuesList.Count()</strong>
+								<small>Active issues</small>
+							</span>
+							<IssuesBreakDownCharts ChartData="@IssuesList" SeriesColor="#888"></IssuesBreakDownCharts>
+						</div>
+
+						<div class="col-sm-12 col-md-6 col-lg text-success closed-issues">
+							<span class="comp-label">
+								<strong>@ClosedIssues.Count()</strong>
+								<small>Closed issues</small>
+							</span>
+							<IssuesBreakDownCharts ChartData="@ClosedIssues" SeriesColor="#27c46d"></IssuesBreakDownCharts>
+						</div>
+
+						<div class="col-sm-12 col-md-6 col-lg text-danger open-issues">
+							<span class="comp-label">
+								<strong>@OpenIssues.Count()</strong>
+								<small>Open issues</small>
+							</span>
+							<IssuesBreakDownCharts ChartData="@OpenIssues" SeriesColor="#CF3268"></IssuesBreakDownCharts>
+						</div>
+
+						<div class="col-sm-12 col-md-6 col-lg close-rate">
+							<span class="comp-label">
+								<strong>@GetCloseRate()</strong>
+								<small>Close rate</small>
+							</span>
+							<CloseRateChart Open="@OpenIssues.Count()" Closed="@ClosedIssues.Count()"></CloseRateChart>
+						</div>
+					</div>
+
+
+					<h3 class="card-header">All issues</h3>
+					<div class="all-issues">
+						<AllIssuesChart Data="@IssuesList"></AllIssuesChart>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="card issue-types">
+				<h4 class="card-header">Issue Types</h4>
+				<div class="card-body">
+					<IssuesByTypeChart Issues="@IssuesList"></IssuesByTypeChart>
+					<div class="comp-label chart-label">
+						<div class="comp-label chart-label">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-8">
+			<div class="card">
+				<h4 class="card-header">Types Distribution</h4>
+				<div class="card-body">
+					<TypeDistributionOverTimeChart Issues="@IssuesList"></TypeDistributionOverTimeChart>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@code {
+    IEnumerable<Issue> IssuesList { get; set; } = new List<Issue>();
+    IEnumerable<Issue> OpenIssues { get; set; } = new List<Issue>();
+    IEnumerable<Issue> ClosedIssues { get; set; } = new List<Issue>();
+
+    CancellationTokenSource stopTimer;
+
+    List<DateFilterModel> DateFilterData;
+
+    int timeRange { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        DateFilterData = IssuesFilter.GetTimeRangeFilterValues();
+
+        await LoadIssuesData();
+    }
+
+    public void Dispose()
+    {
+        StopTimer();
+    }
+
+    private async Task LoadDataOnInterval()
+    {
+        StopTimer();
+        stopTimer = new CancellationTokenSource();
+
+        while (IssuesFilter.ShouldForceGeneration(timeRange))
+        {
+            await Task.Delay(10000, stopTimer.Token);
+            await LoadIssuesData();
+            StateHasChanged();
+        }
+    }
+
+    public void StopTimer()
+    {
+        if (stopTimer != null)
+        {
+            stopTimer.Cancel();
+        }
+    }
+
+    private async Task LoadIssuesData(int newTimeRange)
+    {
+        timeRange = newTimeRange;
+        await LoadIssuesData();
+    }
+
+    private async Task LoadIssuesData()
+    {
+        IssuesList = await IssuesGeneratorService.GetIssues(IssuesFilter.GetRangeFromNumber(timeRange));
+        OpenIssues = IssuesFilter.GetOpenIssues(IssuesList);
+        ClosedIssues = IssuesFilter.GetClosedIssues(IssuesList);
+
+        StateHasChanged();
+
+        await LoadDataOnInterval();
+
+        StateHasChanged();
+    }
+
+    private MarkupString GetCloseRate()
+    {
+        double rate = ((double)ClosedIssues.Count() / (double)IssuesList.Count());
+        return new MarkupString(string.Format("{0:P0}", rate));
+    }
+}

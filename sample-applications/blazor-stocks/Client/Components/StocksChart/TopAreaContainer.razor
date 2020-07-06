@@ -1,0 +1,69 @@
+﻿@using BlazorFinancePortfolio.Models
+
+<div class="row py-4 d-flex justify-content-between align-items-center">
+    <div class="col col-4 d-flex daterange-input-wrap">
+        <TelerikDateRangePicker StartValue="@Start" EndValue="@End" Min="@MinDate" Max="@MaxDate"
+                                StartValueChanged="@( (DateTime sV) => StartValueChangedHandler(sV) )"
+                                EndValueChanged="@( (DateTime eV) => EndValueChangedHandler(eV) )"/>
+    </div>
+
+    <ul class="k-reset d-flex col-12 col-sm-8 col-md-6 col-lg-3 justify-content-center justify-content-sm-start">
+        @foreach (TimeFilter filter in TimeFilters)
+        {
+            <li class="ml-3">
+                <span class="list-item time-filter-item @( ActiveTimeFilterDuration == filter.Duration ? " active" : "" )"
+                      @onclick="@( () => OnTimeFilterClick(filter.Duration) )">
+                    @filter.Name
+                </span>
+            </li>
+
+        }
+    </ul>
+
+    <div class="col-12 col-sm-4 col-md-6 col-lg-4 text-center text-sm-right mt-3 mt-sm-0">
+        <TelerikDropDownList Data="@IntervalFilters" TextField="Name" ValueField="Duration"
+                             TItem="IntervalFilter" TValue="long" Value="SelectedFilterInterval"
+                             ValueChanged="@( (long v) => OnIntervalChange(v) )"
+                             Width="140px" PopupWidth="135px" PopupHeight="auto" Class="dropdown-list-selection interval ddl-no-bg">
+            <ValueTemplate>
+                <span class="service-category"> Interval: @( (context as IntervalFilter).Name)</span>
+            </ValueTemplate>
+        </TelerikDropDownList>
+
+        <TelerikDropDownList @bind-Value="@MainChartType" Data="@AvailableChartTypes" Width="140px" PopupWidth="140px" PopupHeight="auto" Class="ddl-no-bg">
+            <ValueTemplate>
+                @{
+                    ChartTypeList dataItem = context as ChartTypeList;
+                    <span class="chart-category selected d-flex align-items-center">
+                        <img src="@( $" images/{@dataItem.Text.ToLowerInvariant()}.png" )" />
+                        @dataItem.Text
+                    </span>
+                }
+            </ValueTemplate>
+            <ItemTemplate>
+                @{
+                    ChartTypeList dataItem = context as ChartTypeList;
+                    <span class="chart-category d-flex align-items-center">
+                        <img src="@( $" images/{@dataItem.Text.ToLowerInvariant()}.png" )" />
+                        @dataItem.Text
+                    </span>
+                }
+            </ItemTemplate>
+        </TelerikDropDownList>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        @if (CurrentChartData != null)
+        {
+            <MainChart ChartData="@CurrentChartData" IntervalFilter="@SelectedInterval" MainChartType="@MainChartType" />
+        }
+        else
+        {
+            <div class="alert alert-info">
+                Select a symbol from the list to see its details. If there are no symbols, add a new one.
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,199 @@
+@page "/profile"
+@using BlazorDashboard.Models
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+
+
+@if (user != null)
+{
+
+	<div class="row mb-4">
+		<div class="col-sm">
+			<h2>
+				<span class="small text-uppercase text-muted d-block">Account</span>
+				@user.Login
+				- @user.Name
+			</h2>
+		</div>
+		<div class="col-sm text-sm-right">
+			<TelerikButton OnClick="@OnSignOutClick">Sign out</TelerikButton>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-7">
+
+			<div class="card" id="profile">
+				<h3 class="card-header">Public Profile</h3>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-3 text-xs-center">
+							<img src="@user.AvatarUrl" style="max-width: 100%" class="img-circle mx-auto" />
+						</div>
+						<div class="col-md-9">
+							<EditForm Model="@user" OnValidSubmit="@OnUpdateClick">
+								<DataAnnotationsValidator />
+								<div class="form-group">
+									<TelerikTextBox @bind-Value="user.Login" Label="User Name" />
+									<ValidationMessage For="@(() => user.Login)"></ValidationMessage>
+								</div>
+								<div class="form-group">
+									<TelerikTextBox @bind-Value="user.Name" Label="Real Name" />
+									<ValidationMessage For="@(() => user.Name)"></ValidationMessage>
+								</div>
+								<div class="form-group">
+									<TelerikTextBox @bind-Value="user.PublicEmail" Label="Email" />
+									<ValidationMessage For="@(() => user.PublicEmail)"></ValidationMessage>
+								</div>
+								<div class="form-group">
+									<label class="form-check-label h6">
+										<InputCheckbox @bind-Value="user.PrivateEmail" /> Keep my email address private
+									</label>
+								</div>
+								<div class="form-group">
+									<TelerikTextBox @bind-Value="user.Company" Label="Company" />
+								</div>
+								<div class="form-group">
+									<TelerikTextBox @bind-Value="user.Location" Label="Location" />
+								</div>
+								<div class="form-group">
+									<TelerikButton Primary="true">Update profile</TelerikButton>
+								</div>
+							</EditForm>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="card" id="delete-account">
+				<h3 class="card-header">Delete Account</h3>
+				<div class="card-body">
+					<p>
+						You will immediately lose access to your repositories and all other information associated with your account.
+						<strong>This cannot be undone!</strong>
+					</p>
+					<TelerikButton Class="dangerButton" OnClick="@OnDeleteClick">Delete Account</TelerikButton>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5">
+
+			<div class="card" id="notifications">
+				<h3 class="card-header">Notifications</h3>
+				<div class="card-body">
+					<h4 class="h6">Automatically watch repositories?</h4>
+					<p class="text-muted">
+						<label>
+							<input type="checkbox" />
+							When you are given push access to a repository, automatically receive notifications for it.
+						</label>
+					</p>
+					<label>
+						<input type="checkbox" />
+						Receive updates to any conversations via email?
+					</label>
+					<label>
+						<input type="checkbox" />
+						Receive updates to any repositories via email?
+					</label>
+				</div>
+			</div>
+			<div class="card" id="password">
+				<h3 class="card-header">Update password</h3>
+				<div class="card-body">
+					<div class="form-group">
+						<label class="h6">Old password</label>
+						<input type="password" class="form-control" />
+					</div>
+					<div class="form-group">
+						<label class="h6">New password</label>
+						<input type="password" class="form-control" />
+					</div>
+					<div class="form-group">
+						<label class="h6">Confirm password</label>
+						<input type="password" class="form-control" />
+					</div>
+					<div class="form-group">
+						<TelerikButton>Change password</TelerikButton>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<TelerikWindow Size="@WindowSize.Small" Modal="true"  @bind-Visible="@visibleSuccesWindow">
+		<WindowTitle>Thank you!</WindowTitle>
+		<WindowContent>
+			<p>Your profile has been successfully updated.</p>
+			<TelerikButton OnClick="@( () => visibleSuccesWindow = false )" Primary="true" Class="btn-block">OK</TelerikButton>
+		</WindowContent>
+	</TelerikWindow>
+
+	<TelerikWindow Width="450" Modal="true" Centered="true" @bind-Visible="@visibleDeleteWindow">
+		<WindowActions>
+			<WindowAction Name="Close"></WindowAction>
+		</WindowActions>
+		<WindowTitle>Are you sure you want to do this?</WindowTitle>
+		<WindowContent>
+			<p>Account deletion cannot be undone!</p>
+			<div>
+				<TelerikButton OnClick="@( () => visibleDeleteWindow = false )" Class="floatButton50">Cancel</TelerikButton>
+				<TelerikButton OnClick="@DeleteAccount" Primary="true" Class="floatButton50">Delete Account</TelerikButton>
+			</div>
+		</WindowContent>
+	</TelerikWindow>
+}
+
+
+
+@code {
+	UserProfile user { get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+		await LoadUser();
+	}
+
+	private async Task LoadUser()
+	{
+		user = new UserProfile()
+		{
+			Id = 5746515,
+			AvatarUrl = "https://avatars1.githubusercontent.com/u/5746515?v=4",
+			Company = "Progress Software",
+			PublicEmail = "",
+			Location = "",
+			Login = "marin-bratanov",
+			Name = "Marin Bratanov",
+			PrivateEmail = true
+		};
+	}
+
+	void OnSignOutClick()
+	{
+		GoToLogin();
+	}
+
+	bool visibleSuccesWindow = false;
+	void OnUpdateClick()
+	{
+		visibleSuccesWindow = true;
+	}
+
+	bool visibleDeleteWindow = false;
+	void OnDeleteClick()
+	{
+		visibleDeleteWindow = true;
+	}
+
+	void DeleteAccount()
+	{
+		GoToLogin();
+	}
+
+	void GoToLogin()
+	{
+		navigationManager.NavigateTo("signin");
+	}
+}

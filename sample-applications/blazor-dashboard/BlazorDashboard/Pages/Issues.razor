@@ -1,0 +1,48 @@
+@page "/issues"
+
+@inject IssuesGenerator IssuesGeneratorService
+
+@using BlazorDashboard.Models
+@using BlazorDashboard.DataRetrieval
+@using BlazorDashboard.Shared.IssuesRenderers
+
+<div class="issues">
+    <TelerikGrid Data="@GridData" Pageable="true" PageSize="15" Sortable="true" Height="800px"
+                 Reorderable="true" Resizable="true" Groupable="true" FilterMode="GridFilterMode.FilterMenu">
+        <GridColumns>
+            <GridColumn Field="@(nameof(Issue.Id))" Title="ID" Width="80px" Groupable="false" />
+            <GridColumn Field="@(nameof(Issue.IsOpen))" Title="Open" Width="120px">
+                <Template>
+                    @{
+                        Issue issue = context as Issue;
+                        <span class="issue-status @(issue.IsOpen ? "issue-open" : "issue-closed")"></span>
+                        @(issue.IsOpen ? "open" : "closed")
+                    }
+                </Template>
+            </GridColumn>
+            <GridColumn Field="@(nameof(Issue.Title))" Title="Issue Title" Groupable="false" />
+            <GridColumn Field="@(nameof(Issue.CreatedOn))" Title="Created On" />
+            <GridColumn Field="@(nameof(Issue.ClosedOn))" Title="Closed On" />
+        </GridColumns>
+        <DetailTemplate>
+            @{
+                Issue issue = context as Issue;
+                <IssueDetails CurrIssue="@issue"></IssueDetails>
+            }
+        </DetailTemplate>
+    </TelerikGrid>
+</div>
+
+@code {
+    public IEnumerable<Issue> GridData;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadIssuesData();
+    }
+
+    private async Task LoadIssuesData()
+    {
+        GridData = await IssuesGeneratorService.GetIssues(DateTime.Now.AddMonths(-2));
+    }
+}

@@ -1,0 +1,32 @@
+@page "/signin"
+
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+
+<div id="signin" class="signin">
+	<div class="signin-form p-5">
+		<h1 id="app-title">ISSUES</h1>
+		<p id="app-subtitle">SAMPLE DASHBOARD</p>
+		<div class="alert alert-primary" role="alert">
+			Just click "Log In". This app merely simulates a login process and will accept any values.
+		</div>
+		<div class="form-group mt-4">
+			<input type="text" class="form-control" placeholder="Email or Username" />
+		</div>
+		<div class="form-group mb-4">
+			<input type="password" class="form-control" placeholder="Password" />
+			<p class="text-xs-right small">
+				<a href="javascript:void(0);">Forgot it?</a>
+			</p>
+		</div>
+		<div class="form-group">
+			<TelerikButton Class="k-primary form-control" OnClick="@OnLoginClick" Icon="@IconName.Login">Log in</TelerikButton>
+		</div>
+	</div>
+</div>
+
+@code {
+	void OnLoginClick()
+	{
+		navigationManager.NavigateTo("dashboard");
+	}
+}

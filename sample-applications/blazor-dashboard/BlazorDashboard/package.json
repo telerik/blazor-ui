@@ -1,0 +1,19 @@
+{
+  "name": "blazordashboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:development": "npx gulp sass",
+    "build:production": "npx gulp sass && npx gulp minify-css"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@progress/kendo-theme-bootstrap": "latest",
+    "bootstrap": "^4.3.1",
+    "gulp": "^4.0.0",
+    "gulp-clean-css": "^4.0.0",
+    "gulp-sass": "^4.0.2"
+  }
+}

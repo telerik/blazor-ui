@@ -1,0 +1,33 @@
+﻿@page "/"
+@namespace BlazorDashboard.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Telerik UI for Blazor Dashboard Sample App</title>
+	<base href="~/" />
+	<link href="favicon.ico" rel="icon" type="image/x-icon" />
+	<link href="css/styles.css" rel="stylesheet" />
+	<script src="_content/telerik.ui.for.blazor/js/telerik-blazor.js" defer></script>
+</head>
+<body>
+	<app id="app" class="app container-fluid"><component type="typeof(App)" render-mode="ServerPrerendered" /></app>
+
+	<div id="blazor-error-ui" class="alert alert-warning">
+		<environment include="Staging,Production">
+			An error has occurred. This application may no longer respond until reloaded.
+		</environment>
+		<environment include="Development">
+			An unhandled exception has occurred. See browser dev tools for details.
+		</environment>
+		<div class="pt-3">
+			<a href class="reload k-button">Reload</a>
+		</div>
+	</div>
+
+	<script src="_framework/blazor.server.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "short_name": "My Stocks",
+  "name": "My Blazor Stocks PWA",
+  "start_url": "/blazor-financial-portfolio/",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/blazor-financial-portfolio/default-icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/blazor-financial-portfolio/default-icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
