@@ -16,7 +16,7 @@ Current thread culture (used for date and number formatting): @System.Threading.
 <CultureChooser />
 
 <TelerikGrid Data="@forecasts"
-             Pageable="true" Groupable="true" Sortable="true"
+             Pageable="true" Groupable="true" Sortable="true" FilterMode="@GridFilterMode.FilterMenu"
              OnUpdate="@UpdateHandler" OnDelete="@DeleteHandler" OnCreate="@CreateHandler">
     <GridToolBar>
         <GridCommandButton Command="Add" Icon="add">@Localizer[nameof(TelerikMessages.Grid_Create)]</GridCommandButton>
