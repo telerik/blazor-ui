@@ -1,0 +1,181 @@
+﻿@inherits LayoutComponentBase
+
+@inject NavigationManager _navMan
+
+<style>
+    /* the size of the containers will fill up their parents up to the viewport */
+    html, body, app, .k-drawer-container, .k-drawer-content, .main {
+        width: 100%;
+        height: 100%;
+        max-height: 100%;
+    }
+
+    /* vertical scroll should happen in the main portion of the content - where the Body is
+    This keeps the header sticky at the top
+    */
+    .main {
+        overflow-y: auto;
+    }
+
+    /* horizontal scroll happens in the drawer content to keep the drawer on the left side of the screen */
+    .k-drawer-content {
+        overflow-x: auto;
+    }
+
+    /* sizing of the header */
+    .top-row {
+        left: 0;
+    }
+
+    /* expand-collapse button for the drawer - position above the header */
+    .drawer-hamburger {
+        position: absolute;
+        z-index: 2;
+    }
+
+    /* There are some CSS rules from the default site.css related to the sidenav that are commented out
+    Some of the other rules there define parts of the layout too (like the header rules, or the .main rules
+    In your app, use the height and overflow settings above as guidelines and implement the rest of the layout according to your case
+    */
+</style>
+
+<TelerikRootComponent>
+
+    <TelerikDrawer Data="@NavigablePages"
+                   @bind-Expanded="@DrawerExpanded"
+                   MiniMode="true"
+                   Mode="@DrawerMode.Push"
+                   @ref="@DrawerRef"
+                   @bind-SelectedItem="@SelectedItem">
+        <Template>
+            @* the header *@
+            <TelerikButton OnClick="@( () => DrawerRef.ToggleAsync() )"
+                           Icon="@IconName.Menu"
+                           Class="drawer-hamburger" />
+            <div class="mt-5">
+                @if (DrawerExpanded)
+                {
+                    <div class="text-info" style="border-bottom:solid; font-weight: bold; margin-bottom: 3em; white-space:nowrap">
+                        My Custom Navigation
+                    </div>
+                }
+                else
+                {
+                    <div class="text-info" style="border-bottom:solid; font-weight: bold;">
+                        Nav
+                    </div>
+                }
+            </div>
+
+            @*Items of the drawer*@
+
+            <div class="k-drawer-items">
+                <ul>
+                    @if (SelectedItem != null && DrawerExpanded)
+                    {
+                        <li class="k-drawer-item" style="white-space:nowrap">
+                            <div>
+                                <p><strong>@SelectedItem.Text</strong></p>
+                            </div>
+                        </li>
+                    }
+
+                    @foreach (var item in NavigablePages)
+                    {
+                        @* Use onclick to handle manual item selection *@
+                        <li @onclick="@(() => NavigateToPage(item))"
+                            @onclick:stopPropagation
+                            class="k-drawer-item @GetSelectedItemClass(item)" style="white-space:nowrap">
+                            <span class="k-icon k-i-@item.Icon" style="margin-right: 8px;"></span>
+                            @if (DrawerExpanded)
+                            {
+                                <div>
+                                    <div>@item.Text</div>
+                                </div>
+                            }
+                        </li>
+                    }
+                </ul>
+            </div>
+
+            @* the footer *@
+            @if (DrawerExpanded)
+            {
+                <div style="text-align: center; margin-top: 3em; padding-top: 2em; border-top: 2px solid black; white-space:nowrap">
+                    <TelerikButton Icon="@IconName.Logout" Primary="true">Log Out</TelerikButton>
+                </div>
+            }
+        </Template>
+        <Content>
+            @* This layout is now in the drawer Content, and is very similar to the default template layout *@
+            <div class="main">
+                @* This is the button to collapse/expand the drawer, in this sample it is positioned absolutely so it moves with the drawer and stays above the rest of the content *@
+                
+                <div class="top-row px-4">
+                    <a href="https://docs.microsoft.com/en-us/aspnet/" target="_blank">About</a>
+                </div>
+
+                <div class="content px-4">
+                    @Body
+                </div>
+            </div>
+        </Content>
+    </TelerikDrawer>
+
+</TelerikRootComponent>
+
+@code{
+    bool DrawerExpanded { get; set; } = true;
+    DrawerItem SelectedItem { get; set; }
+    TelerikDrawer<DrawerItem> DrawerRef { get; set; }
+
+    List<DrawerItem> NavigablePages { get; set; } = new List<DrawerItem>
+{
+        new DrawerItem { Text = "Home", Url = "/", Icon = "home" },
+        new DrawerItem { Text = "Counter", Url = "counter", Icon = IconName.PlusOutline },
+        new DrawerItem { Text = "FetchData", Url = "fetchdata", Icon = IconName.Grid }
+    };
+
+    protected override void OnInitialized()
+    {
+        string currPage = _navMan.Uri;
+        DrawerItem ActivePage = NavigablePages.Where(p => p.Url.ToLowerInvariant() == GetCurrentPage().ToLowerInvariant()).FirstOrDefault();
+        if (ActivePage != null)
+        {
+            SelectedItem = ActivePage;
+        }
+
+        base.OnInitialized();
+    }
+
+    public void NavigateToPage(DrawerItem item)
+    {
+        SelectedItem = item;
+        _navMan.NavigateTo(SelectedItem.Url);
+    }
+
+    public string GetCurrentPage()
+    {
+        string uriWithoutQueryString = _navMan.Uri.Split("?")[0];
+        string currPage = uriWithoutQueryString.Substring(Math.Min(_navMan.Uri.Length, _navMan.BaseUri.Length));
+        return string.IsNullOrWhiteSpace(currPage) ? "/" : currPage;
+    }
+
+    public string GetSelectedItemClass(DrawerItem item)
+    {
+        if (SelectedItem == null)
+        {
+            return string.Empty;
+        }
+        return SelectedItem.Text.ToLowerInvariant().Equals(item.Text.ToLowerInvariant()) ? "text-info" : "";
+    }
+
+    // generally, this should go into its own file, but it is here to keep all the drawer-related code in one place
+    public class DrawerItem
+    {
+        public string Text { get; set; }
+        public string Url { get; set; }
+        public string Icon { get; set; }
+        public bool IsSeparator { get; set; }
+    }
+}
