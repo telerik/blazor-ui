@@ -11,3 +11,4 @@ bin/
 *.mdb
 node_modules
 *package-lock.json
+*NuGet.Config
