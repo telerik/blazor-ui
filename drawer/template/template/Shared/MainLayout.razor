@@ -138,6 +138,7 @@
 
     protected override void OnInitialized()
     {
+        // pre-select the initial page the user requests
         string currPage = _navMan.Uri;
         DrawerItem ActivePage = NavigablePages.Where(p => p.Url.ToLowerInvariant() == GetCurrentPage().ToLowerInvariant()).FirstOrDefault();
         if (ActivePage != null)
@@ -148,12 +149,14 @@
         base.OnInitialized();
     }
 
+    // sample custom navigation
     public void NavigateToPage(DrawerItem item)
     {
         SelectedItem = item;
         _navMan.NavigateTo(SelectedItem.Url);
     }
 
+    // helper method to get the current page
     public string GetCurrentPage()
     {
         string uriWithoutQueryString = _navMan.Uri.Split("?")[0];
@@ -161,6 +164,7 @@
         return string.IsNullOrWhiteSpace(currPage) ? "/" : currPage;
     }
 
+    // helper method to highlight the currently selected item
     public string GetSelectedItemClass(DrawerItem item)
     {
         if (SelectedItem == null)
