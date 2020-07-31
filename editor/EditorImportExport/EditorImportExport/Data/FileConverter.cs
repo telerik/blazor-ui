@@ -21,8 +21,6 @@ namespace EditorImportExport.Data
     {
         private IWebHostEnvironment Environment { get; set; }
         private IJSRuntime _js { get; set; }
-        public FileDetails fileDetails { get; set; }
-        private string mimeType { get; set; }
 
         public string GetHtmlString()
         {
