@@ -30,3 +30,5 @@ The PDF export is done in the in the `FileConverter.cs` file - the `ExportHtmlFi
 First, it creates the PDF file, and then with the use of a helper class (`FileDownloader.cs`) and a JavaScript function (in `fileDownloader.js`), it downloads that content in the browser.
 
 You can extend this further to export to more formats (make sure to use the proper MIME type if you download them), and/or save those files on the server.
+
+The export is triggered by a [custom tool](https://docs.telerik.com/blazor-ui/components/editor/custom-tool) that is placed at the beginning of the editor toolbar, you can invoke it in any way you prefer from the view.
