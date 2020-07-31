@@ -1,0 +1,37 @@
+﻿@page "/"
+
+@using Data
+@using Telerik.Blazor.Components.Editor
+@inject FileConverter fileConverter
+
+<TelerikEditor @bind-Value="@EditorContent" Tools="@Tools" EditMode="@EditorEditMode.Div" Height="700px">
+    <EditorCustomTools>
+        <EditorCustomTool Name="ExportToPdfTool">
+            <TelerikButton OnClick="@ExportToPdf" Icon="@IconName.FilePdf"></TelerikButton>
+        </EditorCustomTool>
+    </EditorCustomTools>
+</TelerikEditor>
+
+
+@code{
+    string EditorContent { get; set; }
+    List<IEditorTool> Tools { get; set; }
+
+    protected override void OnInitialized()
+    {
+        // add custom tool for export
+        Tools = new List<IEditorTool>(EditorToolSets.Default);
+        Tools.Insert(0, new CustomTool("ExportToPdfTool"));
+
+        // fetch the HTML content from import service
+        EditorContent = fileConverter.GetHtmlString();
+
+        base.OnInitialized();
+    }
+
+    async Task ExportToPdf()
+    {
+        // call the export service
+        await fileConverter.ExportHtmlFileToPdf(EditorContent);
+    }
+}

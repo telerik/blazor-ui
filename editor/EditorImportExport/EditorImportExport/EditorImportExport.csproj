@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="2.16.0" />
+
+      <PackageReference Include="Telerik.Documents.Core" Version="2020.2.615" />
+      <PackageReference Include="Telerik.Documents.Fixed" Version="2020.2.615" />
+      <PackageReference Include="Telerik.Documents.Flow" Version="2020.2.615" />
+      <PackageReference Include="Telerik.Documents.Flow.FormatProviders.Pdf" Version="2020.2.615" />
+      <PackageReference Include="Telerik.Documents.Spreadsheet" Version="2020.2.615" />
+      <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.OpenXml" Version="2020.2.615" />
+      <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.Pdf" Version="2020.2.615" />
+      <PackageReference Include="Telerik.Documents.SpreadsheetStreaming" Version="2020.2.615" />
+      <PackageReference Include="Telerik.Zip" Version="2020.2.615" />
+  </ItemGroup>
+
+</Project>
