@@ -26,7 +26,7 @@ namespace EditorImportExport.Data
         {
             try
             {
-                RadFlowDocument document = ReadFile(null);
+                RadFlowDocument document = ReadFile("JohnGrisham.docx");
                 HtmlFormatProvider provider = new HtmlFormatProvider();
                 provider.ExportSettings.DocumentExportLevel = DocumentExportLevel.Fragment;
                 string html = provider.Export(document);
@@ -56,15 +56,12 @@ namespace EditorImportExport.Data
             catch { }
         }
 
-        RadFlowDocument ReadFile(string path)
+        RadFlowDocument ReadFile(string fileName)
         {
             IFormatProvider<RadFlowDocument> fileFormatProvider = null;
             RadFlowDocument document = null;
 
-            if (string.IsNullOrEmpty(path))
-            {
-                path = Path.Combine(Environment.WebRootPath, "JohnGrisham.docx");
-            }
+            string path = Path.Combine(Environment.WebRootPath, fileName);
 
             switch (Path.GetExtension(path))
             {
