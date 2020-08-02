@@ -7,7 +7,10 @@
 <TelerikEditor @bind-Value="@EditorContent" Tools="@Tools" EditMode="@EditorEditMode.Div" Height="700px">
     <EditorCustomTools>
         <EditorCustomTool Name="ExportToPdfTool">
-            <TelerikButton OnClick="@ExportToPdf" Icon="@IconName.FilePdf"></TelerikButton>
+            <div style="margin-right: 50px">
+                <TelerikButton OnClick="@ExportToPdf" Icon="@IconName.Download"></TelerikButton>
+                <TelerikDropDownList Data="@SupportedExportFormats" @bind-Value="@exportFormat" PopupHeight="auto" Width="auto"></TelerikDropDownList>
+            </div>
         </EditorCustomTool>
     </EditorCustomTools>
 </TelerikEditor>
@@ -17,9 +20,13 @@
     string EditorContent { get; set; }
     List<IEditorTool> Tools { get; set; }
 
+    // list of available export formats, hardcoded, but you could tie it to a method from the service
+    string exportFormat { get; set; } = "pdf";
+    List<string> SupportedExportFormats { get; set; } = new List<string> { "pdf", "docx", "txt", "html", "rtf" };
+
     protected override void OnInitialized()
     {
-        // add custom tool for export
+        // add the custom tool for export
         Tools = new List<IEditorTool>(EditorToolSets.Default);
         Tools.Insert(0, new CustomTool("ExportToPdfTool"));
 
@@ -31,7 +38,7 @@
 
     async Task ExportToPdf()
     {
-        // call the export service
-        await fileConverter.ExportHtmlFileToPdf(EditorContent);
+        // call the export service, it will discern the details based on the extension of the exported file we want
+        await fileConverter.ExportAndDownloadHtmlContent(EditorContent, $"EditoContent.{exportFormat}");
     }
 }
