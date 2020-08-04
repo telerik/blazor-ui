@@ -36,6 +36,7 @@ namespace EditorImportExport.Data
 
                 // convert the file to HTML
                 HtmlFormatProvider provider = new HtmlFormatProvider();
+                provider.ExportSettings.StylesExportMode = StylesExportMode.Inline;
                 provider.ExportSettings.DocumentExportLevel = DocumentExportLevel.Fragment;
                 string html = provider.Export(document);
 
@@ -129,7 +130,7 @@ namespace EditorImportExport.Data
 
             if (fileFormatProvider == null)
             {
-                throw new NotSupportedException("The chosen file cannot be read with the listed providers.");
+                throw new NotSupportedException("The chosen file cannot be read with the supported providers.");
             }
 
             return fileFormatProvider;
@@ -176,7 +177,7 @@ namespace EditorImportExport.Data
 
             if (fileFormatProvider == null)
             {
-                throw new NotSupportedException("The chosen format cannot be exported with the listed providers.");
+                throw new NotSupportedException("The chosen format cannot be exported with the supported providers.");
             }
 
             return fileFormatProvider;
