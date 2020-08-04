@@ -15,6 +15,18 @@
     </EditorCustomTools>
 </TelerikEditor>
 
+@* This notification is just to show the user there was a problem in case an exception is thrown,
+    it is not related to the import/epoxrt and it is not required *@
+<div class="notification-container">
+    <TelerikAnimationContainer @ref="@FailureNotification" Width="300px" Height="200px" Top="20px" AnimationType=@AnimationType.SlideDown>
+        <div class="k-widget k-popup k-notification k-notification-info">
+            <h3><TelerikIcon Icon="@IconName.Cancel" /> Problem</h3>
+            <p>
+                The operation failed, there is probably something in the content that prevents the conversion. Try simplifying the content and removing images/lists.
+            </p>
+        </div>
+    </TelerikAnimationContainer>
+</div>
 
 @code{
     string EditorContent { get; set; }
@@ -24,7 +36,11 @@
     string exportFormat { get; set; } = "pdf";
     List<string> SupportedExportFormats { get; set; } = new List<string> { "pdf", "docx", "txt", "html", "rtf" };
 
-    protected override void OnInitialized()
+    // this is for the error notification only
+    public TelerikAnimationContainer FailureNotification { get; set; }
+
+    // import and custom tool registration
+    protected override async Task OnInitializedAsync()
     {
         // add the custom tool for export
         Tools = new List<IEditorTool>(EditorToolSets.Default);
@@ -32,13 +48,47 @@
 
         // fetch the HTML content from import service
         EditorContent = fileConverter.GetHtmlString();
-
-        base.OnInitialized();
     }
 
+    // export
     async Task ExportToPdf()
     {
         // call the export service, it will discern the details based on the extension of the exported file we want
-        await fileConverter.ExportAndDownloadHtmlContent(EditorContent, $"EditoContent.{exportFormat}");
+        bool isSuccess = await fileConverter.ExportAndDownloadHtmlContent(EditorContent, $"EditoContent.{exportFormat}");
+        // in case here was an issue
+        if(isSuccess == false)
+        {
+            await ShowErrorNotification();
+        }
+    }
+
+
+    // these are for the issue notification only
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && EditorContent == null) // denotes an exception in this sample service
+        {
+            await ShowErrorNotification();
+        }
+    }
+
+    async Task ShowErrorNotification()
+    {
+        await FailureNotification.ShowAsync();
+
+        await Task.Delay(10000);
+
+        await FailureNotification.HideAsync();
     }
 }
+
+<style type="text/css">
+    /* The specially positioned parent of the notification controls its position */
+    .notification-container {
+        position: fixed;
+        top: 50%;
+        margin-top: -100px;
+        left: 50%;
+        margin-left: -150px;
+    }
+</style>

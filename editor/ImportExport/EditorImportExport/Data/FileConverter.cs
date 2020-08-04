@@ -25,7 +25,7 @@ namespace EditorImportExport.Data
         /// <summary>
         /// Import a file from disk and convert it to an HTML string for use in the Editor
         /// </summary>
-        /// <returns>An HTML string that is just the contents of the body tag so the editor can work with them</returns>
+        /// <returns>An HTML string that is just the contents of the body tag so the editor can work with them. Returns null to denote an error.</returns>
         public string GetHtmlString()
         {
             try
@@ -49,7 +49,7 @@ namespace EditorImportExport.Data
             }
             catch(Exception ex)
             {
-                return string.Empty;
+                return null;
             }
         }
 
@@ -58,7 +58,8 @@ namespace EditorImportExport.Data
         /// </summary>
         /// <param name="htmlContent">The HTML content to export</param>
         /// <param name="fileName">The FileName of the downloaded file, its extension is used to fetch the exprot provider</param>
-        public async Task ExportAndDownloadHtmlContent(string htmlContent, string fileName)
+        /// <returns>Returns true if the operation succeeded, false if there was an exception</returns>
+        public async Task<bool> ExportAndDownloadHtmlContent(string htmlContent, string fileName)
         {
             try
             {
@@ -79,7 +80,11 @@ namespace EditorImportExport.Data
                 // download the file in the browser
                 await FileDownloader.Save(_js, exportFileBytes, mimeType, fileName);
             }
-            catch { }
+            catch (Exception ex) 
+            {
+                return false;
+            }
+            return true;
         }
 
         /// <summary>
