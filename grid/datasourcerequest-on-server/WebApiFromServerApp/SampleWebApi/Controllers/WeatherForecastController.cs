@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Telerik.DataSource;
@@ -47,14 +49,30 @@ namespace SampleWebApi.Controllers
             // the Telerik extension methods can also work on "regular" collections like List<T> and IQueriable<T>
             DataSourceResult processedData = await queriableData.ToDataSourceResultAsync(gridRequest);
 
-            // We now need to make this deserializable because the framework cannot deserialize IEnumerable
-            // So we will use an envelope class that will contain the exact type of the data items instead of DataSourceResult directly
-            // This is required as System.Text.Json cannot successfully deserialize interface properties
-            DataEnvelope<WeatherForecast> dataToReturn = new DataEnvelope<WeatherForecast>
+            DataEnvelope<WeatherForecast> dataToReturn;
+
+            if (gridRequest.Groups.Count > 0)
             {
-                CurrentPageData = processedData.Data as List<WeatherForecast>,
-                TotalItemCount = processedData.Total
-            };
+                // If there is grouping, use the field for grouped data
+                // The app must be able to serialize and deserialize it
+                // Example helper methods for this are available in this project
+                // See the GroupDataHelper.DeserializeGroups and JsonExtensions.Deserialize methods
+                dataToReturn = new DataEnvelope<WeatherForecast>
+                {
+                    GroupedData = processedData.Data.Cast<AggregateFunctionsGroup>().ToList(),
+                    TotalItemCount = processedData.Total
+                };
+            }
+            else
+            {
+                // When there is no grouping, the simplistic approach of 
+                // just serializing and deserializing the flat data is enough
+                dataToReturn = new DataEnvelope<WeatherForecast>
+                {
+                    CurrentPageData = processedData.Data.Cast<WeatherForecast>().ToList(),
+                    TotalItemCount = processedData.Total
+                };
+            }
 
             return dataToReturn;
         }
@@ -65,16 +83,34 @@ namespace SampleWebApi.Controllers
         {
             GenerateForecasts();
 
+            //DataSourceRequest gridRequest = JsonSerializer.Deserialize<DataSourceRequest>(dsRequest);
+
             DataSourceResult result = await _forecasts.ToDataSourceResultAsync(request);
 
-            // We now need to make this deserializable because the framework cannot deserialize IEnumerable
-            // So we will use an envelope class that will contain the exact type of the data items instead of DataSourceResult directly
-            // This is required as System.Text.Json cannot successfully deserialize interface properties
-            DataEnvelope<WeatherForecast> dataToReturn = new DataEnvelope<WeatherForecast>
+            DataEnvelope<WeatherForecast> dataToReturn;
+
+            if (request.Groups.Count > 0)
             {
-                CurrentPageData = result.Data as List<WeatherForecast>,
-                TotalItemCount = result.Total
-            };
+                // If there is grouping, use the field for grouped data
+                // The app must be able to serialize and deserialize it
+                // Example helper methods for this are available in this project
+                // See the GroupDataHelper.DeserializeGroups and JsonExtensions.Deserialize methods
+                dataToReturn = new DataEnvelope<WeatherForecast>
+                {
+                    GroupedData = result.Data.Cast<AggregateFunctionsGroup>().ToList(),
+                    TotalItemCount = result.Total
+                };
+            }
+            else
+            {
+                // When there is no grouping, the simplistic approach of 
+                // just serializing and deserializing the flat data is enough
+                dataToReturn = new DataEnvelope<WeatherForecast>
+                {
+                    CurrentPageData = result.Data.Cast<WeatherForecast>().ToList(),
+                    TotalItemCount = result.Total
+                };
+            }
 
             return Ok(dataToReturn);
         }

@@ -2,7 +2,7 @@
 
 These sample projects showcase how you can send (serialize) the Telerik component state (such as the grid's `DataSourceRequet` object from the `OnRead` event) to the server, so you can retrieve and shape the data easily.
 
-> The serialization for an HTTP request (needed for a WASM) project is available as of the `2.11.0` release. The native Blazor `System.Text.Json` serializer is supported.
+> The serialization for an HTTP request (needed for a WebAssembly project) is available as of the `2.11.0` release. The native Blazor `System.Text.Json` serializer is supported.
 
 Review the individual projects, the comments in the code and their own readme files for details on each approach:
 
@@ -12,3 +12,5 @@ Review the individual projects, the comments in the code and their own readme fi
 * a sample of a custom serializer (Newtonsoft.Json) that you can use as base for using similar scenarios
  
 > The application must make sure that serialization and deserialization of the information work properly on both the Blazor app and the server endpoint (all the data is present, correct, strongly typed, and there are no errors), as this is not something the Telerik components can influence.
+
+These samples include grouping, which alters the Data collection of the grid. Comments in the code showcase where the difference is so if you don't use grouping you may be able to go with slightly simpler controller code and grid binding.

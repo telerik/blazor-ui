@@ -12,6 +12,7 @@ There are a few specifics to this scenario:
     * It is possible to let the framework deserialize it so you can receive the `DataSourceRequest` parameter directly. Note that third party serializers may alter this behavior and they are not supported.
 
 * There is a data envelope class used in the project where we serialize the total count and the current page of data. This is necessary, because the framework cannot deserialize the `IEnumerable` object the Telerik `DataSourceResult` has - a typed collection is needed - `System.Text.Json` cannot successfully deserialize interface properties. Perhaps a future version of the framework will be able to perform this deserialization and will simplify the data return to only the `DataSourceResult` object.
+    * A second field is used when there is grouping - the grouped data has a very specific shape that the grid usually abstracts away from you, but now you must handle yourself (serialization, deserialization, parsing, generation). This sample project provides examples of generating it through the `.ToDataSourceResult` Telerik extension method; and serialization and parsing through some helper methods.
 
 * Due to the behaviors described above, it is important to specify the deserialization options in the blazor app service to ignore casing - the API returns, by default, the field names in camelCase, as opposed to the PascalCase expected in C#. This can break the deserialization of the list of the data.
 
