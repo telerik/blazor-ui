@@ -48,7 +48,7 @@ namespace BlazorFinancePortfolio.Client.Components.StocksChart
         {
             SelectedInterval = IntervalFilter.GetIntervalFilters()[3];
             SelectedFilterInterval = IntervalFilter.GetIntervalFilters()[3].Duration;
-            ActiveTimeFilterDuration = TimeFilter.GetFilters()[3].Duration;
+            ActiveTimeFilterDuration = TimeFilter.GetFilters()[4].Duration;
 
             Start = End.AddDays(-4);
             FilterIntervals(ActiveTimeFilterDuration.Value);

@@ -36,7 +36,7 @@
                     ChartTypeList dataItem = context as ChartTypeList;
                     <span class="chart-category selected d-flex align-items-center">
                         <img src="@( $" images/{@dataItem.Text.ToLowerInvariant()}.png" )" />
-                        @dataItem.Text
+                        @dataItem.Text.Substring(0, Math.Min(dataItem.Text.Length, 6))
                     </span>
                 }
             </ValueTemplate>
@@ -45,7 +45,7 @@
                     ChartTypeList dataItem = context as ChartTypeList;
                     <span class="chart-category d-flex align-items-center">
                         <img src="@( $" images/{@dataItem.Text.ToLowerInvariant()}.png" )" />
-                        @dataItem.Text
+                        @dataItem.Text.Substring(0, Math.Min(dataItem.Text.Length, 6))
                     </span>
                 }
             </ItemTemplate>

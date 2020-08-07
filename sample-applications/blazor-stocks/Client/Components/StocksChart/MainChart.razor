@@ -54,12 +54,8 @@
         </StockChartSeriesItems>
 
         <StockChartCategoryAxes>
-            <StockChartCategoryAxis Type="@ChartCategoryAxisType.Date"
-                                    BaseUnit="@IntervalFilter.Interval.Unit"
-                                    BaseUnitStep="@IntervalFilter.Interval.Step"
-                                    MaxDateGroups="20">
+            <StockChartCategoryAxis Type="@ChartCategoryAxisType.Date">
                 <StockChartCategoryAxisCrosshair Visible="true">
-                    <StockChartCategoryAxisCrosshairTooltip Visible="true" />
                 </StockChartCategoryAxisCrosshair>
                 <StockChartCategoryAxisLabels>
                     <StockChartCategoryAxisLabels Step="@LabelStep"></StockChartCategoryAxisLabels>
@@ -72,7 +68,6 @@
         <StockChartValueAxes>
             <StockChartValueAxis>
                 <StockChartValueAxisCrosshair Visible="true">
-                    <StockChartValueAxisCrosshairTooltip Visible="true" />
                 </StockChartValueAxisCrosshair>
                 @*<StockChartValueAxisLabels Format="@( SelectedCurrency.Sign + "{0}" )"  />*@
                 <StockChartValueAxisMinorGridLines Visible="false" />
