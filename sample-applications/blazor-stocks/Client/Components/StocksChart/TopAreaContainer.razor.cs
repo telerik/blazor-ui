@@ -24,7 +24,7 @@ namespace BlazorFinancePortfolio.Client.Components.StocksChart
         DateTime Start { get; set; }
         DateTime End { get; set; } = DateTime.Now;
         public IntervalFilter SelectedInterval { get; set; }
-        ChartSeriesType MainChartType { get; set; }
+        ChartSeriesType MainChartType { get; set; } = ChartSeriesType.Candlestick;
         long? ActiveTimeFilterDuration { get; set; }
         long SelectedFilterInterval { get; set; }
 
