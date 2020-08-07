@@ -170,7 +170,7 @@ else
 
     async void ResizeChart(object _, BrowserWindowSize window)
     {
-        if (ChartRef != null && LastViewPortWidth != window.Width)
+        if (LastViewPortWidth != window.Width)
         {
             LastViewPortWidth = window.Width;
             await AdjustLabelStep(window.Width);
