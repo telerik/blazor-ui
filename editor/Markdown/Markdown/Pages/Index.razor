@@ -1,0 +1,43 @@
+﻿@page "/"
+
+@using Telerik.Blazor.Components.Editor
+
+<TelerikEditor @bind-Value="@TheEditorValue" Tools="@Tools" Width="650px" Height="400px">
+    <EditorCustomTools>
+        <EditorCustomTool Name="ViewMd">
+            <ViewMdTool @bind-EditorHtml="@TheEditorValue" />
+        </EditorCustomTool>
+    </EditorCustomTools>
+</TelerikEditor>
+
+@code{
+    string TheEditorValue { get; set; }
+    List<IEditorTool> Tools { get; set; }
+
+    protected override Task OnInitializedAsync()
+    {
+        Tools = new List<IEditorTool>(EditorToolSets.Default);
+        Tools.Insert(0, new CustomTool("ViewMd"));
+        Tools.Add(new ViewHtml());
+
+        TheEditorValue = @"
+            <p>
+                The Blazor Editor allows your users to edit HTML in a familiar, user-friendly way. Your users do not have to understand HTML in order to create it.
+            </p>
+            <p>
+                The widget <strong>outputs identical HTML</strong> across all major browsers, follows
+                accessibility standards, and provides API for content manipulation.
+            </p>
+            <p>Features include:</p>
+            <ul>
+                <li>Text formatting</li>
+                <li>Bulleted and numbered lists</li>
+                <li>Hyperlinks</li>
+                <li>Cross-browser support</li>
+                <li>Identical HTML output across browsers</li>
+                <li>Ability to create custom tools, dropdowns, dialogs</li>
+            </ul>
+        ";
+        return base.OnInitializedAsync();
+    }
+}

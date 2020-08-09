@@ -1,0 +1,51 @@
+﻿<TelerikButton Icon="@IconName.PasteMarkdown" OnClick="@ShowMdEditWindow">View MD</TelerikButton>
+
+<TelerikWindow Visible="@wndVisible" Size="@WindowSize.Medium" Modal="true">
+    <WindowTitle>View and Edit the Raw Markdown</WindowTitle>
+    <WindowContent>
+        <textarea @bind="@currMd" class="k-textarea k-editor-textarea" style="min-height: 280px; min-width: 490px;" placeholder="You can write markdown here..."></textarea>
+        <div class="k-actions k-actions-end" style="text-align: right">
+            <div class="k-actions k-actions-end" style="text-align: right">
+                <TelerikButton Class="k-dialog-cancel" OnClick="@( _ => wndVisible = false )">Cancel</TelerikButton>
+                <TelerikButton Class="k-dialog-insert" Primary="true" OnClick="@UpdateContent">Update</TelerikButton>
+            </div>
+        </div>
+    </WindowContent>
+</TelerikWindow>
+
+@code {
+    [Parameter]
+    public string EditorHtml { get; set; }
+
+    [Parameter]
+    public EventCallback<string> EditorHtmlChanged { get; set; }
+
+    bool wndVisible { get; set; }
+    string currMd { get; set; }
+
+    void UpdateContent()
+    {
+        wndVisible = false;
+        EditorHtmlChanged.InvokeAsync(GetHtmlFromMd());
+    }
+
+    string GetHtmlFromMd()
+    {
+        // https://github.com/StackExchange/MarkdownSharp/
+        var mdToHtml = new MarkdownSharp.Markdown();
+        return mdToHtml.Transform(currMd);
+    }
+
+    string GetMdFromHtml()
+    {
+        // https://github.com/mysticmind/reversemarkdown-net
+        var converter = new ReverseMarkdown.Converter();
+        return converter.Convert(EditorHtml);
+    }
+
+    void ShowMdEditWindow()
+    {
+        currMd = GetMdFromHtml();
+        wndVisible = true;
+    }
+}
