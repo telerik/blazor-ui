@@ -49,6 +49,9 @@
                               Aggregate="@ChartSeriesAggregate.Sum"
                               Gap="0.75"
                               Axis="Volume">
+                <StockChartSeriesTooltip>
+                   <Template>@( SelectedCurrency.Sign + (context.DataItem as StockIntervalDetails).Volume.ToString("N3") )</Template>
+                </StockChartSeriesTooltip>
             </StockChartSeries>
         </StockChartSeriesItems>
 
@@ -101,6 +104,9 @@ else
                              Aggregate="@ChartSeriesAggregate.Sum"
                              Gap="0.75"
                              Axis="Volume">
+                    <ChartSeriesTooltip>
+                        <Template>@( SelectedCurrency.Sign + (context.DataItem as StockIntervalDetails).Volume.ToString("N3") )</Template>
+                    </ChartSeriesTooltip>
                 </ChartSeries>
             }
         </ChartSeriesItems>
