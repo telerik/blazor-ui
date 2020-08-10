@@ -8,8 +8,7 @@
 
 @if (MainChartType == ChartSeriesType.Candlestick)
 {
-    <TelerikStockChart Transitions="true" RenderAs="@RenderingMode.SVG" @ref="@StockChartRef"
-                       DateField="@nameof(StockIntervalDetails.Date)">
+    <TelerikStockChart @ref="@StockChartRef" DateField="@nameof(StockIntervalDetails.Date)">
 
         <StockChartNavigator>
             <StockChartNavigatorSeriesItems>
@@ -84,7 +83,7 @@
 }
 else
 {
-    <TelerikChart Transitions="true" RenderAs="@RenderingMode.SVG" @ref="@ChartRef">
+    <TelerikChart @ref="@ChartRef">
         <ChartSeriesItems>
             <ChartSeries Type="@MainChartType" Data="@ChartData"
                          Field="@( nameof(StockIntervalDetails.Close) )"
