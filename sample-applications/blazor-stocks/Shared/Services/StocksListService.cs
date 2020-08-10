@@ -68,6 +68,7 @@ namespace BlazorFinancePortfolio.Services
                 var newPrice = prevInterval.Close + change;
                 var high = Math.Max(prevInterval.Close, newPrice * randomHighPercentage);
                 var low = newPrice * randomLowPercentage;
+                low = Math.Min(newPrice, low);
                 var stockToAdd = new StockIntervalDetails
                 {
                     Close = newPrice,
