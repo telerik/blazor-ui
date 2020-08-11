@@ -15,6 +15,7 @@ namespace BlazorFinancePortfolio.Models
         {
             return new List<ChartTypeList>()
                 {
+                    new ChartTypeList { Value = ChartSeriesType.Candlestick },
                     new ChartTypeList { Value = ChartSeriesType.Area },
                     new ChartTypeList { Value = ChartSeriesType.Line }
                 };

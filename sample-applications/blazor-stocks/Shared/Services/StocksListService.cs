@@ -61,13 +61,17 @@ namespace BlazorFinancePortfolio.Services
                 var randomVolatility = random.Next(-30, 30) * 0.001m;
 
                 var randomVolume = random.Next(100, 10000);
-                var randomHighPercentage = random.Next(100, 130) * 0.01m;
-                var randomLowPercentage = random.Next(70, 100) * 0.01m;
+                var randomHighPercentage = random.Next(101, 105) * 0.01m;
+                var randomLowPercentage = random.Next(95, 99) * 0.01m;
 
                 var change = prevInterval.Close * randomVolatility;
                 var newPrice = prevInterval.Close + change;
                 var high = newPrice * randomHighPercentage;
                 var low = newPrice * randomLowPercentage;
+
+                low = Lowest(low, newPrice, prevInterval.Close, high);
+                high = Highest(low, newPrice, prevInterval.Close, high);
+
                 var stockToAdd = new StockIntervalDetails
                 {
                     Close = newPrice,
@@ -86,6 +90,16 @@ namespace BlazorFinancePortfolio.Services
             }
 
             return stocks;
+        }
+
+        private decimal Lowest(params decimal[] inputs)
+        {
+            return inputs.Min();
+        }
+
+        private decimal Highest(params decimal[] inputs)
+        {
+            return inputs.Max();
         }
 
         public async Task<Stock> RemoveStock(Stock stockToRemove)
