@@ -1,3 +1,17 @@
+obj/
+bin/
+**/.vs
+*.dll
+*.tmp
+*.gpState
+*.pdb
+*.suo
+*.swp
+*.user
+*.mdb
+node_modules
+*package-lock.json
+*NuGet.Config
 
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,visualstudio,rider
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,visualstudio,rider
