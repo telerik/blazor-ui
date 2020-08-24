@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p="BlazorDashboard" t="IncludeRecursive">
+        <e p="_Imports.razor" t="Include" />
+        <e p="App.razor" t="Include" />
+        <e p="appsettings.Development.json" t="Include" />
+        <e p="appsettings.json" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="BlazorDashboard.csproj" t="IncludeRecursive" />
+        <e p="DataRetrieval" t="Include">
+          <e p="IssuesFilter.cs" t="Include" />
+          <e p="IssuesGenerator.cs" t="Include" />
+          <e p="LabelColors.cs" t="Include" />
+        </e>
+        <e p="gulpfile.js" t="Include" />
+        <e p="Models" t="Include">
+          <e p="DateFilterModel.cs" t="Include" />
+          <e p="Issue.cs" t="Include" />
+          <e p="IssuesByTypeChartModel.cs" t="Include" />
+          <e p="IssueSeverity.cs" t="Include" />
+          <e p="IssueType.cs" t="Include" />
+          <e p="UserProfile.cs" t="Include" />
+        </e>
+        <e p="node_modules/@progress/kendo-theme-bootstrap" t="IncludeRecursive" />
+        <e p="node_modules/bootstrap" t="IncludeRecursive" />
+        <e p="node_modules/gulp" t="IncludeRecursive" />
+        <e p="node_modules/gulp-clean-css" t="IncludeRecursive" />
+        <e p="node_modules/gulp-sass" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="BlazorDashboard.AssemblyInfo.cs" t="Include" />
+              <e p="BlazorDashboard.RazorAssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="package-lock.json" t="Include" />
+        <e p="package.json" t="Include" />
+        <e p="Pages" t="Include">
+          <e p="_Host.cshtml" t="Include" />
+          <e p="Dashboard.razor" t="Include" />
+          <e p="Issues.razor" t="Include" />
+          <e p="Profile.razor" t="Include" />
+          <e p="SignIn.razor" t="Include" />
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="launchSettings.json" t="Include" />
+        </e>
+        <e p="sass" t="Include">
+          <e p="_layout.scss" t="Include" />
+          <e p="styles.scss" t="Include" />
+        </e>
+        <e p="Shared" t="Include">
+          <e p="Charts" t="Include">
+            <e p="AllIssuesChart.razor" t="Include" />
+            <e p="CloseRateChart.razor" t="Include" />
+            <e p="IssuesBreakDownCharts.razor" t="Include" />
+            <e p="IssuesByTypeChart.razor" t="Include" />
+            <e p="TypeDistributionOverTimeChart.razor" t="Include" />
+          </e>
+          <e p="IssuesRenderers" t="Include">
+            <e p="IssueDetails.razor" t="Include" />
+            <e p="LabelsList.razor" t="Include" />
+          </e>
+          <e p="MainLayout.razor" t="Include" />
+          <e p="NavMenu.razor" t="Include" />
+        </e>
+        <e p="Startup.cs" t="Include" />
+        <e p="wwwroot" t="Include">
+          <e p="assets" t="Include">
+            <e p="issue-closed.png" t="Include" />
+            <e p="issue-open.png" t="Include" />
+            <e p="issueclosed.png" t="Include" />
+            <e p="issueopen.png" t="Include" />
+            <e p="login-left-bg.png" t="Include" />
+            <e p="login-right-bg.png" t="Include" />
+          </e>
+          <e p="css" t="Include">
+            <e p="bootstrap" t="Include">
+              <e p="bootstrap.min.css" t="Include" />
+              <e p="bootstrap.min.css.map" t="Include" />
+            </e>
+            <e p="open-iconic" t="Include">
+              <e p="font" t="Include">
+                <e p="css" t="Include">
+                  <e p="open-iconic-bootstrap.min.css" t="Include" />
+                </e>
+                <e p="fonts" t="Include">
+                  <e p="open-iconic.eot" t="Include" />
+                  <e p="open-iconic.otf" t="Include" />
+                  <e p="open-iconic.svg" t="Include" />
+                  <e p="open-iconic.ttf" t="Include" />
+                  <e p="open-iconic.woff" t="Include" />
+                </e>
+              </e>
+              <e p="FONT-LICENSE" t="Include" />
+              <e p="ICON-LICENSE" t="Include" />
+              <e p="README.md" t="Include" />
+            </e>
+            <e p="site.css" t="Include" />
+            <e p="styles.css" t="Include" />
+          </e>
+          <e p="favicon.ico" t="Include" />
+        </e>
+      </e>
+      <e p="BlazorDashboard.sln" t="IncludeFlat" />
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+    <e p="$USER_HOME$/Library/Caches/JetBrains/Rider2020.2/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/JetBrains/Rider2020.2/resharper-host/local/Transient/Rider/v202/SolutionCaches/_BlazorDashboard.-90775618.00" t="ExcludeRecursive" />
+  </component>
+</project>
