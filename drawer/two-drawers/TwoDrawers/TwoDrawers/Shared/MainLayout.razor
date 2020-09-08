@@ -1,0 +1,66 @@
+﻿@inherits LayoutComponentBase
+
+<style>
+    .nested-drawer .k-widget.k-drawer {
+        /* By default, the drawer items have a high z-index and without reducing it they may show up above the overlay the other drawer*/
+        z-index: 1;
+    }
+</style>
+
+<TelerikRootComponent>
+
+    @* First, the Overlay mode drawer as it positions itself absolutely and so it should be as high in the DOM as possible
+        in order to not be limited by the rules and positions of its parents *@
+    <TelerikDrawer Data="@RightItems" Mode="@DrawerMode.Overlay" Position="@DrawerPosition.Right" @ref="@RightDrawerRef">
+        <Content>
+
+            @* The nested drawer is the Push drawer - the CSS rule above reduces its z-index so it does not show up above the overlay of the other *@
+            <TelerikDrawer Data="@Data"
+                           MiniMode="true"
+                           Mode="DrawerMode.Push"
+                           @ref="@DrawerRef"
+                           @bind-SelectedItem="@SelectedItem"
+                           Class="nested-drawer">
+                <Content>
+
+                    @* Here begins the actual content - for example, we start with buttons to toggle the drawers and the @Body later *@
+                    <TelerikButton OnClick="@(() => DrawerRef.ToggleAsync())" Icon="@IconName.Menu">Toggle LEFT drawer</TelerikButton>
+                    <TelerikButton OnClick="@(() => RightDrawerRef.ToggleAsync())" Icon="@IconName.Menu">Toggle RIGHT drawer</TelerikButton>
+
+                    <div class="m-5">
+                        Selected Item: @SelectedItem?.Text
+                        @Body
+                    </div>
+                </Content>
+            </TelerikDrawer>
+        </Content>
+    </TelerikDrawer>
+
+</TelerikRootComponent>
+
+@code {
+    TelerikDrawer<DrawerItem> DrawerRef { get; set; }
+    TelerikDrawer<DrawerItem> RightDrawerRef { get; set; }
+    DrawerItem SelectedItem { get; set; }
+
+    // the left (Push) drawer goes to the counter and fetch data pages
+    IEnumerable<DrawerItem> Data { get; set; } = new List<DrawerItem>
+        {
+                new DrawerItem { Text = "Counter", Icon = IconName.Plus, Url = "counter"},
+                new DrawerItem { Text = "FetchData", Icon = IconName.GridLayout, Url = "fetchdata"},
+            };
+
+    //the right (overlay) drawer always goes to the home page for brevity and simplicity
+    IEnumerable<DrawerItem> RightItems { get; set; } = new List<DrawerItem>
+        {
+                new DrawerItem { Text = "First", Icon = IconName.MinusOutline, Url= "/"},
+                new DrawerItem { Text = "Second", Icon = IconName.MinusCircle, Url = "/"},
+            };
+
+    public class DrawerItem
+    {
+        public string Text { get; set; }
+        public string Icon { get; set; }
+        public string Url { get; set; }
+    }
+}
