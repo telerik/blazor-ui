@@ -1,6 +1,8 @@
-# Grid PDF Export in the Browser with JS
+# PDF and JPG Export in the Browser with JS
 
-This sample project shows how you can us the Kendo Drawing API to export DOM elements to an image or a PDF ([Demo](https://demos.telerik.com/kendo-ui/pdf-export/index)). In this example, we use it to export the currently rendered grid.
+This sample project shows how you can us the Kendo Drawing API to export DOM elements to an image or a PDF ([Demo](https://demos.telerik.com/kendo-ui/pdf-export/index)).
+
+In this example, we use it to export the currently rendered grid to a PDF or a JPG file.
 
 Key points of interest:
 
