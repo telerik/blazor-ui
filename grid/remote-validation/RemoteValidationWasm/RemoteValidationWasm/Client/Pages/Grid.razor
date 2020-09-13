@@ -1,0 +1,158 @@
+﻿@page "/grid"
+
+@using RemoteValidationWasm.Shared
+@using RemoteValidationWasm.Services
+@inject WeatherForecastService ForecastService
+
+<div class="container-fluid">
+    <div class='row my-4'>
+        <div class='col-12 col-lg-9 border-right'>
+            <TelerikGrid Data="@forecasts" Height="550px" FilterMode="@GridFilterMode.FilterMenu"
+                         Sortable="true" Pageable="true" PageSize="20" Groupable="true" Resizable="true" Reorderable="true"
+                         OnUpdate="@UpdateHandler" OnDelete="@DeleteHandler" OnCreate="@CreateHandler" EditMode="@GridEditMode.Inline">
+                <GridColumns>
+                    <GridColumn Field="Id" Title="Id" Width="100px" Editable="false" Groupable="false" />
+                    <GridColumn Field="Date" Width="220px">
+                        <Template>
+                            @((context as WeatherForecast).Date.ToString("dddd, dd MMM yyyy"))
+                        </Template>
+                    </GridColumn>
+                    <GridColumn Field="TemperatureC" Title="Temp. C">
+                        <Template>
+                            @((context as WeatherForecast).TemperatureC.ToString("N1"))
+                        </Template>
+                    </GridColumn>
+                    <GridColumn Field="TemperatureF" Title="Temp. F">
+                        <Template>
+                            @((context as WeatherForecast).TemperatureF.ToString("N1"))
+                        </Template>
+                    </GridColumn>
+                    <GridColumn Field="Summary" />
+                    <GridCommandColumn Width="200px" Resizable="false">
+                        <GridCommandButton Command="Save" Icon="@IconName.Save" ShowInEdit="true">Update</GridCommandButton>
+                        <GridCommandButton Command="Edit" Icon="@IconName.Edit" Primary="true">Edit</GridCommandButton>
+                        <GridCommandButton Command="Delete" Icon="@IconName.Delete">Delete</GridCommandButton>
+                        <GridCommandButton Command="Cancel" Icon="@IconName.Cancel" ShowInEdit="true">Cancel</GridCommandButton>
+                    </GridCommandColumn>
+                </GridColumns>
+                <GridToolBar>
+                    <GridCommandButton Command="Add" Icon="@IconName.Plus" Primary="true">Add Forecast</GridCommandButton>
+                    <GridCommandButton Command="ExcelExport" Icon="@IconName.FileExcel">Export to Excel</GridCommandButton>
+                </GridToolBar>
+                <GridExport>
+                    <GridExcelExport FileName="weather-forecasts" AllPages="true" />
+                </GridExport>
+            </TelerikGrid>
+        </div>
+        <div class='col-12 col-lg-3 mt-3 mt-lg-0'>
+            <h3>Telerik UI for Blazor Grid</h3>
+            <p>
+                The Telerik UI for Blazor Data Grid includes a comprehensive set of ready-to-use
+                <a target="_blank" href="https://docs.telerik.com/blazor-ui/components/grid/overview">features</a> covering
+                everything from paging, sorting, filtering, editing, and grouping to row virtualization and
+                accessibility/keyboard support.
+            </p>
+
+            <p>
+                This example demonstrates CRUD operations with data from a service. In a real application, you would
+                probably replace the service with something suitable (for example, EF for a server-side app or HTTP endpoints
+                for a WASM app). Depending on how you store the grid data, you may also need to update the view model data -
+                read more about this in the code comments.
+            </p>
+        </div>
+    </div>
+</div>
+
+<TelerikWindow Modal="true" @bind-Visible="@errorExists">
+    <WindowTitle>There was an error</WindowTitle>
+    <WindowActions>
+        <WindowAction Name="Close" />
+    </WindowActions>
+    <WindowContent>
+        <div class="alert alert-warning">@errorMessage</div>
+    </WindowContent>
+</TelerikWindow>
+
+@code {
+    List<WeatherForecast> forecasts { get; set; }
+    bool errorExists { get; set; }
+    string errorMessage { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetForecasts();
+    }
+
+    async Task GetForecasts()
+    {
+        forecasts = await ForecastService.GetForecastListAsync(DateTime.Now);
+    }
+
+    // sample error handling for the CUD operations - in this sample through simplistic error messsages coming from the server
+
+    public async Task DeleteHandler(GridCommandEventArgs args)
+    {
+        WeatherForecast currItem = args.Item as WeatherForecast;
+
+        try
+        {
+            await ForecastService.DeleteForecastAsync(currItem);
+            // update the view data
+            forecasts.Remove(currItem);
+        }
+        catch (Exception ex)
+        {
+            // show information to the user
+            errorMessage = ex.Message;
+            errorExists = true;
+        }
+    }
+
+    public async Task CreateHandler(GridCommandEventArgs args)
+    {
+        WeatherForecast currItem = args.Item as WeatherForecast;
+
+        try
+        {
+            // get the inserted data from the server in case it alters it further (e.g., provides an ID)
+            WeatherForecast insertedForecast = await ForecastService.InsertForecastAsync(currItem);
+            // update the view data
+            forecasts.Insert(0, insertedForecast);
+        }
+        catch(Exception ex)
+        {
+            // keep the grid in insert mode
+            args.IsCancelled = true;
+            // show information to the user
+            errorMessage = ex.Message;
+            errorExists = true;
+        }
+    }
+
+    public async Task UpdateHandler(GridCommandEventArgs args)
+    {
+        WeatherForecast currItem = args.Item as WeatherForecast;
+
+        try
+        {
+            // get the inserted data from the server in case it alters it further
+            WeatherForecast insertedForecast = await ForecastService.UpdateForecastAsync(currItem);
+            // update the view data
+            var matchingItem = forecasts.FirstOrDefault(c => c.Id == currItem.Id);
+            if (matchingItem != null)
+            {
+                matchingItem.Summary = currItem.Summary;
+                matchingItem.TemperatureC = currItem.TemperatureC;
+                matchingItem.Date = currItem.Date;
+            }
+        }
+        catch (Exception ex)
+        {
+            // keep the grid in edit mode
+            args.IsCancelled = true;
+            // show information to the user
+            errorMessage = ex.Message;
+            errorExists = true;
+        }
+    }
+}

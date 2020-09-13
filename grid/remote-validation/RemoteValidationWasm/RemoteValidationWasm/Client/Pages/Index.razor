@@ -1,0 +1,140 @@
+﻿@page "/"
+
+<style>
+    /*
+        Styles normally go in a .css file.
+        This is just a simple example to get you started.
+    */
+    .myWindow {
+        width: 100%;
+        max-width: 70%;
+    }
+    .notification-container {
+        position: absolute;
+        top: 60px;
+        min-height: 80px;
+        right: 16px;
+        width: 450px;
+    }
+</style>
+@if (!IsWindowVisible)
+{
+    <div class="alert alert-warning">
+        <p>
+            You closed the TelerikWindow component. There's so many good links in that window, 
+            if you would like to see it again click here 
+            <TelerikButton Class="k-primary" OnClick="@( _ => IsWindowVisible = true )">Show Window</TelerikButton>
+        </p>
+    </div>
+}
+<TelerikWindow @bind-Visible="@IsWindowVisible" Class="myWindow">
+    <WindowTitle>
+        <h1>About this template</h1>
+    </WindowTitle>
+    <WindowContent>
+        <div class="row">
+            <div class="col">
+                <h2>Welcome</h2>
+                <p>Welcome to your new Telerik UI for Blazor application.</p>
+                <p>Blazor gives you the ability to write rich web apps with C# rather than JavaScript. Telerik UI for Blazor components have been built from the ground-up to ensure you experience shorter development cycles, quick iterations and cut time to market.</p>
+            </div>
+            <div class="col">
+                <h2>Examples</h2>
+                <p>
+                    In this template you'll find a few examples to help you get familiar with your new components.
+                </p>
+                <ul>
+                    <li><a href="/grid">Data Grid</a> <small>/Grid.razor</small></li>
+                    <li><a href="/chart">Chart</a> <small>/Chart.razor</small></li>
+                    <li><a href="/form">Forms, inputs, validation</a> <small>/Form.razor</small></li>
+                    <li>Menu <small>/shared/NavMenu.razor</small></li>
+                    <li>Window <small>/Index.razor</small></li>
+                    <li>AnimationContainer <small>/Index.razor</small></li>
+                    <li>Button <small>/Index.razor</small></li>
+                </ul>
+                <TelerikButton Icon="@IconName.Information" OnClick="@Show">More Info</TelerikButton>
+            </div>
+            <div class="col">
+                <h3>Useful Links</h3>
+                <p>
+                    Here are some resources to help you get started
+                </p>
+                <ul>
+                    <li>
+                        <a target="_blank" href="https://docs.telerik.com/blazor-ui/introduction">Documentation</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://demos.telerik.com/blazor-ui">Live Demos</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://github.com/telerik/blazor-ui">Sample Projects</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://themebuilder.telerik.com">Theme Builder</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://www.telerik.com/support/blazor-ui">Support and more...</a>
+                    </li>
+                </ul>
+                <p>Did you know that Telerik UI for Blazor can do:</p>
+                <ul>
+                    <li>
+                        <a target="_blank" href="https://docs.telerik.com/blazor-ui/themes/overview">Material UI <TelerikIcon Icon="@IconName.Paint" /></a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://docs.telerik.com/blazor-ui/common-features/font-icons">Icons <TelerikIcon Icon="@IconName.ModuleManager" /></a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://docs.telerik.com/blazor-ui/components/grid/virtual-scrolling">Virtual Scrolling <TelerikIcon Icon="@IconName.Grid" /></a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://docs.telerik.com/blazor-ui/globalization/overview">Globalization &amp; Localization <TelerikIcon Icon="@IconName.GlobeOutline" /></a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://docs.telerik.com/blazor-ui/accessibility/overview">Accessibility &amp; Keyboard Navigation<TelerikIcon Icon="@IconName.GlobeOutline" /></a>
+                    </li>
+                </ul>
+                <p>
+                    Wait there's more! Try our example apps:
+                </p>
+                <ul>
+                    <li>
+                        <a target="_blank" href="https://demos.telerik.com/blazor-dashboard-app/">Dashboard Example</a> | <a target="_blank" href="https://github.com/telerik/blazor-dashboard">Source</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://demos.telerik.com/blazor-financial-portfolio">PWA Example</a> | <a target="_blank" href="https://github.com/telerik/blazor-stocks">Source</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </WindowContent>
+    <WindowActions>
+        <WindowAction Name="Close"></WindowAction>
+    </WindowActions>
+</TelerikWindow>
+
+<div class="notification-container">
+    <TelerikAnimationContainer @ref="@AnimationContainer" AnimationType="@AnimationType.SlideDown">
+        <div class="k-widget k-popup k-notification k-notification-info">
+            <p>
+                <TelerikIcon Icon="@IconName.ArrowChevronUp" />
+                You can navigate your application with the TelerikMenu. Edit the menu in <b>/shared/NavMenu.razor.</b>
+            </p>
+        </div>
+    </TelerikAnimationContainer>
+</div>
+
+@code {
+    public bool IsWindowVisible { get; set; } = true;
+
+    public TelerikAnimationContainer AnimationContainer { get; set; }
+
+    public async void Show(MouseEventArgs args)
+    {
+        await AnimationContainer.ShowAsync();
+
+        await Task.Delay(6000);
+
+        await AnimationContainer.HideAsync();
+    }
+}
