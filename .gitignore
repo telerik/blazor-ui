@@ -12,6 +12,7 @@ bin/
 node_modules
 *package-lock.json
 *NuGet.Config
+**/wwwroot/lib
 
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,visualstudio,rider
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,visualstudio,rider
