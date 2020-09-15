@@ -1,0 +1,145 @@
+﻿@page "/"
+
+@using RemoteValidationWasm.Shared
+@using RemoteValidationWasm.Services
+@inject WeatherForecastService ForecastService
+
+Try Inserting a record with a Date that already exists in the grid.
+<br />
+Try Editing a record and adding the letter "a" in the Summary.
+
+<TelerikGrid Data="@forecasts" Height="550px" FilterMode="@GridFilterMode.FilterMenu"
+                Sortable="true" Pageable="true" PageSize="20" Groupable="true" Resizable="true" Reorderable="true"
+                OnUpdate="@UpdateHandler" OnDelete="@DeleteHandler" OnCreate="@CreateHandler" EditMode="@GridEditMode.Inline">
+    <GridColumns>
+        <GridColumn Field="Id" Title="Id" Width="100px" Editable="false" Groupable="false" />
+        <GridColumn Field="Date" Width="220px">
+            <Template>
+                @((context as WeatherForecast).Date.ToString("dddd, dd MMM yyyy"))
+            </Template>
+        </GridColumn>
+        <GridColumn Field="TemperatureC" Title="Temp. C">
+            <Template>
+                @((context as WeatherForecast).TemperatureC.ToString("N1"))
+            </Template>
+        </GridColumn>
+        <GridColumn Field="TemperatureF" Title="Temp. F">
+            <Template>
+                @((context as WeatherForecast).TemperatureF.ToString("N1"))
+            </Template>
+        </GridColumn>
+        <GridColumn Field="Summary" />
+        <GridCommandColumn Width="200px" Resizable="false">
+            <GridCommandButton Command="Save" Icon="@IconName.Save" ShowInEdit="true">Update</GridCommandButton>
+            <GridCommandButton Command="Edit" Icon="@IconName.Edit" Primary="true">Edit</GridCommandButton>
+            <GridCommandButton Command="Delete" Icon="@IconName.Delete">Delete</GridCommandButton>
+            <GridCommandButton Command="Cancel" Icon="@IconName.Cancel" ShowInEdit="true">Cancel</GridCommandButton>
+        </GridCommandColumn>
+    </GridColumns>
+    <GridToolBar>
+        <GridCommandButton Command="Add" Icon="@IconName.Plus" Primary="true">Add Forecast</GridCommandButton>
+        <GridCommandButton Command="ExcelExport" Icon="@IconName.FileExcel">Export to Excel</GridCommandButton>
+    </GridToolBar>
+    <GridExport>
+        <GridExcelExport FileName="weather-forecasts" AllPages="true" />
+    </GridExport>
+</TelerikGrid>
+
+<TelerikWindow Modal="true" @bind-Visible="@errorExists">
+    <WindowTitle>There was an error</WindowTitle>
+    <WindowActions>
+        <WindowAction Name="Close" />
+    </WindowActions>
+    <WindowContent>
+        <div class="alert alert-warning">@errorMessage</div>
+    </WindowContent>
+</TelerikWindow>
+    @* For Popup EditMode, this modal dialog may not appear above the edit form
+        and you may want to use a different tool to ensure a higher z-index until this is implemented
+        https://feedback.telerik.com/blazor/1407791-support-for-multiple-nested-modal-windows 
+    *@
+
+
+@code {
+    List<WeatherForecast> forecasts { get; set; }
+    bool errorExists { get; set; }
+    string errorMessage { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetForecasts();
+    }
+
+    async Task GetForecasts()
+    {
+        forecasts = await ForecastService.GetForecastListAsync(DateTime.Now);
+    }
+
+    // sample error handling for the CUD operations - in this sample through simplistic error messsages coming from the server
+
+    public async Task DeleteHandler(GridCommandEventArgs args)
+    {
+        WeatherForecast currItem = args.Item as WeatherForecast;
+
+        try
+        {
+            await ForecastService.DeleteForecastAsync(currItem);
+            // update the view data
+            forecasts.Remove(currItem);
+        }
+        catch (Exception ex)
+        {
+            // show information to the user
+            errorMessage = ex.Message;
+            errorExists = true;
+        }
+    }
+
+    public async Task CreateHandler(GridCommandEventArgs args)
+    {
+        WeatherForecast currItem = args.Item as WeatherForecast;
+
+        try
+        {
+            // get the inserted data from the server in case it alters it further (e.g., provides an ID)
+            WeatherForecast insertedForecast = await ForecastService.InsertForecastAsync(currItem);
+            // update the view data
+            forecasts.Insert(0, insertedForecast);
+        }
+        catch (Exception ex)
+        {
+            // keep the grid in insert mode
+            args.IsCancelled = true;
+            // show information to the user
+            errorMessage = ex.Message;
+            errorExists = true;
+        }
+    }
+
+    public async Task UpdateHandler(GridCommandEventArgs args)
+    {
+        WeatherForecast currItem = args.Item as WeatherForecast;
+
+        try
+        {
+            // get the inserted data from the server in case it alters it further
+            WeatherForecast insertedForecast = await ForecastService.UpdateForecastAsync(currItem);
+            // update the view data
+            var matchingItem = forecasts.FirstOrDefault(c => c.Id == currItem.Id);
+            if (matchingItem != null)
+            {
+                matchingItem.Summary = currItem.Summary;
+                matchingItem.TemperatureC = currItem.TemperatureC;
+                matchingItem.Date = currItem.Date;
+            }
+        }
+        catch (Exception ex)
+        {
+            // keep the grid in edit mode
+            args.IsCancelled = true;
+            // show information to the user
+            errorMessage = ex.Message;
+            errorExists = true;
+        }
+    }
+}
