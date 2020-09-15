@@ -36,7 +36,7 @@ namespace PdfExportJS
             services.AddSingleton<WeatherForecastService>();
 
             // the drawing service that calls the JS logic
-            services.AddTransient<Drawing>();
+            services.AddTransient<DrawingService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

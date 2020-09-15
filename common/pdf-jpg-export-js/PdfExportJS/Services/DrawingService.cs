@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace PdfExportJS.Services
 {
-    public class Drawing
+    public class DrawingService
     {
         // The JavaScript namespace 
-        const string ns = "telerikClientExporter";
+        const string JsNamespace = "telerikClientExporter";
 
         // IJSRuntime is resolved through DI
-        public Drawing(IJSRuntime js) => Js = js;
+        public DrawingService(IJSRuntime js) => Js = js;
 
         public IJSRuntime Js { get; }
 
@@ -23,7 +23,7 @@ namespace PdfExportJS.Services
         /// <param name="elementRef"></param>
         /// <returns>Data Image URI as a string</returns>
         public async ValueTask<string> ExportImage(ElementReference elementRef) =>
-                      await Js.InvokeAsync<string>($"{ns}.exportImage", elementRef);
+                      await Js.InvokeAsync<string>($"{JsNamespace}.exportImage", elementRef);
 
         /// <summary>
         /// Export an element from the page as a PDF formatted data URI
@@ -31,7 +31,7 @@ namespace PdfExportJS.Services
         /// <param name="elementRef"></param>
         /// <returns>Data URI as a string</returns>
         public async ValueTask<string> ExportPDF(ElementReference elementRef) =>
-              await Js.InvokeAsync<string>($"{ns}.exportPDF", elementRef);
+              await Js.InvokeAsync<string>($"{JsNamespace}.exportPDF", elementRef);
 
         /// <summary>
         /// Invokes the browser to save a Data URI formatted string to a file.
@@ -39,6 +39,6 @@ namespace PdfExportJS.Services
         /// <param name="dataUri">Data URI string</param>
         /// <param name="fileName">File name to save as</param>
         public async Task SaveAs(string dataUri, string fileName) =>
-             await Js.InvokeVoidAsync($"{ns}.saveAs", dataUri, fileName);
+             await Js.InvokeVoidAsync($"{JsNamespace}.saveAs", dataUri, fileName);
     }
 }

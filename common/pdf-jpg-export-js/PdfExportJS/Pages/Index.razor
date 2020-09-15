@@ -1,7 +1,7 @@
 ﻿@page "/"
 <!-- Resolve the Telerik Drawing interop service -->
 @using PdfExportJS.Services 
-@inject Drawing DrawingService
+@inject DrawingService DrawingService
 
 <div @ref="@ItemToExport">
     <TelerikGrid Data="@MyData" Height="400px"
