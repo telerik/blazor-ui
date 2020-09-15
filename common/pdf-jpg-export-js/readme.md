@@ -6,7 +6,7 @@ In this example, we use it to export the currently rendered grid to a PDF or a J
 
 Key points of interest:
 
-* The LibMan package manager is used to fetch the needed JS dependencies (the Pako library, and the two needed Kendo libraries). Make sure to restore those client libraries before you run the project, it may take a while.
+* The LibMan package manager is used to fetch the needed JS dependencies (the Pako library, and the two needed Kendo libraries). The `Microsoft.Web.LibraryManager.Build` package restores them on build.
 
 * There is a C# service that calls the surfaced JS interop by using an element reference - this is the DOM element that will be exported.
 
