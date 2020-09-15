@@ -1,0 +1,18 @@
+{
+	"version": "1.0",
+	"defaultProvider": "unpkg",
+	"libraries": [
+		{
+			"library": "pako@1.0.8",
+			"destination": "wwwroot/lib/pako/"
+		},
+		{
+			"library": "@progress/kendo-file-saver@1.0.7",
+			"destination": "wwwroot/lib/progress/kendo-file-saver/"
+		},
+		{
+			"library": "@progress/kendo-drawing@1.5.8",
+			"destination": "wwwroot/lib/progress/kendo-drawing/"
+		}
+	]
+}
