@@ -45,6 +45,9 @@
 
     #region Variables
 
+    [Inject]
+    public MessageBoxService MessageBoxService { get; set; }
+
     public string Title { get; set; }
     public string Message { get; set; }
     public MessageBoxButtonTypeEnum ButtonType { get; set; }
