@@ -4,7 +4,7 @@ namespace MessageBoxControl.Controls.MessageBox
 {
     public class MessageBoxService
     {
-        public static event Action<string, string, MessageBoxButtonTypeEnum, Action<MessageBoxResultEnum>> OnShowMessageBox;
+        public event Action<string, string, MessageBoxButtonTypeEnum, Action<MessageBoxResultEnum>> OnShowMessageBox;
 
         public void Show(string title, string message, MessageBoxButtonTypeEnum buttonType, Action<MessageBoxResultEnum> actionToInvoke)
         {
