@@ -28,6 +28,8 @@ You can read more about the general concepts of handling WebAPI errors in articl
 
 * <a href="https://docs.microsoft.com/en-us/aspnet/core/web-api/handle-errors?view=aspnetcore-3.1" target="_blank">MSDN: Handle WebAPI Errors</a>
 
+* <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/forms-validation?view=aspnetcore-3.1#server-validation" target="_blank">MSDN: Blazor Server Validation</a>
+
 * <a href="https://www.devtrends.co.uk/blog/handling-errors-in-asp.net-core-web-api" target="_blank">Handling Errors in ASP.NET Core WebAPI by devtrends.co.uk</a>
 
 Of course, a similar approach can be used in a server-side Blazor app, as well as with or without WebAPI - the core concept is bubbling exceptions. There can also be many other ways to handle such errors, and this example is by no means exhaustive or definitive, its purpose is to show one way to feed the grid with real data and to prevent data updates when errors occur.
