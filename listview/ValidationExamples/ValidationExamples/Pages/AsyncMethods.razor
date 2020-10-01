@@ -1,0 +1,175 @@
+﻿@page "/async"
+
+<div class="alert alert-info">This example adds a dummy delay in the update/create operations to simulate an actual remote service (you can add your own, and remove that code). The addition compared to the basic example is the <code>isEditing</code> flag that determines whether to rehydrate the edit context when the delay in the EventCallback re-renders the listview and the templates. This lets you prevent re-initializing that context upon/after completing the data operation.</div>
+
+@using System.ComponentModel.DataAnnotations
+
+<TelerikListView Data="@ListViewData" Pageable="true"
+                 OnCreate="@CreateHandler" OnDelete="@DeleteHandler" OnUpdate="@UpdateHandler" OnCancel="@CancelHandler" OnEdit="@EditHandler">
+    <EditTemplate>
+        <div style="border: 1px solid green; margin: 10px; padding: 10px; display: inline-block;">
+            @{
+                currEditItem = context;
+                if (isEditing && currEditContext == null)
+                {
+                    currEditContext = new EditContext(currEditItem);
+                }
+
+                if (currEditContext != null)
+                {
+                    <EditForm EditContext="@currEditContext" Context="formContext">
+                        <DataAnnotationsValidator />
+                        <TelerikTextBox @bind-Value="@currEditItem.Name" Label="Name" />
+                        <ValidationMessage For="@(() => currEditItem.Name)"></ValidationMessage>
+
+                        <br />
+                        <TelerikDropDownList Data="@Teams" @bind-Value="@currEditItem.Team" />
+
+                        <ListViewCommandButton Command="Save" Icon="@IconName.Save">Save</ListViewCommandButton>
+                        <ListViewCommandButton Command="Cancel" Icon="@IconName.Cancel">Cancel</ListViewCommandButton>
+                    </EditForm>
+                }
+            }
+        </div>
+    </EditTemplate>
+    <Template>
+        <div style="border: 1px solid black; margin: 10px; padding: 10px; display: inline-block;">
+            Employee: @context.Id <br />
+            Name: @context.Name in team: @context.Team
+            <ListViewCommandButton Command="Edit" Icon="@IconName.Edit">Edit</ListViewCommandButton>
+            <ListViewCommandButton Command="Delete" Icon="@IconName.Delete">Delete</ListViewCommandButton>
+        </div>
+    </Template>
+    <HeaderTemplate>
+        <ListViewCommandButton Command="Add" Icon="@IconName.Plus">Add Employee</ListViewCommandButton>
+        <p>In this sample, the first item will not open for editing because of the code in the OnEdit handler</p>
+    </HeaderTemplate>
+</TelerikListView>
+
+@code{
+    Employee currEditItem { get; set; }
+    EditContext currEditContext { get; set; }
+    bool isEditing { get; set; }
+
+    void EditHandler()
+    {
+        isEditing = true;
+        CleanUpValidation();
+    }
+
+    async Task CreateHandler(ListViewCommandEventArgs e)
+    {
+        Employee insertedItem = e.Item as Employee;
+
+
+        // lower the flag so we don't rehydrate the edit context - the EventCallback will re-render the ListView (including its templates) after it completes
+        // you can flip it back to true as needed (e.g., if validation fails, to rehydrate the validation logic)
+        isEditing = false;
+
+        // simulate a delay - be that server data operation, or server validation
+        await Task.Delay(400);
+
+        // sample validation - you can extend it to get information back from the server/service
+        if (!currEditContext.Validate())
+        {
+            // prevent the listview from going back in view mode
+            e.IsCancelled = true;
+            isEditing = true;
+            return;
+        }
+
+        // if you need remote validation (e.g., check for duplicates on the server)
+        // add it here through your data service and cancel the event as well
+
+        // save actual data here through your service
+
+        // update the view-model, can use returned data from the remote service too
+        insertedItem.Id = ListViewData.Count + 1;
+        ListViewData.Insert(0, insertedItem);
+
+        CleanUpValidation();
+    }
+
+    async Task DeleteHandler(ListViewCommandEventArgs e)
+    {
+        Employee deletedItem = e.Item as Employee;
+
+        ListViewData.Remove(deletedItem);
+
+        // save to the actual data source here as well
+    }
+
+    async Task UpdateHandler(ListViewCommandEventArgs e)
+    {
+        Employee updatedItem = e.Item as Employee;
+
+        // lower the flag so we don't rehydrate the edit context - the EventCallback will re-render the ListView (including its templates) after it completes
+        // you can flip it back to true as needed (e.g., if validation fails, to rehydrate the validation logic)
+        isEditing = false;
+
+        // simulate a delay - be that server data operation, or server validation
+        await Task.Delay(400);
+
+        // sample validation - you can extend it to get information back from the server/service
+        if (!currEditContext.Validate())
+        {
+            // prevent the listview from going back in view mode
+            e.IsCancelled = true;
+            isEditing = true;
+            return;
+        }
+
+        // if you need remote validation (e.g., check for duplicates on the server)
+        // add it here through your data service and cancel the event as well
+
+        // save actual data here through your service
+
+        // update the view-model, can use returned data from the remote service too
+        int index = ListViewData.FindIndex(itm => itm.Id == updatedItem.Id);
+        if (index > -1)
+        {
+            ListViewData[index] = updatedItem;
+        }
+
+        CleanUpValidation();
+    }
+
+    void CancelHandler(ListViewCommandEventArgs e)
+    {
+        isEditing = false;
+        CleanUpValidation();
+    }
+
+    void CleanUpValidation()
+    {
+        // clean up for next run
+        currEditContext = null;
+        currEditItem = null;
+    }
+
+    // data and models follow
+
+    List<Employee> ListViewData { get; set; }
+
+    protected override void OnInitialized()
+    {
+        ListViewData = Enumerable.Range(1, 250).Select(x => new Employee
+        {
+            Id = x,
+            Name = $"Name {x}",
+            Team = Teams[x % Teams.Count]
+        }).ToList();
+    }
+
+    List<string> Teams = new List<string> { "Sales", "Dev", "Support" };
+
+    public class Employee
+    {
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = "Enter a name")]
+        public string Name { get; set; }
+
+        public string Team { get; set; }
+    }
+}

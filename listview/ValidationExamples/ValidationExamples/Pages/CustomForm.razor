@@ -1,0 +1,139 @@
+﻿@page "/custom-form"
+
+<div class="alert alert-info">This example shows one way to get the currently edited item from the listview template so you can populate it into a custom editin/inserting form (placed in a modal window in this example). We implement local data annotation validation here, you can also employ any preferred remote validation too and tweak the code as necessary. We also use an <code>ObservableCollection</code> to make adding and deleting items show up easily in the listview.</div>
+
+@using System.ComponentModel.DataAnnotations
+@using System.Collections.ObjectModel
+
+<TelerikListView Data="@ListViewData" Pageable="true"
+                 OnDelete="@DeleteHandler">
+    <Template>
+        <div style="border: 1px solid black; margin: 10px; padding: 10px; display: inline-block;">
+            Employee: @context.Id <br />
+            Name: @context.Name in team: @context.Team
+            <TelerikButton OnClick="@( _ => EditExisting(context) )" Icon="@IconName.Edit">Edit</TelerikButton>
+            <ListViewCommandButton Command="Delete" Icon="@IconName.Delete">Delete</ListViewCommandButton>
+        </div>
+    </Template>
+    <HeaderTemplate>
+        <TelerikButton OnClick="@AddNew" Icon="@IconName.Plus">Add Employee</TelerikButton>
+    </HeaderTemplate>
+</TelerikListView>
+
+<TelerikWindow Visible="@(CurrentlyEditedItem != null)" Modal="true">
+    <WindowTitle>
+        @{
+            if (CurrentlyEditedItem.Id < 0)
+            {
+                <strong>Add Employee</strong>
+            }
+            else
+            {
+                <strong>Edit Employee</strong>
+            }
+        }
+    </WindowTitle>
+    <WindowContent>
+        @*Implement the desired layout here*@
+        <EditForm Model="@CurrentlyEditedItem" OnValidSubmit="@Save">
+            <DataAnnotationsValidator />
+            <div class="form-row">
+                <div class="col">
+                    <TelerikTextBox @bind-Value="@CurrentlyEditedItem.Name" Label="First Name"></TelerikTextBox>
+                </div>
+                <div class="col">
+                    <TelerikTextBox @bind-Value="@CurrentlyEditedItem.Team" Label="Team"></TelerikTextBox>
+                </div>
+            </div>
+            <div class="form-row">
+                <ValidationSummary />
+                <TelerikButton Icon="save" Primary="true" ButtonType="@ButtonType.Submit">Save</TelerikButton>
+                <TelerikButton Icon="cancel" OnClick="@ClearSelection" ButtonType="@ButtonType.Button">Cancel</TelerikButton>
+            </div>
+        </EditForm>
+    </WindowContent>
+</TelerikWindow>
+
+@code{
+    Employee CurrentlyEditedItem { get; set; }
+    Employee originalEmployee { get; set; }
+
+    void AddNew()
+    {
+        CurrentlyEditedItem = new Employee { Id = -(ListViewData.Count + 1) }; // you can also use this to set default values or employ other logic
+    }
+
+    void EditExisting(Employee currEmployee)
+    {
+        originalEmployee = currEmployee;//we keep a reference to the original item so we don't change it immediately, in case the uses clickc Cancel
+        CurrentlyEditedItem = new Employee()
+        {
+            Id = currEmployee.Id,
+            Name = currEmployee.Name,
+            Team = currEmployee.Team
+        }; //consider implementing ICloneable instead of manually copying field values
+    }
+
+    void Save()
+    {
+        if (originalEmployee != null)
+        {
+            originalEmployee.Name = CurrentlyEditedItem.Name;
+            originalEmployee.Team = CurrentlyEditedItem.Team;
+
+            //call the actual Update service here
+        }
+        else
+        {
+            ListViewData.Insert(0, CurrentlyEditedItem);
+
+            //call the actual Insert service here. Consider updating the ID with the actual ID after insertion
+            //this sample uses negative IDs to denote newly added items
+        }
+
+        //the Delete operation is not implemented for brevity and to let this sample focus on editing/inserting with a custom popup form
+
+        ClearSelection();
+    }
+
+    void ClearSelection()
+    {
+        originalEmployee = CurrentlyEditedItem = null;
+    }
+
+    // in this example, we keep using the built-in Delete operation from the listview, but you don't have to
+    async Task DeleteHandler(ListViewCommandEventArgs e)
+    {
+        Employee deletedItem = e.Item as Employee;
+
+        ListViewData.Remove(deletedItem);
+
+        // save to the actual data source here as well
+    }
+
+    // data and models follow
+
+    ObservableCollection<Employee> ListViewData { get; set; }
+
+    protected override void OnInitialized()
+    {
+        var data = Enumerable.Range(1, 250).Select(x => new Employee
+        {
+            Id = x,
+            Name = $"Name {x}",
+            Team = Teams[x % Teams.Count]
+        });
+
+        ListViewData = new ObservableCollection<Employee>(data);
+    }
+
+    List<string> Teams = new List<string> { "Sales", "Dev", "Support" };
+
+    public class Employee
+    {
+        public int Id { get; set; }
+        [Required(ErrorMessage = "Enter a name")]
+        public string Name { get; set; }
+        public string Team { get; set; }
+    }
+}
