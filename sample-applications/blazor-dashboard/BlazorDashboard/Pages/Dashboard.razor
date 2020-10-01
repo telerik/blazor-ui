@@ -19,8 +19,8 @@
 			</h2>
 		</div>
 		<div class="col-sm text-sm-right">
-			<TelerikDropDownList Data="@DateFilterData" TextField="Text" ValueField="Value" Value="timeRange"
-                                 ValueChanged="@( (int v) => LoadIssuesData(v) )" PopupHeight="120">
+			<TelerikDropDownList Data="@DateFilterData" TextField="Text" ValueField="Value" @bind-Value="@timeRange"
+                                 OnChange="@LoadIssuesData" PopupHeight="auto">
 			</TelerikDropDownList>
 		</div>
 	</div>
@@ -110,6 +110,7 @@
     protected override async Task OnInitializedAsync()
     {
         DateFilterData = IssuesFilter.GetTimeRangeFilterValues();
+        timeRange = DateFilterData.First().Value;
 
         await LoadIssuesData();
     }
@@ -138,12 +139,6 @@
         {
             stopTimer.Cancel();
         }
-    }
-
-    private async Task LoadIssuesData(int newTimeRange)
-    {
-        timeRange = newTimeRange;
-        await LoadIssuesData();
     }
 
     private async Task LoadIssuesData()
