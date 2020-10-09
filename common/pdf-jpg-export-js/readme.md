@@ -2,7 +2,10 @@
 
 This sample project shows how you can us the Kendo Drawing API to export DOM elements to an image or a PDF ([Demo](https://demos.telerik.com/kendo-ui/pdf-export/index)).
 
-In this example, we use it to export the currently rendered grid to a PDF or a JPG file.
+In this application, we use it to export the following components:
+
+* The rendered Grid to a PDF or a JPG file.
+* The rendered Chart to a JPG file.
 
 Key points of interest:
 
