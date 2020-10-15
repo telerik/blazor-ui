@@ -1,0 +1,8 @@
+﻿<div>Content for tab @ContentId</div>
+
+@code {
+    [Parameter]
+    public string ContentId { get; set; }
+
+    // The OnParametersSetAsync event is a good place to fetch data asynchronously and on demant for the current identifier
+}

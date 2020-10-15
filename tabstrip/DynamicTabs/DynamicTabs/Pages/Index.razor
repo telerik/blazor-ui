@@ -1,0 +1,105 @@
+﻿@page "/"
+
+<div style="border: 2px solid black; margin-bottom: 20px;">
+    <fieldset>
+        <legend>Selected tab info</legend>
+        <p>Index: @ActiveTabIndex</p>
+        <p>Id: @SelectedTab.Id</p>
+        <p>Title: @SelectedTab.Title</p>
+        <p>Disabled: @SelectedTab.Disabled</p>
+    </fieldset>
+</div>
+
+<TelerikButton OnClick="@ToggleSecondTabDisabled">Toggle the Disabled state of the second tab</TelerikButton>
+<br /><br />
+<TelerikButton OnClick="@RemoveThirdSpecialTab">Remove the third special tab</TelerikButton>
+<br /><br />
+<TelerikButton OnClick="@AddMoreTabs">Add More repeated tabs</TelerikButton>
+<br /><br />
+
+<TelerikTabStrip @bind-ActiveTabIndex="@ActiveTabIndex">
+    @{
+        // we will render only the visible tabs (but include disabled tabs), and order them by their ID
+        // you can alter this logic as needed to show and reorder tabs as required
+        foreach (TabDescriptor item in tabs.Where(t => t.Visible == true).OrderBy(f => f.Id))
+        {
+            <TabStripTab Title="@item.Title" Disabled="@item.Disabled" @key="@item.Id">
+                @* two of these tabs have special content that we define here based on conditions - in this case the title for simplicity *@
+                @if (item.Title == "First Special")
+                {
+                    <div>This is the first tab, it is special</div>
+                }
+                else if (item.Title == "Third, also special")
+                {
+                    <strong>This third tab also has special content, it can be a different component, it's some markup here for simplicity</strong>
+                }
+                else // the rest of the tabs render the same repeatable child component
+                {
+                    <RepeatedTabContent ContentId="@item.Title" />
+                }
+            </TabStripTab>
+        }
+    }
+</TelerikTabStrip>
+
+
+@code {
+    int ActiveTabIndex { get; set; }
+    TabDescriptor SelectedTab => tabs[ActiveTabIndex];
+
+    // two example ways for accessing and modifying the descriptors and thus - tabs
+
+    void ToggleSecondTabDisabled()
+    {
+        int index = tabs.FindIndex(t => t.Id == 1);
+        if (index > -1)
+        {
+            tabs[index].Disabled = !tabs[index].Disabled;
+        }
+    }
+
+    void RemoveThirdSpecialTab()
+    {
+        int index = tabs.FindIndex(t => t.Title == "Third, also special");
+        if (index > -1)
+        {
+            tabs.RemoveAt(index);
+        }
+    }
+
+    // a sample of adding more tabs that can render what you need
+
+    async Task AddMoreTabs()
+    {
+        // you can even fetch data from a remote service here
+        // for brevity, we will just add another instance
+        TabDescriptor tabToAdd = new TabDescriptor
+        {
+            Id = tabs.Count + 1,
+            Title = $"Tab {tabs.Count + 1}"
+        };
+
+        tabs.Add(tabToAdd);
+        // you can also choose to insert it at a given index
+    }
+
+    List<TabDescriptor> tabs = new List<TabDescriptor>()
+{
+        new TabDescriptor { Id = 0, Title = "First Special" },
+        new TabDescriptor { Id = 1, Title = "Second", Disabled = true },
+        new TabDescriptor { Id = 2, Title = "Third, also special" },
+        new TabDescriptor { Id = 3, Title = "Tab 3" },
+        new TabDescriptor { Id = 4, Title = "Tab 4" },
+        new TabDescriptor { Id = 5, Title = "Tab 5" },
+    };
+
+    public class TabDescriptor
+    {
+        // you can add more fields to describe the tabs and their content as needed
+        // in this sample, we use the Title for brevity and simplicity
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public bool Disabled { get; set; }
+        public bool Visible { get; set; } = true;
+    }
+}
