@@ -1,0 +1,16 @@
+﻿@page "/"
+
+@TheColorFromPicker
+<br />
+<MyKendoColorPicker @bind-Color="@TheColorFromPicker" WidgetId="colorPicker1" />
+
+@TheColorFromPalette
+<br />
+<MyKendoColorPalette @bind-Color="@TheColorFromPalette" WidgetId="colorPalette1" />
+
+<MyKendoGantt WidgetId="gantt1" />
+
+@code{
+    System.Drawing.Color TheColorFromPicker { get; set; }
+    System.Drawing.Color TheColorFromPalette { get; set; }
+}

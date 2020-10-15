@@ -1,0 +1,62 @@
+﻿@using System.Drawing
+@implements IDisposable
+@inject IJSRuntime JSRuntime
+
+<h3>Color Picker @WidgetId</h3>
+
+@* Make sure Blazor does not interact with this DOM because jQuery widgets rely on DOM manipulations
+    and if Blazor cleans it up or modifies it, it is likely to break the widgets *@
+<div @ref="myWrapperRef">
+    <div id="@WidgetId"></div>
+</div>
+
+<hr />
+
+@code {
+    [Parameter]
+    public string WidgetId { get; set; }
+    [Parameter]
+    public Color Color { get; set; }
+    [Parameter]
+    public EventCallback<Color> ColorChanged { get; set; }
+    ElementReference myWrapperRef; // we will use this to know which instance of the component calls the code
+    DotNetObjectReference<MyKendoColorPicker> CurrRazorComponent { get; set; }
+
+    [JSInvokable("ColorSelected")]
+    public async Task RaiseColorSelected(string color)
+    {
+        if (ColorChanged.HasDelegate)
+        {
+            Color theColor = ColorTranslator.FromHtml(color);
+            await ColorChanged.InvokeAsync(theColor);
+        }
+    }
+
+    // see the following article on using JS Interop, prerendering and Blazor as these approaches may change
+    // https://docs.microsoft.com/en-us/aspnet/core/blazor/javascript-interop?view=aspnetcore-3.0
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (CurrRazorComponent == null)
+            {
+                CurrRazorComponent = DotNetObjectReference.Create(this);
+            }
+            await JSRuntime.InvokeVoidAsync("createWidget", "createColorPicker", myWrapperRef, WidgetId, CurrRazorComponent);
+            // make sure the element IDs are unique in the application. In this example, the ID comes from a parameter
+            // you can distinguish elements in the DOM with jQuery in other ways as well, but IDs and name attributes are often used
+
+            // you can also pass more data and use it in the JS code as necessary by your application
+        }
+    }
+
+    public void Dispose()
+    {
+        JSRuntime.InvokeVoidAsync("destroyWidgets", myWrapperRef);
+        if (CurrRazorComponent != null)
+        {
+            CurrRazorComponent.Dispose();
+        }
+    }
+}
+
