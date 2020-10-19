@@ -37,6 +37,16 @@
                 {
                     <RepeatedTabContent ContentId="@item.Title" />
                 }
+
+                @* 
+                    If you have child components you should also consider adding a key to them 
+                    (applies to the repeated component above too) to ensure they re-render and update properly
+                    when the new tab content gets rendered - by default Blazor will try to NOT re-render them.
+                    This applies not only to Telerik components, but to any components too. The more complex,
+                    the more likely you are to see an old render. For example, the textbox is likely to "work"
+                    without the key too, but complex things like the HTML editor probably will not.
+                *@
+                <TelerikTextBox @key="@item.Id" Value="@item.Title" />
             </TabStripTab>
         }
     }
