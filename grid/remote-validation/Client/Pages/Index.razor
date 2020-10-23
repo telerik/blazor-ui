@@ -8,26 +8,13 @@ Try Inserting a record with a Date that already exists in the grid.
 <br />
 Try Editing a record and adding the letter "a" in the Summary.
 
-<TelerikGrid Data="@forecasts" Height="550px" FilterMode="@GridFilterMode.FilterMenu"
-                Sortable="true" Pageable="true" PageSize="20" Groupable="true" Resizable="true" Reorderable="true"
+<TelerikGrid Data="@forecasts" Height="550px" Sortable="true" Pageable="true" PageSize="20"
                 OnUpdate="@UpdateHandler" OnDelete="@DeleteHandler" OnCreate="@CreateHandler" EditMode="@GridEditMode.Inline">
     <GridColumns>
         <GridColumn Field="Id" Title="Id" Width="100px" Editable="false" Groupable="false" />
-        <GridColumn Field="Date" Width="220px">
-            <Template>
-                @((context as WeatherForecast).Date.ToString("dddd, dd MMM yyyy"))
-            </Template>
-        </GridColumn>
-        <GridColumn Field="TemperatureC" Title="Temp. C">
-            <Template>
-                @((context as WeatherForecast).TemperatureC.ToString("N1"))
-            </Template>
-        </GridColumn>
-        <GridColumn Field="TemperatureF" Title="Temp. F">
-            <Template>
-                @((context as WeatherForecast).TemperatureF.ToString("N1"))
-            </Template>
-        </GridColumn>
+        <GridColumn Field="Date" DisplayFormat="{0:dddd, dd MMM yyyy}" />
+        <GridColumn Field="TemperatureC" Title="Temp. C" DisplayFormat="{0:N1}" />
+        <GridColumn Field="TemperatureF" Title="Temp. F" DisplayFormat="{0:N1}" />
         <GridColumn Field="Summary" />
         <GridCommandColumn Width="200px" Resizable="false">
             <GridCommandButton Command="Save" Icon="@IconName.Save" ShowInEdit="true">Update</GridCommandButton>
@@ -38,11 +25,7 @@ Try Editing a record and adding the letter "a" in the Summary.
     </GridColumns>
     <GridToolBar>
         <GridCommandButton Command="Add" Icon="@IconName.Plus" Primary="true">Add Forecast</GridCommandButton>
-        <GridCommandButton Command="ExcelExport" Icon="@IconName.FileExcel">Export to Excel</GridCommandButton>
     </GridToolBar>
-    <GridExport>
-        <GridExcelExport FileName="weather-forecasts" AllPages="true" />
-    </GridExport>
 </TelerikGrid>
 
 <TelerikWindow Modal="true" @bind-Visible="@errorExists">
@@ -123,14 +106,12 @@ Try Editing a record and adding the letter "a" in the Summary.
         try
         {
             // get the inserted data from the server in case it alters it further
-            WeatherForecast insertedForecast = await ForecastService.UpdateForecastAsync(currItem);
+            WeatherForecast updatedForecast = await ForecastService.UpdateForecastAsync(currItem);
             // update the view data
-            var matchingItem = forecasts.FirstOrDefault(c => c.Id == currItem.Id);
-            if (matchingItem != null)
+            var index = forecasts.FindIndex(i => i.Id == updatedForecast.Id);
+            if (index != -1)
             {
-                matchingItem.Summary = currItem.Summary;
-                matchingItem.TemperatureC = currItem.TemperatureC;
-                matchingItem.Date = currItem.Date;
+                forecasts[index] = updatedForecast;
             }
         }
         catch (Exception ex)
