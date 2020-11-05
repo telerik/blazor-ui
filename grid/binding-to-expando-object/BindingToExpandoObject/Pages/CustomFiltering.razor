@@ -5,6 +5,8 @@
 
 @inject EmployeeService EmployeeService
 
+When using custom filtering (either through <a href="https://docs.telerik.com/blazor-ui/components/grid/templates/filter" target="_blank">filter templates</a>, or by adding some custom logic to the <a href="https://docs.telerik.com/blazor-ui/components/grid/manual-operations" target="_blank"><code>OnRead event</code></a>), you may sometimes need to add a new <code>FilterDescriptor</code> based on your business logic. When adding custom filters, you must always set their <code>MemberType</code> to match the field they will filter. This applies to all cases in the grid, and with expando objects this type must also be set on the column itself.
+
 <TelerikGrid Data="@GridData"
              Pageable="true"
              Sortable="true"
