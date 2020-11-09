@@ -1,7 +1,7 @@
 ﻿@inherits LayoutComponentBase
 @* Contains the Telerik Root Component, because it is a component coming from the Telerik assembly, so you can't have that for all pages if you want to load the Telerik assembly on demand. Due to the limitations of the framework with regards to registering services, this is where we now provie the localization service. *@
 
-<TelerikRootComponent Localizer="@(new LazyLoadTelerikComponents.Shared.Services.SampleResxLocalizer())">
+<TelerikRootComponent Localizer="@( new LazyLoadTelerikComponents.Shared.Services.SampleResxLocalizer() )">
     <div class="sidebar">
         <NavMenu />
     </div>

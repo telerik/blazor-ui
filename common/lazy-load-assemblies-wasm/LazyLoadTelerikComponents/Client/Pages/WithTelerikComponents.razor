@@ -9,10 +9,8 @@
 @inject HttpClient Http
 
 @using LazyLoadTelerikComponents.Shared
-@using LazyLoadTelerikComponents.Shared.Resources
-@using Telerik.Blazor.Services
 
-@inject ITelerikStringLocalizer Localizer
+
 Current UI culture (used for localization): @System.Threading.Thread.CurrentThread.CurrentUICulture.Name
 <br />
 Current thread culture (used for date and number formatting): @System.Threading.Thread.CurrentThread.CurrentCulture.Name
@@ -23,7 +21,7 @@ Current thread culture (used for date and number formatting): @System.Threading.
              Pageable="true" Groupable="true" Sortable="true" FilterMode="@GridFilterMode.FilterMenu"
              OnUpdate="@UpdateHandler" OnDelete="@DeleteHandler" OnCreate="@CreateHandler">
     <GridToolBar>
-        <GridCommandButton Command="Add" Icon="add">@Localizer[nameof(TelerikMessages.Grid_Create)]</GridCommandButton>
+        <GridCommandButton Command="Add" Icon="add">@*@Localizer[nameof(TelerikMessages.Grid_Create)]*@</GridCommandButton>
     </GridToolBar>
     <GridColumns>
         <GridColumn Field="@(nameof(WeatherForecast.Date))">
@@ -35,10 +33,11 @@ Current thread culture (used for date and number formatting): @System.Threading.
         <GridColumn Field="@(nameof(WeatherForecast.TemperatureF))" />
         <GridColumn Field="@(nameof(WeatherForecast.Summary))" />
         <GridCommandColumn>
-            <GridCommandButton Command="Edit" Icon="edit">@Localizer[nameof(TelerikMessages.Grid_Edit)]</GridCommandButton>
+         @*   <GridCommandButton Command="Edit" Icon="edit">@Localizer[nameof(TelerikMessages.Grid_Edit)]</GridCommandButton>
             <GridCommandButton Command="Delete" Icon="delete">@Localizer[nameof(TelerikMessages.Grid_Delete)]</GridCommandButton>
             <GridCommandButton Command="Save" Icon="save" ShowInEdit="true">@Localizer[nameof(TelerikMessages.Grid_Update)]</GridCommandButton>
             <GridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true">@Localizer[nameof(TelerikMessages.Grid_Cancel)]</GridCommandButton>
+            *@
         </GridCommandColumn>
     </GridColumns>
 </TelerikGrid>
