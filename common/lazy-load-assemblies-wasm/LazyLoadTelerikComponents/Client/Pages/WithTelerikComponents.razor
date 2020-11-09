@@ -1,6 +1,10 @@
 ﻿@page "/withTelerik" 
 
+@* Uses a layout that adds the Telerik Root Component, and provides localization service *@
 @layout TelerikLayout 
+
+
+@* The rest is some sample components to showcase they work and that localization also works *@
 
 @inject HttpClient Http
 
@@ -8,7 +12,6 @@
 @using LazyLoadTelerikComponents.Shared.Resources
 @using Telerik.Blazor.Services
 
-@* You can use the service for Telerik localization for your own code as well - for example the grid command buttons *@
 @inject ITelerikStringLocalizer Localizer
 Current UI culture (used for localization): @System.Threading.Thread.CurrentThread.CurrentUICulture.Name
 <br />
