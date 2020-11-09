@@ -6,9 +6,9 @@ This sample project demonstrates how you can use the <a href="https://docs.micro
 
 There are a few key points and changes to a standard project with relation to the Telerik components:
 
-* Move the `<TelerikRootComponent>` to a layout that is used only on pages that have the Telerik assemblies loaded.
+1. Move the `<TelerikRootComponent>` to a layout that is used only on pages that have the Telerik assemblies loaded.
 
-* Mark the required assemblies as lazy-loaded in the `.csproj` file of the web assembly project - the following snippet shows the assemblies that the Telerik components rely on at the time of writing:
+1. Mark the required assemblies as lazy-loaded in the `.csproj` file of the web assembly project - the following snippet shows the assemblies that the Telerik components rely on at the time of writing. This is the same list of assemblies you need to load (the code for that is in the `App.razor` component).
 
     **CSPROJ**
     
@@ -22,11 +22,11 @@ There are a few key points and changes to a standard project with relation to th
             <BlazorWebAssemblyLazyLoad Include="System.Linq.Queryable.dll" />
         </ItemGroup>
 
-* Remove the Telerik services registration from `Program.cs`.
+1. Remove the Telerik services registration from `Program.cs`.
 
-* Move the localization service for the Telerik components from `Program.cs` to the `<TelerikRootComponent>` and its `Localizer` parameter (example available in the sample project).
+1. If you are using <a href="https://docs.telerik.com/blazor-ui/globalization/localization" target="_blank">localization</a> for the Telerik components, move the localization service for the Telerik components from `Program.cs` to the `Localizer` parameter of the `<TelerikRootComponent>` (example available in the sample project). The key thing is to instantiate the variable locally, it cannot be injected or present in the `@code { }` block as that will throw runtime errors.
 
-The last two items are required because lazy loading of assemblies does not support dynamic service injection, you can read more about that framework limitation in <a href="https://github.com/dotnet/aspnetcore/issues/27331#issuecomment-718870305" target="_blank">this Microsoft GitHub Issue</a>. This means that you cannot `inject` services that depend on or inherit code that will be lazy-loaded.
+> The last two items are required because lazy loading of assemblies does not support dynamic service injection, you can read more about that framework limitation in <a href="https://github.com/dotnet/aspnetcore/issues/27331#issuecomment-718870305" target="_blank">this Microsoft GitHub Issue</a>. This means that you cannot `inject` services that depend on or inherit code that will be lazy-loaded, nor can you use them as fields in the view-model of a component.
 
 ## Notes
 
