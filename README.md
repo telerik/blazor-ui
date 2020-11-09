@@ -8,7 +8,7 @@ This repo also contains two larger [sample applications](sample-applications).
 
 **Issues and Pull Requests are welcome.** 
 
-To submit a pull request, you should **first fork the repo**.
+To submit a pull request, you should **first [fork](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo) the repo**.
 
 ## Package References
 
