@@ -1,4 +1,16 @@
-﻿<Router AppAssembly="@typeof(Program).Assembly">
+﻿@using System.Reflection
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.WebAssembly.Services
+@inject LazyAssemblyLoader assemblyLoader
+
+<Router AppAssembly="@typeof(Program).Assembly"
+        AdditionalAssemblies="@lazyLoadedAssemblies"
+        OnNavigateAsync="@OnNavigateAsync">
+    <Navigating>
+        <div style="padding:20px;background-color:blue;color:white">
+            <p>Loading the requested page...</p>
+        </div>
+    </Navigating>
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
     </Found>
@@ -8,3 +20,35 @@
         </LayoutView>
     </NotFound>
 </Router>
+
+@code {
+    private List<Assembly> lazyLoadedAssemblies = new List<Assembly>();
+
+    private async Task OnNavigateAsync(NavigationContext args)
+    {
+        try
+        {
+            if (args.Path.Contains("withTelerik"))
+            {
+                var assemblies = await assemblyLoader.LoadAssembliesAsync(new List<string>()
+                {
+                    "Telerik.Blazor.dll",
+                    "Telerik.DataSource.dll",
+                    "Telerik.Recurrence.dll",
+                    "Telerik.Documents.SpreadsheetStreaming.dll",
+                    "Telerik.Zip.dll",
+                    "System.Data.Common.dll",
+                    "System.Linq.Queryable.dll",
+
+//                    "LazyLoadTelerikComponents.Shared.dll"
+                });
+
+                lazyLoadedAssemblies.AddRange(assemblies);
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("loading assemblies failed " + ex);
+        }
+    }
+}

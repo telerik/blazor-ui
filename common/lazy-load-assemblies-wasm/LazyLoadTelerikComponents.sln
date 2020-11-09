@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30626.31
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyLoadTelerikComponents.Server", "LazyLoadTelerikComponents\Server\LazyLoadTelerikComponents.Server.csproj", "{0F51D5A3-DC63-49D9-B31C-C471C6E0F854}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LazyLoadTelerikComponents.Server", "LazyLoadTelerikComponents\Server\LazyLoadTelerikComponents.Server.csproj", "{0F51D5A3-DC63-49D9-B31C-C471C6E0F854}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyLoadTelerikComponents.Client", "LazyLoadTelerikComponents\Client\LazyLoadTelerikComponents.Client.csproj", "{C62933EA-B257-458F-A4AE-26E2BAC3E951}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LazyLoadTelerikComponents.Client", "LazyLoadTelerikComponents\Client\LazyLoadTelerikComponents.Client.csproj", "{C62933EA-B257-458F-A4AE-26E2BAC3E951}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyLoadTelerikComponents.Shared", "LazyLoadTelerikComponents\Shared\LazyLoadTelerikComponents.Shared.csproj", "{3310F5CD-9AF9-441B-AD62-7B6A655E19A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LazyLoadTelerikComponents.Shared", "LazyLoadTelerikComponents\Shared\LazyLoadTelerikComponents.Shared.csproj", "{3310F5CD-9AF9-441B-AD62-7B6A655E19A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
