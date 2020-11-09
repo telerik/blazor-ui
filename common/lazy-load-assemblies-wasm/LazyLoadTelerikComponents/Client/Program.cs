@@ -19,11 +19,13 @@ namespace LazyLoadTelerikComponents.Client
             builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
             // now you don't register Telerik services here because the assemblies will be lazy-loaded
-            // so this code and namespaces won't be available when the app starts.
+            // so this code and namespaces won't be available when the app starts and would throw.
             //builder.Services.AddTelerikBlazor();
             //builder.Services.AddSingleton(typeof(ITelerikStringLocalizer), typeof(SampleResxLocalizer));
 
-
+            // the MS local resources localizer for the strings from the current page (component)
+            // see https://github.com/pranavkm/LocSample
+            builder.Services.AddLocalization();
 
             var host = builder.Build();
 

@@ -1,13 +1,14 @@
-﻿@page "/withTelerik" 
-
+﻿@page "/withTelerik"
 @* Uses a layout that adds the Telerik Root Component, and provides localization service *@
-@layout TelerikLayout 
-
-
+@layout TelerikLayout
 @* The rest is some sample components to showcase they work and that localization also works *@
 
-@inject HttpClient Http
+@* Note that strings from the current page (component) like the button texts, must come from the app localization now *@
+@inject Microsoft.Extensions.Localization.IStringLocalizer<WithTelerikComponents> Loc
 
+
+
+@inject HttpClient Http
 @using LazyLoadTelerikComponents.Shared
 
 
@@ -21,7 +22,7 @@ Current thread culture (used for date and number formatting): @System.Threading.
              Pageable="true" Groupable="true" Sortable="true" FilterMode="@GridFilterMode.FilterMenu"
              OnUpdate="@UpdateHandler" OnDelete="@DeleteHandler" OnCreate="@CreateHandler">
     <GridToolBar>
-        <GridCommandButton Command="Add" Icon="add">@*@Localizer[nameof(TelerikMessages.Grid_Create)]*@</GridCommandButton>
+        <GridCommandButton Command="Add" Icon="add">@Loc["Grid_Create"]</GridCommandButton>
     </GridToolBar>
     <GridColumns>
         <GridColumn Field="@(nameof(WeatherForecast.Date))">
@@ -33,11 +34,10 @@ Current thread culture (used for date and number formatting): @System.Threading.
         <GridColumn Field="@(nameof(WeatherForecast.TemperatureF))" />
         <GridColumn Field="@(nameof(WeatherForecast.Summary))" />
         <GridCommandColumn>
-         @*   <GridCommandButton Command="Edit" Icon="edit">@Localizer[nameof(TelerikMessages.Grid_Edit)]</GridCommandButton>
-            <GridCommandButton Command="Delete" Icon="delete">@Localizer[nameof(TelerikMessages.Grid_Delete)]</GridCommandButton>
-            <GridCommandButton Command="Save" Icon="save" ShowInEdit="true">@Localizer[nameof(TelerikMessages.Grid_Update)]</GridCommandButton>
-            <GridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true">@Localizer[nameof(TelerikMessages.Grid_Cancel)]</GridCommandButton>
-            *@
+            <GridCommandButton Command="Edit" Icon="edit">@Loc["Grid_Edit"]</GridCommandButton>
+            <GridCommandButton Command="Delete" Icon="delete">@Loc["Grid_Delete"]</GridCommandButton>
+            <GridCommandButton Command="Save" Icon="save" ShowInEdit="true">@Loc["Grid_Update"]</GridCommandButton>
+            <GridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true">@Loc["Grid_Cancel"]</GridCommandButton>
         </GridCommandColumn>
     </GridColumns>
 </TelerikGrid>

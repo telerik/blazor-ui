@@ -32,6 +32,7 @@
             {
                 var assemblies = await assemblyLoader.LoadAssembliesAsync(new List<string>()
                 {
+                    // Define the assemblies that will be lazy loaded. This is a list for the Telerik assemblies as of 2.19.0 
                     "Telerik.Blazor.dll",
                     "Telerik.DataSource.dll",
                     "Telerik.Recurrence.dll",

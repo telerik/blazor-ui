@@ -8,7 +8,9 @@ There are a few key points and changes to a standard project with relation to th
 
 1. Move the `<TelerikRootComponent>` to a layout that is used only on pages that have the Telerik assemblies loaded.
 
-1. Mark the required assemblies as lazy-loaded in the `.csproj` file of the web assembly project - the following snippet shows the assemblies that the Telerik components rely on at the time of writing. This is the same list of assemblies you need to load (the code for that is in the `App.razor` component).
+1. Mark the required assemblies as lazy-loaded in the `.csproj` file of the web assembly project - the following snippet shows the assemblies that the Telerik components rely on at the time of the `2.19.0` release. 
+
+    This is the same list of assemblies you need to load when the page with the Telerik components is requested (the code for that is in the `App.razor` component).
 
     **CSPROJ**
     
@@ -36,5 +38,5 @@ There are a few key points and changes to a standard project with relation to th
 
     * This means you cannot inject it yourself, or add an extra cascading parameter for it - it will throw runtime errors when the blazor app initializes.
     
-    * Localization of button texts is a part of the application (page), so it is up to the application to implement it. You can use the built-in string localizer from the framework on a per-page basis, like any other razor component. There is an example of this in the sample project.
+    * Localization of button texts is a part of the application (page), so it is up to the application to implement it. You can use the built-in string localizer from the framework on a per-page basis, like any other razor component. There is an example of this in the sample project (uses the `Microsoft.Extensions.Localization` package and local `.resx` files next to the page in question).
 
