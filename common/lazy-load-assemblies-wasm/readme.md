@@ -8,7 +8,7 @@ There are a few key points and changes to a standard project with relation to th
 
 * Move the `<TelerikRootComponent>` to a layout that is used only on pages that have the Telerik assemblies loaded.
 
-* Mark the required assemblies as lazy-loaded in the `.csproj` file of the web assembly project - the following snippet shows the assemblies that the Telerik components rely on at the time of writing.
+* Mark the required assemblies as lazy-loaded in the `.csproj` file of the web assembly project - the following snippet shows the assemblies that the Telerik components rely on at the time of writing:
 
     **CSPROJ**
     
@@ -34,5 +34,7 @@ The last two items are required because lazy loading of assemblies does not supp
 
 * You cannot use the same localization service that the Telerik components use internally (and that you pass to them) for your own localization (such as grid command button texts). This limitation comes from the same limitation of injecting dynamic services described above.
 
+    * This means you cannot inject it yourself, or add an extra cascading parameter for it - it will throw runtime errors when the blazor app initializes.
+    
     * Localization of button texts is a part of the application (page), so it is up to the application to implement it. You can use the built-in string localizer from the framework on a per-page basis, like any other razor component. There is an example of this in the sample project.
 
