@@ -1,0 +1,89 @@
+﻿@page "/withTelerik"
+@* Uses a layout that adds the Telerik Root Component, and provides localization service *@
+@layout TelerikLayout
+@* The rest is some sample components to showcase they work and that localization also works *@
+
+@* Note that strings from the current page (component) like the button texts, must come from the app localization now *@
+@inject Microsoft.Extensions.Localization.IStringLocalizer<WithTelerikComponents> Loc
+
+
+
+@inject HttpClient Http
+@using LazyLoadTelerikComponents.Shared
+
+
+Current UI culture (used for localization): @System.Threading.Thread.CurrentThread.CurrentUICulture.Name
+<br />
+Current thread culture (used for date and number formatting): @System.Threading.Thread.CurrentThread.CurrentCulture.Name
+
+<CultureChooser />
+
+<TelerikGrid Data="@forecasts"
+             Pageable="true" Groupable="true" Sortable="true" FilterMode="@GridFilterMode.FilterMenu"
+             OnUpdate="@UpdateHandler" OnDelete="@DeleteHandler" OnCreate="@CreateHandler">
+    <GridToolBar>
+        <GridCommandButton Command="Add" Icon="add">@Loc["Grid_Create"]</GridCommandButton>
+    </GridToolBar>
+    <GridColumns>
+        <GridColumn Field="@(nameof(WeatherForecast.Date))">
+            <Template>
+                @((context as WeatherForecast).Date.ToShortDateString())
+            </Template>
+        </GridColumn>
+        <GridColumn Field="@(nameof(WeatherForecast.TemperatureC))" />
+        <GridColumn Field="@(nameof(WeatherForecast.TemperatureF))" />
+        <GridColumn Field="@(nameof(WeatherForecast.Summary))" />
+        <GridCommandColumn>
+            <GridCommandButton Command="Edit" Icon="edit">@Loc["Grid_Edit"]</GridCommandButton>
+            <GridCommandButton Command="Delete" Icon="delete">@Loc["Grid_Delete"]</GridCommandButton>
+            <GridCommandButton Command="Save" Icon="save" ShowInEdit="true">@Loc["Grid_Update"]</GridCommandButton>
+            <GridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true">@Loc["Grid_Cancel"]</GridCommandButton>
+        </GridCommandColumn>
+    </GridColumns>
+</TelerikGrid>
+
+<p>The Calendar will also take the names of the months, days of the week and the first day of the week from the culture.</p>
+
+<TelerikCalendar @bind-Date="@today" />
+
+<p>The numeric textbox also reacts to the culture and uses its standard numeric formats.</p>
+<TelerikNumericTextBox @bind-Value="@numericTextBoxValue" Format="N" />
+
+
+@code {
+    decimal numericTextBoxValue { get; set; } = 1234567.89123m;
+    DateTime today { get; set; } = DateTime.Now.Date;
+    List<WeatherForecast> forecasts { get; set; } = new List<WeatherForecast>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await Http.GetFromJsonAsync<List<WeatherForecast>>("WeatherForecast?count=150");
+    }
+
+    // sample CUD operations to showcase how to localize command buttons as well
+    public void UpdateHandler(GridCommandEventArgs args)
+    {
+        WeatherForecast item = (WeatherForecast)args.Item;
+        var matchingItem = forecasts.FirstOrDefault(c => c.Id == item.Id);
+        if (matchingItem != null)
+        {
+            matchingItem.Summary = item.Summary;
+            matchingItem.TemperatureC = item.TemperatureC;
+            matchingItem.Date = item.Date;
+        }
+    }
+
+    public void DeleteHandler(GridCommandEventArgs args)
+    {
+        WeatherForecast item = (WeatherForecast)args.Item;
+        forecasts.Remove(item);
+    }
+
+    public void CreateHandler(GridCommandEventArgs args)
+    {
+        WeatherForecast item = (WeatherForecast)args.Item;
+
+        item.Id = forecasts.Count;
+        forecasts.Insert(0, item);
+    }
+}
