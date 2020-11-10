@@ -12,7 +12,7 @@ There are a few key points and changes to a standard project with relation to th
 
     The following snippet shows the assemblies that the Telerik components rely on at the time of the `2.19.0` release.
     
-    Common assemblies (such as the `System.*` ones) may already be in use by your app and already load on the initial load, so you may want to remove them.
+    Common assemblies (such as the `System.*` ones) may already be in use by your app and already load on the initial load, so you may want to remove them from this list.
 
     This is the same list of assemblies you need to load when the page with the Telerik components is requested (the code for that is in the `App.razor` component).
 
