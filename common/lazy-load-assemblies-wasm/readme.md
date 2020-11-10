@@ -8,7 +8,11 @@ There are a few key points and changes to a standard project with relation to th
 
 1. Move the `<TelerikRootComponent>` to a layout that is used only on pages that have the Telerik assemblies loaded.
 
-1. Mark the required assemblies as lazy-loaded in the `.csproj` file of the web assembly project - the following snippet shows the assemblies that the Telerik components rely on at the time of the `2.19.0` release. 
+1. Mark the assemblies you want to lazy-load in the `.csproj` file of the web assembly project.
+
+    The following snippet shows the assemblies that the Telerik components rely on at the time of the `2.19.0` release.
+    
+    Common assemblies (such as the `System.*` ones) may already be in use by your app and already load on the initial load, so you may want to remove them.
 
     This is the same list of assemblies you need to load when the page with the Telerik components is requested (the code for that is in the `App.razor` component).
 
