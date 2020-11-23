@@ -12,8 +12,12 @@
             <a href="https://docs.microsoft.com/en-us/aspnet/" target="_blank">About</a>
         </div>
 
-        <TelerikNotification @ref="@NotificationReference"></TelerikNotification>
-        <CascadingValue IsFixed="true" Value="@sharedNotification">
+        <TelerikNotification @ref="@NotificationReference" 
+                             HorizontalPosition="@NotificationHorizontalPosition.Right"
+                             VerticalPosition="@NotificationVerticalPosition.Top"
+                             Class="big-notification">
+        </TelerikNotification>
+        <CascadingValue IsFixed="true" Value="@this">
             <div class="content px-4">
                 @Body
             </div>
@@ -22,12 +26,21 @@
 </div>
 
 @code{
-    SharedNotification sharedNotification { get; set; }
     TelerikNotification NotificationReference { get; set; }
 
-    protected override void OnAfterRender(bool firstRender)
+    public void ShowNotification(NotificationModel model)
     {
-        SharedNotification sharedNotification = new SharedNotification(NotificationReference);
-        base.OnAfterRender(firstRender);
+        NotificationReference?.Show(model);
     }
 }
+
+<style>
+    .big-notification .k-notification-container .k-notification-wrap {
+        width: 350px;
+        height: 100px;
+    }
+
+    .big-notification {
+        z-index: 1234;
+    }
+</style>
