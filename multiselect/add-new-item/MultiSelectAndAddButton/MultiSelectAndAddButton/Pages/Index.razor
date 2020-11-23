@@ -1,0 +1,18 @@
+﻿@page "/"
+
+
+<MultiSelectWithAdd @bind-Tags="@Tags" />
+
+@if (Tags?.Count > 0)
+{
+    <ul>
+        @foreach (int item in Tags)
+        {
+            <li>@item</li>
+        }
+    </ul>
+}
+
+@code{
+    List<int> Tags { get; set; }
+}

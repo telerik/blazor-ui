@@ -1,0 +1,110 @@
+﻿@using System.Collections.ObjectModel
+@using MultiSelectAndAddButton.Data
+
+@inject IJSRuntime _js
+@inject MsOptionsService _dataService
+
+<p>
+    Click in the multi select, you can select some of the predefined items, or type a new one - this will give you the Add button.
+</p>
+
+<TelerikMultiSelect Data="@Options" @bind-Value="@Tags" AutoClose="false"
+                    TextField="StringRepresentation" ValueField="MyValueField"
+                    OnRead="@ReadItems" Filterable="true"
+                    Id="@Id"
+                    OnChange="@RaiseTagsChanged">
+    <FooterTemplate>
+        @if (_isNewTag && !string.IsNullOrEmpty(_currentFilterValue))
+        {
+            <div class="p-3">
+                <button class="btn btn-secondary" @onclick="@OnCreateRecord">Create '@_currentFilterValue'</button>
+            </div>
+        }
+    </FooterTemplate>
+</TelerikMultiSelect>
+
+@code{
+    [Parameter]
+    public List<int> Tags { get; set; } = new List<int>();
+
+    [Parameter]
+    public EventCallback<List<int>> TagsChanged { get; set; }
+
+    ObservableCollection<OptionsModel> Options { get; set; } = new ObservableCollection<OptionsModel>();
+    
+    // used to get the current user input and to show the Add button
+    string _currentFilterValue { get; set; }
+    bool _isNewTag => IsNew();
+
+    // used for the hack
+    bool shouldUpdateValueParam { get; set; }
+    string Id { get; set; } = "ms" + Guid.NewGuid().ToString();
+
+    // Event for the parent component
+    async Task RaiseTagsChanged(object theTags)
+    {
+        await TagsChanged.InvokeAsync(Tags);
+    }
+
+    // insertion in the data source, local data and Values collection
+    async Task OnCreateRecord()
+    {
+        OptionsModel insertedOption = await _dataService.AddOption(_currentFilterValue);
+        Options.Add(insertedOption); // update the current view-model. Add() works because it is an observable collection
+
+        // update the values, needs a new reference, see https://docs.telerik.com/blazor-ui/common-features/observable-data#refresh-data
+        // continues with a hack in OnRead
+        Tags.Add(insertedOption.MyValueField);
+        shouldUpdateValueParam = true;
+
+        // raises event for parent componets to use
+        await TagsChanged.InvokeAsync(Tags);
+    }
+
+    // sample check to know whether to show the Add button. You should keep it synchronous - the service
+    // should have already taken care to return properly filtered data based on the current input (not implemented here)
+    bool IsNew()
+    {
+        var matchingOptions = Options.Where(opt => opt.StringRepresentation == _currentFilterValue);
+        bool hasMatch = matchingOptions.Any();
+        return !hasMatch;
+    }
+
+    // used for loading on demand, for getting the current user input, and for hacking the MultiSelect component to update the value
+    // after the service returns the inserted item, and a new OnRead has fired that populated the actual Data of the component
+    async Task ReadItems(MultiSelectReadEventArgs args)
+    {
+        string userInput = string.Empty;
+        if (args.Request.Filters.Count > 0)
+        {
+            Telerik.DataSource.FilterDescriptor filter = args.Request.Filters[0] as Telerik.DataSource.FilterDescriptor;
+            userInput = filter.Value.ToString();
+            // we use this code to get the user input
+        }
+        _currentFilterValue = userInput;
+
+        // new data collection comes down from the service. In this example we hardcode a few items
+        // in a real case you may want to actually use the current user input and method, see more at
+        // https://docs.telerik.com/blazor-ui/components/multiselect/events#onread
+        var currOpts = await _dataService.GetOptions();
+        Options = new ObservableCollection<OptionsModel>(currOpts);
+
+        // START of the hack for updating the values from an extrenal place
+        // generally, you should not update the Value here, or any other component parameter
+        // we do this here to make the component re-render after it has the new data, otherwise
+        // it could not match the new value we just added to the data source, and would not create a "tag"
+        if (shouldUpdateValueParam)
+        {
+            shouldUpdateValueParam = false;
+
+            // to make the framework re-render a component, change the reference to the complex object
+            // see more at https://docs.telerik.com/blazor-ui/common-features/observable-data#refresh-data
+            List<int> updatedValues = new List<int>(Tags);
+            Tags = updatedValues;
+
+            // clear the input value now that the user has added the current text to the data source
+            // the sample JS method is in the index page of the blazor app, move it as necessary
+            await _js.InvokeVoidAsync("clearInput", Id);
+        }
+    }
+}
