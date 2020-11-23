@@ -1,0 +1,33 @@
+﻿@layout TelerikLayout
+
+@inherits LayoutComponentBase
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <div class="main">
+        <div class="top-row px-4">
+            <a href="https://docs.microsoft.com/en-us/aspnet/" target="_blank">About</a>
+        </div>
+
+        <TelerikNotification @ref="@NotificationReference"></TelerikNotification>
+        <CascadingValue IsFixed="true" Value="@sharedNotification">
+            <div class="content px-4">
+                @Body
+            </div>
+        </CascadingValue>
+    </div>
+</div>
+
+@code{
+    SharedNotification sharedNotification { get; set; }
+    TelerikNotification NotificationReference { get; set; }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        SharedNotification sharedNotification = new SharedNotification(NotificationReference);
+        base.OnAfterRender(firstRender);
+    }
+}

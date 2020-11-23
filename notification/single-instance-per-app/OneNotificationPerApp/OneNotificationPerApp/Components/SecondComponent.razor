@@ -1,0 +1,20 @@
+﻿<h3>SecondComponent</h3>
+
+
+<button @onclick="@ShowNotification">Show Notification from Second Component</button>
+
+@code {
+    [CascadingParameter]
+    protected SharedNotification notificationInstance { get; set; }
+
+    void ShowNotification()
+    {
+        notificationInstance.ShowNotification(new NotificationModel()
+        {
+            Text = "From SECOND Component",
+            ThemeColor = ThemeColors.Warning,
+            CloseAfter = 0,
+            Closable = false
+        });
+    }
+}

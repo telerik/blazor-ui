@@ -1,0 +1,23 @@
+﻿@page "/"
+
+<OneNotificationPerApp.Components.FirstComponent></OneNotificationPerApp.Components.FirstComponent>
+
+<h3>Index Page</h3>
+
+<button @onclick="@ShowNotification">Show Notification from Index Page</button>
+
+@code {
+    [CascadingParameter]
+    protected SharedNotification notificationInstance { get; set; }
+
+    void ShowNotification()
+    {
+        notificationInstance.ShowNotification(new NotificationModel()
+        {
+            Text = "From Index Page",
+            ThemeColor = ThemeColors.Error,
+            CloseAfter = 0,
+            Closable = false
+        });
+    }
+}
