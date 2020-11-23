@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneNotificationPerApp", "OneNotificationPerApp\OneNotificationPerApp.csproj", "{699CECCA-9282-44B0-AA61-4DA0C2E6771C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telerik.Blazor", "..\..\..\..\Telerik\blazor\Telerik.Blazor\Telerik.Blazor.csproj", "{C8F170B7-1CD9-4307-919D-981ED16230E3}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{699CECCA-9282-44B0-AA61-4DA0C2E6771C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{699CECCA-9282-44B0-AA61-4DA0C2E6771C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{699CECCA-9282-44B0-AA61-4DA0C2E6771C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C8F170B7-1CD9-4307-919D-981ED16230E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C8F170B7-1CD9-4307-919D-981ED16230E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C8F170B7-1CD9-4307-919D-981ED16230E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C8F170B7-1CD9-4307-919D-981ED16230E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
