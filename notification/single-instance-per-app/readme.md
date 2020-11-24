@@ -1,3 +1,3 @@
 # One Notification Instance for All Components
 
-This sample project shows a basic example of declaring a single Telerik Notification component in the app (in the `MainLayout`) and passing it as a `CascadingParameter` to the pages and components inside, so they can choose to use it to show notifiations from a single place, with shared settings, so they can all stack, and you don't have to declare notification components every time you may need to use one.
+This sample project shows a basic example of declaring a single Telerik Notification component in the app (in the `MainLayout`) and passing it as a `CascadingParameter` to the pages and components inside (with a helper class so you can pass component references), so they can choose to use it to show notifiations from a single place, with shared settings, so they can all stack, and you don't have to declare notification components every time you may need to use one.
