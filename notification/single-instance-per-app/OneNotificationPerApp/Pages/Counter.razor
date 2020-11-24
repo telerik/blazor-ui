@@ -8,14 +8,14 @@
 
 @code {
     [CascadingParameter]
-    protected MainLayout layoutRef { get; set; }
+    protected Notification Notification { get; set; }
 
     int currentCount = 0;
 
     void IncrementCount()
     {
         currentCount++;
-        layoutRef.ShowNotification(new NotificationModel()
+        Notification.Instance.Show(new NotificationModel()
         {
             Text = "From COUNTER Page, counter: " + currentCount,
             ThemeColor = ThemeColors.Info,

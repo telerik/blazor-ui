@@ -12,12 +12,12 @@
             <a href="https://docs.microsoft.com/en-us/aspnet/" target="_blank">About</a>
         </div>
 
-        <TelerikNotification @ref="@NotificationReference" 
+        <TelerikNotification @ref="@Notification.Instance" 
                              HorizontalPosition="@NotificationHorizontalPosition.Right"
                              VerticalPosition="@NotificationVerticalPosition.Top"
                              Class="big-notification">
         </TelerikNotification>
-        <CascadingValue IsFixed="true" Value="@this">
+        <CascadingValue IsFixed="true" Value="@Notification">
             <div class="content px-4">
                 @Body
             </div>
@@ -26,12 +26,7 @@
 </div>
 
 @code{
-    TelerikNotification NotificationReference { get; set; }
-
-    public void ShowNotification(NotificationModel model)
-    {
-        NotificationReference?.Show(model);
-    }
+    Notification Notification { get; set; } = new Notification();
 }
 
 <style>

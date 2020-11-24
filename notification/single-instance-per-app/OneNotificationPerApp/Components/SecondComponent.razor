@@ -5,11 +5,11 @@
 
 @code {
     [CascadingParameter]
-    protected MainLayout layoutRef { get; set; }
+    protected Notification Notification { get; set; }
 
     void ShowNotification()
     {
-        layoutRef.ShowNotification(new NotificationModel()
+        Notification.Instance.Show(new NotificationModel()
         {
             Text = "From SECOND Component",
             ThemeColor = ThemeColors.Warning,
