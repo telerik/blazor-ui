@@ -30,6 +30,7 @@ namespace WasmApp.Services
             HttpResponseMessage response = await Http.PostAsJsonAsync("WeatherForecast", gridRequest);
             // make sure to use the System.Text.Json serializer
             // e.g., JsonSerializer.Serialize(gridRequest) for the second argument if you have some other implementations
+            // and that its serialization options match the server serialization options (see the readme)
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {

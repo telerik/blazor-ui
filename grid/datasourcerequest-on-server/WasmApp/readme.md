@@ -7,7 +7,14 @@ You can obtain the data through extension methods provided by the `Telerik.DataS
 There are a few specifics to this scenario:
 
 * The `Server` project must reference the `Telerik.DataSource` package and you need the `using` statements to get the extension methods.
+
 * The serialization and deserialization of the data must be handled by the app. The `DataSourceRequest` object can be serialized and deserialized through the built-in `System.Text.Json` serializer that comes with Blazor. The client-side app must send it as a string, and the controller must deserialize it from this string.
+    * The serialization options must, therefore, match between the client and the server. At the time of writing, the default options on the server are `PropertyNamingPolicy.CamelCase & PropertyNameCaseInsensitive = true`. There are several ways to equalize them:
+    
+        * One is to use specific serialization options on the client when requesting data, for example something like `await Http.PostAsync($"myController/read", new StringContent(JsonSerializer.Serialize(args.Request, new JsonSerializerOptions(JsonSerializerDefaults.Web)), Encoding.UTF8, "application/json"));`.
+        * Or, another option is to choose the default serialization options for the server in `Startup.cs`, something like `services.AddMvc().AddJsonOptions(options =&gt; options.JsonSerializerOptions.PropertyNamingPolicy = null);`.
+        * A third approach is to receive the serialized object as a string and deserialize it in the action method itself as desired.
+
 * There is a data envelope class used in the project where we serialize the total count and the current page of data. This is necessary, because the framework cannot deserialize the `IEnumerable` object the Telerik `DataSourceResult` has - a typed collection is needed - `System.Text.Json` cannot successfully deserialize interface properties. Perhaps a future version of the framework will be able to perform this deserialization and will simplify the data return to something similar to the server app approach where you only return the `DataSourceResult` object.
     * A second field is used when there is grouping - the grouped data has a very specific shape that the grid usually abstracts away from you, but now you must handle yourself (serialization, deserialization, parsing, generation). This sample project provides examples of generating it through the `.ToDataSourceResult` Telerik extension method; and serialization and parsing through some helper methods.
 
