@@ -13,68 +13,90 @@ using Telerik.Windows.Documents.Fixed.Model.Editing.Flow;
 using Telerik.Windows.Documents.Fixed.Model.Fonts;
 using Telerik.Windows.Documents.Fixed.Model.Graphics;
 using Telerik.Windows.Documents.Fixed.Model.Editing.Tables;
+using System.Threading.Tasks;
+using Telerik.DataSource;
+using Telerik.DataSource.Extensions;
+using System.Reflection;
 
 namespace PdfExport
 {
     public class RadPdfProcessingExporter
     {
-        public void ExportSamples()
+        public async Task<byte[]> ExportPdf<T>(IQueryable<T> data, DataSourceRequest gridRequest)
         {
-            ExportPdf(20, 20);
-            //ExportPdf(100, 20);
-            //ExportPdf(100, 100);
-            //ExportPdf(200, 100);
-            //ExportPdf(1000, 20);
-            //ExportPdf(2000, 20);
-        }
-
-        public Stream ExportPdf(int rowCount, int columnCount)
-        {
-            Console.WriteLine($"Exporting {rowCount} rows and {columnCount} columns with PdfProcessing");
-
-            var watch1 = Stopwatch.StartNew();
             PdfFormatProvider provider = new PdfFormatProvider();
-            var document = GenerateSampleDocument(rowCount, columnCount);
-            Console.WriteLine($"file generation time: {watch1.ElapsedMilliseconds * 0.001} seconds.");
-            Debug.WriteLine($"file generation time: {watch1.ElapsedMilliseconds * 0.001} seconds.");
 
-            using var memoryStream = new MemoryStream();
-            var watch2 = Stopwatch.StartNew();
-            provider.Export(document, memoryStream);
-            Console.WriteLine($"export time: {watch2.ElapsedMilliseconds * 0.001} seconds.");
-            Debug.WriteLine($"export time: {watch2.ElapsedMilliseconds * 0.001} seconds.");
+            var document = await GenerateSampleDocument(data, gridRequest);
 
-            return memoryStream;
+            byte[] fileBytes = null;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                provider.Export(document, ms);
+                fileBytes = ms.ToArray();
+            }
+
+            return await Task.FromResult(fileBytes);
         }
 
-        private static RadFixedDocument GenerateSampleDocument(int rowCount, int columnCount)
+        private async Task<RadFixedDocument> GenerateSampleDocument<T>(IQueryable<T> data, DataSourceRequest gridRequest)
         {
-            var table = CreateTable(rowCount, columnCount);
+            var table = await CreateTable<T>(data, gridRequest);
             var document = new RadFixedDocument();
             using var editor = new RadFixedDocumentEditor(document);
 
             editor.InsertTable(table);
 
-            return document;
+            return await Task.FromResult(document);
         }
 
-        private static Table CreateTable(int rowCount, int columnCount)
+        private async Task<Table> CreateTable<T>(IQueryable<T> data, DataSourceRequest gridRequest)
         {
+            var dataResult = await data.ToDataSourceResultAsync(gridRequest);
+            List<T> dataToExport = (dataResult.Data as IEnumerable<T>).ToList();
+
+            int currRow = 0;
+
+            Type typeParameterType = typeof(T);
+            var fieldsList = typeParameterType.GetProperties();
+
             Table table = new Table();
 
-            for (int rowIndex = 0; rowIndex < rowCount; rowIndex++)
-            {
-                var row = table.Rows.AddTableRow();
+            Border blackBorder = new Border(2, new RgbColor(0, 0, 0));
+            table.DefaultCellProperties.Borders = new TableCellBorders(blackBorder, blackBorder, blackBorder, blackBorder);
 
-                for (int columnIndex = 0; columnIndex < columnCount; columnIndex++)
-                {
-                    row.Cells
-                        .AddTableCell().Blocks.AddBlock()
-                        .InsertText($"row {rowIndex}, col {columnIndex}");
-                }
+            var headerRow = table.Rows.AddTableRow();
+            for (int i = 0; i < fieldsList.Length; i++)
+            {
+                TableCell cell = headerRow.Cells.AddTableCell();
+                cell.Blocks.AddBlock().InsertText(fieldsList[i].Name);
+                cell.Background = new RgbColor(111, 111, 111);
             }
 
-            return table;
+            for (int i = 0; i < dataToExport.Count; i++)
+            {
+                var row = table.Rows.AddTableRow();
+                for (int columnIndex = 0; columnIndex < fieldsList.Length; columnIndex++)
+                {
+                    var cellValue = GetFieldValue(dataToExport[i], fieldsList[columnIndex].Name);
+
+                    row.Cells
+                        .AddTableCell().Blocks.AddBlock()
+                        .InsertText(cellValue.ToString());
+                }
+                currRow++;
+            }
+
+            return await Task.FromResult(table);
+        }
+
+        private object GetFieldValue(object item, string fieldName)
+        {
+            PropertyInfo propertyInfo = item.GetType().GetProperty(fieldName);
+            if (propertyInfo != null)
+            {
+                return propertyInfo.GetValue(item);
+            }
+            return null;
         }
     }
 }

@@ -6,6 +6,8 @@
 @inject WeatherForecastService ForecastService
 @inject PdfExportService PdfService
 
+<label><TelerikCheckBox @bind-Value="@UseSpreadStreamProcessing" />Use RadSpreadStreamProcessing</label>
+
 <TelerikGrid Height="550px" FilterMode="@GridFilterMode.FilterMenu"
              Sortable="true" Pageable="true" PageSize="20"
              Data=@GridData TotalCount=@Total OnRead=@ReadItems>
@@ -28,6 +30,8 @@
     bool ExportAllPages { get; set; }
     DataSourceRequest lastRequest { get; set; }
 
+    bool UseSpreadStreamProcessing { get; set; }
+
     protected async Task ReadItems(GridReadEventArgs args)
     {
         lastRequest = args.Request;
@@ -39,6 +43,6 @@
 
     async Task ExportToPdf()
     {
-        await PdfService.GetPdf(lastRequest, ExportAllPages);
+        await PdfService.GetPdf(lastRequest, ExportAllPages, UseSpreadStreamProcessing);
     }
 }

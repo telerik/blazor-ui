@@ -1,30 +1,25 @@
 ﻿using System;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Diagnostics;
-using System.IO;
-using Telerik.Windows.Documents.Fixed.FormatProviders.Pdf;
-using Telerik.Windows.Documents.Fixed.FormatProviders.Pdf.Export;
-using Telerik.Windows.Documents.Fixed.Model;
-using Telerik.Windows.Documents.Fixed.Model.ColorSpaces;
-using Telerik.Windows.Documents.Fixed.Model.Editing;
-using Telerik.Windows.Documents.Fixed.Model.Editing.Flow;
-using Telerik.Windows.Documents.Fixed.Model.Fonts;
-using Telerik.Windows.Documents.Fixed.Model.Graphics;
-using Telerik.Windows.Documents.Fixed.Model.Editing.Tables;
+using System.Text;
 using System.Threading.Tasks;
+using Telerik.DataSource;
 
 namespace PdfExport
 {
     public class PdfExporter
     {
-        public Stream ExportWithRadPdfProcessing(int rowCount, int columnCount)
+        public async Task<byte[]> ExportWithRadPdfProcessing<T>(IQueryable<T> data, DataSourceRequest gridRequest)
         {
             var pdfExporter = new RadPdfProcessingExporter();
 
-            return pdfExporter.ExportPdf(rowCount, columnCount);
+            return await pdfExporter.ExportPdf(data, gridRequest);
         }
-      
+        public async Task<byte[]> ExportWithRadSpreadProcessing<T>(IQueryable<T> data, DataSourceRequest gridRequest)
+        {
+            var spreadExporter = new RadSpreadProcessingExporter();
+
+            return await spreadExporter.ExportPdf(data, gridRequest);
+        }
     }
 }

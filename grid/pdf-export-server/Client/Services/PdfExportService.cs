@@ -24,7 +24,7 @@ namespace ServerPdfExport.Client.Services
             JS = _js;
         }
 
-        public async Task GetPdf(DataSourceRequest gridRequest, bool allPages)
+        public async Task GetPdf(DataSourceRequest gridRequest, bool allPages, bool useExcelGeneration)
         {
             //if we want all the pages, remove the paging from the grid request
             //you can use any other means of transporting and using this information
@@ -33,7 +33,14 @@ namespace ServerPdfExport.Client.Services
                 gridRequest.PageSize = 0;
             }
 
-            HttpResponseMessage response = await Http.PostAsJsonAsync("ExportPdf", gridRequest);
+            string actionMethod = "ExportPdf/Direct";
+
+            if (useExcelGeneration)
+            {
+                actionMethod = "ExportPdf/FromExcel";
+            }
+
+            HttpResponseMessage response = await Http.PostAsJsonAsync(actionMethod, gridRequest);
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
