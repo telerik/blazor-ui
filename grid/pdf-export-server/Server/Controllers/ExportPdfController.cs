@@ -23,16 +23,16 @@ namespace ServerPdfExport.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<byte[]> Post([FromBody] DataSourceRequest gridRequest)
+        public async Task<string> Post([FromBody] DataSourceRequest gridRequest)
         {
 
             var spreadExporter = new RadSpreadProcessingExporter();
 
             byte[] fileData = spreadExporter.ExportPdf(50, 10);
+            string base64File = Convert.ToBase64String(fileData);
+            // System.IO.File.WriteAllBytes("C:\\temp\\test.pdf", fileData);
 
-           // System.IO.File.WriteAllBytes("C:\\temp\\test.pdf", fileData);
-
-            return await Task.FromResult(fileData);
+            return await Task.FromResult(base64File);
         }
     }
 }

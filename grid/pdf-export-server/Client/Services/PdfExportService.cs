@@ -30,9 +30,7 @@ namespace ServerPdfExport.Client.Services
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                byte[] byteData = await response.Content.ReadAsByteArrayAsync();
-                //string base64String = await response.Content.ReadAsStringAsync();
-                string base64File = Convert.ToBase64String(byteData);
+                string base64File = await response.Content.ReadAsStringAsync();
                 await JS.InvokeVoidAsync("saveFile", base64File, "application/pdf", "GridExport.pdf");
             }
             else
