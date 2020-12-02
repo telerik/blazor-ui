@@ -14,30 +14,17 @@ using Telerik.Windows.Documents.Fixed.Model.Fonts;
 using Telerik.Windows.Documents.Fixed.Model.Graphics;
 using Telerik.Windows.Documents.Fixed.Model.Editing.Tables;
 using Telerik.Windows.Documents.Spreadsheet.Model;
+using Telerik.DataSource;
+using Telerik.DataSource.Extensions;
+using System.Threading.Tasks;
+using System.Reflection;
 
 namespace PdfExport
 {
     public class RadSpreadProcessingExporter
     {
-        public void ExportSamples()
+        public async Task<byte[]> ExportPdf<T>(IQueryable<T> data, DataSourceRequest gridRequest)
         {
-            ExportPdf(20, 20);
-            //ExportPdf(100, 20);
-            //ExportPdf(100, 100);
-            //ExportPdf(200, 100);
-            //ExportPdf(1000, 20);
-            //ExportPdf(2000, 20);
-        }
-
-        public byte[] ExportPdf(int rowCount, int columnCount)
-        {
-            byte[] data = ExportPdfFromExcel(rowCount, columnCount);
-            return data;
-        }
-
-        private protected byte[] ExportPdfFromExcel(int rowCount, int columnCount)
-        {
-            Console.WriteLine($"Exporting {rowCount} rows and {columnCount} columns with SpreadProcessing");
             var workbook = new Workbook();
             workbook.Name = "workbook-1";
 
@@ -48,36 +35,42 @@ namespace PdfExport
             workbook.Sheets.Add(SheetType.Worksheet);
             Worksheet worksheet = workbook.ActiveWorksheet;
 
-            int totalRowCount = 0;
+            var dataResult = await data.ToDataSourceResultAsync(gridRequest);
+            List<T> dataToExport = (dataResult.Data as IEnumerable<T>).ToList();
 
-            var watch1 = Stopwatch.StartNew();
+            int currRow = 0;
 
-            for (int columnIndex = 0; columnIndex < columnCount; columnIndex++)
+            Type typeParameterType = typeof(T);
+            var fieldsList = typeParameterType.GetProperties();
+
+            for (int i = 0; i < fieldsList.Length; i++)
             {
-                worksheet.Cells[0, columnIndex].SetValue($"header {columnIndex + 1}");
+                worksheet.Cells[0, i].SetValue(fieldsList[i].Name);
             }
 
-            totalRowCount++;
+            currRow++;
 
             // content
-            for (int rowIndex = 0; rowIndex < rowCount; rowIndex++)
+            for (int i = 0; i < dataToExport.Count; i++)
             {
-                for (int columnIndex = 0; columnIndex < columnCount; columnIndex++)
+                for (int columnIndex = 0; columnIndex < fieldsList.Length; columnIndex++)
                 {
-                    var cellValue = $"cell {rowIndex}-{columnIndex}";
-                    SetCellValue(worksheet.Cells[totalRowCount, columnIndex], cellValue);
+                    var cellValue = GetFieldValue(dataToExport[i], fieldsList[columnIndex].Name);
+                    SetCellValue(worksheet.Cells[currRow, columnIndex], cellValue);
                 }
+                currRow++;
+            }
 
-                totalRowCount++;
+            //column sizes
+            for (int i = 0; i < fieldsList.Length; i++)
+            {
+                worksheet.Columns[i].AutoFitWidth();
             }
 
             // performance
             workbook.ResumeLayoutUpdate();
 
-            Console.WriteLine($"file generation time: {watch1.ElapsedMilliseconds * 0.001} seconds.");
-            Debug.WriteLine($"file generation time: {watch1.ElapsedMilliseconds * 0.001} seconds.");
-
-            var watch2 = Stopwatch.StartNew();
+            //convert the excel workbook to a pdf
             var pdfFormatProvider = new Telerik.Windows.Documents.Spreadsheet.FormatProviders.Pdf.PdfFormatProvider();
 
             byte[] fileBytes = null;
@@ -86,11 +79,8 @@ namespace PdfExport
                 pdfFormatProvider.Export(workbook, ms);
                 fileBytes = ms.ToArray();
             }
-           
-            Console.WriteLine($"export time: {watch2.ElapsedMilliseconds * 0.001} seconds.");
-            Debug.WriteLine($"export time: {watch2.ElapsedMilliseconds * 0.001} seconds.");
 
-            return fileBytes;
+            return await Task.FromResult(fileBytes);
         }
 
         private void SetCellValue(CellSelection cell, object value)
@@ -118,6 +108,16 @@ namespace PdfExport
                 case TypeCode.Boolean: cell.SetValue((bool)value); break;
                 default: cell.SetValue(value.ToString()); break;
             }
+        }
+
+        private object GetFieldValue(object item, string fieldName)
+        {
+            PropertyInfo propertyInfo = item.GetType().GetProperty(fieldName);
+            if (propertyInfo != null)
+            {
+                return propertyInfo.GetValue(item);
+            }
+            return null;
         }
     }
 }

@@ -13,6 +13,7 @@ using Telerik.Windows.Documents.Fixed.Model.Editing.Flow;
 using Telerik.Windows.Documents.Fixed.Model.Fonts;
 using Telerik.Windows.Documents.Fixed.Model.Graphics;
 using Telerik.Windows.Documents.Fixed.Model.Editing.Tables;
+using System.Threading.Tasks;
 
 namespace PdfExport
 {
@@ -24,11 +25,6 @@ namespace PdfExport
 
             return pdfExporter.ExportPdf(rowCount, columnCount);
         }
-        public byte[] ExportWithRadSpreadProcessing(int rowCount, int columnCount)
-        {
-            var spreadExporter = new RadSpreadProcessingExporter();
-
-            return spreadExporter.ExportPdf(rowCount, columnCount);
-        }
+      
     }
 }

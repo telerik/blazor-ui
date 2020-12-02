@@ -2,6 +2,7 @@
 
 @using ServerPdfExport.Shared
 @using ServerPdfExport.Client.Services
+@using Telerik.DataSource 
 @inject WeatherForecastService ForecastService
 @inject PdfExportService PdfService
 
@@ -23,9 +24,11 @@
 @code {
     List<object> GridData { get; set; }
     public int Total { get; set; } = 0;
+    DataSourceRequest lastRequest { get; set; }
 
     protected async Task ReadItems(GridReadEventArgs args)
     {
+        lastRequest = args.Request;
         DataEnvelope<WeatherForecast> result = await ForecastService.GetForecastListAsync(args.Request);
         GridData = result.CurrentPageData.Cast<object>().ToList();
         Total = result.TotalItemCount;
@@ -34,6 +37,6 @@
 
     async Task ExportToPdf()
     {
-        await PdfService.GetPdf(new Telerik.DataSource.DataSourceRequest());
+        await PdfService.GetPdf(lastRequest);
     }
 }

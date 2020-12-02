@@ -31,7 +31,7 @@ namespace ServerPdfExport.Client.Services
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 string base64File = await response.Content.ReadAsStringAsync();
-                await JS.InvokeVoidAsync("saveFile", base64File, "application/pdf", "GridExport.pdf");
+                await JS.InvokeVoidAsync("saveFile", base64File, "application/pdf", "TelerikGridExport.pdf");
             }
             else
             {
