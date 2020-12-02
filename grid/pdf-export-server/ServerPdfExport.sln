@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerPdfExport.Shared", "S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PdfExport", "PdfExport\PdfExport.csproj", "{D9244815-1A33-4DB9-BF1E-31FE53DA29D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerSideSample", "ServerSideSample\ServerSideSample.csproj", "{491FC617-2E24-410F-B620-977A6C283E5C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D9244815-1A33-4DB9-BF1E-31FE53DA29D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9244815-1A33-4DB9-BF1E-31FE53DA29D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9244815-1A33-4DB9-BF1E-31FE53DA29D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{491FC617-2E24-410F-B620-977A6C283E5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{491FC617-2E24-410F-B620-977A6C283E5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{491FC617-2E24-410F-B620-977A6C283E5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{491FC617-2E24-410F-B620-977A6C283E5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

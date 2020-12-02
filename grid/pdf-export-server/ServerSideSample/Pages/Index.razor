@@ -1,8 +1,7 @@
 ﻿@page "/"
 
-@using ServerPdfExport.Shared
-@using ServerPdfExport.Client.Services
-@using Telerik.DataSource 
+@using ServerSideSample.Data
+@using Telerik.DataSource
 @inject WeatherForecastService ForecastService
 @inject PdfExportService PdfService
 
@@ -11,6 +10,10 @@
 <TelerikGrid Height="550px" FilterMode="@GridFilterMode.FilterMenu"
              Sortable="true" Pageable="true" PageSize="20"
              Data=@GridData TotalCount=@Total OnRead=@ReadItems>
+    <GridToolBar>
+        <TelerikButton Icon="@IconName.FilePdf" OnClick="@ExportToPdf">Export to PDF</TelerikButton>
+        <label><TelerikCheckBox @bind-Value="@ExportAllPages" />Export All Pages</label>
+    </GridToolBar>
     <GridColumns>
         <GridColumn Field="Id" Width="100px" />
         <GridColumn Field="Date" DisplayFormat="{0:dddd, dd MMM yyyy}" />
@@ -18,10 +21,6 @@
         <GridColumn Field="TemperatureF" Title="Temp. F" />
         <GridColumn Field="Summary" />
     </GridColumns>
-    <GridToolBar>
-        <TelerikButton Icon="@IconName.FilePdf" OnClick="@ExportToPdf">Export to PDF</TelerikButton>
-        <label><TelerikCheckBox @bind-Value="@ExportAllPages" />Export All Pages</label>
-    </GridToolBar>
 </TelerikGrid>
 
 @code {
@@ -36,9 +35,9 @@
     {
         lastRequest = args.Request;
 
-        DataEnvelope<WeatherForecast> result = await ForecastService.GetForecastListAsync(args.Request);
-        GridData = result.CurrentPageData;
-        Total = result.TotalItemCount;
+        var datasourceResult = await ForecastService.GetForecastListAsync(args.Request);
+        GridData = datasourceResult.Data as List<WeatherForecast>;
+        Total = datasourceResult.Total;
         StateHasChanged();
     }
 
