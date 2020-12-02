@@ -21,14 +21,15 @@ namespace ServerPdfExport.Server.Services
             // generate some data for the sake of this demo
             if (_forecasts == null)
             {
-                var rng = new Random();
                 var startDate = DateTime.Now.Date;
                 _forecasts = Enumerable.Range(1, 5000).Select(index => new WeatherForecast
                 {
                     Id = index,
                     Date = startDate.AddDays(index),
-                    TemperatureC = rng.Next(-20, 55),
-                    Summary = Summaries[rng.Next(Summaries.Length)]
+                    //unlike the MS template, we will not have random data here because it may get generated anew when exporting
+                    //and new random values may make it seem like the data/filter/exporting does not work as expected
+                    TemperatureC = index % 40,
+                    Summary = Summaries[index % Summaries.Length]
                 }).AsQueryable();
             }
 
