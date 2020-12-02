@@ -18,6 +18,7 @@ using Telerik.DataSource;
 using Telerik.DataSource.Extensions;
 using System.Threading.Tasks;
 using System.Reflection;
+using Telerik.Documents.Common.Model;
 
 namespace PdfExport
 {
@@ -43,12 +44,27 @@ namespace PdfExport
             Type typeParameterType = typeof(T);
             var fieldsList = typeParameterType.GetProperties();
 
+            ThemableColor black = new ThemableColor(Telerik.Documents.Media.Color.FromArgb(0, 0, 0, 0));
+            CellBorders desiredBorders = new CellBorders(
+                    new CellBorder(CellBorderStyle.Medium, black),   // Left border 
+                    new CellBorder(CellBorderStyle.Medium, black),   // Top border 
+                    new CellBorder(CellBorderStyle.Medium, black),   // Right border 
+                    new CellBorder(CellBorderStyle.Medium, black),   // Bottom border 
+                    new CellBorder(CellBorderStyle.Thin, black),       // Inside horizontal border 
+                    new CellBorder(CellBorderStyle.Thin, black),       // Inside vertical border 
+                    new CellBorder(CellBorderStyle.None, black),     // Diagonal up border 
+                    new CellBorder(CellBorderStyle.None, black)    // Diagonal down border 
+                );
+
             for (int i = 0; i < fieldsList.Length; i++)
             {
-                worksheet.Cells[0, i].SetValue(fieldsList[i].Name);
+                CellSelection currCell = worksheet.Cells[0, i];
+                currCell.SetValue(fieldsList[i].Name);
+                currCell.SetBorders(desiredBorders);
             }
 
             currRow++;
+
 
             // content
             for (int i = 0; i < dataToExport.Count; i++)
@@ -56,7 +72,9 @@ namespace PdfExport
                 for (int columnIndex = 0; columnIndex < fieldsList.Length; columnIndex++)
                 {
                     var cellValue = GetFieldValue(dataToExport[i], fieldsList[columnIndex].Name);
-                    SetCellValue(worksheet.Cells[currRow, columnIndex], cellValue);
+                    CellSelection currCell = worksheet.Cells[currRow, columnIndex];
+                    SetCellValue(currCell, cellValue);
+                    currCell.SetBorders(desiredBorders);
                 }
                 currRow++;
             }
