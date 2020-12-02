@@ -11,6 +11,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Client\ServerPdfExport.Client.csproj" />
+        <ProjectReference Include="..\PdfExport\PdfExport.csproj" />
         <ProjectReference Include="..\Shared\ServerPdfExport.Shared.csproj" />
     </ItemGroup>
 

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Telerik.Documents.Core" Version="2020.2.615" />
+    <PackageReference Include="Telerik.Documents.Fixed" Version="2020.2.615" />
+    <PackageReference Include="Telerik.Zip" Version="2020.2.615" />
+
+    <PackageReference Include="Telerik.Documents.Spreadsheet" Version="2020.2.615" />
+    <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.Pdf" Version="2020.2.615" />
+
+  </ItemGroup>
+
+</Project>

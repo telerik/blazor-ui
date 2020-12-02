@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ServerPdfExport.Server.Services;
 using System.Linq;
 
 namespace ServerPdfExport.Server
@@ -25,6 +26,7 @@ namespace ServerPdfExport.Server
         {
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddScoped<WeatherForecastDataService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

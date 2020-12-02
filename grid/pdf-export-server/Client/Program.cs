@@ -15,6 +15,7 @@ namespace ServerPdfExport.Client
             builder.RootComponents.Add<App>("#app");
             builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddScoped<WeatherForecastService>();
+            builder.Services.AddScoped<PdfExportService>();
             builder.Services.AddTelerikBlazor();
 
             await builder.Build().RunAsync();

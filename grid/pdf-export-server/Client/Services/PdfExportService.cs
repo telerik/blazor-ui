@@ -1,0 +1,44 @@
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
+using Telerik.DataSource;
+
+namespace ServerPdfExport.Client.Services
+{
+    public class PdfExportService
+    {
+        [Inject]
+        private HttpClient Http { get; set; }
+
+        [Inject]
+        private IJSRuntime JS { get; set; }
+
+        public PdfExportService(HttpClient client, IJSRuntime _js)
+        {
+            Http = client;
+            JS = _js;
+        }
+
+        public async Task GetPdf(DataSourceRequest gridRequest)
+        {
+            HttpResponseMessage response = await Http.PostAsJsonAsync("ExportPdf", gridRequest);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                byte[] byteData = await response.Content.ReadAsByteArrayAsync();
+                //string base64String = await response.Content.ReadAsStringAsync();
+                string base64File = Convert.ToBase64String(byteData);
+                await JS.InvokeVoidAsync("saveFile", base64File, "application/pdf", "GridExport.pdf");
+            }
+            else
+            {
+                throw new Exception($"The service returned with status {response.StatusCode}");
+            }
+        }
+    }
+}

@@ -3,21 +3,21 @@
 @using ServerPdfExport.Shared
 @using ServerPdfExport.Client.Services
 @inject WeatherForecastService ForecastService
+@inject PdfExportService PdfService
 
 <TelerikGrid Height="550px" FilterMode="@GridFilterMode.FilterMenu"
              Sortable="true" Pageable="true" PageSize="20"
              Data=@GridData TotalCount=@Total OnRead=@ReadItems>
     <GridColumns>
-        <GridColumn Field="Id" FieldType="@(typeof(int))" Title="Id" Width="100px" Groupable="false" />
-        <GridColumn Field="Date" FieldType="@(typeof(DateTime))">
-            <Template>
-                @((context as WeatherForecast).Date.ToString("dddd, dd MMM yyyy"))
-            </Template>
-        </GridColumn>
+        <GridColumn Field="Id" FieldType="@(typeof(int))" Title="Id" Width="100px" />
+        <GridColumn Field="Date" FieldType="@(typeof(DateTime))" DisplayFormat="{0:dddd, dd MMM yyyy}" />
         <GridColumn Field="TemperatureC" FieldType="@(typeof(int))" Title="Temp. C" />
         <GridColumn Field="TemperatureF" FieldType="@(typeof(int))" Title="Temp. F" />
         <GridColumn Field="Summary" FieldType="@(typeof(string))" />
     </GridColumns>
+    <GridToolBar>
+        <TelerikButton Icon="@IconName.FilePdf" OnClick="@ExportToPdf">Export to PDF</TelerikButton>
+    </GridToolBar>
 </TelerikGrid>
 
 @code {
@@ -26,18 +26,14 @@
 
     protected async Task ReadItems(GridReadEventArgs args)
     {
-        // we pass the request to the service, and there Telerik DataSource Extension methods will shape the data
-        // then the service returns our project-specific envelope so that the data can be serialized by the framework
         DataEnvelope<WeatherForecast> result = await ForecastService.GetForecastListAsync(args.Request);
-
-
-
-
         GridData = result.CurrentPageData.Cast<object>().ToList();
-
-
         Total = result.TotalItemCount;
-
         StateHasChanged();
+    }
+
+    async Task ExportToPdf()
+    {
+        await PdfService.GetPdf(new Telerik.DataSource.DataSourceRequest());
     }
 }
