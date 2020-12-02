@@ -18,12 +18,14 @@
     </GridColumns>
     <GridToolBar>
         <TelerikButton Icon="@IconName.FilePdf" OnClick="@ExportToPdf">Export to PDF</TelerikButton>
+        <label><TelerikCheckBox @bind-Value="@ExportAllPages" />Export All Pages</label>
     </GridToolBar>
 </TelerikGrid>
 
 @code {
     List<object> GridData { get; set; }
     public int Total { get; set; } = 0;
+    bool ExportAllPages { get; set; }
     DataSourceRequest lastRequest { get; set; }
 
     protected async Task ReadItems(GridReadEventArgs args)
@@ -37,6 +39,6 @@
 
     async Task ExportToPdf()
     {
-        await PdfService.GetPdf(lastRequest);
+        await PdfService.GetPdf(lastRequest, ExportAllPages);
     }
 }

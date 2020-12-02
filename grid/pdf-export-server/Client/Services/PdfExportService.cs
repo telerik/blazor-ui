@@ -24,8 +24,15 @@ namespace ServerPdfExport.Client.Services
             JS = _js;
         }
 
-        public async Task GetPdf(DataSourceRequest gridRequest)
+        public async Task GetPdf(DataSourceRequest gridRequest, bool allPages)
         {
+            //if we want all the pages, remove the paging from the grid request
+            //you can use any other means of transporting and using this information
+            if (allPages)
+            {
+                gridRequest.PageSize = 0;
+            }
+
             HttpResponseMessage response = await Http.PostAsJsonAsync("ExportPdf", gridRequest);
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)

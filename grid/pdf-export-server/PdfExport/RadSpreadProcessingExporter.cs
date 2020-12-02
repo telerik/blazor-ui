@@ -44,6 +44,7 @@ namespace PdfExport
             Type typeParameterType = typeof(T);
             var fieldsList = typeParameterType.GetProperties();
 
+            //some styling for the cells - borders in this example
             ThemableColor black = new ThemableColor(Telerik.Documents.Media.Color.FromArgb(0, 0, 0, 0));
             CellBorders desiredBorders = new CellBorders(
                     new CellBorder(CellBorderStyle.Medium, black),   // Left border 

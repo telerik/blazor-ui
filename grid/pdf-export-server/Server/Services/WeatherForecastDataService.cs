@@ -23,7 +23,7 @@ namespace ServerPdfExport.Server.Services
             {
                 var rng = new Random();
                 var startDate = DateTime.Now.Date;
-                _forecasts = Enumerable.Range(1, 500).Select(index => new WeatherForecast
+                _forecasts = Enumerable.Range(1, 5000).Select(index => new WeatherForecast
                 {
                     Id = index,
                     Date = startDate.AddDays(index),
