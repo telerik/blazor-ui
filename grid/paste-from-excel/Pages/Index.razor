@@ -1,0 +1,95 @@
+﻿@page "/"
+
+@implements IDisposable
+
+@using PasteFromExcel.Data
+@using System.Collections.ObjectModel
+@inject WeatherForecastService ForecastService
+@inject IJSRuntime _js
+
+
+<h6>Sample CSV - copy this to paste on top of the grid</h6>
+<pre>
+aacc8189-ce2a-4f01-8d1d-28c789bdc4d1, 01-Dec-20 14:02:12, 123, First
+b25e76a9-99ac-4ca2-8eff-9834e4a68479, 02-Dec-20, 321, Second
+3ccfe4a8-6e54-4835-935c-5b08c93e2d00, 03-Dec-20 4:02:12, 42, Third
+</pre>
+
+@*TabIndex so the div is focusable*@
+<div tabindex="1" @ref="@pasteContainer">
+    <TelerikGrid Data="@Forecasts" AutoGenerateColumns="true"
+                 Sortable="true" Pageable="true"
+                 FilterMode="@GridFilterMode.FilterMenu">
+    </TelerikGrid>
+</div>
+
+@code{
+    ObservableCollection<WeatherForecast> Forecasts { get; set; } // so we can easily add the pasted item if any
+    ElementReference pasteContainer { get; set; } // to know which element to work with
+    DotNetObjectReference<Index> CurrComponent { get; set; } // so we can invoke a C# method back here
+
+    protected override async Task OnInitializedAsync()
+    {
+        var forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+        Forecasts = new ObservableCollection<WeatherForecast>(forecasts);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            CurrComponent = DotNetObjectReference.Create<Index>(this);
+            await _js.InvokeVoidAsync("initializeExcelPasting", pasteContainer, CurrComponent);
+        }
+    }
+
+    [JSInvokable]
+    public async Task PasteHandler(string pastedContent)
+    {
+        List<WeatherForecast> pastedForecasts = GetPastedForecasts(pastedContent);
+
+        foreach (var item in pastedForecasts)
+        {
+            // we use an observable collection to update the grid data
+            // read more here https://docs.telerik.com/blazor-ui/common-features/observable-data
+            // in a real app, save the data through the service and read it from it
+            // here we just update the view-model to showcase the concept
+            Forecasts.Insert(0, item);
+        }
+    }
+
+    List<WeatherForecast> GetPastedForecasts(string pastedContent)
+    {
+        List<WeatherForecast> pastedForecasts = new List<WeatherForecast>();
+
+        try
+        {
+            // extract the model or models from the pasted content
+            // this example is extremely basic, consider finding a NuGet package to
+            // do this in a safer and more streamlined fashion or otherwise improving this
+
+            string[] lines = pastedContent.Split("\n");
+            IEnumerable<WeatherForecast> extractedForecasts =
+               from currLine in lines
+               let splitLine = currLine.Split(',')
+               select new WeatherForecast()
+               {
+                   Id = Guid.Parse(splitLine[0]),
+                   Date = DateTime.Parse(splitLine[1]),
+                   TemperatureC = Convert.ToInt32(splitLine[2]),
+                   Summary = splitLine[3]
+               };
+
+            pastedForecasts = extractedForecasts.ToList();
+            pastedForecasts.Reverse();
+        }
+        catch { }
+
+        return pastedForecasts;
+    }
+
+    public void Dispose()
+    {
+        _js.InvokeVoidAsync("cleanUpExcelPasting", pasteContainer);
+    }
+}
