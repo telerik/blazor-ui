@@ -6,6 +6,8 @@ You may want to review the MSDN article on using the PWA template and working wi
 
 To get the PWA functionality working while testing, you need a "valid" SSL certificate, and the first example from the following Microsoft article can help you generate one for your local machine name, so you can publish the app and test its behavior while developing: https://docs.microsoft.com/en-us/powershell/module/pkiclient/new-selfsignedcertificate?view=win10-ps#examples.
 
+You need to have .NET 5 installed to run the app. You can download it from [here](https://dotnet.microsoft.com/download).
+
 ## In This App
 
 The UI is built mostly with the [Telerik Blazor components](https://www.telerik.com/blazor-ui).
