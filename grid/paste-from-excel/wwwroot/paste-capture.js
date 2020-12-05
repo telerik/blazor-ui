@@ -7,7 +7,7 @@ function initializeExcelPasting(elem, dotnetObject) {
         containerElem = elem;
         dotNetComponent = dotnetObject;
         // when focus moves to the grid, we will start listening for pasted content
-        // getting the pasted data generaly requires a contenteditable elemnt or an input
+        // getting the pasted data generally requires a content editable element or an input
         // using a content editable element is not an option because it would let
         // people alter and break the components and content inside
         // so we have to hack an input in only when needed
@@ -25,17 +25,13 @@ function cleanUpExcelPasting(elem) {
 }
 
 function pasteHandler(e) {
-    setTimeout(function () {
-        if (dotNetComponent) {
-            dotNetComponent.invokeMethodAsync("PasteHandler", pasteTextArea.value);
-            // after pasting, we can remove the textarea to let the user interact with the grid
-            // consider tweaking when and how and where this textarea is depending on your
-            // preferences, UX requirements and needs, and user feedback
-            // here we just clean it up to ensure the same content does not get added more than once
-            pasteTextArea.value = "";
-            //destroyTextArea();
-        }
-    });
+    dotNetComponent.invokeMethodAsync("PasteHandler", e.clipboardData.getData("Text"));
+    // after pasting, we could remove the textarea to let the user interact with the grid fully
+    // consider tweaking when and how and where this textarea is depending on your
+    // preferences, UX requirements and needs, and user feedback
+    //destroyTextArea();
+    // now we will only clean its value to prevent it from getting far too long in case of performance issues
+    pasteTextArea.value = "";
 }
 
 function createTextArea() {
@@ -55,9 +51,9 @@ function createTextArea() {
     pasteTextArea.addEventListener("paste", pasteHandler);
     pasteTextArea.addEventListener("focusout", destroyTextArea);
 
-    //focus the new textarea so we can receive pasting. Note that this will interfere with inputs inside the grid
-    //they will lose focus as soon as they get focust because we need to use that focus to get the pasted content
-    //otherwise we can't get pasting - the only other option is a contenteditable element which is not viable
+    // focus the new textarea so we can receive pasting. Note that this will interfere with inputs inside the grid
+    // they will lose focus as soon as they get focus because we need to use that focus to get the pasted content
+    // otherwise we can't get pasting - the only other option is a contenteditable element which is not viable
     setTimeout(function () {
         pasteTextArea.focus();
     });
