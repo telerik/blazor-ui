@@ -8,11 +8,11 @@
 @inject IJSRuntime _js
 
 
-<h6>Sample data copied from Excel (note that Tab used as whitespace) - copy this to paste on top of the grid</h6>
+<h6>Sample data copied from Excel (note that Tab used as whitespace) - copy this to paste on top of the grid. You can also find a sample Excel document at the root of the project to copy from</h6>
 <pre>
 b85a0564-94f3-499e-8b55-42d0af02b8d0	01-Dec-20 14:02:12	123	First
 62b38c8f-bde9-4f0e-a3d3-1eb181b80732	02-Dec-20	321	Second
-acf34490-c4af-42c5-a21f-bb842769bc1d	03-Dec-20 4:02:12	41	Third
+acf34490-c4af-42c5-a21f-bb842769bc1d	03-Dec-20 4:02:12	42	Third
 </pre>
 
 @*TabIndex so the div is focusable*@
@@ -66,30 +66,48 @@ acf34490-c4af-42c5-a21f-bb842769bc1d	03-Dec-20 4:02:12	41	Third
         {
             // Excel MAY add the column names as a first row, so we will remove that, then split by \t characters
             // So you may want to remove the first line here to simplify the parsing process. Modify as required
-            //pastedContent = pastedContent.Substring(pastedContent.IndexOf("\n"));
+            string firstColumnFromFirstRow = pastedContent.Substring(0, pastedContent.IndexOf("\t"));
             // Note: there is no really automatic way to tell whether column headers are included - they look just like data
+            // if the first row is data, our first cell will be the GUID with the ID, so if we can parse that
+            // then the user copied only data cells. This is a sample heuristic logic for this, implement as necessary
+            try
+            {
+                Guid firstRowGuid = Guid.Parse(firstColumnFromFirstRow);
+            }
+            catch
+            {
+                // we could not parse the first item to a guid, so we assume it is column headers
+                // and so we will remove the first row from the data
+                pastedContent = pastedContent.Substring(pastedContent.IndexOf("\n") + 1);
+            }
+
 
             // extract the model or models from the pasted content
             // this example is extremely basic, consider finding a NuGet package to
             // do this in a safer and more streamlined fashion or otherwise improving this
 
             string[] lines = pastedContent.Split("\n");
-            IEnumerable<WeatherForecast> extractedForecasts =
-               from currLine in lines
-               let splitLine = currLine.Split('\t')
-               select new WeatherForecast()
-               {
-                   Id = Guid.Parse(splitLine[0]),
-                   Date = DateTime.Parse(splitLine[1]),
-                   TemperatureC = Convert.ToInt32(splitLine[2]),
-                   // note how the TemperatureF field is missing here - in the default project it has no setter
-                   // so we can't populate it - you may want to add logic to skip it or add a setter
-                   // This is just one example of the many intricacies of such a feature that are
-                   // highly specific for each project, requirements, model and UX
-                   Summary = splitLine[3]
-               };
+            foreach (string line in lines)
+            {
+                if (string.IsNullOrWhiteSpace(line))
+                {
+                    continue;//guard against empty lines that Excel may provide
+                }
+                string[] splitLine = line.Split('\t');
+                WeatherForecast parsedForecast = new WeatherForecast()
+                {
+                    Id = Guid.Parse(splitLine[0]),
+                    Date = DateTime.Parse(splitLine[1]),
+                    TemperatureC = Convert.ToInt32(splitLine[2]),
+                    // note how the TemperatureF field is missing here - in the default project it has no setter
+                    // so we can't populate it - you may want to add logic to skip it or add a setter
+                    // This is just one example of the many intricacies of such a feature that are
+                    // highly specific for each project, requirements, model and UX
+                    Summary = splitLine[3]
+                };
+                pastedForecasts.Add(parsedForecast);
+            }
 
-            pastedForecasts = extractedForecasts.ToList();
             pastedForecasts.Reverse();
         }
         catch { }
