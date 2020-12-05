@@ -16,7 +16,7 @@ acf34490-c4af-42c5-a21f-bb842769bc1d	03-Dec-20 4:02:12	42	Third
 </pre>
 
 @*TabIndex so the div is focusable*@
-<div tabindex="1" @ref="@pasteContainer">
+<div tabindex="1" style="outline:none;" @ref="@pasteContainer">
     <TelerikGrid Data="@Forecasts" AutoGenerateColumns="true"
                  Sortable="true" Pageable="true"
                  FilterMode="@GridFilterMode.FilterMenu">
