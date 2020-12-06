@@ -11,6 +11,7 @@ Sometimes, users want to paste content onto the grid instead of using the built-
 * To use an input to get pasted content, you need this input to be focused, which will take away focus from the grid. Since this is not suitable for a built-in option, it cannot be a part of the Telerik Grid feature set.
 
 * Once you get the pasted content in the app, you need to parse that content and extract model instances so you can add them to your data source. This is specific to the model and the application and this sample showcases a very basic example of doing that.
+    * You may want to implement a method in the models that you wish to paste from Excel that will receive the pasted row as a string and "deserialize" it intelligently (for example, trap parsing errors and skip fields instead of failing to insantiate, attempt parsing against several fields or a different order of the fields).
 
 ## UX Issues
 
