@@ -1,0 +1,48 @@
+﻿@page "/"
+
+@using ServerSideSample.Data
+@using Telerik.DataSource
+@inject WeatherForecastService ForecastService
+@inject PdfExportService PdfService
+
+<label><TelerikCheckBox @bind-Value="@UseSpreadStreamProcessing" />Use RadSpreadStreamProcessing</label>
+
+<TelerikGrid Height="550px" FilterMode="@GridFilterMode.FilterMenu"
+             Sortable="true" Pageable="true" PageSize="20"
+             Data=@GridData TotalCount=@Total OnRead=@ReadItems>
+    <GridToolBar>
+        <TelerikButton Icon="@IconName.FilePdf" OnClick="@ExportToPdf">Export to PDF</TelerikButton>
+        <label><TelerikCheckBox @bind-Value="@ExportAllPages" />Export All Pages</label>
+    </GridToolBar>
+    <GridColumns>
+        <GridColumn Field="Id" Width="100px" />
+        <GridColumn Field="Date" DisplayFormat="{0:dddd, dd MMM yyyy}" />
+        <GridColumn Field="TemperatureC" Title="Temp. C" />
+        <GridColumn Field="TemperatureF" Title="Temp. F" />
+        <GridColumn Field="Summary" />
+    </GridColumns>
+</TelerikGrid>
+
+@code {
+    List<WeatherForecast> GridData { get; set; }
+    public int Total { get; set; } = 0;
+    bool ExportAllPages { get; set; }
+    DataSourceRequest lastRequest { get; set; }
+
+    bool UseSpreadStreamProcessing { get; set; }
+
+    protected async Task ReadItems(GridReadEventArgs args)
+    {
+        lastRequest = args.Request;
+
+        var datasourceResult = await ForecastService.GetForecastListAsync(args.Request);
+        GridData = datasourceResult.Data as List<WeatherForecast>;
+        Total = datasourceResult.Total;
+        StateHasChanged();
+    }
+
+    async Task ExportToPdf()
+    {
+        await PdfService.GetPdf(lastRequest, ExportAllPages, UseSpreadStreamProcessing);
+    }
+}
