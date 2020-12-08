@@ -57,6 +57,19 @@ namespace PdfExport
                     new CellBorder(CellBorderStyle.None, black)    // Diagonal down border 
                 );
 
+            //column sizes
+            for (int i = 0; i < fieldsList.Length; i++)
+            {
+                worksheet.Columns[i].SetWidth(new ColumnWidth(120, true));
+            }
+
+            //automatic resizing is convenient, but comes with some performance hit
+            //it would also have to be moved after setting the content
+            //for (int i = 0; i < fieldsList.Length; i++)
+            //{
+            //    worksheet.Columns[i].AutoFitWidth();
+            //}
+
             for (int i = 0; i < fieldsList.Length; i++)
             {
                 CellSelection currCell = worksheet.Cells[0, i];
@@ -78,12 +91,6 @@ namespace PdfExport
                     currCell.SetBorders(desiredBorders);
                 }
                 currRow++;
-            }
-
-            //column sizes
-            for (int i = 0; i < fieldsList.Length; i++)
-            {
-                worksheet.Columns[i].AutoFitWidth();
             }
 
             // performance

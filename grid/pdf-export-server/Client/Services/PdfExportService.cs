@@ -16,36 +16,37 @@ namespace ServerPdfExport.Client.Services
         private HttpClient Http { get; set; }
 
         [Inject]
-        private IJSRuntime JS { get; set; }
+        private IJSRuntime jsRuntime { get; set; }
 
-        public PdfExportService(HttpClient client, IJSRuntime _js)
+        public PdfExportService(HttpClient client, IJSRuntime JsRuntimeInstance)
         {
             Http = client;
-            JS = _js;
+            jsRuntime = JsRuntimeInstance;
         }
 
-        public async Task GetPdf(DataSourceRequest gridRequest, bool allPages, bool useExcelGeneration)
+        public async Task GetPdf(DataSourceRequest dataSourceRequest, bool allPages, bool useExcelGeneration)
         {
             //if we want all the pages, remove the paging from the grid request
             //you can use any other means of transporting and using this information
             if (allPages)
             {
-                gridRequest.PageSize = 0;
+                dataSourceRequest.PageSize = 0;
+                dataSourceRequest.Skip = 0; // for virtualization
             }
 
-            string actionMethod = "ExportPdf/Direct";
+            string actionMethod = "ExportPdf/FromPdf";
 
             if (useExcelGeneration)
             {
                 actionMethod = "ExportPdf/FromExcel";
             }
 
-            HttpResponseMessage response = await Http.PostAsJsonAsync(actionMethod, gridRequest);
+            HttpResponseMessage response = await Http.PostAsJsonAsync(actionMethod, dataSourceRequest);
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 string base64File = await response.Content.ReadAsStringAsync();
-                await JS.InvokeVoidAsync("saveFile", base64File, "application/pdf", "TelerikGridExport.pdf");
+                await jsRuntime.InvokeVoidAsync("saveFile", base64File, "application/pdf", "TelerikGridExport.pdf");
             }
             else
             {

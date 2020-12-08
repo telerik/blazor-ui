@@ -13,21 +13,22 @@ namespace ServerSideSample.Data
     public class PdfExportService
     {
         [Inject]
-        private IJSRuntime JS { get; set; }
+        private IJSRuntime jsRuntime { get; set; }
 
         [Inject]
         private WeatherForecastService MyDataService { get; set; }
 
-        public PdfExportService(WeatherForecastService dataService, IJSRuntime _js)
+        public PdfExportService(WeatherForecastService dataService, IJSRuntime JsRuntimeInstance)
         {
             MyDataService = dataService;
-            JS = _js;
+            jsRuntime = JsRuntimeInstance;
         }
-        public async Task GetPdf(DataSourceRequest gridRequest, bool allPages, bool useExcelGeneration)
+        public async Task GetPdf(DataSourceRequest dataSourceRequest, bool allPages, bool useExcelGeneration)
         {
             if (allPages)
             {
-                gridRequest.PageSize = 0;
+                dataSourceRequest.PageSize = 0;
+                dataSourceRequest.Skip = 0; // for virtualization
             }
 
             IQueryable<WeatherForecast> queriableData = await MyDataService.GetForecasts();
@@ -36,11 +37,11 @@ namespace ServerSideSample.Data
             byte[] fileData = null;
             if (useExcelGeneration)
             {
-                fileData = await pdfExporter.ExportWithRadSpreadProcessing(queriableData, gridRequest);
+                fileData = await pdfExporter.ExportWithRadSpreadProcessing(queriableData, dataSourceRequest);
             }
             else
             {
-                fileData = await pdfExporter.ExportWithRadPdfProcessing(queriableData, gridRequest);
+                fileData = await pdfExporter.ExportWithRadPdfProcessing(queriableData, dataSourceRequest);
             }
 
             string base64File = Convert.ToBase64String(fileData);
@@ -48,7 +49,7 @@ namespace ServerSideSample.Data
             //you can write the generated file to the file system to troubleshoot downloading issues
             //System.IO.File.WriteAllBytes("C:\\temp\\test.pdf", fileData);
 
-            await JS.InvokeVoidAsync("saveFile", base64File, "application/pdf", "TelerikGridExport.pdf");
+            await jsRuntime.InvokeVoidAsync("saveFile", base64File, "application/pdf", "TelerikGridExport.pdf");
         }
     }
 }

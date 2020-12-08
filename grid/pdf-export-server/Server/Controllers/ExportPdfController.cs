@@ -27,7 +27,7 @@ namespace ServerPdfExport.Server.Controllers
         }
 
         [HttpPost]
-        [Route("Direct")]
+        [Route("FromPdf")]
         public async Task<string> PdfOnly([FromBody] DataSourceRequest gridRequest)
         {
             string base64File = await GenerateFile(false, gridRequest);
