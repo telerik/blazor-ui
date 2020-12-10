@@ -33,12 +33,6 @@ namespace appointment_context_menu.Services
             }
         }
 
-        public async Task InsertAsync(SchedulerAppointment apptToInsert)
-        {
-            apptToInsert.Id = Guid.NewGuid();
-            _appointments.Insert(0, apptToInsert);
-        }
-
         public async Task DeleteAsync(SchedulerAppointment apptToDelete)
         {
             // if you have recurrences and exceptions you may want to clean them up here too
