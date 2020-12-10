@@ -17,6 +17,12 @@ namespace appointment_tooltips.Services
             return new DateTime(lastMonday.Year, lastMonday.Month, lastMonday.Day, 8, 0, 0);
         }
 
+        public async Task<SchedulerAppointment> GetAppointmentDetails(int apptId)
+        {
+            List<SchedulerAppointment> appts = await GetDummyAppointments();
+            return appts.Where(appt => appt.Id == apptId).FirstOrDefault();
+        }
+
         public async Task<List<SchedulerAppointment>> GetAppointmentsAsync()
         {
             return await GetDummyAppointments();
@@ -29,6 +35,7 @@ namespace appointment_tooltips.Services
 
             data.Add(new SchedulerAppointment
             {
+                Id = 1,
                 Title = "Vet visit",
                 Description = "The cat needs vaccinations and her teeth checked.",
                 Start = baselineTime.AddHours(2),
@@ -37,6 +44,7 @@ namespace appointment_tooltips.Services
 
             data.Add(new SchedulerAppointment
             {
+                Id = 2,
                 Title = "Trip to Hawaii",
                 Description = "An unforgettable holiday!",
                 IsAllDay = true,
@@ -46,6 +54,7 @@ namespace appointment_tooltips.Services
 
             data.Add(new SchedulerAppointment
             {
+                Id = 3,
                 Title = "Jane's birthday party",
                 Description = "Make sure to get her fresh flowers in addition to the gift.",
                 Start = baselineTime.AddDays(5).AddHours(10),
@@ -54,6 +63,7 @@ namespace appointment_tooltips.Services
 
             data.Add(new SchedulerAppointment
             {
+                Id = 4,
                 Title = "One-on-one with the manager",
                 Start = baselineTime.AddHours(3).AddMinutes(30),
                 End = baselineTime.AddHours(3).AddMinutes(45),
@@ -62,6 +72,7 @@ namespace appointment_tooltips.Services
 
             data.Add(new SchedulerAppointment
             {
+                Id = 5,
                 Title = "Brunch with HR",
                 Description = "Performance evaluation of the new recruit.",
                 Start = baselineTime.AddDays(3).AddHours(3),
@@ -70,6 +81,7 @@ namespace appointment_tooltips.Services
 
             data.Add(new SchedulerAppointment
             {
+                Id = 6,
                 Title = "Interview with new recruit",
                 Description = "See if John will be a suitable match for our team.",
                 Start = baselineTime.AddDays(3).AddHours(1).AddMinutes(30),
@@ -78,6 +90,7 @@ namespace appointment_tooltips.Services
 
             data.Add(new SchedulerAppointment
             {
+                Id = 1,
                 Title = "Conference",
                 Description = "The big important work conference. Don't forget to practice your presentation.",
                 Start = baselineTime.AddDays(6),
@@ -87,6 +100,7 @@ namespace appointment_tooltips.Services
 
             data.Add(new SchedulerAppointment
             {
+                Id = 7,
                 Title = "New Project Kickoff",
                 Description = "Everyone assemble! We will also have clients on the call from a later time zone.",
                 Start = baselineTime.AddDays(3).AddHours(8).AddMinutes(30),
@@ -95,6 +109,7 @@ namespace appointment_tooltips.Services
 
             data.Add(new SchedulerAppointment
             {
+                Id = 8,
                 Title = "Get photos",
                 Description = "Get the printed photos from last week's holiday. It's on the way from the vet to work.",
                 Start = baselineTime.AddHours(2).AddMinutes(15),
@@ -103,6 +118,7 @@ namespace appointment_tooltips.Services
 
             data.Add(new SchedulerAppointment
             {
+                Id = 9,
                 Title = "Morning run",
                 Description = "Some time to clear the head and exercise.",
                 Start = baselineTime.AddDays(-10).AddHours(1),

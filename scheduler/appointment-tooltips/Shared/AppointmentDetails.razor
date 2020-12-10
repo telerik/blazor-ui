@@ -1,0 +1,52 @@
+﻿@using appointment_tooltips.Models
+@using appointment_tooltips.Services
+@using Telerik.Recurrence
+
+@inject AppointmentService ApptService
+
+<h3>Appointment Details</h3>
+
+<table>
+    <tr>
+        <td><strong>Start:</strong></td>
+        <td>@ApptData.Start</td>
+    </tr>
+    <tr>
+        <td><strong>End:</strong></td>
+        <td>@ApptData.End</td>
+    </tr>
+    <tr>
+        <td><strong>Details:</strong></td>
+        <td>@ApptData.Description</td>
+    </tr>
+</table>
+
+@if(rrule != null)
+{
+    <h5 class="mt-5">This is a recurring appointment</h5>
+    <p>It happens @rrule.Frequency</p>
+    <p>It will end @( rrule.Until.HasValue ? "on " + rrule.Until : "never" )</p>
+}
+
+@code {
+    [Parameter]
+    public Dictionary<string, string> TargetData { get; set; }
+
+    SchedulerAppointment ApptData { get; set; }
+
+    RecurrenceRule rrule { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        // in a real app, add defensive checks here
+        // the key names is the data attribute, lowercase
+        int apptId = int.Parse(TargetData?["apptid"]);
+
+        ApptData = await ApptService.GetAppointmentDetails(apptId);
+
+        if (!string.IsNullOrEmpty(ApptData.RecurrenceRule))
+        {
+            rrule = RecurrenceRule.Parse(ApptData.RecurrenceRule);
+        }
+    }
+}

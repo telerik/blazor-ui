@@ -1,5 +1,4 @@
-﻿using appointment_tooltips.Data;
-using appointment_tooltips.Services;
+﻿using appointment_tooltips.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -28,7 +27,7 @@ namespace appointment_tooltips
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddServerSideBlazor();
+            services.AddServerSideBlazor(o => o.DetailedErrors = true);
             services.AddTelerikBlazor();
             services.AddScoped<AppointmentService>();
         }

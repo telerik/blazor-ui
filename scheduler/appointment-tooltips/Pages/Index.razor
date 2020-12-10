@@ -2,6 +2,7 @@
 
 @using appointment_tooltips.Models
 @using appointment_tooltips.Services
+@using appointment_tooltips.Shared
 
 @inject AppointmentService ApptService
 
@@ -11,6 +12,35 @@
         <SchedulerWeekView StartTime="@DayStart" />
         <SchedulerMultiDayView StartTime="@DayStart" NumberOfDays="10" />
     </SchedulerViews>
+    <ItemTemplate>
+        @{
+            var appointment = context as SchedulerAppointment;
+            <div id="@( "ttipTarget" + appointment.Id )" data-apptId="@appointment.Id">
+                <div class="k-event-template">@appointment.Title</div>
+            </div>
+            <TelerikTooltip TargetSelector="@( "#ttipTarget" +  appointment.Id)"
+                            Width="350px" Height="250px" Position="@TooltipPosition.Right">
+                <Template Context="ttipContext">
+                    <AppointmentDetails TargetData="@ttipContext.DataAttributes" />
+                </Template>
+            </TelerikTooltip>
+            @*
+                    Once this gets implemented, you could have a single tooltip instance outside of the scheduler instead
+                    and you could make it re-evaluate targets when reloading data or the scheduler changes view
+                https://feedback.telerik.com/blazor/1460642-the-tooltip-should-be-able-to-re-evaluate-targets-tooltip-not-working-for-elements-not-present-at-first-rendering
+            *@
+        }
+    </ItemTemplate>
+    <AllDayItemTemplate>
+        @{
+            var appointment = context as SchedulerAppointment;
+            @appointment.Title
+            <span>
+                Starts on @appointment.Start.Date.ToShortDateString()
+                ends on @appointment.End.Date.ToShortDateString()
+            </span>
+        }
+    </AllDayItemTemplate>
 </TelerikScheduler>
 
 @code {
