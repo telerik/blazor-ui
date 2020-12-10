@@ -1,0 +1,29 @@
+﻿@page "/"
+
+@using appointment_tooltips.Models
+@using appointment_tooltips.Services
+
+@inject AppointmentService ApptService
+
+<TelerikScheduler Data="@Appointments" @bind-Date="@StartDate" @bind-View="@CurrView" Height="600px" Width="800px">
+    <SchedulerViews>
+        <SchedulerDayView StartTime="@DayStart" />
+        <SchedulerWeekView StartTime="@DayStart" />
+        <SchedulerMultiDayView StartTime="@DayStart" NumberOfDays="10" />
+    </SchedulerViews>
+</TelerikScheduler>
+
+@code {
+    public DateTime StartDate { get; set; }
+    public SchedulerView CurrView { get; set; } = SchedulerView.Week;
+    public DateTime DayStart { get; set; }
+    List<SchedulerAppointment> Appointments { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        DateTime start = ApptService.GetStartTime();
+        StartDate = start;
+        DayStart = start;
+        Appointments = await ApptService.GetAppointmentsAsync();
+    }
+}
