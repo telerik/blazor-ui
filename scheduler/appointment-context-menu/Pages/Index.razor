@@ -15,7 +15,7 @@ This is reflected in the context menu options for them to showcase sample logic 
     <ItemTemplate>
         @{
             SchedulerAppointment Appointment = context as SchedulerAppointment;
-            <div style="height:100%" 
+            <div style="height:100%" class="@( Appointment.IsImportant ? "important-appt" : "" )"
                  @oncontextmenu:preventDefault="true"
                  @oncontextmenu="@( (MouseEventArgs e) => ShowContextMenu(e, Appointment) )">
                 <div style="height:100%" class="k-event-template">@Appointment.Title</div>
@@ -25,7 +25,7 @@ This is reflected in the context menu options for them to showcase sample logic 
     <AllDayItemTemplate>
         @{
             SchedulerAppointment Appointment = context as SchedulerAppointment;
-            <div style="height:100%" 
+            <div style="height:100%" class="@( Appointment.IsImportant ? "important-appt" : "" )"
                  @oncontextmenu:preventDefault="true"
                  @oncontextmenu="@( (MouseEventArgs e) => ShowContextMenu(e, Appointment) )">
                 <div style="height:100%" class="k-event-template">@Appointment.Title</div>
@@ -38,3 +38,11 @@ This is reflected in the context menu options for them to showcase sample logic 
                     TextField="Text" IconField="Icon" DisabledField="Disabled"
                     OnClick="@( async (ContextMenuItem itm) => await MenuClickHandler(itm) )">
 </TelerikContextMenu>
+
+<style>
+    .important-appt {
+        color: purple;
+        font-weight: bold;
+        font-size: 1.5em;
+    }
+</style>
