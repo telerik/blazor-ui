@@ -1,21 +1,85 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+@using appointment_context_menu.Models
+@using appointment_context_menu.Services
 
-Welcome to your new app.<br />
+@inject AppointmentService ApptService
 
-<TelerikButton OnClick="@SayHelloHandler" Primary="true">Say Hello</TelerikButton>
+Because of the flags set in the appointment modes, you cannot edit the "Conference" appointment 
+and you cannot delete the "Conference" and "Vet Visit" appointments. This is reflected
+in the context menu options for them to showcase sample logic for altering its items.
 
-<br />
-
-@helloString
+<TelerikScheduler Data="@Appointments"
+                  OnUpdate="@UpdateAppointmentHandler"
+                  OnCreate="@AddAppointmentHandler"
+                  OnDelete="@DeleteAppointmentHandler"
+                  AllowCreate="true" AllowDelete="true" AllowUpdate="true"
+                  @bind-Date="@StartDate" Height="600px" @bind-View="@CurrView">
+    <SchedulerViews>
+        <SchedulerDayView StartTime="@DayStart" />
+        <SchedulerWeekView StartTime="@DayStart" />
+        <SchedulerMultiDayView StartTime="@DayStart" NumberOfDays="10" />
+    </SchedulerViews>
+</TelerikScheduler>
 
 @code {
-    MarkupString helloString;
+    public DateTime StartDate { get; set; }
+    public SchedulerView CurrView { get; set; } = SchedulerView.Week;
+    public DateTime DayStart { get; set; }
+    List<SchedulerAppointment> Appointments { get; set; }
 
-    void SayHelloHandler()
+    protected override async Task OnInitializedAsync()
     {
-        string msg = string.Format("Hello from <strong>Telerik Blazor</strong> at {0}.<br /> Now you can use C# to write front-end!", DateTime.Now);
-        helloString = new MarkupString(msg);
+        DateTime start = ApptService.GetStartTime();
+        StartDate = start;
+        DayStart = start;
+        await GetAppointments();
     }
+
+    async Task GetAppointments()
+    {
+        Appointments = await ApptService.GetAppointmentsAsync();
+    }
+
+    async Task UpdateAppt(SchedulerAppointment appt)
+    {
+        if (appt.IsImmutable)
+        {
+            return;
+        }
+        await ApptService.UpdateAsync(appt);
+        await GetAppointments();
+    }
+
+    async Task DeleteAppt(SchedulerAppointment appt)
+    {
+        if (appt.IsImportant)
+        {
+            return;
+        }
+        await ApptService.DeleteAsync(appt);
+        await GetAppointments();
+    }
+
+    async Task InsertAppt(SchedulerAppointment appt)
+    {
+        await ApptService.InsertAsync(appt);
+        await GetAppointments();
+    }
+
+    async Task UpdateAppointmentHandler(SchedulerUpdateEventArgs args)
+    {
+        await UpdateAppt((SchedulerAppointment)args.Item);
+    }
+
+    async Task AddAppointmentHandler(SchedulerCreateEventArgs args)
+    {
+        await InsertAppt((SchedulerAppointment)args.Item);
+    }
+
+    async Task DeleteAppointmentHandler(SchedulerDeleteEventArgs args)
+    {
+        await DeleteAppt((SchedulerAppointment)args.Item);
+    }
+
 }
