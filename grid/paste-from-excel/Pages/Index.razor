@@ -1,0 +1,122 @@
+﻿@page "/"
+
+@implements IDisposable
+
+@using PasteFromExcel.Data
+@using System.Collections.ObjectModel
+@inject WeatherForecastService ForecastService
+@inject IJSRuntime _js
+
+
+<h6>Sample data copied from Excel (note that Tab used as whitespace) - copy this to paste on top of the grid. You can also find a sample Excel document at the root of the project to copy from</h6>
+<pre>
+b85a0564-94f3-499e-8b55-42d0af02b8d0	01-Dec-20 14:02:12	123	First
+62b38c8f-bde9-4f0e-a3d3-1eb181b80732	02-Dec-20	321	Second
+acf34490-c4af-42c5-a21f-bb842769bc1d	03-Dec-20 4:02:12	42	Third
+</pre>
+
+@*TabIndex so the div is focusable*@
+<div tabindex="1" style="outline:none;" @ref="@pasteContainer">
+    <TelerikGrid Data="@Forecasts" AutoGenerateColumns="true"
+                 Sortable="true" Pageable="true"
+                 FilterMode="@GridFilterMode.FilterMenu">
+    </TelerikGrid>
+</div>
+
+@code{
+    ObservableCollection<WeatherForecast> Forecasts { get; set; } // so we can easily add the pasted item if any
+    ElementReference pasteContainer { get; set; } // to know which element to work with
+    DotNetObjectReference<Index> CurrComponent { get; set; } // so we can invoke a C# method back here
+
+    protected override async Task OnInitializedAsync()
+    {
+        var forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+        Forecasts = new ObservableCollection<WeatherForecast>(forecasts);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            CurrComponent = DotNetObjectReference.Create<Index>(this);
+            await _js.InvokeVoidAsync("initializeExcelPasting", pasteContainer, CurrComponent);
+        }
+    }
+
+    [JSInvokable]
+    public async Task PasteHandler(string pastedContent)
+    {
+        List<WeatherForecast> pastedForecasts = GetPastedForecasts(pastedContent);
+
+        foreach (var item in pastedForecasts)
+        {
+            // we use an observable collection to update the grid data
+            // read more here https://docs.telerik.com/blazor-ui/common-features/observable-data
+            // in a real app, save the data through the service and read it from it
+            // here we just update the view-model to showcase the concept
+            Forecasts.Insert(0, item);
+        }
+    }
+
+    List<WeatherForecast> GetPastedForecasts(string pastedContent)
+    {
+        List<WeatherForecast> pastedForecasts = new List<WeatherForecast>();
+
+        // Excel MAY add the column names as a first row, so we will remove that, then split by \t characters
+        // So you may want to remove the first line here to simplify the parsing process. Modify as required
+        string firstColumnFromFirstRow = pastedContent.Substring(0, pastedContent.IndexOf("\t"));
+        // Note: there is no really automatic way to tell whether column headers are included - they look just like data
+        // if the first row is data, our first cell will be the GUID with the ID, so if we can parse that
+        // then the user copied only data cells. This is a sample heuristic logic for this, implement as necessary
+        try
+        {
+            Guid firstRowGuid = Guid.Parse(firstColumnFromFirstRow);
+        }
+        catch
+        {
+            // we could not parse the first item to a guid, so we assume it is column headers
+            // and so we will remove the first row from the data
+            pastedContent = pastedContent.Substring(pastedContent.IndexOf("\n") + 1);
+        }
+
+
+        // extract the model or models from the pasted content
+        // this example is extremely basic, consider finding a NuGet package to
+        // do this in a safer and more streamlined fashion or otherwise improving this
+
+        string[] lines = pastedContent.Split("\n");
+        foreach (string line in lines)
+        {
+            if (string.IsNullOrWhiteSpace(line))
+            {
+                continue;//guard against empty lines that Excel may provide
+            }
+            string[] splitLine = line.Split('\t');
+            try
+            {
+                WeatherForecast parsedForecast = new WeatherForecast()
+                {
+                    Id = Guid.Parse(splitLine[0]),
+                    Date = DateTime.Parse(splitLine[1]),
+                    TemperatureC = Convert.ToInt32(splitLine[2]),
+                    // note how the TemperatureF field is missing here - in the default project it has no setter
+                    // so we can't populate it - you may want to add logic to skip it or add a setter
+                    // This is just one example of the many intricacies of such a feature that are
+                    // highly specific for each project, requirements, model and UX
+                    Summary = splitLine[3]
+                };
+                pastedForecasts.Add(parsedForecast);
+            }
+            catch { }
+        }
+
+        pastedForecasts.Reverse();
+
+        return pastedForecasts;
+    }
+
+    public void Dispose()
+    {
+        _js.InvokeVoidAsync("cleanUpExcelPasting", pasteContainer);
+    }
+}
