@@ -1,0 +1,22 @@
+﻿@using appointment_tooltips.Models
+
+<div id="@( "ttipTarget" + Appointment.Id )" data-apptId="@Appointment.Id">
+    <div class="k-event-template">@Appointment.Title</div>
+</div>
+<TelerikTooltip TargetSelector="@( "#ttipTarget" +  Appointment.Id)"
+                Width="350px" Height="250px" Position="@TooltipPosition.Right">
+    <Template Context="ttipContext">
+        <AppointmentDetails TargetData="@ttipContext.DataAttributes" />
+    </Template>
+</TelerikTooltip>
+
+@code{
+    [Parameter]
+    public SchedulerAppointment Appointment { get; set; }
+}
+
+@*
+    Once the following feature gets implemented, you could have a single tooltip instance outside of the scheduler
+    instead, and you could make it re-evaluate targets when reloading data or the scheduler changes view
+    https://feedback.telerik.com/blazor/1460642-the-tooltip-should-be-able-to-re-evaluate-targets-tooltip-not-working-for-elements-not-present-at-first-rendering
+*@

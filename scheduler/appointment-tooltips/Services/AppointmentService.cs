@@ -8,6 +8,7 @@ namespace appointment_tooltips.Services
 {
     public class AppointmentService
     {
+        static List<SchedulerAppointment> _appointments { get; set; }
         public DateTime GetStartTime()
         {
             DateTime now = DateTime.Now;
@@ -19,21 +20,28 @@ namespace appointment_tooltips.Services
 
         public async Task<SchedulerAppointment> GetAppointmentDetails(int apptId)
         {
-            List<SchedulerAppointment> appts = await GetDummyAppointments();
-            return appts.Where(appt => appt.Id == apptId).FirstOrDefault();
+            EnsureAppointments();
+            SchedulerAppointment appt = _appointments.Where(appt => appt.Id == apptId).FirstOrDefault();
+            return await Task.FromResult(appt);
         }
 
         public async Task<List<SchedulerAppointment>> GetAppointmentsAsync()
         {
-            return await GetDummyAppointments();
+            EnsureAppointments();
+            return await Task.FromResult(_appointments);
         }
 
-        private async Task<List<SchedulerAppointment>> GetDummyAppointments()
+        private void EnsureAppointments()
         {
-            List<SchedulerAppointment> data = new List<SchedulerAppointment>();
+            if(_appointments != null)
+            {
+                return;
+            }
+
+            _appointments = new List<SchedulerAppointment>();
             DateTime baselineTime = GetStartTime();
 
-            data.Add(new SchedulerAppointment
+            _appointments.Add(new SchedulerAppointment
             {
                 Id = 1,
                 Title = "Vet visit",
@@ -42,7 +50,7 @@ namespace appointment_tooltips.Services
                 End = baselineTime.AddHours(2).AddMinutes(30),
             });
 
-            data.Add(new SchedulerAppointment
+            _appointments.Add(new SchedulerAppointment
             {
                 Id = 2,
                 Title = "Trip to Hawaii",
@@ -52,7 +60,7 @@ namespace appointment_tooltips.Services
                 End = baselineTime.AddDays(-2),
             });
 
-            data.Add(new SchedulerAppointment
+            _appointments.Add(new SchedulerAppointment
             {
                 Id = 3,
                 Title = "Jane's birthday party",
@@ -61,7 +69,7 @@ namespace appointment_tooltips.Services
                 End = baselineTime.AddDays(5).AddHours(18),
             });
 
-            data.Add(new SchedulerAppointment
+            _appointments.Add(new SchedulerAppointment
             {
                 Id = 4,
                 Title = "One-on-one with the manager",
@@ -70,7 +78,7 @@ namespace appointment_tooltips.Services
                 RecurrenceRule = "FREQ=MONTHLY;BYDAY=MO;BYSETPOS=2"
             });
 
-            data.Add(new SchedulerAppointment
+            _appointments.Add(new SchedulerAppointment
             {
                 Id = 5,
                 Title = "Brunch with HR",
@@ -79,7 +87,7 @@ namespace appointment_tooltips.Services
                 End = baselineTime.AddDays(3).AddHours(3).AddMinutes(45),
             });
 
-            data.Add(new SchedulerAppointment
+            _appointments.Add(new SchedulerAppointment
             {
                 Id = 6,
                 Title = "Interview with new recruit",
@@ -88,17 +96,7 @@ namespace appointment_tooltips.Services
                 End = baselineTime.AddDays(3).AddHours(2).AddMinutes(30),
             });
 
-            data.Add(new SchedulerAppointment
-            {
-                Id = 1,
-                Title = "Conference",
-                Description = "The big important work conference. Don't forget to practice your presentation.",
-                Start = baselineTime.AddDays(6),
-                End = baselineTime.AddDays(11),
-                IsAllDay = true,
-            });
-
-            data.Add(new SchedulerAppointment
+            _appointments.Add(new SchedulerAppointment
             {
                 Id = 7,
                 Title = "New Project Kickoff",
@@ -107,7 +105,7 @@ namespace appointment_tooltips.Services
                 End = baselineTime.AddDays(3).AddHours(11).AddMinutes(30),
             });
 
-            data.Add(new SchedulerAppointment
+            _appointments.Add(new SchedulerAppointment
             {
                 Id = 8,
                 Title = "Get photos",
@@ -116,7 +114,7 @@ namespace appointment_tooltips.Services
                 End = baselineTime.AddHours(2).AddMinutes(30),
             });
 
-            data.Add(new SchedulerAppointment
+            _appointments.Add(new SchedulerAppointment
             {
                 Id = 9,
                 Title = "Morning run",
@@ -126,7 +124,15 @@ namespace appointment_tooltips.Services
                 RecurrenceRule = "FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR"
             });
 
-            return await Task.FromResult(data);
+            _appointments.Add(new SchedulerAppointment
+            {
+                Id = 10,
+                Title = "Conference",
+                Description = "The big important work conference. Don't forget to practice your presentation.",
+                Start = baselineTime.AddDays(6),
+                End = baselineTime.AddDays(11),
+                IsAllDay = true,
+            });
         }
     }
 }
