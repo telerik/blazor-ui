@@ -5,21 +5,22 @@
 
 @inject AppointmentService ApptService
 
-Because of the flags set in the appointment modes, you cannot edit the "Conference" appointment 
-and you cannot delete the "Conference" and "Vet Visit" appointments. This is reflected
-in the context menu options for them to showcase sample logic for altering its items.
+Because of the flags set in the appointment modes, you cannot delete the "Conference" and "Vet Visit" appointments.
+This is reflected in the context menu options for them to showcase sample logic for altering its items.
 
 <TelerikScheduler Data="@Appointments"
-                  OnUpdate="@UpdateAppointmentHandler"
-                  OnCreate="@AddAppointmentHandler"
-                  OnDelete="@DeleteAppointmentHandler"
-                  AllowCreate="true" AllowDelete="true" AllowUpdate="true"
                   @bind-Date="@StartDate" Height="600px" @bind-View="@CurrView">
     <SchedulerViews>
         <SchedulerDayView StartTime="@DayStart" />
         <SchedulerWeekView StartTime="@DayStart" />
         <SchedulerMultiDayView StartTime="@DayStart" NumberOfDays="10" />
     </SchedulerViews>
+    <ItemTemplate>
+        <AppointmentWithContextMenu Appointment="@( context as SchedulerAppointment )" OnUpdateHappened="@GetAppointments" />
+    </ItemTemplate>
+    <AllDayItemTemplate>
+        <AppointmentWithContextMenu Appointment="@( context as SchedulerAppointment )" OnUpdateHappened="@GetAppointments" />
+    </AllDayItemTemplate>
 </TelerikScheduler>
 
 @code {
@@ -38,48 +39,7 @@ in the context menu options for them to showcase sample logic for altering its i
 
     async Task GetAppointments()
     {
-        Appointments = await ApptService.GetAppointmentsAsync();
+        Appointments = new List<SchedulerAppointment>(await ApptService.GetAppointmentsAsync());
+        
     }
-
-    async Task UpdateAppt(SchedulerAppointment appt)
-    {
-        if (appt.IsImmutable)
-        {
-            return;
-        }
-        await ApptService.UpdateAsync(appt);
-        await GetAppointments();
-    }
-
-    async Task DeleteAppt(SchedulerAppointment appt)
-    {
-        if (appt.IsImportant)
-        {
-            return;
-        }
-        await ApptService.DeleteAsync(appt);
-        await GetAppointments();
-    }
-
-    async Task InsertAppt(SchedulerAppointment appt)
-    {
-        await ApptService.InsertAsync(appt);
-        await GetAppointments();
-    }
-
-    async Task UpdateAppointmentHandler(SchedulerUpdateEventArgs args)
-    {
-        await UpdateAppt((SchedulerAppointment)args.Item);
-    }
-
-    async Task AddAppointmentHandler(SchedulerCreateEventArgs args)
-    {
-        await InsertAppt((SchedulerAppointment)args.Item);
-    }
-
-    async Task DeleteAppointmentHandler(SchedulerDeleteEventArgs args)
-    {
-        await DeleteAppt((SchedulerAppointment)args.Item);
-    }
-
 }

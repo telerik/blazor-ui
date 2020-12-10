@@ -21,8 +21,6 @@ namespace appointment_context_menu.Models
 
         public bool IsImportant { get; set; }
 
-        public bool IsImmutable { get; set; }
-
         public SchedulerAppointment()
         {
             this.Id = Guid.NewGuid();

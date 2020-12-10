@@ -117,7 +117,6 @@ namespace appointment_context_menu.Services
             _appointments.Add(new SchedulerAppointment
             {
                 Title = "Conference",
-                IsImmutable = true,
                 IsImportant = true,
                 Description = "The big important work conference. Don't forget to practice your presentation.",
                 Start = baselineTime.AddDays(6),
