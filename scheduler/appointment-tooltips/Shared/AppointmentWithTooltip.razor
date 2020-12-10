@@ -1,10 +1,10 @@
 ﻿@using appointment_tooltips.Models
 
-<div id="@( "ttipTarget" + Appointment.Id )" data-apptId="@Appointment.Id">
-    <div class="k-event-template">@Appointment.Title</div>
+<div style="height:100%" id="@( "ttipTarget" + Appointment.Id )" data-apptId="@Appointment.Id">
+    <div style="height:100%"class="k-event-template">@Appointment.Title</div>
 </div>
 <TelerikTooltip TargetSelector="@( "#ttipTarget" +  Appointment.Id)"
-                Width="350px" Height="250px" Position="@TooltipPosition.Right">
+                Width="400px" Height="280px" Position="@TooltipPosition.Right">
     <Template Context="ttipContext">
         <AppointmentDetails TargetData="@ttipContext.DataAttributes" />
     </Template>
