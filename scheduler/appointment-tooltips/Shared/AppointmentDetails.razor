@@ -1,0 +1,53 @@
+﻿@using appointment_tooltips.Models
+@using appointment_tooltips.Services
+@using Telerik.Recurrence
+
+@inject AppointmentService ApptService
+
+<h3>@ApptData.Title</h3>
+
+<table class="table table-dark">
+    <tr>
+        <td><strong>Start:</strong></td>
+        <td>@ApptData.Start</td>
+    </tr>
+    <tr>
+        <td><strong>End:</strong></td>
+        <td>@ApptData.End</td>
+    </tr>
+    <tr>
+        <td><strong>Details:</strong></td>
+        <td>@ApptData.Description</td>
+    </tr>
+</table>
+
+@if(rrule != null)
+{
+    <h5>This is a recurring appointment</h5>
+    <p>It happens @rrule.Frequency and will end @( rrule.Until.HasValue ? "on " + rrule.Until : "never" )</p>
+}
+
+@code {
+    [Parameter]
+    public Dictionary<string, string> TargetData { get; set; }
+
+    SchedulerAppointment ApptData { get; set; }
+    RecurrenceRule rrule { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        // in a real app, add defensive checks here
+        // the key names is the data attribute, lowercase
+        int apptId = int.Parse(TargetData?["apptid"]);
+
+        // in this example we merely fetch the appointment data from the service
+        // you could have passed it directly as a parameter if that's all you need
+        // but you can fetch any other data here that you need, this just keeps the sample short
+        ApptData = await ApptService.GetAppointmentDetails(apptId);
+
+        if (!string.IsNullOrEmpty(ApptData.RecurrenceRule))
+        {
+            rrule = RecurrenceRule.Parse(ApptData.RecurrenceRule);
+        }
+    }
+}
