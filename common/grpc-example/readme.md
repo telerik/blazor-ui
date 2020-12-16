@@ -21,3 +21,5 @@ Getting started with gRPC from MSDN:
 * [Call gRPC services with the .NET client](https://docs.microsoft.com/en-us/aspnet/core/grpc/client?view=aspnetcore-3.0)
 
 >For WebAssembly applications, see ~this blog post dated 15 Jan 2020: [https://blog.stevensanderson.com/2020/01/15/2020-01-15-grpc-web-in-blazor-webassembly/](https://blog.stevensanderson.com/2020/01/15/2020-01-15-grpc-web-in-blazor-webassembly/). It is a starting point with some workarounds that will probably become part of the standard tooling.~ the following blog post that made `gRPC-web` official: [https://devblogs.microsoft.com/aspnet/grpc-web-for-net-now-available/](https://devblogs.microsoft.com/aspnet/grpc-web-for-net-now-available/)
+
+>You may also find useful this blog post on getting started with gRPC: https://www.telerik.com/blogs/how-to-add-grpc-to-your-blazor-app
