@@ -3,18 +3,17 @@
 @inject AppointmentService ApptService
 
 <style>
-    .msg {
-        color: rgba(243,23,0,0.5);
-    }
-
     form label.width100 {
         width: 100%;
     }
 </style>
 
+<h4>Custom edit form</h4>
+
 <EditForm Model="@Appointment" OnValidSubmit="@SaveAppointment">
     <DataAnnotationsValidator />
-    <label class="width100">Title:<br/>
+    <label class="width100">
+        Title:<br />
         <TelerikTextBox @bind-Value="@Appointment.Title" Width="100%" />
     </label>
     <br />
@@ -23,36 +22,20 @@
 
     @if (Appointment.IsAllDay)
     {
-        <label class="width100">Start:<br />
-            <TelerikDatePicker Value="@Appointment.Start" ValueChanged="@( (DateTime d) => StartChanged(d) )"
-                                ValueExpression="@( () => Appointment.Start )"
-                                Max="@GetHigherDate()" Width="100%" />
-        </label>
-        <label class="width100">End:<br />
-            <TelerikDatePicker Value="@Appointment.End" ValueChanged="@( (DateTime d) => EndChanged(d) )"
-                               ValueExpression="@( () => Appointment.End)"
-                               Min="@GetLowerDate()" Width="100%" />
-            @*<TelerikDatePicker Value="@StartDate" OnChange="@StartChangedNotImmediate" Max="@GetHigherDate()" Width="100%" />
-        <br />
-        <TelerikDatePicker Value="@EndDate" OnChange="@EndChangedNotImmediate" Min="@GetLowerDate()" Width="100%" />*@
-        </label>
+        <TelerikDateRangePicker @bind-StartValue="@Appointment.Start"
+                                @bind-EndValue="@Appointment.End" />
+
     }
     else
     {
-        <label class="width100">Start:<br />
-            <TelerikDateTimePicker Value="@Appointment.Start" ValueChanged="@( (DateTime d) => StartChanged(d) )"
-                                ValueExpression="@( () => Appointment.Start)"
-                                Max="@GetHigherDate()" Width="100%" />
+        <label class="width100">
+            Start:<br />
+            <TelerikDateTimePicker @bind-Value="@Appointment.Start" Width="100%" />
         </label>
-        <label class="width100">End:<br />
-            <TelerikDateTimePicker Value="@Appointment.End" ValueChanged="@( (DateTime d) => EndChanged(d) )"
-                                ValueExpression="@( () => Appointment.End )"
-                                Min="@GetLowerDate()" Width="100%" />
+        <label class="width100">
+            End:<br />
+            <TelerikDateTimePicker @bind-Value="@Appointment.End" Width="100%" />
         </label>
-    }
-    @if (ShowErrorMessage)
-    {
-        <span class="msg">@WrongRangeMessage</span>
     }
 
     <label class="width100">
@@ -67,9 +50,9 @@
 
     <ValidationSummary />
 
-    <TelerikButton Enabled="@IsValid()" Primary="true">Save</TelerikButton>
+    <TelerikButton Primary="true">Save</TelerikButton>
 
-    @* These buttons do not invoke validation, you can always delete an appointment ot stop editing *@
+    @* These buttons do not invoke validation, you can always delete an appointment or stop editing *@
     <TelerikButton OnClick="@CancelEditing" ButtonType="ButtonType.Button">Cancel</TelerikButton>
     <TelerikButton OnClick="@DeleteAppointment" ButtonType="ButtonType.Button">Delete</TelerikButton>
 
@@ -80,33 +63,10 @@
     [Parameter] public Appointment Appointment { get; set; }
     [Parameter] public EventCallback<string> OnAppointmentChanged { get; set; }
 
-    //UI related
-    string WrongRangeMessage = "Start date must be before end date. We reset the selection, try again.";
-    bool ShowErrorMessage { get; set; }
-
-    bool IsValid()
-    {
-        //re-implements the model validation to ensure the exra functionality in the form works
-        //there are ways to extend the validators to also support range date validation but they
-        //are beyond the scope of this example, and here we will do things in a simpler, more straightforward way
-        //this is why range validation is also implemented with code here, not as validation attributes
-        if (Appointment.Start != null &&
-            Appointment.End != null &&
-            Appointment.Start <= Appointment.End &&
-            !string.IsNullOrWhiteSpace(Appointment.Title))
-        {
-            return true;
-        }
-        return false;
-    }
-
     async void SaveAppointment()
     {
-        if (IsValid())
-        {
-            ApptService.UpdateAppointment(Appointment);
-            await OnAppointmentChanged.InvokeAsync(Appointment.Title);
-        }
+        ApptService.UpdateAppointment(Appointment);
+        await OnAppointmentChanged.InvokeAsync(Appointment.Title);
     }
 
     async void DeleteAppointment()
@@ -119,72 +79,4 @@
     {
         await OnAppointmentChanged.InvokeAsync(Appointment.Title);
     }
-
-    void StartChanged(DateTime userChoice)
-    {
-        if (userChoice > GetHigherDate())
-        {
-            ShowErrorMessage = true;
-        }
-        else
-        {
-            Appointment.Start = userChoice;
-            ShowErrorMessage = false;
-        }
-    }
-
-    void EndChanged(DateTime userChoice)
-    {
-        if (userChoice < GetLowerDate())
-        {
-            ShowErrorMessage = true;
-        }
-        else
-        {
-            Appointment.End = userChoice;
-            ShowErrorMessage = false;
-        }
-    }
-
-    DateTime GetLowerDate()
-    {
-        return Appointment.Start <= Appointment.End ? Appointment.Start : Appointment.End;
-    }
-
-    DateTime GetHigherDate()
-    {
-        return Appointment.Start >= Appointment.End ? Appointment.Start : Appointment.End;
-    }
-
-    //goes with the commented pickers that use the OnChange event - resets the value and shows
-    //the message only after the OnChang event fires - blur or enter on the input, not on every change
-    //so it gives the user time to make a mistake whilte typing and correct without resetting immediately
-    //this is just an example so you can choose the UX you prefer
-    //void StartChangedNotImmediate(object userInput)
-    //{
-    //    DateTime userChoice = (DateTime)userInput;
-    //    if (userChoice > GetHigherDate())
-    //    {
-    //        ShowErrorMessage = true;
-    //    }
-    //    else
-    //    {
-    //        StartDate = userChoice;
-    //        ShowErrorMessage = false;
-    //    }
-    //}
-
-    //void EndChangedNotImmediate(object userInput)
-    //{
-    //    DateTime userChoice = (DateTime)userInput;
-    //    if (userChoice < GetLowerDate())
-    //    {
-    //        ShowErrorMessage = true;
-    //    }
-    //    else
-    //    {
-    //        EndDate = userChoice;
-    //        ShowErrorMessage = false;
-    //    }
-    //}
 }

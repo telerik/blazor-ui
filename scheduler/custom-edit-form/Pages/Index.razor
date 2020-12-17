@@ -4,7 +4,7 @@
 @inject AppointmentService ApptService
 
 <TelerikScheduler Data="@Appointments" OnDelete="@DeleteAppointment" OnEdit="@EditHandler"
-                  AllowCreate="true" AllowDelete="true" AllowUpdate="true"
+                  AllowCreate="true" AllowDelete="true" AllowUpdate="true" OnUpdate="@UpdateAppointment"
                   @bind-Date="@StartDate" Height="600px" @bind-View="@CurrView">
     <SchedulerViews>
         <SchedulerDayView StartTime="@DayStart" />
@@ -65,6 +65,14 @@
         {
             CurrentAppointment = new Appointment() { Start = args.Start, End = args.End, IsAllDay = args.IsAllDay };
         }
+    }
+
+    // the built-in event handler caters to drag-and drop to move/resize an appointment
+    void UpdateAppointment(SchedulerUpdateEventArgs args)
+    {
+        Appointment item = (Appointment)args.Item;
+        ApptService.UpdateAppointment(item);
+        Appointments = ApptService.GetAppointments();
     }
 
     protected override void OnInitialized()

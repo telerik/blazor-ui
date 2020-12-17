@@ -1,4 +1,5 @@
-﻿using System;
+﻿using custom_edit_form.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace custom_edit_form.Models
         [Required]
         [Range(typeof(DateTime), "1/1/1999", "1/12/2050",
             ErrorMessage = "Value for {0} must be between {1:dd MMM yyyy} and {2:dd MMM yyyy}")]
+        [CompareDate(nameof(End), ErrorMessage = "The Start date must be before the End date.")]
         public DateTime Start { get; set; }
 
         [Required]

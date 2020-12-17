@@ -29,7 +29,6 @@ namespace custom_edit_form
             services.AddRazorPages();
             services.AddServerSideBlazor(opts => opts.DetailedErrors = true);
             services.AddTelerikBlazor();
-            services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<AppointmentService>();
         }
 
