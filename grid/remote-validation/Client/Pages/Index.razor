@@ -7,9 +7,11 @@
 Try Inserting a record with a Date that already exists in the grid.
 <br />
 Try Editing a record and adding the letter "a" in the Summary.
+<br />
+This sample uses a Notification component to show the error message to supplement any data annotation validation in the Popup edit mode, but it can also work with other edit modes.
 
 <TelerikGrid Data="@forecasts" Height="550px" Sortable="true" Pageable="true" PageSize="20"
-                OnUpdate="@UpdateHandler" OnDelete="@DeleteHandler" OnCreate="@CreateHandler" EditMode="@GridEditMode.Inline">
+                OnUpdate="@UpdateHandler" OnDelete="@DeleteHandler" OnCreate="@CreateHandler" EditMode="@GridEditMode.Popup">
     <GridColumns>
         <GridColumn Field="Id" Title="Id" Width="100px" Editable="false" Groupable="false" />
         <GridColumn Field="Date" DisplayFormat="{0:dddd, dd MMM yyyy}" />
@@ -28,25 +30,22 @@ Try Editing a record and adding the letter "a" in the Summary.
     </GridToolBar>
 </TelerikGrid>
 
-<TelerikWindow Modal="true" @bind-Visible="@errorExists">
-    <WindowTitle>There was an error</WindowTitle>
-    <WindowActions>
-        <WindowAction Name="Close" />
-    </WindowActions>
-    <WindowContent>
-        <div class="alert alert-warning">@errorMessage</div>
-    </WindowContent>
-</TelerikWindow>
-    @* For Popup EditMode, this modal dialog may not appear above the edit form
-        and you may want to use a different tool to ensure a higher z-index until this is implemented
-        https://feedback.telerik.com/blazor/1407791-support-for-multiple-nested-modal-windows 
-    *@
+<TelerikNotification @ref="@Notification"
+                     HorizontalPosition="@NotificationHorizontalPosition.Center"
+                     VerticalPosition="@NotificationVerticalPosition.Top"
+                     Class="big-notification">
+</TelerikNotification>
 
 
 @code {
     List<WeatherForecast> forecasts { get; set; }
     bool errorExists { get; set; }
-    string errorMessage { get; set; }
+    TelerikNotification Notification { get; set; }
+
+    void ShowErrorNotification(string message)
+    {
+        Notification.Show(new NotificationModel { CloseAfter = 0, Text = message, ThemeColor = Telerik.Blazor.ThemeColors.Error });
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -73,8 +72,7 @@ Try Editing a record and adding the letter "a" in the Summary.
         catch (Exception ex)
         {
             // show information to the user
-            errorMessage = ex.Message;
-            errorExists = true;
+            ShowErrorNotification(ex.Message);
         }
     }
 
@@ -94,8 +92,7 @@ Try Editing a record and adding the letter "a" in the Summary.
             // keep the grid in insert mode
             args.IsCancelled = true;
             // show information to the user
-            errorMessage = ex.Message;
-            errorExists = true;
+            ShowErrorNotification(ex.Message);
         }
     }
 
@@ -119,8 +116,24 @@ Try Editing a record and adding the letter "a" in the Summary.
             // keep the grid in edit mode
             args.IsCancelled = true;
             // show information to the user
-            errorMessage = ex.Message;
-            errorExists = true;
+            ShowErrorNotification(ex.Message);
         }
     }
 }
+
+<style>
+    .big-notification .k-notification-container .k-notification-wrap {
+        width: 350px;
+        height: 100px;
+        align-items: center;
+        font-size: 32px;
+    }
+
+        .big-notification .k-notification-container .k-notification-wrap .k-icon.k-i-error::before {
+            font-size: 32px;
+        }
+
+    .big-notification {
+        z-index: 654321;
+    }
+</style>
