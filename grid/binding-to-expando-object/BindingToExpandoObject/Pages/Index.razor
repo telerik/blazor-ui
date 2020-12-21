@@ -5,18 +5,30 @@
 @inject EmployeeService EmployeeService
 
 <TelerikGrid Data="@GridData"
-                Pageable="true"
-                Sortable="true"
-                Groupable="true"
-                FilterMode="@GridFilterMode.FilterMenu"
-                OnUpdate="@UpdateHandler"
-                OnCreate="@CreateHandler"
-                OnDelete="@DeleteHandler">
+             Pageable="true"
+             Sortable="true"
+             Groupable="true"
+             FilterMode="@GridFilterMode.FilterMenu"
+             OnUpdate="@UpdateHandler"
+             OnCreate="@CreateHandler"
+             OnDelete="@DeleteHandler">
     <GridColumns>
         @*Field Type is mandatory when you are binding to ExpandoObject or Dictionary*@
         <GridColumn Field="EmployeeId" FieldType="@typeof(int)" Editable="false"></GridColumn>
         <GridColumn Field="FirstName" FieldType="@typeof(string)"></GridColumn>
-        <GridColumn Field="IsActive" FieldType="@typeof(bool)"></GridColumn>
+        <GridColumn Field="Salary" FieldType="@typeof(decimal)">
+            <FooterTemplate>
+                Highest salary: @context.Max?.ToString("C0")
+            </FooterTemplate>
+            <GroupFooterTemplate>
+                Highest salary in this group: @context.Max?.ToString("C0")
+            </GroupFooterTemplate>
+        </GridColumn>
+        <GridColumn Field="IsActive" FieldType="@typeof(bool)">
+            <GroupHeaderTemplate>
+                IsActive: @context.Value - count: @context.Count
+            </GroupHeaderTemplate>
+        </GridColumn>
         <GridColumn Field="HireDate" FieldType="@typeof(DateTime)"></GridColumn>
         <GridCommandColumn>
             <GridCommandButton Command="Edit" Icon="edit">Edit</GridCommandButton>
@@ -25,6 +37,10 @@
             <GridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true">Cancel</GridCommandButton>
         </GridCommandColumn>
     </GridColumns>
+    <GridAggregates>
+        <GridAggregate Field="IsActive" Aggregate="@GridAggregateType.Count" />
+        <GridAggregate Field="Salary" Aggregate="@GridAggregateType.Max" />
+    </GridAggregates>
     <GridToolBar>
         <GridCommandButton Command="Add" Icon="add">Add Employee</GridCommandButton>
     </GridToolBar>
@@ -55,7 +71,8 @@
             ((dynamic)matchingItem).FirstName = (model as dynamic).FirstName ?? null;
             //((dynamic)matchingItem).LastName = (model as dynamic).LastName; // we don't define this field in the markup so it is not available in the grid for editing, which is why we don't update it here
             ((dynamic)matchingItem).IsActive = (model as dynamic).IsActive ?? false; ;
-            ((dynamic)matchingItem).HireDate = (model as dynamic).HireDate ?? DateTime.Now; ;
+            ((dynamic)matchingItem).HireDate = (model as dynamic).HireDate ?? DateTime.Now;
+            ((dynamic)matchingItem).Salary = (model as dynamic).Salary ?? 0; ;
         }
     }
 
@@ -71,11 +88,12 @@
         var model = (ExpandoObject)args.Item;
         ((dynamic)model).EmployeeId = GridData.Count() + 1;
 
-        // When the values are not set in the Grid columns, we receive the ExpandoObject without fields. 
+        // When the values are not set in the Grid columns, we receive the ExpandoObject without fields.
         // We need to handle setting default values by ourself
         SetExpandoDefaultValue(model, "FirstName", default(string));
         SetExpandoDefaultValue(model, "IsActive", false);
         SetExpandoDefaultValue(model, "HireDate", DateTime.Now);
+        SetExpandoDefaultValue(model, "Salary", 0);
 
         GridData.Insert(0, model);
     }

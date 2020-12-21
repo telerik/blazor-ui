@@ -13,12 +13,14 @@ namespace BindingToExpandoObject.Services
         {
             if (!Data.Any())
             {
+                Random rand = new Random();
                 for (int i = 0; i < 50; i++)
                 {
                     ExpandoObject employee = new ExpandoObject();
                     employee.TryAdd("EmployeeId", i);
                     employee.TryAdd("FirstName", $"Employee {i}");
                     employee.TryAdd("LastName", $"Employee {i} Last name");
+                    employee.TryAdd("Salary", (decimal)rand.Next(1000, 5000));
                     employee.TryAdd("IsActive", i % 2 == 0);
                     employee.TryAdd("HireDate", DateTime.Now.AddMonths(-i));
                     Data.Add(employee);
