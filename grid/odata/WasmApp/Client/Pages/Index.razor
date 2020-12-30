@@ -1,8 +1,9 @@
 ﻿@page "/"
 
-@inject HttpClient Http
-@using Telerik.Blazor.ExtensionMethods
+@using System.Net.Http.Json
+@using Telerik.Blazor.Extensions
 @using WasmApp.Shared
+@inject HttpClient Http
 
 <TelerikGrid Data=@GridData
              Height="460px"
@@ -30,7 +31,7 @@
 
         var requestUrl = $"{baseUrl}{args.Request.ToODataString()}";
 
-        ODataResponseOrders response = await Http.GetJsonAsync<ODataResponseOrders>(requestUrl);
+        ODataResponseOrders response = await Http.GetFromJsonAsync<ODataResponseOrders>(requestUrl);
 
         GridData = response.Products;
         Total = response.Total;

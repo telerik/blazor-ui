@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Blazor.Hosting;
+﻿
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
+using System.Net.Http;
+using System;
 
 namespace WasmApp.Client
 {
@@ -10,6 +13,7 @@ namespace WasmApp.Client
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
+            builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
             builder.Services.AddTelerikBlazor();
 

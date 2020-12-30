@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Telerik.DataSource;
-using Telerik.Blazor.ExtensionMethods;
+using Telerik.Blazor.Extensions;
 using System.Net.Http;
 using System.Text.Json;
 
