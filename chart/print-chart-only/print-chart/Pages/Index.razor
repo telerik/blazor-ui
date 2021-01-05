@@ -1,13 +1,9 @@
 ﻿@page "/"
+
 @using PrintChartOnly.Components
 
-<PrintableChart @bind-seriesType="@series1Type" />
-<PrintableChart @bind-seriesType="@series2Type" />
-<PrintableChart @bind-seriesType="@series3Type" />
+<div class="alert alert-info">Hover over a chart to get a button that will print it.</div>
 
-
-@code {
-    ChartSeriesType series1Type = ChartSeriesType.Bar;
-    ChartSeriesType series2Type = ChartSeriesType.Line;
-    ChartSeriesType series3Type = ChartSeriesType.Area;
-}
+<PrintableChart SeriesType="@ChartSeriesType.Bar" />
+<PrintableChart SeriesType="@ChartSeriesType.Line" />
+<PrintableChart SeriesType="@ChartSeriesType.Area" />

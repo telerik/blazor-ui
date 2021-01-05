@@ -5,9 +5,9 @@
 
     <TelerikChart Width="700px" Height="400px">
         <ChartSeriesItems>
-            <ChartSeries Type="@seriesType" Name="Product 1" Data="@series1Data">
+            <ChartSeries Type="@SeriesType" Name="Product 1" Data="@series1Data">
             </ChartSeries>
-            <ChartSeries Type="@seriesType" Name="Product 2" Data="@series2Data">
+            <ChartSeries Type="@SeriesType" Name="Product 2" Data="@series2Data">
             </ChartSeries>
         </ChartSeriesItems>
 
@@ -24,9 +24,7 @@
 
 @code {
     [Parameter]
-    public ChartSeriesType seriesType { get; set; }
-    [Parameter]
-    public EventCallback<ChartSeriesType> seriesTypeChanged { get; set; }
+    public ChartSeriesType SeriesType { get; set; }
 
 
     bool isPrinting { get; set; }
@@ -37,6 +35,7 @@
         isPrinting = true;
         await InvokeAsync(StateHasChanged);
         await Task.Delay(20);
+        // we let the new class render in the browser before telling it to print so it can have effect
         await JSRuntime.InvokeVoidAsync("print");
         isPrinting = false;
     }
