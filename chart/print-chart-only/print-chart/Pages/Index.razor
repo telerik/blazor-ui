@@ -1,0 +1,13 @@
+﻿@page "/"
+@using PrintChartOnly.Components
+
+<PrintableChart @bind-seriesType="@series1Type" />
+<PrintableChart @bind-seriesType="@series2Type" />
+<PrintableChart @bind-seriesType="@series3Type" />
+
+
+@code {
+    ChartSeriesType series1Type = ChartSeriesType.Bar;
+    ChartSeriesType series2Type = ChartSeriesType.Line;
+    ChartSeriesType series3Type = ChartSeriesType.Area;
+}
