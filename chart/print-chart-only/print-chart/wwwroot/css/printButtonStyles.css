@@ -1,0 +1,10 @@
+﻿.print-button {
+    position: relative;
+    top: 40px;
+    z-index: 1;
+    visibility: hidden;
+}
+
+.chart-container:hover .print-button {
+    visibility: visible;
+}
