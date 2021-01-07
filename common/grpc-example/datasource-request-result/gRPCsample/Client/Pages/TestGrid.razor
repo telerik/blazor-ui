@@ -1,0 +1,54 @@
+﻿@page "/testgrid"
+@using gRPCsample.Shared
+@using gRPCsample.Client.Models
+
+@*Need to add the FieldType or you will get errors on sorting
+    Note the ColumnStringValidated property with the Data Annotaion*@
+
+<TelerikGrid Data=@GridData
+             @ref="@GridRef"
+             OnRead="@ReadHandler"
+             OnUpdate="@UpdateHandler"
+             OnCreate="@CreateHandler"
+             Groupable="true"
+             Sortable="true"
+             FilterMode="GridFilterMode.FilterMenu"
+             EditMode="GridEditMode.Popup"
+             Resizable="true"
+             Reorderable="true"
+             Navigable="true"
+             Pageable="true"
+             PageSize="100"
+             TotalCount="@TotalRecords"
+             Width="75vw"
+             Height="85vh">
+    <GridColumns>
+        <GridColumn Field="@nameof(TestDataModel.Id)" FieldType="@typeof(long)" Editable="false" Title="Id" Width="100px" />
+        <GridColumn Field="@nameof(TestDataModel.ColumnInt32)" FieldType="@typeof(int)" Title="Int32" Width="100px" />
+        <GridColumn Field="@nameof(TestDataModel.ColumnDouble)" FieldType="@typeof(double)" Title="Double" Width="100px" />
+        <GridColumn Field="@nameof(TestDataModel.ColumnFloat)" FieldType="@typeof(float)" Title="Float" Width="100px" />
+        <GridColumn Field="@nameof(TestDataModel.ColumnBool)" FieldType="@typeof(bool)" Title="Bool" Width="100px" />
+        <GridColumn Field="@nameof(TestDataModel.ColumnStringValidated)" FieldType="@typeof(string)" Title="String" Width="150px" />
+        <GridColumn Field="@nameof(TestDataModel.ColumnBytesString)" FieldType="@typeof(string)" Editable="false" Title="Bytes" Width="100px" />
+        <GridColumn Field="ColumnTestObject.Description" FieldType="@typeof(string)" Editable="false" Title="Description" Width="150px" />
+        <GridColumn Field="@nameof(TestDataModel.Modified)" FieldType="@typeof(DateTime)" Title="Modified" Editable="false" Width="180px" DisplayFormat="{0:dd/MM/yyyy HH:mm:ss}" />
+        <GridColumn Field="@nameof(TestDataModel.Created)" FieldType="@typeof(DateTime)" Title="Created" Editable="false" Width="180px" DisplayFormat="{0:dd/MM/yyyy HH:mm:ss}" />
+        <GridCommandColumn Width="100px" Locked="true">
+            <GridCommandButton Command="Save" Icon="save" ShowInEdit="true"></GridCommandButton>
+            <GridCommandButton Command="Edit" Icon="edit"></GridCommandButton>
+            <GridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true"></GridCommandButton>
+            <GridCommandButton Command="Delete" Icon="delete" OnClick="@DeleteWithConfirmation"></GridCommandButton>
+        </GridCommandColumn>
+    </GridColumns>
+    <GridToolBar>
+        <GridCommandButton Command="CustomAdd" Icon="add" OnClick="@StartInsert">Add Record</GridCommandButton>
+    </GridToolBar>
+</TelerikGrid>
+
+<MessageWindow OnClose="@MessageCallbackAsync" Visible="@( _message != null )"
+               MessageModel="@(_message)" />
+
+
+<ConfirmWindow OnConfirm="@DeleteCallbackAsync" Visible="@(_showDeleteConfirmation)" OnCancel="@( _ => _showDeleteConfirmation = false )"
+               ConfirmText="@( $"Do you really want to delete the Record {_itemToDelete?.ColumnString}?" )"
+               ConfirmTitle="Delete confirmation" />

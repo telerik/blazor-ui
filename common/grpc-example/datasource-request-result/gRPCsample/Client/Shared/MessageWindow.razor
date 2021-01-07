@@ -1,0 +1,26 @@
+﻿@using gRPCsample.Client.Models
+
+<TelerikWindow @bind-Visible="@Visible" Modal="true">
+    <WindowTitle>
+        <strong>@MessageModel.Title</strong>
+    </WindowTitle>
+    <WindowContent>
+        <div class="k-content k-window-content k-dialog-content">
+            @MessageModel.Message
+        </div>
+        <div class="k-dialog-buttongroup k-dialog-button-layout-stretched">
+            <TelerikButton OnClick="@RaiseClose">Close</TelerikButton>
+        </div>
+    </WindowContent>
+</TelerikWindow>
+
+@code{
+    [Parameter] public MessageWindowModel MessageModel { get; set; }
+    [Parameter] public bool Visible { get; set; }
+    [Parameter] public EventCallback OnClose { get; set; }
+    async void RaiseClose()
+    {
+        Visible = false;
+        await OnClose.InvokeAsync(null);
+    }
+}

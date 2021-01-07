@@ -1,0 +1,29 @@
+﻿@page "/testgridjson"
+@using gRPCsample.Shared
+
+<TelerikGrid Data=@GridData
+             OnRead="@ReadHandler"
+             Groupable="true"
+             Sortable="true"
+             FilterMode="GridFilterMode.FilterMenu"
+             Resizable="true"
+             Reorderable="true"
+             Navigable="true"
+             Pageable="true"
+             PageSize="100"
+             TotalCount="@TotalRecords"
+             Width="75vw"
+             Height="85vh">
+    <GridColumns>
+        <GridColumn Field="@nameof(TestGridJSONModel.Id)" FieldType="@typeof(long)" Title="Id" Width="100px" />
+        <GridColumn Field="@nameof(TestGridJSONModel.ColumInt32)" FieldType="@typeof(int)" Title="Int32" Width="100px" />
+        <GridColumn Field="@nameof(TestGridJSONModel.ColumnDouble)" FieldType="@typeof(double)" Title="Double" Width="100px" />
+        <GridColumn Field="@nameof(TestGridJSONModel.ColumnFloat)" FieldType="@typeof(float)" Title="Float" Width="100px" />
+        <GridColumn Field="@nameof(TestGridJSONModel.ColumnBool)" FieldType="@typeof(bool)" Title="Bool" Width="100px" />
+        <GridColumn Field="@nameof(TestGridJSONModel.ColumnString)" FieldType="@typeof(string)" Title="String" Width="150px" />
+        <GridColumn Field="@nameof(TestGridJSONModel.ColumnBytesString)" FieldType="@typeof(string)" Title="Bytes" Width="100px" />
+        <GridColumn Field="ColumnTestObject.Description" FieldType="@typeof(string)" Title="Description" Width="150px" />
+        <GridColumn Field="@nameof(TestGridJSONModel.Modified)" FieldType="@typeof(DateTime)" Title="Modified" Width="180px" DisplayFormat="{0:dd/MM/yyyy HH:mm:ss}" />
+        <GridColumn Field="@nameof(TestGridJSONModel.Created)" FieldType="@typeof(DateTime)" Title="Created" Width="180px" DisplayFormat="{0:dd/MM/yyyy HH:mm:ss}" />
+    </GridColumns>
+</TelerikGrid>

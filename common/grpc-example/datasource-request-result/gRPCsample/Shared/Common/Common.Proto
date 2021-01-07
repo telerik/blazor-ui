@@ -1,0 +1,50 @@
+// These are the Protobuf definitons that can be used by the various RPC functions
+syntax = "proto3";
+ 
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/any.proto";
+
+option csharp_namespace = "gRPCsample.Shared";
+
+// Result Response with error message and total records
+message ResultResponse {
+    ResultModel result = 1;
+}
+
+message ResultModel {
+    google.protobuf.StringValue error_message = 1;
+    int32 total_records = 2;
+}
+
+// Used for the Grouped data
+message TelerikGroupModel {
+    int32 item_count = 1;
+    string key = 2;
+    string member = 3;
+}
+
+message DataListResponse {
+    DataGroupModel grid_data  = 1;
+    ResultModel result = 2;
+}
+ 
+message DataGroupModel {
+    google.protobuf.Any grid_rows  = 1;
+    TelerikGroupModel grid_group_model = 2;
+    repeated DataGroupModel sub_groups = 3;
+}
+
+// This is the request sent to the server.
+// The Telerik DataSourceRequest object is serialised to JSON as it contains very little data but would require many objects
+message DataSourceProtoRequest {
+    string data_source_request_json = 1;
+}
+
+message UpdateTypeModel {
+  enum UpdateTypeEnum {
+    Add = 0;
+    EDIT = 1;
+    Delete = 2;
+  }
+  UpdateTypeEnum type = 1;
+}
