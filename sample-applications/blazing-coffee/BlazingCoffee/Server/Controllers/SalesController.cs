@@ -14,7 +14,6 @@ namespace BlazingCoffee.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class SalesController : ControllerBase
     {
         private readonly CoffeeContext _context;

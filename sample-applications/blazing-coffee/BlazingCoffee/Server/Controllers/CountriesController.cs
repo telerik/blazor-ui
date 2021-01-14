@@ -10,7 +10,6 @@ namespace BlazingCoffee.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class CountriesController : ControllerBase
     {
         private readonly CoffeeContext _context;

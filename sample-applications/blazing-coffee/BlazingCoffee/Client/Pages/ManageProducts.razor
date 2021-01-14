@@ -1,9 +1,7 @@
 ﻿@inherits CoffeeComponentBase
-@attribute [Authorize]
 @page "/manage-products"
 @inject HttpClient Http
 @inject NavigationManager NavigationManager
-@inject IAccessTokenProvider accessTokenProvider
 
 <CardContainer Title="@L["ManageProducts"]">
     <TelerikGrid Data="Products" Groupable="true" EditMode="GridEditMode.Popup"
@@ -143,11 +141,6 @@
     async Task OnUploadHandler(UploadEventArgs e, int productId)
     {
         e.RequestData.Add("productId", productId);
-
-        // authorization token
-        var tokenResult = await accessTokenProvider.RequestAccessToken();
-        tokenResult.TryGetToken(out var token);
-        e.RequestHeaders.Add("authorization", $"Bearer {token.Value}");
     }
 
     async Task OnSuccessHandler(Product product)

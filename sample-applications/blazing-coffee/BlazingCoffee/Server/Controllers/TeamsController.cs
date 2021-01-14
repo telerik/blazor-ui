@@ -10,7 +10,6 @@ namespace BlazingCoffee.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
 
     public class TeamsController : ControllerBase
     {
