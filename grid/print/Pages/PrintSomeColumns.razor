@@ -1,0 +1,100 @@
+﻿@page "/print-columns"
+
+@inject IJSRuntime JsInterop
+
+<TelerikGrid Data="@MyData" Height="400px"
+             Pageable="true" Sortable="true" Groupable="true"
+             FilterMode="Telerik.Blazor.GridFilterMode.FilterRow"
+             Resizable="true" Reorderable="true">
+    <GridToolBar>
+        <GridCommandButton Command="Print" OnClick="@Print" Icon="@IconName.Print">Print</GridCommandButton>
+    </GridToolBar>
+    <GridColumns>
+        @*Use the Visible parameter of the columns to define which of them will not be visible in print mode.*@
+        <GridColumn Visible="@(!isPrinting)" Field="@(nameof(SampleData.Id))" Width="120px" />
+        <GridColumn Field="@(nameof(SampleData.Name))" Title="Employee Name" Groupable="false" />
+        <GridColumn Field="@(nameof(SampleData.Team))" Title="Team" />
+        <GridColumn Field="@(nameof(SampleData.HireDate))" Title="Hire Date" />
+
+        @*Command column is included only for presentation purposes.
+        No handlers are set for the command buttons.*@
+        <GridCommandColumn Visible="@(!isPrinting)">
+            <GridCommandButton Command="Save" Icon="save" ShowInEdit="true">Update</GridCommandButton>
+            <GridCommandButton Command="Edit" Icon="edit">Edit</GridCommandButton>
+            <GridCommandButton Command="Delete" Icon="delete">Delete</GridCommandButton>
+            <GridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true">Cancel</GridCommandButton>
+        </GridCommandColumn>        
+    </GridColumns>
+</TelerikGrid>
+
+@code {
+    //Flag used to define when the Grid is in print mode.
+    public bool isPrinting { get; set; }
+
+    async Task Print()
+    {
+        isPrinting = true;
+        await InvokeAsync(StateHasChanged);
+        await Task.Delay(20);
+        await JsInterop.InvokeVoidAsync("print");
+        isPrinting = false;
+    }
+
+    public IEnumerable<SampleData> MyData = Enumerable.Range(1, 30).Select(x => new SampleData
+    {
+        Id = x,
+        Name = "name " + x,
+        Team = "team " + x % 5,
+        HireDate = DateTime.Now.AddDays(-x).Date
+    });
+
+    public class SampleData
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Team { get; set; }
+        public DateTime HireDate { get; set; }
+    }
+}
+
+<style>
+    @@media print {
+        /* Hide elements from the page you do not want printed, customize the page */
+        .sidebar, .top-row {
+            display: none;
+        }
+
+        html {
+            font: 11pt sans-serif;
+        }
+        /* sample customizations for the grid when printed */
+        .k-grid {
+            border-top-width: 0;
+        }
+
+        .k-grid, .k-grid-content {
+            height: auto !important;
+        }
+
+        .k-grid-header {
+            padding-right: 0 !important;
+        }
+
+        .k-grid-content {
+            overflow: visible !important;
+        }
+
+        table.k-grid table {
+            table-layout: auto;
+            width: 100% !important;
+        }
+
+        .k-grid .k-grid-header th {
+            border-top: 1px solid;
+        }
+
+        .k-filter-row, .k-grid-pager, .k-grouping-header, .k-grid-toolbar, .k-grid-pager > .k-link {
+            display: none;
+        }
+    }
+</style>
