@@ -1,0 +1,38 @@
+@page "/authentication/{action}"
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+<CardContainer Title="Blazing Coffee Roasters">
+    <RemoteAuthenticatorView Action="@Action">
+        <LoggingIn>
+            <span>Logging you in...</span>
+        </LoggingIn>
+        <CompletingLoggingIn>
+            <span>Checking permissions...</span>
+        </CompletingLoggingIn>
+        <LogInFailed>
+            <span>Sorry, your login failed. Please try again or contact support.</span>
+        </LogInFailed>
+        <LogOut>
+            <span>Logging you out...</span>
+        </LogOut>
+        <CompletingLogOut>
+            <span>Logging you out...</span>
+        </CompletingLogOut>
+        <LogOutFailed>
+            <span>Sorry, log out operation failed. Please try again or contact support.</span>
+        </LogOutFailed>
+        <LogOutSucceeded>
+            <span>You were successfully logged out.</span>
+        </LogOutSucceeded>
+        <UserProfile>
+            <span>Retreving profile...</span>
+        </UserProfile>
+        <Registering>
+            <span>Registering account...</span>
+        </Registering>
+    </RemoteAuthenticatorView>
+</CardContainer>
+
+@code{
+    [Parameter] public string Action { get; set; }
+}

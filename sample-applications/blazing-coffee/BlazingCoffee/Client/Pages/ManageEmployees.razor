@@ -1,0 +1,57 @@
+@inherits CoffeeComponentBase
+@attribute [Authorize]
+@page "/manage-employees"
+@inject HttpClient Http
+@using Telerik.Blazor.Services 
+
+<CardContainer Title="@L["Employees"]">
+    <TelerikGrid Data="employees" 
+                 Pageable="true" 
+                 Sortable="true" 
+                 FilterMode="GridFilterMode.FilterMenu" 
+                 Resizable="true"
+                 ShowColumnMenu="true"
+                 >
+        <GridColumns>
+            <GridColumn Field="@nameof(Employee.ImgId)" Title="" Sortable="false" Width="100px" Filterable="false">
+                <Template>
+                    @{
+                        var e = (Employee)context;
+                        var gender = e.Id % 2 == 0 ? "men" : "women";
+                        <img style="width: 64px; border: 2px solid @e.Team.TeamColor" class="k-avatar-rounded" src=@($"https://randomuser.me/api/portraits/{gender}/{e.Id}.jpg") />
+                    }
+                </Template>
+            </GridColumn>
+            <GridColumn Field="@nameof(Employee.FullName)" Title="@L["Employee_Grid_Title_FullName"]"></GridColumn>
+            <GridColumn Field="@nameof(Employee.Address)" Title="@L["Employee_Grid_Title_Address"]"></GridColumn>
+            <GridColumn Field="@nameof(Employee.Phone)" Title="@L["Employee_Grid_Title_Phone"]"></GridColumn>
+            <GridColumn Field="Team.TeamName" Title="@L["Employee_Grid_Title_TeamName"]">
+                <Template>
+                    @{
+                        var e = (Employee)context;
+                        <span style="color: @e.Team.TeamColor">@e.Team.TeamName</span>
+                    }
+                </Template>
+            </GridColumn>
+            <GridColumn Field="@nameof(Employee.Rating)" Title="@L["Employee_Grid_Title_Rating"]">
+                <Template>
+                    <Rating Value="((Employee)context).Rating" />
+                </Template>
+            </GridColumn>
+            <GridColumn Field="@nameof(Employee.Budget)" Title="@L["Employee_Grid_Title_Budget"]">
+                <Template>
+                    @( ((Employee)context).Budget.ToString("C") )
+                </Template>
+            </GridColumn>
+        </GridColumns>
+    </TelerikGrid>
+</CardContainer>
+
+@code {
+    private Employee[] employees;
+
+    protected override async Task OnInitializedAsync()
+    {
+        employees = await Http.GetFromJsonAsync<Employee[]>("api/employees");
+    }
+}

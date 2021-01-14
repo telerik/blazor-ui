@@ -1,0 +1,666 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AutoComplete_Clear" xml:space="preserve">
+    <value>WISSEN</value>
+  </data>
+  <data name="AutoComplete_NoData" xml:space="preserve">
+    <value>Geen gegevens</value>
+  </data>
+  <data name="Calendar_Choose_Decade" xml:space="preserve">
+    <value>Kies een decennium!</value>
+  </data>
+  <data name="Calendar_Choose_Month" xml:space="preserve">
+    <value>Kies een maand</value>
+  </data>
+  <data name="Calendar_Choose_Year" xml:space="preserve">
+    <value>Kies een</value>
+  </data>
+  <data name="Calendar_GoToNext" xml:space="preserve">
+    <value>Hiermee gaat u naar de volgende periode.</value>
+  </data>
+  <data name="Calendar_GoToPrevious" xml:space="preserve">
+    <value>Hiermee gaat u naar de vorige periode.</value>
+  </data>
+  <data name="Calendar_Today" xml:space="preserve">
+    <value>Vandaag</value>
+  </data>
+  <data name="ComboBox_Clear" xml:space="preserve">
+    <value>WISSEN</value>
+  </data>
+  <data name="ComboBox_NoData" xml:space="preserve">
+    <value>Geen gegevens</value>
+  </data>
+  <data name="DateInput_ParsingErrorMessage" xml:space="preserve">
+    <value>De datumnotatie is niet te ontleden. Voer een geldige datum in.!</value>
+  </data>
+  <data name="DateInput_ValidationErrorMessage" xml:space="preserve">
+    <value>De datum is niet geldig.</value>
+  </data>
+  <data name="DateTimePicker_Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="DateTimePicker_Date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="DateTimePicker_Set" xml:space="preserve">
+    <value>Set</value>
+  </data>
+  <data name="DateTimePicker_Time" xml:space="preserve">
+    <value>Tijd</value>
+  </data>
+  <data name="DropDownList_NoData" xml:space="preserve">
+    <value>Geen gegevens</value>
+  </data>
+  <data name="Filter_All" xml:space="preserve">
+    <value>Alle</value>
+  </data>
+  <data name="Filter_And" xml:space="preserve">
+    <value>en</value>
+  </data>
+  <data name="Filter_Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="Filter_Clear" xml:space="preserve">
+    <value>WISSEN</value>
+  </data>
+  <data name="Filter_DateIsEqualTo" xml:space="preserve">
+    <value>is gelijk aan</value>
+  </data>
+  <data name="Filter_DateIsGreaterThan" xml:space="preserve">
+    <value>is na</value>
+  </data>
+  <data name="Filter_DateIsGreaterThanOrEqualTo" xml:space="preserve">
+    <value>komt na of is gelijk aan</value>
+  </data>
+  <data name="Filter_DateIsLessThan" xml:space="preserve">
+    <value>is voor</value>
+  </data>
+  <data name="Filter_DateIsLessThanOrEqualTo" xml:space="preserve">
+    <value>komt vóór of is gelijk aan</value>
+  </data>
+  <data name="Filter_DateIsNotEqualTo" xml:space="preserve">
+    <value>is niet gelijk aan</value>
+  </data>
+  <data name="Filter_DateIsNotNull" xml:space="preserve">
+    <value>Is niet Null</value>
+  </data>
+  <data name="Filter_DateIsNull" xml:space="preserve">
+    <value>Is null</value>
+  </data>
+  <data name="Filter_EnumIsEqualTo" xml:space="preserve">
+    <value>is gelijk aan</value>
+  </data>
+  <data name="Filter_EnumIsNotEqualTo" xml:space="preserve">
+    <value>is niet gelijk aan</value>
+  </data>
+  <data name="Filter_EnumIsNotNull" xml:space="preserve">
+    <value>Is niet Null</value>
+  </data>
+  <data name="Filter_EnumIsNull" xml:space="preserve">
+    <value>Is null</value>
+  </data>
+  <data name="Filter_Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="Filter_IsFalse" xml:space="preserve">
+    <value>Is onwaar</value>
+  </data>
+  <data name="Filter_IsTrue" xml:space="preserve">
+    <value>Is waar</value>
+  </data>
+  <data name="Filter_NumberIsEqualTo" xml:space="preserve">
+    <value>is gelijk aan</value>
+  </data>
+  <data name="Filter_NumberIsGreaterThan" xml:space="preserve">
+    <value>is groter dan</value>
+  </data>
+  <data name="Filter_NumberIsGreaterThanOrEqualTo" xml:space="preserve">
+    <value>is groter dan of gelijk aan</value>
+  </data>
+  <data name="Filter_NumberIsLessThan" xml:space="preserve">
+    <value>is kleiner dan</value>
+  </data>
+  <data name="Filter_NumberIsLessThanOrEqualTo" xml:space="preserve">
+    <value>is kleiner dan of gelijk aan</value>
+  </data>
+  <data name="Filter_NumberIsNotEqualTo" xml:space="preserve">
+    <value>is niet gelijk aan</value>
+  </data>
+  <data name="Filter_NumberIsNotNull" xml:space="preserve">
+    <value>Is niet Null</value>
+  </data>
+  <data name="Filter_NumberIsNull" xml:space="preserve">
+    <value>Is null</value>
+  </data>
+  <data name="Filter_Or" xml:space="preserve">
+    <value>of</value>
+  </data>
+  <data name="Filter_StringContains" xml:space="preserve">
+    <value>bevat</value>
+  </data>
+  <data name="Filter_StringDoesNotContain" xml:space="preserve">
+    <value>bevat niet</value>
+  </data>
+  <data name="Filter_StringEndsWith" xml:space="preserve">
+    <value>eindigt met</value>
+  </data>
+  <data name="Filter_StringIsEmpty" xml:space="preserve">
+    <value>Is leeg</value>
+  </data>
+  <data name="Filter_StringIsEqualTo" xml:space="preserve">
+    <value>is gelijk aan</value>
+  </data>
+  <data name="Filter_StringIsNotEmpty" xml:space="preserve">
+    <value>Is niet leeg</value>
+  </data>
+  <data name="Filter_StringIsNotEqualTo" xml:space="preserve">
+    <value>is niet gelijk aan</value>
+  </data>
+  <data name="Filter_StringIsNotNull" xml:space="preserve">
+    <value>Is niet Null</value>
+  </data>
+  <data name="Filter_StringIsNotNullOrEmpty" xml:space="preserve">
+    <value>Waarde</value>
+  </data>
+  <data name="Filter_StringIsNull" xml:space="preserve">
+    <value>Is null</value>
+  </data>
+  <data name="Filter_StringIsNullOrEmpty" xml:space="preserve">
+    <value>Heeft geen waarde</value>
+  </data>
+  <data name="Filter_StringStartsWith" xml:space="preserve">
+    <value>Begint met</value>
+  </data>
+  <data name="Grid_Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="Grid_CancelDelete" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="Grid_Create" xml:space="preserve">
+    <value>Nieuwe record toevoegen</value>
+  </data>
+  <data name="Grid_Delete" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="Grid_Edit" xml:space="preserve">
+    <value>Bewerken</value>
+  </data>
+  <data name="Grid_SortAscending" xml:space="preserve">
+    <value>Oplopend sorteren</value>
+  </data>
+  <data name="Grid_SortDescending" xml:space="preserve">
+    <value>Aflopend sorteren</value>
+  </data>
+  <data name="Grid_Update" xml:space="preserve">
+    <value>Bijwerken</value>
+  </data>
+  <data name="Group_Empty" xml:space="preserve">
+    <value>Sleep een kolomkop en zet deze hier neer als u gegevens op basis van die kolom wilt groeperen.</value>
+  </data>
+  <data name="MultiSelect_Clear" xml:space="preserve">
+    <value>WISSEN</value>
+  </data>
+  <data name="MultiSelect_NoData" xml:space="preserve">
+    <value>Geen gegevens</value>
+  </data>
+  <data name="NumericTextBox_DecreaseValue" xml:space="preserve">
+    <value>Waarde verlagen</value>
+  </data>
+  <data name="NumericTextBox_IncreaseValue" xml:space="preserve">
+    <value>Waarde verhogen</value>
+  </data>
+  <data name="Pager_Display" xml:space="preserve">
+    <value>{0}: {1} van {2} items.</value>
+  </data>
+  <data name="Pager_Empty" xml:space="preserve">
+    <value>Er zijn geen items om weer te geven</value>
+  </data>
+  <data name="Pager_First" xml:space="preserve">
+    <value>Ga naar de eerste pagina</value>
+  </data>
+  <data name="Pager_ItemsPerPage" xml:space="preserve">
+    <value>Items per pagina</value>
+  </data>
+  <data name="Pager_Last" xml:space="preserve">
+    <value>Ga naar de laatste pagina</value>
+  </data>
+  <data name="Pager_MorePages" xml:space="preserve">
+    <value>Meer pagina's</value>
+  </data>
+  <data name="Pager_Next" xml:space="preserve">
+    <value>Ga naar de volgende pagina</value>
+  </data>
+  <data name="Pager_Of" xml:space="preserve">
+    <value>van {0}</value>
+  </data>
+  <data name="Pager_Page" xml:space="preserve">
+    <value>Pagina:</value>
+  </data>
+  <data name="Pager_Previous" xml:space="preserve">
+    <value>Ga naar de vorige pagina</value>
+  </data>
+  <data name="Pager_Refresh" xml:space="preserve">
+    <value>Vernieuwen</value>
+  </data>
+  <data name="Scheduler_AllDay" xml:space="preserve">
+    <value>Hele dag</value>
+  </data>
+  <data name="Scheduler_Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="Scheduler_Day" xml:space="preserve">
+    <value>Dag</value>
+  </data>
+  <data name="Scheduler_Delete" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="Scheduler_Editor_Description" xml:space="preserve">
+    <value>Beschrijving</value>
+  </data>
+  <data name="Scheduler_Editor_EditorTitle" xml:space="preserve">
+    <value>Gebeurtenis</value>
+  </data>
+  <data name="Scheduler_Editor_End" xml:space="preserve">
+    <value>Einde</value>
+  </data>
+  <data name="Scheduler_Editor_EndTimeRequiredValidationMessage" xml:space="preserve">
+    <value>Eindtijd is vereist.</value>
+  </data>
+  <data name="Scheduler_Editor_EndTimeValueValidationMessage" xml:space="preserve">
+    <value>- De eindtijd dient na de starttijd te liggen</value>
+  </data>
+  <data name="Scheduler_Editor_IsAllDay" xml:space="preserve">
+    <value>gebeurtenis die de hele dag duurt</value>
+  </data>
+  <data name="Scheduler_Editor_Repeat" xml:space="preserve">
+    <value>Herhalen</value>
+  </data>
+  <data name="Scheduler_Editor_Start" xml:space="preserve">
+    <value>Begin</value>
+  </data>
+  <data name="Scheduler_Editor_StartTimeRequiredValidationMessage" xml:space="preserve">
+    <value>Begintijd is vereist.</value>
+  </data>
+  <data name="Scheduler_Editor_StartTimeValueValidationMessage" xml:space="preserve">
+    <value>De starttijd moet eerder zijn dan de eindtijd</value>
+  </data>
+  <data name="Scheduler_Editor_Title" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="Scheduler_Editor_TitleRequiredValidationMessage" xml:space="preserve">
+    <value>De titel is vereist.</value>
+  </data>
+  <data name="Scheduler_MultiDay" xml:space="preserve">
+    <value>Meerdere dagen</value>
+  </data>
+  <data name="Scheduler_Next" xml:space="preserve">
+    <value>Volgende</value>
+  </data>
+  <data name="Scheduler_Previous" xml:space="preserve">
+    <value>Vorige</value>
+  </data>
+  <data name="Scheduler_Recurrence_DeleteRecurring" xml:space="preserve">
+    <value>Wilt u alleen deze gebeurtenis of de hele serie verwijderen ?!</value>
+  </data>
+  <data name="Scheduler_Recurrence_DeleteWindowOccurrence" xml:space="preserve">
+    <value>Huidige gebeurtenis verwijderen!</value>
+  </data>
+  <data name="Scheduler_Recurrence_DeleteWindowSeries" xml:space="preserve">
+    <value>De reeks verwijderen.</value>
+  </data>
+  <data name="Scheduler_Recurrence_DeleteWindowTitle" xml:space="preserve">
+    <value>Verwijder terugkerende afspraak!</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Daily_Interval" xml:space="preserve">
+    <value>Dag(en)</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Daily_RepeatEvery" xml:space="preserve">
+    <value>Herhalen elke</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_End_After" xml:space="preserve">
+    <value>Na</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_End_Label" xml:space="preserve">
+    <value>Einde</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_End_Never" xml:space="preserve">
+    <value>Nooit</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_End_Occurrence" xml:space="preserve">
+    <value>keer</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_End_On" xml:space="preserve">
+    <value>aan</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Frequencies_Daily" xml:space="preserve">
+    <value>Dagelijks</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Frequencies_Monthly" xml:space="preserve">
+    <value>Maandelijks</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Frequencies_Never" xml:space="preserve">
+    <value>Nooit</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Frequencies_Weekly" xml:space="preserve">
+    <value>Wekelijks</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Frequencies_Yearly" xml:space="preserve">
+    <value>Jaarlijks</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Monthly_Day" xml:space="preserve">
+    <value>Dag</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Monthly_Interval" xml:space="preserve">
+    <value>maand(en)</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Monthly_RepeatEvery" xml:space="preserve">
+    <value>Herhalen elke</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Monthly_RepeatOn" xml:space="preserve">
+    <value>Herhalen op</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_OffsetPositions_First" xml:space="preserve">
+    <value>Eerste</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_OffsetPositions_Fourth" xml:space="preserve">
+    <value>Vierde</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_OffsetPositions_Last" xml:space="preserve">
+    <value>Laatste</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_OffsetPositions_Second" xml:space="preserve">
+    <value>seconde</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_OffsetPositions_Third" xml:space="preserve">
+    <value>Derde</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Weekdays_Day" xml:space="preserve">
+    <value>Dag</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Weekdays_Weekday" xml:space="preserve">
+    <value>weekdag</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Weekdays_Weekend" xml:space="preserve">
+    <value>weekenddag</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Weekly_Interval" xml:space="preserve">
+    <value>Week/weken</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Weekly_RepeatEvery" xml:space="preserve">
+    <value>Herhalen elke</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Weekly_RepeatOn" xml:space="preserve">
+    <value>Herhalen op</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Yearly_Interval" xml:space="preserve">
+    <value>jaar</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Yearly_Of" xml:space="preserve">
+    <value>van</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Yearly_RepeatEvery" xml:space="preserve">
+    <value>Herhalen elke</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Yearly_RepeatOn" xml:space="preserve">
+    <value>Herhalen op</value>
+  </data>
+  <data name="Scheduler_Recurrence_EditRecurring" xml:space="preserve">
+    <value>Wilt u alleen deze gebeurtenis of de hele reeks bewerken ?!</value>
+  </data>
+  <data name="Scheduler_Recurrence_EditWindowOccurrence" xml:space="preserve">
+    <value>Current Occurrence</value>
+  </data>
+  <data name="Scheduler_Recurrence_EditWindowSeries" xml:space="preserve">
+    <value>Bewerk de reeks</value>
+  </data>
+  <data name="Scheduler_Recurrence_EditWindowTitle" xml:space="preserve">
+    <value>Bewerk terugkerende afspraak!</value>
+  </data>
+  <data name="Scheduler_Save" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="Scheduler_ShowFullDay" xml:space="preserve">
+    <value>Toon volledig</value>
+  </data>
+  <data name="Scheduler_ShowWorkDay" xml:space="preserve">
+    <value>Kantooruren</value>
+  </data>
+  <data name="Scheduler_Today" xml:space="preserve">
+    <value>Vandaag</value>
+  </data>
+  <data name="Scheduler_Week" xml:space="preserve">
+    <value>Week</value>
+  </data>
+  <data name="TimePicker_Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="TimePicker_Day" xml:space="preserve">
+    <value>Dag</value>
+  </data>
+  <data name="TimePicker_DayPeriod" xml:space="preserve">
+    <value>AM/PM</value>
+  </data>
+  <data name="TimePicker_Era" xml:space="preserve">
+    <value>ERA</value>
+  </data>
+  <data name="TimePicker_Hour" xml:space="preserve">
+    <value>Uur</value>
+  </data>
+  <data name="TimePicker_Minute" xml:space="preserve">
+    <value>Minuut</value>
+  </data>
+  <data name="TimePicker_Month" xml:space="preserve">
+    <value>&amp;Maand</value>
+  </data>
+  <data name="TimePicker_Now" xml:space="preserve">
+    <value>Nu</value>
+  </data>
+  <data name="TimePicker_Quarter" xml:space="preserve">
+    <value>Kwartaal</value>
+  </data>
+  <data name="TimePicker_Second" xml:space="preserve">
+    <value>seconde</value>
+  </data>
+  <data name="TimePicker_Set" xml:space="preserve">
+    <value>Set</value>
+  </data>
+  <data name="TimePicker_ToggleClock" xml:space="preserve">
+    <value>Toggle klok</value>
+  </data>
+  <data name="TimePicker_WeekDay" xml:space="preserve">
+    <value>weekdag</value>
+  </data>
+  <data name="TimePicker_Year" xml:space="preserve">
+    <value>&amp;Jaar</value>
+  </data>
+  <data name="TimePicker_Zone" xml:space="preserve">
+    <value>Zone</value>
+  </data>
+  <data name="Upload_SelectFiles" xml:space="preserve">
+    <value>Bestanden selecteren</value>
+  </data>
+  <data name="Upload_Clear" xml:space="preserve">
+    <value>WISSEN</value>
+  </data>
+  <data name="Upload_UploadFiles" xml:space="preserve">
+    <value>Uploaden</value>
+  </data>
+  <data name="Upload_Remove" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="Upload_Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="Upload_HeaderStatusUploaded" xml:space="preserve">
+    <value>Gereed</value>
+  </data>
+  <data name="Upload_HeaderStatusUploading" xml:space="preserve">
+    <value>Uploaden...</value>
+  </data>
+  <data name="Upload_Retry" xml:space="preserve">
+    <value>&amp;Opnieuw</value>
+  </data>
+  <data name="Upload_InvalidFileExtension" xml:space="preserve">
+    <value>Bestandstype is niet toegestaan</value>
+  </data>
+  <data name="Upload_InvalidMaxFileSize" xml:space="preserve">
+    <value>Bestand is te groot</value>
+  </data>
+  <data name="Upload_InvalidMinFileSize" xml:space="preserve">
+    <value>Bestandsgrootte te klein.</value>
+  </data>
+  <data name="Scheduler_Month" xml:space="preserve">
+    <value>&amp;Maand</value>
+  </data>
+  <data name="DateRangePicker_End" xml:space="preserve">
+    <value>Einde</value>
+  </data>
+  <data name="DateRangePicker_Start" xml:space="preserve">
+    <value>Begin</value>
+  </data>
+  <data name="Aggregate_Average" xml:space="preserve">
+    <value>Gemiddelde</value>
+  </data>
+  <data name="Aggregate_Max" xml:space="preserve">
+    <value>Max</value>
+  </data>
+  <data name="Aggregate_Min" xml:space="preserve">
+    <value>Min</value>
+  </data>
+  <data name="Aggregate_Sum" xml:space="preserve">
+    <value>Som</value>
+  </data>
+  <data name="Aggregate_Count" xml:space="preserve">
+    <value>Aantal</value>
+  </data>
+  <data name="Grid_NoRecords" xml:space="preserve">
+    <value>Geen records beschikbaar</value>
+  </data>
+  <data name="Filter_SelectValue" xml:space="preserve">
+    <value>Waarde selecteren...</value>
+  </data>
+  <data name="Upload_FileStatusUploaded" xml:space="preserve">
+    <value>Uploaden van het bestand is gelukt.</value>
+  </data>
+  <data name="Upload_FileStatusFailed" xml:space="preserve">
+    <value>Het bestand kan niet worden geüpload</value>
+  </data>
+</root>

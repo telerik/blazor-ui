@@ -1,0 +1,44 @@
+﻿@namespace BlazingCoffee.Client.Pages
+@inject HttpClient Http
+@inject ITelerikStringLocalizer L
+
+@if (Data != null)
+{
+    <CardContainer Title="@L["Reporting"]">
+        <TelerikChart Height="230px">
+            <ChartTitle Text="@L["ChartTitle_SalesAndRevenueTotal"]" />
+
+            <ChartSeriesItems>
+                @foreach (var item in Data.GroupBy(v => v.Region))
+                {
+                    <ChartSeries Type="ChartSeriesType.Column"
+                                 Name="@item.Key"
+                                 Data="@item"
+                                 Field="@nameof(SalesByDateViewModel.Sum)"
+                                 CategoryField="@nameof(SalesByDateViewModel.Date)" />
+                }
+            </ChartSeriesItems>
+
+            <ChartValueAxes>
+                <ChartValueAxis Name="RevenueAxis">
+                    <ChartValueAxisTitle Text="@L["ChartValueAxisTitle_TotalSales"]" />
+                    <ChartValueAxisLabels Format="{0:C}" />
+                    <ChartValueAxisMajorGridLines Visible="false" />
+                </ChartValueAxis>
+            </ChartValueAxes>
+
+            <ChartCategoryAxes>
+                <ChartCategoryAxis Name="Sales By Year">
+                    <ChartCategoryAxisLabels Format="{0:yyyy-MMM}" />
+                </ChartCategoryAxis>
+            </ChartCategoryAxes>
+
+        </TelerikChart>
+    </CardContainer>
+}
+
+@code {
+
+    [Parameter] public SalesByDateViewModel[] Data { get; set; }
+
+}

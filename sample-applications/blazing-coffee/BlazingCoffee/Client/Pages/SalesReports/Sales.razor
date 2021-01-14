@@ -1,0 +1,168 @@
+﻿@page "/sales"
+@inherits CoffeeComponentBase
+@using System.Globalization
+@attribute [Authorize]
+@inject HttpClient Http
+@inject ILocalStorageService LocalStorage
+
+<SalesByDateChart Data="chartData"></SalesByDateChart>
+<CardContainer Title="@L["Sales"]">
+    <TelerikGrid @ref="Grid" Height="500px" FilterMode="@GridFilterMode.FilterMenu"
+                 Sortable="true" Pageable="true" PageSize="10"
+                 OnStateInit="@((GridStateEventArgs<Sale> args) => OnStateInit(args))"
+                 OnStateChanged="@((GridStateEventArgs<Sale> args) => OnStateChanged(args))"
+                 Data=@Model.CurrentPageData TotalCount=@Model.TotalItemCount OnRead=@ReadItems>
+        <GridToolBar>
+            <label>@L["Sales_Grid_Toolbar_ReportRange"]</label>
+            <TelerikDateRangePicker StartValue="@StartValue" EndValue="@EndValue"
+                                    BottomView="CalendarView.Year"
+                                    StartValueChanged="@((DateTime? sV) => StartValueChangedHandler(sV))"
+                                    EndValueChanged="@((DateTime? eV) => EndValueChangedHandler(eV))">
+            </TelerikDateRangePicker>
+        </GridToolBar>
+        <GridColumns>
+            <GridColumn Field="@nameof(Sale.Amount)" Title="@L["Sales_Grid_Title_Amount"]">
+                <Template>
+                    @{
+                        var prod = (Sale)context;
+                        <span>@prod.Amount.ToString("C")</span>
+                    }
+                </Template>
+            </GridColumn>
+            <GridColumn Field="@nameof(Sale.Region)" Title="@L[""]"></GridColumn>
+            <GridColumn Field="@nameof(Sale.Country)" Title="@L["Sales_Grid_Title_Country"]"></GridColumn>
+            <GridColumn Field="@nameof(Sale.Sku)" Title="@L["Sales_Grid_Title_Sku"]"></GridColumn>
+            <GridColumn Field="@nameof(Sale.StoreId)" Title="@L["Sales_Grid_Title_StoreId"]"></GridColumn>
+            <GridColumn Field="@nameof(Sale.TransactionDate)" Title="@L["Sales_Grid_Title_TransactionDate"]" Filterable="false">
+                <Template>
+                    @{
+                        var prod = (Sale)context;
+                        <span>@prod.TransactionDate.ToShortDateString()</span>
+                    }
+                </Template>
+            </GridColumn>
+        </GridColumns>
+    </TelerikGrid>
+</CardContainer>
+
+@code {
+
+    #region Data Processing
+    string storageKey = "BlazingCoffeeSales";
+
+    DataEnvelope<Sale> Model { get; set; } = new DataEnvelope<Sale>();
+    SalesByDateViewModel[] chartData;
+
+
+    async Task ReadItems(GridReadEventArgs args)
+    {
+        var response = await Http.PostAsJsonAsync("api/sales", args.Request);
+        if (response.IsSuccessStatusCode)
+        {
+            Model = await response.Content.ReadFromJsonAsync<DataEnvelope<Sale>>();
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var state = await LocalStorage.GetItemAsync<GridState<Sale>>(storageKey);
+
+            if (state != null)
+            {
+                var startFilter = state.TransactionDateFilters(f => f.Operator == FilterOperator.IsGreaterThan);
+                var endFilter = state.TransactionDateFilters(f => f.Operator == FilterOperator.IsLessThan);
+
+                StartValue = (DateTime?)startFilter.Value;
+                EndValue = (DateTime?)endFilter.Value;
+            }
+
+            //    .StartDate != null ? state.StartDate : StartValue = DateTime.Now.AddYears(-2);
+            //EndValue = state?.EndDate != null ? state.EndDate : StartValue = DateTime.Now;
+        }
+        catch (InvalidOperationException e)
+        {
+            // the JS Interop for the local storage cannot be used during pre-rendering
+            // so the code above will throw. Once the app initializes, it will work fine
+        }
+
+        await GetChartData();
+
+    }
+
+    async Task GetChartData()
+    {
+        chartData = await Http.GetFromJsonAsync<SalesByDateViewModel[]>($"api/sales/RegionalSalesByDate/{StartValue?.ToString("s", CultureInfo.InvariantCulture)}/{EndValue?.ToString("s", CultureInfo.InvariantCulture)}");
+    }
+    #endregion
+
+    #region Custom Filtering
+    TelerikGrid<Sale> Grid { get; set; }
+    DateTime? StartValue { get; set; } = DateTime.Now.AddYears(-2);
+    DateTime? EndValue { get; set; } = DateTime.Now;
+
+    FilterDescriptor StartFilter() => new FilterDescriptor("TransactionDate", FilterOperator.IsGreaterThan, StartValue);
+    FilterDescriptor EndFilter() => new FilterDescriptor("TransactionDate", FilterOperator.IsLessThan, EndValue);
+
+    void StartValueChangedHandler(DateTime? currStart)
+    {
+        //you have to update the model manually because handling the <Parameter>Changed event does not let you use @bind-<Parameter>
+        //not updating the model will effectively cancel the event
+        StartValue = currStart;
+
+    }
+
+    async Task EndValueChangedHandler(DateTime? currEnd)
+    {
+        // you have to update the model manually because handling the <Parameter>Changed event does not let you use @bind-<Parameter>
+        // not updating the model will effectively cancel the event
+        EndValue = currEnd;
+
+        // sample check to execute logic only after the user has selected both ends of the range
+        // if this does not pass, the user has only clicked once in the calendar popup
+        if (currEnd != default(DateTime?))
+        {
+            var state = Grid.GetState();
+            // clear TransactionDate filters
+            state.FilterDescriptors = state.FilterDescriptors.Where(f => (f as FilterDescriptor)?.Member != "TransactionDate").ToList();
+            // assign new TransactionDate filters
+            state.FilterDescriptors.Add(StartFilter());
+            state.FilterDescriptors.Add(EndFilter());
+            await Grid.SetState(state);
+            await GetChartData();
+            await LocalStorage.SetItemAsync<GridState<Sale>>(storageKey, state);
+
+        }
+    }
+    #endregion
+
+    #region State Management
+
+    async Task OnStateInit(GridStateEventArgs<Sale> args)
+    {
+        try
+        {
+            var state = await LocalStorage.GetItemAsync<GridState<Sale>>(storageKey);
+            if (state != null)
+            {
+                args.GridState = state;
+            }
+
+        }
+        catch (InvalidOperationException e)
+        {
+            // the JS Interop for the local storage cannot be used during pre-rendering
+            // so the code above will throw. Once the app initializes, it will work fine
+        }
+        args.GridState.FilterDescriptors.Add(StartFilter());
+        args.GridState.FilterDescriptors.Add(EndFilter());
+    }
+
+    async Task OnStateChanged(GridStateEventArgs<Sale> args)
+    {
+        await LocalStorage.SetItemAsync(storageKey, args.GridState);
+    }
+
+    #endregion
+}

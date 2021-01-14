@@ -1,0 +1,32 @@
+﻿@namespace BlazingCoffee.Client.Shared
+@inject IJSRuntime js
+
+<TelerikDropDownList Id="theme" 
+                     Data="Themes" 
+                     TextField="ThemeText" 
+                     ValueField="ThemeValue" 
+                     Value="@SelectedTheme" 
+                     ValueChanged="@( (string v) => HandleThemeSelected(v) )" />
+
+@code {
+
+    string SelectedTheme;
+
+    IEnumerable<ThemeSetting> Themes => new List<ThemeSetting> {
+        new ThemeSetting { ThemeText = "Auto (default)", ThemeValue = "auto" },
+        new ThemeSetting { ThemeText = "Light", ThemeValue = "main" },
+        new ThemeSetting { ThemeText = "Dark", ThemeValue = "main-dark" }
+    };
+
+    async Task HandleThemeSelected(string value)
+    {
+        await js.InvokeVoidAsync("themeChooser.setTheme", value);
+        SelectedTheme = value;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var theme = await js.InvokeAsync<string>("themeChooser.getTheme");
+        SelectedTheme = string.IsNullOrEmpty(theme) ? "auto" : theme;
+    }
+}

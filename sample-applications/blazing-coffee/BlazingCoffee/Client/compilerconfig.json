@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "wwwroot/css/main.css",
+    "inputFile": "Theme/main.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/main-dark.css",
+    "inputFile": "Theme/main-dark.scss"
+  }
+]

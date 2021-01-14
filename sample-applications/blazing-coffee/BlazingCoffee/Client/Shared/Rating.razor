@@ -1,0 +1,13 @@
+﻿<span class="k-rating-container">
+    @for (int i = 1; i < 6; i++)
+    {
+        var starCss = i <= Value ? "k-i-star" : "k-i-star-outline";
+        <span class="k-rating-item" data-value="@i" title="@i">
+            <span class="k-icon @starCss"></span>
+        </span>
+    }
+</span>
+
+@code {
+    [Parameter] public int Value { get; set; }
+}

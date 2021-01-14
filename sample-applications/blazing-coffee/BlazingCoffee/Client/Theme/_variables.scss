@@ -1,0 +1,53 @@
+// Global variables here
+
+$base-theme: Default;
+$skin-name: MINTY-DASHBOARD;
+$swatch-name: Default;
+$border-radius: 2px;
+$accent: #7378d9;
+$info: #528dee;
+$success: #5abf90;
+$warning: #ffd452;
+$error: #F26666;
+$text-color: #060E40;
+$bg-color: #F2F2F2;
+$base-text: #060E40;
+$base-bg: #F2F2F2;
+$hovered-text: #060E40;
+$hovered-bg: #F2F2F2;
+$selected-text: #F2F2F2;
+$selected-bg: #528dee;
+$series-a: #F26666;
+$series-b: #ffd452;
+$series-c: #5abf90;
+$series-d: #52bdee;
+$series-e: #528dee;
+$series-f: #7378d9;
+$background-color: scale-color($accent, $saturation: -55%, $lightness: 65%);
+
+$link-color: $info;
+
+$isDarkTheme: false !default;
+@if ($isDarkTheme) 
+{
+    $text-color: #ffffff;
+    $bg-color: #2f3640;
+    $base-text: #ffffff;
+    $base-bg: #282f36;
+    $hovered-text: #ffffff;
+    $hovered-bg: #40444f;
+    $selected-text: #ffffff;
+    $selected-bg: #528dee;
+    $background-color: scale-color($accent, $saturation: -55%, $lightness: 25%);
+}
+
+
+$tiger-team: $error;
+$lemon-team: $warning;
+$organic-team: $success;
+$ocean-team: $accent;
+
+$pager-number-selected-opacity: 1;
+$pager-number-selected-bg: rgba($accent, $pager-number-selected-opacity);
+$pager-number-selected-text: $bg-color;
+
