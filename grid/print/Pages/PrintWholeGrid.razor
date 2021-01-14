@@ -60,9 +60,9 @@
 </TelerikGrid>
 
 @code {
-    private void Print(GridCommandEventArgs args)
+    async Task Print()
     {
-        JsInterop.InvokeAsync<string>("print");
+        await JsInterop.InvokeVoidAsync("print");
     }
 
     public IEnumerable<SampleData> MyData = Enumerable.Range(1, 30).Select(x => new SampleData
