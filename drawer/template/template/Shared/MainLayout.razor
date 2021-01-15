@@ -102,7 +102,7 @@
             @if (DrawerExpanded)
             {
                 <div style="text-align: center; margin-top: 3em; padding-top: 2em; border-top: 2px solid black; white-space:nowrap">
-                    <TelerikButton Icon="@IconName.Logout" Primary="true">Log Out</TelerikButton>
+                    <TelerikButton Icon="logout" Primary="true">Log Out</TelerikButton>
                 </div>
             }
         </Template>
@@ -132,8 +132,8 @@
     List<DrawerItem> NavigablePages { get; set; } = new List<DrawerItem>
 {
         new DrawerItem { Text = "Home", Url = "/", Icon = "home" },
-        new DrawerItem { Text = "Counter", Url = "counter", Icon = IconName.PlusOutline },
-        new DrawerItem { Text = "FetchData", Url = "fetchdata", Icon = IconName.Grid }
+        new DrawerItem { Text = "Counter", Url = "counter", Icon = "plus-outline" },
+        new DrawerItem { Text = "FetchData", Url = "fetchdata", Icon = "grid" }
     };
 
     protected override void OnInitialized()

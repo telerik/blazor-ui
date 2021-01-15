@@ -27,13 +27,13 @@ namespace appointment_context_menu.Pages
             {
                 Text = "Delete",
                 CommandName = "delete",
-                Icon = IconName.Delete
+                Icon = "delete"
             },
             new ContextMenuItem
             {
                 Text = "Toggle Important",
                 CommandName = "toggleimportant",
-                Icon = IconName.Warning
+                Icon = "warning"
             }
         };
 

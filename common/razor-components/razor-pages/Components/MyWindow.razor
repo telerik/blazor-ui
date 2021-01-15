@@ -1,6 +1,6 @@
 ﻿<h3>My Window</h3>
 
-<TelerikButton Icon=@IconName.Window OnClick=@(()=> WindowVisible = true)>Open Modal</TelerikButton>
+<TelerikButton Icon="window" OnClick=@(()=> WindowVisible = true)>Open Modal</TelerikButton>
 
 <TelerikRootComponent>
     <TelerikWindow Class="demo-window" Width="500px" Height="300px" Centered="true" @bind-Visible=@WindowVisible Modal="true">

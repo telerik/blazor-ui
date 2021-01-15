@@ -39,11 +39,11 @@
                     }
                     else if (currItem.IsDeleted)
                     {
-                        <TelerikButton Icon="@IconName.ArrowUp" OnClick="@( () => UndeleteItem(currItem) )">Undelete</TelerikButton>
+                        <TelerikButton Icon="arrow-up" OnClick="@( () => UndeleteItem(currItem) )">Undelete</TelerikButton>
                     }
                     else if (currItem.IsChanged)
                     {
-                        <TelerikButton Icon="@undo" OnClick="@( () => RevertItem(currItem) )">Revert</TelerikButton>
+                        <TelerikButton Icon="undo" OnClick="@( () => RevertItem(currItem) )">Revert</TelerikButton>
                     }
                 }
             </Template>
