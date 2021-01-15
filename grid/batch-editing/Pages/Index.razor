@@ -13,16 +13,16 @@
         @{
             if (GridIsDirty())
             {
-                <TelerikButton Icon="@IconName.Save" OnClick="@SaveAllChanges" Primary="true">Save All Changes</TelerikButton>
-                <TelerikButton Icon="@IconName.Cancel" OnClick="@RevertAllChanges">Cancel All Changes</TelerikButton>
+                <TelerikButton Icon="@save" OnClick="@SaveAllChanges" Primary="true">Save All Changes</TelerikButton>
+                <TelerikButton Icon="@cancel" OnClick="@RevertAllChanges">Cancel All Changes</TelerikButton>
             }
             <GridCommandButton Command="Add" Icon="add">Add Employee</GridCommandButton>
             if (SelectedItems.Count() > 0)
             {
-                <TelerikButton Icon="@IconName.Delete" OnClick="@DeleteSelected">Delete Selected</TelerikButton>
+                <TelerikButton Icon="@delete" OnClick="@DeleteSelected">Delete Selected</TelerikButton>
                 if (SelectionIsDirty())
                 {
-                    <TelerikButton Icon="@IconName.Undo" OnClick="@RevertSelected">Revert Selected</TelerikButton>
+                    <TelerikButton Icon="@undo" OnClick="@RevertSelected">Revert Selected</TelerikButton>
                 }
             }
         }
@@ -39,11 +39,11 @@
                     }
                     else if (currItem.IsDeleted)
                     {
-                        <TelerikButton Icon="@IconName.ArrowUp" OnClick="@( () => UndeleteItem(currItem) )">Undelete</TelerikButton>
+                        <TelerikButton Icon="arrow-up" OnClick="@( () => UndeleteItem(currItem) )">Undelete</TelerikButton>
                     }
                     else if (currItem.IsChanged)
                     {
-                        <TelerikButton Icon="@IconName.Undo" OnClick="@( () => RevertItem(currItem) )">Revert</TelerikButton>
+                        <TelerikButton Icon="undo" OnClick="@( () => RevertItem(currItem) )">Revert</TelerikButton>
                     }
                 }
             </Template>

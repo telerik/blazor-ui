@@ -24,8 +24,8 @@
                 <Content>
 
                     @* Here begins the actual content - for example, we start with buttons to toggle the drawers and the @Body later *@
-                    <TelerikButton OnClick="@(() => DrawerRef.ToggleAsync())" Icon="@IconName.Menu">Toggle LEFT drawer</TelerikButton>
-                    <TelerikButton OnClick="@(() => RightDrawerRef.ToggleAsync())" Icon="@IconName.Menu">Toggle RIGHT drawer</TelerikButton>
+                    <TelerikButton OnClick="@(() => DrawerRef.ToggleAsync())" Icon="@menu">Toggle LEFT drawer</TelerikButton>
+                    <TelerikButton OnClick="@(() => RightDrawerRef.ToggleAsync())" Icon="@menu">Toggle RIGHT drawer</TelerikButton>
 
                     <div class="m-5">
                         Selected Item: @SelectedItem?.Text
@@ -46,15 +46,15 @@
     // the left (Push) drawer goes to the counter and fetch data pages
     IEnumerable<DrawerItem> Data { get; set; } = new List<DrawerItem>
         {
-                new DrawerItem { Text = "Counter", Icon = IconName.Plus, Url = "counter"},
-                new DrawerItem { Text = "FetchData", Icon = IconName.GridLayout, Url = "fetchdata"},
+                new DrawerItem { Text = "Counter", Icon = "plus", Url = "counter"},
+                new DrawerItem { Text = "FetchData", Icon = "grid-layout", Url = "fetchdata"},
             };
 
     //the right (overlay) drawer always goes to the home page for brevity and simplicity
     IEnumerable<DrawerItem> RightItems { get; set; } = new List<DrawerItem>
         {
-                new DrawerItem { Text = "First", Icon = IconName.MinusOutline, Url= "/"},
-                new DrawerItem { Text = "Second", Icon = IconName.MinusCircle, Url = "/"},
+                new DrawerItem { Text = "First", Icon = "minus-outline", Url= "/"},
+                new DrawerItem { Text = "Second", Icon = "minus-circle", Url = "/"},
             };
 
     public class DrawerItem

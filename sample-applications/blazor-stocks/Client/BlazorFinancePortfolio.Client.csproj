@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
@@ -23,7 +23,7 @@
 
     <Target Name="CopyStyles" AfterTargets="BeforeCompile">
         <Copy SourceFiles="$(MSBuildProjectDirectory)\Styles\styles.min.css" DestinationFolder="$(MSBuildProjectDirectory)\wwwroot\css" />
-        <Message Importance="high" Text="Copying the minified builld styles to WWWROOT" />
+        <Message Importance="high" Text="Copying the minified build styles to WWWROOT" />
     </Target>
 
     <ItemGroup>

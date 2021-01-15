@@ -1,7 +1,7 @@
 ﻿@inject IJSRuntime JSRuntime
 
 <div class="chart-container @(isPrinting ? "" : "non-printable-chart")">
-    <TelerikButton OnClick="@Print" Icon="@IconName.Print" Class="print-button">Print this chart</TelerikButton>
+    <TelerikButton OnClick="@Print" Icon="print" Class="print-button">Print this chart</TelerikButton>
 
     <TelerikChart Width="700px" Height="400px">
         <ChartSeriesItems>
