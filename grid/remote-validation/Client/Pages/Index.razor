@@ -19,14 +19,14 @@ This sample uses a Notification component to show the error message to supplemen
         <GridColumn Field="TemperatureF" Title="Temp. F" DisplayFormat="{0:N1}" />
         <GridColumn Field="Summary" />
         <GridCommandColumn Width="200px" Resizable="false">
-            <GridCommandButton Command="Save" Icon="@IconName.Save" ShowInEdit="true">Update</GridCommandButton>
-            <GridCommandButton Command="Edit" Icon="@IconName.Edit" Primary="true">Edit</GridCommandButton>
-            <GridCommandButton Command="Delete" Icon="@IconName.Delete">Delete</GridCommandButton>
-            <GridCommandButton Command="Cancel" Icon="@IconName.Cancel" ShowInEdit="true">Cancel</GridCommandButton>
+            <GridCommandButton Command="Save" Icon="@save" ShowInEdit="true">Update</GridCommandButton>
+            <GridCommandButton Command="Edit" Icon="@edit" Primary="true">Edit</GridCommandButton>
+            <GridCommandButton Command="Delete" Icon="@delete">Delete</GridCommandButton>
+            <GridCommandButton Command="Cancel" Icon="@cancel" ShowInEdit="true">Cancel</GridCommandButton>
         </GridCommandColumn>
     </GridColumns>
     <GridToolBar>
-        <GridCommandButton Command="Add" Icon="@IconName.Plus" Primary="true">Add Forecast</GridCommandButton>
+        <GridCommandButton Command="Add" Icon="@plus" Primary="true">Add Forecast</GridCommandButton>
     </GridToolBar>
 </TelerikGrid>
 

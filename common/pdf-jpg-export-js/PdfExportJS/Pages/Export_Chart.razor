@@ -3,7 +3,7 @@
 @using PdfExportJS.Services
 @inject DrawingService DrawingService
 
-<TelerikButton Icon="@IconName.Image" OnClick="@ExportChartToJPG">Export to .jpg</TelerikButton>
+<TelerikButton Icon="@image" OnClick="@ExportChartToJPG">Export to .jpg</TelerikButton>
 
 <div @ref="ExportChart">
     <TelerikChart Height="480px" Width="640px">

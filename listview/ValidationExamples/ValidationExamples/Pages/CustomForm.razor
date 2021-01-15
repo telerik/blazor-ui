@@ -11,12 +11,12 @@
         <div style="border: 1px solid black; margin: 10px; padding: 10px; display: inline-block;">
             Employee: @context.Id <br />
             Name: @context.Name in team: @context.Team
-            <TelerikButton OnClick="@( _ => EditExisting(context) )" Icon="@IconName.Edit">Edit</TelerikButton>
-            <ListViewCommandButton Command="Delete" Icon="@IconName.Delete">Delete</ListViewCommandButton>
+            <TelerikButton OnClick="@( _ => EditExisting(context) )" Icon="@edit">Edit</TelerikButton>
+            <ListViewCommandButton Command="Delete" Icon="@delete">Delete</ListViewCommandButton>
         </div>
     </Template>
     <HeaderTemplate>
-        <TelerikButton OnClick="@AddNew" Icon="@IconName.Plus">Add Employee</TelerikButton>
+        <TelerikButton OnClick="@AddNew" Icon="@plus">Add Employee</TelerikButton>
     </HeaderTemplate>
 </TelerikListView>
 
