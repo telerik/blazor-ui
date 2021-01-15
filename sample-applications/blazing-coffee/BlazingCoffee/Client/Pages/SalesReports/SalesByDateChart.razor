@@ -11,7 +11,7 @@
             <ChartTooltip Visible="true" Shared="true">
                 <SharedTemplate>
                     <div>
-                        <div style="font-size: 15px; font-weight: 500;"> Revenue for @(((DateTime)context.Category).ToString("{0:yyyy-MMM}")) </div>
+                        <div style="font-size: 15px; font-weight: 500;"> Revenue for @GetParsedDate(context.Category) </div>
                         @{
                             List<ChartSeriesTooltipTemplatePoint> points = context.Points;
 
@@ -66,4 +66,11 @@
 
     [Parameter] public SalesByDateViewModel[] Data { get; set; }
 
+    public string GetParsedDate(object category)
+    {
+        DateTime date;
+        DateTime.TryParse(category.ToString(), out date);
+
+        return date.ToString("yyyy-MMM");
+    }
 }
