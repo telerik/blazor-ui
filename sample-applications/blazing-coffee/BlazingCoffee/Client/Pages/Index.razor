@@ -2,7 +2,9 @@
 @inherits CoffeeComponentBase
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
 
-<TelerikTileLayout Columns="6" Reorderable="true"
+<TelerikTileLayout Columns="3"
+                   Class="tile-layout-style"
+                   Reorderable="true"
                    @ref="tileLayout"
                    OnReorder="SaveState">
     <TileLayoutItems>
@@ -13,7 +15,6 @@
                 <div class="k-card-actions k-card-actions-stretched">
                     <span class="k-card-action"><a href="/sales" class="k-button k-primary">@L["Sales"]</a></span>
                 </div>
-                <span title="@L["ToolTip_LoginRequired"]"><TelerikIcon Icon="@IconName.Lock" /></span>
             </Content>
         </TileLayoutItem>
         <TileLayoutItem HeaderText="@L["HumanCapital"]" ColSpan="1">
@@ -23,7 +24,6 @@
                 <div class="k-card-actions k-card-actions-stretched">
                     <span class="k-card-action"><a href="/manage-employees" class="k-button k-primary">@L["HumanCapital"]</a></span>
                 </div>
-                <span title="@L["ToolTip_LoginRequired"]"><TelerikIcon Icon="@IconName.Lock" /></span>
             </Content>
         </TileLayoutItem>
         <TileLayoutItem HeaderText="@L["ManageProducts"]" ColSpan="1">
@@ -33,7 +33,6 @@
                 <div class="k-card-actions k-card-actions-stretched">
                     <span class="k-card-action"><a href="/manage-products" class="k-button k-primary">@L["ManageProducts"]</a></span>
                 </div>
-                <span title="@L["ToolTip_LoginRequired"]"><TelerikIcon Icon="@IconName.Lock" /></span>
             </Content>
         </TileLayoutItem>
     </TileLayoutItems>

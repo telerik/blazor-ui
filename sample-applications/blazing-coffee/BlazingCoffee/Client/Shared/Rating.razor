@@ -1,4 +1,4 @@
-﻿<span class="k-rating-container">
+﻿<span class="k-rating-container @CssClass">
     @for (int i = 1; i < 6; i++)
     {
         var starCss = i <= Value ? "k-i-star" : "k-i-star-outline";
@@ -10,4 +10,5 @@
 
 @code {
     [Parameter] public int Value { get; set; }
+    [Parameter] public string CssClass { get; set; }
 }

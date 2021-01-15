@@ -6,11 +6,19 @@
 
 <SalesByDateChart Data="chartData"></SalesByDateChart>
 <CardContainer Title="@L["Sales"]">
-    <TelerikGrid @ref="Grid" Height="500px" FilterMode="@GridFilterMode.FilterMenu"
-                 Sortable="true" Pageable="true" PageSize="10"
+    <TelerikGrid @ref="Grid" 
+                 Height="500px" 
+                 FilterMode="@GridFilterMode.FilterMenu"
+                 Sortable="true" 
+                 Pageable="true" 
+                 PageSize="10"
+                 Resizable="true"
+                 Reorderable="true"
                  OnStateInit="@((GridStateEventArgs<Sale> args) => OnStateInit(args))"
                  OnStateChanged="@((GridStateEventArgs<Sale> args) => OnStateChanged(args))"
-                 Data=@Model.CurrentPageData TotalCount=@Model.TotalItemCount OnRead=@ReadItems>
+                 Data=@Model.CurrentPageData 
+                 TotalCount=@Model.TotalItemCount 
+                 OnRead=@ReadItems>
         <GridToolBar>
             <label>@L["Sales_Grid_Toolbar_ReportRange"]</label>
             <TelerikDateRangePicker StartValue="@StartValue" EndValue="@EndValue"
@@ -20,21 +28,20 @@
             </TelerikDateRangePicker>
         </GridToolBar>
         <GridColumns>
-            <GridColumn Field="@nameof(Sale.Amount)" Title="@L["Sales_Grid_Title_Amount"]">
+            <GridColumn Field="@nameof(Sale.Sku)" Width="150px" Title="@L["Sales_Grid_Title_Sku"]" FilterMenuType="@FilterMenuType.CheckBoxList"></GridColumn>
+            <GridColumn Field="@nameof(Sale.Region)" Width="120px" Title="@L["Sales_Grid_Title_Region"]"></GridColumn>
+            <GridColumn Field="@nameof(Sale.Country)" Width="200px" Title="@L["Sales_Grid_Title_Country"]"></GridColumn>
+            <GridColumn Field="@nameof(Sale.StoreId)" Width="120px" Title="@L["Sales_Grid_Title_StoreId"]"></GridColumn>
+            <GridColumn Field="@nameof(Sale.Amount)" Width="120px" Title="@L["Sales_Grid_Title_Amount"]">
                 <Template>
-                    @{
-                        var prod = (Sale)context;
+                    @{ var prod = (Sale)context;
                         <span>@prod.Amount.ToString("C")</span>
                     }
                 </Template>
             </GridColumn>
-            <GridColumn Field="@nameof(Sale.Region)" Title="@L[""]"></GridColumn>
-            <GridColumn Field="@nameof(Sale.Country)" Title="@L["Sales_Grid_Title_Country"]"></GridColumn>
-            <GridColumn Field="@nameof(Sale.Sku)" Title="@L["Sales_Grid_Title_Sku"]"></GridColumn>
-            <GridColumn Field="@nameof(Sale.StoreId)" Title="@L["Sales_Grid_Title_StoreId"]"></GridColumn>
-            <GridColumn Field="@nameof(Sale.TransactionDate)" Title="@L["Sales_Grid_Title_TransactionDate"]" Filterable="false">
+            <GridColumn Field="@nameof(Sale.TransactionDate)" Width="150px" Title="@L["Sales_Grid_Title_TransactionDate"]" Filterable="false">
                 <Template>
-                    @{
+                    @{ 
                         var prod = (Sale)context;
                         <span>@prod.TransactionDate.ToShortDateString()</span>
                     }
@@ -51,7 +58,6 @@
 
     DataEnvelope<Sale> Model { get; set; } = new DataEnvelope<Sale>();
     SalesByDateViewModel[] chartData;
-
 
     async Task ReadItems(GridReadEventArgs args)
     {

@@ -59,3 +59,11 @@ a.k-link.k-state-selected {
     padding: 1em;
     background-color: $base-bg;
 }
+
+.rating-readonly {
+    pointer-events: none;
+}
+
+.tile-layout-style {
+    max-width: 800px;
+}

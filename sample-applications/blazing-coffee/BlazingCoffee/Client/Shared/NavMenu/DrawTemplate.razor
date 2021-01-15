@@ -2,15 +2,16 @@
 
 <div class="k-drawer-items">
     <ul role="menubar" aria-orientation="vertical">
-        <li class="k-drawer-item k-drawer-separator"></li>
         <DrawerNavLink href="@Home.Url" Text="@Home.Text" Icon="@Home.Icon" Match="NavLinkMatch.All" />
         @foreach (var item in Data.Where(item => item.Group == "app"))
         {
             <DrawerNavLink href="@item.Url" Text="@item.Text" Icon="@item.Icon" />
         }
+        <li>
+            <span class="k-separator"></span>
+        </li>
     </ul>
     <footer>
-        <h3 class="title">@L["Nav_MoreInfo"]</h3>
         <ul role="menubar" aria-orientation="vertical">
             <li class="k-drawer-item k-drawer-separator"></li>
             @foreach (DrawerItem item in Data.Where(item => item.Group == "ext"))

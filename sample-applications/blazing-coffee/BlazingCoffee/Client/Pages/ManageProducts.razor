@@ -4,84 +4,87 @@
 @inject NavigationManager NavigationManager
 
 <CardContainer Title="@L["ManageProducts"]">
-    <TelerikGrid Data="Products" Groupable="true" EditMode="GridEditMode.Popup"
-                 Sortable="true" Pageable="true" PageSize="10"
-                 OnUpdate=@UpdateItem OnDelete=@DeleteItem OnCreate=@CreateItem>
-        <GridToolBar>
-            <GridCommandButton Command="ToggleId" OnClick="@(()=>isIdVisible = !isIdVisible)" Icon="parameter-integer">@L["Toggle_Id"]</GridCommandButton>
-            <GridCommandButton Command="Add" Icon="add" Class="k-primary">@L["ManageProducts_AddProduct"]</GridCommandButton>
-            <GridSearchBox DebounceDelay="200"></GridSearchBox>
-        </GridToolBar>
-        <GridColumns>
+    @if (Products != null)
+    {
+        <TelerikGrid Data="Products" Groupable="true" EditMode="GridEditMode.Popup"
+                     Sortable="true" Pageable="true" PageSize="10"
+                     OnUpdate=@UpdateItem OnDelete=@DeleteItem OnCreate=@CreateItem>
+            <GridToolBar>
+                <GridCommandButton Command="ToggleId" OnClick="@(()=>isIdVisible = !isIdVisible)" Icon="parameter-integer">@L["Toggle_Id"]</GridCommandButton>
+                <GridCommandButton Command="Add" Icon="add" Class="k-primary">@L["ManageProducts_AddProduct"]</GridCommandButton>
+                <GridSearchBox DebounceDelay="200"></GridSearchBox>
+            </GridToolBar>
+            <GridColumns>
 
-            <GridColumn Field="@nameof(Product.Id)" Title="@L["Id"]" Width="50px" Editable="false" Visible="isIdVisible" />
+                <GridColumn Field="@nameof(Product.Id)" Title="@L["Id"]" Width="50px" Editable="false" Visible="isIdVisible" />
 
-            <GridColumn Field="@nameof(Product.Group)" Title="@L["Group"]">
-                <Template>
-                    @{
-                        var prod = (Product)context;
-                        <div class="image-cell">
-                            <img width="64" src="./img/products/@(prod.Group.Replace(" ", "")).jpg" class="k-avatar-rounded" />
-                            <span>@prod.Group</span>
-                        </div>
-                    }
-                </Template>
-                <EditorTemplate>
-                    <TelerikDropDownList Data="@Groups" Width="260px" @bind-Value="((Product)context).Group" TextField="ProductName" ValueField="ProductName">
-                        <ItemTemplate Context="group">
-                            <img width="64" src="./img/products/@(group.Replace(" ", "")).jpg" class="k-avatar-rounded" />
-                            <span style="padding-left:5px">@group</span>
-                        </ItemTemplate>
-                    </TelerikDropDownList>
-                </EditorTemplate>
-            </GridColumn>
-            <GridColumn Field="@nameof(Product.Sku)" Title="@L["Product"]"></GridColumn>
-            <GridColumn Field="@nameof(Product.Cost)" Title="@L["Cost"]">
-                <Template>
-                    @( ((Product)context).Cost.ToString("C") )
-                </Template>
-            </GridColumn>
-            <GridColumn Field="@nameof(Product.NutritionFileName)" Title="@L["Nutrition Info."]">
-                <Template>
-                    @{
-                        var prod = (Product)context;
-                        if (string.IsNullOrEmpty(prod.NutritionFileName))
-                        {
-                            <span>@L["NotAvailable"]</span>
+                <GridColumn Field="@nameof(Product.Group)" Title="@L["Group"]" Width="200px">
+                    <Template>
+                        @{
+                            var prod = (Product)context;
+                            <div class="image-cell">
+                                <img width="64" src="./img/products/@(prod.Group.Replace(" ", "")).jpg" class="k-avatar-rounded" />
+                                <span>@prod.Group</span>
+                            </div>
                         }
-                        else
-                        {
-                            <a href="/nutrition/@prod.NutritionFileName" target="_blank">@L["View"]<TelerikIcon Icon="@IconName.FilePdf"></TelerikIcon></a>
+                    </Template>
+                    <EditorTemplate>
+                        <TelerikDropDownList Data="@Groups" Width="260px" @bind-Value="((Product)context).Group" TextField="ProductName" ValueField="ProductName">
+                            <ItemTemplate Context="group">
+                                <img width="64" src="./img/products/@(group.Replace(" ", "")).jpg" class="k-avatar-rounded" />
+                                <span style="padding-left:5px">@group</span>
+                            </ItemTemplate>
+                        </TelerikDropDownList>
+                    </EditorTemplate>
+                </GridColumn>
+                <GridColumn Field="@nameof(Product.Sku)" Width="200px" Title="@L["Product"]"></GridColumn>
+                <GridColumn Field="@nameof(Product.Cost)" Width="120px" Title="@L["Cost"]">
+                    <Template>
+                        @( ((Product)context).Cost.ToString("C") )
+                    </Template>
+                </GridColumn>
+                <GridColumn Field="@nameof(Product.NutritionFileName)" Width="150px" Title="@L["Nutrition Info."]">
+                    <Template>
+                        @{
+                            var prod = (Product)context;
+                            if (string.IsNullOrEmpty(prod.NutritionFileName))
+                            {
+                                <span>@L["NotAvailable"]</span>
+                            }
+                            else
+                            {
+                                <a href="/nutrition/@prod.NutritionFileName" target="_blank">@L["View"]<TelerikIcon Icon="@IconName.FilePdf"></TelerikIcon></a>
+                            }
                         }
-                    }
-                </Template>
-                <EditorTemplate>
-                    @{
-                        var prod = (Product)context;
-                        if (prod.Id == 0)
-                        {
-                            <span>@L["Product_Upload_SaveDialog"]</span>
+                    </Template>
+                    <EditorTemplate>
+                        @{
+                            var prod = (Product)context;
+                            if (prod.Id == 0)
+                            {
+                                <span>@L["Product_Upload_SaveDialog"]</span>
+                            }
+                            else
+                            {
+                                <TelerikUpload AllowedExtensions="AllowedExtensions"
+                                               SaveUrl="@SaveUrl"
+                                               Multiple="false"
+                                               OnUpload="@((e) => OnUploadHandler(e, prod.Id))"
+                                               OnSuccess="@((_) => OnSuccessHandler(prod))">
+                                </TelerikUpload>
+                            }
                         }
-                        else
-                        {
-                            <TelerikUpload AllowedExtensions="AllowedExtensions"
-                                           SaveUrl="@SaveUrl"
-                                           Multiple="false"
-                                           OnUpload="@((e) => OnUploadHandler(e, prod.Id))"
-                                           OnSuccess="@((_) => OnSuccessHandler(prod))">
-                            </TelerikUpload>
-                        }
-                    }
-                </EditorTemplate>
-            </GridColumn>
-            <GridCommandColumn>
-                <GridCommandButton Command="Edit" Icon="edit" Class="k-primary">@L["Grid_Edit"]</GridCommandButton>
-                <GridCommandButton Command="Save" Icon="save" Class="k-primary" ShowInEdit="true">@L["Grid_Update"]</GridCommandButton>
-                <GridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true">@L["Grid_Cancel"]</GridCommandButton>
-                <GridCommandButton Command="Delete" Icon="delete" ShowInEdit="false">@L["Grid_Delete"]</GridCommandButton>
-            </GridCommandColumn>
-        </GridColumns>
-    </TelerikGrid>
+                    </EditorTemplate>
+                </GridColumn>
+                <GridCommandColumn Width="200px">
+                    <GridCommandButton Command="Edit" Icon="edit" Class="k-primary">@L["Grid_Edit"]</GridCommandButton>
+                    <GridCommandButton Command="Save" Icon="save" Class="k-primary" ShowInEdit="true">@L["Grid_Update"]</GridCommandButton>
+                    <GridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true">@L["Grid_Cancel"]</GridCommandButton>
+                    <GridCommandButton Command="Delete" Icon="delete" ShowInEdit="false">@L["Grid_Delete"]</GridCommandButton>
+                </GridCommandColumn>
+            </GridColumns>
+        </TelerikGrid>
+    }
 </CardContainer>
 
 @code {
