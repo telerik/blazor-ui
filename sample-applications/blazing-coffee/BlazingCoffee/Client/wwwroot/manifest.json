@@ -1,13 +1,13 @@
 {
   "name": "PwaFiles",
   "short_name": "PwaFiles",
-  "start_url": "./",
+  "start_url": "/blazor-coffee/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#03173d",
   "icons": [
     {
-      "src": "icon-512.png",
+      "src": "/blazor-coffee/icon-512.png",
       "type": "image/png",
       "sizes": "512x512"
     }

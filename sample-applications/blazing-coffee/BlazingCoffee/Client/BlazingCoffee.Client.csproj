@@ -24,7 +24,7 @@
     <PackageReference Include="Microsoft.Extensions.Localization" Version="3.1.8" />
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.76" />
     <PackageReference Include="System.Net.Http.Json" Version="3.2.1" />
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="2.21.0" />
+    <PackageReference Include="Telerik.UI.for.Blazor.Trial" Version="2.21.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.8" />
 	  <PackageReference Include="Markdig" Version="0.21.1" />
   </ItemGroup>
