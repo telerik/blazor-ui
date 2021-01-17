@@ -36,6 +36,13 @@ a:not([href]):not([class]) {
         text-decoration: none;
     }
 }
+
+// Loading page
+.container-size {
+    width: 100vw;
+    height: 100vh;
+}
+
 // Dashboard page
 .dashboard-page {
     .card-container:last-of-type {

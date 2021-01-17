@@ -6,6 +6,7 @@
 <div style="margin-bottom: 20px;">
     <TelerikDropDownList Data="@Cultures"
                          Value="@SelectedCulture"
+                         PopupHeight=""
                          ValueChanged="@((string value) => OnValueChanged(value) )"
                          TextField="@nameof(CultureData.Text)"
                          ValueField="@nameof(CultureData.Value)">

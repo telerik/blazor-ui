@@ -14,7 +14,7 @@
         color: $primary-contrast;
     }
 
-    .menu-button {
+    .menu-button, .settings {
         flex: 0 0 48px;
         text-align: center;
     }
@@ -65,31 +65,6 @@
             border-left: 1px solid $primary-contrast;
             height: 25px;
             margin: 6px 15px;
-        }
-    }
-}
-
-@media (min-width: 768px) {
-    .header {
-        .settings {
-            display: flex;
-            flex: 0 0 auto;
-            align-items: center;
-            padding: 20px;
-
-            a {
-                color: $primary-contrast;
-                padding: 10px;
-
-                &:hover {
-                    color: $info;
-                }
-            }
-        }
-
-        .k-dropdown {
-            max-width: 90px;
-            margin-left: 15px;
         }
     }
 }
