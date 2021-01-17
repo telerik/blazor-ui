@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@progress/kendo-theme-default": "^4.23.0"
+    "@progress/kendo-theme-default": "4.30.0"
   }
 }
