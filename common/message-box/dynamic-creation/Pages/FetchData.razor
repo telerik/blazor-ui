@@ -13,7 +13,7 @@
         <GridColumn Field="TemperatureF" />
         <GridColumn Field="Summary" />
         <GridCommandColumn Width="150px">
-            <GridCommandButton OnClick="@AddForecast" Icon="@plus"></GridCommandButton>
+            <GridCommandButton OnClick="@AddForecast" Icon="plus"></GridCommandButton>
             <GridCommandButton OnClick="@((args)=> EditForecast(args.Item as WeatherForecast))" Icon="arrow-chevron-right"></GridCommandButton>
         </GridCommandColumn>
     </GridColumns>
