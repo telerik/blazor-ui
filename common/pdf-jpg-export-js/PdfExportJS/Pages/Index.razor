@@ -9,8 +9,8 @@
                  FilterMode="Telerik.Blazor.GridFilterMode.FilterRow"
                  Resizable="true" Reorderable="true">
         <GridToolBar>
-            <TelerikButton Icon="@file-pdf" OnClick="@ExportPdf">Export to PDF</TelerikButton>
-            <TelerikButton Icon="@image" OnClick="@ExportJpg">Export to JPG</TelerikButton>
+            <TelerikButton Icon="file-pdf" OnClick="@ExportPdf">Export to PDF</TelerikButton>
+            <TelerikButton Icon="image" OnClick="@ExportJpg">Export to JPG</TelerikButton>
         </GridToolBar>
         <GridColumns>
             <GridColumn Field="@(nameof(SampleData.Id))" Width="120px" />

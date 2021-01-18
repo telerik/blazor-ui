@@ -13,16 +13,16 @@
         @{
             if (GridIsDirty())
             {
-                <TelerikButton Icon="@save" OnClick="@SaveAllChanges" Primary="true">Save All Changes</TelerikButton>
-                <TelerikButton Icon="@cancel" OnClick="@RevertAllChanges">Cancel All Changes</TelerikButton>
+                <TelerikButton Icon="save" OnClick="@SaveAllChanges" Primary="true">Save All Changes</TelerikButton>
+                <TelerikButton Icon="cancel" OnClick="@RevertAllChanges">Cancel All Changes</TelerikButton>
             }
             <GridCommandButton Command="Add" Icon="add">Add Employee</GridCommandButton>
             if (SelectedItems.Count() > 0)
             {
-                <TelerikButton Icon="@delete" OnClick="@DeleteSelected">Delete Selected</TelerikButton>
+                <TelerikButton Icon="delete" OnClick="@DeleteSelected">Delete Selected</TelerikButton>
                 if (SelectionIsDirty())
                 {
-                    <TelerikButton Icon="@undo" OnClick="@RevertSelected">Revert Selected</TelerikButton>
+                    <TelerikButton Icon="undo" OnClick="@RevertSelected">Revert Selected</TelerikButton>
                 }
             }
         }

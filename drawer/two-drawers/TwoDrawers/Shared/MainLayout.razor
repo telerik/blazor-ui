@@ -24,8 +24,8 @@
                 <Content>
 
                     @* Here begins the actual content - for example, we start with buttons to toggle the drawers and the @Body later *@
-                    <TelerikButton OnClick="@(() => DrawerRef.ToggleAsync())" Icon="@menu">Toggle LEFT drawer</TelerikButton>
-                    <TelerikButton OnClick="@(() => RightDrawerRef.ToggleAsync())" Icon="@menu">Toggle RIGHT drawer</TelerikButton>
+                    <TelerikButton OnClick="@(() => DrawerRef.ToggleAsync())" Icon="menu">Toggle LEFT drawer</TelerikButton>
+                    <TelerikButton OnClick="@(() => RightDrawerRef.ToggleAsync())" Icon="menu">Toggle RIGHT drawer</TelerikButton>
 
                     <div class="m-5">
                         Selected Item: @SelectedItem?.Text
