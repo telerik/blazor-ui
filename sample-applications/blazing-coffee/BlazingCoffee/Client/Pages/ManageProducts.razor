@@ -12,6 +12,7 @@
             <GridToolBar>
                 <GridCommandButton Command="ToggleId" OnClick="@(()=>isIdVisible = !isIdVisible)" Icon="parameter-integer">@L["Toggle_Id"]</GridCommandButton>
                 <GridCommandButton Command="Add" Icon="add" Class="k-primary">@L["ManageProducts_AddProduct"]</GridCommandButton>
+                <span class="k-spacer"></span>
                 <GridSearchBox DebounceDelay="200"></GridSearchBox>
             </GridToolBar>
             <GridColumns>
@@ -53,7 +54,7 @@
                             }
                             else
                             {
-                                <a href="/nutrition/@prod.NutritionFileName" target="_blank">@L["View"]<TelerikIcon Icon="@IconName.FilePdf"></TelerikIcon></a>
+                                <span>@prod.NutritionFileName<TelerikIcon Icon="@IconName.FilePdf"></TelerikIcon></span>
                             }
                         }
                     </Template>
@@ -138,7 +139,7 @@
 
     #region File Upload
 
-    List<string> AllowedExtensions => new List<string> { ".docx", ".pdf" };
+    List<string> AllowedExtensions => new List<string> { ".pdf" };
     public string SaveUrl => $"{NavigationManager.BaseUri}api/products/addfile";
 
     async Task OnUploadHandler(UploadEventArgs e, int productId)

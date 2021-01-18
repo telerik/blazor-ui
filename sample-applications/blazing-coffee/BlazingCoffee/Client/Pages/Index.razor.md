@@ -2,7 +2,7 @@
 
 ## Localization
 
-## Telerik Tool Tip
+## TelerikToolTip
 
 ## Card component
 

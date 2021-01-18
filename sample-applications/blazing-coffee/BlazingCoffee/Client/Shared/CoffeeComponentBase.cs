@@ -10,7 +10,7 @@ namespace BlazingCoffee.Client.Shared
 {
     public class CoffeeComponentBase : ComponentBase
     {
-        [Inject] MainLayoutState Layout { get; set; }
+        [Inject] internal MainLayoutState Layout { get; set; }
         [Inject] public ITelerikStringLocalizer L { get; set; }
 
         protected override void OnInitialized()

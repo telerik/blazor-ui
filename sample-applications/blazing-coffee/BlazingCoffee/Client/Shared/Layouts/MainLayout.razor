@@ -16,6 +16,12 @@
             <div class="title">
                 <h1>Blazing Coffee Warehouse</h1>
             </div>
+            @if (Layout.HasDocs)
+            {
+                <div class="information">
+                    <TelerikButton Icon="@IconName.Information" OnClick="@(() => DocsExpanded = !DocsExpanded)" />
+                </div>
+            }
             <div class="settings">
                 <TelerikButton Icon="@IconName.Gear" OnClick="@(() => SettingsExpanded = !SettingsExpanded)" />
             </div>
@@ -134,7 +140,7 @@
         {
             if (Layout.HasDocs)
             {
-                var result = await Http.Client.GetStringAsync($"/docs/{Layout.DocsPath}.razor.md");
+                var result = await Http.Client.GetStringAsync($"/blazor-coffee/docs/{Layout.DocsPath}.razor.md");
                 Docs = Markdig.Markdown.ToHtml(result);
             }
         };

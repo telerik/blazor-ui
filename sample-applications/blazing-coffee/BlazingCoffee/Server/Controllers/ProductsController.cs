@@ -105,21 +105,13 @@ namespace BlazingCoffee.Server.Controllers
         {
             var document = files.First();
             if (document.Length == 0) return new BadRequestResult();
-
-            var documentBytes = FileConverter.ToBytes(document);
-            if (document.ContentType == MimeTypes.Docx)
-            {
-                // Convert with Telerik DPL
-                documentBytes = FileConverter.ConvertWordToPDF(documentBytes);
-            }
-            // Save to disk
-            var fileName = $"{productId}-NutritionInformation-{DateTime.Now:MM-dd-yyyy}.pdf";
-
-            await System.IO.File.WriteAllBytesAsync($@"{_hostingEnvironment.WebRootPath}\nutrition\{fileName}", documentBytes);
+                        
+            var fileName = document.FileName;
 
             // Attach to record
             var product = await _context.Products.FindAsync(productId);
             product.NutritionFileName = fileName;
+
             await _context.SaveChangesAsync();
 
             return NoContent();

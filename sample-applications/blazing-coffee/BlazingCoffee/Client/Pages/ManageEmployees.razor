@@ -13,12 +13,12 @@
                      Resizable="true"
                      ShowColumnMenu="true">
             <GridColumns>
-                <GridColumn Field="@nameof(Employee.ImgId)" Title="" Sortable="false" Width="100px" Filterable="false">
+                <GridColumn Field="@nameof(Employee.ImgId)" Title="Photo" Sortable="false" Width="100px" Filterable="false">
                     <Template>
                         @{
                             var e = (Employee)context;
                             var gender = e.Id % 2 == 0 ? "men" : "women";
-                            <img style="width: 64px; border: 2px solid @e.Team.TeamColor" class="k-avatar-rounded" src=@($"https://randomuser.me/api/portraits/{gender}/{e.Id}.jpg") />
+                            <img loading="lazy" width="64" style="border: 2px solid @e.Team.TeamColor" class="k-avatar-rounded" src=@($"https://randomuser.me/api/portraits/{gender}/{e.Id}.jpg") />
                         }
                     </Template>
                 </GridColumn>

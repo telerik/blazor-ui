@@ -13,7 +13,7 @@
                 <img class="k-card-image" src="./img/Sales.jpg">
                 <p class="card-description">@L["Index_SalesCard_Description"]</p>
                 <div class="k-card-actions k-card-actions-stretched">
-                    <span class="k-card-action"><a href="/sales" class="k-button k-primary">@L["Sales"]</a></span>
+                    <span class="k-card-action"><a href="/blazor-coffee/sales" class="k-button k-primary">@L["Sales"]</a></span>
                 </div>
             </Content>
         </TileLayoutItem>
@@ -22,7 +22,7 @@
                 <img class="k-card-image" src="./img/Schedule.jpg">
                 <p class="card-description">@L["Index_SalesCard_Description"]</p>
                 <div class="k-card-actions k-card-actions-stretched">
-                    <span class="k-card-action"><a href="/manage-employees" class="k-button k-primary">@L["HumanCapital"]</a></span>
+                    <span class="k-card-action"><a href="/blazor-coffee/manage-employees" class="k-button k-primary">@L["HumanCapital"]</a></span>
                 </div>
             </Content>
         </TileLayoutItem>
@@ -31,7 +31,7 @@
                 <img class="k-card-image" src="./img/coffee.jpg">
                 <p class="card-description">@L["Index_ProductsCard_Description"]</p>
                 <div class="k-card-actions k-card-actions-stretched">
-                    <span class="k-card-action"><a href="/manage-products" class="k-button k-primary">@L["ManageProducts"]</a></span>
+                    <span class="k-card-action"><a href="/blazor-coffee/manage-products" class="k-button k-primary">@L["ManageProducts"]</a></span>
                 </div>
             </Content>
         </TileLayoutItem>
@@ -48,6 +48,13 @@
     async Task SaveState()
     {
         await localStorage.SetItemAsync("IndexLayout", tileLayout.GetState());
+    }
+
+    protected override void OnInitialized()
+    {
+        Layout.DocsPath = string.Empty;
+
+        base.OnInitialized();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
