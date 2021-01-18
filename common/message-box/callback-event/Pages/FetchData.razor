@@ -13,7 +13,7 @@
         <GridColumn Field="TemperatureF" />
         <GridColumn Field="Summary" />
         <GridCommandColumn Width="300px">
-            <GridCommandButton OnClick="@((args)=> DeleteRecord(args.Item as WeatherForecast))" Icon="@delete"></GridCommandButton>
+            <GridCommandButton OnClick="@((args)=> DeleteRecord(args.Item as WeatherForecast))" Icon="delete"></GridCommandButton>
         </GridCommandColumn>
     </GridColumns>
 </TelerikGrid>
