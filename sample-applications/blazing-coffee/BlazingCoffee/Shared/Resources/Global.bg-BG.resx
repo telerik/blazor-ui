@@ -121,7 +121,7 @@
     <value>Продажби</value>
   </data>
   <data name="HumanCapital" xml:space="preserve">
-    <value>човешки капитал</value>
+    <value>Човешки капитал</value>
   </data>
   <data name="Index_EmployeesCard_Description" xml:space="preserve">
     <value>Управление на служители и екипи.</value>
@@ -154,7 +154,7 @@
     <value>Информация за храненето</value>
   </data>
   <data name="Cost" xml:space="preserve">
-    <value>стойност</value>
+    <value>Стойност</value>
   </data>
   <data name="NotAvailable" xml:space="preserve">
     <value>Недостъпна</value>
