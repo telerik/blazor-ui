@@ -130,7 +130,7 @@
     <value>Управлявайте информация за продуктите и хранителните стойности.</value>
   </data>
   <data name="Index_SalesCard_Description" xml:space="preserve">
-    <value>Отчет за продажбите във времето.</value>
+    <value>Отчет за продажбите.</value>
   </data>
   <data name="ManageProducts" xml:space="preserve">
     <value>Управление на продукти</value>
@@ -142,7 +142,7 @@
     <value>Отворете / затворете ИД</value>
   </data>
   <data name="Product" xml:space="preserve">
-    <value>Продукт</value>
+    <value>Име на продукт</value>
   </data>
   <data name="Id" xml:space="preserve">
     <value>ИД</value>

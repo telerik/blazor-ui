@@ -127,7 +127,7 @@
     <value>Verwalten Sie Produkte und Nährwertangaben.</value>
   </data>
   <data name="Index_SalesCard_Description" xml:space="preserve">
-    <value>Umsatzbericht im Zeitverlauf.</value>
+    <value>Umsatzbericht.</value>
   </data>
   <data name="ManageProducts" xml:space="preserve">
     <value>Produkte verwalten</value>
@@ -142,7 +142,7 @@
     <value>Toggle ID</value>
   </data>
   <data name="Product" xml:space="preserve">
-    <value>Produkt</value>
+    <value>Produktname</value>
   </data>
   <data name="Id" xml:space="preserve">
     <value>ID</value>

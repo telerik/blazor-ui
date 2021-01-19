@@ -127,7 +127,7 @@
     <value>Manage products and nutrition information.</value>
   </data>
   <data name="Index_SalesCard_Description" xml:space="preserve">
-    <value>Report on Sales over time.</value>
+    <value>Report on Sales.</value>
   </data>
   <data name="ManageProducts" xml:space="preserve">
     <value>Manage Products</value>
@@ -142,7 +142,7 @@
     <value>Toggle Id</value>
   </data>
   <data name="Product" xml:space="preserve">
-    <value>Product</value>
+    <value>Product Name</value>
   </data>
   <data name="Id" xml:space="preserve">
     <value>Id</value>

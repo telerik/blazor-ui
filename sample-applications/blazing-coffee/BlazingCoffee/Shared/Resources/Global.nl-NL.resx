@@ -107,7 +107,7 @@
     <value>Beheer producten en voedingsinformatie.</value>
   </data>
   <data name="Index_SalesCard_Description" xml:space="preserve">
-    <value>Verslag over de verkoop in de tijd.</value>
+    <value>Verslag over de verkoop.</value>
   </data>
   <data name="ManageProducts" xml:space="preserve">
     <value>Producten beheren</value>
@@ -122,7 +122,7 @@
     <value>Toggle ID</value>
   </data>
   <data name="Product" xml:space="preserve">
-    <value>Product</value>
+    <value>Productnaam</value>
   </data>
   <data name="Id" xml:space="preserve">
     <value>Id</value>

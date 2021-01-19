@@ -130,7 +130,7 @@
     <value>Gestionar productos e información nutricional.</value>
   </data>
   <data name="Index_SalesCard_Description" xml:space="preserve">
-    <value>Informe sobre ventas a lo largo del tiempo.</value>
+    <value>Informe sobre ventas.</value>
   </data>
   <data name="ManageProducts" xml:space="preserve">
     <value>Administrar productos</value>
@@ -142,7 +142,7 @@
     <value>Cambiar ID</value>
   </data>
   <data name="Product" xml:space="preserve">
-    <value>Producto</value>
+    <value>Nombre del producto</value>
   </data>
   <data name="Id" xml:space="preserve">
     <value>Id</value>

@@ -3,7 +3,7 @@
 This demo showcases CRUD operations using the Telerik Data Grid.
 To simplify the codebase an ObservableCollection is used maintain an updated UI.
 A custom editor is used to display groups and allow file uploads.
-CRUD, ObservableCollection, EditorTemplate, Upload, Authorization Token, File Upload
+CRUD, ObservableCollection, EditorTemplate, Upload, File Upload
 
 ## Telerik Grid
 
