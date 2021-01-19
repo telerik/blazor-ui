@@ -37,11 +37,7 @@
                         <Rating CssClass="rating-readonly" Value="((Employee)context).Rating" />
                     </Template>
                 </GridColumn>
-                <GridColumn Field="@nameof(Employee.Budget)" Width="120px" Title="@L["Employee_Grid_Title_Budget"]">
-                    <Template>
-                        @( ((Employee)context).Budget.ToString("C") )
-                    </Template>
-                </GridColumn>
+                <GridColumn Field="@nameof(Employee.Budget)" DisplayFormat="{0:C}" Width="120px" Title="@L["Employee_Grid_Title_Budget"]"></GridColumn>
             </GridColumns>
         </TelerikGrid>
     }
