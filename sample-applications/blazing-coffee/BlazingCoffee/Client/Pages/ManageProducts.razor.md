@@ -17,6 +17,5 @@ CRUD, ObservableCollection, EditorTemplate, Upload, Authorization Token, File Up
 
 - Editor template displays File Upload on Edit dialog only
 - Telerik File Upload from Edit function
-- File Upload limits DOCX / PDF
-- Server will auto convert DOCX > PDF via Telerik Document Processing
-- Telerik File Upload demonstrates how to upload using authorization Bearer token using IAccessTokenProvider 
+- File Upload limits PDF
+- Telerik File Upload performs dummy operation that simply uses the file name.
