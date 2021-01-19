@@ -95,6 +95,13 @@
     ObservableCollection<Product> Products { get; set; }
     IEnumerable<string> Groups { get; set; }
 
+    protected override void OnInitialized()
+    {
+        Layout.DocsTitle = L["ManageProducts"];
+
+        base.OnInitialized();
+    }
+
     protected override async Task OnInitializedAsync()
     {
         var data = await Http.GetFromJsonAsync<Product[]>("api/products");

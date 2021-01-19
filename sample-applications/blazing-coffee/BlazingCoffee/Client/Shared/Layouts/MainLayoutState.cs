@@ -19,5 +19,7 @@ namespace BlazingCoffee.Client.Shared.Layouts
         public Action LayoutStateChange { get; set; }
 
         public bool HasDocs => !string.IsNullOrEmpty(DocsPath);
+
+        public string DocsTitle { get; set; }
     }
 }

@@ -70,6 +70,13 @@
         }
     }
 
+    protected override void OnInitialized()
+    {
+        Layout.DocsTitle = L["Sales"];
+
+        base.OnInitialized();
+    }
+
     protected override async Task OnInitializedAsync()
     {
         try

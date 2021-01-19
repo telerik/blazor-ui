@@ -46,6 +46,13 @@
 @code {
     private Employee[] employees;
 
+    protected override void OnInitialized()
+    {
+        Layout.DocsTitle = L["HumanCapital"];
+
+        base.OnInitialized();
+    }
+
     protected override async Task OnInitializedAsync()
     {
         employees = await Http.GetFromJsonAsync<Employee[]>("api/employees");
