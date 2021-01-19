@@ -3,7 +3,7 @@
 @inject ITelerikStringLocalizer L
 
 <CardContainer Title="@L["Reporting"]">        
-    @if (Data != null)
+    @if (Data?.Count() > 0)
     {
         <TelerikChart Height="230px">
             <ChartTitle Text="@L["ChartTitle_SalesAndRevenueTotal"]" />
