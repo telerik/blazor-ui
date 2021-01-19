@@ -203,6 +203,9 @@ a:not([href]):not([class]) {
     }
  }
 
+.center-cell {
+    text-align: center !important;
+}
 
 // Info page
 /*.info-page {
