@@ -20,7 +20,6 @@
                  TotalCount=@Model.TotalItemCount
                  OnRead=@ReadItems>
         <GridToolBar>
-            <label>@L["Sales_Grid_Toolbar_ReportRange"]</label>
             <TelerikDateRangePicker StartValue="@StartValue" EndValue="@EndValue"
                                     BottomView="CalendarView.Year"
                                     StartValueChanged="@((DateTime? sV) => StartValueChangedHandler(sV))"

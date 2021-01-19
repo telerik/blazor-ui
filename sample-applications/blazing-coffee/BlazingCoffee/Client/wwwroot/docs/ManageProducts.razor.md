@@ -16,6 +16,5 @@ A custom editor is used to display groups and allow file uploads.
 
 - <a href="https://docs.telerik.com/blazor-ui/components/grid/templates/editor" target="_blank">Editor template</a> displays File Upload on Edit dialog only
 - <a href="https://docs.telerik.com/blazor-ui/components/upload/overview" target="_blank">Telerik File Upload</a> from Edit function
-- File Upload <a href="https://docs.telerik.com/blazor-ui/components/upload/validation" target="_blank">limits</a> DOCX / PDF
-- Server will auto convert DOCX > PDF via <a href="https://docs.telerik.com/blazor-ui/components/document-processing/overview" target="_blank">Telerik Document Processing</a>
-- Telerik File Upload demonstrates how to upload using authorization Bearer token using IAccessTokenProvider 
+- File Upload <a href="https://docs.telerik.com/blazor-ui/components/upload/validation" target="_blank">limits</a> DOCX
+- Telerik File Upload performs dummy operation that simply uses the file name.
