@@ -38,7 +38,9 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\css\" />
-    <Folder Include="wwwroot\docs\" />
+    <Folder Include="wwwroot\docs\">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Folder>
   </ItemGroup>
 
 </Project>
