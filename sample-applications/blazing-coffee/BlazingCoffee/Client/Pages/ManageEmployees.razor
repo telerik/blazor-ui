@@ -13,12 +13,11 @@
                      Resizable="true"
                      ShowColumnMenu="true">
             <GridColumns>
-                <GridColumn Field="@nameof(Employee.ImgId)" Title="Photo" Sortable="false" Width="100px" Filterable="false">
+                <GridColumn Field="@nameof(Employee.ImgId)" OnCellRender="@OnCellRender" Title="Photo" Sortable="false" Width="100px" Filterable="false">
                     <Template>
                         @{
                             var e = (Employee)context;
-                            var gender = e.Id % 2 == 0 ? "men" : "women";
-                            <img loading="lazy" width="64" style="border: 2px solid @e.Team.TeamColor" class="k-avatar-rounded" src=@($"https://randomuser.me/api/portraits/{gender}/{e.Id}.jpg") />
+                            <img width="64" height="75" style="border: 2px solid @e.Team.TeamColor" class="k-avatar-rounded" src="./img/employees/@(e.Id).jpg" />
                         }
                     </Template>
                 </GridColumn>
@@ -54,5 +53,10 @@
     protected override async Task OnInitializedAsync()
     {
         employees = await Http.GetFromJsonAsync<Employee[]>("api/employees");
+    }
+
+    private void OnCellRender(GridCellRenderEventArgs args)
+    {
+        args.Class = "center";
     }
 }

@@ -13,7 +13,6 @@
                  Pageable="true" 
                  PageSize="10"
                  Resizable="true"
-                 Reorderable="true"
                  OnStateInit="@((GridStateEventArgs<Sale> args) => OnStateInit(args))"
                  OnStateChanged="@((GridStateEventArgs<Sale> args) => OnStateChanged(args))"
                  Data=@Model.CurrentPageData 
