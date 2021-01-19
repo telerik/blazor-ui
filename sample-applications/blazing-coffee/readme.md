@@ -10,39 +10,40 @@ This is a demo showing how a full-stack .NET application can be built with ASP.N
 
 ## Running the Application
 
-- from /BlazingCoffee/Client run `npm install`
-- run the application and create an account. You should be prompted to `Apply Migrations`. This will create a database for logging into the application.
-- Note: The first run make take some time as the database is seeded with sample data.
+1. Open you CLI and go to `/BlazingCoffee/Client`, then run `npm install`
+    * This restores the needed packages that are later used to create the themes.
+1. Run the application and create an account. You should be prompted to `Apply Migrations`. This will create a database for logging into the application.
+    * The first run make take some time as the database is seeded with sample data.
 
-## Telerik UI for Blazor Trial
+## Telerik UI for Blazor Commercial
 
-If you are using a trial version of Telerik UI for Blazor.
+If you are using a commercial version of Telerik UI for Blazor.
 
-- In BlazingCoffee.Client add `.Trial` to the package path.
+- In `BlazingCoffee.Client.csproj` remove `.Trial` from the package name. You should have:
 
-```
-    <PackageReference Include="Telerik.UI.for.Blazor.Trial" Version="2.x" />
-```
+    ```
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="2.x.x" />
+    ```
 
-- In BlazingCoffee.Client/wwwroot, append `.trial` to `telerik.ui.for.blazor` in the script path.
+- In `BlazingCoffee.Client/wwwroot.index.html`, remove `.Trial` from the package name in the script path. You should have
 
-```
-    <script src="_content/telerik.ui.for.blazor/js/telerik-blazor.js"></script>
-```
+    ```
+    <script src="_content/Telerik.UI.for.Blazor/js/telerik-blazor.js"></script>
+    ```
 
-- In BlazingCoffee.Server, add .Trial to all Telerik.* package paths.
+- In `BlazingCoffee.Server.csproj`, remove `.Trial` from all Telerik.* package paths. You should have
 
-```
-    <PackageReference Include="Telerik.Documents.Core.Trial" Version="2020.x" />
-    <PackageReference Include="Telerik.Documents.Fixed.Trial" Version="2020.x" />
-    <PackageReference Include="Telerik.Documents.Flow.Trial" Version="2020.x" />
-    <PackageReference Include="Telerik.Documents.Flow.FormatProviders.Pdf.Trial" Version="2020.x" />
-    <PackageReference Include="Telerik.Documents.Spreadsheet.Trial" Version="2020.x" />
-    <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.OpenXml.Trial" Version="2020.x" />
-    <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.Pdf.Trial" Version="2020.x" />
-    <PackageReference Include="Telerik.Documents.SpreadsheetStreaming.Trial" Version="2020.x" />
-    <PackageReference Include="Telerik.Zip.Trial" Version="2020.x" />
-```
+    ```
+    <PackageReference Include="Telerik.Documents.Core" Version="2021.x.xxxx" />
+    <PackageReference Include="Telerik.Documents.Fixed" Version="2021.x.xxxx" />
+    <PackageReference Include="Telerik.Documents.Flow" Version="2021.x.xxxx" />
+    <PackageReference Include="Telerik.Documents.Flow.FormatProviders.Pdf" Version="2021.x.xxxx" />
+    <PackageReference Include="Telerik.Documents.Spreadsheet" Version="2021.x.xxxx" />
+    <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.OpenXml" Version="2021.x.xxxx" />
+    <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.Pdf" Version="2021.x.xxxx" />
+    <PackageReference Include="Telerik.Documents.SpreadsheetStreaming" Version="2021.x.xxxx" />
+    <PackageReference Include="Telerik.Zip" Version="2021.x.xxxx" />
+    ```
 
 # Demo Features
 
@@ -55,9 +56,9 @@ If you are using a trial version of Telerik UI for Blazor.
 - Authentication / Authorization
 - Themeability 
     - Light/Dark themes
-    - Automatic theme detection
-    - Sass architecture
-    - compatibile with Telerik Theme Builder
+    - Automatic theme detection based on device theme
+    - SASS architecture
+    - compatible with Telerik Theme Builder
 - CRUD operations
     - Integrated Grid Popup editor
     - Round trip CRUD with EF Core
@@ -80,4 +81,4 @@ If you are using a trial version of Telerik UI for Blazor.
     - Rating*
     - DrawerNavLink*
 
-* Unofficial/Experimental: These are experimental components that are not officially included with Telerik UI for Blazor. Use at your own risk, there is no support for these items.
+`*` Unofficial/Experimental: These are experimental components that are not officially included with Telerik UI for Blazor. Use at your own risk, there is no support for these items.
