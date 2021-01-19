@@ -187,7 +187,7 @@
     <value>Настройки</value>
   </data>
   <data name="MoreInfo" xml:space="preserve">
-    <value>Още информация...</value>
+    <value>Още информация ...</value>
   </data>
   <data name="Employees" xml:space="preserve">
     <value>Служители</value>
@@ -229,16 +229,16 @@
     <value>Регион</value>
   </data>
   <data name="Sales_Grid_Toolbar_ReportRange" xml:space="preserve">
-    <value>Обхват на отчетите:!</value>
+    <value>Обхват на отчетите</value>
   </data>
   <data name="Reporting" xml:space="preserve">
     <value>Отчитане</value>
   </data>
   <data name="ChartTitle_SalesAndRevenueTotal" xml:space="preserve">
-    <value>Общо продажби и приходи!</value>
+    <value>Общо продажби и приходи</value>
   </data>
   <data name="Nav_MoreInfo" xml:space="preserve">
-    <value>Още информация...</value>
+    <value>Още информация ...</value>
   </data>
   <data name="ChartValueAxisTitle_TotalSales" xml:space="preserve">
     <value>Продажби общо</value>

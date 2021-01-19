@@ -101,13 +101,13 @@
     <value>Menselijk kapitaal</value>
   </data>
   <data name="Index_EmployeesCard_Description" xml:space="preserve">
-    <value>Beheer medewerkers en teams.!</value>
+    <value>Beheer medewerkers en teams.</value>
   </data>
   <data name="Index_ProductsCard_Description" xml:space="preserve">
-    <value>Beheer producten en voedingsinformatie.!</value>
+    <value>Beheer producten en voedingsinformatie.</value>
   </data>
   <data name="Index_SalesCard_Description" xml:space="preserve">
-    <value>Verslag over de verkoop in de tijd.!</value>
+    <value>Verslag over de verkoop in de tijd.</value>
   </data>
   <data name="ManageProducts" xml:space="preserve">
     <value>Producten beheren</value>
@@ -143,7 +143,7 @@
     <value>Weergeven</value>
   </data>
   <data name="Product_Upload_SaveDialog" xml:space="preserve">
-    <value>Opslaan en vervolgens bewerken om voedingsinformatie toe te voegen.!</value>
+    <value>Opslaan en vervolgens bewerken om voedingsinformatie toe te voegen.</value>
   </data>
   <data name="ManageProducts_AddProduct" xml:space="preserve">
     <value>Product toevoegen</value>
@@ -155,7 +155,7 @@
     <value>Ondersteuning</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Thuis:</value>
+    <value>Thuis</value>
   </data>
   <data name="LanguageChooser_SelectLanguage" xml:space="preserve">
     <value>Taal selecteren</value>
@@ -173,7 +173,7 @@
     <value>Werknemers</value>
   </data>
   <data name="Employee_Grid_Title_FullName" xml:space="preserve">
-    <value>Naa&amp;m:</value>
+    <value>Naa&amp;m</value>
   </data>
   <data name="Employee_Grid_Title_Address" xml:space="preserve">
     <value>Adres</value>
@@ -209,13 +209,13 @@
     <value>Regio</value>
   </data>
   <data name="Sales_Grid_Toolbar_ReportRange" xml:space="preserve">
-    <value>Rapportbereik :!</value>
+    <value>Rapportbereik</value>
   </data>
   <data name="Reporting" xml:space="preserve">
     <value>Rapportage</value>
   </data>
   <data name="ChartTitle_SalesAndRevenueTotal" xml:space="preserve">
-    <value>Totaal omzet en omzet!</value>
+    <value>Totaal omzet en omzet</value>
   </data>
   <data name="Nav_MoreInfo" xml:space="preserve">
     <value>Meer informatie ...</value>

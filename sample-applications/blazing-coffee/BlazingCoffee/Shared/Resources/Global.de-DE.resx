@@ -175,7 +175,7 @@
     <value>Support</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Privat:</value>
+    <value>Privat</value>
   </data>
   <data name="LanguageChooser_SelectLanguage" xml:space="preserve">
     <value>Sprache auswählen</value>
@@ -235,7 +235,7 @@
     <value>Berichterstellung</value>
   </data>
   <data name="ChartTitle_SalesAndRevenueTotal" xml:space="preserve">
-    <value>Umsatz und Umsatz insgesamt!</value>
+    <value>Umsatz und Umsatz insgesamt</value>
   </data>
   <data name="Nav_MoreInfo" xml:space="preserve">
     <value>Weitere Informationen ...</value>

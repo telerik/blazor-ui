@@ -139,7 +139,7 @@
     <value>Se requiere iniciar sesión</value>
   </data>
   <data name="Toggle_Id" xml:space="preserve">
-    <value>Cambiar ID.</value>
+    <value>Cambiar ID</value>
   </data>
   <data name="Product" xml:space="preserve">
     <value>Producto</value>
@@ -166,7 +166,7 @@
     <value>Agregar producto</value>
   </data>
   <data name="Product_Upload_SaveDialog" xml:space="preserve">
-    <value>¡Guarde, luego edite para agregar información nutricional!</value>
+    <value>¡Guarde, luego edite para agregar información nutricional.</value>
   </data>
   <data name="Documentation" xml:space="preserve">
     <value>Documentación</value>
@@ -235,7 +235,7 @@
     <value>Informes</value>
   </data>
   <data name="ChartTitle_SalesAndRevenueTotal" xml:space="preserve">
-    <value>Ventas e ingresos totales!</value>
+    <value>Ventas e ingresos totales</value>
   </data>
   <data name="Nav_MoreInfo" xml:space="preserve">
     <value>Más información ...</value>
