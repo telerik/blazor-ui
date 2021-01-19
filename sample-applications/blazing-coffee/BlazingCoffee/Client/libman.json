@@ -1,0 +1,19 @@
+{
+  "version": "1.0",
+  "defaultProvider": "filesystem",
+  "defaultDestination": "wwwroot/docs/",
+  "libraries": [
+    {
+      "library": "Pages/",
+      "files": [
+        "*.razor.md"
+      ]
+    },
+    {
+      "library": "Pages/SalesReports",
+      "files": [
+        "*.razor.md"
+      ]
+    }
+  ]
+}

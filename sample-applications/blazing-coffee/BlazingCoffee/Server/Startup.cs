@@ -1,10 +1,15 @@
+using BlazingCoffee.Server.Data;
+using BlazingCoffee.Server.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+using System.Collections.Generic;
 
-namespace BlazorFinancePortfolio.Server
+namespace BlazingCoffee.Server
 {
     public class Startup
     {
@@ -19,8 +24,11 @@ namespace BlazorFinancePortfolio.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllersWithViews();
+            services.AddRazorPages();
+
+            // Register Database for Store
+            services.AddDbContext<CoffeeContext>(options => options.UseSqlite("Data Source=Coffee.db"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -30,6 +38,7 @@ namespace BlazorFinancePortfolio.Server
             {
                 app.UseDeveloperExceptionPage();
                 app.UseWebAssemblyDebugging();
+                app.UseDatabaseErrorPage();
             }
             else
             {
@@ -46,6 +55,7 @@ namespace BlazorFinancePortfolio.Server
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapControllers();
                 endpoints.MapFallbackToFile("index.html");
             });

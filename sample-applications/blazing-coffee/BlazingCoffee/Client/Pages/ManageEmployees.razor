@@ -1,0 +1,58 @@
+@inherits CoffeeComponentBase
+@page "/manage-employees"
+@inject HttpClient Http
+@using Telerik.Blazor.Services 
+
+<CardContainer Title="@L["Employees"]">
+    @if (employees != null)
+    {
+        <TelerikGrid Data="employees" 
+                     Pageable="true" 
+                     Sortable="true" 
+                     FilterMode="GridFilterMode.FilterMenu" 
+                     Resizable="true"
+                     ShowColumnMenu="true">
+            <GridColumns>
+                <GridColumn Field="@nameof(Employee.ImgId)" OnCellRender="@OnCellRender" Title="Photo" Sortable="false" Width="100px" Filterable="false">
+                    <Template>
+                        @{
+                            var e = (Employee)context;
+                            <img width="64" height="75" style="border: 2px solid @e.Team.TeamColor" class="k-avatar-rounded" src="./img/employees/@(e.Id).jpg" />
+                        }
+                    </Template>
+                </GridColumn>
+                <GridColumn Field="@nameof(Employee.FullName)" Width="170px" Title="@L["Employee_Grid_Title_FullName"]"></GridColumn>
+                <GridColumn Field="@nameof(Employee.Address)" Width="250px" Title="@L["Employee_Grid_Title_Address"]"></GridColumn>
+                <GridColumn Field="@nameof(Employee.Phone)" Width="150px" Title="@L["Employee_Grid_Title_Phone"]"></GridColumn>
+                <GridColumn Field="Team.TeamName" Width="150px" Title="@L["Employee_Grid_Title_TeamName"]">
+                    <Template>
+                        @{
+                            var e = (Employee)context;
+                            <span style="color: @e.Team.TeamColor">@e.Team.TeamName</span>
+                        }
+                    </Template>
+                </GridColumn>
+                <GridColumn Field="@nameof(Employee.Rating)" Width="200px" Title="@L["Employee_Grid_Title_Rating"]">
+                    <Template>
+                        <Rating CssClass="rating-readonly" Value="((Employee)context).Rating" />
+                    </Template>
+                </GridColumn>
+                <GridColumn Field="@nameof(Employee.Budget)" DisplayFormat="{0:C}" Width="120px" Title="@L["Employee_Grid_Title_Budget"]"></GridColumn>
+            </GridColumns>
+        </TelerikGrid>
+    }
+</CardContainer>
+
+@code {
+    private Employee[] employees;
+
+    protected override async Task OnInitializedAsync()
+    {
+        employees = await Http.GetFromJsonAsync<Employee[]>("api/employees");
+    }
+
+    private void OnCellRender(GridCellRenderEventArgs args)
+    {
+        args.Class = "center-cell";
+    }
+}

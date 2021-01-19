@@ -1,0 +1,76 @@
+﻿@namespace BlazingCoffee.Client.Pages
+@inject HttpClient Http
+@inject ITelerikStringLocalizer L
+
+<CardContainer Title="@L["Reporting"]">        
+    @if (Data != null)
+    {
+        <TelerikChart Height="230px">
+            <ChartTitle Text="@L["ChartTitle_SalesAndRevenueTotal"]" />
+            
+            <ChartTooltip Visible="true" Shared="true">
+                <SharedTemplate>
+                    <div>
+                        <div style="font-size: 15px; font-weight: 500;"> Revenue for @GetParsedDate(context.Category) </div>
+                        @{
+                            List<ChartSeriesTooltipTemplatePoint> points = context.Points;
+
+                            foreach (var point in points)
+                            {
+                                double revenue = (point.DataItem as SalesByDateViewModel).Sum;
+
+                                <div>
+                                    <span class="k-chart-shared-tooltip-marker"
+                                          style="background-color: @point.SeriesColor;display: inline-block;">
+                                    </span>
+                                    @point.SeriesName: @revenue.ToString("C0")
+                                </div> 
+                            } 
+                        }
+                    </div>
+                </SharedTemplate>
+            </ChartTooltip>
+
+            <ChartSeriesItems>
+                @foreach (var item in Data.GroupBy(v => v.Region))
+                {
+                    <ChartSeries Type="ChartSeriesType.Column"
+                                 Name="@item.Key"
+                                 Data="@item"
+                                 Field="@nameof(SalesByDateViewModel.Sum)"
+                                 CategoryField="@nameof(SalesByDateViewModel.Date)" />
+                }
+            </ChartSeriesItems>
+
+            <ChartValueAxes>
+                <ChartValueAxis Name="RevenueAxis">
+                    <ChartValueAxisTitle Text="@L["ChartValueAxisTitle_TotalSales"]" />
+                    <ChartValueAxisLabels Format="{0:C}" />
+                    <ChartValueAxisMajorGridLines Visible="false" />
+                </ChartValueAxis>
+            </ChartValueAxes>
+
+            <ChartCategoryAxes>
+                <ChartCategoryAxis Name="Sales By Year">
+                    <ChartCategoryAxisLabels Format="{0:yyyy-MMM}">
+                        <ChartCategoryAxisLabelsRotation Angle="315"></ChartCategoryAxisLabelsRotation>
+                    </ChartCategoryAxisLabels>
+                </ChartCategoryAxis>
+            </ChartCategoryAxes>
+
+        </TelerikChart>
+    }
+</CardContainer>
+
+@code {
+
+    [Parameter] public SalesByDateViewModel[] Data { get; set; }
+
+    public string GetParsedDate(object category)
+    {
+        DateTime date;
+        DateTime.TryParse(category.ToString(), out date);
+
+        return date.ToString("yyyy-MMM");
+    }
+}

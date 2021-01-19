@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Blazing Coffee</title>
+    <link href="favicon.ico" rel="icon" type="image/x-icon" />
+    <base href="/blazor-coffee/" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <!-- Trial script file -->
+    <!-- If you are using a commercial license, replace the telerik-blazor.js script tag with the one commented below. -->
+
+    <script src="_content/Telerik.UI.for.Blazor.Trial/js/telerik-blazor.js"></script>
+
+    <!-- /Trial script file -->
+    <!-- Commercial script file -->
+    <!--<script src="_content/Telerik.UI.for.Blazor/js/telerik-blazor.js"></script>-->
+    <!-- /Commercial script file -->
+    <!-- If main.css is missing, please `run npm install` and `dotnet build`  -->
+    <link id="theme" href="css/main.css" rel="stylesheet" />
+    <!-- PWA -->
+    <link href="manifest.json" rel="manifest" />
+    <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
+    <!-- /PWA -->
+</head>
+
+<body>
+    <app>
+        <div class="k-loader-container k-loader-container-md k-loader-end container-size">
+            <div class="k-loader-container-overlay k-overlay-light"></div>
+            <div class="k-loader-container-inner">
+                <div class="k-loader k-loader-pulsing-2 k-loader-lg k-loader-info">
+                    <div class="k-loader-canvas">
+                        <span class="k-loader-segment"></span>
+                        <span class="k-loader-segment"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </app>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script src="_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication/AuthenticationService.js"></script>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="js/themeChooser.js"></script>
+    <script>
+        window.themeChooser.init();
+    </script>
+    <!-- PWA -->
+    <script>navigator.serviceWorker.register('service-worker.js');</script>
+    <!-- /PWA -->
+</body>
+
+</html>

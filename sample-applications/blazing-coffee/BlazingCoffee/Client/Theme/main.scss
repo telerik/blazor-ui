@@ -1,0 +1,69 @@
+// Default theme variables here
+
+@import "./variables";
+@import "./node_modules/@progress/kendo-theme-default/dist/all.scss";
+@import "./typography";
+@import "./header";
+@import "./drawer";
+@import "./card-container";
+@import "./common";
+@import "./docs";
+
+// TODO: Refactor to partial
+.k-tilelayout {
+    background-color: transparent;
+}
+
+.image-cell {
+    display: flex;
+    align-items: center;
+    &>img {
+        margin-right: 10px;
+    }
+}
+
+.card-menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: right;
+    margin: 30px;
+}
+
+.card-description {
+    min-height:4em;
+}
+
+.card-menu > .k-card {
+    width: 280px;
+    margin-right: 2em;
+}
+
+a.k-link.k-state-selected {
+    border-radius: 5px;
+}
+
+.validation-message {
+    color: $error;
+}
+
+.k-window {
+    border-radius: 3px;
+}
+
+.k-window-titlebar {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.full-screen > h1 {
+    padding: 1em;
+    background-color: $base-bg;
+}
+
+.rating-readonly {
+    pointer-events: none;
+}
+
+.tile-layout-style {
+    max-width: 800px;
+}

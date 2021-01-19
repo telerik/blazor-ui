@@ -1,0 +1,65 @@
+@using System.Globalization
+
+@inject NavigationManager NavigationManager
+@inject ILocalStorageService LocalStorage
+
+<div style="margin-bottom: 20px;">
+    <TelerikDropDownList Data="@Cultures"
+                         Value="@SelectedCulture"
+                         PopupHeight=""
+                         ValueChanged="@((string value) => OnValueChanged(value) )"
+                         TextField="@nameof(CultureData.Text)"
+                         ValueField="@nameof(CultureData.Value)">
+    </TelerikDropDownList>
+</div>
+
+@code{ public class CultureData
+    {
+        public string Text { get; set; }
+        public string Value { get; set; }
+    }
+
+    public List<CultureData> Cultures { get; set; } = new List<CultureData>()
+{
+        new  CultureData() { Text = "English", Value = "en-US" },
+        new  CultureData() { Text = "German", Value = "de-DE" },
+        new  CultureData() { Text = "Spanish", Value = "es-ES" },
+        new  CultureData() { Text = "Bulgarian", Value = "bg-BG" },
+        new  CultureData() { Text = "Dutch", Value = "nl-NL" },
+    };
+
+    public string SelectedCulture { get; set; }
+
+    public async Task OnValueChanged(string eventArgs)
+    {
+        SelectedCulture = eventArgs;
+
+        await SetCulture(eventArgs);
+    }
+
+    public async Task SetCulture(string culture)
+    {
+        if (CultureInfo.CurrentCulture.Name != culture)
+        {
+            await LocalStorage.SetItemAsync("BlazorCulture", culture);
+
+            NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+        }
+    }
+
+    public async Task GetCulture()
+    {
+        var value = await LocalStorage.GetItemAsStringAsync("BlazorCulture");
+        if (string.IsNullOrEmpty(value))
+        {
+            value = "en-US";
+        }
+        SelectedCulture = value;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetCulture();
+    }
+
+}

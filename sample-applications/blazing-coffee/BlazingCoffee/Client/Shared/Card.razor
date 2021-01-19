@@ -1,0 +1,32 @@
+﻿<!--
+    Note: This is an experimental component from future Telerik UI for Blazor features.
+    This component is not yet supported, use at your own risk.
+-->
+<div class="k-card" style=@RenderedStyle>
+    <div class="k-card-header">
+        <h5 class="k-card-title">@Title</h5>
+        <h6 class="k-card-subtitle">@Subtitle</h6>
+    </div>
+    <img class="k-card-image" src="@ImageUrl">
+    <div class="k-card-body">
+        @CardContent
+    </div>
+    <div class="k-card-actions k-card-actions-stretched">
+        @ActionTemplate
+    </div>
+    <div class="k-card-footer">
+        @FooterTemplate
+    </div>
+</div>
+
+@code {
+    string RenderedStyle => string.IsNullOrWhiteSpace(Width) ? null : $"width:{ Width }";
+
+    [Parameter] public string Width { get; set; }
+    [Parameter] public string Title { get; set; }
+    [Parameter] public string Subtitle { get; set; }
+    [Parameter] public string ImageUrl { get; set; }
+    [Parameter] public RenderFragment CardContent { get; set; }
+    [Parameter] public RenderFragment ActionTemplate { get; set; }
+    [Parameter] public RenderFragment FooterTemplate { get; set; }
+}

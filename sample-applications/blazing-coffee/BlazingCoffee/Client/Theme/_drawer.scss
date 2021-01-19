@@ -1,0 +1,43 @@
+﻿.k-drawer-container {
+    background-color: $background-color;
+    min-height: calc(100vh);
+
+    .k-drawer {
+        box-shadow: 0 0 10px rgba(0,0,0,.2);
+        border-right-width: 0 !important;
+    }
+}
+
+.k-drawer-items {
+    & .title {
+        display: none; // hide from mini-mode, use .k-drawer-expanded to enable.
+        text-transform: uppercase;
+        font-size: 1em;
+        padding: 1em;
+        font-weight: bold;
+        color: $info;
+    }
+
+    & > header {
+        display: none; // hide from mini-mode, use .k-drawer-expanded to enable.
+        flex-direction: column;
+        align-items: center;
+        padding: 1em;
+
+        & > img {
+            border: 2px solid $success;
+            margin: 1em;
+            max-width: 96px;
+        }
+    }
+}
+
+/*  Here we capture if the drawer is expanded.
+    If the drawer is in mini-mode, these items
+    are hidden by default.
+*/
+.k-drawer-expanded .k-drawer-items {
+    & > header, & .title {
+        display: flex;
+    }
+}
