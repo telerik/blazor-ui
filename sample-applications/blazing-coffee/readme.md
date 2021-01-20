@@ -4,7 +4,7 @@ This is a demo showing how a full-stack .NET application can be built with ASP.N
 
 ## Requirements
 
-- .NET Core 3.2 or higher
+- .NET 5
 - Telerik UI for Blazor (Trial or Commercial)
 - npm (node package manager, for sass themes)
 
