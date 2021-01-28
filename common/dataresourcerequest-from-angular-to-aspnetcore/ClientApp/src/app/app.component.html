@@ -1,0 +1,10 @@
+<div style="overflow: hidden; height: 600px">
+  <kendo-grid class="k-grid-scroll" [rowHeight]="36" [height]="450" [data]="weatherForecasts" [pageSize]="state.take"
+    [skip]="state.skip" [sort]="state.sort" [sortable]="true" [filter]="state.filter" [filterable]="true"
+    [pageable]="true" scrollable="virtual" (dataStateChange)="dataStateChange($event)" [loading]="gridLoading">
+    <kendo-grid-column field="date" title="Date" filter="date">
+    </kendo-grid-column>
+    <kendo-grid-column field="temp" title="Temp" filter="numeric">
+    </kendo-grid-column>
+  </kendo-grid>
+</div>
