@@ -1,4 +1,4 @@
-﻿@page "/counter"
+﻿@page "/complex"
 
 @if (SelectedTab != null)
 {
@@ -47,6 +47,7 @@
     int ActiveTabIndex { get; set; }
     TabDescriptor SelectedTab { get; set; }
 
+    //we maintain a separate collection of tabs that are currently rendered to extract the current tab model from them
     List<TabDescriptor> VisibleTabs => tabs.Where(x => x.Visible == true).ToList();
 
     void ActiveTabIndexChangedHandler(int newIndex)
@@ -54,6 +55,9 @@
         ActiveTabIndex = newIndex;
         var tabByIndex = VisibleTabs[newIndex];
 
+        // deep copy the model (there are also other ways to do that)
+        // so that it does not remain tied to its index in the collection -
+        // in case the collection changes dynamically that model copy will not
         SelectedTab = new TabDescriptor()
         {
             Id = tabByIndex.Id,
@@ -65,6 +69,13 @@
 
     async Task AddNewTab()
     {
+        //NOTE: the tab strip uses indexes to select the tab
+        //so this can change the selected index and you may want to 
+        //tweak that - either by matching the tab descriptor model we store
+        //to the new index in the collection, or by changing the SelectedIndex
+        //parameter of the tab strip to reflect that new position
+        //this sample merely shows how you can avoid affecting the last selected model
+        // when the collection changes, change this as needed by your business logic
         TabDescriptor tabToAdd = new TabDescriptor
         {
             Id = tabs.Count + 1,

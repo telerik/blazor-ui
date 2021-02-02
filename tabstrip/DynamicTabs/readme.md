@@ -1,5 +1,9 @@
 # Dynamic Tabs
 
+This sample shows how to add and select tabs that are created based on a descriptor model, and extract additional metadata about those selected tabs.
+
+The Tab Strip component is not a data bound component, so it does not work with entire models, and so it can only provide the index of the currently active tab when it changes. It is up to the application to tie that information with the collection of descriptor classes and keep them synchronized as required by the business logic.
+
 #### The example under the `Index` page shows how to:
 
 * Add and Remove tabs dynamically
@@ -16,11 +20,11 @@ The `@key` is used on the tabs to ensure their child components will re-render f
 
 Comments in the code offer more details.
 
-#### The example under the `Counter` page shows how to:
+#### The example under the `Complex` page shows how to:
 
 * Get the underlying model from the active tab
 
-* Add tabs dynamically
+* Add tabs dynamically and prevent that collection change from tampering with the index you are using to fetch the model data
 
 You can dynamically create `TabStripTab` instances by looping through a collection of descriptors. To extract the underlying model from the currently active tab you can:
 
