@@ -1,16 +1,95 @@
 ﻿@page "/counter"
 
-<h1>Counter</h1>
+@if (SelectedTab != null)
+{
+    <div style="border: 2px solid black; margin-bottom: 20px;">
+        <fieldset>
+            <legend>Selected tab info</legend>
+            <p>Index: @ActiveTabIndex</p>
+            <p>Id: @SelectedTab.Id</p>
+            <p>Title: @SelectedTab.Title</p>
+            <p>Disabled: @SelectedTab.Disabled</p>
+        </fieldset>
+    </div>
+}
 
-<p>Current count: @currentCount</p>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<div>
+    <TelerikButton OnClick="@AddNewTab">Add a new tab</TelerikButton>
+</div>
+
+
+<TelerikTabStrip ActiveTabIndex="@ActiveTabIndex" ActiveTabIndexChanged="@((int i) => ActiveTabIndexChangedHandler(i))">
+    @{
+        foreach (TabDescriptor item in VisibleTabs)
+        {
+            <TabStripTab Title="@item.Title" Disabled="@item.Disabled">
+                @* two of these tabs have special content that we define here based on conditions - in this case the title for simplicity *@
+                @if (item.Title == "First Special")
+                {
+                    <div>This is the first tab, it is special</div>
+                }
+                else if (item.Title == "Third, also special")
+                {
+                    <strong>This third tab also has special content, it can be a different component, it's some markup here for simplicity</strong>
+                }
+                else // the rest of the tabs render the same repeatable child component
+                {
+                    <span>Content for @item.Title</span>
+                }
+            </TabStripTab>
+        }
+    }
+</TelerikTabStrip>
+
 
 @code {
-    int currentCount = 0;
+    int ActiveTabIndex { get; set; }
+    TabDescriptor SelectedTab { get; set; }
 
-    void IncrementCount()
+    List<TabDescriptor> VisibleTabs => tabs.Where(x => x.Visible == true).ToList();
+
+    void ActiveTabIndexChangedHandler(int newIndex)
     {
-        currentCount++;
+        ActiveTabIndex = newIndex;
+        var tabByIndex = VisibleTabs[newIndex];
+
+        SelectedTab = new TabDescriptor()
+        {
+            Id = tabByIndex.Id,
+            Title = tabByIndex.Title,
+            Disabled = tabByIndex.Disabled,
+            Visible = tabByIndex.Visible
+        };
+    }
+
+    async Task AddNewTab()
+    {
+        TabDescriptor tabToAdd = new TabDescriptor
+        {
+            Id = tabs.Count + 1,
+            Title = $"Tab {tabs.Count + 1}",
+            Visible = true
+        };
+
+        tabs.Insert(0, tabToAdd);
+    }
+
+    List<TabDescriptor> tabs = new List<TabDescriptor>()
+{
+        new TabDescriptor { Id = 0, Title = "First Special", Visible = true },
+        new TabDescriptor { Id = 1, Title = "Second", Disabled = true },
+        new TabDescriptor { Id = 2, Title = "Third, also special", Visible = true },
+        new TabDescriptor { Id = 3, Title = "Tab 3", Visible = true },
+        new TabDescriptor { Id = 4, Title = "Tab 4" },
+        new TabDescriptor { Id = 5, Title = "Tab 5" },
+    };
+
+    public class TabDescriptor
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public bool Disabled { get; set; }
+        public bool Visible { get; set; }
     }
 }
