@@ -6,7 +6,7 @@ using Microsoft.JSInterop;
 using Telerik.Blazor.Components;
 using Telerik.Blazor.Services;
 
-namespace Telerik.Blazor.BUnit.Common
+namespace Telerik.Blazor.BUnit.Moq.Common
 {
     public static class TestContextExtensions
     {

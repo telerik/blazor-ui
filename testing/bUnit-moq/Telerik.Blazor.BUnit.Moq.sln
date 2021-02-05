@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30626.31
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telerik.Blazor.BUnit", "Telerik.Blazor.BUnit\Telerik.Blazor.BUnit.csproj", "{D6461984-CF67-4620-892D-FAAC370EDBDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telerik.Blazor.BUnit,Moq", "Telerik.Blazor.BUnit.Moq\Telerik.Blazor.BUnit.Moq.csproj", "{D6461984-CF67-4620-892D-FAAC370EDBDF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BUnit_Sample", "..\testing-sample-app\BUnit_Sample\BUnit_Sample.csproj", "{26AF563C-D047-465E-AD8C-90956E000832}"
 EndProject

@@ -1,10 +1,10 @@
 ﻿using Bunit;
 using BUnit_Sample.Pages;
 using Microsoft.Extensions.DependencyInjection;
-using Telerik.Blazor.BUnit.Common;
+using Telerik.Blazor.BUnit.Moq.Common;
 using Xunit;
 
-namespace Telerik.Blazor.BUnit
+namespace Telerik.Blazor.BUnit.Moq
 {
     public class WindowButtonPage
     {
