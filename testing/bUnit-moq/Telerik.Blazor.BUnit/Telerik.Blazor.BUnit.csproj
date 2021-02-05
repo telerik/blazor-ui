@@ -24,7 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\testing-sample-app\BUnit_Sample\BUnit_Sample.csproj" />
-    <PackageReference Include="Telerik.UI.for.Blazor.Trial" Version="2.21.1" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="2.21.1" />
   </ItemGroup>
 
 </Project>

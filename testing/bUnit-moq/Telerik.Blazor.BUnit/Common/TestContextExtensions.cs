@@ -13,7 +13,7 @@ namespace Telerik.Blazor.BUnit.Common
         public static void AddTelerikBlazor(this TelerikTestContext context)
         {
             var jsRuntimeMock = new Mock<IJSRuntime>();
-            var localizerMock = new Mock<ITelerikStringLocalizer>();
+            var localizerMock = new Mock<ITelerikStringLocalizer>(); // you can also register a real one for actual localization to test that too
 
             context.Services.AddSingleton(jsRuntimeMock.Object);
             context.Services.AddSingleton(localizerMock.Object);
