@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30626.31
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telerik.Blazor.BUnit", "Telerik.Blazor.BUnit\Telerik.Blazor.BUnit.csproj", "{4C10E17C-5E60-4B04-B6D9-6DCD4776BC62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telerik.Blazor.BUnit.JustMock", "Telerik.Blazor.BUnit.JustMock\Telerik.Blazor.BUnit.JustMock.csproj", "{4C10E17C-5E60-4B04-B6D9-6DCD4776BC62}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BUnit_Sample", "..\testing-sample-app\BUnit_Sample\BUnit_Sample.csproj", "{726D7B33-F88B-4015-9EE2-71FC9BEE35CA}"
 EndProject

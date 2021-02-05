@@ -1,9 +1,9 @@
 ﻿using Bunit;
 using BUnit_Sample.Pages;
-using Telerik.Blazor.BUnit.Common;
+using Telerik.Blazor.BUnit.JustMock.Common;
 using Xunit;
 
-namespace Telerik.Blazor.BUnit
+namespace Telerik.Blazor.BUnit.JustMock
 {
     public class WindowButtonPage
     {

@@ -6,7 +6,7 @@ using Telerik.Blazor.Components;
 using Telerik.Blazor.Services;
 using Telerik.JustMock;
 
-namespace Telerik.Blazor.BUnit.Common
+namespace Telerik.Blazor.BUnit.JustMock.Common
 {
     public static class TestContextExtensions
     {
