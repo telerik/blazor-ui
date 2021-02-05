@@ -27,3 +27,8 @@ In the code of your tests:
 
 You can find a sample project that uses `bUnit` and <a href="https://www.telerik.com/products/mocking.aspx" target="_blank">`Telerik JustMock`</a> in the [bUnit-justmock](bUnit-justmock) folder.
 
+
+## e2e
+
+For end-to-end testing (e2e) that lets you simulate user actions such as clicks, input and so on, you can consider tools like <a href="https://docs.telerik.com/blazor-ui/integrations/e2e-testing-with-test-studio">Telerik Test Studio</a> that integrates with Blazor and even has translators for the Telerik UI for Blazor components.
+
