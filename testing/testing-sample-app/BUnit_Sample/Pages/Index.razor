@@ -1,0 +1,15 @@
+﻿@page "/"
+
+<h1>Welcome to Telerik & Bunit Integration demo!</h1>
+
+<TelerikButton OnClick="@Cheers" Id="welcome-message-button">Show Welcome Message</TelerikButton>
+
+@WelcomeMessage
+
+@code {
+    public string WelcomeMessage { get; set; }
+    void Cheers()
+    {
+        WelcomeMessage = "Glad to see you here!";
+    }
+}

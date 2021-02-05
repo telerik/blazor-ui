@@ -1,0 +1,47 @@
+﻿@page "/grid"
+
+@using BUnit_Sample.Model
+
+<TelerikGrid Data="@GridData"
+             EditMode="@GridEditMode.Inline"
+             Height="400px"
+             Pageable="true"
+             Sortable="true"
+             Reorderable="true">
+    <GridColumns>
+        <GridColumn Field=@nameof(Person.EmployeeId)>
+            <Template>
+                @{var person = context as Person; }
+                <span class="custom-id-@person.EmployeeId">@person.EmployeeId</span>
+            </Template>
+        </GridColumn>
+        <GridColumn Field=@nameof(Person.Name) />
+        <GridColumn Field=@nameof(Person.AgeInYears) Title="Age" />
+        <GridColumn Field=@nameof(Person.HireDate) Title="Hire Date" />
+    </GridColumns>
+    <DetailTemplate>
+        @{ var person = context as Person; }
+        <span>DetailTemplate for @person.Name</span>
+    </DetailTemplate>
+</TelerikGrid>
+
+@code { 
+    public List<Person> GridData { get; set; }
+
+    protected override void OnInitialized()
+    {
+        GridData = new List<Person>();
+        var rand = new Random();
+
+        for (int i = 0; i < 100; i++)
+        {
+            GridData.Add(new Person()
+            {
+                EmployeeId = i,
+                Name = "Employee " + i.ToString(),
+                AgeInYears = i,
+                HireDate = new DateTime(2020, 6, 1).Date.AddDays(i)
+            });
+        }
+    }
+}
