@@ -1,12 +1,8 @@
 ﻿using Bunit;
 using BUnit_Sample.Model;
 using BUnit_Sample.Pages;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.JSInterop;
 using Telerik.Blazor.BUnit.Common;
 using Telerik.Blazor.Components;
-using Telerik.Blazor.Components.RootComponent;
-using Telerik.JustMock;
 using Xunit;
 
 namespace Telerik.Blazor.BUnit
