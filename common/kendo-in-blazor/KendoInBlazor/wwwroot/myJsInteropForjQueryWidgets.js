@@ -1,12 +1,5 @@
 ﻿// these functions are in the global scope for brevity. Implement your own encapsulation.
 
-function createGanttWidget(container, ganttId) {
-	if (!ensureKendoAndJquery()) { return; }
-
-	// create the jQuery widgets here
-	createGantt($(container).find("#" + ganttId));
-}
-
 function destroyWidgets(container) {
 	if (!ensureKendoAndJquery()) { return; }
 
@@ -63,6 +56,13 @@ function createColorPalette($elem, dotNetComponent) {
 			dotNetComponent.invokeMethodAsync("ColorSelected", e.value);
 		}
 	});
+}
+
+function createGanttWidget(container, ganttId) {
+	if (!ensureKendoAndJquery()) { return; }
+
+	// create the jQuery widgets here
+	createGantt($(container).find("#" + ganttId));
 }
 
 function createGantt($elem) {
@@ -163,4 +163,12 @@ function createGantt($elem) {
 
 		snap: false
 	});
+}
+
+function createPdfViewer($elem) {
+	$elem.kendoPDFViewer({
+		pdfjsProcessing: {
+			file: $elem[0].dataset.filename
+		}
+	})
 }
