@@ -1,0 +1,48 @@
+﻿@using System.Drawing
+@implements IDisposable
+@inject IJSRuntime JSRuntime
+
+<h3>MyKendoPdfViewer - @FileName</h3>
+
+<div @ref="myWrapperRef">
+    <div id="@WidgetId" data-filename="@FileName"></div>
+</div>
+
+@code {
+    [Parameter]
+    public string WidgetId { get; set; }
+    [Parameter]
+    public string FileName { get; set; }
+
+    ElementReference myWrapperRef;
+    DotNetObjectReference<MyKendoPdfViewer> CurrentRazorComponent { get; set; }
+
+    // see the following article on using JS Interop, prerendering and Blazor as these approaches may change
+    // https://docs.microsoft.com/en-us/aspnet/core/blazor/javascript-interop?view=aspnetcore-3.0
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (CurrentRazorComponent == null)
+            {
+                CurrentRazorComponent = DotNetObjectReference.Create(this);
+            }
+
+            await JSRuntime.InvokeVoidAsync("createWidget", "createPdfViewer", myWrapperRef, WidgetId, CurrentRazorComponent);
+            // make sure the element IDs are unique in the application. In this example, the ID comes from a parameter
+            // you can distinguish elements in the DOM with jQuery in other ways as well, but IDs and name attributes are often used
+
+            // you can also pass more data and use it in the JS code as necessary by your application
+        }
+    }
+
+    public void Dispose()
+    {
+        JSRuntime.InvokeVoidAsync("destroyWidgets", myWrapperRef);
+        if (CurrentRazorComponent != null)
+        {
+            CurrentRazorComponent.Dispose();
+        }
+    }
+
+}
