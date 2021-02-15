@@ -5,7 +5,7 @@
 <h3>MyKendoPdfViewer - @FileName</h3>
 
 <div @ref="myWrapperRef">
-    <div id="@WidgetId" data-filename="@FileName"></div>
+    <div id="@WidgetId" data-filename="@FileName" data-width="@Width" data-height="@Height"></div>
 </div>
 
 @code {
@@ -13,6 +13,10 @@
     public string WidgetId { get; set; }
     [Parameter]
     public string FileName { get; set; }
+    [Parameter]
+    public string Width { get; set; }
+    [Parameter]
+    public string Height { get; set; }
 
     ElementReference myWrapperRef;
     DotNetObjectReference<MyKendoPdfViewer> CurrentRazorComponent { get; set; }
