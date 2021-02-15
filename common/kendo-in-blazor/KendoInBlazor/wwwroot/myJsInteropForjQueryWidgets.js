@@ -166,9 +166,18 @@ function createGantt($elem) {
 }
 
 function createPdfViewer($elem) {
-	$elem.kendoPDFViewer({
-		pdfjsProcessing: {
-			file: $elem[0].dataset.filename
-		}
-	})
+	$.when(
+		$.getScript("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.js"),
+		$.getScript("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.worker.js")
+	).done(function () {
+		window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.worker.js';
+	}).then(function () {
+		$elem.kendoPDFViewer({
+			pdfjsProcessing: {
+				file: $elem[0].dataset.filename
+			},
+			width: $elem[0].dataset.width,
+			height: $elem[0].dataset.height
+		}).data("kendoPDFViewer");
+	});
 }
