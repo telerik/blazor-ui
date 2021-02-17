@@ -45,6 +45,14 @@ If you are using a commercial version of Telerik UI for Blazor.
     <PackageReference Include="Telerik.Zip" Version="2021.x.xxxx" />
     ```
 
+- In `BlazingCoffee.Shared.csproj` remove `.Trial` from the package name. You should have:
+
+    ```
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="2.x.x" />
+    ```
+
+
+
 # Demo Features
 
 - Globalization / Localization
