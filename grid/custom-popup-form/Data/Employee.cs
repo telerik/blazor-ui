@@ -8,7 +8,7 @@ namespace custom_popup_form.Data
 {
     public class Employee
     {
-        [Editable(false)]
+        [Editable(false)] // in the 2.23.0 release the Telerik form will read this so it will disable the editor
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Enter a name")]
