@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.29411.138
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "custom_popup_form", "custom_popup_form.csproj", "{414E2FD4-DD7B-45B5-96C2-FAFC9D3146C5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telerik.Blazor", "..\..\..\blazor\Telerik.Blazor\Telerik.Blazor.csproj", "{0B67F011-9130-43B7-A8BD-5443D659D441}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{414E2FD4-DD7B-45B5-96C2-FAFC9D3146C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{414E2FD4-DD7B-45B5-96C2-FAFC9D3146C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{414E2FD4-DD7B-45B5-96C2-FAFC9D3146C5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0B67F011-9130-43B7-A8BD-5443D659D441}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0B67F011-9130-43B7-A8BD-5443D659D441}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0B67F011-9130-43B7-A8BD-5443D659D441}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0B67F011-9130-43B7-A8BD-5443D659D441}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
