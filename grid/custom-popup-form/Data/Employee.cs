@@ -8,6 +8,7 @@ namespace custom_popup_form.Data
 {
     public class Employee
     {
+        [Editable(false)]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Enter a name")]

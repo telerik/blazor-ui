@@ -1,0 +1,71 @@
+﻿@using custom_popup_form.Data
+
+<TelerikWindow Visible="@(SelectedEmployee != null)" Modal="true">
+    <WindowTitle>
+        @{
+            if (SelectedEmployee.Id < 0)
+            {
+                <strong>Add Employee</strong>
+            }
+            else
+            {
+                <strong>Edit Employee</strong>
+            }
+        }
+    </WindowTitle>
+    <WindowContent>
+        @*Implement the desired layout here*@
+        <EditForm Model="@SelectedEmployee" OnValidSubmit="@Save">
+            <DataAnnotationsValidator />
+            <div class="form-row">
+                <div class="col">
+                    <TelerikTextBox @bind-Value="@SelectedEmployee.Name" Label="First Name"></TelerikTextBox>
+                </div>
+                <div class="col">
+                    <TelerikTextBox @bind-Value="@SelectedEmployee.LastName" Label="Last Name"></TelerikTextBox>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <TelerikDatePicker @bind-Value="@SelectedEmployee.HireDate"></TelerikDatePicker>
+                </div>
+                <div class="col">
+                    <label>
+                        Is on vacation:
+                        <InputCheckbox @bind-Value="@SelectedEmployee.OnLeave" />
+                    </label>
+                </div>
+            </div>
+            <div class="form-row">
+                <ValidationSummary />
+                <TelerikButton Icon="save" Primary="true" ButtonType="@ButtonType.Submit">Save</TelerikButton>
+                <TelerikButton Icon="cancel" OnClick="@ClearSelection" ButtonType="@ButtonType.Button">Cancel</TelerikButton>
+            </div>
+        </EditForm>
+    </WindowContent>
+</TelerikWindow>
+
+@code{
+    [Parameter]
+    public Employee SelectedEmployee { get; set; }
+
+    [Parameter]
+    public EventCallback<Employee> SelectedEmployeeChanged { get; set; }
+
+    [Parameter]
+    public EventCallback<Employee> OnSave { get; set; }
+
+    [Parameter]
+    public EventCallback OnClear { get; set; }
+
+    async Task Save()
+    {
+        await SelectedEmployeeChanged.InvokeAsync(SelectedEmployee);
+        await OnSave.InvokeAsync();
+    }
+
+    async Task ClearSelection()
+    {
+        await OnClear.InvokeAsync();
+    }
+}
