@@ -1,6 +1,7 @@
-﻿@page "/"
+﻿@page "/separate-component"
 
 @using custom_popup_form.Data
+@using custom_popup_form.Shared
 @using System.Collections.ObjectModel
 
 <TelerikGrid Data=@GridData Sortable="true" Pageable="true">
@@ -23,35 +24,9 @@
     </GridToolBar>
 </TelerikGrid>
 
-<TelerikWindow Visible="@(selectedEmployee != null)" Modal="true">
-    <WindowTitle>
-        @{
-            if (selectedEmployee.Id < 0)
-            {
-                <strong>Add Employee</strong>
-            }
-            else
-            {
-                <strong>Edit Employee</strong>
-            }
-        }
-    </WindowTitle>
-    <WindowContent>
-        @*Implement the desired layout here*@
-        <TelerikForm Model="@selectedEmployee" OnValidSubmit="@Save" 
-                     Columns="3" Width="600px" ColumnSpacing="50px"
-                     ValidationMessageType="@FormValidationMessageType.Tooltip">
-            <FormValidation>
-                <DataAnnotationsValidator />
-                <TelerikValidationSummary />
-            </FormValidation>
-            <FormButtons>
-                <TelerikButton Icon="save" Primary="true" ButtonType="@ButtonType.Submit">Save</TelerikButton>
-                <TelerikButton Icon="cancel" OnClick="@ClearSelection" ButtonType="@ButtonType.Button">Cancel</TelerikButton>
-            </FormButtons>
-        </TelerikForm>
-    </WindowContent>
-</TelerikWindow>
+<CustomEditForm @bind-SelectedEmployee="@selectedEmployee" 
+                OnSave="@Save" OnClear="@ClearSelection">
+</CustomEditForm>
 
 @code {
     public ObservableCollection<Employee> GridData { get; set; }
