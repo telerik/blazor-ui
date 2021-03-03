@@ -1,0 +1,34 @@
+﻿@page "/"
+
+<h1>This page is OK - you can't scroll and interact with the content behind the loader container</h1>
+
+<style>
+    @* set all top-level elements in the layout to height 100% so they match the viewport *@
+    html, body, .page, .main{
+        height: 100%;
+        min-height: 100%;
+        max-height: 100%;
+        overflow: hidden;
+    }
+
+    @* define where scrollbars can appear in the layout - in a child element whose actual height
+        still matches the viewport*@
+    .main {
+        overflow: auto;
+    }
+</style>
+
+<TelerikLoaderContainer Visible="@true">
+    <Template>
+        <TelerikLoader />
+        <div>
+            <span>Loading...</span>
+            <br /> @* The template is here just so we can add the links, you do not have to use it *@
+            <a href="/problem">Go to the problematic page</a>
+        </div>
+    </Template>
+</TelerikLoaderContainer>
+
+
+
+<DummyContent />
