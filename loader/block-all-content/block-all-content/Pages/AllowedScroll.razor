@@ -1,0 +1,17 @@
+﻿@page "/allowed-scroll"
+
+<h1>This page does not define CSS rules for the layout size so the scrollbars appear high in the DOM and you can scroll the page "behind" the loader container</h1>
+
+<TelerikLoaderContainer Visible="@true">
+    <Template>
+        <TelerikLoader />
+        <div>
+            <span>Loading...</span>
+            <br /> @* The template is here just so we can add the links, you do not have to use it *@
+            <a href="/">Go to the OK page</a>
+        </div>
+    </Template>
+</TelerikLoaderContainer>
+
+
+<DummyContent />
