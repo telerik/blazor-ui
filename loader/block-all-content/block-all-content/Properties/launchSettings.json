@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "loader_for_all_content": {
+    "block_all_content": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace loader_for_all_content
+namespace block_all_content
 {
     public class Startup
     {
