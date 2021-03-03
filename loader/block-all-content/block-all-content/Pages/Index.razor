@@ -4,11 +4,13 @@
 
 <style>
     @* set all top-level elements in the layout to height 100% so they match the viewport *@
-    html, body, .page, .main{
+    html, body, .page, .main {
+        /* the two key rules to define dimensions and ensure scrollbars are not in a high level */
         height: 100%;
+        overflow: hidden;
+        /* these two rules are a common safeguard to better tighten dimensions, they may not be needed for your case */
         min-height: 100%;
         max-height: 100%;
-        overflow: hidden;
     }
 
     @* define where scrollbars can appear in the layout - in a child element whose actual height
@@ -24,7 +26,7 @@
         <div>
             <span>Loading...</span>
             <br /> @* The template is here just so we can add the links, you do not have to use it *@
-            <a href="/problem">Go to the problematic page</a>
+            <a href="/allowed-scroll">Go to the page that allows scrolling</a>
         </div>
     </Template>
 </TelerikLoaderContainer>
