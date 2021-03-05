@@ -1,0 +1,72 @@
+﻿@page "/"
+
+@inject ResizeListener listener
+@implements IDisposable
+
+<TelerikForm Model="@person"
+             Columns="@ColumnsCount"
+             ColumnSpacing="15px"
+             Orientation="@FormOrientation.Horizontal">
+
+</TelerikForm>
+
+
+@code {
+    #region Form
+    public int ColumnsCount => isMediumSize ? 1 : GetColumnsCount();
+
+    private int GetColumnsCount()
+    {
+        Type t = typeof(Person);
+        int propertiesCount = t.GetProperties().Count();
+
+        return propertiesCount;
+    }
+
+    Person person = new Person();
+
+    public class Person
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int Age { get; set; }
+        public string Email { get; set; }
+        public string Address { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+        public string Company { get; set; }
+        public string Position { get; set; }
+    }
+    #endregion
+
+    #region Responsive
+
+    BrowserWindowSize windowSize = new BrowserWindowSize();
+
+    bool isSmallSize { get; set; }
+    bool isMediumSize { get; set; }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        if (firstRender)
+        {
+            listener.OnResized += WindowResized;
+        }
+    }
+
+    public void Dispose()
+    {
+        listener.OnResized -= WindowResized;
+    }
+
+    async void WindowResized(object _, BrowserWindowSize size)
+    {
+        windowSize = size;
+
+        isMediumSize = await listener.MatchMedia(Breakpoints.MediumDown);
+
+        StateHasChanged();
+    }
+
+    #endregion
+}
