@@ -1,6 +1,6 @@
 using System;
 
-namespace responsive_chart.Data
+namespace responsive_form.Data
 {
     public class WeatherForecast
     {

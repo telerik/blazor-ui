@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "responsive_chart": {
+    "responsive_form": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

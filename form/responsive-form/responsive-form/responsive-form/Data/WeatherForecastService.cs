@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace responsive_chart.Data
+namespace responsive_form.Data
 {
     public class WeatherForecastService
     {

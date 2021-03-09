@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31019.35
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "responsive_chart", "responsive-chart\responsive_chart.csproj", "{3FC32B12-F223-4C80-ACF5-91C4F95CCA4B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "responsive_form", "responsive-form\responsive_form.csproj", "{2C1B67F0-1B46-44E6-B485-C138140E1304}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3FC32B12-F223-4C80-ACF5-91C4F95CCA4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3FC32B12-F223-4C80-ACF5-91C4F95CCA4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3FC32B12-F223-4C80-ACF5-91C4F95CCA4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3FC32B12-F223-4C80-ACF5-91C4F95CCA4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C1B67F0-1B46-44E6-B485-C138140E1304}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C1B67F0-1B46-44E6-B485-C138140E1304}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C1B67F0-1B46-44E6-B485-C138140E1304}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C1B67F0-1B46-44E6-B485-C138140E1304}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {EAEE8BB6-928D-4383-A547-2B817F68F6C8}
+		SolutionGuid = {4066B954-F4FF-4DF5-9FF0-B1FCD13D8A30}
 	EndGlobalSection
 EndGlobal
