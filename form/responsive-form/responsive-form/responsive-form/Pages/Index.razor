@@ -2,41 +2,25 @@
 
 @inject ResizeListener listener
 @implements IDisposable
+
 @using responsive_form.Models 
 
 <TelerikForm Model="@person"
              Columns="@ColumnsCount"
              ColumnSpacing="15px"
-             Orientation="@FormOrientation.Horizontal">
+             Orientation="@( isMediumSize ? FormOrientation.Vertical : FormOrientation.Horizontal )">
 </TelerikForm>
 
-
 @code {
-    #region Form
-    public int ColumnsCount => isMediumSize ? 1 : GetColumnsCount();
-
-    private int GetColumnsCount()
-    {
-        // sample logic based on the number of fields in the model
-        // feel free to implement as needed in your project, even hardcode a number
-        Type t = typeof(Person);
-        int propertiesCount = t.GetProperties().Count();
-
-        return propertiesCount % 5;
-    }
-
-    Person person = new Person();
-
-
-    #endregion
-
     #region Responsive
-
+    // comes from the BlazorSize package, used for tracking the viewport size
     BrowserWindowSize windowSize = new BrowserWindowSize();
 
-    bool isSmallSize { get; set; }
+    // used to set parameters on components
     bool isMediumSize { get; set; }
+    public int ColumnsCount => isMediumSize ? 1 : GetColumnsCount();
 
+    // hook to window.resize to update parameters on the components
     protected override void OnAfterRender(bool firstRender)
     {
         base.OnAfterRender(firstRender);
@@ -60,5 +44,19 @@
         StateHasChanged();
     }
 
+    #endregion
+
+    #region Form
+    private int GetColumnsCount()
+    {
+        // sample logic based on the number of fields in the model
+        // feel free to implement as needed in your project, even hardcode a number
+        Type t = typeof(Person);
+        int propertiesCount = t.GetProperties().Count();
+
+        return propertiesCount % 5;
+    }
+
+    Person person = new Person();
     #endregion
 }
