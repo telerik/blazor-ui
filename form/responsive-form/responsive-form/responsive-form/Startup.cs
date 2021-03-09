@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using responsive_form.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +29,6 @@ namespace responsive_form
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddTelerikBlazor();
-            services.AddSingleton<WeatherForecastService>();
             services.AddResizeListener(options =>
             {
                 options.ReportRate = 300;
