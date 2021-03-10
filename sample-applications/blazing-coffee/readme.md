@@ -61,7 +61,7 @@ If you are using a commercial version of Telerik UI for Blazor.
     - Web API Server
     - Entity Framework Core
     - Shared logic and resources
-- Authentication / Authorization
+- Authentication / Authorization through an in-app database with accounts you can create on the fly. You can read more on authentication and authorization in Blazor at [MSDN: ASP.NET Core Blazor authentication and authorization](https://docs.microsoft.com/en-us/aspnet/core/blazor/security/?view=aspnetcore-5.0).
 - Themeability 
     - Light/Dark themes
     - Automatic theme detection based on device theme
