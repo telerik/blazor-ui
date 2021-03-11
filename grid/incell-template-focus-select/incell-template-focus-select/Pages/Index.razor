@@ -1,0 +1,160 @@
+﻿@page "/"
+
+<h4>Editor template with focus only on LastName column</h4>
+<h4>Editor template with focus and highlight on Age column</h4>
+
+<TelerikGrid @ref="@Grid" Data=@MyData EditMode="@GridEditMode.Incell" Pageable="true" Height="500px"
+                OnUpdate="@UpdateHandler" OnDelete="@DeleteHandler" OnCreate="@CreateHandler">
+    <GridToolBar>
+        <GridCommandButton Command="Add" Icon="add">Add Employee</GridCommandButton>
+    </GridToolBar>
+    <GridColumns>
+        <GridColumn Field=@nameof(SampleData.ID) Title="ID" Editable="false" Width="80px" />
+        <GridColumn Field=@nameof(SampleData.FirstName) Title="Name" />
+        <GridColumn Field=@nameof(SampleData.LastName) Title="Last Name (template, focus, no select)">
+            <EditorTemplate>                    
+                @{
+                    CurrentlyEditedLine = context as SampleData;
+                    <FocusHandler HighlightAfterFocus="false" OnChange="@CloseEditor">
+                        <TelerikTextBox Width="100%" @bind-Value="@CurrentlyEditedLine.LastName" />
+                    </FocusHandler>
+                }
+            </EditorTemplate>
+        </GridColumn>
+        <GridColumn Field=@nameof(SampleData.Age) Title="Age (template, focus, select)">
+            <EditorTemplate>
+                @{
+                    CurrentlyEditedLine = context as SampleData;
+                    <FocusHandler OnChange="@CloseEditor">
+                        <TelerikNumericTextBox Width="100%" Arrows="false" Min="10" Step="1"
+                                                @bind-Value="@CurrentlyEditedLine.Age" />
+                    </FocusHandler>
+                }
+            </EditorTemplate>
+        </GridColumn>
+        <GridCommandColumn>
+            <GridCommandButton Command="Delete" Icon="delete">Delete</GridCommandButton>
+        </GridCommandColumn>
+    </GridColumns>
+</TelerikGrid>
+
+@code {
+    SampleData CurrentlyEditedLine { get; set; }
+    TelerikGrid<SampleData> Grid { get; set; }
+
+    async Task CloseEditor(bool enterPressed)
+    {
+        //we do a save on every Tab keypress on custom editors
+        //we don't have to, the grid will update the item itself
+        //when the entire row loses focus, this is just to show we can
+        if (!enterPressed)
+        {
+            var state = Grid?.GetState();
+            if (state.EditItem != null)
+            {
+                // edit operation on an existing item
+                await UpdateHandler(new GridCommandEventArgs()
+                {
+                    Item = state.EditItem
+                });
+            }
+        }
+    }
+
+    //standard CRUD
+
+    async Task UpdateHandler(GridCommandEventArgs args)
+    {
+        // perform actual data source operations here through your service
+        await MyService.Update((SampleData)args.Item);
+
+        // update the local view-model data with the service data
+        await GetGridData();
+    }
+
+    async Task DeleteHandler(GridCommandEventArgs args)
+    {
+        // perform actual data source operation here through your service
+        await MyService.Delete((SampleData)args.Item);
+
+        // update the local view-model data with the service data
+        await GetGridData();
+    }
+
+    async Task CreateHandler(GridCommandEventArgs args)
+    {
+        // perform actual data source operation here through your service
+        await MyService.Create((SampleData)args.Item);
+
+        // update the local view-model data with the service data
+        await GetGridData();
+    }
+
+
+    // in a real case, keep the models in dedicated locations, this is just an easy to copy and see example
+    public class SampleData
+    {
+        public int ID { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int Age { get; set; }
+    }
+
+    public List<SampleData> MyData { get; set; }
+
+    async Task GetGridData()
+    {
+        MyData = await MyService.Read();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetGridData();
+    }
+
+    // the following static class mimics an actual data service that handles the actual data source
+    // replace it with your actual service through the DI, this only mimics how the API can look like and works for this standalone page
+    public static class MyService
+    {
+        private static List<SampleData> _data { get; set; } = new List<SampleData>();
+
+        public static async Task Create(SampleData itemToInsert)
+        {
+            itemToInsert.ID = _data.Count + 1;
+            _data.Insert(0, itemToInsert);
+        }
+
+        public static async Task<List<SampleData>> Read()
+        {
+            if (_data.Count < 1)
+            {
+                for (int i = 1; i < 50; i++)
+                {
+                    _data.Add(new SampleData()
+                    {
+                        ID = i,
+                        FirstName = "Name " + i.ToString(),
+                        LastName = "Last Name " + i.ToString(),
+                        Age = 20 + (i / 2)
+                    });
+                }
+            }
+
+            return await Task.FromResult(_data);
+        }
+
+        public static async Task Update(SampleData itemToUpdate)
+        {
+            var index = _data.FindIndex(i => i.ID == itemToUpdate.ID);
+            if (index != -1)
+            {
+                _data[index] = itemToUpdate;
+            }
+        }
+
+        public static async Task Delete(SampleData itemToDelete)
+        {
+            _data.Remove(itemToDelete);
+        }
+    }
+}

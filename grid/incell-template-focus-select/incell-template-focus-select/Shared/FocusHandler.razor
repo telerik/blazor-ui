@@ -1,0 +1,57 @@
+﻿@inject IJSRuntime JSRuntime
+
+
+<span @onkeydown="@OnKeyDown" @ref="@InputWrapperRef">
+    @ChildContent
+</span>
+
+
+@code {
+
+    ElementReference InputWrapperRef { get; set; }
+
+    [Parameter]
+    public bool HighlightAfterFocus { get; set; } = true;
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OnChange { get; set; }
+
+    private async Task OnInputChange(bool enterPressed)
+    {
+        await OnChange.InvokeAsync(enterPressed);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        try
+        {
+            if (firstRender)
+            {
+                await JSRuntime.InvokeVoidAsync("focusElement", InputWrapperRef, HighlightAfterFocus);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Exception: {0}", e.ToString());
+        }
+
+    }
+
+    public async Task OnKeyDown(KeyboardEventArgs args)
+    {
+        //Make sure on change event called when tab or enter keys pressed
+        //let the parent comopnent know if enter was pressed because the grid will fire OnUpdate then
+        if (args.Key == "Enter" || args.Key == "Tab")
+        {
+            await OnInputChange(true);
+        }
+        if(args.Key == "Tab")
+        {
+            await OnInputChange(false);
+        }
+    }
+
+}

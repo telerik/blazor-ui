@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31025.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "incell_template_focus_select", "incell-template-focus-select\incell_template_focus_select.csproj", "{EB568BEF-32B6-4B2A-AC96-9FB9E472FA38}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB568BEF-32B6-4B2A-AC96-9FB9E472FA38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB568BEF-32B6-4B2A-AC96-9FB9E472FA38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB568BEF-32B6-4B2A-AC96-9FB9E472FA38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB568BEF-32B6-4B2A-AC96-9FB9E472FA38}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E12179F3-D960-4635-BADB-65F4327B0CC4}
+	EndGlobalSection
+EndGlobal
