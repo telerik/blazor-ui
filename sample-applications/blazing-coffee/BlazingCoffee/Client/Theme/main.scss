@@ -67,3 +67,19 @@ a.k-link.k-state-selected {
 .tile-layout-style {
     max-width: 800px;
 }
+
+.crud-notification {
+    padding: 1.5rem;
+    z-index: 1000;
+
+    .k-notification {
+        font-size: 1.2rem;
+        padding: 2rem;
+    }
+
+    .k-icon {
+        font-size: auto;
+        height: auto;
+    }
+}
+

@@ -3,17 +3,32 @@
 @inject HttpClient Http
 @inject NavigationManager NavigationManager
 
+<TelerikNotification @ref="@CrudNotification" Class="crud-notification"
+                     VerticalPosition="NotificationVerticalPosition.Top" />
+
 <CardContainer Title="@L["ManageProducts"]">
-    @if (Products != null)
+    @if (hasErrors)
+    {
+        // TODO: Replace with cards in next release
+        <Card Title="Error">
+            <CardContent>
+                <p>Some clever error message with localization here.</p>
+            </CardContent>
+            <ActionTemplate>
+                <TelerikButton OnClick="LoadData" Class="k-primary">Retry</TelerikButton>
+            </ActionTemplate>
+        </Card>
+    }
+    else
     {
         <TelerikGrid Data="Products" Groupable="true" EditMode="GridEditMode.Popup"
                      Sortable="true" Pageable="true" PageSize="10"
-                     OnUpdate=@UpdateItem OnDelete=@DeleteItem OnCreate=@CreateItem>
+                     OnEdit="@OnEdit" OnUpdate=@UpdateItem OnDelete=@DeleteItem OnCreate=@CreateItem>
             <GridToolBar>
-                <GridCommandButton Command="ToggleId" OnClick="@(()=>isIdVisible = !isIdVisible)" Icon="parameter-integer">@L["Toggle_Id"]</GridCommandButton>
+                <GridCommandButton Command="ToggleId" OnClick="@(() => isIdVisible = !isIdVisible)" Icon="parameter-integer">@L["Toggle_Id"]</GridCommandButton>
                 <GridCommandButton Command="Add" Icon="add" Class="k-primary">@L["ManageProducts_AddProduct"]</GridCommandButton>
                 <span class="k-spacer"></span>
-                <GridSearchBox DebounceDelay="200"></GridSearchBox>
+                <GridSearchBox DebounceDelay="400"></GridSearchBox>
             </GridToolBar>
             <GridColumns>
 
@@ -22,7 +37,7 @@
                 <GridColumn Field="@nameof(Product.Group)" Title="@L["Group"]" Width="200px">
                     <Template>
                         @{
-                            var prod = (Product)context;
+                                var prod = (Product)context;
                             <div class="image-cell">
                                 <img width="64" src="./img/products/@(prod.Group.Replace(" ", "")).jpg" class="k-avatar-rounded" />
                                 <span>@prod.Group</span>
@@ -47,33 +62,33 @@
                 <GridColumn Field="@nameof(Product.NutritionFileName)" Width="150px" Title="@L["Nutrition Info."]">
                     <Template>
                         @{
-                            var prod = (Product)context;
-                            if (string.IsNullOrEmpty(prod.NutritionFileName))
-                            {
+                                var prod = (Product)context;
+                                if (string.IsNullOrEmpty(prod.NutritionFileName))
+                                {
                                 <span>@L["NotAvailable"]</span>
-                            }
-                            else
-                            {
+                                }
+                                else
+                                {
                                 <span>@prod.NutritionFileName<TelerikIcon Icon="@IconName.FilePdf"></TelerikIcon></span>
-                            }
+                                }
                         }
                     </Template>
                     <EditorTemplate>
                         @{
-                            var prod = (Product)context;
-                            if (prod.Id == 0)
-                            {
+                                var prod = (Product)context;
+                                if (prod.Id == 0)
+                                {
                                 <span>@L["Product_Upload_SaveDialog"]</span>
-                            }
-                            else
-                            {
+                                }
+                                else
+                                {
                                 <TelerikUpload AllowedExtensions="AllowedExtensions"
                                                SaveUrl="@SaveUrl"
                                                Multiple="false"
                                                OnUpload="@((e) => OnUploadHandler(e, prod.Id))"
                                                OnSuccess="@((_) => OnSuccessHandler(prod))">
                                 </TelerikUpload>
-                            }
+                                }
                         }
                     </EditorTemplate>
                 </GridColumn>
@@ -88,12 +103,18 @@
     }
 </CardContainer>
 
+<TelerikLoaderContainer Visible="isLoading" LoaderPosition="@LoaderPosition.End" />
+
 @code {
 
     #region Grid Operations
+    bool isLoading = true;
+    bool hasErrors;
     bool isIdVisible = false;
     ObservableCollection<Product> Products { get; set; }
     IEnumerable<string> Groups { get; set; }
+
+    TelerikNotification CrudNotification { get; set; }
 
     protected override void OnInitialized()
     {
@@ -102,11 +123,60 @@
         base.OnInitialized();
     }
 
-    protected override async Task OnInitializedAsync()
+    protected override Task OnInitializedAsync() => LoadData();
+    
+    Task LoadData() => TryLoadDataAsync(LoadDataSuccess, LoadDataError);
+
+    void LoadDataSuccess(Product[] data)
     {
-        var data = await Http.GetFromJsonAsync<Product[]>("api/products");
-        Groups = await Http.GetFromJsonAsync<IEnumerable<string>>("api/products/groups");
         Products = new ObservableCollection<Product>(data);
+        hasErrors = false;
+    }
+
+    void LoadDataError(Exception ex)
+    {
+        // Further Devlopment: Implement ILogger<T>
+        // logger.LogWarning("You may want to log exceptions here");
+        hasErrors = true;
+    }
+
+    async Task OnEdit(GridCommandEventArgs args)
+    {
+        try
+        {
+            var response = await Http.GetAsync("api/products/groups");
+            response.EnsureSuccessStatusCode();
+
+            Groups = await response.Content.ReadFromJsonAsync<IEnumerable<string>>();
+            StateHasChanged();
+        }
+        catch (Exception)
+        {
+            args.IsCancelled = true;
+            CrudNotification.Show(new()
+            {
+                Text = $"There was an error connecting to the database",
+                ThemeColor = ThemeColors.Error
+            });
+        }
+    }
+
+    async Task TryLoadDataAsync(Action<Product[]> success, Action<Exception> fail)
+    {
+        isLoading = true;
+        try
+        {
+            var data = await Http.GetFromJsonAsync<Product[]>("api/products");
+            success(data);
+        }
+        catch (Exception e)
+        {
+            fail(e);
+        }
+        finally
+        {
+            isLoading = false;
+        }
     }
 
     async Task CreateItem(GridCommandEventArgs args)
@@ -117,6 +187,12 @@
         {
             var newItem = await httpResponseMessage.Content.ReadFromJsonAsync<Product>();
             Products.Insert(0, newItem);
+            //TODO: Add localization for dialog text
+            CrudNotification.Show(new()
+            {
+                Text = $"The product {newItem.Sku} was added",
+                ThemeColor = ThemeColors.Success
+            });
         }
     }
 
@@ -127,6 +203,11 @@
         if (httpResponseMessage.IsSuccessStatusCode)
         {
             Products.Remove(argsItem);
+            CrudNotification.Show(new()
+            {
+                Text = $"The product {argsItem.Sku} was deleted",
+                ThemeColor = ThemeColors.Success
+            });
         }
     }
 
@@ -140,6 +221,11 @@
             productToUpdate.Cost = argsItem.Cost;
             productToUpdate.Sku = argsItem.Sku;
             productToUpdate.Group = argsItem.Group;
+            CrudNotification.Show(new()
+            {
+                Text = $"The product {argsItem.Sku} was updated",
+                ThemeColor = ThemeColors.Success
+            });
         }
     }
     #endregion
