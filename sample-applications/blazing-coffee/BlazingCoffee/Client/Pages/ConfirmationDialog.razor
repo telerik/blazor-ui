@@ -1,0 +1,35 @@
+﻿<TelerikWindow Visible="!isConfirmed.HasValue" Modal="true" Size="WindowSize.Small">
+    <WindowTitle>
+        @Title
+    </WindowTitle>
+    <WindowContent>
+        <p>@Message</p>
+        <div class="buttons">
+            <TelerikButton Primary="true" OnClick="@(()=> isConfirmed = true)">Confirm</TelerikButton>
+            <TelerikButton OnClick="@(()=> isConfirmed = false)">Cancel</TelerikButton>
+        </div>
+    </WindowContent>
+</TelerikWindow>
+
+@code {
+
+    private string Title { get; set; }
+    private string Message { get; set; }
+    bool? isConfirmed = false;
+
+    public async Task<bool> ShowConfirmAsync(string title, string message)
+    {
+        isConfirmed = null;
+        Title = title;
+        Message = message;
+        StateHasChanged();
+
+        while (!isConfirmed.HasValue) 
+        {
+            await Task.Delay(50);
+        }
+
+        return isConfirmed.Value;
+    }
+
+}
