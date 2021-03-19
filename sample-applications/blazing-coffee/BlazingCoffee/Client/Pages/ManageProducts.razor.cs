@@ -59,7 +59,7 @@ namespace BlazingCoffee.Client.Pages
             hasErrors = true;
         }
 
-        async Task OnEdit(GridCommandEventArgs args)
+        async Task LoadGroups(GridCommandEventArgs args)
         {
             try
             {

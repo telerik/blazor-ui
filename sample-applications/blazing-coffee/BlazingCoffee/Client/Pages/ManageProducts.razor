@@ -23,10 +23,10 @@
     {
         <TelerikGrid Data="Products" Groupable="true" EditMode="GridEditMode.Popup"
                      Sortable="true" Pageable="true" PageSize="10"
-                     OnEdit="@OnEdit" OnUpdate=@UpdateItem OnDelete=@DeleteItem OnCreate=@CreateItem>
+                     OnEdit="@LoadGroups" OnUpdate=@UpdateItem OnDelete=@DeleteItem OnCreate=@CreateItem>
             <GridToolBar>
                 <GridCommandButton Command="ToggleId" OnClick="@(() => isIdVisible = !isIdVisible)" Icon="parameter-integer">@L["Toggle_Id"]</GridCommandButton>
-                <GridCommandButton Command="Add" Icon="add" Class="k-primary">@L["ManageProducts_AddProduct"]</GridCommandButton>
+                <GridCommandButton Command="Add" OnClick="LoadGroups" Icon="add" Class="k-primary">@L["ManageProducts_AddProduct"]</GridCommandButton>
                 <span class="k-spacer"></span>
                 <GridSearchBox DebounceDelay="400"></GridSearchBox>
             </GridToolBar>
