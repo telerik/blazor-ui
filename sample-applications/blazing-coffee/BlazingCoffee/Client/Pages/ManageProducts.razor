@@ -23,9 +23,9 @@
     {
         <TelerikGrid Data="Products" Groupable="true" EditMode="GridEditMode.Popup"
                      Sortable="true" Pageable="true" PageSize="10"
-                     OnEdit="@LoadGroups" OnUpdate=@UpdateItem OnDelete=@DeleteItem OnCreate=@CreateItem>
+                     OnEdit="LoadGroups" OnUpdate="UpdateItem" OnDelete="DeleteItem" OnCreate="CreateItem">
             <GridToolBar>
-                <GridCommandButton Command="ToggleId" OnClick="@(() => isIdVisible = !isIdVisible)" Icon="parameter-integer">@L["Toggle_Id"]</GridCommandButton>
+                <GridCommandButton Command="ToggleId" OnClick="(() => isIdVisible = !isIdVisible)" Icon="parameter-integer">@L["Toggle_Id"]</GridCommandButton>
                 <GridCommandButton Command="Add" OnClick="LoadGroups" Icon="add" Class="k-primary">@L["ManageProducts_AddProduct"]</GridCommandButton>
                 <span class="k-spacer"></span>
                 <GridSearchBox DebounceDelay="400"></GridSearchBox>
@@ -37,7 +37,7 @@
                 <GridColumn Field="@nameof(Product.Group)" Title="@L["Group"]" Width="200px">
                     <Template>
                         @{
-                                var prod = (Product)context;
+                            var prod = (Product)context;
                             <div class="image-cell">
                                 <img width="64" src="./img/products/@(prod.Group.Replace(" ", "")).jpg" class="k-avatar-rounded" />
                                 <span>@prod.Group</span>
@@ -69,7 +69,7 @@
                                 }
                                 else
                                 {
-                                <span>@prod.NutritionFileName<TelerikIcon Icon="@IconName.FilePdf"></TelerikIcon></span>
+                                <span>@prod.NutritionFileName<TelerikIcon Icon="file-pdf"></TelerikIcon></span>
                                 }
                         }
                     </Template>
@@ -85,8 +85,8 @@
                                 <TelerikUpload AllowedExtensions="AllowedExtensions"
                                                SaveUrl="@SaveUrl"
                                                Multiple="false"
-                                               OnUpload="@((e) => OnUploadHandler(e, prod.Id))"
-                                               OnSuccess="@((_) => OnSuccessHandler(prod))">
+                                               OnUpload="((e) => OnUploadHandler(e, prod.Id))"
+                                               OnSuccess="((_) => OnSuccessHandler(prod))">
                                 </TelerikUpload>
                                 }
                         }
@@ -96,7 +96,7 @@
                     <GridCommandButton Command="Edit" Icon="edit" Class="k-primary">@L["Grid_Edit"]</GridCommandButton>
                     <GridCommandButton Command="Save" Icon="save" Class="k-primary" ShowInEdit="true">@L["Grid_Update"]</GridCommandButton>
                     <GridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true">@L["Grid_Cancel"]</GridCommandButton>
-                    <GridCommandButton Command="Delete" OnClick="ShowDialog" Icon="delete" ShowInEdit="false">@L["Grid_Delete"]</GridCommandButton>
+                    <GridCommandButton Command="Delete" OnClick="ShowConfirmationDialog" Icon="delete" ShowInEdit="false">@L["Grid_Delete"]</GridCommandButton>
                 </GridCommandColumn>
             </GridColumns>
         </TelerikGrid>

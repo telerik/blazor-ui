@@ -18,23 +18,15 @@ namespace BlazingCoffee.Client.Pages
         [Inject] NavigationManager NavigationManager { get; set; }
 
         #region Grid Operations
+
         bool isLoading = true;
         bool hasErrors;
         bool isIdVisible = false;
+
         ObservableCollection<Product> Products { get; set; }
         IEnumerable<string> Groups { get; set; }
-
         TelerikNotification CrudNotification { get; set; }
-
         ConfirmationDialog DeleteDialog { get; set; }
-
-        async Task ShowDialog(GridCommandEventArgs args)
-        {
-            var argsItem = (Product)args.Item;
-
-            bool result = await DeleteDialog.ShowConfirmAsync(L["ConfirmDialog_AreYouSure"], string.Format(L["ManageProducts_ConfirmDelete"], argsItem.Sku));
-            args.IsCancelled = !result;
-        }
 
         protected override void OnInitialized()
         {
@@ -42,47 +34,8 @@ namespace BlazingCoffee.Client.Pages
 
             base.OnInitialized();
         }
-
         protected override Task OnInitializedAsync() => LoadData();
-
         Task LoadData() => TryLoadDataAsync(LoadDataSuccess, LoadDataError);
-
-        void LoadDataSuccess(Product[] data)
-        {
-            Products = new ObservableCollection<Product>(data);
-            hasErrors = false;
-        }
-
-        void LoadDataError(Exception ex)
-        {
-            // Further Devlopment: Implement
-            //
-            // ILogger<T>
-            // logger.LogWarning("You may want to log exceptions here");
-            hasErrors = true;
-        }
-
-        async Task LoadGroups(GridCommandEventArgs args)
-        {
-            try
-            {
-                var response = await Http.GetAsync("api/products/groups");
-                response.EnsureSuccessStatusCode();
-
-                Groups = await response.Content.ReadFromJsonAsync<IEnumerable<string>>();
-                StateHasChanged();
-            }
-            catch (Exception)
-            {
-                args.IsCancelled = true;
-                CrudNotification.Show(new()
-                {
-                    Text = L["DatabaseConnectionError"],
-                    ThemeColor = ThemeColors.Error
-                });
-            }
-        }
-
         async Task TryLoadDataAsync(Action<Product[]> success, Action<Exception> fail)
         {
             isLoading = true;
@@ -100,21 +53,52 @@ namespace BlazingCoffee.Client.Pages
                 isLoading = false;
             }
         }
+        void LoadDataSuccess(Product[] data)
+        {
+            Products = new ObservableCollection<Product>(data);
+            hasErrors = false;
+        }
+        void LoadDataError(Exception ex)
+        {
+            // Further Devlopment: Implement
+            //
+            // ILogger<T>
+            // logger.LogWarning("You may want to log exceptions here");
+            hasErrors = true;
+        }
 
+        #region Edit Operations
+
+        async Task LoadGroups(GridCommandEventArgs args)
+        {
+            try
+            {
+                var response = await Http.GetAsync("api/products/groups");
+                response.EnsureSuccessStatusCode();
+
+                Groups = await response.Content.ReadFromJsonAsync<IEnumerable<string>>();
+                StateHasChanged();
+            }
+            catch (Exception)
+            {
+                args.IsCancelled = true;
+                ShowDataConnectionError();
+            }
+        }
         async Task CreateItem(GridCommandEventArgs args)
         {
             try
             {
-                var argsItem = (Product)args.Item;
-                var httpResponseMessage = await Http.PostAsJsonAsync($"api/products", argsItem);
+                Product product = (Product)args.Item;
+                var httpResponseMessage = await Http.PostAsJsonAsync($"api/products", product);
 
                 httpResponseMessage.EnsureSuccessStatusCode();
 
-                var newItem = await httpResponseMessage.Content.ReadFromJsonAsync<Product>();
-                Products.Insert(0, newItem);
+                Product newProduct = await httpResponseMessage.Content.ReadFromJsonAsync<Product>();
+                Products.Insert(0, newProduct);
                 CrudNotification.Show(new()
                 {
-                    Text = string.Format(L["ManageProducts_Create_Success"], newItem.Sku),
+                    Text = string.Format(L["ManageProducts_Create_Success"], newProduct.Sku),
                     ThemeColor = ThemeColors.Success
                 });
             }
@@ -123,47 +107,25 @@ namespace BlazingCoffee.Client.Pages
                 ShowDataConnectionError();
             }
         }
-
-        async Task DeleteItem(GridCommandEventArgs args)
-        {
-            try
-            {
-                var argsItem = (Product)args.Item;
-                var httpResponseMessage = await Http.DeleteAsync($"api/products/{argsItem.Id}");
-
-                httpResponseMessage.EnsureSuccessStatusCode();
-
-                Products.Remove(argsItem);
-                CrudNotification.Show(new()
-                {
-                    Text = string.Format(L["ManageProducts_Delete_Success"], argsItem.Sku),
-                    ThemeColor = ThemeColors.Success
-                });
-            }
-            catch (Exception)
-            {
-                ShowDataConnectionError();
-            }
-        }
-
         async Task UpdateItem(GridCommandEventArgs args)
         {
             try
             {
-                var argsItem = (Product)args.Item;
-                var httpResponseMessage = await Http.PutAsJsonAsync($"api/products/{argsItem.Id}", argsItem);
+                Product product = (Product)args.Item;
+                var httpResponseMessage = await Http.PutAsJsonAsync($"api/products/{product.Id}", product);
 
                 httpResponseMessage.EnsureSuccessStatusCode();
-                
-                var productToUpdate = Products.First(p => p.Id == argsItem.Id);
-                    productToUpdate.Cost = argsItem.Cost;
-                    productToUpdate.Sku = argsItem.Sku;
-                    productToUpdate.Group = argsItem.Group;
-                    CrudNotification.Show(new()
-                    {
-                        Text = string.Format(L["ManageProducts_Update_Success"], argsItem.Sku),
-                        ThemeColor = ThemeColors.Success
-                    });
+
+                Product productToUpdate = Products.First(p => p.Id == product.Id);
+                productToUpdate.Cost = product.Cost;
+                productToUpdate.Sku = product.Sku;
+                productToUpdate.Group = product.Group;
+
+                CrudNotification.Show(new()
+                {
+                    Text = string.Format(L["ManageProducts_Update_Success"], product.Sku),
+                    ThemeColor = ThemeColors.Success
+                });
             }
             catch (Exception)
             {
@@ -171,8 +133,35 @@ namespace BlazingCoffee.Client.Pages
             }
 
         }
+        async Task DeleteItem(GridCommandEventArgs args)
+        {
+            try
+            {
+                Product product = (Product)args.Item;
+                var httpResponseMessage = await Http.DeleteAsync($"api/products/{product.Id}");
 
-        private void ShowDataConnectionError() =>
+                httpResponseMessage.EnsureSuccessStatusCode();
+
+                Products.Remove(product);
+                CrudNotification.Show(new()
+                {
+                    Text = string.Format(L["ManageProducts_Delete_Success"], product.Sku),
+                    ThemeColor = ThemeColors.Success
+                });
+            }
+            catch (Exception)
+            {
+                ShowDataConnectionError();
+            }
+        }
+        async Task ShowConfirmationDialog(GridCommandEventArgs args)
+        {
+            var argsItem = (Product)args.Item;
+
+            bool result = await DeleteDialog.ShowConfirmAsync(L["ConfirmDialog_AreYouSure"], string.Format(L["ManageProducts_ConfirmDelete"], argsItem.Sku));
+            args.IsCancelled = !result;
+        }
+        void ShowDataConnectionError() =>
             CrudNotification.Show(new()
             {
                 Text = L["DatabaseConnectionError"],
@@ -181,14 +170,22 @@ namespace BlazingCoffee.Client.Pages
 
         #endregion
 
+        #endregion
+
         #region File Upload
 
         List<string> AllowedExtensions => new List<string> { ".pdf" };
         public string SaveUrl => $"{NavigationManager.BaseUri}api/products/addfile";
 
-        async Task OnUploadHandler(UploadEventArgs e, int productId)
+        void OnUploadHandler(UploadEventArgs e, int productId)
         {
             e.RequestData.Add("productId", productId);
+            // If the application uses authentication
+            // An authorization token can be resolved during this event
+            // Example:
+            // var tokenResult = await accessTokenProvider.RequestAccessToken();
+            // tokenResult.TryGetToken(out var token);
+            // e.RequestHeaders.Add("authorization", $"Bearer {token.Value}");
         }
 
         async Task OnSuccessHandler(Product product)
