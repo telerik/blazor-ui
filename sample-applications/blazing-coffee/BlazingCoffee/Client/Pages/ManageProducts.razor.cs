@@ -31,7 +31,8 @@ namespace BlazingCoffee.Client.Pages
         async Task ShowDialog(GridCommandEventArgs args)
         {
             var argsItem = (Product)args.Item;
-            bool result = await DeleteDialog.ShowConfirmAsync("Are you sure?", string.Format("You're about to delete {0} permanently.", argsItem.Sku));
+
+            bool result = await DeleteDialog.ShowConfirmAsync(L["ConfirmDialog_AreYouSure"], string.Format(L["ManageProducts_ConfirmDelete"], argsItem.Sku));
             args.IsCancelled = !result;
         }
 
@@ -74,7 +75,7 @@ namespace BlazingCoffee.Client.Pages
                 args.IsCancelled = true;
                 CrudNotification.Show(new()
                 {
-                    Text = $"There was an error connecting to the database",
+                    Text = L["DatabaseConnectionError"],
                     ThemeColor = ThemeColors.Error
                 });
             }
@@ -101,15 +102,14 @@ namespace BlazingCoffee.Client.Pages
         async Task CreateItem(GridCommandEventArgs args)
         {
             var argsItem = (Product)args.Item;
-            var httpResponseMessage = await Http.PostAsJsonAsync<Product>($"api/products/", argsItem);
+            var httpResponseMessage = await Http.PostAsJsonAsync<Product>($"api/products", argsItem);
             if (httpResponseMessage.IsSuccessStatusCode)
             {
                 var newItem = await httpResponseMessage.Content.ReadFromJsonAsync<Product>();
                 Products.Insert(0, newItem);
-                //TODO: Add localization for dialog text
                 CrudNotification.Show(new()
                 {
-                    Text = $"The product {newItem.Sku} was added",
+                    Text = string.Format(L["ManageProducts_Create_Success"], newItem.Sku),
                     ThemeColor = ThemeColors.Success
                 });
             }
@@ -124,7 +124,7 @@ namespace BlazingCoffee.Client.Pages
                 Products.Remove(argsItem);
                 CrudNotification.Show(new()
                 {
-                    Text = $"The product {argsItem.Sku} was deleted",
+                    Text = string.Format(L["ManageProducts_Delete_Success"], argsItem.Sku),
                     ThemeColor = ThemeColors.Success
                 });
             }
@@ -142,7 +142,7 @@ namespace BlazingCoffee.Client.Pages
                 productToUpdate.Group = argsItem.Group;
                 CrudNotification.Show(new()
                 {
-                    Text = $"The product {argsItem.Sku} was updated",
+                    Text = string.Format(L["ManageProducts_Update_Success"], argsItem.Sku),
                     ThemeColor = ThemeColors.Success
                 });
             }

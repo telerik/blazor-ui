@@ -226,4 +226,19 @@
   <data name="MainLayout_Documentation" xml:space="preserve">
     <value>Documentatie</value>
   </data>
+  <data name="ManageProducts_Create_Success" xml:space="preserve">
+    <value>Het product {0} is toegevoegd.</value>
+  </data>
+  <data name="ManageProducts_Delete_Success" xml:space="preserve">
+    <value>Het product werd verwijderd.</value>
+  </data>
+  <data name="ManageProducts_ConfirmDelete" xml:space="preserve">
+    <value>U staat op het punt {0} definitief te verwijderen.!</value>
+  </data>
+  <data name="ConfirmDialog_AreYouSure" xml:space="preserve">
+    <value>Weet u het zeker?</value>
+  </data>
+  <data name="DatabaseConnectionError" xml:space="preserve">
+    <value>Er is een fout opgetreden bij het verbinden met de database.!</value>
+  </data>
 </root>
