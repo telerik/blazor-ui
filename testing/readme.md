@@ -16,11 +16,13 @@ In this collection of sample projects, the application under test is in the `tes
 
 In the code of your tests:
 
-* Initialize the Telerik components as described above. In these sample projects, that scaffolding is done in `TestContextExtensions` - the extension method `AddTelerikBlazor` is added to the test context and you should call that before the actual test code.
+* Initialize the Telerik components as described above. In these sample projects, that scaffolding is done in `TelerikTestContext` - this is a class your test classes can inherit from which takes care of setting up the services and the root component.
 
-* Add the Telerik components in that root component.
+    * This class inherits the standard `TestContext` of the `bUnit` framework and overrides its rendering methods to ensure there is a Telerik root component first. Its constructor initializes the services. If you don't inherit such a class, you need  to do that scaffolding yourself before starting a test, and you need to add components under test to the Telerik Root Component.
 
-* For popup components (such as the Window or Tooltip, or the dropdowns), look for their content inside the `TelerikRootComponent`, not in the place of declaration.
+* Add components under test to the standard render tree as with other components you test.
+
+* For popup components (such as the Window or Tooltip, or the dropdowns), look for their content inside the `TelerikRootComponent`, not in the place of declaration. In this sample, the field is called `RootComponent` and comes from the base class (`TelerikTestContext`).
 
 >Note: bUnit renders the components with C# alone and does not execute JS Interop calls. Thus, components that use JS to implement certain functionality (which is sometimes required for complex things, especially those that don't have "native" Blazor API) cannot show such functionality in that "server" rendering you can test with C# through the RenderTree. For such components, you can unit test their in-memory instances through their parameters. To test their DOM, you should use e2e testing. One such example is provided here with the textbox component, and comments in the test code offer more details on what you can unit test and how.
 

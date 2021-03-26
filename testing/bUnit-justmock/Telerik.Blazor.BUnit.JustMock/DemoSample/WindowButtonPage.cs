@@ -6,15 +6,7 @@ using Xunit;
 namespace Telerik.Blazor.BUnit.JustMock
 {
     public class WindowButtonPage : TelerikTestContext
-    {
-        //one way to bootstrap the test is to inherit the bUnit test context
-        //and use the extension method in the test constructor
-        public WindowButtonPage()
-        {
-            // Bootstrap the test
-            this.AddTelerikBlazor();
-        }
-    
+    {    
         [Fact]
         public void Button_in_window_is_rendered()
         {

@@ -8,15 +8,7 @@ using Xunit;
 namespace Telerik.Blazor.BUnit.JustMock
 {
     public class GridPage : TelerikTestContext
-    {
-        //one way to bootstrap the test is to inherit the bUnit test context
-        //and use the extension method in the test constructor
-        public GridPage()
-        {
-            // Bootstrap the test
-            this.AddTelerikBlazor();
-        }
-    
+    {    
         [Fact]
         public void DetailTemplate_is_rendered()
         {

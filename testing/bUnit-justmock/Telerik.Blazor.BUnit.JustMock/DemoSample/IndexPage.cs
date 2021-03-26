@@ -6,15 +6,7 @@ using Xunit;
 namespace Telerik.Blazor.BUnit.JustMock
 {
     public class IndexPage : TelerikTestContext
-    {
-        //one way to bootstrap the test is to inherit the bUnit test context
-        //and use the extension method in the test constructor
-        public IndexPage()
-        {
-            // Bootstrap the test
-            this.AddTelerikBlazor();
-        }
-    
+    {    
         [Fact]
         public void Greeting_message_displayed()
         {
