@@ -55,7 +55,9 @@ namespace BlazingCoffee.Client.Pages
 
         void LoadDataError(Exception ex)
         {
-            // Further Devlopment: Implement ILogger<T>
+            // Further Devlopment: Implement
+            //
+            // ILogger<T>
             // logger.LogWarning("You may want to log exceptions here");
             hasErrors = true;
         }
@@ -101,10 +103,13 @@ namespace BlazingCoffee.Client.Pages
 
         async Task CreateItem(GridCommandEventArgs args)
         {
-            var argsItem = (Product)args.Item;
-            var httpResponseMessage = await Http.PostAsJsonAsync<Product>($"api/products", argsItem);
-            if (httpResponseMessage.IsSuccessStatusCode)
+            try
             {
+                var argsItem = (Product)args.Item;
+                var httpResponseMessage = await Http.PostAsJsonAsync($"api/products", argsItem);
+
+                httpResponseMessage.EnsureSuccessStatusCode();
+
                 var newItem = await httpResponseMessage.Content.ReadFromJsonAsync<Product>();
                 Products.Insert(0, newItem);
                 CrudNotification.Show(new()
@@ -113,14 +118,21 @@ namespace BlazingCoffee.Client.Pages
                     ThemeColor = ThemeColors.Success
                 });
             }
+            catch (Exception)
+            {
+                ShowDataConnectionError();
+            }
         }
 
         async Task DeleteItem(GridCommandEventArgs args)
         {
-            var argsItem = (Product)args.Item;
-            var httpResponseMessage = await Http.DeleteAsync($"api/products/{argsItem.Id}");
-            if (httpResponseMessage.IsSuccessStatusCode)
+            try
             {
+                var argsItem = (Product)args.Item;
+                var httpResponseMessage = await Http.DeleteAsync($"api/products/{argsItem.Id}");
+
+                httpResponseMessage.EnsureSuccessStatusCode();
+
                 Products.Remove(argsItem);
                 CrudNotification.Show(new()
                 {
@@ -128,25 +140,45 @@ namespace BlazingCoffee.Client.Pages
                     ThemeColor = ThemeColors.Success
                 });
             }
+            catch (Exception)
+            {
+                ShowDataConnectionError();
+            }
         }
 
         async Task UpdateItem(GridCommandEventArgs args)
         {
-            var argsItem = (Product)args.Item;
-            var httpResponseMessage = await Http.PutAsJsonAsync<Product>($"api/products/{argsItem.Id}", argsItem);
-            if (httpResponseMessage.IsSuccessStatusCode)
+            try
             {
+                var argsItem = (Product)args.Item;
+                var httpResponseMessage = await Http.PutAsJsonAsync($"api/products/{argsItem.Id}", argsItem);
+
+                httpResponseMessage.EnsureSuccessStatusCode();
+                
                 var productToUpdate = Products.First(p => p.Id == argsItem.Id);
-                productToUpdate.Cost = argsItem.Cost;
-                productToUpdate.Sku = argsItem.Sku;
-                productToUpdate.Group = argsItem.Group;
-                CrudNotification.Show(new()
-                {
-                    Text = string.Format(L["ManageProducts_Update_Success"], argsItem.Sku),
-                    ThemeColor = ThemeColors.Success
-                });
+                    productToUpdate.Cost = argsItem.Cost;
+                    productToUpdate.Sku = argsItem.Sku;
+                    productToUpdate.Group = argsItem.Group;
+                    CrudNotification.Show(new()
+                    {
+                        Text = string.Format(L["ManageProducts_Update_Success"], argsItem.Sku),
+                        ThemeColor = ThemeColors.Success
+                    });
             }
+            catch (Exception)
+            {
+                ShowDataConnectionError();
+            }
+
         }
+
+        private void ShowDataConnectionError() =>
+            CrudNotification.Show(new()
+            {
+                Text = L["DatabaseConnectionError"],
+                ThemeColor = ThemeColors.Error
+            });
+
         #endregion
 
         #region File Upload
