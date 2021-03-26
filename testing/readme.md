@@ -20,8 +20,9 @@ In the code of your tests:
 
 * Add the Telerik components in that root component.
 
-* For popup components (such as the Window or Tooltip), look for their content inside the `TelerikRootComponent`, not in the place of declaration.
+* For popup components (such as the Window or Tooltip, or the dropdowns), look for their content inside the `TelerikRootComponent`, not in the place of declaration.
 
+>Note: bUnit renders the components with C# alone and does not execute JS Interop calls. Thus, components that use JS to implement certain functionality (which is sometimes required for complex things, especially those that don't have "native" Blazor API) cannot show such functionality in that "server" rendering you can test with C# through the RenderTree. For such components, you can unit test their in-memory instances through their parameters. To test their DOM, you should use e2e testing. One such example is provided here with the textbox component, and comments in the test code offer more details on what you can unit test and how.
 
 ### bUnit and Telerik JustMock
 

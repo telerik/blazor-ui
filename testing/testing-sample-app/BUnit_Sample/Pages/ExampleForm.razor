@@ -1,0 +1,16 @@
+﻿@page "/form-textbox"
+
+@using BUnit_Sample.Model
+
+<TelerikForm Model="@_model">
+    <FormItems>
+        <FormItem Id="@nameof(Person.Name)" Field="@nameof(Person.Name)" />
+    </FormItems>
+</TelerikForm>
+
+@code { 
+    public Person _model { get; set; } = new Person()
+    {
+        Name = "Jane"
+    };
+}
