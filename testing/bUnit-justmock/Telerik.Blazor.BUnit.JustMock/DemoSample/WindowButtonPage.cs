@@ -5,18 +5,22 @@ using Xunit;
 
 namespace Telerik.Blazor.BUnit.JustMock
 {
-    public class WindowButtonPage
+    public class WindowButtonPage : TelerikTestContext
     {
+        //one way to bootstrap the test is to inherit the bUnit test context
+        //and use the extension method in the test constructor
+        public WindowButtonPage()
+        {
+            // Bootstrap the test
+            this.AddTelerikBlazor();
+        }
+    
         [Fact]
         public void Button_in_window_is_rendered()
         {
-            using var ctx = new TelerikTestContext();
+            RenderComponent<Window_Button>();
 
-            ctx.AddTelerikBlazor();
-
-            ctx.RenderComponent<Window_Button>();
-
-            var button = ctx.RootComponent.Find("button[id=\"window-test-button\"]");
+            var button = this.RootComponent.Find("button[id=\"window-test-button\"]");
             
             Assert.Contains("Add Content", button.InnerHtml);
         }
@@ -24,17 +28,13 @@ namespace Telerik.Blazor.BUnit.JustMock
         [Fact]
         public void Button_in_window_click_action()
         {
-            using var ctx = new TelerikTestContext();
+            RenderComponent<Window_Button>();
 
-            ctx.AddTelerikBlazor();
-
-            ctx.RenderComponent<Window_Button>();
-
-            var button = ctx.RootComponent.Find("button[id=\"window-test-button\"]");
+            var button = this.RootComponent.Find("button[id=\"window-test-button\"]");
 
             button.Click();
 
-            Assert.Contains("Custom Content", ctx.RootComponent.Markup);
+            Assert.Contains("Custom Content", this.RootComponent.Markup);
         }
     }
 }

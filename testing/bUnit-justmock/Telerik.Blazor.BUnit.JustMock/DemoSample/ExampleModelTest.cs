@@ -14,24 +14,20 @@ using Xunit;
 
 namespace Telerik.Blazor.BUnit.JustMock
 {
-    public class ExampleModelTest //: TelerikTestContext
+    public class ExampleModelTest : TelerikTestContext
     {
         //one way to bootstrap the test is to inherit the bUnit test context
         //and use the extension method in the test constructor
-        //public ExampleModelTest()
-        //{
-        //    // Bootstrap the test
-        //    this.AddTelerikBlazor();
-        //}
-      
+        public ExampleModelTest()
+        {
+            // Bootstrap the test
+            this.AddTelerikBlazor();
+        }
+
         [Fact]
         public void Name_Initial_Value()
         {
-            //bootstrap the test
-            using var ctx = new TelerikTestContext();
-            ctx.AddTelerikBlazor();
-            //use that context to render components
-            var formPage = ctx.RenderComponent<ExampleForm>();
+            var formPage = RenderComponent<ExampleForm>();
 
             var form = formPage.FindComponent<TelerikForm>();
             
