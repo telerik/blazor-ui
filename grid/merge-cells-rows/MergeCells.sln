@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MergeCells", "MergeCells.csproj", "{5D1386EA-D06D-4ACF-9C96-62B1413FD39C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5D1386EA-D06D-4ACF-9C96-62B1413FD39C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D1386EA-D06D-4ACF-9C96-62B1413FD39C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D1386EA-D06D-4ACF-9C96-62B1413FD39C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D1386EA-D06D-4ACF-9C96-62B1413FD39C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BC452DCE-5EAB-4CB8-8D0C-CE66A1A2E158}
+	EndGlobalSection
+EndGlobal
