@@ -4,6 +4,8 @@
 <TelerikNotification @ref="@CrudNotification" Class="crud-notification"
                      VerticalPosition="NotificationVerticalPosition.Top" />
 
+<TelerikLoaderContainer Visible="isLoading" LoaderPosition="@LoaderPosition.End" />
+
 <CardContainer Title="@L["ManageProducts"]">
     @if (hasErrors)
     {
@@ -100,5 +102,3 @@
         </TelerikGrid>
     }
 </CardContainer>
-
-<TelerikLoaderContainer Visible="isLoading" LoaderPosition="@LoaderPosition.End" />

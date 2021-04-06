@@ -14,11 +14,14 @@ namespace BlazingCoffee.Client.Pages
 {
     public partial class ManageProducts
     {
-        [Inject]
-        HttpClient Http { get; set; }
+        // using the null-forgiving operator on injected services. This is likely automatic in .NET 6
+        // https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/null-forgiving
 
         [Inject]
-        NavigationManager NavigationManager { get; set; } 
+        HttpClient Http { get; set; } = default!;
+
+        [Inject]
+        NavigationManager NavigationManager { get; set; } = default!;
 
         [CascadingParameter]
         public DialogFactory Dialogs { get; set; } = default!;
@@ -27,11 +30,12 @@ namespace BlazingCoffee.Client.Pages
 
         bool isLoading = true;
         bool hasErrors;
-        bool isIdVisible = false;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "Data bound value")]
+        bool isIdVisible;
 
-        ObservableCollection<Product> Products { get; set; }
-        IEnumerable<string> Groups { get; set; }
-        TelerikNotification CrudNotification { get; set; }
+        ObservableCollection<Product> Products { get; set; } = new();
+        IEnumerable<string>? Groups { get; set; }
+        TelerikNotification? CrudNotification { get; set; }
 
         protected override void OnInitialized()
         {
@@ -46,8 +50,12 @@ namespace BlazingCoffee.Client.Pages
             isLoading = true;
             try
             {
-                var data = await Http.GetFromJsonAsync<Product[]>("api/products");
-                success(data);
+                var response = await Http.GetAsync("api/products");
+                response.EnsureSuccessStatusCode();
+
+                Product[]? data = await response.Content.ReadFromJsonAsync<Product[]>();
+
+                success(data ?? Array.Empty<Product>());
             }
             catch (Exception e)
             {
@@ -99,9 +107,13 @@ namespace BlazingCoffee.Client.Pages
 
                 httpResponseMessage.EnsureSuccessStatusCode();
 
-                Product newProduct = await httpResponseMessage.Content.ReadFromJsonAsync<Product>();
+                Product? newProduct = await httpResponseMessage.Content.ReadFromJsonAsync<Product>();
+
+                // Something has gone wrong with the generated response
+                if (newProduct is null) throw new NullReferenceException();
+
                 Products.Insert(0, newProduct);
-                CrudNotification.Show(new()
+                CrudNotification?.Show(new()
                 {
                     Text = string.Format(L["ManageProducts_Create_Success"], newProduct.Sku),
                     ThemeColor = ThemeColors.Success
@@ -126,7 +138,7 @@ namespace BlazingCoffee.Client.Pages
                 productToUpdate.Sku = product.Sku;
                 productToUpdate.Group = product.Group;
 
-                CrudNotification.Show(new()
+                CrudNotification?.Show(new()
                 {
                     Text = string.Format(L["ManageProducts_Update_Success"], product.Sku),
                     ThemeColor = ThemeColors.Success
@@ -148,7 +160,7 @@ namespace BlazingCoffee.Client.Pages
                 httpResponseMessage.EnsureSuccessStatusCode();
 
                 Products.Remove(product);
-                CrudNotification.Show(new()
+                CrudNotification?.Show(new()
                 {
                     Text = string.Format(L["ManageProducts_Delete_Success"], product.Sku),
                     ThemeColor = ThemeColors.Success
@@ -167,7 +179,7 @@ namespace BlazingCoffee.Client.Pages
             args.IsCancelled = !result;
         }
         void ShowDataConnectionError() =>
-            CrudNotification.Show(new()
+            CrudNotification?.Show(new()
             {
                 Text = L["DatabaseConnectionError"],
                 ThemeColor = ThemeColors.Error
@@ -179,10 +191,10 @@ namespace BlazingCoffee.Client.Pages
 
         #region File Upload
 
-        List<string> AllowedExtensions => new List<string> { ".pdf" };
+        static List<string> AllowedExtensions => new() { ".pdf" };
         public string SaveUrl => $"{NavigationManager.BaseUri}api/products/addfile";
 
-        void OnUploadHandler(UploadEventArgs e, int productId)
+        static void OnUploadHandler(UploadEventArgs e, int productId)
         {
             e.RequestData.Add("productId", productId);
             // If the application uses authentication
@@ -195,9 +207,19 @@ namespace BlazingCoffee.Client.Pages
 
         async Task OnSuccessHandler(Product product)
         {
-            // After the file uploads, get the new file name from the server and update the grid item
-            product = await Http.GetFromJsonAsync<Product>($"api/products/{product.Id}");
-            Products.First(p => p.Id == product.Id).NutritionFileName = product.NutritionFileName;
+            try
+            {
+                // After the file uploads, get the new file name from the server and update the grid item
+                Product? updatedProduct = await Http.GetFromJsonAsync<Product>($"api/products/{product.Id}");
+
+                Products.Single(p => p.Id == product.Id).NutritionFileName = updatedProduct?.NutritionFileName;
+            }
+            catch (Exception)
+            {
+                ShowDataConnectionError();
+            }
+
+
         }
 
         #endregion
