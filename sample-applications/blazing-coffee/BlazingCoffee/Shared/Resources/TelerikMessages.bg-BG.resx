@@ -906,4 +906,46 @@
   <data name="TreeList_Search" xml:space="preserve">
     <value>Търси...</value>
   </data>
+  <data name="Slider_Decrease" xml:space="preserve">
+    <value>Намали</value>
+  </data>
+  <data name="Slider_Increase" xml:space="preserve">
+    <value>Увеличи</value>
+  </data>
+  <data name="Filter_SelectAll" xml:space="preserve">
+    <value>Избери всички</value>
+  </data>
+  <data name="Filter_Search" xml:space="preserve">
+    <value>Търси</value>
+  </data>
+  <data name="Filter_NoData" xml:space="preserve">
+    <value>Няма намерени данни</value>
+  </data>
+  <data name="Grid_SortedAscending" xml:space="preserve">
+    <value>Сортирано във възходящ ред</value>
+  </data>
+  <data name="Grid_SortedDescending" xml:space="preserve">
+    <value>Сортирано в низходящ ред</value>
+  </data>
+  <data name="TreeList_SortedAscending" xml:space="preserve">
+    <value>Сортирано във възходящ ред</value>
+  </data>
+  <data name="TreeList_SortedDescending" xml:space="preserve">
+    <value>Сортирано в низходящ ред</value>
+  </data>
+  <data name="Form_Submit" xml:space="preserve">
+    <value>Изпрати</value>
+  </data>
+  <data name="Form_Clear" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="Dialog_Cancel" xml:space="preserve">
+    <value>Отказ</value>
+  </data>
+  <data name="Dialog_Ok" xml:space="preserve">
+    <value>ОК</value>
+  </data>
+  <data name="Aggregate_Count" xml:space="preserve">
+    <value>Брой</value>
+  </data>
 </root>

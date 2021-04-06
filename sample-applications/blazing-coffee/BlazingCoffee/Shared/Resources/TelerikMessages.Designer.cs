@@ -340,6 +340,24 @@ namespace BlazingCoffee.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Dialog_Cancel {
+            get {
+                return ResourceManager.GetString("Dialog_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string Dialog_Ok {
+            get {
+                return ResourceManager.GetString("Dialog_Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No data.
         /// </summary>
         public static string DropDownList_NoData {
@@ -925,6 +943,15 @@ namespace BlazingCoffee.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No data.
+        /// </summary>
+        public static string Filter_NoData {
+            get {
+                return ResourceManager.GetString("Filter_NoData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Is equal to.
         /// </summary>
         public static string Filter_NumberIsEqualTo {
@@ -1002,6 +1029,24 @@ namespace BlazingCoffee.Shared.Resources {
         public static string Filter_Or {
             get {
                 return ResourceManager.GetString("Filter_Or", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string Filter_Search {
+            get {
+                return ResourceManager.GetString("Filter_Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select All.
+        /// </summary>
+        public static string Filter_SelectAll {
+            get {
+                return ResourceManager.GetString("Filter_SelectAll", resourceCulture);
             }
         }
         
@@ -1123,6 +1168,24 @@ namespace BlazingCoffee.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string Form_Clear {
+            get {
+                return ResourceManager.GetString("Form_Clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit.
+        /// </summary>
+        public static string Form_Submit {
+            get {
+                return ResourceManager.GetString("Form_Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Grid_Cancel {
@@ -1200,6 +1263,24 @@ namespace BlazingCoffee.Shared.Resources {
         public static string Grid_SortDescending {
             get {
                 return ResourceManager.GetString("Grid_SortDescending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorted in ascending order.
+        /// </summary>
+        public static string Grid_SortedAscending {
+            get {
+                return ResourceManager.GetString("Grid_SortedAscending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorted in descending order.
+        /// </summary>
+        public static string Grid_SortedDescending {
+            get {
+                return ResourceManager.GetString("Grid_SortedDescending", resourceCulture);
             }
         }
         
@@ -1933,6 +2014,24 @@ namespace BlazingCoffee.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Decrease.
+        /// </summary>
+        public static string Slider_Decrease {
+            get {
+                return ResourceManager.GetString("Slider_Decrease", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Increase.
+        /// </summary>
+        public static string Slider_Increase {
+            get {
+                return ResourceManager.GetString("Slider_Increase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Off.
         /// </summary>
         public static string Switch_OffLabel {
@@ -2127,6 +2226,24 @@ namespace BlazingCoffee.Shared.Resources {
         public static string TreeList_Search {
             get {
                 return ResourceManager.GetString("TreeList_Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorted in ascending order.
+        /// </summary>
+        public static string TreeList_SortedAscending {
+            get {
+                return ResourceManager.GetString("TreeList_SortedAscending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorted in descending order.
+        /// </summary>
+        public static string TreeList_SortedDescending {
+            get {
+                return ResourceManager.GetString("TreeList_SortedDescending", resourceCulture);
             }
         }
         

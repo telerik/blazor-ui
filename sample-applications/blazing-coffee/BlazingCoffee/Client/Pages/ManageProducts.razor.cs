@@ -14,8 +14,14 @@ namespace BlazingCoffee.Client.Pages
 {
     public partial class ManageProducts
     {
-        [Inject] HttpClient Http { get; set; }
-        [Inject] NavigationManager NavigationManager { get; set; }
+        [Inject]
+        HttpClient Http { get; set; }
+
+        [Inject]
+        NavigationManager NavigationManager { get; set; } 
+
+        [CascadingParameter]
+        public DialogFactory Dialogs { get; set; } = default!;
 
         #region Grid Operations
 
@@ -26,7 +32,6 @@ namespace BlazingCoffee.Client.Pages
         ObservableCollection<Product> Products { get; set; }
         IEnumerable<string> Groups { get; set; }
         TelerikNotification CrudNotification { get; set; }
-        ConfirmationDialog DeleteDialog { get; set; }
 
         protected override void OnInitialized()
         {
@@ -158,7 +163,7 @@ namespace BlazingCoffee.Client.Pages
         {
             var argsItem = (Product)args.Item;
 
-            bool result = await DeleteDialog.ShowConfirmAsync(L["ConfirmDialog_AreYouSure"], string.Format(L["ManageProducts_ConfirmDelete"], argsItem.Sku));
+            bool result = await Dialogs.ConfirmAsync(L["ConfirmDialog_AreYouSure"], string.Format(L["ManageProducts_ConfirmDelete"], argsItem.Sku));
             args.IsCancelled = !result;
         }
         void ShowDataConnectionError() =>

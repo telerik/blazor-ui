@@ -241,4 +241,7 @@
   <data name="DatabaseConnectionError" xml:space="preserve">
     <value>Er is een fout opgetreden bij het verbinden met de database.!</value>
   </data>
+  <data name="ManageProducts_Update_Success" xml:space="preserve">
+    <value>Het product {0} is bijgewerkt.!</value>
+  </data>
 </root>

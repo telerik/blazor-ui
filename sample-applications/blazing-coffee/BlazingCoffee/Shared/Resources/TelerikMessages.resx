@@ -849,4 +849,43 @@
   <data name="TreeList_Search" xml:space="preserve">
     <value>Search...</value>
   </data>
+  <data name="Slider_Increase" xml:space="preserve">
+    <value>Increase</value>
+  </data>
+  <data name="Slider_Decrease" xml:space="preserve">
+    <value>Decrease</value>
+  </data>
+  <data name="Filter_SelectAll" xml:space="preserve">
+    <value>Select All</value>
+  </data>
+  <data name="Filter_Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Filter_NoData" xml:space="preserve">
+    <value>No data</value>
+  </data>
+  <data name="Grid_SortedAscending" xml:space="preserve">
+    <value>Sorted in ascending order</value>
+  </data>
+  <data name="Grid_SortedDescending" xml:space="preserve">
+    <value>Sorted in descending order</value>
+  </data>
+  <data name="TreeList_SortedAscending" xml:space="preserve">
+    <value>Sorted in ascending order</value>
+  </data>
+  <data name="TreeList_SortedDescending" xml:space="preserve">
+    <value>Sorted in descending order</value>
+  </data>
+  <data name="Form_Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="Form_Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="Dialog_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Dialog_Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
 </root>

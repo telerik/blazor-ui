@@ -261,4 +261,7 @@
   <data name="ManageProducts_ConfirmDelete" xml:space="preserve">
     <value>Estás a punto de eliminar {0} de forma permanente.</value>
   </data>
+  <data name="ManageProducts_Update_Success" xml:space="preserve">
+    <value>El producto {0} ha sido actualizado</value>
+  </data>
 </root>

@@ -804,4 +804,151 @@
   <data name="TreeList_Search" xml:space="preserve">
     <value>Buscar...</value>
   </data>
+  <data name="Slider_Increase" xml:space="preserve">
+    <value>Incrementar</value>
+  </data>
+  <data name="Slider_Decrease" xml:space="preserve">
+    <value>Decrecer</value>
+  </data>
+  <data name="Filter_SelectAll" xml:space="preserve">
+    <value>Seleccionar todo</value>
+  </data>
+  <data name="Filter_Search" xml:space="preserve">
+    <value>Buscar</value>
+  </data>
+  <data name="Filter_NoData" xml:space="preserve">
+    <value>Datos no encontrados</value>
+  </data>
+  <data name="Grid_SortedAscending" xml:space="preserve">
+    <value>Ordenados en orden ascendente</value>
+  </data>
+  <data name="Grid_SortedDescending" xml:space="preserve">
+    <value>Ordenados en orden descendente</value>
+  </data>
+  <data name="TreeList_SortedAscending" xml:space="preserve">
+    <value>Ordenados en orden ascendente</value>
+  </data>
+  <data name="TreeList_SortedDescending" xml:space="preserve">
+    <value>Ordenados en orden descendente</value>
+  </data>
+  <data name="Form_Clear" xml:space="preserve">
+    <value>Reiniciar</value>
+  </data>
+  <data name="Form_Submit" xml:space="preserve">
+    <value>Enviar</value>
+  </data>
+  <data name="Dialog_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Dialog_Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="DropDownList_NoData" xml:space="preserve">
+    <value>Datos no encontrados</value>
+  </data>
+  <data name="Filter_All" xml:space="preserve">
+    <value>Todo</value>
+  </data>
+  <data name="Aggregate_Average" xml:space="preserve">
+    <value>Promedio</value>
+  </data>
+  <data name="Aggregate_Max" xml:space="preserve">
+    <value>Máx</value>
+  </data>
+  <data name="Aggregate_Min" xml:space="preserve">
+    <value>MIN</value>
+  </data>
+  <data name="Aggregate_Sum" xml:space="preserve">
+    <value>Suma</value>
+  </data>
+  <data name="Aggregate_Count" xml:space="preserve">
+    <value>Recuento</value>
+  </data>
+  <data name="Grid_NoRecords" xml:space="preserve">
+    <value>No hay registros disponibles</value>
+  </data>
+  <data name="Editor_AddColumnLeft" xml:space="preserve">
+    <value>Agregar columna a la izquierda</value>
+  </data>
+  <data name="Editor_AddColumnRight" xml:space="preserve">
+    <value>Agregar columna a la derecha</value>
+  </data>
+  <data name="Editor_AddRowAbove" xml:space="preserve">
+    <value>Agregar fila arriba</value>
+  </data>
+  <data name="Editor_AddRowBelow" xml:space="preserve">
+    <value>Agregar fila abajo</value>
+  </data>
+  <data name="Editor_BackColor" xml:space="preserve">
+    <value>Color de &amp;fondo:</value>
+  </data>
+  <data name="Editor_DeleteColumn" xml:space="preserve">
+    <value>Eliminar columna</value>
+  </data>
+  <data name="Editor_DeleteRow" xml:space="preserve">
+    <value>Eliminar fila</value>
+  </data>
+  <data name="Editor_DialogCancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Editor_DialogInsert" xml:space="preserve">
+    <value>Insertar</value>
+  </data>
+  <data name="Editor_DialogUpdate" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
+  <data name="Editor_FontFamily" xml:space="preserve">
+    <value>Nombre de fuente:</value>
+  </data>
+  <data name="Editor_FontSize" xml:space="preserve">
+    <value>Tamaño de fuente:</value>
+  </data>
+  <data name="Editor_ForeColor" xml:space="preserve">
+    <value>&amp;Color:</value>
+  </data>
+  <data name="Editor_ImageAltText" xml:space="preserve">
+    <value>Texto alternativo</value>
+  </data>
+  <data name="Editor_ImageHeight" xml:space="preserve">
+    <value>Alto</value>
+  </data>
+  <data name="Editor_ImageWebAddress" xml:space="preserve">
+    <value>Dirección web</value>
+  </data>
+  <data name="Editor_ImageWidth" xml:space="preserve">
+    <value>Ancho</value>
+  </data>
+  <data name="Editor_InsertFile" xml:space="preserve">
+    <value>Insertar archivo</value>
+  </data>
+  <data name="Editor_InsertHtml" xml:space="preserve">
+    <value>Insertar HTML</value>
+  </data>
+  <data name="Editor_LinkOpenNewWindow" xml:space="preserve">
+    <value>Abrir en ventana nueva</value>
+  </data>
+  <data name="Editor_LinkTitle" xml:space="preserve">
+    <value>Título</value>
+  </data>
+  <data name="Editor_LinkWebAddress" xml:space="preserve">
+    <value>Dirección web</value>
+  </data>
+  <data name="Editor_Strikethrough" xml:space="preserve">
+    <value>Tachado</value>
+  </data>
+  <data name="Editor_Subscript" xml:space="preserve">
+    <value>subíndice</value>
+  </data>
+  <data name="Editor_Superscript" xml:space="preserve">
+    <value>Superíndice</value>
+  </data>
+  <data name="Editor_Underline" xml:space="preserve">
+    <value>Subrayado</value>
+  </data>
+  <data name="Editor_ViewHtml" xml:space="preserve">
+    <value>Ver HTML</value>
+  </data>
+  <data name="Editor_LinkText" xml:space="preserve">
+    <value>&amp;Texto:</value>
+  </data>
 </root>
