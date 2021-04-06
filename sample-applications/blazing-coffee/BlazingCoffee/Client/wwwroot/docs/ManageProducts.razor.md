@@ -18,3 +18,9 @@ A custom editor is used to display groups and allow file uploads.
 - <a href="https://docs.telerik.com/blazor-ui/components/upload/overview" target="_blank">Telerik File Upload</a> from Edit function
 - File Upload <a href="https://docs.telerik.com/blazor-ui/components/upload/validation" target="_blank">limits</a> DOCX
 - Telerik File Upload performs dummy operation that simply uses the file name.
+
+## Loaders and Notifications
+
+- <a href="https://docs.telerik.com/blazor-ui/components/loadercontainer/overview" target="_blank">Display a loading context while page loads and CRUD operations.</a>
+- <a href="https://docs.telerik.com/blazor-ui/components/notification/overview" target="_blank">Display a notification on try/catch scenarios.</a>
+- <a href="https://docs.telerik.com/blazor-ui/components/dialog/predefined" target="_blank">Display a confirm dialog on delete operations.</a>
