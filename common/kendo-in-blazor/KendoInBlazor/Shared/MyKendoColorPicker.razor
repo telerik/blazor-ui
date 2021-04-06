@@ -1,4 +1,5 @@
 ﻿@using System.Drawing
+@using KendoInBlazor.Data
 @implements IDisposable
 @inject IJSRuntime JSRuntime
 
@@ -25,10 +26,10 @@
     [JSInvokable("ColorSelected")]
     public async Task RaiseColorSelected(string color)
     {
+        Color = ColorHelper.ParseColor(color);
         if (ColorChanged.HasDelegate)
         {
-            Color theColor = ColorTranslator.FromHtml(color);
-            await ColorChanged.InvokeAsync(theColor);
+            await ColorChanged.InvokeAsync(Color);
         }
     }
 
@@ -42,7 +43,7 @@
             {
                 CurrRazorComponent = DotNetObjectReference.Create(this);
             }
-            await JSRuntime.InvokeVoidAsync("createWidget", "createColorPicker", myWrapperRef, WidgetId, CurrRazorComponent);
+            await JSRuntime.InvokeVoidAsync("createWidget", "createColorPicker", myWrapperRef, WidgetId, CurrRazorComponent, ColorTranslator.ToHtml(Color));
             // make sure the element IDs are unique in the application. In this example, the ID comes from a parameter
             // you can distinguish elements in the DOM with jQuery in other ways as well, but IDs and name attributes are often used
 
