@@ -37,3 +37,33 @@ You can find a sample project that uses `bUnit` and <a href="https://www.telerik
 
 For end-to-end testing (e2e) that lets you simulate user actions such as clicks, input and so on, you can consider tools like <a href="https://docs.telerik.com/blazor-ui/integrations/e2e-testing-with-test-studio">Telerik Test Studio</a> that integrates with Blazor and even has translators for the Telerik UI for Blazor components.
 
+### Selenium
+
+Selenium WebDriver is also a valid option for creating tests.
+
+When working with popup elements (especially dropdowns), you need to take into account a couple of factors:
+
+* By default, there may be an animation when they show up, so the tests need to wait a little between opening the popup and looking for its elements.
+* Popup elements are not rendered in the place of declaration of the component, so you need to use appropriate selectors. Often times looking for a `.k-popup` element could help, or you could even assign the `PopupClass` of dropdowns to more easily find particular ones.
+
+Here is a sample test that waits for the popups to render before looking for elements of theirs:
+
+```
+[TestMethod]
+public void TestMethod1()
+{
+    WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(2));
+    // one sample selector to find a dropdownlist arrow element
+    IWebElement element = wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("#Id > span > span.k-select > span")));
+    // click the arrow so the dropdown opens
+    element.Click();
+    // look for a popup element
+    element = wait.Until(ExpectedConditions.ElementToBeClickable(By.ClassName("k-popup")));
+    // Popup has `transition-duration: 300ms` so we must wait a bit before we can interact
+    Thread.Sleep(500);
+    // interract with the popup element
+    element.FindElement(By.XPath("//li[contains(@class, 'k-item')]")).Click();
+    // Added to ensure visually that the item is selected
+    Thread.Sleep(2000);
+}
+```
