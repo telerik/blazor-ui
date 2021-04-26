@@ -63,7 +63,7 @@ public void TestMethod1()
     Thread.Sleep(500);
     // interract with the popup element
     element.FindElement(By.XPath("//li[contains(@class, 'k-item')]")).Click();
-    // Added to ensure visually that the item is selected
-    Thread.Sleep(2000);
+    // You may want/need to add such a wait timt to ensure visually that the item is selected
+    // Thread.Sleep(2000);
 }
 ```
