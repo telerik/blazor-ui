@@ -48,7 +48,7 @@ When working with popup elements (especially dropdowns), you need to take into a
 
 Here is a sample test that waits for the popups to render before looking for elements of theirs:
 
-```
+```cs
 [TestMethod]
 public void TestMethod1()
 {
