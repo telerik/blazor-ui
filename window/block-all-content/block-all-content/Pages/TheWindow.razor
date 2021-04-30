@@ -1,0 +1,25 @@
+﻿<TelerikButton OnClick="@( () => WindowIsVisible = !WindowIsVisible )" 
+               ButtonType="@ButtonType.Button" Primary="true">
+    Toggle window
+</TelerikButton>
+
+<TelerikWindow @bind-Visible="@WindowIsVisible" Modal="true" Height="400px" Width="600px">
+    <WindowTitle>
+        <strong>The Title</strong>
+    </WindowTitle>
+    <WindowContent>
+        <div style="height: 2000px; background:yellow; color: red; font-weight: bold;">
+            <p>Try maximizing this window, restoring it and compare how this works between the different pages in this project.</p>
+            <p>Also, scroll down and up to see how the element that has scrollbars makes a difference.</p>
+        </div>
+    </WindowContent>
+    <WindowActions>
+        <WindowAction Name="Minimize"></WindowAction>
+        <WindowAction Name="Maximize"></WindowAction>
+        <WindowAction Name="Close"></WindowAction>
+    </WindowActions>
+</TelerikWindow>
+
+@code {
+    bool WindowIsVisible { get; set; }
+}
