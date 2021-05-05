@@ -15,4 +15,10 @@
 @code{
     System.Drawing.Color TheColorFromPicker { get; set; }
     System.Drawing.Color TheColorFromPalette { get; set; }
+
+    protected override void OnInitialized()
+    {
+        TheColorFromPicker = System.Drawing.Color.Yellow;
+        base.OnInitialized();
+    }
 }

@@ -2,6 +2,8 @@
 
 This project demonstrates how you can implement a confirmation dialog for the click of a button.
 
+>NOTE: As of version 2.23.0, the Telerik components provide built-in confirmation dialogs, you can see them in action here: https://demos.telerik.com/blazor-ui/dialog/predefined-dialogs and read more about them in their documentation: https://docs.telerik.com/blazor-ui/components/dialog/predefined
+
 Points of interest:
 
 * The components that encapsulate this are in the `Shared` folder.

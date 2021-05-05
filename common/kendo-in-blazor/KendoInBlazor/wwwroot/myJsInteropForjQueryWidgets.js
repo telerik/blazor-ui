@@ -21,16 +21,21 @@ function ensureKendoAndJquery() {
 	return true;
 }
 
-function createWidget(functionName, container, id, dotNetComponent) {
+// the initialColor argument is just to showcase you can add more data to the widget initialization. It is used
+// only in the ColorPicker component at this point, and would require refactoring for a use in a real app
+// as its current usage breaks the pattern of instantiating the widgets cleanly with just the method name
+
+function createWidget(functionName, container, id, dotNetComponent, initialColor) {
 	if (!ensureKendoAndJquery()) { return; }
 
 	// create the jQuery widgets here
-	window[functionName]($(container).find("#" + id), dotNetComponent);
+	window[functionName]($(container).find("#" + id), dotNetComponent, initialColor);
 }
 
-function createColorPicker($elem, dotNetComponent) {
+function createColorPicker($elem, dotNetComponent, initialColor) {
 	$elem.kendoColorPicker({
-		value: "#ffffff",
+		value: initialColor,
+		opacity: true,
 		buttons: false,
 		select: function (e) {
 			dotNetComponent.invokeMethodAsync("ColorSelected", e.value);

@@ -1,0 +1,135 @@
+﻿@page "/"
+
+@using pre_validate_item_for_grid_state_init.Models
+@using pre_validate_item_for_grid_state_init.Services
+@using System.ComponentModel.DataAnnotations;
+@inject WeatherForecastService ForecastService
+
+<TelerikButton OnClick="@CreateHandler">Add Forecast</TelerikButton>
+<TelerikButton OnClick="@DiscardHandler">Discard current forecast being edited with annotation message</TelerikButton>
+<TelerikTextArea @bind-Value="@TextAreaValue" Label="Message:" AutoSize="true" Enabled="false"></TelerikTextArea>
+<TelerikGrid @ref="grid" Data="@forecasts" Height="550px" FilterMode="@GridFilterMode.FilterMenu"
+             Sortable="true" Pageable="true" PageSize="20" Groupable="true" Resizable="true" Reorderable="true"
+             OnUpdate="@UpdateHandler" OnDelete="@DeleteHandler" EditMode="@GridEditMode.Incell">
+    <GridColumns>
+        <GridColumn Field="Id" Title="Id" Width="100px" Editable="false" Groupable="false" />
+        <GridColumn Field="Date" Width="220px" DisplayFormat="{0:dddd, dd MMM yyyy}" />
+        <GridColumn Field="TemperatureC" Title="Temp. C" DisplayFormat="{0:N1}" />
+        <GridColumn Field="TemperatureF" Title="Temp. F" DisplayFormat="{0:N1}" />
+        <GridColumn Field="Summary" />
+        <GridCommandColumn Width="90px" Resizable="false">
+            <GridCommandButton Command="Delete" Icon="delete"></GridCommandButton>
+        </GridCommandColumn>
+    </GridColumns>
+</TelerikGrid>
+
+
+@code {
+    List<WeatherForecast> forecasts { get; set; }
+    protected TelerikGrid<WeatherForecast> grid { get; set; }
+    protected string TextAreaValue { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        await GetForecasts();
+    }
+
+    async Task GetForecasts()
+    {
+        forecasts = await ForecastService.GetForecastListAsync(DateTime.Now);
+    }
+
+    public async Task DeleteHandler(GridCommandEventArgs args)
+    {
+        TextAreaValue = "";
+        WeatherForecast currItem = args.Item as WeatherForecast;
+
+        await ForecastService.DeleteForecastAsync(currItem);
+
+        await GetForecasts();
+    }
+    // Note that the "Add Forecast" button must not be in the grid (like the grid header)
+    // If it is, it will be frozen and not clickable.
+    public async Task CreateHandler()
+    {
+        TextAreaValue= ValidateGridState(true); // This will tell the user that there is a data problem with the grid that needs correcting
+        if (TextAreaValue != "") return;
+
+        WeatherForecast currItem = new WeatherForecast();
+
+        await ForecastService.InsertForecastAsync(currItem);
+
+        await GetForecasts();
+    }
+
+    public async Task DiscardHandler()
+    {
+        TextAreaValue = "";
+        var gridState = grid.GetState();
+        if (gridState.EditItem == null) return; // We are not editing anything so nothing to discard
+
+        ValidateGridState(false); // If you try to discard without calling this method, the grid will remain in a locked state
+
+        await ForecastService.DeleteForecastAsync(gridState.OriginalEditItem);
+
+        await GetForecasts();
+    }
+
+    public async Task UpdateHandler(GridCommandEventArgs args)
+    {
+        TextAreaValue = "";
+        WeatherForecast currItem = args.Item as WeatherForecast;
+
+        await ForecastService.UpdateForecastAsync(currItem);
+
+        await GetForecasts();
+    }
+    protected string ValidateGridState(bool isSave) // Change the bool name isSave for your needs
+    {
+        // When you click off a Telerik Grid in in-cell mode, there are cases where current edited cell does not close.
+        // The two cases found thus far are when a cell fails validation via annotations or
+        // when you are using an edit template like a DDL
+        // this behavior with the editor template is documented in the editor template notes
+        // https://docs.telerik.com/blazor-ui/components/grid/editing/incell#editor-template
+        // For the cell validation case, Telerik locks the entire grid until you do something with the cell. Even if you
+        // try to reload the grid on a discard, the grid will remain frozen even though the row/cell in question is gone.
+        //
+        // This function cleans up that mess by restoring the original item when you just want to discard
+        // the current data or returns the data annotation error message on a save.
+        // With this function, you can keep SAVE/DISCARD/CLOSE (or your CRUD functions) active for all grid edit types.
+        // You could also use this approach before loading state into the grid (in OnStateInit) to ensure your users will have
+        // a workable grid even if they left off in an invalid state when they saved their session
+        // In this example the method returns a string that is put in a textarea, you can show it to the user
+        // in any other way, such as with a TelerikNotification or a Telerik alert dialog
+
+        if (grid == null) return "";
+
+        var gridState = grid.GetState();
+        if (gridState.EditItem != null)
+        {
+            if (isSave)
+            {
+                // For the save case, validate the EditItem object
+
+                // This post was very helpful in figuring this out: https://www.c-sharpcorner.com/UploadFile/20c06b/using-data-annotations-to-validate-models-in-net/
+                ICollection<ValidationResult> results = new List<ValidationResult>();
+                if (!Validator.TryValidateObject(gridState.EditItem, new ValidationContext(gridState.EditItem), results, true))
+                {
+                    // Failed validation - should just be one failure since we are doing in-cell editing
+                    return String.Join("", results.Select(o => $"- {o.ErrorMessage}"));
+                }
+            }
+            else
+            {
+                // Discard case - just reset the field with the original value to allow the
+                // grid to be in a good state if the field in question failed validation via annotations
+                var currentDataFields = gridState.EditItem; // Get the row data containing the cell that is being edited
+                var originalDataFields = gridState.OriginalEditItem; // Get the original data
+                var currentDataField = currentDataFields.GetType().GetProperty(gridState.EditField); // EditField is the name of the field we are editing (string name)
+                var originalDataField = originalDataFields.GetType().GetProperty(gridState.EditField);
+                var originalDataValue = originalDataField.GetValue(originalDataFields);
+                currentDataField.SetValue(currentDataFields, originalDataValue); // Reset the current value with the original value
+            }
+        }
+        return "";
+    }
+}

@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <PackageReference Include="bunit.web" Version="1.0.0-preview-01" />
-    <PackageReference Include="bunit.xunit" Version="1.0.0-preview-01" />
     <PackageReference Include="JustMock" Version="2021.1.115.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -24,7 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\testing-sample-app\BUnit_Sample\BUnit_Sample.csproj" />
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="2.21.1" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="2.22.0" />
   </ItemGroup>
 
 </Project>

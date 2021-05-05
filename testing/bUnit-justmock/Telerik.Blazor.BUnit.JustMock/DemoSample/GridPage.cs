@@ -7,16 +7,12 @@ using Xunit;
 
 namespace Telerik.Blazor.BUnit.JustMock
 {
-    public class GridPage
-    {
+    public class GridPage : TelerikTestContext
+    {    
         [Fact]
         public void DetailTemplate_is_rendered()
         {
-            using var ctx = new TelerikTestContext();
-
-            ctx.AddTelerikBlazor();
-
-            var gridPage = ctx.RenderComponent<Grid>();
+            var gridPage = RenderComponent<Grid>();
 
             var grid = gridPage.FindComponent<TelerikGrid<Person>>();
 
@@ -30,11 +26,7 @@ namespace Telerik.Blazor.BUnit.JustMock
         [Fact]
         public void ItemTemplate_is_rendered()
         {
-            using var ctx = new TelerikTestContext();
-
-            ctx.AddTelerikBlazor();
-
-            var gridPage = ctx.RenderComponent<Grid>();
+            var gridPage = RenderComponent<Grid>();
 
             var grid = gridPage.FindComponent<TelerikGrid<Person>>();
 

@@ -5,16 +5,12 @@ using Xunit;
 
 namespace Telerik.Blazor.BUnit.JustMock
 {
-    public class IndexPage
-    {
+    public class IndexPage : TelerikTestContext
+    {    
         [Fact]
         public void Greeting_message_displayed()
         {
-            using var ctx = new TelerikTestContext();
-
-            ctx.AddTelerikBlazor();
-
-            var indexPage = ctx.RenderComponent<Index>();
+            var indexPage = RenderComponent<Index>();
 
             var button = indexPage.Find(".k-button");
 
