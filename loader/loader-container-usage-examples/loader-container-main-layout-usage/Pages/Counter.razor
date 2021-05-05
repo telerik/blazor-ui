@@ -1,0 +1,24 @@
+﻿@page "/counter"
+
+<h2>LoaderContainer in the main layout example №2</h2>
+
+<p>Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="ChangeLoaderVisibility">Click me</button>
+
+@code {
+    int currentCount = 0;
+
+    [CascadingParameter]
+    public Action<bool> ChangeLoaderVisibilityAction { get; set; }
+
+    public async Task ChangeLoaderVisibility()
+    {
+        ChangeLoaderVisibilityAction(true);
+
+        currentCount++;
+        await Task.Delay(1500);
+
+        ChangeLoaderVisibilityAction(false);
+    }
+}

@@ -1,0 +1,39 @@
+﻿@page "/loader-container-in-tabstrip"
+
+<h2>LoaderContainer in individual page example</h2>
+
+@using Telerik.Blazor.Components
+
+<TelerikLoaderContainer Visible="@LoaderVisible" LoaderType="@LoaderType.Pulsing" Size="@LoaderSize.Large"></TelerikLoaderContainer>
+<TelerikTabStrip TabPosition="Telerik.Blazor.TabPosition.Left" @ref="myTabStrip" ActiveTabIndexChanged="@TabChangedHandler">
+    <TabStripTab Title="First">
+        First tab content.
+    </TabStripTab>
+    <TabStripTab Title="Second">
+        Second tab content.
+    </TabStripTab>
+    <TabStripTab Title="Third">
+        Third tab content.
+    </TabStripTab>
+</TelerikTabStrip>
+
+@code {
+    Telerik.Blazor.Components.TelerikTabStrip myTabStrip;
+    public bool LoaderVisible { get; set; }
+    public async Task TabChangedHandler(int newIndex)
+    {
+        if (newIndex != -1)
+        {
+            LoaderVisible = true;
+            StateHasChanged();
+        }
+
+        await Task.Delay(1500);
+
+        if (LoaderVisible == true)
+        {
+            LoaderVisible = false;
+            StateHasChanged();
+        }
+    }
+}
