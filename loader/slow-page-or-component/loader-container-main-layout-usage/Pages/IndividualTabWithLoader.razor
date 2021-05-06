@@ -1,0 +1,29 @@
+﻿
+<div style="position: relative; min-height: 300px;">
+    <h3>Tab @Id</h3>
+
+    <TelerikLoaderContainer Visible="@LoaderVisible" />
+
+    <p>@result</p>
+
+</div>
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    bool LoaderVisible { get; set; }
+
+    string result { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        LoaderVisible = true;
+        await InvokeAsync(StateHasChanged);
+
+        await Task.Delay(3000); // fetch real data
+
+        result = $"Data loaded for tab {Id} at {DateTime.Now.Second}";
+
+        LoaderVisible = false;
+    }
+}
