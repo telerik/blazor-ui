@@ -1,0 +1,33 @@
+﻿@layout TelerikLayout
+@inherits LayoutComponentBase
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <div class="main">
+        <div class="top-row px-4">
+            <a href="https://docs.microsoft.com/en-us/aspnet/" target="_blank">About</a>
+        </div>
+
+        <TelerikLoaderContainer Visible="@LoaderVisible" LoaderType="@LoaderType.ConvergingSpinner" Size="@LoaderSize.Large"></TelerikLoaderContainer>
+
+        <CascadingValue Value="@ChangeLoaderVisibility" TValue="Action<bool>">
+            <div class="content px-4">
+                @Body
+            </div>
+        </CascadingValue>
+
+    </div>
+</div>
+@code {
+    // show and hide the shared loading sign from all pages
+    bool LoaderVisible { get; set; }
+
+    public void ChangeLoaderVisibility(bool visible)
+    {
+        LoaderVisible = visible;
+        StateHasChanged();
+    }
+}

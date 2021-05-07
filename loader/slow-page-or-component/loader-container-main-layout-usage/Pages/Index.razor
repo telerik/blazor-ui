@@ -1,0 +1,20 @@
+﻿@page "/"
+
+<h2>LoaderContainer in the main layout example</h2>
+
+<TelerikButton OnClick="@ChangeLoaderVisibility">Show Loader</TelerikButton>
+
+@code {
+    [CascadingParameter]
+    public Action<bool> ChangeLoaderVisibilityAction { get; set; }
+
+    public async Task ChangeLoaderVisibility()
+    {
+        ChangeLoaderVisibilityAction(true);
+
+        // do some work
+        await Task.Delay(3000);
+
+        ChangeLoaderVisibilityAction(false);
+    }
+} 
