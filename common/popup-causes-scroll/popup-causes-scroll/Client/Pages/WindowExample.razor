@@ -1,0 +1,25 @@
+﻿<div style="margin: 50px;">
+    <TelerikButton OnClick="@( () => WindowIsVisible = !WindowIsVisible )"
+                   ButtonType="@ButtonType.Button" Primary="true">
+        Toggle window
+    </TelerikButton>
+</div>
+
+<TelerikWindow @bind-Visible="@WindowIsVisible" Modal="false" Height="400px" Width="600px">
+    <WindowTitle>
+        <strong>The Title</strong>
+    </WindowTitle>
+    <WindowContent>
+        <p>I should not change the scroll position of the content. If the page scroll is not setup correctly, I can, however.</p>
+        <Explanation />
+    </WindowContent>
+    <WindowActions>
+        <WindowAction Name="Minimize"></WindowAction>
+        <WindowAction Name="Maximize"></WindowAction>
+        <WindowAction Name="Close"></WindowAction>
+    </WindowActions>
+</TelerikWindow>
+
+@code {
+    bool WindowIsVisible { get; set; }
+}

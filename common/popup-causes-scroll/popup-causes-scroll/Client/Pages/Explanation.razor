@@ -1,0 +1,13 @@
+﻿<p>
+    The behavior stems from the place of rendering of the popup in the DOM, which element is scrollable, and
+    which element is focused. The Telerik popups have a default focus which is essential for accessibility and UX
+    and browsers try to <code>scrollIntoView()</code> the focused element. That focused element is now in the popup
+    and the browser does not correctly estimate where and what to scroll, and does not take into account the
+    <code>position: absolute</code> that the popup has, so it usually scrolls to the top of the content.
+</p>
+<p>
+    The solution is to control what can be scrolled and to ensure that the parent elements of the popups match the browser viewport
+    and also match the scrollable container. In this layout, the <code>.content</code> element is the container that should get
+    scrollbars because it holds the actual app content. So, with a bit of CSS we can make all its parent elements match the viewport
+    size and height, so that the browser will not scroll when an absolutely positioned element gets focus.
+</p>
