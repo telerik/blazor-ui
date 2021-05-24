@@ -1,0 +1,72 @@
+﻿
+<div id="context-menu-target"
+     style="width:200px; height: 100px; background: yellow; margin-bottom: 50px;">
+    Right click (or tap-and-hold on a touch device) for a context menu.
+</div>
+
+<div class="alert alert-info">This context menu behavior is likely to manifest only the first time, and only on slow performing scenarios (like WebAssembly or laggy server-side connection).</div>
+
+<TelerikContextMenu Selector="#context-menu-target" Data="@MenuItems"
+                    TextField="Text" SeparatorField="Separator" IconField="Icon"
+                    OnClick="@( (ContextMenuItem itm) => ClickHandler(itm) )">
+</TelerikContextMenu>
+
+@code {
+    List<ContextMenuItem> MenuItems { get; set; }
+
+    async Task ClickHandler(ContextMenuItem clickedItem)
+    {
+        if (!string.IsNullOrEmpty(clickedItem.CommandName))
+        {
+            Console.WriteLine($"The programm will now perform the {clickedItem.CommandName} operation");
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+
+        MenuItems = new List<ContextMenuItem>()
+        {
+            new ContextMenuItem
+            {
+                Text = "More Info",
+                Icon = "information",
+                CommandName = "info"
+            },
+            new ContextMenuItem
+            {
+                Separator = true
+            },
+            new ContextMenuItem
+            {
+                Text = "Advanced",
+                Items = new List<ContextMenuItem>()
+                {
+                    new ContextMenuItem
+                    {
+                        Text = "Delete",
+                        Icon = "delete",
+                        CommandName = "delete"
+                    },
+                    new ContextMenuItem
+                    {
+                        Text = "Report",
+                        Icon = "cancel",
+                        CommandName = "report"
+                    }
+                }
+            }
+        };
+
+        base.OnInitialized();
+    }
+
+    public class ContextMenuItem
+    {
+        public string Text { get; set; }
+        public string CommandName { get; set; }
+        public string Icon { get; set; }
+        public bool Separator { get; set; }
+        public List<ContextMenuItem> Items { get; set; }
+    }
+}
