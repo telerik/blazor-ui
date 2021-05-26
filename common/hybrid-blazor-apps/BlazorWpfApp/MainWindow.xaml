@@ -9,8 +9,7 @@
         Title="MainWindow" Width="1000" Height="1024">
     <DockPanel>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Background="CadetBlue">
-            <Label>This is a native WPF app running a Blazor Web app</Label>
-            <Button Click="Button_Click" Margin="4" Padding="4">Check counter</Button>
+            <Label>This app shows Telerik UI for Blazor in a native WPF app.</Label>
         </StackPanel>
 
         <blazor:BlazorWebView HostPage="wwwroot\index.html" Services="{StaticResource services}">

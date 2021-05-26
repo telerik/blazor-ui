@@ -26,14 +26,6 @@ namespace BlazorWpfApp
 
             InitializeComponent();
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show(
-                owner: this,
-                messageBoxText: $"Current counter value is: {_appState.Counter}",
-                caption: "Counter");
-        }
     }
 
     // Workaround for compiler error "error MC3050: Cannot find the type 'local:Main'"

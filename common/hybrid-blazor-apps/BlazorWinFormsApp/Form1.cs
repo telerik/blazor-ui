@@ -23,13 +23,5 @@ namespace BlazorWinFormsApp
             blazorWebView1.Services = serviceCollection.BuildServiceProvider();
             blazorWebView1.RootComponents.Add<Main>("#app");
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(
-                owner: this,
-                text: $"Current counter value is: {_appState.Counter}",
-                caption: "Counter");
-        }
     }
 }
