@@ -1,0 +1,19 @@
+﻿@page "/other"
+
+@* NOTE: The full namespace for other proejcts and native code is included here to work around this bug: https://github.com/dotnet/aspnetcore/issues/30851 *@
+@using WebviewAppShared
+
+@inject NavigationManager NavigationManager
+
+Here is another page. Looks like navigation works.
+
+<button @onclick="BackToHome">Navigate back programmatically</button>
+
+<SharedComponent />
+
+@code {
+    void BackToHome()
+    {
+        NavigationManager.NavigateTo("");
+    }
+}

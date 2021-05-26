@@ -1,0 +1,22 @@
+<Window x:Class="BlazorWpfApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BlazorWpfApp"
+        xmlns:blazor="clr-namespace:Microsoft.AspNetCore.Components.WebView.Wpf;assembly=Microsoft.AspNetCore.Components.WebView.Wpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Width="1000" Height="1024">
+    <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Background="CadetBlue">
+            <Label>This is a native WPF app running a Blazor Web app</Label>
+            <Button Click="Button_Click" Margin="4" Padding="4">Check counter</Button>
+        </StackPanel>
+
+        <blazor:BlazorWebView HostPage="wwwroot\index.html" Services="{StaticResource services}">
+            <blazor:BlazorWebView.RootComponents>
+                <blazor:RootComponent Selector="#app" ComponentType="{x:Type local:Main}" />
+            </blazor:BlazorWebView.RootComponents>
+        </blazor:BlazorWebView>
+    </DockPanel>
+</Window>

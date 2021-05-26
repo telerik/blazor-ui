@@ -1,0 +1,16 @@
+﻿@page "/counter"
+
+@inject AppState appState
+
+<button @onclick="@IncrementCount">Increment count</button>
+
+<br />
+
+Current count is @appState.Counter
+
+@code{
+    void IncrementCount()
+    {
+        appState.Counter++;
+    }
+}

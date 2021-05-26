@@ -1,0 +1,17 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+
+@namespace WebviewAppShared
+
+<h1>Counter</h1>
+
+<p>The current count is: @currentCount</p>
+<button @onclick="IncrementCount">Count</button>
+
+@code {
+    int currentCount = 1;
+
+    void IncrementCount()
+    {
+        currentCount++;
+    }
+}
