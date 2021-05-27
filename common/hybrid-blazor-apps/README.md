@@ -1,8 +1,8 @@
-# Hybrid Blazor Apps
+# Hybrid Blazor Apps (Blazor Web apps running in WinForms, WPF, MAUI)
 
 With .NET 6 Previews an exciting new feature became available - `WebView` for native apps that is dedicated to running Blazor Web applications.
 
-The samples in this project showcase Telerik UI for Blazor web components running in this hybrid scenarios inside native WPF and WinForms apps.
+The samples in this project showcase Telerik UI for Blazor web components running in this hybrid scenarios inside native MAUI, WPF and WinForms apps.
 
 ## Key Points
 
@@ -19,9 +19,17 @@ These sample apps contain just a few commonly used Telerik components such as a 
 
 1. Install [.NET 6.0 Preview 4](https://devblogs.microsoft.com/aspnet/asp-net-core-updates-in-net-6-preview-4/).
     * Note: It requires <a href="http://visualstudio.com/preview" target="_blank">Visual Studio Preview for Windows</a> or <a href="https://docs.microsoft.com/visualstudio/releasenotes/vs2019-mac-preview-relnotes" target="_blank">for Mac</a>.
-2. Install [WebView](https://devblogs.microsoft.com/aspnet/asp-net-core-updates-in-net-6-preview-3/#blazorwebview-controls-for-wpf-windows-forms).
-3. Make sure you have WinForms/WPF/etc. installed.
-    * Note: they usually come as workloads through the Visual Studio installer, if you have not activated them previously go to the VS Installer and add them.
-4. Make sure you have the latest Telerik UI for Blazor version (2.24.0) in [your nuget feed](https://docs.telerik.com/blazor-ui/installation/nuget).
-5. Run an app - either the WinForms, or WPF one.
+1. Install [WebView](https://devblogs.microsoft.com/aspnet/asp-net-core-updates-in-net-6-preview-3/#blazorwebview-controls-for-wpf-windows-forms).
+1. Make sure you have WinForms/WPF/MAUI/etc. installed.
+    * Note: WPF usually come as workloads through the Visual Studio installer, if you have not activated it previously go to the VS Installer and add them.
+    * Note: For MAUI installation, follow the instructions in the official [blog post](https://devblogs.microsoft.com/aspnet/asp-net-core-updates-in-net-6-preview-4/#net-maui-blazor-apps)
+1. Make sure you have the latest Telerik UI for Blazor version (2.24.0) in [your nuget feed](https://docs.telerik.com/blazor-ui/installation/nuget).
+1. Run a WinForms/WPF/MAUI app
+    * Note: For the MAUI app, follow the instructions for how to run on [Windows](https://devblogs.microsoft.com/aspnet/asp-net-core-updates-in-net-6-preview-4/#windows)
+
+## Known issues
+
+1. Running MAUI apps might require developer mode to be [enabled](https://stackoverflow.com/questions/36324300/ensure-that-target-device-has-developer-mode-enabled-could-not-obtain-a-develop)
+1. iOS apps are not runnable on Windows - see the [blog post](https://devblogs.microsoft.com/aspnet/asp-net-core-updates-in-net-6-preview-4/#ios-and-mac-catalyst)
+> You can’t currently run the app for iOS or Mac Catalyst from a Windows development environment,
 
