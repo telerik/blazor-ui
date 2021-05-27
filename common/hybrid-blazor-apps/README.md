@@ -25,9 +25,3 @@ These sample apps contain just a few commonly used Telerik components such as a 
 4. Make sure you have the latest Telerik UI for Blazor version (2.24.0) in [your nuget feed](https://docs.telerik.com/blazor-ui/installation/nuget).
 5. Run an app - either the WinForms, or WPF one.
 
-
-## Known Issues
-
-* The Blazor WebViews seem to throw exceptions about a disposed rendered when the `Trial` version of Telerik components is used. The Commercial version seems to work fine. Considering that `.NET 6 Preview4` (the current target of this sample) this is an early preview of .NET 6, this is a problem we would investigate if it remains in the official .NET 6 version.
-
-

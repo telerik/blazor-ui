@@ -11,10 +11,6 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Components.WebView.WindowsForms" Version="6.0.0-preview.4.21253.5" />
 
-        <!-- the trial version throws an error - disposed renderer - this could be investigated after the official framework is released in case MS fix it-->
-        <!--<PackageReference Include="Telerik.UI.for.Blazor.Trial" Version="2.24.0" />-->
-
-        <!-- the commercial version works as expected -->
         <PackageReference Include="Telerik.UI.for.Blazor" Version="2.24.0" />
     </ItemGroup>
 
