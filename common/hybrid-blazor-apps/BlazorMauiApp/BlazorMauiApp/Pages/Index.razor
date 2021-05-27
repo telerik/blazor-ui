@@ -1,0 +1,159 @@
+﻿@page "/"
+
+@* NOTE: The full namespace for other proejcts and native code is included here to work around this bug: https://github.com/dotnet/aspnetcore/issues/30851 *@
+@inject BlazorMauiApp.AppState AppState
+
+<h1>
+    <a href="https://www.telerik.com/blazor-ui" target="_blank">Telerik UI for Blazor</a>
+    running in a native MAUI app!
+</h1>
+
+<h3>Grid</h3>
+
+<TelerikGrid Data="@GridData"
+             Pageable="true"
+             PageSize="10"
+             Reorderable="true"
+             Groupable="true"
+             Height="400px"
+             Sortable="true"
+             Resizable="true"
+             FilterMode="@GridFilterMode.FilterRow">
+    <GridColumns>
+        <GridColumn Field="@nameof(Product.ProductId)" />
+        <GridColumn Field="@nameof(Product.ProductName)" />
+        <GridColumn Field="@nameof(Product.UnitsInStock)" />
+        <GridColumn Field="@nameof(Product.UnitPrice)" />
+        <GridColumn Field="@nameof(Product.CreatedAt)" />
+        <GridColumn Field="@nameof(Product.Discontinued)" />
+    </GridColumns>
+</TelerikGrid>
+
+<h3>Button</h3>
+
+<TelerikButton OnClick="@OnClick" Primary="true" Icon="plus">Click me</TelerikButton>
+
+<div>
+    The button was clicked @(AppState.Counter) times.
+</div>
+
+<h3>DatePicker</h3>
+<div>
+    <TelerikDatePicker Min="@Min" Max="@Max" @bind-Value="@SelectedDate"></TelerikDatePicker>
+
+    <div>Selected date: @SelectedDate</div>
+</div>
+
+<h3>Chart</h3>
+
+<TelerikChart Width="600px" Height="300px">
+    <ChartSeriesItems>
+        <ChartSeries Type="ChartSeriesType.Column"
+                     Name="Product 1"
+                     Data="@ChartSeries1Data"
+                     Field="@nameof(ChartSeriesData.Product1Sales)"
+                     CategoryField="@nameof(ChartSeriesData.Year)">
+        </ChartSeries>
+
+        <ChartSeries Type="ChartSeriesType.Column"
+                     Name="Product 2"
+                     Data="@ChartSeries2Data"
+                     Field="@nameof(ChartSeriesData.Product1Sales)"
+                     CategoryField="@nameof(ChartSeriesData.Year)">
+        </ChartSeries>
+    </ChartSeriesItems>
+    <ChartTooltip Visible="true" Shared="true">
+    </ChartTooltip>
+    <ChartCategoryAxes>
+        <ChartCategoryAxis>
+            <ChartCategoryAxisLabels Format="{0:dd MMM yyyy}" />
+        </ChartCategoryAxis>
+    </ChartCategoryAxes>
+</TelerikChart>
+
+@code {
+    public DateTime Min = new DateTime(2000, 1, 1);
+    public DateTime Max = new DateTime(2050, 12, 31);
+    public DateTime? SelectedDate;
+
+    public List<Product> GridData { get; set; }
+
+    List<ChartSeriesData> ChartSeries1Data { get; set; } = new List<ChartSeriesData>();
+    List<ChartSeriesData> ChartSeries2Data { get; set; } = new List<ChartSeriesData>();
+
+    protected override void OnInitialized()
+    {
+        GridData = GetProductData();
+        ChartSeries1Data = GetSeriesData();
+        ChartSeries2Data = GetSeriesData();
+    }
+
+    private List<Product> GetProductData(int count = 100)
+    {
+        var products = new List<Product>();
+
+        for (var i = 1; i <= count; i++)
+        {
+            var product = new Product()
+            {
+                ProductId = i,
+                ProductName = "Product" + i.ToString(),
+                UnitPrice = (decimal)(i * 3.14),
+                UnitsInStock = (short)((i * 1) % 9),
+                Discontinued = i % 3 == 0,
+                CreatedAt = new DateTime(2019, 1 + (i % 12), 1 + (i % 29))
+            };
+
+            products.Add(product);
+        }
+
+        return products;
+    }
+
+    public static List<ChartSeriesData> GetSeriesData()
+    {
+        List<ChartSeriesData> data = new List<ChartSeriesData>();
+
+        for (int i = 1; i <= 3; i++)
+        {
+            var dataItem = new ChartSeriesData
+            {
+                Product1Sales = i,
+                Product2Sales = i + 1.123,
+                Year = new DateTime(2000 + i, 3, i),
+                SegmentName = $"{i * 100}"
+            };
+
+            data.Add(dataItem);
+        }
+
+        return data;
+    }
+
+    public void OnClick()
+    {
+        AppState.Counter++;
+    }
+
+    public class Product
+    {
+        public Product()
+        {
+        }
+
+        public int ProductId { get; set; }
+        public string ProductName { get; set; }
+        public decimal? UnitPrice { get; set; }
+        public short? UnitsInStock { get; set; }
+        public bool Discontinued { get; set; }
+        public DateTime? CreatedAt { get; set; }
+    }
+
+    public class ChartSeriesData
+    {
+        public int Product1Sales { get; set; }
+        public double Product2Sales { get; set; }
+        public DateTime Year { get; set; }
+        public string SegmentName { get; set; }
+    }
+}
