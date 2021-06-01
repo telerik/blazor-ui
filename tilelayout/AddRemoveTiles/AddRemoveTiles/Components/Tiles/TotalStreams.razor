@@ -1,0 +1,14 @@
+﻿@using AddRemoveTiles.Services
+
+@inject DashboardDataService DataService
+
+<h2>@Streams.ToString("N0")</h2>
+
+@code{
+    int Streams { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        Streams = await DataService.GetStreams();
+    }
+}
+

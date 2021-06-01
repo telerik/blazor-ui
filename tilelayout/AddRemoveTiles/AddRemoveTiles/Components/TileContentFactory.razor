@@ -1,0 +1,39 @@
+﻿@using AddRemoveTiles.Components.Tiles
+@using AddRemoveTiles.Models
+
+@switch (TileContent)
+{
+    case "TotalStreams":
+        <TotalStreams></TotalStreams>
+        break;
+    case "TotalDownloads":
+        <TotalDownloads></TotalDownloads>
+        break;
+    case "TotalReach":
+        <TotalReach></TotalReach>
+        break;
+    case "TotalRevenue":
+        <TotalRevenue></TotalRevenue>
+        break;
+    case "WeeklyRecap":
+        <WeeklyRecap Podcasts="@Podcasts"></WeeklyRecap>
+        break;
+    case "PerformanceTrend":
+        <PerformanceTrend Podcasts="@Podcasts"></PerformanceTrend>
+        break;
+    case "TopEpisodes":
+        <TopEpisodes Podcasts="@Podcasts"></TopEpisodes>
+        break;
+    
+    default:
+        break;
+}
+
+
+@code {
+    [Parameter]
+    public string TileContent { get; set; }
+
+    [Parameter]
+    public IEnumerable<PodcastViewModel> Podcasts { get; set; }
+}
