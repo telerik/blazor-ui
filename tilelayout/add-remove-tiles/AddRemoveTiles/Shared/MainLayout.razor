@@ -1,0 +1,22 @@
+﻿@layout TelerikLayout
+
+@inherits LayoutComponentBase
+
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <NavLink class="navbar-brand" href="/">AddRemoveTiles</NavLink>
+        </div>
+    </nav>
+</header>
+<div>
+    <main role="main" class="pb-3">
+        @Body
+    </main>
+</div>
+
+<footer class="border-top footer text-muted">
+    <div class="container">
+        &copy; @DateTime.Now.Year - AddRemoveTiles
+    </div>
+</footer>

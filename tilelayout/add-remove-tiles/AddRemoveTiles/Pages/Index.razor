@@ -1,0 +1,107 @@
+﻿@page "/"
+
+@using AddRemoveTiles.Models
+@using AddRemoveTiles.Services
+@using AddRemoveTiles.Components
+@using AddRemoveTiles.Components.Tiles
+
+@inject DashboardDataService DataService
+@inject TilesDataService TilesData
+
+<TelerikSplitter Orientation="@SplitterOrientation.Horizontal">
+    <SplitterPanes>
+        @* Dashboard Tiles *@
+        <SplitterPane>
+            <TelerikTileLayout Columns="4"
+                               RowHeight="145px"
+                               ColumnWidth="350px"
+                               RowSpacing="1em"
+                               ColumnSpacing="1em"
+                               Reorderable="true"
+                               Resizable="true"
+                               OnResize="@ResizeCharts">
+                <TileLayoutItems>
+                        @{
+                            foreach (var item in TileItems)
+                            {
+                                if (item.Visible)
+                                {
+                                    <TileLayoutItem @key="@item" RowSpan="@item.RowSpan" ColSpan="@item.Colspan">
+                                        <HeaderTemplate>
+                                            <div class="k-hbox" style="justify-content: space-between">
+                                                <span>
+                                                    @item.Title
+                                                </span>
+                                                <span>
+                                                    <TelerikButton Icon="close" Title="Delete tile" Class="k-flat" OnClick="@(() => Remove(item))"></TelerikButton>
+                                                </span>
+                                            </div>
+                                        </HeaderTemplate>
+                                        <Content>
+                                            <CascadingValue Value="@ResizeContext" IsFixed="true">
+                                                <TileContentFactory TileContent="@item.Content"
+                                                                    Podcasts="@Podcasts">
+                                                </TileContentFactory>
+                                            </CascadingValue>
+                                        </Content>
+                                    </TileLayoutItem>
+                                }
+                            }
+                        }
+                </TileLayoutItems>
+            </TelerikTileLayout>
+        </SplitterPane>
+
+        @* Tiles to add *@
+        <SplitterPane Resizable="false" Size="250px">
+
+            <div class="k-card-list" style="background-color: #D3D3D3; border-left: 2px solid #BCBCBC; padding:10px;">
+                @foreach (var item in TileItems)
+                {
+                    <TelerikCard ThemeColor="@(item.Visible? "secondary" : "light")">
+                        <CardHeader>
+                            <CardTitle>@item.Title</CardTitle>
+                        </CardHeader>
+                        <CardActions Layout="@CardActionsLayout.Stretched">
+                            <TelerikButton Icon="plus" Title="Add tile" Enabled="!item.Visible" Class="k-flat" OnClick="@(() => Add(item))">Add</TelerikButton>
+                        </CardActions>
+                    </TelerikCard>
+                }
+            </div>
+        </SplitterPane>
+
+    </SplitterPanes>
+</TelerikSplitter>
+
+@code {
+    public IEnumerable<PodcastViewModel> Podcasts { get; set; }
+
+    public List<TileItem> TileItems { get; set; }
+
+    public ResizeContext ResizeContext { get; set; } = new ResizeContext();
+
+    protected override async Task OnInitializedAsync()
+    {
+        TileItems = await TilesData.GetTilesDataAsync();
+
+        Podcasts = await DataService.GetPodcasts();
+
+        base.OnInitialized();
+    }
+
+    void ResizeCharts()
+    {
+        ResizeContext.NotifyResizeInvoked();
+    }
+
+    private void Add(TileItem item)
+    {
+        item.Visible = true;        
+    }
+
+    private void Remove(TileItem item)
+    {
+        item.Visible = false;
+    }
+
+}

@@ -1,0 +1,13 @@
+﻿@using AddRemoveTiles.Services
+
+@inject DashboardDataService DataService
+
+<h2>@Revenue.ToString("C0")</h2>
+
+@code{
+    double Revenue { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        Revenue = await DataService.GetRevenue();
+    }
+}
