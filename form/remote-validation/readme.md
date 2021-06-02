@@ -1,0 +1,28 @@
+# Remote (server, async) Validation upon Input in Form
+
+The samples in this folder showcase how you can use remote validation on the server to prevent inputs when they don't satisfy certain conditions that cannot be implemented through the standard `DataAnnotation` validation.
+
+## The General Concept
+
+In a real situation, the server validation may fail, the server may have a general error, be unavailable, or the client may be disconnected and HTTP requests to your WebAPI may fail. In such cases, you should notify the user that the operation failed and it needs to fix the input so that it passes.
+
+Handling the errors as appropriate for your application.
+
+## Sample Details
+
+In this sample, the WebAPI backend does not allow when a client chooses Defense classification to leave the Description field empty, in any other case the Description field is not required.
+
+The example shows how you can throw exceptions in the WebAPI backend with meaningful information, send those meaningful instructions/errors to the client where they can bubble up and be shown to the user.
+
+The core concept is to return a status code higher than 400 to indicate an error, and to ensure the messages are meaningful to the human that will read them.
+
+You can read more about the general concepts of handling WebAPI errors in articles like the following ones:
+
+* <a href="https://docs.microsoft.com/en-us/aspnet/core/web-api/handle-errors?view=aspnetcore-3.1" target="_blank">MSDN: Handle WebAPI Errors</a>
+
+* <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/forms-validation?view=aspnetcore-3.1#server-validation" target="_blank">MSDN: Blazor Server Validation</a>
+
+* <a href="https://www.devtrends.co.uk/blog/handling-errors-in-asp.net-core-web-api" target="_blank">Handling Errors in ASP.NET Core WebAPI by devtrends.co.uk</a>
+
+Of course, a similar approach can be used in a server-side Blazor app. The example's purpose is to show one way to fill the input in the form with real data and to prevent data submission when errors occur.
+
