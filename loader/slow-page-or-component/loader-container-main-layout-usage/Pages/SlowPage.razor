@@ -1,0 +1,25 @@
+﻿@page "/slow-page"
+
+<h2>LoaderContainer during page load</h2>
+
+Nothing really renders here in this example, it just showcases the concept.
+
+<p>rendered at: @DateTime.Now.Second seconds</p>
+
+@code {
+    [CascadingParameter]
+    public Action<bool> ChangeLoaderVisibilityAction { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        ChangeLoaderVisibilityAction(true);
+
+        await Task.Delay(3000); // do slow async work
+
+        // you could use events like OnParametersSetAsync to show/hide the loading sign too
+        // which can be useful for individual coponents that need to load data based on changing parameters
+        // see the tab strip page for examples of this - it uses a dedicated loader but you can combine the approaches
+
+       ChangeLoaderVisibilityAction(false);
+    }
+}
