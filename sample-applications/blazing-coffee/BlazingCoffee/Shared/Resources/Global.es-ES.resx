@@ -246,4 +246,22 @@
   <data name="MainLayout_Documentation" xml:space="preserve">
     <value>Documentación</value>
   </data>
+  <data name="ManageProducts_Create_Success" xml:space="preserve">
+    <value>Se agregó el producto {0}.</value>
+  </data>
+  <data name="ManageProducts_Delete_Success" xml:space="preserve">
+    <value>Se eliminó el producto {0}.</value>
+  </data>
+  <data name="DatabaseConnectionError" xml:space="preserve">
+    <value>Hubo un error al conectarse a la base de datos.!</value>
+  </data>
+  <data name="ConfirmDialog_AreYouSure" xml:space="preserve">
+    <value>¿Está seguro?</value>
+  </data>
+  <data name="ManageProducts_ConfirmDelete" xml:space="preserve">
+    <value>Estás a punto de eliminar {0} de forma permanente.</value>
+  </data>
+  <data name="ManageProducts_Update_Success" xml:space="preserve">
+    <value>El producto {0} ha sido actualizado</value>
+  </data>
 </root>

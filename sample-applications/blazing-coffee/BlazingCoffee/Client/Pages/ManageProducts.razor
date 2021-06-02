@@ -1,19 +1,34 @@
 ﻿@inherits CoffeeComponentBase
 @page "/manage-products"
-@inject HttpClient Http
-@inject NavigationManager NavigationManager
+
+<TelerikNotification @ref="@CrudNotification" Class="crud-notification"
+                     VerticalPosition="NotificationVerticalPosition.Top" />
+
+<TelerikLoaderContainer Visible="isLoading" LoaderPosition="@LoaderPosition.End" />
 
 <CardContainer Title="@L["ManageProducts"]">
-    @if (Products != null)
+    @if (hasErrors)
+    {
+        // TODO: Replace with cards in next release
+        <Card Title="Error">
+            <CardContent>
+                <p>@L["DatabaseConnectionError"]</p>
+            </CardContent>
+            <ActionTemplate>
+                <TelerikButton OnClick="LoadData" Class="k-primary">Retry</TelerikButton>
+            </ActionTemplate>
+        </Card>
+    }
+    else
     {
         <TelerikGrid Data="Products" Groupable="true" EditMode="GridEditMode.Popup"
                      Sortable="true" Pageable="true" PageSize="10"
-                     OnUpdate=@UpdateItem OnDelete=@DeleteItem OnCreate=@CreateItem>
+                     OnEdit="LoadGroups" OnUpdate="UpdateItem" OnDelete="DeleteItem" OnCreate="CreateItem">
             <GridToolBar>
-                <GridCommandButton Command="ToggleId" OnClick="@(()=>isIdVisible = !isIdVisible)" Icon="parameter-integer">@L["Toggle_Id"]</GridCommandButton>
-                <GridCommandButton Command="Add" Icon="add" Class="k-primary">@L["ManageProducts_AddProduct"]</GridCommandButton>
+                <GridCommandButton Command="ToggleId" OnClick="(() => isIdVisible = !isIdVisible)" Icon="parameter-integer">@L["Toggle_Id"]</GridCommandButton>
+                <GridCommandButton Command="Add" OnClick="LoadGroups" Icon="add" Class="k-primary">@L["ManageProducts_AddProduct"]</GridCommandButton>
                 <span class="k-spacer"></span>
-                <GridSearchBox DebounceDelay="200"></GridSearchBox>
+                <GridSearchBox DebounceDelay="400"></GridSearchBox>
             </GridToolBar>
             <GridColumns>
 
@@ -47,33 +62,33 @@
                 <GridColumn Field="@nameof(Product.NutritionFileName)" Width="150px" Title="@L["Nutrition Info."]">
                     <Template>
                         @{
-                            var prod = (Product)context;
-                            if (string.IsNullOrEmpty(prod.NutritionFileName))
-                            {
+                                var prod = (Product)context;
+                                if (string.IsNullOrEmpty(prod.NutritionFileName))
+                                {
                                 <span>@L["NotAvailable"]</span>
-                            }
-                            else
-                            {
-                                <span>@prod.NutritionFileName<TelerikIcon Icon="@IconName.FilePdf"></TelerikIcon></span>
-                            }
+                                }
+                                else
+                                {
+                                <span>@prod.NutritionFileName<TelerikIcon Icon="file-pdf"></TelerikIcon></span>
+                                }
                         }
                     </Template>
                     <EditorTemplate>
                         @{
-                            var prod = (Product)context;
-                            if (prod.Id == 0)
-                            {
+                                var prod = (Product)context;
+                                if (prod.Id == 0)
+                                {
                                 <span>@L["Product_Upload_SaveDialog"]</span>
-                            }
-                            else
-                            {
+                                }
+                                else
+                                {
                                 <TelerikUpload AllowedExtensions="AllowedExtensions"
                                                SaveUrl="@SaveUrl"
                                                Multiple="false"
-                                               OnUpload="@((e) => OnUploadHandler(e, prod.Id))"
-                                               OnSuccess="@((_) => OnSuccessHandler(prod))">
+                                               OnUpload="((e) => OnUploadHandler(e, prod.Id))"
+                                               OnSuccess="((_) => OnSuccessHandler(prod))">
                                 </TelerikUpload>
-                            }
+                                }
                         }
                     </EditorTemplate>
                 </GridColumn>
@@ -81,86 +96,9 @@
                     <GridCommandButton Command="Edit" Icon="edit" Class="k-primary">@L["Grid_Edit"]</GridCommandButton>
                     <GridCommandButton Command="Save" Icon="save" Class="k-primary" ShowInEdit="true">@L["Grid_Update"]</GridCommandButton>
                     <GridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true">@L["Grid_Cancel"]</GridCommandButton>
-                    <GridCommandButton Command="Delete" Icon="delete" ShowInEdit="false">@L["Grid_Delete"]</GridCommandButton>
+                    <GridCommandButton Command="Delete" OnClick="ShowConfirmationDialog" Icon="delete" ShowInEdit="false">@L["Grid_Delete"]</GridCommandButton>
                 </GridCommandColumn>
             </GridColumns>
         </TelerikGrid>
     }
 </CardContainer>
-
-@code {
-
-    #region Grid Operations
-    bool isIdVisible = false;
-    ObservableCollection<Product> Products { get; set; }
-    IEnumerable<string> Groups { get; set; }
-
-    protected override void OnInitialized()
-    {
-        Layout.DocsTitle = L["ManageProducts"];
-
-        base.OnInitialized();
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        var data = await Http.GetFromJsonAsync<Product[]>("api/products");
-        Groups = await Http.GetFromJsonAsync<IEnumerable<string>>("api/products/groups");
-        Products = new ObservableCollection<Product>(data);
-    }
-
-    async Task CreateItem(GridCommandEventArgs args)
-    {
-        var argsItem = (Product)args.Item;
-        var httpResponseMessage = await Http.PostAsJsonAsync<Product>($"api/products/", argsItem);
-        if (httpResponseMessage.IsSuccessStatusCode)
-        {
-            var newItem = await httpResponseMessage.Content.ReadFromJsonAsync<Product>();
-            Products.Insert(0, newItem);
-        }
-    }
-
-    async Task DeleteItem(GridCommandEventArgs args)
-    {
-        var argsItem = (Product)args.Item;
-        var httpResponseMessage = await Http.DeleteAsync($"api/products/{argsItem.Id}");
-        if (httpResponseMessage.IsSuccessStatusCode)
-        {
-            Products.Remove(argsItem);
-        }
-    }
-
-    async Task UpdateItem(GridCommandEventArgs args)
-    {
-        var argsItem = (Product)args.Item;
-        var httpResponseMessage = await Http.PutAsJsonAsync<Product>($"api/products/{argsItem.Id}", argsItem);
-        if (httpResponseMessage.IsSuccessStatusCode)
-        {
-            var productToUpdate = Products.First(p => p.Id == argsItem.Id);
-            productToUpdate.Cost = argsItem.Cost;
-            productToUpdate.Sku = argsItem.Sku;
-            productToUpdate.Group = argsItem.Group;
-        }
-    }
-    #endregion
-
-    #region File Upload
-
-    List<string> AllowedExtensions => new List<string> { ".pdf" };
-    public string SaveUrl => $"{NavigationManager.BaseUri}api/products/addfile";
-
-    async Task OnUploadHandler(UploadEventArgs e, int productId)
-    {
-        e.RequestData.Add("productId", productId);
-    }
-
-    async Task OnSuccessHandler(Product product)
-    {
-        // After the file uploads, get the new file name from the server and update the grid item
-        product = await Http.GetFromJsonAsync<Product>($"api/products/{product.Id}");
-        Products.First(p => p.Id == product.Id).NutritionFileName = product.NutritionFileName;
-    }
-
-    #endregion
-
-}

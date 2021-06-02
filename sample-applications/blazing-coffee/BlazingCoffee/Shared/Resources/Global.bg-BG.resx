@@ -246,4 +246,22 @@
   <data name="MainLayout_Documentation" xml:space="preserve">
     <value>Документация</value>
   </data>
+  <data name="ManageProducts_Create_Success" xml:space="preserve">
+    <value>Продуктът {0} беше добавен.</value>
+  </data>
+  <data name="ManageProducts_Delete_Success" xml:space="preserve">
+    <value>Продуктът {0} беше изтрит.</value>
+  </data>
+  <data name="DatabaseConnectionError" xml:space="preserve">
+    <value>При свързването с базата данни възникна грешка.!</value>
+  </data>
+  <data name="ConfirmDialog_AreYouSure" xml:space="preserve">
+    <value>Сигурни ли сте?</value>
+  </data>
+  <data name="ManageProducts_ConfirmDelete" xml:space="preserve">
+    <value>На път сте да изтриете {0} за постоянно.!</value>
+  </data>
+  <data name="ManageProducts_Update_Success" xml:space="preserve">
+    <value>Продуктът {0} беше актуализиран.!</value>
+  </data>
 </root>

@@ -79,11 +79,29 @@ namespace BlazingCoffee.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure?.
+        /// </summary>
+        public static string ConfirmDialog_AreYouSure {
+            get {
+                return ResourceManager.GetString("ConfirmDialog_AreYouSure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cost.
         /// </summary>
         public static string Cost {
             get {
                 return ResourceManager.GetString("Cost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There was an error connecting to the database..
+        /// </summary>
+        public static string DatabaseConnectionError {
+            get {
+                return ResourceManager.GetString("DatabaseConnectionError", resourceCulture);
             }
         }
         
@@ -214,7 +232,7 @@ namespace BlazingCoffee.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report on Sales over time..
+        ///   Looks up a localized string similar to Report on Sales..
         /// </summary>
         public static string Index_SalesCard_Description {
             get {
@@ -259,6 +277,42 @@ namespace BlazingCoffee.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You&apos;re about to delete {0} permanently..
+        /// </summary>
+        public static string ManageProducts_ConfirmDelete {
+            get {
+                return ResourceManager.GetString("ManageProducts_ConfirmDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The product {0} was added..
+        /// </summary>
+        public static string ManageProducts_Create_Success {
+            get {
+                return ResourceManager.GetString("ManageProducts_Create_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The product {0} was deleted..
+        /// </summary>
+        public static string ManageProducts_Delete_Success {
+            get {
+                return ResourceManager.GetString("ManageProducts_Delete_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The product {0} was updated..
+        /// </summary>
+        public static string ManageProducts_Update_Success {
+            get {
+                return ResourceManager.GetString("ManageProducts_Update_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to More Info.
         /// </summary>
         public static string MoreInfo {
@@ -295,7 +349,7 @@ namespace BlazingCoffee.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Product.
+        ///   Looks up a localized string similar to Product Name.
         /// </summary>
         public static string Product {
             get {

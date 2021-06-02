@@ -688,10 +688,10 @@
     <value>Monat</value>
   </data>
   <data name="DateRangePicker_End" xml:space="preserve">
-    <value>Beenden</value>
+    <value>Bis</value>
   </data>
   <data name="DateRangePicker_Start" xml:space="preserve">
-    <value>Starten</value>
+    <value>Von</value>
   </data>
   <data name="Upload_FileStatusUploaded" xml:space="preserve">
     <value>Datei erfolgreich hochgeladen.</value>
@@ -884,5 +884,62 @@
   </data>
   <data name="TreeList_Search" xml:space="preserve">
     <value>Suchen...</value>
+  </data>
+  <data name="Slider_Increase" xml:space="preserve">
+    <value>Еrhöhen</value>
+  </data>
+  <data name="Slider_Decrease" xml:space="preserve">
+    <value>Verkleinern</value>
+  </data>
+  <data name="Filter_SelectAll" xml:space="preserve">
+    <value>Wählen Sie Alle</value>
+  </data>
+  <data name="Filter_NoData" xml:space="preserve">
+    <value>Keine Daten gefunden</value>
+  </data>
+  <data name="Grid_SortedAscending" xml:space="preserve">
+    <value>In aufsteigender Reihenfolge sortiert</value>
+  </data>
+  <data name="Grid_SortedDescending" xml:space="preserve">
+    <value>In absteigender Reihenfolge sortiert</value>
+  </data>
+  <data name="TreeList_SortedAscending" xml:space="preserve">
+    <value>In aufsteigender Reihenfolge sortiert</value>
+  </data>
+  <data name="TreeList_SortedDescending" xml:space="preserve">
+    <value>In absteigender Reihenfolge sortiert</value>
+  </data>
+  <data name="Form_Clear" xml:space="preserve">
+    <value>Klar</value>
+  </data>
+  <data name="Form_Submit" xml:space="preserve">
+    <value>Einreichen</value>
+  </data>
+  <data name="Dialog_Cancel" xml:space="preserve">
+    <value>Stornieren</value>
+  </data>
+  <data name="Dialog_Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="DropDownList_NoData" xml:space="preserve">
+    <value>Keine Daten gefunden</value>
+  </data>
+  <data name="Filter_All" xml:space="preserve">
+    <value>Alle</value>
+  </data>
+  <data name="Aggregate_Average" xml:space="preserve">
+    <value>Mittelwert</value>
+  </data>
+  <data name="Aggregate_Max" xml:space="preserve">
+    <value>Max</value>
+  </data>
+  <data name="Aggregate_Min" xml:space="preserve">
+    <value>Min</value>
+  </data>
+  <data name="Aggregate_Sum" xml:space="preserve">
+    <value>Summe</value>
+  </data>
+  <data name="Aggregate_Count" xml:space="preserve">
+    <value>Anzahl</value>
   </data>
 </root>
