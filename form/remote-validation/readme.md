@@ -24,7 +24,7 @@ The example shows how you can throw exceptions in the WebAPI backend with meanin
 
 The core concept is to return a status code higher than 400 to indicate an error, and to ensure the messages are meaningful to the human that will read them.
 
-You can read more about the general concepts of handling WebAPI errors in articles like the following ones:
+You can read more about the general concepts of handling WebAPI errors in articles such as:
 
 * <a href="https://docs.microsoft.com/en-us/aspnet/core/web-api/handle-errors?view=aspnetcore-3.1" target="_blank">MSDN: Handle WebAPI Errors</a>
 
