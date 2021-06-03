@@ -1,0 +1,165 @@
+﻿@page "/"
+@using System.Net
+@using System.Net.Http.Json
+@using RemoteValidationInGridEditorTemplate.Shared
+@inject HttpClient Http
+
+Try to Update an item with an empty "Name" field.
+<br />
+Try to Update an item with the name "Nameee".
+<br/>
+This sample uses a Notification component to show the error message to supplement any data annotation validation.
+
+<TelerikGrid Data=@MyData EditMode="@GridEditMode.Inline" Pageable="true" Height="300px" OnUpdate="@UpdateHandler">
+    <GridColumns>
+        <GridColumn Field=@nameof(SampleData.ID) Editable="false" Title="ID" />
+        <GridColumn Field=@nameof(SampleData.Name) Title="Name">
+            <EditorTemplate>
+                @{
+                    CurrentlyEditedEmployee = context as SampleData;
+                    <TelerikTextBox @bind-Value="@CurrentlyEditedEmployee.Name"></TelerikTextBox>
+                    <CustomValidation @ref="customValidation" />
+                }
+            </EditorTemplate>
+        </GridColumn>
+        <GridColumn Field=@nameof(SampleData.Role) Title="Position">
+            <EditorTemplate>
+                @{
+                    CurrentlyEditedEmployee = context as SampleData;
+                    <select @bind="@CurrentlyEditedEmployee.Role">
+                        @foreach (var item in Roles)
+                        {
+                            <option value="@item">@item</option>
+                        }
+                    </select>
+                }
+            </EditorTemplate>
+        </GridColumn>
+        <GridCommandColumn>
+            <GridCommandButton Command="Save" Icon="save" ShowInEdit="true">Update</GridCommandButton>
+            <GridCommandButton Command="Edit" Icon="edit">Edit</GridCommandButton>
+        </GridCommandColumn>
+    </GridColumns>
+</TelerikGrid>
+<TelerikNotification @ref="@Notification"
+                     HorizontalPosition="@NotificationHorizontalPosition.Center"
+                     VerticalPosition="@NotificationVerticalPosition.Top"
+                     Class="big-notification">
+</TelerikNotification>
+
+@code {
+    private bool disabled;
+    private string message;
+    private string messageStyles = "visibility:hidden";
+    private CustomValidation customValidation;
+    List<SampleData> MyData { get; set; }
+    List<string> Roles { get; set; }
+    SampleData CurrentlyEditedEmployee { get; set; }
+    TelerikNotification Notification { get; set; }
+
+    void ShowErrorNotification(string message)
+    {
+        Notification.Show(new NotificationModel { CloseAfter = 0, Text = message, ThemeColor = Telerik.Blazor.ThemeColors.Error });
+    }
+
+    public async Task UpdateHandler(GridCommandEventArgs args)
+    {
+        SampleData item = (SampleData)args.Item;
+
+        await MyService.Update(item);
+
+        await GetGridData();
+
+        customValidation.ClearErrors();
+
+        var response = await Http.PostAsJsonAsync<SampleData>(
+            "MyValidation", (SampleData)customValidation.CurrentEditContext.Model);
+
+        var errors = await response.Content
+            .ReadFromJsonAsync<Dictionary<string, List<string>>>();
+
+        if (response.StatusCode == HttpStatusCode.BadRequest &&
+            errors.Count() > 0)
+        {
+            customValidation.DisplayErrors(errors);
+
+            args.IsCancelled = true;
+
+            foreach (var error in errors)
+            {
+                foreach (var errorName in error.Value)
+                {
+                    ShowErrorNotification(errorName);
+                }
+            }
+        }
+    }
+
+    async Task GetGridData()
+    {
+        MyData = await MyService.Read();
+        Roles = await MyService.GetRoles();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetGridData();
+    }
+
+    public static class MyService
+    {
+        private static List<SampleData> _data { get; set; } = new List<SampleData>();
+        private static List<string> Roles = new List<string> { "Manager", "Employee", "Contractor" };
+
+        public static async Task<List<SampleData>> Read()
+        {
+            if (_data.Count < 1)
+            {
+                for (int i = 1; i < 50; i++)
+                {
+                    _data.Add(new SampleData()
+                    {
+                        ID = i,
+                        Name = "Name " + i.ToString(),
+                        Role = Roles[i % Roles.Count]
+                    });
+                }
+            }
+
+            return await Task.FromResult(_data);
+        }
+
+        public static async Task<List<string>> GetRoles()
+        {
+            return await Task.FromResult(Roles);
+        }
+
+        public static async Task Update(SampleData itemToUpdate)
+        {
+            var index = _data.FindIndex(i => i.ID == itemToUpdate.ID);
+            if (index != -1)
+            {
+                _data[index] = itemToUpdate;
+            }
+        }
+    }
+}
+
+<style>
+    .big-notification .k-notification-container .k-notification-wrap {
+        width: 330px;
+        height: 80px;
+        align-items: center;
+        font-size: 26px;
+        text-align: center;
+    }
+
+        .big-notification .k-notification-container .k-notification-wrap .k-icon.k-i-error::before {
+            font-size: 26px;
+        }
+
+    .big-notification {
+        z-index: 654321;
+    }
+</style>
+
