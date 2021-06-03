@@ -4,7 +4,15 @@ The samples in this folder showcase how to use remote validation on the server t
 
 ## The General Concept
 
-In a real situation, the server validation may fail, the server may have a general error, be unavailable, or the client may be disconnected and HTTP requests to your WebAPI may fail. In such cases, you should notify the user that the operation failed and it needs to fix the input so that it passes.
+In a real situation, server validation may fail for multiple reasons:
+
+* invalid user input
+* general server error
+* server unavailable
+* disconnected client
+* failing HTTP requests to your WebAPI
+
+In such cases, you should notify the user that the operation failed and suggest appropriate actions.
 
 Handling the errors as appropriate for your application.
 
