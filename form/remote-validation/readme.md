@@ -18,7 +18,7 @@ Handling the errors as appropriate for your application.
 
 ## Sample Details
 
-In this sample, the WebAPI backend does not allow when a client chooses Defense classification to leave the Description field empty, in any other case the Description field is not required.
+In this sample, the WebAPI backend does not allow the user to leave the Description field empty if **Defense** classification is selected. In the other cases, the Description field is not required.
 
 The example shows how you can throw exceptions in the WebAPI backend with meaningful information, send those meaningful instructions/errors to the client where they can bubble up and be shown to the user.
 
