@@ -14,8 +14,6 @@ In a real situation, server validation may fail for multiple reasons:
 
 In such cases, you should notify the user that the operation failed and suggest appropriate actions.
 
-Handling the errors as appropriate for your application.
-
 ## Sample Details
 
 In this sample, the WebAPI backend does not allow the user to leave the Description field empty if **Defense** classification is selected. In the other cases, the Description field is not required.
