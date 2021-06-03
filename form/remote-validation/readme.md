@@ -20,7 +20,7 @@ Handling the errors as appropriate for your application.
 
 In this sample, the WebAPI backend does not allow the user to leave the Description field empty if **Defense** classification is selected. In the other cases, the Description field is not required.
 
-The example shows how you can throw exceptions in the WebAPI backend with meaningful information, send those meaningful instructions/errors to the client where they can bubble up and be shown to the user.
+The example shows how you can throw exceptions in the WebAPI backend with meaningful information, send instructions/errors to the client where they can bubble up and be shown to the user.
 
 The core concept is to return a status code higher than 400 to indicate an error, and to ensure the messages are meaningful to the human that will read them.
 
