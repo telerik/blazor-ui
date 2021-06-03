@@ -1,6 +1,6 @@
 # Remote (server, async) Validation upon Input in Form
 
-The samples in this folder showcase how you can use remote validation on the server to prevent inputs when they don't satisfy certain conditions that cannot be implemented through the standard `DataAnnotation` validation.
+The samples in this folder showcase how to use remote validation on the server to prevent invalid user input. This is useful when validation conditions cannot be implemented through standard `DataAnnotation` validation.
 
 ## The General Concept
 
@@ -25,4 +25,3 @@ You can read more about the general concepts of handling WebAPI errors in articl
 * <a href="https://www.devtrends.co.uk/blog/handling-errors-in-asp.net-core-web-api" target="_blank">Handling Errors in ASP.NET Core WebAPI by devtrends.co.uk</a>
 
 Of course, a similar approach can be used in a server-side Blazor app. The example's purpose is to show one way to fill the input in the form with real data and to prevent data submission when errors occur.
-
