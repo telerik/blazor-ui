@@ -1,0 +1,103 @@
+﻿@page "/"
+
+@using System.Net
+@using System.Net.Http.Json
+@using WasmCustomValidation.Shared
+@inject HttpClient Http
+
+Try to fill all inputs except the "Description" when the "Classification" is set to Defense.
+<br />
+Try to submit with empty fields.
+<br/>
+This sample uses a Notification component to show the error message to supplement any data annotation validation.
+
+<TelerikForm Model="@myModel" OnValidSubmit="@HandleValidSubmit">
+    <FormValidation>
+        <TelerikNotification @ref="@Notification"
+                             HorizontalPosition="@NotificationHorizontalPosition.Center"
+                             VerticalPosition="@NotificationVerticalPosition.Top"
+                             Class="big-notification">
+        </TelerikNotification>
+        <CustomValidation @ref="customValidation" />
+        <ValidationSummary />
+    </FormValidation>
+</TelerikForm>
+
+@code {
+    private bool disabled;
+    private string message;
+    private string messageStyles = "visibility:hidden";
+    private CustomValidation customValidation;
+    private MyModel myModel = new() {};
+
+    TelerikNotification Notification { get; set; }
+
+    void ShowErrorNotification(string message)
+    {
+        Notification.Show(new NotificationModel { CloseAfter = 0, Text = message, ThemeColor = Telerik.Blazor.ThemeColors.Error });
+    }
+
+    private async Task HandleValidSubmit(EditContext editContext)
+    {
+        customValidation.ClearErrors();
+
+        try
+        {
+            var response = await Http.PostAsJsonAsync<MyModel>(
+                "MyValidation", (MyModel)editContext.Model);
+
+            var errors = await response.Content
+                .ReadFromJsonAsync<Dictionary<string, List<string>>>();
+
+            if (response.StatusCode == HttpStatusCode.BadRequest &&
+                errors.Count() > 0)
+            {
+                customValidation.DisplayErrors(errors);
+
+                foreach (var error in errors)
+                {
+                    foreach (var errorName in error.Value)
+                    {
+                        ShowErrorNotification(errorName);
+                    }
+                }
+            }
+            else if (!response.IsSuccessStatusCode)
+            {
+                throw new HttpRequestException(
+                $"Validation failed. Status Code: {response.StatusCode}");
+            }
+            else
+            {
+                disabled = true;
+                messageStyles = "color:green";
+                message = "The form has been processed.";
+            }
+        }
+        catch (Exception ex)
+        {
+            disabled = true;
+            messageStyles = "color:red";
+            message = "There was an error processing the form.";
+        }
+    }
+}
+
+<style>
+    .big-notification .k-notification-container .k-notification-wrap {
+        width: 330px;
+        height: 80px;
+        align-items: center;
+        font-size: 26px;
+        text-align: center;
+    }
+
+        .big-notification .k-notification-container .k-notification-wrap .k-icon.k-i-error::before {
+            font-size: 26px;
+        }
+
+    .big-notification {
+        z-index: 654321;
+    }
+</style>
+
