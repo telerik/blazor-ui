@@ -9,5 +9,5 @@ If you want to add editing capabilities to your treeview, the most straight forw
 1. Put that component in the <a href="https://docs.telerik.com/blazor-ui/components/treeview/templates" target="_blank">`ItemTemplate`</a> of your treeview.
 1. Pass to that component the current item that it will render and edit.
     * We pass it as a parameter to the child component.
-1. Raise an event after an item was edited so the parent treeview can re-render if/as necessary.
+1. Raise an event after an item was edited so the parent treeview can re-render.
     * In this sample we fetch the data from the mock database every time to ensure it is fresh and we get other people's edits. In your case you can choose when and how to make updates.
