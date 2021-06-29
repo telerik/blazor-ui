@@ -1,0 +1,36 @@
+﻿@page "/"
+
+@using rename_node.Models
+@using rename_node.Services
+@using rename_node.Shared
+@inject TreeDataService DataService
+
+<TelerikTreeView Data="@FlatData">
+    <TreeViewBindings>
+        <TreeViewBinding>
+            <ItemTemplate>
+                @* A component in the Shared folder where we define the desired rendering and UX for editing *@
+                <EditableTreeNode Item="@(context as TreeItem)" ItemTextChanged="@UpdateData"></EditableTreeNode>
+            </ItemTemplate>
+        </TreeViewBinding>
+    </TreeViewBindings>
+</TelerikTreeView>
+
+@code {
+    List<TreeItem> FlatData { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchData();
+    }
+
+    async Task UpdateData()
+    {
+        await FetchData();
+    }
+
+    async Task FetchData()
+    {
+        FlatData = await DataService.GetData();
+    }
+}

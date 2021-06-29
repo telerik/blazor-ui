@@ -1,0 +1,52 @@
+﻿@using rename_node.Models
+@using rename_node.Services
+@inject TreeDataService DataService
+
+@if (!string.IsNullOrEmpty(Item.Icon))
+{
+    <TelerikIcon Icon="@Item.Icon"></TelerikIcon>
+}
+@if (!IsEditing)
+{
+    <span style="margin-right: 1em;">@Item.Text</span>
+    <TelerikButton Icon="pencil" OnClick="@Edit" Class="k-flat"></TelerikButton>
+}
+else
+{
+    <span @onclick:stopPropagation="true">@* Stop the treenode from taking focus when you click in the textbox *@
+        <TelerikTextBox @bind-Value="@Item.Text" @ref="@tbRef"></TelerikTextBox>
+    </span>
+    <TelerikButton Icon="save" OnClick="@Save"></TelerikButton>
+}
+
+
+@code {
+    [Parameter]
+    public TreeItem Item { get; set; }
+    [Parameter]
+    public EventCallback ItemTextChanged { get; set; }
+
+    TelerikTextBox tbRef { get; set; }
+    bool IsEditing { get; set; }
+
+    async Task Edit()
+    {
+        IsEditing = true;
+
+        //give rendering time to put the markup in and populate the reference
+        await InvokeAsync(StateHasChanged);
+        await Task.Delay(20);
+
+        if (tbRef != null)
+        {
+            await tbRef.FocusAsync();
+        }
+    }
+
+    async Task Save()
+    {
+        IsEditing = false;
+        await DataService.UpdateNode(Item);
+        await ItemTextChanged.InvokeAsync();
+    }
+}
