@@ -27,3 +27,5 @@ You can find documentaion at [https://docs.telerik.com/blazor-ui/introduction](h
 You can find the tracker for bugs and feature requests at [https://feedback.telerik.com/blazor](https://feedback.telerik.com/blazor)
 
 The demos application is available as an offline project from your Telerik UI for Blazor installation.
+
+You can find or contribute localization texts at [https://github.com/telerik/blazor-ui-messages](https://github.com/telerik/blazor-ui-messages)
