@@ -53,12 +53,12 @@
     IEnumerable<SampleData> SelectedItems { get; set; } = Enumerable.Empty<SampleData>();
     List<SampleData> GridData { get; set; }
 
-    async void SaveState()
+    async Task SaveState()
     {
         var state = await Http.PostAsJsonAsync("setstate", Grid.GetState());
     }
 
-    async void ApplyState()
+    async Task ApplyState()
     {
         var state = await Http.GetFromJsonAsync<GridState<SampleData>>("getstate");
 

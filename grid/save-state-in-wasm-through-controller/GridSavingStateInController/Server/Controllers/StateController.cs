@@ -7,8 +7,8 @@ namespace GridSavingStateInController.Server.Controllers
     [ApiController]
     public class StateController : ControllerBase
     {
-        //We save the state for the demo in property. In real case, the state should be saved in a Database.
-        public static GridState<SampleData> GridCurrentState { get; set; }
+        //We save the state in property only for demo purposes. In a real-life scenario, the state could be saved in some persistent storage (Database, cache, etc...)
+        private static GridState<SampleData> GridCurrentState { get; set; }
 
         [HttpPost]
         [Route("setstate")]
