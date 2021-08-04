@@ -5,12 +5,11 @@
 @inject HttpClient Http
 @inject IJSRuntime JsInterop
 
-<strong>Change something in the grid (like sort, filter, select, page, resize columns, etc.), then click "SaveState". After that, change again something and click "Apply last saved State".</strong>
-<br />
-<br />
-
-<TelerikButton OnClick="@SaveState">Save State</TelerikButton>
-<TelerikButton OnClick="@ApplyState">Apply last saved State</TelerikButton>
+<p><strong>Change something in the grid (like sort, filter, select, page, resize columns, etc.), then click "SaveState". After that, change again something and click "Apply last saved State".</strong></p>
+<p>
+    <TelerikButton OnClick="@SaveState">Save State</TelerikButton>
+    <TelerikButton OnClick="@ApplyState">Apply last saved State</TelerikButton>
+</p>
 
 <TelerikGrid Data="@GridData" Height="500px" @ref="@Grid"
              Groupable="true"
