@@ -57,7 +57,7 @@
     {
         var state = await Http.PostAsJsonAsync("setstate", Grid.GetState());
     }
-    
+
     async void ApplyState()
     {
         var state = await Http.GetFromJsonAsync<GridState<SampleData>>("getstate");
@@ -69,7 +69,7 @@
     {
         SampleData item = (SampleData)args.Item;
 
-        await MyService.Update(item);
+        await GridCRUDService.Update(item);
 
         await GetGridData();
     }
@@ -78,7 +78,7 @@
     {
         SampleData item = (SampleData)args.Item;
 
-        await MyService.Delete(item);
+        await GridCRUDService.Delete(item);
 
         await GetGridData();
     }
@@ -87,14 +87,14 @@
     {
         SampleData item = (SampleData)args.Item;
 
-        await MyService.Create(item);
+        await GridCRUDService.Create(item);
 
         await GetGridData();
     }
 
     async Task GetGridData()
     {
-        GridData = await MyService.Read();
+        GridData = await GridCRUDService.Read();
     }
 
     protected override async Task OnInitializedAsync()
@@ -102,7 +102,7 @@
         await GetGridData();
     }
 
-    public static class MyService
+    public static class GridCRUDService
     {
         private static List<SampleData> _data { get; set; } = new List<SampleData>();
 
