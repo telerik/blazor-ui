@@ -1,0 +1,148 @@
+﻿@page "/"
+
+@using GridSavingStateInController.Shared
+
+@inject HttpClient Http
+@inject IJSRuntime JsInterop
+
+<strong>Change something in the grid (like sort, filter, select, page, resize columns, etc.), then click "SaveState". After that, change again something and click "Apply last saved State".</strong>
+<br />
+<br />
+
+<TelerikButton OnClick="@SaveState">Save State</TelerikButton>
+<TelerikButton OnClick="@ApplyState">Apply last saved State</TelerikButton>
+
+<TelerikGrid Data="@GridData" Height="500px" @ref="@Grid"
+             Groupable="true"
+             Pageable="true"
+             Sortable="true"
+             FilterMode="@GridFilterMode.FilterRow"
+             Reorderable="true"
+             Resizable="true"
+             SelectionMode="GridSelectionMode.Multiple" @bind-SelectedItems="@SelectedItems"
+             OnUpdate=@UpdateItem OnDelete=@DeleteItem OnCreate=@CreateItem EditMode="@GridEditMode.Inline">
+    <GridColumns>
+        <GridColumn Field="@(nameof(SampleData.Id))" Editable="false" />
+        <GridColumn Field="@(nameof(SampleData.Name))" Title="Employee Name" />
+        <GridColumn Field="@(nameof(SampleData.Team))" Title="Team" />
+        <GridCommandColumn>
+            <GridCommandButton Command="Edit" Icon="edit">Edit</GridCommandButton>
+            <GridCommandButton Command="Delete" Icon="delete">Delete</GridCommandButton>
+            <GridCommandButton Command="Save" Icon="save" ShowInEdit="true">Save</GridCommandButton>
+            <GridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true">Cancel</GridCommandButton>
+        </GridCommandColumn>
+    </GridColumns>
+    <GridToolBar>
+        <GridCommandButton Command="Add" Icon="add">Add Employee</GridCommandButton>
+    </GridToolBar>
+</TelerikGrid>
+
+@if (SelectedItems != null)
+{
+    <ul>
+        @foreach (SampleData employee in SelectedItems)
+        {
+            <li>
+                @employee.Id
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    TelerikGrid<SampleData> Grid { get; set; }
+    IEnumerable<SampleData> SelectedItems { get; set; } = Enumerable.Empty<SampleData>();
+    List<SampleData> GridData { get; set; }
+
+    async void SaveState()
+    {
+        var state = await Http.PostAsJsonAsync("setstate", Grid.GetState());
+    }
+    
+    async void ApplyState()
+    {
+        var state = await Http.GetFromJsonAsync<GridState<SampleData>>("getstate");
+
+        await Grid.SetState(state);
+    }
+
+    async Task UpdateItem(GridCommandEventArgs args)
+    {
+        SampleData item = (SampleData)args.Item;
+
+        await MyService.Update(item);
+
+        await GetGridData();
+    }
+
+    async Task DeleteItem(GridCommandEventArgs args)
+    {
+        SampleData item = (SampleData)args.Item;
+
+        await MyService.Delete(item);
+
+        await GetGridData();
+    }
+
+    async Task CreateItem(GridCommandEventArgs args)
+    {
+        SampleData item = (SampleData)args.Item;
+
+        await MyService.Create(item);
+
+        await GetGridData();
+    }
+
+    async Task GetGridData()
+    {
+        GridData = await MyService.Read();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetGridData();
+    }
+
+    public static class MyService
+    {
+        private static List<SampleData> _data { get; set; } = new List<SampleData>();
+
+        public static async Task Create(SampleData itemToInsert)
+        {
+            itemToInsert.Id = _data.Count + 1;
+            _data.Insert(0, itemToInsert);
+        }
+
+        public static async Task<List<SampleData>> Read()
+        {
+            if (_data.Count < 1)
+            {
+                for (int i = 1; i < 50; i++)
+                {
+                    _data.Add(new SampleData()
+                    {
+                        Id = i,
+                        Name = "name " + i,
+                        Team = "team " + i % 5
+                    });
+                }
+            }
+
+            return await Task.FromResult(_data);
+        }
+
+        public static async Task Update(SampleData itemToUpdate)
+        {
+            var index = _data.FindIndex(i => i.Id == itemToUpdate.Id);
+            if (index != -1)
+            {
+                _data[index] = itemToUpdate;
+            }
+        }
+
+        public static async Task Delete(SampleData itemToDelete)
+        {
+            _data.Remove(itemToDelete);
+        }
+    }
+}
