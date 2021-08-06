@@ -9,8 +9,6 @@ Here are the key points (comments in the code offer more details):
 * **At the time of writing, there is a problem in the framework with passing parameters to components which results in errors**. For the time being, components need to get their own data. You should monitor the framework for fixes and updates in this regard. This may be related to [https://github.com/aspnet/AspNetCore/issues/14966](https://github.com/aspnet/AspNetCore/issues/14966) and [https://github.com/aspnet/AspNetCore/issues/14474](https://github.com/aspnet/AspNetCore/issues/14474) even though both issues are closed and expected to be fixed in .NET Core 3.1 Preview 2, which this sample uses.
 * Keep in mind the following Telerik-specific considerations: [Telerik UI for Blazor in an ASP.NET Web Application](https://docs.telerik.com/blazor-ui/knowledge-base/blazor-in-asp-net).
 
-
-
 ## Notes
 
 Note the usage of the `TelerikRootComponent` - it is required for popups (such as windows, dialogs, dropdowns, alerts, notifications). Its placing is important for correct popup positioning (read more about this in the <a href="https://docs.telerik.com/blazor-ui/troubleshooting/general-issues#wrong-popup-position" target="_blank">Wrong Popup Position</a> section).
