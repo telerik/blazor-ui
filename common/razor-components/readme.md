@@ -15,7 +15,7 @@ Here are the key points (comments in the code offer more details):
 
 Note the usage of the `TelerikRootComponent` - it is required for popups (such as windows, dialogs, dropdowns, alerts, notifications). Its placing is important for correct popup positioning (read more about this in the <a href="https://docs.telerik.com/blazor-ui/troubleshooting/general-issues#wrong-popup-position" target="_blank">Wrong Popup Position</a> section).
 
-With the razor components scenarios, it is impossible to have one such component at the root of the app, like you can have with a "standard" Blazor application. Each Razor Component in this scenario is its own standalone and isolated Blazor application and they can't share rendering and components.
+With the razor components scenarios, it is impossible to have one `TelerikRootComponent` at the root of the app, like you can have with a "standard" Blazor application. Each Razor Component in this scenario is its own standalone and isolated Blazor application and they can't share rendering and components.
 
 This means that each such "app" must have its own `TelerikRootComponent` and so popups can be offset to wrong positions if the app's root element does not match the viewport (e.g., there is other MVC content around the Blazor section).
 
