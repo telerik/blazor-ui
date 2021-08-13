@@ -9,7 +9,7 @@ namespace custom_edit_form.Models
 {
     public class Appointment
     {
-        //test
+        //test2
         public int Id { get; set; }
 
         [Required]
