@@ -6,12 +6,10 @@
 @inject SchedulerLodService appointmentService
 
 <TelerikScheduler Data="@Appointments" Height="600px"
-
-                  Date="@StartDate" 
+                  Date="@StartDate"
                   DateChanged="@DateChangedHandler"
                   View="@CurrView"
                   ViewChanged="@ViewChangedHandler"
-
                   IdField="@(nameof(SchedulerAppointment.Id))"
                   StartField="@(nameof(SchedulerAppointment.Start))"
                   EndField="@(nameof(SchedulerAppointment.End))"
@@ -24,7 +22,7 @@
     <SchedulerViews>
         <SchedulerDayView StartTime="@DayStart" EndTime="@DayEnd" WorkDayStart="@WorkDayStart" WorkDayEnd="@WorkDayEnd" />
         <SchedulerWeekView StartTime="@DayStart" EndTime="@DayEnd" WorkDayStart="@WorkDayStart" WorkDayEnd="@WorkDayEnd" />
-        <SchedulerMultiDayView StartTime="@DayStart" EndTime="@DayEnd" WorkDayStart="@WorkDayStart" WorkDayEnd="@WorkDayEnd" NumberOfDays="10" />
+        <SchedulerMultiDayView StartTime="@DayStart" EndTime="@DayEnd" WorkDayStart="@WorkDayStart" WorkDayEnd="@WorkDayEnd" NumberOfDays="@MultiDayDaysCount" />
         <SchedulerMonthView />
     </SchedulerViews>
 </TelerikScheduler>
@@ -33,21 +31,22 @@
     List<SchedulerAppointment> Appointments = new List<SchedulerAppointment>();
 
     // parameters for date and view that we will use to load data on demand
-    public DateTime StartDate { get; set; }
-    public SchedulerView CurrView { get; set; } = SchedulerView.Week;
+    DateTime StartDate { get; set; }
+    SchedulerView CurrView { get; set; } = SchedulerView.Week;
+    int MultiDayDaysCount { get; set; } = 10;
 
     // only for the UI settings, only the time portions are important
-    public DateTime DayStart { get; set; } = new DateTime(2000, 1, 1, 8, 0, 0);
-    public DateTime DayEnd { get; set; } = new DateTime(2000, 1, 1, 20, 0, 0);
-    public DateTime WorkDayStart { get; set; } = new DateTime(2000, 1, 1, 9, 0, 0);
-    public DateTime WorkDayEnd { get; set; } = new DateTime(2000, 1, 1, 17, 0, 0);
+    DateTime DayStart { get; set; } = new DateTime(2000, 1, 1, 8, 0, 0);
+    DateTime DayEnd { get; set; } = new DateTime(2000, 1, 1, 20, 0, 0);
+    DateTime WorkDayStart { get; set; } = new DateTime(2000, 1, 1, 9, 0, 0);
+    DateTime WorkDayEnd { get; set; } = new DateTime(2000, 1, 1, 17, 0, 0);
 
     protected override async Task OnInitializedAsync()
     {
         //for demonstration purposes - we use a basic time related to now so you always see data
-        StartDate = appointmentService.GetStartTime();
+        StartDate = appointmentService.GetCurrentWeekStartTime();
 
-        Appointments = await appointmentService.GetAppointmentsAsync();
+        await GetAppointmentsOnDemand();
     }
 
 
@@ -59,12 +58,18 @@
     {
         StartDate = currDate;
 
+        await GetAppointmentsOnDemand();
     }
 
     async Task ViewChangedHandler(SchedulerView nextView)
     {
         CurrView = nextView;
 
+        await GetAppointmentsOnDemand();
     }
 
+    async Task GetAppointmentsOnDemand()
+    {
+        Appointments = await appointmentService.GetAppointmentsAsync(StartDate, CurrView, MultiDayDaysCount);
+    }
 }

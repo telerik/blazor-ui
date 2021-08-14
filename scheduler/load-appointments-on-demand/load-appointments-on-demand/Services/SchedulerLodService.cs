@@ -3,36 +3,94 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Telerik.Blazor;
 
 namespace load_appointments_on_demand.Services
 {
     public class SchedulerLodService
     {
-        public async Task<List<SchedulerAppointment>> GetAppointmentsAsync()
+        // helper method to get prettier UI for the appointment generation
+        // that is also independent of when you run the sample
+        public DateTime GetCurrentWeekStartTime()
         {
+            return GetCurrentWeekStartTime(DateTime.Now);
+        }
 
-            // filter appointments by the time required range
+        public DateTime GetCurrentWeekStartTime(DateTime currTime)
+        {
+            DateTime now = currTime;
+            int diff = (7 + (now.DayOfWeek - DayOfWeek.Monday)) % 7;
+            DateTime lastMonday = now.AddDays(-1 * diff);
+            // return 8 AM on today's date for better visualization of the demos
+            return new DateTime(lastMonday.Year, lastMonday.Month, lastMonday.Day, 8, 0, 0);
+        }
+
+        // translate UI knowledge (scheduler view and start date) into
+        // date range for filtering at the actual data source level
+        // you can add more arguments, such as current user, permissions, sets of calendars to look at, and so on
+        public async Task<List<SchedulerAppointment>> GetAppointmentsAsync(DateTime startDateFromUI, SchedulerView currentView, int multiDayDaysCount)
+        {
+            Console.WriteLine($"{startDateFromUI} - {currentView}");
+            // translate UI to date range
+            DateTime startDate = startDateFromUI;
+            DateTime endDate = startDateFromUI;
+            switch (currentView)
+            {
+                case SchedulerView.Day:
+                    break;
+                case SchedulerView.MultiDay:
+                    endDate = endDate.AddDays(multiDayDaysCount);
+                    break;
+                case SchedulerView.Week:
+                    startDate = GetCurrentWeekStartTime(startDate);
+                    endDate = startDate.AddDays(7);
+                    break;
+                case SchedulerView.Month:
+                    // if adjacent months are visible, it is up to +/- 6 days
+                    // to optimize futher you'd have to write a lot of calendar logic to find
+                    // what day of the week the 1st of the month is, and how many days from the previous
+                    // and next month are visible, which can make for convoluted and complex code
+                    startDate = new DateTime(startDate.Year, startDate.Month, 1).AddDays(-6);
+                    // make it even simpler - no months are shorter than 28 days, none is longer than 31
+                    // so adding 9 adds at least 6 to the longest possible for the case where most days are seen
+                    endDate = new DateTime(startDate.Year, startDate.Month, 28).AddDays(-9);
+                    break;
+                default:
+                    throw new ArgumentException("the service does not know how to handle this view yet");
+            }
+
+            // get appointments from the database
+            return await GetFilteredAppointmentsPerRangeFromDataBaseAsync(startDate, endDate);
+        }
+
+        private async Task<List<SchedulerAppointment>> GetFilteredAppointmentsPerRangeFromDataBaseAsync(DateTime startDate, DateTime endDate)
+        {
+            // filter appointments by the time required range 
             // optimize this query as required by your data source
             // for example, pass arguments to the method, use stored procedures and so on
             // this here showcases the basic concept of filtering the data on the server, not in the UI
             // you need to implement it according to your actual optimization techniques and project
+            // in the real app you should filter and optimize here, this is not implemented in this sample
             List<SchedulerAppointment> appointments = await GetDummyAppointments();
-            //appointments = appointments.Where();
+            // here we just filter in memory for demonstration purposes because it is easy to follow in the example
+            // do NOT do this in the real app - this is the equivalend of selecting all rows, getting them to the app and filtering here
+            appointments = appointments.Where(a => a.Start.Date >= startDate.Date || a.End.Date <= endDate.Date).ToList();
 
             // always add all recurring ones if you don't want to expand and
-            // test them against the date range - let the scheduler expand them
-            // you can optimize this as needed as well
+            // test them against the date range in your own code - you can let the scheduler expand them
+            // you can optimize this as needed as well, but usually there shouldn't be too many recurring appointments
             List<SchedulerAppointment> recurringOnes = await GetRecurringAppointments();
 
             // make the final list of appointments for the current view and range
             appointments.AddRange(recurringOnes);
-            return appointments;
+            return await Task.FromResult(appointments);
         }
 
+        // mimics some sort of database that fetches appointments. Here we just hardcode some
         private async Task<List<SchedulerAppointment>> GetDummyAppointments()
         {
             List<SchedulerAppointment> data = new List<SchedulerAppointment>();
-            DateTime baselineTime = GetStartTime();
+            DateTime baselineTime = GetCurrentWeekStartTime();
 
             data.Add(new SchedulerAppointment
             {
@@ -122,7 +180,7 @@ namespace load_appointments_on_demand.Services
         private async Task<List<SchedulerAppointment>> GetRecurringAppointments()
         {
             List<SchedulerAppointment> data = new List<SchedulerAppointment>();
-            DateTime baselineTime = GetStartTime();
+            DateTime baselineTime = GetCurrentWeekStartTime();
 
             data.Add(new SchedulerAppointment
             {
@@ -162,15 +220,6 @@ namespace load_appointments_on_demand.Services
             });
 
             return await Task.FromResult(data);
-        }
-
-        public DateTime GetStartTime()
-        {
-            DateTime now = DateTime.Now;
-            int diff = (7 + (now.DayOfWeek - DayOfWeek.Monday)) % 7;
-            DateTime lastMonday = now.AddDays(-1 * diff);
-            // return 8 AM on today's date for better visualization of the demos
-            return new DateTime(lastMonday.Year, lastMonday.Month, lastMonday.Day, 8, 0, 0);
         }
     }
 }
