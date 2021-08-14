@@ -30,7 +30,6 @@ namespace load_appointments_on_demand.Services
         // you can add more arguments, such as current user, permissions, sets of calendars to look at, and so on
         public async Task<List<SchedulerAppointment>> GetAppointmentsAsync(DateTime startDateFromUI, SchedulerView currentView, int multiDayDaysCount)
         {
-            Console.WriteLine($"{startDateFromUI} - {currentView}");
             // translate UI to date range
             DateTime startDate = startDateFromUI;
             DateTime endDate = startDateFromUI;
@@ -56,7 +55,7 @@ namespace load_appointments_on_demand.Services
                     endDate = new DateTime(startDate.Year, startDate.Month, 28).AddDays(-9);
                     break;
                 default:
-                    throw new ArgumentException("the service does not know how to handle this view yet");
+                    throw new ArgumentException("the service does not know how to handle this scheduler view yet");
             }
 
             // get appointments from the database
