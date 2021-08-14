@@ -73,7 +73,10 @@ namespace load_appointments_on_demand.Services
             List<SchedulerAppointment> appointments = await GetDummyAppointments();
             // here we just filter in memory for demonstration purposes because it is easy to follow in the example
             // do NOT do this in the real app - this is the equivalend of selecting all rows, getting them to the app and filtering here
-            appointments = appointments.Where(a => a.Start.Date >= startDate.Date || a.End.Date <= endDate.Date).ToList();
+            appointments = appointments.Where(a =>
+                (a.Start.Date >= startDate.Date && a.Start.Date <= endDate.Date) || //starts in the current range
+                (a.End.Date >= startDate.Date && a.End.Date <= endDate.Date)        //OR ends in the current range
+            ).ToList();
 
             // always add all recurring ones if you don't want to expand and
             // test them against the date range in your own code - you can let the scheduler expand them
