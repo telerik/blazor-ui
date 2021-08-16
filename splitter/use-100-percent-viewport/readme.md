@@ -1,6 +1,6 @@
 # How to make Splitter take 100% height of the viewport
 
-When creating layouts with the splitter, it is a common requirement that they take up 100% of the available height.
+When creating layouts with the Splitter, it is a common requirement that they take up 100% of the available height.
 
 To accomplish this, simply set the Splitter's `Height` parameter to `100%`.
 
