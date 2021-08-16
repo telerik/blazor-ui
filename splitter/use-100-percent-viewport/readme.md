@@ -4,7 +4,7 @@ When creating layouts with the Splitter, it is a common requirement that they ta
 
 To accomplish this, simply set the Splitter's `Height` parameter to `100%`.
 
-It is important to note that this relies on the standard CSS behavior of setting height in percentage - all parent elements must have a `height` set, so that the content size can be calculated based off the viewport.
+It is important to note that this relies on the standard CSS behavior of setting height in percent - all parent elements must have a `height` set, so that the content size can be calculated based off the viewport.
 
 This example shows a basic layout with the splitter that has:
 * header
