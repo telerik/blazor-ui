@@ -16,4 +16,8 @@ where
 * the whole layout takes up 100% height and width of the viewport
 * the content (`@Body`) takes 100% height and width of the remaining space after the header, footer and sidebar are rendered
 
-This is accomplished by setting `Width` and `Height` to `100%` for the splitters, and by ensuring its parent elements (`html` and `body` in this example) have `height:100%` in the stylesheet. The code is in `~Shared/MainLayout.razor`. Comments in the code offer some more details.
+This is accomplished by:
+* setting `Width` and `Height` to `100%` for the splitters;
+* adding `height:100%` styles to the splitter parents (`html` and `body` in this example) in the app stylesheet.
+
+The code is in `~Shared/MainLayout.razor`. Comments in the code offer some more details.
