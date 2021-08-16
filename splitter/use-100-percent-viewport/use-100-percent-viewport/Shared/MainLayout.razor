@@ -4,7 +4,7 @@
 
 <style>
     /* CSS rules to prepare the whole 100% height layout
-    Note that for 100% height to work, all elements up the DOM tree must have a defined height in percent or pixels
+    Note that for percentage height to work, the parent element must have a defined height in percent or pixels. If the parent has a percentage height too, rule applies up the DOM tree until a pixel height is reached, or until the <html> element is reached.
     */
     html, body {
         height: 100%;
