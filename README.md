@@ -1,8 +1,8 @@
 # Telerik UI for Blazor Sample Projects
 
-This repository contains examples related to [Telerik UI for Blazor](https://www.telerik.com/blazor-ui) that are not part of the documentation or demos. They provide scenarios and answers to common how-to questions. For most of them, a component and some classes are the core of the example.
+This repository contains examples related to [Telerik UI for Blazor components](https://www.telerik.com/blazor-ui) that are not part of the documentation or demos. They provide scenarios and answers to common how-to questions related to Blazor Grid, Chart, Editor, Drawer, Scheduler, etc for both Blazor WebAssembly and Blazor Server projects. For most of them, a component and some classes are the core of the example.
 
-This repo also contains two larger [sample applications](sample-applications).
+This repo also contains two larger [Blazor sample applications](sample-applications).
 
 ## Contribution
 
@@ -12,7 +12,7 @@ To submit a pull request, you should **first [fork](https://docs.github.com/en/f
 
 ## Package References
 
-The projects usually reference a commercial version of UI for Blazor. If you only have a trial license, replace the reference to the NuGet package and to the JS Interop file and/or Theme [accordingly](https://docs.telerik.com/blazor-ui/getting-started/what-you-need).
+The projects usually reference a commercial version of UI for Blazor components. If you only have a trial license, replace the reference to the NuGet package and to the JS Interop file and/or Theme [accordingly](https://docs.telerik.com/blazor-ui/getting-started/what-you-need).
 
 The references (both to Telerik UI for Blazor, and the .NET framework) are usually up-to-date for the time of creation. You may need to update to their latest versions and make any necessary changes. The Blazor framework is evolving rapidly and these examples may not get their references updated all the time. Nevertheless, the general approaches should remain valid, barring breaking changes in the framework.
 
