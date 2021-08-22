@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using GridSavingStateInController.Client.Services;
 
 namespace GridSavingStateInController.Client
 {
@@ -15,6 +16,7 @@ namespace GridSavingStateInController.Client
             builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
             builder.Services.AddTelerikBlazor();
+            builder.Services.AddScoped<LocalStorage>();
 
             await builder.Build().RunAsync();
         }

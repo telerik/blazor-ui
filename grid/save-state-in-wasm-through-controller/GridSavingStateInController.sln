@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GridSavingStateInController.Server", "GridSavingStateInController\Server\GridSavingStateInController.Server.csproj", "{6B6C895B-1933-481C-BBC0-8ABCAE652EFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GridSavingStateInController.Server", "GridSavingStateInController\Server\GridSavingStateInController.Server.csproj", "{6B6C895B-1933-481C-BBC0-8ABCAE652EFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GridSavingStateInController.Client", "GridSavingStateInController\Client\GridSavingStateInController.Client.csproj", "{A6ED9595-2334-4B2D-8E53-473A085F292E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GridSavingStateInController.Client", "GridSavingStateInController\Client\GridSavingStateInController.Client.csproj", "{A6ED9595-2334-4B2D-8E53-473A085F292E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GridSavingStateInController.Shared", "GridSavingStateInController\Shared\GridSavingStateInController.Shared.csproj", "{5ECE9AE2-39A8-49FD-B636-843F55BAEB08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GridSavingStateInController.Shared", "GridSavingStateInController\Shared\GridSavingStateInController.Shared.csproj", "{5ECE9AE2-39A8-49FD-B636-843F55BAEB08}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
