@@ -7,7 +7,7 @@
 @inject GridDataService DataService
 @inject IJSRuntime JsInterop
 
-<TelerikButton OnClick="@SelectItem">Select item 33</TelerikButton>
+<TelerikButton OnClick="@SelectItem">Select item 48</TelerikButton>
 
 <TelerikGrid Data=@GridData
              SelectionMode="GridSelectionMode.Single"
@@ -35,7 +35,7 @@
 
     async Task SelectItem()
     {
-        // select item 33 which would be hidden initially
+        // select item 48 which would be hidden initially
         // since we will set the grid state, we set the selected items there too
         // otherwise the change may be lost
         // see also the Employee model for the Equals() override that allows selection comparisons
