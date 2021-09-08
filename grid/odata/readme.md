@@ -4,6 +4,10 @@ This example shows how you can consume OData services to feed data to the Teleri
 
 You can perform the actual requests for the OData service in any way suitable to your app, the Telerik Grid needs the data for the current page and the total count, and provides you with an easy serialization method of its state.
 
+In this example application, the OData query contains all the available data. This configuration is intentional in order to cover different scenarios. For example, columns can be conditional, some may be calculated, and we don't know what else that data might be used for in the specific case, some logic may even rely on fields that are not shown in the grid.
+
+That being said, you can get the OData string we provide and modify it as needed to match the application needs (for example, amend the [`$select`](https://www.odata.org/getting-started/basic-tutorial/#select) parameter to get only certain fields from the query and not all the data).
+
 The approaches for requesting a remote services are different in a server-side and in a client-side project, but the key points are the same:
 
 * You need a Telerik UI for Blazor version `>=2.3.0` or later to get the OData formatting of the grid state (its `ToODataString()` extension method is in the `Telerik.Blazor.Extensions` namespace).
