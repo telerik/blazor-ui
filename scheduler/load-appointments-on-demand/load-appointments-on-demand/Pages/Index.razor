@@ -1,0 +1,75 @@
+﻿@page "/"
+
+@using load_appointments_on_demand.Models
+@using load_appointments_on_demand.Services
+
+@inject SchedulerLodService appointmentService
+
+<TelerikScheduler Data="@Appointments" Height="600px"
+                  Date="@StartDate"
+                  DateChanged="@DateChangedHandler"
+                  View="@CurrView"
+                  ViewChanged="@ViewChangedHandler"
+                  IdField="@(nameof(SchedulerAppointment.Id))"
+                  StartField="@(nameof(SchedulerAppointment.Start))"
+                  EndField="@(nameof(SchedulerAppointment.End))"
+                  TitleField="@(nameof(SchedulerAppointment.Title))"
+                  DescriptionField="@(nameof(SchedulerAppointment.Description))"
+                  IsAllDayField="@(nameof(SchedulerAppointment.IsAllDay))"
+                  RecurrenceRuleField="@(nameof(SchedulerAppointment.RecurrenceRule))"
+                  RecurrenceExceptionsField="@(nameof(SchedulerAppointment.RecurrenceExceptions))"
+                  RecurrenceIdField="@(nameof(SchedulerAppointment.RecurrenceId))">
+    <SchedulerViews>
+        <SchedulerDayView StartTime="@DayStart" EndTime="@DayEnd" WorkDayStart="@WorkDayStart" WorkDayEnd="@WorkDayEnd" />
+        <SchedulerWeekView StartTime="@DayStart" EndTime="@DayEnd" WorkDayStart="@WorkDayStart" WorkDayEnd="@WorkDayEnd" />
+        <SchedulerMultiDayView StartTime="@DayStart" EndTime="@DayEnd" WorkDayStart="@WorkDayStart" WorkDayEnd="@WorkDayEnd" NumberOfDays="@MultiDayDaysCount" />
+        <SchedulerMonthView />
+    </SchedulerViews>
+</TelerikScheduler>
+
+@code {
+    List<SchedulerAppointment> Appointments = new List<SchedulerAppointment>();
+
+    // parameters for date and view that we will use to load data on demand
+    DateTime StartDate { get; set; }
+    SchedulerView CurrView { get; set; } = SchedulerView.Week;
+    int MultiDayDaysCount { get; set; } = 10;
+
+    // only for the UI settings, only the time portions are important
+    DateTime DayStart { get; set; } = new DateTime(2000, 1, 1, 8, 0, 0);
+    DateTime DayEnd { get; set; } = new DateTime(2000, 1, 1, 20, 0, 0);
+    DateTime WorkDayStart { get; set; } = new DateTime(2000, 1, 1, 9, 0, 0);
+    DateTime WorkDayEnd { get; set; } = new DateTime(2000, 1, 1, 17, 0, 0);
+
+    protected override async Task OnInitializedAsync()
+    {
+        //for demonstration purposes - we use a basic time related to now so you always see data
+        StartDate = appointmentService.GetCurrentWeekStartTime();
+
+        await GetAppointmentsOnDemand();
+    }
+
+
+    // fetch apointments on demand based on the current view and date range
+    // the service will take care of translating the UI specifics (view, start date)
+    // to a date range for the server filtering - optimize this as needed and preferred
+
+    async Task DateChangedHandler(DateTime currDate)
+    {
+        StartDate = currDate;
+
+        await GetAppointmentsOnDemand();
+    }
+
+    async Task ViewChangedHandler(SchedulerView nextView)
+    {
+        CurrView = nextView;
+
+        await GetAppointmentsOnDemand();
+    }
+
+    async Task GetAppointmentsOnDemand()
+    {
+        Appointments = await appointmentService.GetAppointmentsAsync(StartDate, CurrView, MultiDayDaysCount);
+    }
+}
