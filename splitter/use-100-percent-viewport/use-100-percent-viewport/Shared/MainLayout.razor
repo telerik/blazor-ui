@@ -1,0 +1,61 @@
+﻿@layout TelerikLayout
+
+@inherits LayoutComponentBase
+
+<style>
+    /* CSS rules to prepare the whole 100% height layout
+    Note that for percentage height to work, the parent element must have a defined height in percent or pixels. If the parent has a percentage height too, rule applies up the DOM tree until a pixel height is reached, or until the <html> element is reached.
+    */
+    html, body {
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+    }
+</style>
+
+<TelerikSplitter Height="100%" Width="100%" Orientation="@SplitterOrientation.Vertical">
+    <SplitterPanes>
+
+        @*Header*@
+        <SplitterPane Resizable="false" Size="100px">
+            <div style="height:100%; background: green;">
+                @*Sample styles to showcase where content renders*@
+                <h1>I am the header</h1>
+            </div>
+        </SplitterPane>
+
+        @*Main content*@
+        <SplitterPane>
+            <TelerikSplitter Width="100%" Height="100%" Class="k-pane-flex">
+                <SplitterPanes>
+
+                    @*Left navigation*@
+                    <SplitterPane Size="300px" Collapsible="true">
+                        <div style="height:100%; background: yellow;">
+                            SIDEBAR
+                            <NavMenu></NavMenu>
+                        </div>
+                    </SplitterPane>
+
+                    @*Page (main) content*@
+                    <SplitterPane>
+                        @*Automatic scrollbars for the content, you can choose where you want scolling to happen*@
+                        <div style="height: 100%; overflow: auto;">
+                            @Body
+                        </div>
+                    </SplitterPane>
+
+                </SplitterPanes>
+            </TelerikSplitter>
+        </SplitterPane>
+
+        @*Footer*@
+        <SplitterPane Resizable="false" Size="100px">
+            <div style="height:100%; background: #f99;">
+                @*Sample styles to showcase where content renders*@
+                <h2>I am the FOOTER &copy;@DateTime.Now.Date.Year MyCompany Inc.</h2>
+            </div>
+        </SplitterPane>
+
+    </SplitterPanes>
+</TelerikSplitter>
