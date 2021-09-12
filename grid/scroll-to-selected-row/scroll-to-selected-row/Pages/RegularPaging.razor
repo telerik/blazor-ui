@@ -1,0 +1,49 @@
+﻿@page "/"
+
+@using scroll_to_selected_row.Models
+@using scroll_to_selected_row.Services
+@inject GridDataService DataService
+@inject IJSRuntime JsInterop
+
+<TelerikButton OnClick="@SelectItem">Select item 11</TelerikButton>
+
+<TelerikGrid Data=@GridData
+             SelectionMode="GridSelectionMode.Single"
+             @bind-SelectedItems="@SelectedItems"
+             Pageable="true" PageSize="30"
+             Height="300px"
+             Class="@theGridClass">
+    <GridColumns>
+        <GridColumn Field=@nameof(Employee.Name) />
+        <GridColumn Field=@nameof(Employee.Team) Title="Team" />
+    </GridColumns>
+</TelerikGrid>
+
+@code {
+    string theGridClass { get; set; } = "theSpecialGrid";
+
+    async Task SelectItem()
+    {
+        // select item 11 which would be hidden initially
+        SelectedItems = GridData.Where(item => item.EmployeeId == 11).ToList();
+
+        // NOTE: The selected item must be on the current page for this to work
+        // if it is not, you need to first move the grid to the page the item is on
+        // you can do that by using its State: https://docs.telerik.com/blazor-ui/components/grid/state
+        // you can find a sample data source operation to traverse the entire data collection to
+        // look for that page index so you can alter the grid state in the Virtualization example
+        // that also shows a glimpse of the complexity and database load doing so can cause
+
+        await Task.Delay(20);//rougly one rendering frame so this has the chance to render in the browser
+        await JsInterop.InvokeVoidAsync("scrollToSelectedRow", "." + theGridClass);
+    }
+
+    // data generation follows
+    public List<Employee> GridData { get; set; }
+    public IEnumerable<Employee> SelectedItems { get; set; } = Enumerable.Empty<Employee>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        GridData = await DataService.GenerateData();
+    }
+}
