@@ -6,7 +6,7 @@ This sample project shows one way to use the [Telerik Breadcrumb](https://demos.
 * All the code related to the breadcrumb is in the `~Shared/BreadcrumbWrapper.razor` file, which is used inside the `~Shared/Mainlayout.razor` file.
 * Code comments in the file provide details.
 
-## Building The Project
+## Examining the Behavior
 Open the .sln file, build the project and run it. You can navigate between the various pages using the NavMenu. The breadcrumb items will appear on the top left of the page and change, addressing the current route.
 
 ## Steps
