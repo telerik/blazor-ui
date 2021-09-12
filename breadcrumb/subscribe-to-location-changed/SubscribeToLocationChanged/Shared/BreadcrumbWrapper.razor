@@ -1,0 +1,67 @@
+﻿@implements IDisposable
+
+<div style="padding:20px">
+    <TelerikBreadcrumb Data="@Items" Width="100%"></TelerikBreadcrumb>
+</div>
+
+@code {
+
+    [Inject] private NavigationManager NavigationManager { get; set; }
+
+    public List<BreadcrumbItem> Items { get; set; }
+
+    //Create a handler that will be invoked on each location change
+    private void OnLocationChanged(object sender, LocationChangedEventArgs e)
+    {
+        var relativeLocation = NavigationManager.ToBaseRelativePath(e.Location);
+        SetBreadcrumbs(relativeLocation);
+    }
+
+    //Bind the above handler to the NavigationManager's LocationChanged event
+    protected override void OnInitialized()
+    {
+        NavigationManager.LocationChanged += OnLocationChanged;
+        var relativeLocation = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+
+        //Set new breadcrumb items on each invocation
+        SetBreadcrumbs(relativeLocation);
+
+        base.OnInitialized();
+    }
+
+    //Sets new breadcrumbs based on the current URL. Called on initial page load as well as on every subsequent location change
+    public void SetBreadcrumbs(string relativeLocation)
+    {
+        var newItems = new List<BreadcrumbItem>() { new BreadcrumbItem { Icon = "home", Url = NavigationManager.BaseUri } };
+
+        var locationCrumbs = relativeLocation.Split('/');
+        string url = NavigationManager.BaseUri;
+
+        foreach (var crumb in locationCrumbs)
+        {
+            if (!string.IsNullOrEmpty(crumb))
+            {
+                url += crumb;
+                newItems.Add(new BreadcrumbItem { Text = crumb, Url = url, Title = crumb });
+                url += "/";
+            }
+        }
+
+        Items = newItems;
+        StateHasChanged();
+    }
+
+    void IDisposable.Dispose()
+    {
+        // Unsubscribe from the event when disposed
+        NavigationManager.LocationChanged -= OnLocationChanged;
+    }
+
+    public class BreadcrumbItem
+    {
+        public string Text { get; set; }
+        public string Url { get; set; }
+        public string Title { get; set; }
+        public string Icon { get; set; }
+    }
+}
