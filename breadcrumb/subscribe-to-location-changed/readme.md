@@ -1,4 +1,4 @@
-# Breadcrumb - Subscribe to NavigationManager's LocationChanged
+# Breadcrumb - Automatically Generate Items Based on URL
 
 This sample project shows one way to use the [Telerik Breadcrumb](https://demos.telerik.com/blazor-ui/breadcrumb/overview) to subscribe to the [NavigationManager](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.navigationmanager?view=aspnetcore-5.0)'s [LocationChanged](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.navigationmanager.locationchanged?view=aspnetcore-5.0) so individual items are automatically populated instead of defining them on every page.
 
