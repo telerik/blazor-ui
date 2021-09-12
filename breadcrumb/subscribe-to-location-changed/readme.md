@@ -9,7 +9,7 @@ This sample project shows one way to use the [Telerik Breadcrumb](https://demos.
 ## Examining the Behavior
 Open the .sln file, build the project and run it. You can navigate between the various pages using the NavMenu. The breadcrumb items will appear on the top left of the page and change, addressing the current route.
 
-## Steps
+## Implementation Steps
 - introduce a `NavigationManager` property by injecting it in the file you would like to build the breadcrumbs:
 ```cs
     [Inject] private NavigationManager NavigationManager { get; set; }
