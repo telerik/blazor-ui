@@ -1,0 +1,139 @@
+@layout TelerikLayout
+@inherits LayoutComponentBase
+@implements IDisposable
+@inject NavigationManager _navMan
+
+
+<TelerikDrawer Data="@NavigablePages"
+               Mode="@DrawerMode.Push"
+               MiniMode="true"
+               @bind-Expanded="@DrawerExpanded"
+               @bind-SelectedItem="@SelectedItem">
+    <Content>
+        <div class="main">
+            <div class="top-row px-4">
+                @SelectedItem?.Text
+                <a href="https://docs.microsoft.com/en-us/aspnet/" target="_blank">About</a>
+            </div>
+
+            <div class="content px-4">
+                <NavMenu />
+                @Body
+            </div>
+        </div>
+    </Content>
+</TelerikDrawer>
+
+
+@code{
+    DrawerItem SelectedItem { get; set; }
+    bool DrawerExpanded { get; set; } = true;
+
+    List<DrawerItem> NavigablePages { get; set; } = new List<DrawerItem>
+    {
+        new DrawerItem { Text = "Home", Url = "/", Icon = "home" },
+        new DrawerItem { Text = "Counter", Url = "counter", Icon = "plus-outline" },
+        new DrawerItem { Text = "FetchData", Url = "fetchdata", Icon = "grid" }
+    };
+
+    /// <summary>
+    /// Selects the correct Drawer item when navigation happens outside of the drawer
+    /// such as NavLink or a elements in the app, or external links landing on the app.
+    /// </summary>
+    void SelectCurrentPageInDrawer()
+    {
+        string currPage = _navMan.Uri;
+        DrawerItem ActivePage = NavigablePages.Where(p => p.Url.ToLowerInvariant() == GetCurrentPage().ToLowerInvariant()).FirstOrDefault();
+        if (ActivePage != null)
+        {
+            SelectedItem = ActivePage;
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        SelectCurrentPageInDrawer();
+
+        // update selection on internal blazor navigation through links that are not built-in drawer items
+        // only needed togethe with the IDisposable implementaiton if you use other navigation methods than the drawer in the app
+        _navMan.LocationChanged += LocationChangedHandler;
+
+        base.OnInitialized();
+    }
+
+    void LocationChangedHandler(object sender, LocationChangedEventArgs e)
+    {
+        SelectCurrentPageInDrawer();
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        if (_navMan != null)
+        {
+            _navMan.LocationChanged -= LocationChangedHandler;
+        }
+    }
+
+    // helper method to get the current page
+    public string GetCurrentPage()
+    {
+        string uriWithoutQueryString = _navMan.Uri.Split("?")[0];
+        string currPage = uriWithoutQueryString.Substring(Math.Min(_navMan.Uri.Length, _navMan.BaseUri.Length));
+        return string.IsNullOrWhiteSpace(currPage) ? "/" : currPage;
+    }
+
+    // helper method to highlight the currently selected item
+    public string GetSelectedItemClass(DrawerItem item)
+    {
+        if (SelectedItem == null)
+        {
+            return string.Empty;
+        }
+        return SelectedItem.Text.ToLowerInvariant().Equals(item.Text.ToLowerInvariant()) ? "text-info" : "";
+    }
+
+    // generally, this should go into its own file, but it is here to keep all the drawer-related code in one place
+    public class DrawerItem
+    {
+        public string Text { get; set; }
+        public string Url { get; set; }
+        public string Icon { get; set; }
+        public bool IsSeparator { get; set; }
+    }
+}
+
+
+
+@* These styles are only for appearance, they are not mandatory and can depend on the app layout and requirements *@
+<style>
+    /* the size of the containers will fill up their parents up to the viewport */
+    html, body, app, .k-drawer-container, .k-drawer-content, .main {
+        width: 100%;
+        height: 100%;
+        max-height: 100%;
+    }
+    /* vertical scroll should happen in the main portion of the content - where the Body is
+    This keeps the header sticky at the top
+    */
+    .main {
+        overflow-y: auto;
+    }
+    /* horizontal scroll happens in the drawer content to keep the drawer on the left side of the screen */
+    .k-drawer-content {
+        overflow-x: auto;
+    }
+    /* sizing of the header */
+    .top-row {
+        left: 0;
+    }
+    /* expand-collapse button for the drawer - position above the header */
+    .drawer-hamburger {
+        position: absolute;
+        z-index: 2;
+    }
+    /* There are some CSS rules from the default site.css related to the sidenav that are commented out
+    Some of the other rules there define parts of the layout too (like the header rules, or the .main rules
+    In your app, use the height and overflow settings above as guidelines and implement the rest of the layout according to your case
+    */
+</style>

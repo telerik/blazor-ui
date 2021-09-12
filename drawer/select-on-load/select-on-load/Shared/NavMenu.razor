@@ -1,0 +1,21 @@
+﻿@inject NavigationManager _navMan
+
+<h3>Use these buttons to make full page reload and land on the new page for the first time, without Blazor internal navigation</h3>
+
+<button @onclick="@( _ => HardNavigate("") )" class="btn btn-secondary">Go to Home</button>
+<button @onclick="@( _ => HardNavigate("counter") )" class="btn btn-secondary">Go to Counter</button>
+<button @onclick="@( _ => HardNavigate("fetchdata") )" class="btn btn-secondary"> Go to Fetch Data</button>
+
+<h3>Use these links to navigate internally in the app, but not with the drawer</h3>
+
+<NavLink href="/" class="btn btn-secondary">Go to Home</NavLink>
+<NavLink href="/counter" class="btn btn-secondary">Go to Counter</NavLink>
+<NavLink href="/fetchdata" class="btn btn-secondary">Go to Fetch Data</NavLink>
+
+@code{
+    void HardNavigate(string page)
+    {
+        string fullUrl = $"{_navMan.BaseUri}{page}";
+        _navMan.NavigateTo(fullUrl, true);
+    }
+}
