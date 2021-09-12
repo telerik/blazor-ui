@@ -32,7 +32,8 @@ Open the .sln file, build the project and run it. You can navigate between the v
 - For example, if you navigate to `https://localhost:44369/products/computer-peripherals`, the above line will yield the `products/computer-peripherals` string. We can now easily `Split('/')` the result, and create an item for each subpath from this result.
 
 ## Notes 
-You do not have to follow the structure within this project. You can simply take this as a base and build upon. For example, you can enchance the data before setting the new items, like capitalizing the first letter of each item, mapping a subpath to a completely different string to display, adding icons for specific items or other styling based on specific subpaths. For example, introduce such a method which returns an item based on given criteria:
+You do not have to follow the structure within this project. You can use this as a base and build upon to implement specific behavior for your application. For example, you can enhance the data before setting the new items, like capitalizing the first letter of each item, mapping a subpath to a completely different string to display, adding icons for specific items or other styling based on specific subpaths. For example, introduce such a method which returns an item based on given criteria:
+
 ```cs
     public BreadcrumbItem GetItem(string path) =>
     path switch
