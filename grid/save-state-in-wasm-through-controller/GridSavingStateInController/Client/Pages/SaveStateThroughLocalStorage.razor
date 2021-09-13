@@ -1,0 +1,212 @@
+﻿@page "/save-state-localstorage"
+
+@using Services; 
+
+@inject LocalStorage LocalStorage
+@inject IJSRuntime JsInterop
+
+<strong>Change something in the grid (like sort, filter, select, page, resize columns, etc.), then reload the page to see the grid state fetched from the browser local storage.</strong>
+<br />
+
+<TelerikButton OnClick="@ReloadPage">Reload the page to see the current grid state preserved</TelerikButton>
+<TelerikButton OnClick="@ResetState">Reset the state</TelerikButton>
+
+<TelerikGrid Data="@GridData" Height="500px" @ref="@Grid"
+             Groupable="true"
+             Pageable="true"
+             Sortable="true"
+             FilterMode="@GridFilterMode.FilterRow"
+             Reorderable="true"
+             Resizable="true"
+             SelectionMode="GridSelectionMode.Multiple" @bind-SelectedItems="@SelectedItems"
+             OnUpdate=@UpdateItem OnDelete=@DeleteItem OnCreate=@CreateItem EditMode="@GridEditMode.Inline"
+             OnStateInit="@((GridStateEventArgs<SampleData> args) => OnStateInitHandler(args))"
+             OnStateChanged="@((GridStateEventArgs<SampleData> args) => OnStateChangedHandler(args))">
+    <GridColumns>
+        <GridColumn Field="@(nameof(SampleData.Id))" Editable="false" />
+        <GridColumn Field="@(nameof(SampleData.Name))" Title="Employee Name" />
+        <GridColumn Field="@(nameof(SampleData.Team))" Title="Team" />
+        <GridCommandColumn>
+            <GridCommandButton Command="Edit" Icon="edit">Edit</GridCommandButton>
+            <GridCommandButton Command="Delete" Icon="delete">Delete</GridCommandButton>
+            <GridCommandButton Command="Save" Icon="save" ShowInEdit="true">Save</GridCommandButton>
+            <GridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true">Cancel</GridCommandButton>
+        </GridCommandColumn>
+    </GridColumns>
+    <GridToolBar>
+        <GridCommandButton Command="Add" Icon="add">Add Employee</GridCommandButton>
+    </GridToolBar>
+</TelerikGrid>
+
+@if (SelectedItems != null)
+{
+    <ul>
+        @foreach (SampleData employee in SelectedItems)
+        {
+            <li>
+                @employee.Id
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    // Load and Save the state through the grid events
+
+    string UniqueStorageKey = "SampleGridStateStorageThatShouldBeUnique";
+    TelerikGrid<SampleData> Grid { get; set; }
+    IEnumerable<SampleData> SelectedItems { get; set; } = Enumerable.Empty<SampleData>();
+    List<SampleData> GridData { get; set; }
+
+    async Task OnStateInitHandler(GridStateEventArgs<SampleData> args)
+    {
+        try
+        {
+            var state = await LocalStorage.GetItem<GridState<SampleData>>(UniqueStorageKey);
+            if (state != null)
+            {
+                args.GridState = state;
+            }
+
+        }
+        catch (InvalidOperationException e)
+        {
+            // the JS Interop for the local storage cannot be used during pre-rendering
+            // so the code above will throw. Once the app initializes, it will work fine
+        }
+    }
+
+    async void OnStateChangedHandler(GridStateEventArgs<SampleData> args)
+    {
+        await LocalStorage.SetItem(UniqueStorageKey, args.GridState);
+    }
+
+    async Task ResetState()
+    {
+        // clean up the storage
+        await LocalStorage.RemoveItem(UniqueStorageKey);
+
+        await Grid.SetState(null); // pass null to reset the state
+    }
+
+    void ReloadPage()
+    {
+        JsInterop.InvokeVoidAsync("window.location.reload");
+    }
+
+    // Sample CRUD operations
+
+    async Task UpdateItem(GridCommandEventArgs args)
+    {
+        SampleData item = (SampleData)args.Item;
+
+        // perform actual data source operations here through your service
+        await MyService.Update(item);
+
+        // update the local view-model data with the service data
+        await GetGridData();
+
+        Console.WriteLine("Update event is fired.");
+    }
+
+    async Task DeleteItem(GridCommandEventArgs args)
+    {
+        SampleData item = (SampleData)args.Item;
+
+        // perform actual data source operation here through your service
+        await MyService.Delete(item);
+
+        // update the local view-model data with the service data
+        await GetGridData();
+
+        Console.WriteLine("Delete event is fired.");
+    }
+
+    async Task CreateItem(GridCommandEventArgs args)
+    {
+        SampleData item = (SampleData)args.Item;
+
+        // perform actual data source operation here through your service
+        await MyService.Create(item);
+
+        // update the local view-model data with the service data
+        await GetGridData();
+
+        Console.WriteLine("Create event is fired.");
+    }
+
+    // Note the Equals override for restoring selection and editing
+
+    public class SampleData
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Team { get; set; }
+
+        // example of comparing stored items (from editing or selection)
+        // with items from the current data source - IDs are used instead of the default references
+        public override bool Equals(object obj)
+        {
+            if (obj is SampleData)
+            {
+                return this.Id == (obj as SampleData).Id;
+            }
+            return false;
+        }
+    }
+
+    async Task GetGridData()
+    {
+        GridData = await MyService.Read();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetGridData();
+    }
+
+    // the following static class mimics an actual data service that handles the actual data source
+    // replace it with your actual service through the DI, this only mimics how the API can look like and works for this standalone page
+    public static class MyService
+    {
+        private static List<SampleData> _data { get; set; } = new List<SampleData>();
+
+        public static async Task Create(SampleData itemToInsert)
+        {
+            itemToInsert.Id = _data.Count + 1;
+            _data.Insert(0, itemToInsert);
+        }
+
+        public static async Task<List<SampleData>> Read()
+        {
+            if (_data.Count < 1)
+            {
+                for (int i = 1; i < 50; i++)
+                {
+                    _data.Add(new SampleData()
+                    {
+                        Id = i,
+                        Name = "name " + i,
+                        Team = "team " + i % 5
+                    });
+                }
+            }
+
+            return await Task.FromResult(_data);
+        }
+
+        public static async Task Update(SampleData itemToUpdate)
+        {
+            var index = _data.FindIndex(i => i.Id == itemToUpdate.Id);
+            if (index != -1)
+            {
+                _data[index] = itemToUpdate;
+            }
+        }
+
+        public static async Task Delete(SampleData itemToDelete)
+        {
+            _data.Remove(itemToDelete);
+        }
+    }
+}
