@@ -1,0 +1,51 @@
+﻿@page "/fetchdata"
+@using System.Collections.ObjectModel
+@using Demo.Notification.Controls.MessageBox
+@using Demo.Notification.Controls.Notification
+@using Demo.Notification.Data
+@inject WeatherForecastService ForecastService
+@inject MessageBoxService MessageBoxService
+@inject NotificationService NotificationService
+
+<TelerikGrid Data="@forecasts">
+    <GridColumns>
+        <GridColumn Field="Date" />
+        <GridColumn Field="TemperatureC" />
+        <GridColumn Field="TemperatureF" />
+        <GridColumn Field="Summary" />
+        <GridCommandColumn Width="300px">
+            <GridCommandButton OnClick="@(args => DeleteRecord(args.Item as WeatherForecast))" Icon="delete"></GridCommandButton>
+        </GridCommandColumn>
+    </GridColumns>
+</TelerikGrid>
+
+
+@code {
+
+    void DeleteRecord(WeatherForecast forecastToDelete)
+    {
+        MessageBoxService.Show("Confirmation", "Are you really sure you want to delete this record ?", MessageBoxButtonTypeEnum.YesNo, result =>
+        {
+            if (result == MessageBoxResultEnum.Yes)
+            {
+                //finish the action in the callback
+                forecasts.Remove(forecasts.FirstOrDefault(f => f.Id == forecastToDelete.Id));
+                    StateHasChanged();
+                //in a real grid app, you should also call the actual data service
+            }
+            else
+            {
+                NotificationService.Error("Record was not deleted!");
+            }
+        });
+    }
+
+    ObservableCollection<WeatherForecast> forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var tempData = await ForecastService.GetForecastAsync(DateTime.Now);
+        forecasts = new ObservableCollection<WeatherForecast>(tempData);
+    }
+
+}

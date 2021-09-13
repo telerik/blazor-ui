@@ -1,0 +1,30 @@
+﻿@page "/"
+@using Demo.Notification.Controls.MessageBox
+@using Demo.Notification.Controls.Notification
+@inject MessageBoxService MessageBoxService
+@inject NotificationService NotificationService
+
+<h1>Message Box</h1>
+
+<TelerikButton OnClick="@ShowMessageBox">Show confirmation message box</TelerikButton>
+<TelerikButton OnClick="@ShowSuccessNotification">Show success notification</TelerikButton>
+
+@code {
+    private string MessageBoxResult { get; set; } = "?";
+
+    private void ShowMessageBox()
+    {
+        MessageBoxService.Show("Confirmation", "Are you really sure you want to delete this record ?", MessageBoxButtonTypeEnum.YesNo, result =>
+        {
+            if (result == MessageBoxResultEnum.Yes)
+            {
+                MessageBoxService.Show("Information", "Record deleted", MessageBoxButtonTypeEnum.OK, null);
+            }
+        });
+    }
+
+    private void ShowSuccessNotification()
+    {
+        NotificationService.Success("This is a success notification");
+    }
+}

@@ -1,0 +1,117 @@
+﻿<TelerikWindow Visible="@Visible" Modal="true" Centered="true" Width="@Width" Height="@Height">
+
+    <WindowTitle>
+        @Title
+    </WindowTitle>
+
+    <WindowContent>
+        <div>
+            @Message
+        </div>
+
+        <div class="mt-3 mb-3">
+
+            @if (this.ButtonType == MessageBoxButtonTypeEnum.OK || this.ButtonType == MessageBoxButtonTypeEnum.OKCancel)
+            {
+                <TelerikButton OnClick="@(() => { InvokeAction(MessageBoxResultEnum.OK); })">OK</TelerikButton>
+            }
+            @if (this.ButtonType == MessageBoxButtonTypeEnum.YesNo || this.ButtonType == MessageBoxButtonTypeEnum.YesNoCancel)
+            {
+                <TelerikButton OnClick="@(() => { InvokeAction(MessageBoxResultEnum.Yes); })">Yes</TelerikButton>
+            }
+            @if (this.ButtonType == MessageBoxButtonTypeEnum.YesNo || this.ButtonType == MessageBoxButtonTypeEnum.YesNoCancel)
+            {
+                <TelerikButton OnClick="@(() => { InvokeAction(MessageBoxResultEnum.No); })">No</TelerikButton>
+            }
+            @if (this.ButtonType == MessageBoxButtonTypeEnum.OKCancel || this.ButtonType == MessageBoxButtonTypeEnum.YesNoCancel)
+            {
+                <TelerikButton OnClick="@(() => { InvokeAction(MessageBoxResultEnum.Cancel); this.Visible = false;})">Cancel</TelerikButton>
+            }
+
+        </div>
+
+    </WindowContent>
+
+    <WindowActions>
+        <WindowAction Name="Close" OnClick="@OnCancel"></WindowAction>
+    </WindowActions>
+
+</TelerikWindow>
+
+@code {
+
+    #region Variables
+
+    [Inject]
+    public MessageBoxService MessageBoxService { get; set; }
+
+    public string Title { get; set; }
+    public string Message { get; set; }
+    public MessageBoxButtonTypeEnum ButtonType { get; set; }
+    public Action<MessageBoxResultEnum> Action { get; set; }
+
+    public bool Visible { get; set; }
+    public string Width { get; set; }
+    public string Height { get; set; }
+
+    #endregion
+
+    #region Initialisation
+
+    protected override void OnInitialized()
+    {
+        MessageBoxService.OnShowMessageBox += (string title, string message, MessageBoxButtonTypeEnum buttonType, Action<MessageBoxResultEnum> action) =>
+        {
+            InvokeAsync(() =>
+            {
+                this.Title = title;
+                this.Message = message;
+                this.ButtonType = buttonType;
+                this.Action = action;
+                this.Visible = true;
+                this.StateHasChanged();
+            });
+        };
+    }
+
+    #endregion
+
+    #region Gestion du clic
+
+    private void InvokeAction(MessageBoxResultEnum result)
+    {
+    // Fait avant d'appeler l'action car celle ci pourrait afficher une autre boite de dialogue => celle ci serait fermer à cause du IsVisible = false
+        this.Visible = false;
+
+        if (Action != null)
+        {
+    // Don't force to provide an action to invoke : case of OK message box
+            Action.Invoke(result);
+        }
+    }
+
+    private void OnCancel()
+    {
+        switch (this.ButtonType)
+        {
+            case MessageBoxButtonTypeEnum.OK:
+                InvokeAction(MessageBoxResultEnum.OK);
+                break;
+
+            case MessageBoxButtonTypeEnum.OKCancel:
+            case MessageBoxButtonTypeEnum.YesNoCancel:
+                InvokeAction(MessageBoxResultEnum.Cancel);
+                break;
+
+            case MessageBoxButtonTypeEnum.YesNo:
+                InvokeAction(MessageBoxResultEnum.No);
+                break;
+
+            default:
+                throw new NotImplementedException();
+        }
+    }
+
+    #endregion
+
+}
