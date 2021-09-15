@@ -10,7 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="6.0.100-rc.1.1608" />
 
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="2.24.0" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="2.27.0" />
   </ItemGroup>
 
   <ItemGroup>
