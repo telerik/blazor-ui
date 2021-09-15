@@ -8,7 +8,7 @@
     <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="5.0.5" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageReference Include="System.Text.Json" Version="5.0.2" />
-    <PackageReference Include="Telerik.UI.for.Blazor.Trial" Version="2.26.0" />
+    <PackageReference Include="Telerik.UI.for.Blazor.Trial" Version="2.27.0" />
   </ItemGroup>
 
   <ItemGroup>
