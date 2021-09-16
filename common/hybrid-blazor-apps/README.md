@@ -1,14 +1,29 @@
 # Hybrid Blazor Apps (Blazor Web apps running in WinForms, WPF, MAUI)
 
+## Overview
+
 With .NET 6.0 an exciting new feature became available - `WebView` for native apps that is dedicated to running Blazor Web applications.
 
 The samples in this project showcase Telerik UI for Blazor web components running in this hybrid scenarios inside native MAUI, WPF and WinForms apps.
 
-## Prerequisites
+## Screenshots
 
-You need to make sure you can run the corresponding technology stack and the basic Hybrid Blazor WebView in it before using the Telerik components. You can find some details in the [How to run](#how-to-run) section below.
+Here's how the hybrid apps look like when they are run on the different platforms with a similar configuration of Telerik UI for Blazor components:
 
+### Telerik UI for Blazor MAUI App
 
+![blazor-maui-app](screenshots/blazor-maui-app.png)
+
+### Telerik UI for Blazor WinForms App
+
+![blazor-winforms-app](screenshots/blazor-winforms-app.png)
+### Telerik UI for Blazor WPF App
+
+![blazor-wpf-app](screenshots/blazor-wpf-app.png)
+
+## Installation Prerequisites
+
+You need to make sure you can run the corresponding technology stack and the basic Hybrid Blazor WebView in it **before** using the Telerik components. You can find some details in the [How to run](#how-to-run) section below.
 
 ## Key Points About the Telerik Components
 
