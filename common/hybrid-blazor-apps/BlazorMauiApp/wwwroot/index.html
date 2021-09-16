@@ -7,10 +7,36 @@
     <base href="/" />
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
     <link href="css/app.css" rel="stylesheet" />
+
+    <style>
+        /*
+            make sure that the TelerikRootComponent matches the viewport of the webview
+            for correct popup positions, it is inside the <body> element and it has default padding
+            that offsets it from the viewport and can cause offsets in popups positions
+        */
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        /*
+            layout for the app to give it some space from the viewport so it does not affect positions
+            this element is, in the Main.razor file inside the TelerikRootComponent
+        */
+        #viewportSpacer {
+            padding: 1em;
+        }
+    </style>
+
+    <!--For Trial licenses use-->
+    <link rel="stylesheet" href="_content/Telerik.UI.for.Blazor.Trial/css/kendo-theme-default/all.css" />
+    <script src="_content/Telerik.UI.for.Blazor.Trial/js/telerik-blazor.js" defer></script>
+
+    <link rel="stylesheet" href="_content/Telerik.UI.for.Blazor/css/kendo-theme-default/all.css" />
+    <script src="_content/Telerik.UI.for.Blazor/js/telerik-blazor.js" defer></script>
 </head>
 
 <body>
-
     <app></app>
 
     <div id="blazor-error-ui">
@@ -20,7 +46,6 @@
     </div>
 
     <script src="_framework/blazor.webview.js" autostart="false"></script>
-
 </body>
 
 </html>
