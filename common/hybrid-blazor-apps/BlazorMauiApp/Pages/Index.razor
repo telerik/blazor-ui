@@ -1,9 +1,12 @@
 ﻿@page "/"
 
 @* NOTE: The full namespace for other proejcts and native code is included here to work around this bug: https://github.com/dotnet/aspnetcore/issues/30851 *@
-@inject BlazorWpfApp.AppState AppState
+@*@inject BlazorMauiApp.AppState AppState*@
 
-<h3> <a href="https://www.telerik.com/blazor-ui" target="_blank">Telerik UI for Blazor</a> running in a native WPF app!</h3>
+<h1>
+    <a href="https://www.telerik.com/blazor-ui" target="_blank">Telerik UI for Blazor</a>
+    running in a native MAUI app!
+</h1>
 
 <h3>Grid</h3>
 
@@ -26,6 +29,14 @@
     </GridColumns>
 </TelerikGrid>
 
+@*<h3>Button</h3>*@
+
+@*<TelerikButton OnClick="@OnClick" Primary="true" Icon="plus">Click me</TelerikButton>*@
+
+@*<div>
+    The button was clicked @(AppState.Counter) times.
+</div>
+*@
 <h3>Chart</h3>
 
 <TelerikChart Width="600px" Height="300px">
@@ -53,18 +64,12 @@
     </ChartCategoryAxes>
 </TelerikChart>
 
-<h3>Button</h3>
-
-<TelerikButton OnClick="@OnClick" Primary="true" Icon="plus">Click me</TelerikButton>
-
-<div>
-    The button was clicked @(AppState.Counter) times.
-</div>
-
 <h3>DatePicker</h3>
-@SelectedDate
-<br />
-<TelerikDatePicker Min="@Min" Max="@Max" @bind-Value="@SelectedDate"></TelerikDatePicker>
+<div>
+    <TelerikDatePicker Min="@Min" Max="@Max" @bind-Value="@SelectedDate"></TelerikDatePicker>
+
+    <div>Selected date: @SelectedDate</div>
+</div>
 
 @code {
     public DateTime Min = new DateTime(2000, 1, 1);
@@ -125,10 +130,10 @@
         return data;
     }
 
-    public void OnClick()
-    {
-        AppState.Counter++;
-    }
+    //public void OnClick()
+    //{
+    //    AppState.Counter++;
+    //}
 
     public class Product
     {

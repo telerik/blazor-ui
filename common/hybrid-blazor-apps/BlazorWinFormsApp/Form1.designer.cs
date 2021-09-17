@@ -43,7 +43,7 @@ namespace BlazorWinFormsApp
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 1, 2, 1);
-            this.groupBox1.Size = new System.Drawing.Size(679, 76);
+            this.groupBox1.Size = new System.Drawing.Size(841, 76);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Native Windows Forms UI";
@@ -66,14 +66,14 @@ namespace BlazorWinFormsApp
             this.blazorWebView1.Location = new System.Drawing.Point(7, 85);
             this.blazorWebView1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.blazorWebView1.Name = "blazorWebView1";
-            this.blazorWebView1.Size = new System.Drawing.Size(679, 465);
+            this.blazorWebView1.Size = new System.Drawing.Size(841, 659);
             this.blazorWebView1.TabIndex = 20;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(693, 556);
+            this.ClientSize = new System.Drawing.Size(855, 750);
             this.Controls.Add(this.blazorWebView1);
             this.Controls.Add(this.groupBox1);
             this.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);

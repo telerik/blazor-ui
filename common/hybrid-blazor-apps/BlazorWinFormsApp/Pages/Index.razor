@@ -5,7 +5,6 @@
 
 <h3> <a href="https://www.telerik.com/blazor-ui" target="_blank">Telerik UI for Blazor</a> running in a native WinForms app!</h3>
 
-
 <h3>Grid</h3>
 
 <TelerikGrid Data="@GridData"
@@ -26,19 +25,6 @@
         <GridColumn Field="@nameof(Product.Discontinued)" />
     </GridColumns>
 </TelerikGrid>
-
-<h3>Button</h3>
-
-<TelerikButton OnClick="@OnClick" Primary="true" Icon="plus">Click me</TelerikButton>
-
-<div>
-    The button was clicked @(AppState.Counter) times.
-</div>
-
-<h3>DatePicker</h3>
-@SelectedDate
-<br />
-<TelerikDatePicker Min="@Min" Max="@Max" @bind-Value="@SelectedDate"></TelerikDatePicker>
 
 <h3>Chart</h3>
 
@@ -67,8 +53,20 @@
     </ChartCategoryAxes>
 </TelerikChart>
 
+<h3>Button</h3>
 
-@code { 
+<TelerikButton OnClick="@OnClick" Primary="true" Icon="plus">Click me</TelerikButton>
+
+<div>
+    The button was clicked @(AppState.Counter) times.
+</div>
+
+<h3>DatePicker</h3>
+@SelectedDate
+<br />
+<TelerikDatePicker Min="@Min" Max="@Max" @bind-Value="@SelectedDate"></TelerikDatePicker>
+
+@code {
     public DateTime Min = new DateTime(2000, 1, 1);
     public DateTime Max = new DateTime(2050, 12, 31);
     public DateTime? SelectedDate;
