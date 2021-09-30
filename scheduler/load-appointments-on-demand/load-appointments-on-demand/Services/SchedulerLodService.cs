@@ -52,7 +52,7 @@ namespace load_appointments_on_demand.Services
                     startDate = new DateTime(startDate.Year, startDate.Month, 1).AddDays(-6);
                     // make it even simpler - no months are shorter than 28 days, none is longer than 31
                     // so adding 9 adds at least 6 to the longest possible for the case where most days are seen
-                    endDate = new DateTime(startDate.Year, startDate.Month, 28).AddDays(-9);
+                    endDate = new DateTime(startDate.Year, startDate.Month, 28).AddDays(9);
                     break;
                 default:
                     throw new ArgumentException("the service does not know how to handle this scheduler view yet");
