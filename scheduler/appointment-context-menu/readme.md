@@ -11,3 +11,5 @@ To use a context menu for the appointments:
 1. Use the <a href="https://docs.telerik.com/blazor-ui/components/scheduler/templates/appointment" target="_blank">appointment template</a> of the scheduler to <a href="https://docs.telerik.com/blazor-ui/components/contextmenu/integration" target="_blank">integrate the context menu</a> with them.
 
 In this sample project we provide a Delete shortcut and a way to toggle a custom field in the appointment model.
+
+>Tip: As of 2.27.0 there is a built-in event you can use so you do not have to use templates, you can read more about it here: [Scheduler OnItemContextMenu Event](https://docs.telerik.com/blazor-ui/components/scheduler/events#onitemcontextmenu)
