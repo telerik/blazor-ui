@@ -1,0 +1,160 @@
+﻿@page "/"
+
+@using StateInProtectedBrowserStorage.Models
+@using StateInProtectedBrowserStorage.Services
+@inject GridDataService DataService
+@inject IJSRuntime JsInterop
+
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@inject ProtectedLocalStorage _MsBrowserStorage
+
+Change something in the grid (like sort, filter, select, page, resize columns, etc.), then reload the page to see the grid state fetched from the browser local storage.
+<br />
+
+<TelerikButton OnClick="@ReloadPage">Reload the page to see the current grid state preserved</TelerikButton>
+<TelerikButton OnClick="@ResetState">Reset the state</TelerikButton>
+
+<TelerikGrid Data="@GridData" Height="500px" @ref="@Grid"
+                Groupable="true"
+                Pageable="true"
+                Sortable="true"
+                FilterMode="@GridFilterMode.FilterRow"
+                Reorderable="true"
+                Resizable="true"
+                SelectionMode="GridSelectionMode.Multiple" @bind-SelectedItems="@SelectedItems"
+                OnUpdate=@UpdateItem OnDelete=@DeleteItem OnCreate=@CreateItem EditMode="@GridEditMode.Inline"
+                OnStateInit="@((GridStateEventArgs<SampleData> args) => OnStateInitHandler(args))"
+                OnStateChanged="@((GridStateEventArgs<SampleData> args) => OnStateChangedHandler(args))">
+    <GridColumns>
+        <GridColumn Field="@(nameof(SampleData.Id))" Editable="false" />
+        <GridColumn Field="@(nameof(SampleData.Name))" Title="Employee Name" />
+        <GridColumn Field="@(nameof(SampleData.Team))" Title="Team" />
+        <GridCommandColumn>
+            <GridCommandButton Command="Edit" Icon="edit">Edit</GridCommandButton>
+            <GridCommandButton Command="Delete" Icon="delete">Delete</GridCommandButton>
+            <GridCommandButton Command="Save" Icon="save" ShowInEdit="true">Save</GridCommandButton>
+            <GridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true">Cancel</GridCommandButton>
+        </GridCommandColumn>
+    </GridColumns>
+    <GridToolBar>
+        <GridCommandButton Command="Add" Icon="add">Add Employee</GridCommandButton>
+    </GridToolBar>
+</TelerikGrid>
+
+@if (SelectedItems != null)
+{
+    <ul>
+        @foreach (SampleData employee in SelectedItems)
+        {
+            <li>
+                @employee.Id
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    List<SampleData> GridData { get; set; }
+    IEnumerable<SampleData> SelectedItems { get; set; } = Enumerable.Empty<SampleData>();
+
+
+
+    // Load and Save the state through the grid events
+    string UniqueStorageKey = "SampleGridStateStorageKeyThatShouldBeUnique2";
+    TelerikGrid<SampleData> Grid { get; set; }
+
+    async Task OnStateInitHandler(GridStateEventArgs<SampleData> args)
+    {
+        try
+        {
+            ProtectedBrowserStorageResult<GridState<SampleData>> storageData = await _MsBrowserStorage.GetAsync<GridState<SampleData>>(UniqueStorageKey);
+            if (storageData.Success && storageData.Value != null)
+            {
+                args.GridState = storageData.Value;
+            }
+
+        }
+        catch (InvalidOperationException e)
+        {
+            // the JS Interop for the MS local storage cannot be used during pre-rendering
+            // so the code above will throw. Once the app initializes, it will work fine
+            // Read mor in the official documentation, as there are different ways to handle this
+            // https://docs.microsoft.com/en-us/aspnet/core/blazor/state-management?view=aspnetcore-5.0&pivots=server
+        }
+    }
+
+    async void OnStateChangedHandler(GridStateEventArgs<SampleData> args)
+    {
+        await _MsBrowserStorage.SetAsync(
+                UniqueStorageKey,
+                args.GridState
+            );
+    }
+
+    async Task ResetState()
+    {
+        // clean up the storage
+        await _MsBrowserStorage.DeleteAsync(UniqueStorageKey);
+
+        await Grid.SetState(null); // pass null to reset the state
+    }
+
+    void ReloadPage()
+    {
+        JsInterop.InvokeVoidAsync("window.location.reload");
+    }
+
+
+
+
+    // Sample CRUD operations
+
+    async Task UpdateItem(GridCommandEventArgs args)
+    {
+        SampleData item = (SampleData)args.Item;
+
+        // perform actual data source operations here through your service
+        await DataService.Update(item);
+
+        // update the local view-model data with the service data
+        await GetGridData();
+
+        Console.WriteLine("Update event is fired.");
+    }
+
+    async Task DeleteItem(GridCommandEventArgs args)
+    {
+        SampleData item = (SampleData)args.Item;
+
+        // perform actual data source operation here through your service
+        await DataService.Delete(item);
+
+        // update the local view-model data with the service data
+        await GetGridData();
+
+        Console.WriteLine("Delete event is fired.");
+    }
+
+    async Task CreateItem(GridCommandEventArgs args)
+    {
+        SampleData item = (SampleData)args.Item;
+
+        // perform actual data source operation here through your service
+        await DataService.Create(item);
+
+        // update the local view-model data with the service data
+        await GetGridData();
+
+        Console.WriteLine("Create event is fired.");
+    }
+
+    async Task GetGridData()
+    {
+        GridData = await DataService.Read();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetGridData();
+    }
+}
