@@ -44,9 +44,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="6.0.100-rc.1.*" />
-    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="6.0.0-rc.1.*" />
-    <!--<PackageReference Include="Microsoft.Maui" Version="6.0.100-rc.1.*" />-->
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="6.0.101-preview.9.1843" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="6.0.0-rc.2.21480.10" />
 
     <!--if you want to try the trial version-->
     <!--<PackageReference Include="Telerik.UI.for.Blazor.Trial" Version="2.27.0" />-->
@@ -56,7 +55,7 @@
 
   <ItemGroup Condition="$(TargetFramework.Contains('-windows'))">
     <!-- Required - WinUI does not yet have buildTransitive for everything -->
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0-experimental1" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0-preview2" />
     <PackageReference Include="Microsoft.WindowsAppSDK.Foundation" Version="1.0.0-experimental1" />
     <PackageReference Include="Microsoft.WindowsAppSDK.WinUI" Version="1.0.0-experimental1" />
     <PackageReference Include="Microsoft.WindowsAppSDK.InteractiveExperiences" Version="1.0.0-experimental1" NoWarn="NU1701" />
