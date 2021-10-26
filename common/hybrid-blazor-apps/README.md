@@ -38,15 +38,15 @@ These sample apps contain just a few commonly used Telerik components such as a 
 
 ## How to run
 
-1. Install [.NET 6.0 RC 1](https://devblogs.microsoft.com/aspnet/asp-net-core-updates-in-net-6-rc-1/).
-    * Note: It requires <a href="http://visualstudio.com/preview" target="_blank">Visual Studio Preview for Windows</a> or <a href="https://docs.microsoft.com/visualstudio/releasenotes/vs2019-mac-preview-relnotes" target="_blank">for Mac</a>.
+1. Install the latest version of [.NET 6.0](https://dotnet.microsoft.com/download/dotnet/6.0/).
+    * Note: It requires <a href="http://visualstudio.com/preview" target="_blank">Visual Studio 2022 Preview for Windows</a> or <a href="https://docs.microsoft.com/visualstudio/releasenotes/vs2019-mac-preview-relnotes" target="_blank">for Mac</a>.
 1. Install [WebView](https://devblogs.microsoft.com/aspnet/asp-net-core-updates-in-net-6-preview-3/#blazorwebview-controls-for-wpf-windows-forms).
-1. Make sure you have WinForms/WPF/MAUI/etc. installed.
-    * Note: WPF usually come as workloads through the Visual Studio installer, if you have not activated it previously go to the VS Installer and add them.
-    * Note: For MAUI installation, follow the instructions in the official [blog post](https://devblogs.microsoft.com/aspnet/asp-net-core-updates-in-net-6-preview-4/#net-maui-blazor-apps)
+1. Make sure you have the necessary bits to work with WinForms/WPF/MAUI apps:
+    * For MAUI installation, follow the instructions in the official [documentation](https://docs.microsoft.com/en-us/dotnet/maui/get-started/installation)
 1. Run a WinForms/WPF/MAUI app
-    * Note: For the MAUI app, follow the instructions for how to run on [Windows](https://devblogs.microsoft.com/aspnet/asp-net-core-updates-in-net-6-preview-4/#windows)
-1. Make sure you have the latest Telerik UI for Blazor version (2.24.0) in [your nuget feed](https://docs.telerik.com/blazor-ui/installation/nuget).
+    * For MAUI, follow the instructions for how to [run the app](https://docs.microsoft.com/en-us/dotnet/maui/get-started/first-app?pivots=windows)
+> **Note:** For MAUI, make sure you are able to run the default template project (created from either Visual Studio 2022 or the CLI) before proceeding. Having an incomplete installation of MAUI will prevent you from running any app, including the provided sample apps.
+5. Use the latest Telerik UI for Blazor version (2.27.0) in [your nuget feed](https://docs.telerik.com/blazor-ui/installation/nuget).
 
 ## Known issues
 
