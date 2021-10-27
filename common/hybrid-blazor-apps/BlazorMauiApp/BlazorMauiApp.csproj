@@ -48,9 +48,9 @@
     <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="6.0.0-rc.2.21480.10" />
 
     <!--if you want to try the trial version-->
-    <!--<PackageReference Include="Telerik.UI.for.Blazor.Trial" Version="2.27.0" />-->
+    <!--<PackageReference Include="Telerik.UI.for.Blazor.Trial" Version="2.28.0" />-->
 
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="2.27.0" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="2.28.0" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Contains('-windows'))">
