@@ -16,15 +16,15 @@ Telerik Grid works nicely with Entity Framework, you can use `.ToDataSourceResul
 1. Open the project, right click on the `TelerikBlazorGrid.SqlDB.sqlproj` file and then `Import` -> `Script(*.sql)`
 2. Click **Next** on the window that popped
 3. After that, choose **Multiple files** and click **Browse...**
-![third step screenshot](https://github.com/telerik/blazor-ui/blob/master/grid/dapper/images/third-step.PNG)
+![third step screenshot](images/third-step.png)
 4. Select the **Scripts** folder in the project and click **Finish**
-![fourth step screenshot](https://github.com/telerik/blazor-ui/blob/master/grid/dapper/images/fourth-step.PNG)
+![fourth step screenshot](images/fourth-step.png)
 5. Right click again on the `TelerikBlazorGrid.SqlDB.sqlproj` file and then `Publish...`
 6. Click **Edit** in the popped window
 7. Type **Server Name** and **User Name** from your SQL Server
-![seventh step screenshot](https://github.com/telerik/blazor-ui/blob/master/grid/dapper/images/seventh-step.PNG)
+![seventh step screenshot](images/seventh-step.png)
 8. Copy the generated connection string and close the window
-![eighth step screenshot](https://github.com/telerik/blazor-ui/blob/master/grid/dapper/images/eighth-step.PNG)
+![eighth step screenshot](images/eighth-step.png)
 9. Paste the connection string in the `appsettings.Development.json` file and you are ready to go
 
 ## The Magic
@@ -34,7 +34,7 @@ You may also specify a different default sort field and direction.
 
 ## The Result
 This picture shows the end result. A table with full sort, filter and paging functionality - Using OnRead through dapper, and passing the handling of all the Grid functionalities over to the database.
-![dapper grid](https://github.com/telerik/blazor-ui/blob/master/grid/dapper/images/dapper-grid.PNG)
+![dapper grid](images/dapper-grid.png)
 
 ## Disclaimer
 Integration with Dapper is not subject to technical support by Progress.
