@@ -1,0 +1,60 @@
+﻿@page "/"
+@inject IProductDataService _productDataService; 
+
+<h3>Products</h3>
+
+<TelerikGrid Data="ProductList"
+             Class="overflow-auto mb-4"
+             OnRead="ReadItems"
+             TotalCount="ProductCount"
+             Pageable="true"
+             Sortable="true"
+             FilterMode="GridFilterMode.FilterMenu"
+             Resizable="true"
+             Reorderable="true"
+             Height="600px"
+             @bind-PageSize="PageSize"
+             @ref="Grid">
+    <GridToolBar>
+        <GridCommandButton Icon="arrow-rotate-cw" OnClick="RefreshTable">Refresh</GridCommandButton>
+        <GridCommandButton Command="ExcelExport" Icon="file-excel">Export .xlsx</GridCommandButton>
+        <GridCommandButton Command="CsvExport" Icon="file-csv">Export .csv</GridCommandButton>
+        <span class="k-toolbar-spacer"></span>
+        <GridSearchBox />
+    </GridToolBar>
+    <GridExport>
+        <GridExcelExport FileName="Users" AllPages="true" />
+        <GridCsvExport FileName="Users" AllPages="true" />
+    </GridExport>
+    <GridSettings>
+        <GridPagerSettings PageSizes="PageSizes" />
+    </GridSettings>
+    <GridColumns>
+        <GridColumn Field="@nameof(Product.Id)" Width="70px" DisplayFormat="{0:N0}" />
+        <GridColumn Field="@nameof(Product.Name)" />
+        <GridColumn Field="@nameof(Product.Quantity)" Width="160px" />
+        <GridColumn Field="@nameof(Product.OnSale)" Width="160px" />
+        <GridColumn Field="@nameof(Product.Category)" Width="150px" />
+        <GridColumn Field="@nameof(Product.Created)" Width="165px" />
+    </GridColumns>
+</TelerikGrid>
+
+@code {
+    private TelerikGrid<Product> Grid { get; set; }
+    private List<Product> ProductList { get; set; }
+    private int ProductCount { get; set; }
+    private int PageSize { get; set; } = 10;
+    private List<int?> PageSizes = new List<int?> { 5, 10, 25, 50, null };
+
+    private async Task ReadItems(GridReadEventArgs args)
+    {
+        var result = await _productDataService.GetProducts(args.Request);
+        ProductList = result.Results;
+        ProductCount = result.Count;
+    }
+
+    private async Task RefreshTable()
+    {
+        await Grid.SetState(Grid.GetState());
+    }
+}

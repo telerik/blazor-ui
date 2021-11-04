@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelerikBlazorGrid-Dapper.Blazor", "TelerikBlazorGrid-Dapper.Blazor\TelerikBlazorGrid-Dapper.Blazor.csproj", "{78DA0F79-38E9-4532-90CC-394B5A09508B}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "TelerikBlazorGrid.SqlDB", "TelerikBlazorGrid.SqlDB\TelerikBlazorGrid.SqlDB.sqlproj", "{92B1B913-E2D6-4114-BD5E-3A33A782A19F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelerikBlazorGrid-Dapper.DataAccess", "TelerikBlazorGrid-Dapper.DataAccess\TelerikBlazorGrid-Dapper.DataAccess.csproj", "{F1730C4A-6289-4FC1-995F-201C0FCAD189}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{78DA0F79-38E9-4532-90CC-394B5A09508B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78DA0F79-38E9-4532-90CC-394B5A09508B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78DA0F79-38E9-4532-90CC-394B5A09508B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78DA0F79-38E9-4532-90CC-394B5A09508B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92B1B913-E2D6-4114-BD5E-3A33A782A19F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92B1B913-E2D6-4114-BD5E-3A33A782A19F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92B1B913-E2D6-4114-BD5E-3A33A782A19F}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{92B1B913-E2D6-4114-BD5E-3A33A782A19F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92B1B913-E2D6-4114-BD5E-3A33A782A19F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92B1B913-E2D6-4114-BD5E-3A33A782A19F}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{F1730C4A-6289-4FC1-995F-201C0FCAD189}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1730C4A-6289-4FC1-995F-201C0FCAD189}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1730C4A-6289-4FC1-995F-201C0FCAD189}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1730C4A-6289-4FC1-995F-201C0FCAD189}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {28ED30AE-E88A-4E36-BCC6-BFF456CBAA1F}
+	EndGlobalSection
+EndGlobal
