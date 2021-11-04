@@ -37,4 +37,4 @@ This picture shows the end result. A table with full sort, filter and paging fun
 ![dapper grid](images/dapper-grid.png)
 
 ## Disclaimer
-The Telerik components integration with Dapper is not supported. This is only an example of a custom scenario.
+Integration with Dapper is not subject to technical support by Progress.
