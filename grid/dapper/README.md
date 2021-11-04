@@ -16,15 +16,19 @@ Telerik Grid works nicely with Entity Framework, you can use `.ToDataSourceResul
 1. Open the project, right click on the `TelerikBlazorGrid.SqlDB.sqlproj` file and then `Import` -> `Script(*.sql)`
 2. Click **Next** on the window that popped
 3. After that, choose **Multiple files** and click **Browse...**
-![third step screenshot](images/third-step.png)
+
+    ![third step screenshot](images/third-step.png)
 4. Select the **Scripts** folder in the project and click **Finish**
-![fourth step screenshot](images/fourth-step.png)
+
+    ![fourth step screenshot](images/fourth-step.png)
 5. Right click again on the `TelerikBlazorGrid.SqlDB.sqlproj` file and then `Publish...`
 6. Click **Edit** in the popped window
 7. Type **Server Name** and **User Name** from your SQL Server
-![seventh step screenshot](images/seventh-step.png)
+
+    ![seventh step screenshot](images/seventh-step.png)
 8. Copy the generated connection string and close the window
-![eighth step screenshot](images/eighth-step.png)
+
+    ![eighth step screenshot](images/eighth-step.png)
 9. Paste the connection string in the `appsettings.Development.json` file and you are ready to go
 
 ## The Magic
