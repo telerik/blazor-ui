@@ -6,7 +6,7 @@ The Grid provides you with a `GridState<T>` object with the state information, s
 
 This sample project shows how to use the `Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage` to store the Grid state in the browser in an encrypted format (the framework does the encryption). You can read more about this framework service in the following documentation page: <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/state-management" target="_blank">https://docs.microsoft.com/en-us/aspnet/core/blazor/state-management</a>.
 
-In this sample project, there are two pages:
+There are two pages in the project:
 
 - `Index.razor` uses the framework service directly and lets it serialize the data.
 - `ExplicitSerialization.razor` serializes the data explicitly to a string before passing it to the framework service. This can be useful for debugging purposes in case you face issues or the built-in serialization approach in the service changes/breaks.
