@@ -17,5 +17,5 @@ There are two pages in the project:
 
 At the time of writing, there are two caveats with this service:
 
-* It seems like only injecting the framework service into a component is possible and if you need to make it reusable, the approach from the official documentation is to use a cascading parameter from a parent component. My attempt to inject it into another service was not successful.
+* The framework service needs to be injected into every Razor component that uses it. The official Microsoft documentation suggests reusing the service via a cascading parameter from a parent component. My attempt to inject it into another service was not successful.
 * There is no documentation in the WebAssembly section of the article on how to use this service, and whether there are differences from the server-side flavor. I have not attempted to use it in a WebAssembly project. If you get it running, feel free to open a Pull Request with that sample.
