@@ -9,7 +9,7 @@ This sample project shows how to use the `Microsoft.AspNetCore.Components.Server
 There are two pages in the project:
 
 - `Index.razor` uses the framework service directly and lets it serialize the data.
-- `ExplicitSerialization.razor` serializes the data explicitly to a string before passing it to the framework service. This can be useful for debugging purposes in case you face issues or the built-in serialization approach in the service changes/breaks.
+- `ExplicitSerialization.razor` serializes the data explicitly to a string before passing it to the framework service. This can be useful for debugging purposes in case you face issues, or the built-in serialization approach in the service changes/breaks.
 
 
 ## Notes
