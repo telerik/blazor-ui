@@ -2,7 +2,7 @@
 
 The <a href="https://docs.telerik.com/blazor-ui/components/grid/state" target="_blank">Telerik Grid State feature</a> lets you get and set the grid state with code. It also lets you store that state for your users so they can get back where they left off (filters, page index, sorting, and so on).
 
-The grid provides you with a `GridStat<T>` object with the state that contains that information so the application can choose where to store it. Common choices are a database or the browser local storage. Both of these options require a string value, so the object from the grid must be serialized. The `System.Text.Json` serializer that comes with the framework is supported.
+The Grid provides you with a `GridState<T>` object with the state information, so the application can choose where to store it. Common choices are a database or the browser's local storage. Both of these options require a string value, so the object from the grid must be serialized. The `System.Text.Json` serializer that comes with the framework is supported.
 
 This sample project shows how to use the `Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage` to store the grid state in the browser in an encrypted format (the framework does the encryption). You can read more on using this framework service in the following documentation page: <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/state-management" target="_blank">https://docs.microsoft.com/en-us/aspnet/core/blazor/state-management</a>.
 
