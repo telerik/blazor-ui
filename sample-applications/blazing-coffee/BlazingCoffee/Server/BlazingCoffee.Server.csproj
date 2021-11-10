@@ -36,9 +36,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.0-rc.2.21511.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="6.0.0" />
-    <PackageReference Include="Telerik.Documents.SpreadsheetStreaming.Trial" Version="2021.3.909" />
-    <PackageReference Include="Telerik.Documents.Flow.Trial" Version="2021.3.909" />
-    <PackageReference Include="Telerik.Documents.Flow.FormatProviders.Pdf.Trial" Version="2021.3.909" />
+    <PackageReference Include="Telerik.Documents.SpreadsheetStreaming.Trial" Version="2021.3.1109" />
+    <PackageReference Include="Telerik.Documents.Flow.Trial" Version="2021.3.1109" />
+    <PackageReference Include="Telerik.Documents.Flow.FormatProviders.Pdf.Trial" Version="2021.3.1109" />
   </ItemGroup>
 
   <ItemGroup>
