@@ -29,7 +29,7 @@ Comments in the code offer more details.
 You can dynamically create `TabStripTab` instances by looping through a collection of descriptors. To extract the underlying model from the currently active tab you can:
 
 1. Create a collection of all Visible tabs
-    * This example shows how to do that by using the `Visible` property from the `TabDescriptor` as a condition. **As of version 2.30.0 of Telerik UI for Blazor, the `TabStripTab` exposes a `Visible` parameter which allows you to easily control the tabs visibility. Read more in [Tabs Configuration](https://docs.telerik.com/blazor-ui/components/tabstrip/tabs-configuration) article.**
+    * This example shows how to do that by using the `Visible` property from the `TabDescriptor` as a condition. **UI for Blazor 2.30 exposes a `Visible` parameter of the `TabStripTab` for easier control of tab visibility. Read more at [Tabs Configuration](https://docs.telerik.com/blazor-ui/components/tabstrip/tabs-configuration)**
 1. Use the `ActiveTabIndex` and `ActiveTabIndexChanged`
     * In the handler for the `ActiveTabIndexChanged` event you can get the model from the collection of visible tabs based on the index received as an argument in the event.
 1. Create a deep copy of the model and store it in a property. This would ensure that the model would not be change unintentionally. 
