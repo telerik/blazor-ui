@@ -11,7 +11,7 @@
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.0" PrivateAssets="all" />
         <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
         <PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
-        <PackageReference Include="Telerik.UI.for.Blazor.Trial" Version="2.29.0" />
+        <PackageReference Include="Telerik.UI.for.Blazor.Trial" Version="2.30.0" />
         <PackageReference Include="BuildWebCompiler" Version="1.12.405" />
         <PackageReference Include="BlazorPro.BlazorSize" Version="3.1.0" />
     </ItemGroup>
