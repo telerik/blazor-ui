@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,6 +36,24 @@ namespace TelerikBlazorGrid_Dapper.DataAccess.Services
             }
 
             return null;
+        }
+
+        public async Task<DataSourceResponse<Product>> GetRelatedProducts(DataSourceRequest request, int productId)
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("Id", productId);
+
+            var templates = request.GenerateTemplates("dbo.sfGetLinkedProductsForProductId", selectParameters: parameters);
+
+            if (templates.SelectTemplate is null || templates.CountTemplate is null)
+            {
+                throw new Exception("At least one SQL template was null and unable to be created.");
+            }
+
+            var products = await _dataAccess.LoadDataQuery<Product, dynamic>(templates.SelectTemplate.RawSql, templates.SelectTemplate.Parameters);
+            var count = await _dataAccess.LoadFirstQuery<int, dynamic>(templates.CountTemplate.RawSql, templates.CountTemplate.Parameters);
+
+            return new DataSourceResponse<Product>(products, count);
         }
     }
 }

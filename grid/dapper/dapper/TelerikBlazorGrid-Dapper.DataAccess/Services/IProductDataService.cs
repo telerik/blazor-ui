@@ -7,5 +7,6 @@ namespace TelerikBlazorGrid_Dapper.DataAccess.Services
     public interface IProductDataService
     {
         Task<DataSourceResponse<Product>> GetProducts(DataSourceRequest request);
+        Task<DataSourceResponse<Product>> GetRelatedProducts(DataSourceRequest request, int productId);
     }
 }

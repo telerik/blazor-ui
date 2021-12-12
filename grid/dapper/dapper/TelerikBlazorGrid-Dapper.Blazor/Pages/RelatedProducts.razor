@@ -1,8 +1,8 @@
-﻿@page "/"
+﻿@page "/product/{ProductId:int}/related"
 @inject IProductDataService _productDataService
 @inject NavigationManager _navigationManager
 
-<h3>Products</h3>
+<h3>Related Products to Product @ProductId</h3>
 
 <TelerikGrid Data="ProductList"
              Class="overflow-auto mb-4"
@@ -44,22 +44,33 @@
 </TelerikGrid>
 
 @code {
+    [Parameter] public int ProductId { get; set; }
+
     private TelerikGrid<Product> Grid { get; set; }
     private List<Product> ProductList { get; set; }
     private int ProductCount { get; set; }
     private int PageSize { get; set; } = 10;
     private List<int?> PageSizes = new List<int?> { 5, 10, 25, 50, null };
 
+    protected override async Task OnParametersSetAsync()
+    {
+        await RefreshTable();
+        await base.OnParametersSetAsync();
+    }
+
     private async Task ReadItems(GridReadEventArgs args)
     {
-        var result = await _productDataService.GetProducts(args.Request);
+        var result = await _productDataService.GetRelatedProducts(args.Request, ProductId);
         ProductList = result.Results;
         ProductCount = result.Count;
     }
 
     private async Task RefreshTable()
     {
-        await Grid.SetState(Grid.GetState());
+        if (Grid is not null)
+        {
+            await Grid.SetState(Grid.GetState());
+        }
     }
 
     private async Task ViewRelated(Product product)

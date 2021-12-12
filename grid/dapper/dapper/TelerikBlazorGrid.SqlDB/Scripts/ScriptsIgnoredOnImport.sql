@@ -99,4 +99,46 @@ BEGIN
         (2, 6, DATEADD(day, -5, CURRENT_TIMESTAMP)),
         (2, 14, DATEADD(day, -2, CURRENT_TIMESTAMP));
 END
+
+IF NOT EXISTS (SELECT * FROM [dbo].[ProductLinks])
+BEGIN
+    INSERT INTO [dbo].[ProductLinks]
+        ([FirstProduct], [SecondProduct])
+        VALUES
+        (1, 15),
+        (1, 19),
+        (1, 45),
+        (1, 47),
+        (2, 4),
+        (2, 5),
+        (2, 7),
+        (2, 8),
+        (2, 15),
+        (2, 35),
+        (2, 36),
+        (2, 39),
+        (2, 40),
+        (3, 1),
+        (3, 5),
+        (3, 16),
+        (3, 32),
+        (3, 48),
+        (3, 49),
+        (4, 5),
+        (4, 6),
+        (4, 7),
+        (4, 8),
+        (4, 12),
+        (4, 16),
+        (4, 24),
+        (4, 36),
+        (4, 38),
+        (4, 44),
+        (5, 15),
+        (5, 18),
+        (5, 26),
+        (5, 36),
+        (5, 41),
+        (5, 46);
+END
 GO
