@@ -1,11 +1,17 @@
-﻿@page "/"
+﻿@page "/tooltip-per-cell"
 
 @using TooltipForGridElements.Models
 @using TooltipForGridElements.Services
 
 @inject EmployeeService EmployeeService
 
-<p>This example shows how to load content on demand for a tooltip that targets elements inside a grid.</p>
+<p>
+    This example shows how to load content on demand for tooltips that target elements inside a grid.
+    The difference from the first page is that the example here uses an instance for every cell.
+</p>
+<p>
+    The tooltip per cell approach offers a lot of extra flexibility if needed.
+</p>
 
 <TelerikGrid Data="@GridData" Height="400px"
              Pageable="true" Sortable="true" Groupable="true"
@@ -13,24 +19,23 @@
              Resizable="true" Reorderable="true">
     <GridColumns>
         <GridColumn Field="@(nameof(BasicEmployee.Id))" Width="120px" />
-        <GridColumn Field="@(nameof(BasicEmployee.Name))" Title="Employee Name">
+        <GridColumn Field="@(nameof(BasicEmployee.Name))" Title="Employee Name" Groupable="false">
             <Template>
                 @{
                     BasicEmployee employee = context as BasicEmployee;
-                    <span data-employeeId="@employee.Id" id="@( "tooltip-target")">@employee.Name</span>
+                    <span data-employeeId="@employee.Id" id="@( "tooltip-target" + employee.Id)">@employee.Name</span>
+                    <TelerikTooltip TargetSelector="@( "#tooltip-target" +  employee.Id)"
+                                    Width="350px" Height="250px" Position="@TooltipPosition.Right">
+                        <Template Context="ttipContext">
+                            <EmployeeDetails TargetData="@ttipContext.DataAttributes" />
+                        </Template>
+                    </TelerikTooltip>
                 }
             </Template>
         </GridColumn>
         <GridColumn Field="@(nameof(BasicEmployee.Team))" Title="Team" />
     </GridColumns>
 </TelerikGrid>
-
-<TelerikTooltip TargetSelector="@( "#tooltip-target")"
-                Width="350px" Height="250px" Position="@TooltipPosition.Right">
-    <Template Context="ttipContext">
-        <EmployeeDetails TargetData="@ttipContext.DataAttributes" />
-    </Template>
-</TelerikTooltip>
 
 
 
