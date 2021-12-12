@@ -1,0 +1,80 @@
+﻿@page "/sales"
+@page "/product/{ProductId:int}/sales"
+@inject ISalesDataService _salesDataService; 
+
+<h3>Sales</h3>
+
+<TelerikGrid Data="SalesList"
+             Class="overflow-auto mb-4"
+             OnRead="ReadItems"
+             TotalCount="SalesCount"
+             Pageable="true"
+             Sortable="true"
+             FilterMode="GridFilterMode.FilterMenu"
+             Resizable="true"
+             Reorderable="true"
+             Height="600px"
+             @bind-PageSize="PageSize"
+             @ref="Grid">
+    <GridToolBar>
+        <GridCommandButton Icon="arrow-rotate-cw" OnClick="RefreshTable">Refresh</GridCommandButton>
+        <GridCommandButton Command="ExcelExport" Icon="file-excel">Export .xlsx</GridCommandButton>
+        <GridCommandButton Command="CsvExport" Icon="file-csv">Export .csv</GridCommandButton>
+        <span class="k-toolbar-spacer"></span>
+        <GridSearchBox />
+    </GridToolBar>
+    <GridExport>
+        <GridExcelExport FileName="Sales" AllPages="true" />
+        <GridCsvExport FileName="Sales" AllPages="true" />
+    </GridExport>
+    <GridSettings>
+        <GridPagerSettings PageSizes="PageSizes" />
+    </GridSettings>
+    <GridColumns>
+        <GridColumn Field="@nameof(Sale.Id)" Width="70px" DisplayFormat="{0:N0}" />
+        <GridColumn Field="@nameof(Sale.ProductId)" />
+        <GridColumn Field="@nameof(Sale.Quantity)" />
+        <GridColumn Field="@nameof(Sale.Created)" Width="165px" />
+    </GridColumns>
+</TelerikGrid>
+
+@code {
+    [Parameter]
+    public int? ProductId { get; set; }
+
+    private TelerikGrid<Sale> Grid { get; set; }
+    private List<Sale> SalesList { get; set; }
+    private int SalesCount { get; set; }
+    private int PageSize { get; set; } = 10;
+    private List<int?> PageSizes = new List<int?> { 5, 10, 25, 50, null };
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await RefreshTable();
+        await base.OnParametersSetAsync();
+    }
+
+    private async Task ReadItems(GridReadEventArgs args)
+    {
+        if(ProductId is null)
+        {
+            var result = await _salesDataService.GetSales(args.Request);
+            SalesList = result.Results;
+            SalesCount = result.Count;
+        }
+        else
+        {
+            var result = await _salesDataService.GetSalesForProduct(args.Request, ProductId.Value);
+            SalesList = result.Results;
+            SalesCount = result.Count;
+        }
+    }
+
+    private async Task RefreshTable()
+    {
+        if(Grid is not null)
+        {
+            await Grid.SetState(Grid.GetState());
+        }
+    }
+}

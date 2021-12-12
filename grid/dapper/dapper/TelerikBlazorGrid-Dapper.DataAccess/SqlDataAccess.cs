@@ -42,7 +42,7 @@ namespace TelerikBlazorGrid_Dapper.DataAccess
         {
             using (IDbConnection connection = new SqlConnection(_connectionString))
             {
-                var result = await connection.ExecuteScalarAsync<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                var result = await connection.QuerySingleOrDefaultAsync<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
 
                 return result;
             }
@@ -52,7 +52,7 @@ namespace TelerikBlazorGrid_Dapper.DataAccess
         {
             using (IDbConnection connection = new SqlConnection(_connectionString))
             {
-                var result = await connection.ExecuteScalarAsync<T>(query, parameters, commandType: CommandType.Text);
+                var result = await connection.QuerySingleOrDefaultAsync<T>(query, parameters, commandType: CommandType.Text);
 
                 return result;
             }

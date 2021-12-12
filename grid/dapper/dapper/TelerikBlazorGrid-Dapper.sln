@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31424.327
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelerikBlazorGrid-Dapper.Blazor", "TelerikBlazorGrid-Dapper.Blazor\TelerikBlazorGrid-Dapper.Blazor.csproj", "{78DA0F79-38E9-4532-90CC-394B5A09508B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelerikBlazorGrid-Dapper.Blazor", "TelerikBlazorGrid-Dapper.Blazor\TelerikBlazorGrid-Dapper.Blazor.csproj", "{78DA0F79-38E9-4532-90CC-394B5A09508B}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "TelerikBlazorGrid.SqlDB", "TelerikBlazorGrid.SqlDB\TelerikBlazorGrid.SqlDB.sqlproj", "{92B1B913-E2D6-4114-BD5E-3A33A782A19F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelerikBlazorGrid-Dapper.DataAccess", "TelerikBlazorGrid-Dapper.DataAccess\TelerikBlazorGrid-Dapper.DataAccess.csproj", "{F1730C4A-6289-4FC1-995F-201C0FCAD189}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelerikBlazorGrid-Dapper.DataAccess", "TelerikBlazorGrid-Dapper.DataAccess\TelerikBlazorGrid-Dapper.DataAccess.csproj", "{F1730C4A-6289-4FC1-995F-201C0FCAD189}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

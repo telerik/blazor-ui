@@ -33,6 +33,7 @@ namespace TelerikBlazorGrid_Dapper.Blazor
             services.AddTelerikBlazor();
 
             services.AddScoped<IProductDataService, ProductDataService>();
+            services.AddScoped<ISalesDataService, SalesDataService>();
 
             services.AddScoped<IDataAccess>(serviceProvider =>
             {
