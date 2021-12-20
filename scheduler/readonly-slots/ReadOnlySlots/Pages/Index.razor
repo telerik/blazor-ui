@@ -1,0 +1,175 @@
+﻿@page "/"
+
+@using ReadOnlySlots.Models
+@using ReadOnlySlots.Data
+
+@* This sample implements only updates to the view model. Your app must also update the database in the CUD events.
+    This example uses the default field names for data binding *@
+
+<style>
+    div.k-scheduler-row:nth-of-type(9),
+    div.k-scheduler-row:nth-of-type(10) {
+        background-color: #faecc8ff;
+    }
+    /*Keep the main cells white in case you don't want to color them. Otherwise, you will not need the style below.*/
+    .k-scheduler-cell.k-side-cell.k-heading-cell {
+        background-color: #ffffff;
+    }
+</style>
+
+<TelerikScheduler Data="@Appointments"
+                  OnUpdate="@UpdateAppointment"
+                  OnCreate="@AddAppointment"
+                  OnEdit="@EditAppointment"
+                  OnDelete="@DeleteAppointment"
+                  OnCancel="@CancelHandler"
+                  AllowCreate="true" AllowDelete="true" AllowUpdate="true"
+                  @bind-Date="@StartDate" Height="700px" @bind-View="@CurrView">
+    <SchedulerViews>
+        <SchedulerDayView StartTime="@DayStart" />
+        <SchedulerWeekView StartTime="@DayStart" />
+        <SchedulerMultiDayView StartTime="@DayStart" NumberOfDays="10" />
+    </SchedulerViews>
+</TelerikScheduler>
+
+@code {
+    public SchedulerView CurrView { get; set; } = SchedulerView.Week;
+    public DateTime StartDate { get; set; } = new DateTime(2019, 12, 2);
+    public DateTime DayStart { get; set; } = new DateTime(2000, 1, 1, 8, 0, 0); //the time portion is important
+
+    public List<SchedulerAppointment> Appointments { get; set; }
+
+    [CascadingParameter]
+    public DialogFactory Dialogs { get; set; }
+
+    public bool ValidAppt { get; set; }
+    public bool cancelValidate { get; set; }
+
+    //display a dialog to notify the users they cannot set appointments in the desired time frame
+    async Task ShowErrorDialog()
+    {
+        await Dialogs.AlertAsync("You cannot create appointments during lunch time (12:00 - 13:00). Please change the appointment time to proceed.", "Error:");
+    }
+
+    //sample custom validation method setting a flag based on which you can prevent creating and updating of an appointment.
+    //You can include your desired validation checks here
+    async Task ValidateAppt(SchedulerAppointment appt)
+    {
+        if (appt.Start.Hour <= 12 && appt.End.Hour == 12 && appt.End.Minute > 1 ||
+           appt.Start.Hour <= 12 && appt.End.Hour >= 13
+           )
+        {
+            ValidAppt = false;
+
+            await ShowErrorDialog();
+        }
+        else
+        {
+            ValidAppt = true;
+        }
+    }
+
+    async Task UpdateAppointment(SchedulerUpdateEventArgs args)
+    {
+        SchedulerAppointment item = (SchedulerAppointment)args.Item;
+
+        //cancel the validation in the OnUpdate when editing occurences (see OnEdit handler for more details)
+        if (!cancelValidate)
+        {
+            await ValidateAppt(item);
+        }
+
+        //update the data with the new appointment values only if it is treated as valid
+        if (ValidAppt)
+        {
+            // perform actual data source operations here through your service
+            await AppointmentService.Update(item);
+
+            // update the local view-model data with the service data
+            await GetSchedulerData();
+        }
+
+        cancelValidate = false;
+    }
+
+    async Task AddAppointment(SchedulerCreateEventArgs args)
+    {
+        SchedulerAppointment item = args.Item as SchedulerAppointment;
+
+        await ValidateAppt(item);
+
+        //add the new appointment to the data only if it is treated as valid
+        if (ValidAppt)
+        {
+            // perform actual data source operations here through your service
+            await AppointmentService.Create(item);
+
+            // update the local view-model data with the service data
+            await GetSchedulerData();
+        }
+
+        //by design, when a single occurence of a recurring appointment is edited, OnCreate fires first and 
+        //new occurence is created. Then, the OnUpdate fires to update the recurring appointment. We want 
+        //to cancel the second validation in the OnUpdate when editing sinle occurence as it is not needed
+        if (item.RecurrenceId != null)
+        {
+            cancelValidate = true;
+        }
+    }
+
+    //If the user double clicks on a readonly slot to create a new appointment (get the corresponding start
+    //and end times through the SchedulerEditEventArgs), you can cancel the OnEdit event to prevent them form 
+    //opening the Edit form.
+    //However, if they click on an "allowed" slot, the Edit form will be opened, so they can manually select
+    //start and end times that target a readonly slot. As the custom validation will be invoked in the OnUpdate
+    //handler (once the Save button is pressed), this might lead to a confusing UX. To handle such scenario,
+    //you can use DataAnotations and create a custom validation attribute to decorate the start and end fields
+    //in the form, so the user is aware of the time limitations at the time of selecting the corresponding start
+    //and end values in the form.
+    async Task EditAppointment(SchedulerEditEventArgs args)
+    {
+        if (args.IsNew)
+        {
+            SchedulerAppointment item = new SchedulerAppointment() { Start = args.Start, End = args.End };
+
+            await ValidateAppt(item);
+
+            if (!ValidAppt)
+            {
+                args.IsCancelled = true;
+            }
+        }
+    }
+
+    async Task DeleteAppointment(SchedulerDeleteEventArgs args)
+    {
+        SchedulerAppointment item = (SchedulerAppointment)args.Item;
+
+        // perform actual data source operations here through your service
+        await AppointmentService.Delete(item);
+
+        // update the local view-model data with the service data
+        await GetSchedulerData();
+
+        // see the comments in the service mimic method below.
+    }
+
+    void CancelHandler(SchedulerCancelEventArgs args)
+    {
+        // you can know when a user wanted to modify an appointment but decided not to
+        // the model you get contains the new data from the edit form so you can see what they did
+        SchedulerAppointment item = args.Item as SchedulerAppointment;
+    }
+
+      async Task GetSchedulerData()
+    {
+        Appointments = await AppointmentService.Read();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetSchedulerData();
+    }
+
+    
+}
