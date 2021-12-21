@@ -9,8 +9,8 @@
 <style>
     /*Use a variable for the readonly cells indexes and calculate it according to the application needs.
       See CalculateReadOnlySlots(). */
-    div.k-scheduler-row:nth-of-type(@readOnlySlotIndex),
-    div.k-scheduler-row:nth-of-type(@(readOnlySlotIndex + 1)) {
+    div.k-scheduler-row:nth-of-type(@ReadOnlySlotIndex),
+    div.k-scheduler-row:nth-of-type(@(ReadOnlySlotIndex + 1)) {
         background-color: #faecc8ff;
     }
     /*Keep the main cells white in case you don't want to color them. Otherwise, you will not need the style below.*/
@@ -48,8 +48,8 @@
     public bool ValidAppt { get; set; }
     public bool cancelValidate { get; set; }
 
-    public int readOnlySlotIndex { get; set; }
-    public int readOnlyStartHour { get; set; } = 12;
+    public int ReadOnlySlotIndex { get; set; }
+    public int ReadOnlyStartHour { get; set; } = 12;
 
     //display a dialog to notify the users they cannot set appointments in the desired time frame
     async Task ShowErrorDialog()
@@ -180,7 +180,7 @@
     //CSS rules.
     async Task CalculateReadOnlySlots()
     {
-        readOnlySlotIndex = ((readOnlyStartHour - DayStart.Hour) * SlotDivisions) + 1;
+        ReadOnlySlotIndex = ((ReadOnlyStartHour - DayStart.Hour) * SlotDivisions) + 1;
     }
 
      async Task GetSchedulerData()
