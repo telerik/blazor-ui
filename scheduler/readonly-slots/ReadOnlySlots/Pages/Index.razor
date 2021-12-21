@@ -7,8 +7,10 @@
     This example uses the default field names for data binding *@
 
 <style>
-    div.k-scheduler-row:nth-of-type(9),
-    div.k-scheduler-row:nth-of-type(10) {
+    /*Use a variable for the readonly cells indexes and calculate it according to the application needs.
+      See CalculateReadOnlySlots(). */
+    div.k-scheduler-row:nth-of-type(@disabledStart),
+    div.k-scheduler-row:nth-of-type(@(disabledStart + 1)) {
         background-color: #faecc8ff;
     }
     /*Keep the main cells white in case you don't want to color them. Otherwise, you will not need the style below.*/
@@ -26,7 +28,7 @@
                   AllowCreate="true" AllowDelete="true" AllowUpdate="true"
                   @bind-Date="@StartDate" Height="700px" @bind-View="@CurrView">
     <SchedulerViews>
-        <SchedulerDayView StartTime="@DayStart" />
+        <SchedulerDayView StartTime="@DayStart" SlotDivisions="@SlotDivisions"/>
         <SchedulerWeekView StartTime="@DayStart" />
         <SchedulerMultiDayView StartTime="@DayStart" NumberOfDays="10" />
     </SchedulerViews>
@@ -36,6 +38,7 @@
     public SchedulerView CurrView { get; set; } = SchedulerView.Week;
     public DateTime StartDate { get; set; } = new DateTime(2019, 12, 2);
     public DateTime DayStart { get; set; } = new DateTime(2000, 1, 1, 8, 0, 0); //the time portion is important
+    public int SlotDivisions { get; set; } = 2;
 
     public List<SchedulerAppointment> Appointments { get; set; }
 
@@ -44,6 +47,8 @@
 
     public bool ValidAppt { get; set; }
     public bool cancelValidate { get; set; }
+
+    public int disabledStart { get; set; }      
 
     //display a dialog to notify the users they cannot set appointments in the desired time frame
     async Task ShowErrorDialog()
@@ -161,13 +166,26 @@
         SchedulerAppointment item = args.Item as SchedulerAppointment;
     }
 
-    async Task GetSchedulerData()
-    {
-        Appointments = await AppointmentService.Read();
-    }
-
     protected override async Task OnInitializedAsync()
     {
+        await CalculateReadOnlySlots();
+        
         await GetSchedulerData();
+    }
+    
+    //simple calculation example to set the start of the readonly period. You can setup your desired
+    //business logic to calculate the disabled slots indexes based on the Scheduler various views setup 
+    //(start time, slots duration, slots division etc.). Then you can pass the result variable to the 
+    //CSS rules.
+    async Task CalculateReadOnlySlots()
+    {
+        var disabledStartHour = 12;
+
+        disabledStart = ((disabledStartHour - DayStart.Hour) * SlotDivisions) + 1;
+    }
+
+     async Task GetSchedulerData()
+    {
+        Appointments = await AppointmentService.Read();
     }
 }
