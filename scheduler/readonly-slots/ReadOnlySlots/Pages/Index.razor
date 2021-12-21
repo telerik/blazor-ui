@@ -161,7 +161,7 @@
         SchedulerAppointment item = args.Item as SchedulerAppointment;
     }
 
-      async Task GetSchedulerData()
+    async Task GetSchedulerData()
     {
         Appointments = await AppointmentService.Read();
     }
