@@ -17,7 +17,7 @@
             <Template>
                 @{
                     BasicEmployee employee = context as BasicEmployee;
-                    <span data-employeeId="@employee.Id" id="@( "tooltip-target")">@employee.Name</span>
+                    <span data-employeeId="@employee.Id" class="tooltip-target">@employee.Name</span>
                 }
             </Template>
         </GridColumn>
