@@ -13,7 +13,7 @@
              Resizable="true" Reorderable="true">
     <GridColumns>
         <GridColumn Field="@(nameof(BasicEmployee.Id))" Width="120px" />
-        <GridColumn Field="@(nameof(BasicEmployee.Name))" Title="Employee Name">
+        <GridColumn Field="@(nameof(BasicEmployee.Name))" Title="Employee Name" Groupable="false">
             <Template>
                 @{
                     BasicEmployee employee = context as BasicEmployee;
@@ -25,7 +25,7 @@
     </GridColumns>
 </TelerikGrid>
 
-<TelerikTooltip TargetSelector="@( "#tooltip-target")"
+<TelerikTooltip TargetSelector="#tooltip-target"
                 Width="350px" Height="250px" Position="@TooltipPosition.Right">
     <Template Context="ttipContext">
         <EmployeeDetails TargetData="@ttipContext.DataAttributes" />
