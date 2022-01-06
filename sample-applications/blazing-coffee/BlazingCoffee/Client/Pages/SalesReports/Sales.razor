@@ -112,8 +112,8 @@
 
     #region Custom Filtering
     TelerikGrid<Sale> Grid { get; set; }
-    DateTime? StartValue { get; set; } = DateTime.Now.AddYears(-2);
-    DateTime? EndValue { get; set; } = DateTime.Now;
+    DateTime? StartValue { get; set; } = new DateTime(2017,1,1);
+    DateTime? EndValue { get; set; } = new DateTime(2019,1,1);
 
     FilterDescriptor StartFilter() => new FilterDescriptor("TransactionDate", FilterOperator.IsGreaterThan, StartValue);
     FilterDescriptor EndFilter() => new FilterDescriptor("TransactionDate", FilterOperator.IsLessThan, EndValue);
