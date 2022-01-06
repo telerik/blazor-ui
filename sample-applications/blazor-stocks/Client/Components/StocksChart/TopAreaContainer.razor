@@ -24,7 +24,7 @@
         <TelerikDropDownList Data="@IntervalFilters" TextField="Name" ValueField="Duration"
                              TItem="IntervalFilter" TValue="long" Value="SelectedFilterInterval"
                              ValueChanged="@( (long v) => OnIntervalChange(v) )"
-                             Width="140px" PopupWidth="135px" PopupHeight="auto" Class="dropdown-list-selection interval ddl-no-bg">
+                             Width="160px" PopupWidth="155px" PopupHeight="auto" Class="dropdown-list-selection interval ddl-no-bg">
             <ValueTemplate>
                 <span class="service-category"> Interval: @( (context as IntervalFilter).Name)</span>
             </ValueTemplate>
