@@ -83,6 +83,25 @@ a.k-link.k-state-selected {
     }
 }
 
+.k-card-action > .k-button {
+    flex: 1 1 auto;
+}
+
+.k-card .k-card-actions-stretched {
+    border-top-width: 1px;
+}
+
+.k-card-actions-stretched {
+    padding: 0;
+    gap: 0;
+}
+
+.k-card-actions-stretched .k-button {
+    border-radius: 0;
+    padding-top: calc( 8px + 4px);
+    padding-bottom: calc( 8px + 4px);
+}
+
 html, body, app {
     height: 100%;
     margin: 0;

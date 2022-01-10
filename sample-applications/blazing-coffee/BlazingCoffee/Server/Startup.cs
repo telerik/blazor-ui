@@ -38,8 +38,7 @@ namespace BlazingCoffee.Server
             {
                 app.UseDeveloperExceptionPage();
                 app.UseWebAssemblyDebugging();
-                // TODO: Update obsolete code warning
-                app.UseDatabaseErrorPage();
+                app.UseDeveloperExceptionPage();
             }
             else
             {
