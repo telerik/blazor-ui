@@ -116,7 +116,7 @@ namespace BlazingCoffee.Client.Pages
                 CrudNotification?.Show(new()
                 {
                     Text = string.Format(L["ManageProducts_Create_Success"], newProduct.Sku),
-                    ThemeColor = ThemeColors.Success
+                    ThemeColor = ThemeConstants.Notification.ThemeColor.Success
                 });
             }
             catch (Exception)
@@ -141,7 +141,7 @@ namespace BlazingCoffee.Client.Pages
                 CrudNotification?.Show(new()
                 {
                     Text = string.Format(L["ManageProducts_Update_Success"], product.Sku),
-                    ThemeColor = ThemeColors.Success
+                    ThemeColor = ThemeConstants.Notification.ThemeColor.Success
                 });
             }
             catch (Exception)
@@ -163,7 +163,7 @@ namespace BlazingCoffee.Client.Pages
                 CrudNotification?.Show(new()
                 {
                     Text = string.Format(L["ManageProducts_Delete_Success"], product.Sku),
-                    ThemeColor = ThemeColors.Success
+                    ThemeColor = ThemeConstants.Notification.ThemeColor.Success
                 });
             }
             catch (Exception)
@@ -182,7 +182,7 @@ namespace BlazingCoffee.Client.Pages
             CrudNotification?.Show(new()
             {
                 Text = L["DatabaseConnectionError"],
-                ThemeColor = ThemeColors.Error
+                ThemeColor = ThemeConstants.Notification.ThemeColor.Error
             });
 
         #endregion
