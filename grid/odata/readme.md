@@ -15,3 +15,5 @@ The approaches for requesting a remote services are different in a server-side a
 * You need a model for the grid data and an envelope for the response object. The response model (envelope) must have `System.Text.Json.Serialization.JsonPropertyName` attributes set to point to the OData fields in the response.
 
 > Tip: if you will be using nested models, you may need to add an `$expand` to your base URL and properly deserialize and expand them in the service handler.
+
+These samples use the [Kendo OData backend service](https://github.com/telerik/kendo-ui-demos-service), but you can replace it with any OData v4 compatible service.
