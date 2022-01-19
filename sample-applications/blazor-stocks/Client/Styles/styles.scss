@@ -202,8 +202,8 @@ $dateinput-width: 140px;
     }
 }
 
-.k-dropdown {
-    .k-dropdown-wrap .k-input {
+.k-dropdownlist {
+    .k-input-inner {
         font-size: $dropdownlist-font-size;
         padding: 0;
     }
@@ -226,7 +226,7 @@ $dateinput-width: 140px;
     padding-left: 0;
     width: auto;
 
-    .k-dropdown-wrap {
+    .k-input-inner {
         border: 1px solid $border-base;
         background: $white;
         color: $text-base;
@@ -296,7 +296,7 @@ $dateinput-width: 140px;
 .dropdown-list-selection {
     align-items: center;
 
-    .k-dropdown-wrap .service-category {
+    .k-input-inner .service-category {
         font-weight: bold;
         margin-left: $margin-sm;
     }
@@ -392,6 +392,8 @@ kendo-dateinput {
 
     img {
         margin-right: $margin-m;
+        width: 16px;
+        height: 16px;
     }
 }
 
@@ -593,13 +595,16 @@ td:last-of-type {
 
 /* dropdowns background */
 
-.ddl-no-bg.k-dropdown .k-dropdown-wrap {
+.ddl-no-bg.k-dropdownlist {
     background-color: transparent;
     border-color: transparent;
 }
 
-.header .ddl-no-bg.k-dropdown .k-dropdown-wrap {
+.header .ddl-no-bg.k-dropdownlist .k-input-inner {
     color: rgba($white, .5);
+    .k-button {
+        color: rgba($white, .5);
+    }
 }
 
 .stocks-grid .k-grid-table td:first-child {
@@ -623,8 +628,9 @@ stocks-grid .k-grid .k-grid-header th.k-header {
     vertical-align: middle;
 }
 
-.stocks-grid-buttons .k-widget.k-dropdown .k-dropdown-wrap {
-    .k-select {
+.stocks-grid-buttons .k-dropdownlist {
+    cursor: pointer;
+    .k-button .k-icon {
         visibility: hidden;
     }
 }

@@ -14,5 +14,4 @@
     <ProjectReference Include="..\Shared\BlazorFinancePortfolio.Shared.csproj" />
   </ItemGroup>
 
-
 </Project>

@@ -448,6 +448,10 @@ span.comp-label {
     }
 }
 
+.col-sm.text-sm-right .k-dropdownlist .k-input-inner {
+    text-align: left;
+}
+
 #blazor-error-ui {
     display: none;
     position: fixed;

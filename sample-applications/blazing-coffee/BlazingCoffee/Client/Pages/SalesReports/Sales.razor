@@ -8,6 +8,7 @@
 <SalesByDateChart Data="chartData"></SalesByDateChart>
 <CardContainer Title="@L["Sales"]">
     <TelerikGrid @ref="Grid"
+                 TItem="Sale"
                  Height="500px"
                  FilterMode="@GridFilterMode.FilterMenu"
                  Sortable="true"
@@ -16,8 +17,6 @@
                  Resizable="true"
                  OnStateInit="@((GridStateEventArgs<Sale> args) => OnStateInit(args))"
                  OnStateChanged="@((GridStateEventArgs<Sale> args) => OnStateChanged(args))"
-                 Data=@Model.CurrentPageData
-                 TotalCount=@Model.TotalItemCount
                  OnRead=@ReadItems>
         <GridToolBar>
             <TelerikDateRangePicker StartValue="@StartValue" EndValue="@EndValue"
@@ -67,6 +66,8 @@
         {
             Model = await response.Content.ReadFromJsonAsync<DataEnvelope<Sale>>();
         }
+        args.Data = Model.CurrentPageData;
+        args.Total = Model.TotalItemCount;
     }
 
     protected override void OnInitialized()

@@ -24,13 +24,23 @@
         <TelerikDropDownList Data="@IntervalFilters" TextField="Name" ValueField="Duration"
                              TItem="IntervalFilter" TValue="long" Value="SelectedFilterInterval"
                              ValueChanged="@( (long v) => OnIntervalChange(v) )"
-                             Width="140px" PopupWidth="135px" PopupHeight="auto" Class="dropdown-list-selection interval ddl-no-bg">
+                             Width="160px" Class="dropdown-list-selection interval ddl-no-bg">
+            <DropDownListSettings>
+                <DropDownListPopupSettings Height="auto" 
+                                           Width="155px">
+                </DropDownListPopupSettings>
+            </DropDownListSettings>
             <ValueTemplate>
                 <span class="service-category"> Interval: @( (context as IntervalFilter).Name)</span>
             </ValueTemplate>
         </TelerikDropDownList>
 
-        <TelerikDropDownList @bind-Value="@MainChartType" Data="@AvailableChartTypes" Width="140px" PopupWidth="140px" PopupHeight="auto" Class="ddl-no-bg">
+        <TelerikDropDownList @bind-Value="@MainChartType" Data="@AvailableChartTypes" Width="140px" Class="ddl-no-bg">
+            <DropDownListSettings>
+                <DropDownListPopupSettings Height="auto" 
+                                           Width="140px">
+                </DropDownListPopupSettings>
+            </DropDownListSettings>
             <ValueTemplate>
                 @{
                     ChartTypeList dataItem = context as ChartTypeList;

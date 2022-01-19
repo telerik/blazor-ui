@@ -15,7 +15,7 @@
                 <p>@L["DatabaseConnectionError"]</p>
             </CardContent>
             <ActionTemplate>
-                <TelerikButton OnClick="LoadData" Class="k-primary">Retry</TelerikButton>
+                <TelerikButton OnClick="LoadData" ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)">Retry</TelerikButton>
             </ActionTemplate>
         </Card>
     }
@@ -26,7 +26,7 @@
                      OnEdit="LoadGroups" OnUpdate="UpdateItem" OnDelete="DeleteItem" OnCreate="CreateItem">
             <GridToolBar>
                 <GridCommandButton Command="ToggleId" OnClick="(() => isIdVisible = !isIdVisible)" Icon="parameter-integer">@L["Toggle_Id"]</GridCommandButton>
-                <GridCommandButton Command="Add" OnClick="LoadGroups" Icon="add" Class="k-primary">@L["ManageProducts_AddProduct"]</GridCommandButton>
+                <GridCommandButton Command="Add" OnClick="LoadGroups" Icon="add" ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)">@L["ManageProducts_AddProduct"]</GridCommandButton>
                 <span class="k-spacer"></span>
                 <GridSearchBox DebounceDelay="400"></GridSearchBox>
             </GridToolBar>
@@ -45,7 +45,7 @@
                         }
                     </Template>
                     <EditorTemplate>
-                        <TelerikDropDownList Data="@Groups" Width="auto" @bind-Value="((Product)context).Group" TextField="ProductName" ValueField="ProductName">
+                        <TelerikDropDownList Data="@Groups" Width="100%" @bind-Value="((Product)context).Group" TextField="ProductName" ValueField="ProductName">
                             <ItemTemplate Context="group">
                                 <img width="64" src="./img/products/@(group.Replace(" ", "")).jpg" class="k-avatar-rounded" />
                                 <span style="padding-left:5px">@group</span>
@@ -93,8 +93,8 @@
                     </EditorTemplate>
                 </GridColumn>
                 <GridCommandColumn Width="200px">
-                    <GridCommandButton Command="Edit" Icon="edit" Class="k-primary">@L["Grid_Edit"]</GridCommandButton>
-                    <GridCommandButton Command="Save" Icon="save" Class="k-primary" ShowInEdit="true">@L["Grid_Update"]</GridCommandButton>
+                    <GridCommandButton Command="Edit" Icon="edit" ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)">@L["Grid_Edit"]</GridCommandButton>
+                    <GridCommandButton Command="Save" Icon="save" ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)" ShowInEdit="true">@L["Grid_Update"]</GridCommandButton>
                     <GridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true">@L["Grid_Cancel"]</GridCommandButton>
                     <GridCommandButton Command="Delete" OnClick="ShowConfirmationDialog" Icon="delete" ShowInEdit="false">@L["Grid_Delete"]</GridCommandButton>
                 </GridCommandColumn>

@@ -33,15 +33,21 @@
 							<EditForm Model="@user" OnValidSubmit="@OnUpdateClick">
 								<DataAnnotationsValidator />
 								<div class="form-group">
-									<TelerikTextBox @bind-Value="user.Login" Label="User Name" />
+									<label for="username">User Name</label>
+									<br />
+									<TelerikTextBox Width="12.4em" @bind-Value="user.Login" Name="username" />
 									<ValidationMessage For="@(() => user.Login)"></ValidationMessage>
 								</div>
 								<div class="form-group">
-									<TelerikTextBox @bind-Value="user.Name" Label="Real Name" />
+									<label for="real-name">Real Name</label>
+									<br />
+									<TelerikTextBox Width="12.4em" @bind-Value="user.Name" Name="real-name" />
 									<ValidationMessage For="@(() => user.Name)"></ValidationMessage>
 								</div>
 								<div class="form-group">
-									<TelerikTextBox @bind-Value="user.PublicEmail" Label="Email" />
+									<label for="email">Email</label>
+									<br />
+									<TelerikTextBox Width="12.4em" @bind-Value="user.PublicEmail" Name="email" />
 									<ValidationMessage For="@(() => user.PublicEmail)"></ValidationMessage>
 								</div>
 								<div class="form-group">
@@ -50,13 +56,17 @@
 									</label>
 								</div>
 								<div class="form-group">
-									<TelerikTextBox @bind-Value="user.Company" Label="Company" />
+									<label for="company">Company</label>
+									<br />
+									<TelerikTextBox Width="12.4em" @bind-Value="user.Company" Name="company" />
 								</div>
 								<div class="form-group">
-									<TelerikTextBox @bind-Value="user.Location" Label="Location" />
+									<label for="location">Location</label>
+									<br />
+									<TelerikTextBox Width="12.4em" @bind-Value="user.Location" Name="location" />
 								</div>
 								<div class="form-group">
-									<TelerikButton Primary="true">Update profile</TelerikButton>
+									<TelerikButton ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)">Update profile</TelerikButton>
 								</div>
 							</EditForm>
 						</div>
@@ -122,11 +132,11 @@
 	</div>
 
 
-	<TelerikWindow Size="@WindowSize.Small" Modal="true"  @bind-Visible="@visibleSuccesWindow">
+	<TelerikWindow Size="@(ThemeConstants.Window.Size.Small)" Modal="true"  @bind-Visible="@visibleSuccesWindow">
 		<WindowTitle>Thank you!</WindowTitle>
 		<WindowContent>
 			<p>Your profile has been successfully updated.</p>
-			<TelerikButton OnClick="@( () => visibleSuccesWindow = false )" Primary="true" Class="btn-block">OK</TelerikButton>
+			<TelerikButton OnClick="@( () => visibleSuccesWindow = false )" ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)" Class="btn-block">OK</TelerikButton>
 		</WindowContent>
 	</TelerikWindow>
 
@@ -139,7 +149,7 @@
 			<p>Account deletion cannot be undone!</p>
 			<div>
 				<TelerikButton OnClick="@( () => visibleDeleteWindow = false )" Class="floatButton50">Cancel</TelerikButton>
-				<TelerikButton OnClick="@DeleteAccount" Primary="true" Class="floatButton50">Delete Account</TelerikButton>
+				<TelerikButton OnClick="@DeleteAccount" ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)" Class="floatButton50">Delete Account</TelerikButton>
 			</div>
 		</WindowContent>
 	</TelerikWindow>
