@@ -19,12 +19,14 @@
                                         TItem="Currency"
                                         ValueField="Symbol"
                                         TextField="Name"
-                                        PopupWidth="200px"
-                                        PopupHeight="auto"
                                         Width="200px"
                                         ValueChanged="@OnCurrencySelect"
                                         Class="ddl-no-bg">
-
+                        <DropDownListSettings>
+                            <DropDownListPopupSettings Width="200px" 
+                                                       Height="auto">
+                            </DropDownListPopupSettings>
+                        </DropDownListSettings>
                     </TelerikDropDownList>
 
                     <a href="https://github.com/telerik/blazor-ui/blob/master/sample-applications/blazor-stocks/" target="_blank" class="source-code-link text-white-50 d-flex align-items-center ">
