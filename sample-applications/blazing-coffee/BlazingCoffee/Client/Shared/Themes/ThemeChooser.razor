@@ -6,9 +6,12 @@
                      TextField="ThemeText" 
                      ValueField="ThemeValue" 
                      Value="@SelectedTheme" 
-                     PopupHeight=""
                      Width="300px"
-                     ValueChanged="@( (string v) => HandleThemeSelected(v) )" />
+                     ValueChanged="@( (string v) => HandleThemeSelected(v) )" >
+    <DropDownListSettings>
+        <DropDownListPopupSettings Height=""></DropDownListPopupSettings>
+    </DropDownListSettings>
+</TelerikDropDownList>
 
 @code {
 
