@@ -11,10 +11,15 @@
   "license": "ISC",
   "devDependencies": {
     "@progress/kendo-theme-bootstrap": "latest",
-    "bootstrap": "^4.3.1",
+    "autoprefixer": "^10.4.2",
+    "bootstrap": "^5.0.2",
     "gulp": "^4.0.0",
     "gulp-clean-css": "^4.0.0",
+    "gulp-postcss": "^9.0.1",
     "gulp-sass": "^5.0.0",
+    "node-sass": "^7.0.1",
+    "postcss": "^8.4.5",
+    "postcss-calc": "^8.2.2",
     "sass": "^1.48.0"
   }
 }
