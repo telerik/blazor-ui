@@ -1,18 +1,26 @@
-/// <binding BeforeBuild='sass, minify-css' />
-'use strict';
+const gulp = require('gulp');
+const sass = require('gulp-sass')(require('node-sass'));
+const postcss = require("gulp-postcss");
+const autoprefixer = require("autoprefixer");
+const calc = require("postcss-calc");
 
-var gulp = require('gulp');
-var sass = require('gulp-sass')(require('sass'));
-var cleanCSS = require('gulp-clean-css');
+const sassOptions = {
+    precision: 10,
+    outputStyle: 'compressed'
+};
+
+const postcssOptions = [
+    calc({
+        precision: 10
+    }),
+    autoprefixer({
+        overrideBrowserslist: [ '> 10%' ]
+    })
+];
 
 gulp.task('sass', function () {
-	return gulp.src('./sass/**/*.scss')
-		.pipe(sass().on('error', sass.logError))
-		.pipe(gulp.dest('./wwwroot/css'));
-});
-
-gulp.task('minify-css', () => {
-	return gulp.src('./wwwroot/css/styles.css')
-		.pipe(cleanCSS())
-		.pipe(gulp.dest('./wwwroot/css'));
+    return gulp.src('./sass/**/*.scss')
+        .pipe(sass.sync(sassOptions).on('error', sass.logError))
+        .pipe(postcss(postcssOptions))
+        .pipe(gulp.dest('./wwwroot/css'));
 });
