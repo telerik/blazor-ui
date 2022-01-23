@@ -4,11 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npx gulp sass"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@progress/kendo-theme-default": "5.0.0"
+  "devDependencies": {
+    "@progress/kendo-theme-default": "^5.0.0",
+    "autoprefixer": "^10.4.2",
+    "bootstrap": "^5.0.2",
+    "gulp": "^4.0.0",
+    "gulp-clean-css": "^4.0.0",
+    "gulp-postcss": "^9.0.1",
+    "gulp-sass": "^5.0.0",
+    "node-sass": "^7.0.1",
+    "postcss": "^8.4.5",
+    "postcss-calc": "^8.2.2",
+    "sass": "^1.48.0"
   }
 }
