@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:development": "npx gulp sass",
-    "build:production": "npx gulp sass && npx gulp minify-css"
+    "build": "npx gulp sass"
   },
   "author": "",
   "license": "ISC",

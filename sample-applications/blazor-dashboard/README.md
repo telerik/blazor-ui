@@ -42,6 +42,6 @@ To build the dependencies, ensure you can build the SASS modules by:
 When you update the Telerik components, you may want to fetch the latest theme as well. To do that, execute the following in the shell:
 
 1. `npm install` - fetches the latest Theme from the Telerik package
-1. `npm run build:production` - runs the `gulp` task (see the `gulpfile.js`) that builds the Telerik Theme with the custom variables in the project, builds the rest of the styles of the app, and minifies them.
+1. `npm run build` - runs the `gulp` task (see the `gulpfile.js`) that builds the Telerik Theme with the custom variables in the project, builds the rest of the styles of the app, and minifies them.
 
 
