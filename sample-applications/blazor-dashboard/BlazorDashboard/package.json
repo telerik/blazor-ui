@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@progress/kendo-theme-bootstrap": "latest",
+    "@progress/kendo-theme-bootstrap": "^5.0.0",
     "autoprefixer": "^10.4.2",
     "bootstrap": "^5.0.2",
     "gulp": "^4.0.0",
