@@ -4,7 +4,7 @@ This is a demo showing how a full-stack .NET application can be built with ASP.N
 
 ## Requirements
 
-- .NET 5
+- .NET 6
 - Telerik UI for Blazor (Trial or Commercial)
 - npm (node package manager, for sass themes)
 
@@ -12,8 +12,8 @@ This is a demo showing how a full-stack .NET application can be built with ASP.N
 
 1. Open you CLI and go to `/BlazingCoffee/Client`, then run `npm install`
     * This restores the needed packages that are later used to create the themes.
-1. Run the application and create an account. You should be prompted to `Apply Migrations`. This will create a database for logging into the application.
-    * The first run make take some time as the database is seeded with sample data.
+1. Run `npm run build` command
+    * This will compile a custom theme for the project.
 
 ## Telerik UI for Blazor Commercial
 
