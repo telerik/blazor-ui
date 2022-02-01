@@ -5,7 +5,7 @@
 {
     <div class="row my-4">
         <div class="col-sm-12">
-            <span class="badge @(CurrIssue.IsOpen ? " badge-success" : " badge-danger")">
+            <span class="k-badge k-badge-md k-badge-pill k-badge-solid @(CurrIssue.IsOpen ? " k-badge-success" : " k-badge-error")">
                 @(CurrIssue.IsOpen ? "Open" : "Closed")
             </span>
             <h3 class="h1">

@@ -10,15 +10,16 @@
 @using System.Threading
 
 <div class="dashboard">
-	<div class="row mb-4">
-		<div class="col-sm">
+	<div class="mb-4 k-hstack">
+		<div>
 			<h2>
 				<span class="small text-uppercase text-muted d-block">Statistics</span>
 				@IssuesFilter.GetRangeFromNumber(timeRange).ToString("ddd, dd MMM yyyy")
 				- @DateTime.Now.ToString("ddd, dd MMM yyyy")
 			</h2>
 		</div>
-		<div class="col-sm text-sm-right">
+		<div class="k-spacer"></div>
+		<div>
 			<TelerikDropDownList Width="300px" Data="@DateFilterData" TextField="Text" ValueField="Value" @bind-Value="@timeRange"
                                  OnChange="@LoadIssuesData">
 				<DropDownListSettings>
