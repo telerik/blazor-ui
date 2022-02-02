@@ -1,4 +1,4 @@
-﻿@page "/"
+@page "/"
 @namespace BatchEditing.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
@@ -11,8 +11,8 @@
     <base href="~/" />
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
     <link href="css/site.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://unpkg.com/@@progress/kendo-theme-default@@latest/dist/all.css" />
-    <script src="_content/telerik.ui.for.blazor/js/telerik-blazor.js" defer></script>
+    <link rel="stylesheet" href="_content/Telerik.UI.for.Blazor/css/kendo-theme-default/all.css" />
+    <script src="_content/Telerik.UI.for.Blazor/js/telerik-blazor.js" defer></script>
 </head>
 <body>
     <app>@(await Html.RenderComponentAsync<App>(RenderMode.ServerPrerendered))</app>
