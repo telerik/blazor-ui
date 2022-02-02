@@ -7,7 +7,7 @@
 		@if (IsNavAllowed())
 		{
 			<div id="nav"
-				 class="col-xs-3 bg-dark text-white py-5 k-vbox @( expandNavMenu ? "expand" : "" )">
+				 class="col-xs-3 bg-dark text-white py-5 k-vstack @( expandNavMenu ? "expand" : "" )">
 				<span id="nav-toggle" class="nav-toggle d-md-none" @onclick="@ToggleNavMenu">
 					<span class="k-icon k-i-hamburger"></span>
 				</span>
@@ -32,7 +32,7 @@
 						<NavLink class="nav-link" href="signin">Sign Out</NavLink>
 					</li>
 				</ul>
-				<hr class="py-5" />
+				<div class="py-5"></div>
 				<div id="copy">
 					<p>
 						Copyright

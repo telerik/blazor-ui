@@ -5,16 +5,17 @@
 
 @if (user != null)
 {
-
-	<div class="row mb-4">
-		<div class="col-sm">
+	<div class="k-hstack">
+		<div>
 			<h2>
 				<span class="small text-uppercase text-muted d-block">Account</span>
 				@user.Login
 				- @user.Name
 			</h2>
 		</div>
-		<div class="col-sm text-sm-right">
+		<div class="k-spacer">
+		</div>
+		<div>
 			<TelerikButton OnClick="@OnSignOutClick">Sign out</TelerikButton>
 		</div>
 	</div>
@@ -65,7 +66,7 @@
 									<br />
 									<TelerikTextBox Width="12.4em" @bind-Value="user.Location" Name="location" />
 								</div>
-								<div class="form-group">
+								<div class="form-group mt-4">
 									<TelerikButton ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)">Update profile</TelerikButton>
 								</div>
 							</EditForm>
@@ -123,7 +124,7 @@
 						<label class="h6">Confirm password</label>
 						<input type="password" class="form-control" />
 					</div>
-					<div class="form-group">
+					<div class="form-group mt-4">
 						<TelerikButton>Change password</TelerikButton>
 					</div>
 				</div>

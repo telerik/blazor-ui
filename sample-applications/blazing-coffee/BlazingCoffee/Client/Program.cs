@@ -24,7 +24,7 @@ namespace BlazingCoffee.Client
 
             var host = builder.Build();
             var localStorage = host.Services.GetRequiredService<ILocalStorageService>();
-            var result = await localStorage.GetItemAsStringAsync("BlazorCulture");
+            var result = await localStorage.GetItemAsync<string>("BlazorCulture");
             if (result != null)
             {
                 var culture = new CultureInfo(result);
