@@ -24,7 +24,7 @@ $series-d: #52bdee;
 $series-e: #528dee;
 $series-f: #7378d9;
 $background-color: scale-color($primary, $saturation: -55%, $lightness: 65%);
-
+$checkbox-bg: #ffffff;
 $link-color: $info;
 
 $isDarkTheme: false !default;
@@ -39,6 +39,7 @@ $isDarkTheme: false !default;
     $selected-text: #ffffff;
     $selected-bg: #528dee;
     $background-color: scale-color($primary, $saturation: -55%, $lightness: 25%);
+    $checkbox-bg: #f5f5f5;
 }
 
 

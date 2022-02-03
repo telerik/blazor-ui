@@ -102,6 +102,10 @@ a.k-link.k-state-selected {
     padding-bottom: calc( 8px + 4px);
 }
 
+.k-checkbox {
+    background-color: $checkbox-bg
+}
+
 html, body, app {
     height: 100%;
     margin: 0;
