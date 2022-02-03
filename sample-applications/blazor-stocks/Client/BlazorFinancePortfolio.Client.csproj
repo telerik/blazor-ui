@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
@@ -12,21 +12,11 @@
         <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
         <PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
         <PackageReference Include="Telerik.UI.for.Blazor.Trial" Version="3.0.1" />
-        <PackageReference Include="BuildWebCompiler" Version="1.12.405" />
         <PackageReference Include="BlazorPro.BlazorSize" Version="3.1.0" />
     </ItemGroup>
 
     <ItemGroup>
         <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
-    </ItemGroup>
-
-    <Target Name="CopyStyles" AfterTargets="BeforeCompile">
-        <Copy SourceFiles="$(MSBuildProjectDirectory)\Styles\styles.min.css" DestinationFolder="$(MSBuildProjectDirectory)\wwwroot\css" />
-        <Message Importance="high" Text="Copying the minified build styles to WWWROOT" />
-    </Target>
-
-    <ItemGroup>
-        <Content Include="Styles\styles.scss" />
     </ItemGroup>
 
     <ItemGroup>
