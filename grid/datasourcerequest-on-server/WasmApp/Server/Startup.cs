@@ -29,11 +29,9 @@ namespace WasmApp.Server
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseWebAssemblyDebugging();
             }
 
             app.UseStaticFiles();
-            app.UseBlazorFrameworkFiles();
 
             app.UseRouting();
 

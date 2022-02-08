@@ -7,8 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Telerik.DataSource;
 using Telerik.DataSource.Extensions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace CustomSerializer.Server.Controllers
 {
