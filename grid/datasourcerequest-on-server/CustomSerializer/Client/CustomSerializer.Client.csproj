@@ -15,8 +15,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Shared\CustomSerializer.Shared.csproj" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <None Remove="Telerik.UI.for.Blazor" />
-  </ItemGroup>
 </Project>
