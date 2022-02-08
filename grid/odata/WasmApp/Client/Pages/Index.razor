@@ -5,15 +5,14 @@
 @using WasmApp.Shared
 @inject HttpClient Http
 
-<TelerikGrid Data=@GridData
+<TelerikGrid TItem="@ODataProduct"
+             OnRead="@ReadItems"
              Height="460px"
              RowHeight="60"
              PageSize="10"
              Pageable="true"
              Sortable="true"
-             FilterMode="@GridFilterMode.FilterRow"
-             OnRead=@ReadItems
-             TotalCount=@Total>
+             FilterMode="@GridFilterMode.FilterRow">
     <GridColumns>
         <GridColumn Field="ProductID" />
         <GridColumn Field="ProductName" />
@@ -22,10 +21,7 @@
 </TelerikGrid>
 
 @code{
-    public List<ODataProduct> GridData { get; set; } = new List<ODataProduct>();
-    public int Total { get; set; } = 0;
-
-    protected async Task ReadItems(GridReadEventArgs args)
+    async Task ReadItems(GridReadEventArgs args)
     {
         var baseUrl = "https://demos.telerik.com/kendo-ui/service-v4/odata/Products?";
 
@@ -33,7 +29,7 @@
 
         ODataResponseOrders response = await Http.GetFromJsonAsync<ODataResponseOrders>(requestUrl);
 
-        GridData = response.Products;
-        Total = response.Total;
+        args.Data = response.Products;
+        args.Total = response.Total;
     }
 }

@@ -3,15 +3,14 @@
 @inject ODataOrdersService OrdersService
 @using ServerApp.Data
 
-<TelerikGrid Data=@GridDataOrders
+<TelerikGrid TItem="@ODataOrder"
+             OnRead="@ReadOrders"
              Height="460px"
              RowHeight="60"
              PageSize="10"
              Pageable="true"
              Sortable="true"
-             FilterMode="@GridFilterMode.FilterRow"
-             OnRead=@ReadOrders
-             TotalCount=@TotalOrders>
+             FilterMode="@GridFilterMode.FilterRow">
     <GridColumns>
         <GridColumn Field="OrderID" />
         <GridColumn Field="ShipName" />
@@ -20,15 +19,11 @@
 </TelerikGrid>
 
 @code{
-    public List<ODataOrder> GridDataOrders { get; set; } = new List<ODataOrder>();
-
-    public int TotalOrders { get; set; } = 0;
-
     protected async Task ReadOrders(GridReadEventArgs args)
     {
         ODataOrdersResponse data = await OrdersService.GetOrders(args.Request);
 
-        GridDataOrders = data.Orders;
-        TotalOrders = data.Total;
+        args.Data = data.Orders;
+        args.Total = data.Total;
     }
 }
