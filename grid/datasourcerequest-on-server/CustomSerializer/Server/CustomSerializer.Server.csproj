@@ -16,7 +16,4 @@
     <ProjectReference Include="..\Shared\CustomSerializer.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Telerik.DataSource" />
-  </ItemGroup>
 </Project>
