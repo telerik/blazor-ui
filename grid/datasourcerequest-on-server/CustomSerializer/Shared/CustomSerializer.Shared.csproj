@@ -5,8 +5,7 @@
   </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-        <PackageReference Include="Telerik.DataSource" Version="2.0.7" />
+        <PackageReference Include="Telerik.DataSource" Version="2.1.1" />
     </ItemGroup>
 
 </Project>
