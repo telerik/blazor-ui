@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using gRPCsample.Shared;
-using Google.Protobuf.WellKnownTypes;
-using Grpc.Core;
 using Microsoft.AspNetCore.Components;
 using Telerik.Blazor.Components;
-using Telerik.DataSource;
 using gRPCsample.Client.Models;
 using gRPCsample.Shared.Helpers;
 using gRPCsample.Client.Helpers;
@@ -28,19 +25,9 @@ namespace gRPCsample.Client.Pages
         [Inject] public TestDataService.TestDataServiceClient TestDataServiceClient { get; set; }
 
         /// <summary>
-        /// The Grid data, Needs to by type object to cater for the grouped data structure
-        /// </summary>
-        public IEnumerable<object> GridData { get; set; }
-
-        /// <summary>
-        /// Total number of records used by the Grid
-        /// </summary>
-        public int TotalRecords { get; set; }
-
-        /// <summary>
         /// Reference to the grid component, used for creating records for insertion.
         /// </summary>
-        public TelerikGrid<object> GridRef { get; set; }
+        public TelerikGrid<TestDataModel> GridRef { get; set; }
 
         #endregion
 
@@ -76,8 +63,6 @@ namespace gRPCsample.Client.Pages
         {
             try
             {
-                _lastArgs = args;
-
                 // Use the following lines to add the Token 
                 //CallOptions options = await GrpcBearerTokenProvider.GetCallOptionsAsync();
                 //var dataListResponse = (await TestDataServiceClient.GetTestDataAsync(new DataSourceProtoRequest(args.Request), options));
@@ -85,17 +70,17 @@ namespace gRPCsample.Client.Pages
                 var dataListResponse = (await TestDataServiceClient.GetTestDataAsync(new DataSourceProtoRequest(args.Request)));
                 if (dataListResponse.Result.IsValid)
                 {
-                    TotalRecords = dataListResponse.Result.TotalRecords;
+                    args.Total = dataListResponse.Result.TotalRecords;
                     if (dataListResponse.GridData.SubGroups.Count == 0)
                     {
                         // Process the flat item list
                         var gridData = dataListResponse.GridData.GridRows.Unpack<TestDataListModel>();
-                        GridData = gridData.Records.ToList();
+                        args.Data = gridData.Records.ToList();
                     }
                     else
                     {
                         // Process the grouped data
-                        GridData = GridHelper.GetGroupedData(dataListResponse.GridData.SubGroups.ToList(), new DataListModelCallBack(UnpackProtoList));
+                        args.Data = GridHelper.GetGroupedData(dataListResponse.GridData.SubGroups.ToList(), new DataListModelCallBack(UnpackProtoList));
                     }
                 } else
                 {
@@ -106,8 +91,6 @@ namespace gRPCsample.Client.Pages
                         Message = dataListResponse.Result.ErrorMessage,
                     };
                 }
-
-                StateHasChanged();
             }
             catch (Exception ex)
             {
@@ -214,7 +197,7 @@ namespace gRPCsample.Client.Pages
                 }
 
                 // Refresh the Grid
-                await ReadHandler(_lastArgs);
+                GridRef.Rebind();
             }
             catch (Exception ex)
             {
@@ -235,7 +218,6 @@ namespace gRPCsample.Client.Pages
         private TestDataModel _itemToDelete;
         private bool _showDeleteConfirmation;
         private MessageWindowModel _message;
-        private GridReadEventArgs _lastArgs;
 
         #endregion
     }

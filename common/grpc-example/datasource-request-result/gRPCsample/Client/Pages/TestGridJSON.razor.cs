@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text.Json;
 using System.Threading.Tasks;
 using gRPCsample.Shared;
-using Google.Protobuf.WellKnownTypes;
-using Grpc.Core;
 using Microsoft.AspNetCore.Components;
 using Telerik.Blazor.Components;
 using Telerik.DataSource;
@@ -19,16 +16,6 @@ namespace gRPCsample.Client.Pages
         #region Properties
 
         [Inject] public HttpClient Http { get; set; }
-        public List<object> GridData { get; set; }
-        public int TotalRecords { get; set; }
-
-        #endregion
-
-        #region Page
-
-        protected override async Task OnInitializedAsync()
-        {
-        }
 
         #endregion
 
@@ -45,16 +32,14 @@ namespace gRPCsample.Client.Pages
                 if (args.Request.Groups.Count > 0)
                 {
                     var data = GroupDataHelpers.DeserializeGroups<TestGridJSONModel>(result.GroupedData);
-                    GridData = data.Cast<object>().ToList();
+                    args.Data = data.Cast<object>().ToList();
                 }
                 else
                 {
-                    GridData = result.CurrentPageData.Cast<object>().ToList();
+                    args.Data = result.CurrentPageData.Cast<object>().ToList();
                 }
 
-                TotalRecords = result.TotalItemCount;
-
-                StateHasChanged();
+                args.Total = result.TotalItemCount;
             }
             catch (Exception ex)
             {

@@ -16,7 +16,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="2.20.0" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="3.0.1" />
   </ItemGroup>
 
   <ItemGroup>
