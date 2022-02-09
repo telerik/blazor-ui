@@ -2,7 +2,7 @@
 @using Telerik.DataSource
 @using Telerik.DataSource.Extensions
 
-<TelerikGrid Data=@TopNPodcasts TotalCount=@Total OnRead=@ReadItems
+<TelerikGrid @ref="@GridTopEpisodes" TItem="@PodcastViewModel" OnRead="@ReadItems"
              Sortable="true" Height="100%" Pageable="false" ScrollMode="@GridScrollMode.Scrollable"
              OnStateInit="@((GridStateEventArgs<PodcastViewModel> args) => OnStateInit(args))">
     <GridColumns>
@@ -19,27 +19,22 @@
     [Parameter]
     public int TopN { get; set; } = 5;
 
-    IEnumerable<PodcastViewModel> TopNPodcasts { get; set; }
-    int Total { get; set; }
-    DataSourceRequest CurrentRequest { get; set; }
+    TelerikGrid<PodcastViewModel> GridTopEpisodes { get; set; }
 
     protected void ReadItems(GridReadEventArgs args)
     {
-        CurrentRequest = args.Request;
-        UpdateTopEpisodes();
+        args.Request.PageSize = TopN;
+        var datasourceResult = Podcasts.ToDataSourceResult(args.Request);
+
+        args.Data = (datasourceResult.Data as IEnumerable<PodcastViewModel>).ToList();
+        args.Total = datasourceResult.Total;
     }
 
     void UpdateTopEpisodes()
     {
-        if (CurrentRequest != null && Podcasts != null)
+        if (GridTopEpisodes != null && Podcasts != null)
         {
-            CurrentRequest.PageSize = 5;
-            var datasourceResult = Podcasts.ToDataSourceResult(CurrentRequest);
-
-            TopNPodcasts = (datasourceResult.Data as IEnumerable<PodcastViewModel>).ToList();
-            Total = datasourceResult.Total;
-
-            StateHasChanged();
+            GridTopEpisodes.Rebind();
         }
     }
 
