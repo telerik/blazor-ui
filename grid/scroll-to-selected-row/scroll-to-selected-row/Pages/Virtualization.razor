@@ -9,16 +9,16 @@
 
 <TelerikButton OnClick="@SelectItem">Select item 48</TelerikButton>
 
-<TelerikGrid Data=@GridData
+<TelerikGrid @ref="@GridRef"
+             TItem="@Employee"
+             OnRead="@ReadItems"
              SelectionMode="GridSelectionMode.Single"
              @bind-SelectedItems="@SelectedItems"
+             Sortable="true"
              ScrollMode="@GridScrollMode.Virtual"
              RowHeight="40"
              PageSize="@PageSize"
-             @ref="@GridRef"
-             TotalCount=@Total OnRead="@ReadItems"
-             Height="300px"
-             Sortable="true">
+             Height="300px">
     <GridColumns>
         <GridColumn Field=@nameof(Employee.Name) />
         <GridColumn Field=@nameof(Employee.Team) Title="Team" />
@@ -28,8 +28,8 @@
 @code {
     string theGridClass { get; set; } = "theSpecialGrid";
     TelerikGrid<Employee> GridRef { get; set; }
-    int Total { get; set; }
-    List<Employee> GridData { get; set; }
+    int GridDataCount { get; set; }
+    int AllDataCount { get; set; }
     int PageSize { get; set; } = 20;
     DataSourceRequest lastRequest { get; set; }
 
@@ -70,9 +70,10 @@
         //this should actually be happening on the server, but for brevity we do it here
         //see more at https://github.com/telerik/blazor-ui/tree/master/grid/datasourcerequest-on-server
         var datasourceResult = AllData.ToDataSourceResult(args.Request);
-        GridData = (datasourceResult.Data as IEnumerable<Employee>).ToList();
-        Total = datasourceResult.Total;
-
+        var data = (datasourceResult.Data as IEnumerable<Employee>).ToList();
+        args.Data = data;
+        args.Total = AllDataCount = datasourceResult.Total;
+        GridDataCount = data.Count;
 
         // see more about why this is done here https://docs.telerik.com/blazor-ui/knowledge-base/grid-large-skip-breaks-virtualization
         int allowedSkip = ValidateSkip(args.Request.Skip);
@@ -80,9 +81,6 @@
         {
             await SetSkip(allowedSkip);
         }
-
-
-        await InvokeAsync(StateHasChanged);
     }
 
     async Task SetSkip(int skip)
@@ -108,8 +106,8 @@
     {
         if (desiredSkip < 0) return 0;
         int itemsThatFitPerPage = 7; // see how the grid renders and determine this from there
-        bool isInvalidSkip = GridData.Count < itemsThatFitPerPage;
-        return isInvalidSkip ? Total - itemsThatFitPerPage : desiredSkip;
+        bool isInvalidSkip = GridDataCount < itemsThatFitPerPage;
+        return isInvalidSkip ? AllDataCount - itemsThatFitPerPage : desiredSkip;
     }
 
     // data generation follows
