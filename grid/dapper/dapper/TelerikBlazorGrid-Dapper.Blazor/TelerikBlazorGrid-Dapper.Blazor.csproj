@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Telerik.DataSource" Version="2.0.11" />
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="2.27.0" />
+    <PackageReference Include="Telerik.DataSource" Version="2.1.1" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="3.0.1" />
   </ItemGroup>
 
   <ItemGroup>
