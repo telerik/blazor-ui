@@ -5,8 +5,8 @@
 @*Need to add the FieldType or you will get errors on sorting
     Note the ColumnStringValidated property with the Data Annotaion*@
 
-<TelerikGrid Data=@GridData
-             @ref="@GridRef"
+<TelerikGrid @ref="@GridRef"
+             TItem="@TestDataModel"
              OnRead="@ReadHandler"
              OnUpdate="@UpdateHandler"
              OnCreate="@CreateHandler"
@@ -19,7 +19,6 @@
              Navigable="true"
              Pageable="true"
              PageSize="100"
-             TotalCount="@TotalRecords"
              Width="75vw"
              Height="85vh">
     <GridColumns>
