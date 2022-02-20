@@ -11,7 +11,7 @@ namespace scroll_to_selected_row.Services
         public async Task<List<Employee>> GenerateData()
         {
             List<Employee> data = new List<Employee>();
-            for (int i = 0; i < 55; i++)
+            for (int i = 1; i <= 100; i++)
             {
                 data.Add(new Employee()
                 {
