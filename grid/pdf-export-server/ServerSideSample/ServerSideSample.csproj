@@ -4,7 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="2.20.0" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="3.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PdfExport\PdfExport.csproj" />

@@ -9,7 +9,7 @@
 
 <TelerikGrid Height="550px" FilterMode="@GridFilterMode.FilterMenu"
              Sortable="true" Pageable="true" PageSize="20"
-             Data=@GridData TotalCount=@Total OnRead=@ReadItems>
+             TItem="@WeatherForecast" OnRead="@ReadItems">
     <GridToolBar>
         <TelerikButton Icon="file-pdf" OnClick="@ExportToPdf">Export to PDF</TelerikButton>
         <label><TelerikCheckBox @bind-Value="@ExportAllPages" />Export All Pages</label>
@@ -24,8 +24,6 @@
 </TelerikGrid>
 
 @code {
-    List<WeatherForecast> GridData { get; set; }
-    public int Total { get; set; } = 0;
     bool ExportAllPages { get; set; }
     DataSourceRequest lastRequest { get; set; }
 
@@ -36,9 +34,8 @@
         lastRequest = args.Request;
 
         var datasourceResult = await ForecastService.GetForecastListAsync(args.Request);
-        GridData = datasourceResult.Data as List<WeatherForecast>;
-        Total = datasourceResult.Total;
-        StateHasChanged();
+        args.Data = datasourceResult.Data as List<WeatherForecast>;
+        args.Total = datasourceResult.Total;
     }
 
     async Task ExportToPdf()
