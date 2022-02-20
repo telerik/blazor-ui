@@ -6,7 +6,7 @@
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'ClientApp.Server' " />
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="3.2.1" />
     <PackageReference Include="Telerik.DataSource" Version="2.1.1" />
   </ItemGroup>
 
