@@ -34,7 +34,6 @@ namespace WasmApp.Server
 
             app.UseStaticFiles();
             app.UseBlazorFrameworkFiles();
-
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

@@ -6,7 +6,7 @@
 
 <TelerikGrid Height="550px" FilterMode="@GridFilterMode.FilterMenu"
              Sortable="true" Pageable="true" Groupable="true" PageSize="20"
-             Data=@GridData TotalCount=@Total OnRead=@ReadItems>
+             TItem="@WeatherForecast" OnRead="@ReadItems">
     <GridColumns>
         <GridColumn Field="Id" FieldType="@(typeof(int))" Title="Id" Width="100px" Groupable="false" />
         <GridColumn Field="Date" FieldType="@(typeof(DateTime))">
@@ -21,19 +21,13 @@
 </TelerikGrid>
 
 @code {
-    List<object> GridData { get; set; }
-    public int Total { get; set; } = 0;
-
     protected async Task ReadItems(GridReadEventArgs args)
     {
         // we pass the request to the service, and there Telerik DataSource Extension methods will shape the data
         var datasourceResult = await ForecastService.GetForecastListAsync(args.Request);
 
-        GridData = datasourceResult.Data.Cast<object>().ToList();
-
-        Total = datasourceResult.Total;
-
-        StateHasChanged();
+        args.Data = datasourceResult.Data.Cast<object>().ToList();
+        args.Total = datasourceResult.Total;
     }
 
     // for brevity, CUD operations are not implemented, only Read
