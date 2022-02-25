@@ -16,8 +16,11 @@ namespace BatchEditing.Pages
         BatchEditingService theService { get; set; }
         public ObservableCollection<BatchEditModel> LocalData { get; set; }
         private List<BatchEditModel> PristineItems { get; set; } = new List<BatchEditModel>();
-
         public IEnumerable<BatchEditModel> SelectedItems { get; set; } = Enumerable.Empty<BatchEditModel>();
+
+        public bool GridIsDirty => LocalData.ToList().Exists(itm => itm.IsDirty);
+
+        public bool SelectionIsDirty => SelectedItems.ToList().Exists(itm => itm.IsDirty);
 
         protected override async Task OnInitializedAsync()
         {
@@ -45,15 +48,14 @@ namespace BatchEditing.Pages
         public void UpdateHandler(GridCommandEventArgs args)
         {
             BatchEditModel item = (BatchEditModel)args.Item;
-            BatchEditModel localItem = GetItemFromCollection(LocalData, item);
 
             if (!item.IsDirty)
             {
-                BatchEditModel pristineItm = GetItemFromCollection(PristineItems, item);
-                if (pristineItm == null)
+                BatchEditModel pristineItem = GetItemFromCollection(PristineItems, item);
+                if (pristineItem == null)
                 {
                     //add only the first time a field is edited, later it is no longer pristine
-                    PristineItems.Add(localItem);
+                    PristineItems.Add(GetItemFromCollection(LocalData, item));
                 }
             }
 
@@ -64,7 +66,7 @@ namespace BatchEditing.Pages
         public void CreateHandler(GridCommandEventArgs args)
         {
             BatchEditModel item = (BatchEditModel)args.Item;
-            item.Id = LocalData.Count + 1;
+            item.Id = LocalData.Max(model => model.Id) + 1;
             item.IsNew = true;
             LocalData.Insert(0, item);
         }
@@ -76,16 +78,6 @@ namespace BatchEditing.Pages
             DeleteItem(item);
 
             //show notification for undelete
-        }
-
-        public bool GridIsDirty()
-        {
-            return LocalData.ToList().Exists(itm => itm.IsDirty);
-        }
-
-        public bool SelectionIsDirty()
-        {
-            return SelectedItems.ToList().Exists(itm => itm.IsDirty);
         }
 
         private void ChangeLocalItem(BatchEditModel item)
@@ -112,59 +104,58 @@ namespace BatchEditing.Pages
             LocalData = new ObservableCollection<BatchEditModel>(newData);
         }
 
-        public async Task RevertAllChanges()
+        public void RevertAllChanges()
         {
             for (int i = LocalData.Count - 1; i >= 0; i--)
             {
                 if (LocalData[i].IsDirty)
                 {
-                    await RevertItem(LocalData[i]);
+                    RevertItem(LocalData[i]);
                 }
             }
             StateHasChanged();
         }
 
-        public async Task UndeleteItem(BatchEditModel itmToUndelete)
+        public void RestoreItem(BatchEditModel item)
         {
-            BatchEditModel itm = GetItemFromCollection(LocalData, itmToUndelete);
-            if (itm != null)
+            BatchEditModel localItem = GetItemFromCollection(LocalData, item);
+            if (localItem != null)
             {
-                itm.IsDeleted = false;
+                localItem.IsDeleted = false;
             }
         }
 
-        public async Task RevertItem(BatchEditModel itmToUndelete)
+        public void RevertItem(BatchEditModel item)
         {
-            if (itmToUndelete.IsNew)
+            if (item.IsNew)
             {
-                LocalData.Remove(itmToUndelete);
+                LocalData.Remove(item);
             }
-            if (itmToUndelete.IsDeleted)
+            if (item.IsDeleted)
             {
-                itmToUndelete.IsDeleted = false;
-                ChangeLocalItem(itmToUndelete);
+                item.IsDeleted = false;
+                ChangeLocalItem(item);
             }
-            if (itmToUndelete.IsChanged)
+            if (item.IsChanged)
             {
-                BatchEditModel pristineItem = GetItemFromCollection(PristineItems, itmToUndelete);
+                BatchEditModel pristineItem = GetItemFromCollection(PristineItems, item);
                 if (pristineItem != null)
                 {
-                    itmToUndelete = pristineItem;
-                    ChangeLocalItem(itmToUndelete);
+                    ChangeLocalItem(pristineItem);
                     PristineItems.Remove(pristineItem);
                 }
             }
         }
 
-        public async Task RevertSelected()
+        public void RevertSelected()
         {
             foreach (BatchEditModel item in SelectedItems)
             {
-                await RevertItem(item);
+                RevertItem(item);
             }
         }
 
-        public async Task DeleteItem(BatchEditModel itmToDelete)
+        public void DeleteItem(BatchEditModel itmToDelete)
         {
             BatchEditModel localItem = GetItemFromCollection(LocalData, itmToDelete);
             if (localItem != null)
@@ -184,14 +175,13 @@ namespace BatchEditing.Pages
             }
         }
 
-        public async Task DeleteSelected()
+        public void DeleteSelected()
         {
             foreach (BatchEditModel item in SelectedItems)
             {
-                await DeleteItem(item);
+                DeleteItem(item);
             }
         }
-
 
         private BatchEditModel GetItemFromCollection(IList<BatchEditModel> collection, BatchEditModel itmToFind)
         {

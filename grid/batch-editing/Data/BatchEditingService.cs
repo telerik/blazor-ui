@@ -46,8 +46,8 @@ namespace BatchEditing.Data
 
             foreach (BatchEditModel item in insertedItems)
             {
-                item.Id = Data.Last().Id + 1;
-                Data.Add(item);
+                item.Id = Data.Max(item => item.Id) + 1;
+                Data.Insert(0, item);
             }
 
             foreach (BatchEditModel item in updatedItems)

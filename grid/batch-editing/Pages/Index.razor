@@ -11,16 +11,16 @@
              SelectionMode="@GridSelectionMode.Multiple" @bind-SelectedItems="@SelectedItems">
     <GridToolBar>
         @{
-            if (GridIsDirty())
+            <GridCommandButton Command="Add" Icon="add">Add Employee</GridCommandButton>
+            @if (GridIsDirty)
             {
-                <TelerikButton Icon="save" OnClick="@SaveAllChanges" Primary="true">Save All Changes</TelerikButton>
+                <TelerikButton Icon="save" OnClick="@SaveAllChanges" ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)">Save All Changes</TelerikButton>
                 <TelerikButton Icon="cancel" OnClick="@RevertAllChanges">Cancel All Changes</TelerikButton>
             }
-            <GridCommandButton Command="Add" Icon="add">Add Employee</GridCommandButton>
             if (SelectedItems.Count() > 0)
             {
                 <TelerikButton Icon="delete" OnClick="@DeleteSelected">Delete Selected</TelerikButton>
-                if (SelectionIsDirty())
+                if (SelectionIsDirty)
                 {
                     <TelerikButton Icon="undo" OnClick="@RevertSelected">Revert Selected</TelerikButton>
                 }
@@ -39,7 +39,7 @@
                     }
                     else if (currItem.IsDeleted)
                     {
-                        <TelerikButton Icon="arrow-up" OnClick="@( () => UndeleteItem(currItem) )">Undelete</TelerikButton>
+                        <TelerikButton Icon="arrow-up" OnClick="@( () => RestoreItem(currItem) )">Restore</TelerikButton>
                     }
                     else if (currItem.IsChanged)
                     {
