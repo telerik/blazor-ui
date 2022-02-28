@@ -3,7 +3,7 @@
 Demonstrates a Telerik Grid in Blazor, using the OnRead event along with Dapper and Dapper.SqlBuilder, to generate your SQL queries on the fly supporting most aspects of Telerik Grid.
 Telerik Grid works nicely with Entity Framework, you can use `.ToDataSourceResultAsync()` and everything for sorting etc happens on the database. If you are using Dapper you can use that, however as Dapper doesn't return an IQueryable, you will be fetching the entire dataset and then filtering, paging and sorting in code, rather than on your database.
 
-**Special thanks to @pingu2k4 for the sample.**
+**Special thanks to [@pingu2k4](https://github.com/pingu2k4) for the sample.**
 
 ## Features
 - [x] Paging

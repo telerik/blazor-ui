@@ -3,10 +3,9 @@
 
 <h3>Products</h3>
 
-<TelerikGrid Data="ProductList"
+<TelerikGrid TItem="@Product"
              Class="overflow-auto mb-4"
-             OnRead="ReadItems"
-             TotalCount="ProductCount"
+             OnRead="@ReadItems"
              Pageable="true"
              Sortable="true"
              FilterMode="GridFilterMode.FilterMenu"
@@ -14,7 +13,7 @@
              Reorderable="true"
              Height="600px"
              @bind-PageSize="PageSize"
-             @ref="Grid">
+             @ref="@Grid">
     <GridToolBar>
         <GridCommandButton Icon="arrow-rotate-cw" OnClick="RefreshTable">Refresh</GridCommandButton>
         <GridCommandButton Command="ExcelExport" Icon="file-excel">Export .xlsx</GridCommandButton>
@@ -41,20 +40,18 @@
 
 @code {
     private TelerikGrid<Product> Grid { get; set; }
-    private List<Product> ProductList { get; set; }
-    private int ProductCount { get; set; }
     private int PageSize { get; set; } = 10;
     private List<int?> PageSizes = new List<int?> { 5, 10, 25, 50, null };
 
     private async Task ReadItems(GridReadEventArgs args)
     {
         var result = await _productDataService.GetProducts(args.Request);
-        ProductList = result.Results;
-        ProductCount = result.Count;
+        args.Data = result.Results;
+        args.Total = result.Count;
     }
 
     private async Task RefreshTable()
     {
-        await Grid.SetState(Grid.GetState());
+        Grid.Rebind();
     }
 }
