@@ -32,7 +32,7 @@
                                                 <span>
                                                     @item.Title
                                                 </span>
-                                                <span>
+                                                <span onpointerdown="stopPropagation(event)">
                                                     <TelerikButton Icon="close" Title="Delete tile" Class="k-flat" OnClick="@(() => Remove(item))"></TelerikButton>
                                                 </span>
                                             </div>
@@ -72,6 +72,12 @@
 
     </SplitterPanes>
 </TelerikSplitter>
+
+<script suppress-error="BL9992">
+  window.stopPropagation = (e) => {
+    e.stopPropagation();
+  }
+</script>
 
 @code {
     public IEnumerable<PodcastViewModel> Podcasts { get; set; }
