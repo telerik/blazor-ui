@@ -32,7 +32,8 @@
                                                 <span>
                                                     @item.Title
                                                 </span>
-                                                <span>
+                                                @*The JS script is in the "_Host.cshtml" file*@
+                                                <span onpointerdown="stopPropagation(event)">
                                                     <TelerikButton Icon="close" Title="Delete tile" Class="k-flat" OnClick="@(() => Remove(item))"></TelerikButton>
                                                 </span>
                                             </div>
