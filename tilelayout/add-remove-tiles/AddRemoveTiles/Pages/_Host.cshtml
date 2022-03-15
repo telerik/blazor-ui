@@ -30,5 +30,13 @@
     </div>
 
     <script src="_framework/blazor.server.js"></script>
+
+    @*Necessary to avoid mix up with clickable and*@
+    @*draggable event in HeaderTemplate*@
+    <script>
+        window.stopPropagation = (e) => {
+        e.stopPropagation();
+        }
+    </script>
 </body>
 </html>
