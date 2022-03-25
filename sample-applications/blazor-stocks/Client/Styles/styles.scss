@@ -188,10 +188,10 @@ $dateinput-width: 140px;
     .title-wrap {
         max-width: 80%;
     }
-    
+
     .source-code-link {
         padding: .375rem .75rem;
-        
+
         &:hover {
             text-decoration: none;
         }
@@ -675,4 +675,4 @@ stocks-grid .k-grid .k-grid-header th.k-header {
     }
 }
 
-@import "./node_modules/@progress/kendo-theme-bootstrap/dist/all.scss";
+@import "~@progress/kendo-theme-bootstrap/dist/all.scss";
