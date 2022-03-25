@@ -1,7 +1,7 @@
 // Default theme variables here
 
 @import "./variables";
-@import "./node_modules/@progress/kendo-theme-default/dist/all.scss";
+@import "~@progress/kendo-theme-default/dist/all.scss";
 @import "./typography";
 @import "./header";
 @import "./drawer";
