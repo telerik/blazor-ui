@@ -4,7 +4,7 @@ Sometimes, you may need to associate files with a model that you edit in a grid.
 
 To upload the files you would use a component like the <a href="https://demos.telerik.com/blazor-ui/fileselect/overview" target="_blank">FileSelect</a> or <a href="https://demos.telerik.com/blazor-ui/upload/overview" target="_blank">Upload</a>, and you need a way to know which row (model) they are about.
 
-The typical approach would be to handle the appropriate component event and pass the current model through a **lambda expression**. Then, apply that metadata as needed in the file saving logic.
+The typical approach would be to handle the appropriate component event and pass the current model through a **lambda expression**. Then, apply that metadata in the file saving logic.
 
 In this example, the `FileSelect` component is used and data from the model is used to save the files in specific folders (that depend on the "employee" ID) through the `OnSelect` <a href="https://docs.telerik.com/blazor-ui/components/fileselect/events" target="_blank">event</a>.
 
