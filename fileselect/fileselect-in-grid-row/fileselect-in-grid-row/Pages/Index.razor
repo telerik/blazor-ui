@@ -15,23 +15,23 @@ For brevity, this just shows the approach of using
 a lambda expression to provide the necessary metadata to the code that will save the file.
 
 <TelerikGrid Data="@MyData" Height="700px"
-             Pageable="true" Sortable="true" Groupable="true"
+             Pageable="true" PageSize="5" Sortable="true" Groupable="true"
              FilterMode="@GridFilterMode.FilterRow"
              Resizable="true" Reorderable="true">
     <GridColumns>
         <GridColumn Field="@(nameof(Employee.Id))" Width="120px" />
         <GridColumn Field="@(nameof(Employee.Name))" Title="Employee Name" Groupable="false" />
-        <GridColumn Title="Associated Files">
+        <GridColumn Title="Associated Files (max 1MB / file)">
             <Template>
                 @{
                     Employee empl = context as Employee;
                     // pass the current grid row in a lambda expression to the select handler to use when saving the files
-                    <TelerikFileSelect OnSelect="@( (FileSelectEventArgs e) => SaveFilesWithMetadata(e, empl) )" />
+                    <TelerikFileSelect OnSelect="@( (FileSelectEventArgs e) => SaveFilesWithMetadata(e, empl) )"
+                                       MaxFileSize="@(1024 * 1024)"/>
                 }
             </Template>
         </GridColumn>
         <GridColumn Field="@(nameof(Employee.Team))" Title="Team" />
-        <GridColumn Field="@(nameof(Employee.HireDate))" Title="Hire Date" />
     </GridColumns>
 </TelerikGrid>
 
@@ -40,8 +40,7 @@ a lambda expression to provide the necessary metadata to the code that will save
     {
         Id = x,
         Name = "name " + x,
-        Team = "team " + x % 5,
-        HireDate = DateTime.Now.AddDays(-x).Date
+        Team = "team " + x % 5
     });
 
     public Dictionary<string, CancellationTokenSource> Tokens { get; set; } = new Dictionary<string, CancellationTokenSource>();
@@ -56,7 +55,7 @@ a lambda expression to provide the necessary metadata to the code that will save
                 // we will use the ID of the grid record to alter the way the file is saved
                 // implement the required businss logic instead
                 // in this example, we make a folder for each employee by ID, put files by index there and add a GUID for uniqueness
-                string folder = HostingEnvironment?.WebRootPath + "\\" + empl.Id;
+                string folder = HostingEnvironment?.WebRootPath + Path.DirectorySeparatorChar + empl.Id;
                 string fileName = i.ToString() + "_" + Guid.NewGuid() + "_" + file.Name;
                 await SaveFileToDisk(file, folder, fileName);
                 i++;

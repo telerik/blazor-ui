@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,6 +29,12 @@ namespace fileselect_in_grid_row
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddTelerikBlazor();
+
+            // SignalR message size for FileSelect
+            services.Configure<HubOptions>(options =>
+            {
+                options.MaximumReceiveMessageSize = 1024 * 1024; // 1MB
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
