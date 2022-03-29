@@ -1,26 +1,20 @@
-const gulp = require('gulp');
-const sass = require('gulp-sass')(require('node-sass'));
-const postcss = require("gulp-postcss");
-const autoprefixer = require("autoprefixer");
-const calc = require("postcss-calc");
+const { kendoSassBuild } = require('@progress/kendo-theme-tasks/src/build/kendo-build');
+const sass = require('sass');
 
-const sassOptions = {
-    precision: 10,
-    outputStyle: 'compressed'
-};
+function buildStyles(done) {
+    kendoSassBuild({
+        file: './sass/styles.scss',
+        output: {
+            path: './wwwroot/css'
+        },
+        sassOptions: {
+            implementation: sass,
+            outputStyle: 'compressed',
+            quietDeps: true
+        }
+    });
 
-const postcssOptions = [
-    calc({
-        precision: 10
-    }),
-    autoprefixer({
-        overrideBrowserslist: [ '> 10%' ]
-    })
-];
+    done();
+}
 
-gulp.task('sass', function () {
-    return gulp.src('./sass/**/*.scss')
-        .pipe(sass.sync(sassOptions).on('error', sass.logError))
-        .pipe(postcss(postcssOptions))
-        .pipe(gulp.dest('./wwwroot/css'));
-});
+exports.sass = buildStyles;
