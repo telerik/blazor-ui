@@ -1,0 +1,92 @@
+﻿@page "/"
+
+@using System.IO
+@using Microsoft.AspNetCore.Hosting
+@using System.Threading
+@using Telerik.Blazor.Components.FileSelect
+
+@inject IWebHostEnvironment HostingEnvironment
+
+
+NOTE: This snippet shows one example how to associate file from a FileSelect.
+It does not implement full editing (e.g., you would typically implement this in an editor template
+and add the necessary CRUD operations and services, and add UI to show the file list in "view" mode).
+For brevity, this just shows the approach of using
+a lambda expression to provide the necessary metadata to the code that will save the file.
+
+<TelerikGrid Data="@MyData" Height="700px"
+             Pageable="true" PageSize="5" Sortable="true" Groupable="true"
+             FilterMode="@GridFilterMode.FilterRow"
+             Resizable="true" Reorderable="true">
+    <GridColumns>
+        <GridColumn Field="@(nameof(Employee.Id))" Width="120px" />
+        <GridColumn Field="@(nameof(Employee.Name))" Title="Employee Name" Groupable="false" />
+        <GridColumn Title="Associated Files (max 1MB / file)">
+            <Template>
+                @{
+                    Employee empl = context as Employee;
+                    // pass the current grid row in a lambda expression to the select handler to use when saving the files
+                    <TelerikFileSelect OnSelect="@( (FileSelectEventArgs e) => SaveFilesWithMetadata(e, empl) )"
+                                       MaxFileSize="@(1024 * 1024)"/>
+                }
+            </Template>
+        </GridColumn>
+        <GridColumn Field="@(nameof(Employee.Team))" Title="Team" />
+    </GridColumns>
+</TelerikGrid>
+
+@code {
+    public IEnumerable<Employee> MyData = Enumerable.Range(1, 30).Select(x => new Employee
+    {
+        Id = x,
+        Name = "name " + x,
+        Team = "team " + x % 5
+    });
+
+    public Dictionary<string, CancellationTokenSource> Tokens { get; set; } = new Dictionary<string, CancellationTokenSource>();
+
+    private async Task SaveFilesWithMetadata(FileSelectEventArgs args, Employee empl)
+    {
+        int i = 0;
+        foreach (var file in args.Files)
+        {
+            if (!file.InvalidExtension)
+            {
+                // we will use the ID of the grid record to alter the way the file is saved
+                // implement the required businss logic instead
+                // in this example, we make a folder for each employee by ID, put files by index there and add a GUID for uniqueness
+                string folder = HostingEnvironment?.WebRootPath + Path.DirectorySeparatorChar + empl.Id;
+                string fileName = i.ToString() + "_" + Guid.NewGuid() + "_" + file.Name;
+                await SaveFileToDisk(file, folder, fileName);
+                i++;
+                // additionally, you may want to update the model to "know" about those files associated with it
+                // for example, by adding a file name to its list. This is not done here for brevity
+                // as how and what needs to be stored depends on the business logic
+                // so this example won't persist the files information
+            }
+        }
+    }
+
+    // this only saves the file to disk. Implement the business logic as needed and tweak this as needed for your case.
+    private async Task SaveFileToDisk(FileSelectFileInfo file, string folder, string fileName)
+    {
+        Tokens.Add(file.Id, new CancellationTokenSource());
+        if (!Directory.Exists(folder))
+        {
+            Directory.CreateDirectory(folder);
+        }
+        var path = Path.Combine(folder, fileName);
+        await using FileStream fs = new FileStream(path, FileMode.Create);
+        await file.Stream.CopyToAsync(fs, Tokens[file.Id].Token);
+    }
+
+
+    public class Employee
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public List<string> Files { get; set; }
+        public string Team { get; set; }
+        public DateTime HireDate { get; set; }
+    }
+}
