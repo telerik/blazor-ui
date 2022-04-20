@@ -16,13 +16,15 @@ In this collection of sample projects, the application under test is in the `tes
 
 In the code of your tests:
 
-* Initialize the Telerik components as described above. In these sample projects, that scaffolding is done in `TelerikTestContext` - this is a class your test classes can inherit from which takes care of setting up the services and the root component.
+* Initialize the Telerik components as described above. In these sample projects, that scaffolding is done in two different classes: `TelerikTestContext`, and `TelerikTestContextWithActualRoot` - these are classes that your test classes can inherit from which takes care of setting up the services and the root component. Both of these classes inherit the standard `TestContext of the `bUnit` framework and override its rendering methods to ensure there is a Telerik root component first. Their constructors initializes the services. If you don't inherit such a class, you need  to do that scaffolding yourself before starting a test, and you need to add components under test to the Telerik Root Component.
 
-    * This class inherits the standard `TestContext` of the `bUnit` framework and overrides its rendering methods to ensure there is a Telerik root component first. Its constructor initializes the services. If you don't inherit such a class, you need  to do that scaffolding yourself before starting a test, and you need to add components under test to the Telerik Root Component.
+    The difference between the two is the following:
+    * `TelerikTestContext` is the go-to option, as it adds a CascadingValue of type `TelerikRootComponent` to the bUnit's `RenderTree`. This approach does not include and cannot depend on any logic contained within the `TelerikRootComponent`. 
+    * `TelerikTestContextWithActualRoot` introduces an actual instance of the `TelerikRootComponent`, which wraps the component you are currently testing/rendering. This approach is useful for scenarios where your test would depend on logic contained within the `TelerikRootComponent`, like integrating a test that depends on the `DialogFactory` cascading value, which is propagated from the Telerik Root Component. 
 
 * Add components under test to the standard render tree as with other components you test.
 
-* For popup components (such as the Window or Tooltip, or the dropdowns), look for their content inside the `TelerikRootComponent`, not in the place of declaration. In this sample, the field is called `RootComponent` and comes from the base class (`TelerikTestContext`).
+* For popup components (such as the Window or Tooltip, or the dropdowns), look for their content inside the `TelerikRootComponent`, not in the place of declaration. In this sample, the field is called `RootComponent` and comes from the base class (`TelerikTestContext` or `TelerikTestContextWithActualRoot`).
 
     * Such popups render their DOM elements only when they are shown because that optimizes the performance of the Blazor app. Opening them and interacting with the new DOM that is created may require an e2e test rather than a unit test (see below).
 
