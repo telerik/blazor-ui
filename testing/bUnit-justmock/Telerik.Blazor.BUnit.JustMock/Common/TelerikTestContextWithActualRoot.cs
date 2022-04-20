@@ -10,15 +10,18 @@ using Telerik.JustMock;
 namespace Telerik.Blazor.BUnit.JustMock.Common
 {
     /// <summary>
-    /// TestContext using a CascadingValue of type <see cref="TelerikRootComponent"/>, rather than the actual implementation.
+    /// TestContext using an actual <see cref="TelerikRootComponent"/> that wraps the rendered content from the CUT. 
+    /// Useful when the test depends on a certain logic contained within the RootComponent, such as when testing Dialogs.
     /// </summary>
-    public class TelerikTestContext : TestContext
+    public class TelerikTestContextWithActualRoot : TestContext
     {
         private IRenderedComponent<TelerikRootComponent>? rootComponent;
+        private RenderFragment rootFragment;
+
         public IRenderedComponent<TelerikRootComponent> RootComponent
             => rootComponent ?? throw new InvalidOperationException("The RootComponent is not available before a component has been rendered with the TestContext.");
 
-        public TelerikTestContext()
+        public TelerikTestContextWithActualRoot()
         {
             // mock the JS Interop service, you cannot use the one coming from the context
             var jsRuntimeMock = Mock.Create<IJSRuntime>();
@@ -28,7 +31,6 @@ namespace Telerik.Blazor.BUnit.JustMock.Common
 
             // make sure JS Interop is available first
             Services.AddSingleton(jsRuntimeMock);
-
             // add the Telerik Blazor services like in a regular app
             Services.AddTelerikBlazor();
             Services.AddSingleton(localizerMock);
@@ -36,41 +38,40 @@ namespace Telerik.Blazor.BUnit.JustMock.Common
 
         public override IRenderedFragment Render(RenderFragment renderFragment)
         {
-            EnsureRootComponent();
-            return base.Render(renderFragment);
+            EnsureRootComponent(renderFragment);
+            return base.Render(rootFragment);
         }
 
         public override IRenderedComponent<TComponent> Render<TComponent>(RenderFragment renderFragment)
         {
-            EnsureRootComponent();
-            return base.Render<TComponent>(renderFragment);
+            EnsureRootComponent(renderFragment);
+            return base.Render<TComponent>(rootFragment);
         }
 
         public override IRenderedComponent<TComponent> RenderComponent<TComponent>(params ComponentParameter[] parameters)
         {
-            EnsureRootComponent();
             return base.RenderComponent<TComponent>(parameters);
         }
 
         public override IRenderedComponent<TComponent> RenderComponent<TComponent>(Action<ComponentParameterCollectionBuilder<TComponent>> parameterBuilder)
         {
-            EnsureRootComponent();
             return base.RenderComponent(parameterBuilder);
         }
 
-        private void EnsureRootComponent()
+        public void EnsureRootComponent(RenderFragment fragment)
         {
             if (rootComponent is not null) return;
 
-            // add a Telerik Root Component to hold all Telerik components and other content
-            rootComponent = (IRenderedComponent<TelerikRootComponent>)Renderer.RenderComponent<TelerikRootComponent>(new ComponentParameterCollection());
+            // Initialize a parameter collection with ChildContent prop, which contains the currently tested
+            // fragment. This way anything we test will correctly be a descendant of the TelerikRootComponent.
+            var cpc = new ComponentParameterCollection();
+            cpc.Add(ComponentParameter.CreateParameter("ChildContent", fragment));
 
-            // provide the Telerik Root Component to the child components that need it (the Telerik components)
-            RenderTree.TryAdd<CascadingValue<TelerikRootComponent>>(p =>
-            {
-                p.Add(parameters => parameters.IsFixed, true);
-                p.Add(parameters => parameters.Value, RootComponent.Instance);
-            });
+            // Save a copy of the root fragment
+            rootFragment = cpc.ToRenderFragment<TelerikRootComponent>();
+
+            // Render the root component and assign it to a field so it can be used when testing
+            rootComponent = base.Render<TelerikRootComponent>(rootFragment);
         }
     }
 }

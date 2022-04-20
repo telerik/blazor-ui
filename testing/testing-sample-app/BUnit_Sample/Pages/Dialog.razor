@@ -1,0 +1,23 @@
+﻿@page "/dialog"
+
+<TelerikButton Id="dialog-show-button" OnClick="@ShowAlert">Show Alert</TelerikButton>
+<TelerikButton OnClick="@ShowAlertWithTitle">Show Alert with Custom Title</TelerikButton>
+
+@code {
+    [CascadingParameter]
+    public DialogFactory Dialogs { get; set; }
+
+    public async Task ShowAlert()
+    {
+        await Dialogs.AlertAsync("Something went wrong!");
+
+        Console.WriteLine("The user dismissed the alert box.");
+    }
+
+    async Task ShowAlertWithTitle()
+    {
+        await Dialogs.AlertAsync("Something went wrong!", "Read this!");
+
+        Console.WriteLine("The user dismissed the alert box with the custom title.");
+    }
+}
