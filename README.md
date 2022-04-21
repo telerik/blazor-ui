@@ -3,7 +3,9 @@
 
 Telerik UI for Blazor is a truly native 95+ UI component suite designed to cover any app scenario while cutting development time and cost in half.
 
+<!-- Uncomment when the banner is ready & uploaded
 [![Try Telerik Blazor UI](images/banner.png)](https://www.telerik.com/blazor-ui/?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme)
+-->
 
 This repository contains examples related to [Telerik UI for Blazor components](https://www.telerik.com/blazor-ui?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme) that are not part of the documentation or demos. They provide scenarios and answers to common how-to questions related to Blazor Grid, Chart, Editor, Drawer, Scheduler, etc for both Blazor WebAssembly and Blazor Server projects. For most of them, a component and some classes are the core of the example.
 
@@ -26,13 +28,15 @@ The references (both to Telerik UI for Blazor, and the .NET framework) are usual
 
 * [Common Support Questions](#common-support-questions)
   * [Where can I find help?](#where-can-i-find-help)
-  * [Where do I make suggestions?](#where-can-i-make-suggestions)
-* [Telerik UI for Blazor UI Components](#blazor-ui-components)
+  * [Where do I make suggestions?](#where-do-i-make-suggestions)
+* [Design to development](#design-to-development-support)
 * [Sample Applications](#sample-applications)
-  * [Task Tracker Dashboard](#user-content-financial-portfolio-application)
-  * [Financial Portfolio](#user-content-file-manager-template-application)
-  * [Coffee Warehouse Dashboard](#user-content-blazor-dashboard-application)
+  * [Task Tracker Dashboard](#blazor-dashboard-application)
+  * [Financial Portfolio](#blazor-stocks-application)
+  * [Coffee Warehouse Dashboard](#blazor-coffee-warehouse-application)
 * [See also](#see-also)
+
+
 
 ## Common Support Questions
 
@@ -44,38 +48,6 @@ The references (both to Telerik UI for Blazor, and the .NET framework) are usual
 ### Where do I make suggestions?
 
 Follow this link to [add feature requests](https://feedback.telerik.com/blazor?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme)
-
-## Telerik Blazor UI Components
-
-<table>
-<tbody>
-  <tr>DATA MANAGEMENT</tr>
-  <tr>
-	  <td><a href="(https://www.telerik.com/blazor-ui/filter?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">Filter</a></td>
-	  <td><a href="(https://www.telerik.com/blazor-ui/grid?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">Grid</a></td>
-	  <td><a href="(https://www.telerik.com/blazor-ui/listview?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">ListView</a></td>
-  </tr>
-  <tr>
-	  <td><a href="(https://www.telerik.com/blazor-ui/pager?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">Pager</a></td>
-	  <td><a href="(https://www.telerik.com/blazor-ui/treelist?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">TreeList</a></td>
-  </tr>
-  <tr>SCHEDULING</tr>
-  <tr>
-	  <td><a href="(https://www.telerik.com/blazor-ui/calendar?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">Calendar</a></td>
-	  <td><a href="(https://www.telerik.com/blazor-ui/gantt?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">Gantt</a></td>
-	  <td><a href="(https://www.telerik.com/blazor-ui/Scheduler?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">Scheduler</a></td>
-  </tr>
-  
-  <tr>SCHEDULING</tr>
-  <tr>
-	  <td><a href="(https://www.telerik.com/blazor-ui/calendar?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">Calendar</a></td>
-	  <td><a href="(https://www.telerik.com/blazor-ui/gantt?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">Gantt</a></td>
-	  <td><a href="(https://www.telerik.com/blazor-ui/Scheduler?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">Scheduler</a></td>
-  </tr>
-</tbody>
-<table>
-
-### SCHEDULING
 
 
 ## Design-to-Development Support
@@ -116,7 +88,7 @@ We created the [Blazor Dashboard Application](https://demos.telerik.com/blazor-d
 * [Live demo](https://demos.telerik.com/blazor-dashboard-app/dashboard?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme)
 * [Source code](https://github.com/telerik/blazor-ui/tree/master/sample-applications/blazor-dashboard)
 
-![Blazor Dashboard sample](images/blazor-dashboard.png)
+![Blazor Dashboard sample](sample-applications/blazor-dashboard-sample.png)
 
 ### Blazor Stocks Application
 
@@ -125,7 +97,7 @@ The [Blazor Financial Portfolio Application](https://demos.telerik.com/blazor-fi
 * [Live demo](https://demos.telerik.com/blazor-financial-portfolio/?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme)
 * [Source code](https://github.com/telerik/blazor-ui/tree/master/sample-applications/blazor-stocks)
 
-![Financial portfolio sample](images/financial-portfolio.png)
+![Financial portfolio sample](sample-applications/blazor-stocks-sample.png)
 
 ### Blazor Coffee Warehouse Application
 
@@ -134,7 +106,7 @@ The [Blazor Coffee Warehouse Application](https://demos.telerik.com/blazor-coffe
 * [Live demo](https://demos.telerik.com/blazor-coffee/?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme)
 * [Source code](https://github.com/telerik/blazor-ui/tree/master/sample-applications/blazing-coffee)
 
-![Blazor Coffee App](images/blazor-coffee-app.png)
+![Blazor Coffee App](sample-applications/blazor-coffee-sample.png)
 
 
 ## See Also
