@@ -1,6 +1,7 @@
 ﻿@page "/"
 
-@* NOTE: The full namespace for other proejcts and native code is included here to work around this bug: https://github.com/dotnet/aspnetcore/issues/30851 *@
+@* NOTE: The full namespace for other projects and native code is included here to work around this bug:
+https://github.com/dotnet/aspnetcore/issues/30851 *@
 @*@inject BlazorMauiApp.AppState AppState*@
 
 <h1>
@@ -29,14 +30,6 @@
     </GridColumns>
 </TelerikGrid>
 
-@*<h3>Button</h3>*@
-
-@*<TelerikButton OnClick="@OnClick" Primary="true" Icon="plus">Click me</TelerikButton>*@
-
-@*<div>
-    The button was clicked @(AppState.Counter) times.
-</div>
-*@
 <h3>Chart</h3>
 
 <TelerikChart Width="600px" Height="300px">
@@ -66,12 +59,28 @@
 
 <h3>DatePicker</h3>
 <div>
-    <TelerikDatePicker Min="@Min" Max="@Max" @bind-Value="@SelectedDate"></TelerikDatePicker>
+    <TelerikDatePicker Width="300px"
+                       Min="@Min"
+                       Max="@Max"
+                       @bind-Value="@SelectedDate">
+    </TelerikDatePicker>
 
     <div>Selected date: @SelectedDate</div>
 </div>
 
+@*add some space below*@
+<div style="height: 400px"></div>
+
+@*<h3>Button</h3>
+
+<TelerikButton>Click me</TelerikButton>
+
+<div>
+    The button was clicked @(Counter) times.
+</div>*@
+
 @code {
+    public int Counter { get; set; }
     public DateTime Min = new DateTime(2000, 1, 1);
     public DateTime Max = new DateTime(2050, 12, 31);
     public DateTime? SelectedDate;
@@ -130,10 +139,11 @@
         return data;
     }
 
-    //public void OnClick()
-    //{
-    //    AppState.Counter++;
-    //}
+    public void OnClick()
+    {
+        //AppState.Counter++;
+        Counter++;
+    }
 
     public class Product
     {

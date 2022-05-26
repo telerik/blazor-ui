@@ -1,5 +1,3 @@
-using System;
-
 namespace BlazorMauiApp.Data
 {
     public class WeatherForecast

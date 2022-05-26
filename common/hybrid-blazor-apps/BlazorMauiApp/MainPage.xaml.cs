@@ -1,7 +1,4 @@
-﻿using Microsoft.Maui.Controls;
-using System;
-
-namespace BlazorMauiApp
+﻿namespace BlazorMauiApp
 {
     public partial class MainPage : ContentPage
     {

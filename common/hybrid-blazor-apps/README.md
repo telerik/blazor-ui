@@ -30,7 +30,7 @@ You need to make sure you can run the corresponding technology stack and the bas
 Comments in the code offer some more insights, the key points pertaining to the Telerik components are:
 * The native app project needs to reference the Telerik UI for Blazor package.
 * You add the Telerik static assets in the `index.html` file as usual.
-* The `TelerikRootComponent` should be added as a top-level component in the Blazor app. Since layouts are not supported yet, in this sample we add it to the `Main.razor` component.
+* The `TelerikRootComponent` should be added as a top-level component in the Blazor app. Since custom layouts are not supported as of this writing (might be changed in the future) add it to the `Shared/MainLayout.razor` file (`Main.razor` is also possible depending on the app) component.
     * Make sure that the Telerik root component matches the webview viewport. In this sample, we need to remove the default margin and padding from the body to ensure the content matches the viewport. An extra element in the layout provides paddings.
     * It is expected that layouts should be supported in the future so you would be able to set this up in the same way as with regular Blazor web apps.
 
@@ -46,7 +46,7 @@ These sample apps contain just a few commonly used Telerik components such as a 
 1. Run a WinForms/WPF/MAUI app
     * For MAUI, follow the instructions for how to [run the app](https://docs.microsoft.com/en-us/dotnet/maui/get-started/first-app?pivots=windows)
 > **Note:** For MAUI, make sure you are able to run the default template project (created from either Visual Studio 2022 or the CLI) before proceeding. Having an incomplete installation of MAUI will prevent you from running any app, including the provided sample apps.
-5. Use the latest Telerik UI for Blazor version (2.27.0) in [your nuget feed](https://docs.telerik.com/blazor-ui/installation/nuget).
+5. Use the latest Telerik UI for Blazor version in [your nuget feed](https://docs.telerik.com/blazor-ui/installation/nuget).
 
 ## Known issues
 
