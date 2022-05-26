@@ -18,6 +18,7 @@ namespace BlazorWpfApp
             var services = new ServiceCollection();
             services.AddBlazorWebView();
             services.AddSingleton<AppState>(_appState);
+            services.AddWpfBlazorWebView();
 
             // necessary for localization
             // services.AddTelerikBlazor();
