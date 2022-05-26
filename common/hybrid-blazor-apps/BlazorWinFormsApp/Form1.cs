@@ -17,6 +17,7 @@ namespace BlazorWinFormsApp
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddBlazorWebView();
             serviceCollection.AddSingleton<AppState>(_appState);
+            serviceCollection.AddWindowsFormsBlazorWebView();
             InitializeComponent();
 
             blazorWebView1.HostPage = @"wwwroot\index.html";
