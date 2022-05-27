@@ -4,7 +4,10 @@
 
 With .NET 6.0 an exciting new feature became available - `WebView` for native apps that is dedicated to running Blazor Web applications.
 
-The samples in this project showcase Telerik UI for Blazor web components running in this hybrid scenarios inside native MAUI, WPF and WinForms apps.
+The samples in this project demonstrate how to run Telerik UI for Blazor web components in hybrid scenarios inside MAUI, WPF and WinForms apps.
+
+> **Note:** If you want to learn more about how to start building MAUI apps, visit the official MAUI documentation at: https://docs.microsoft.com/en-us/dotnet/maui/get-started/first-app?pivots=devices-windows
+
 
 ## Screenshots
 
