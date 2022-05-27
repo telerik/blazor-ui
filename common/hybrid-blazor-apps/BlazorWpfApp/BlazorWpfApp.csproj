@@ -8,12 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="6.0.101-preview.9.1843" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="6.0.312" />
 
     <!--if you want to try the trial version-->
-    <!--<PackageReference Include="Telerik.UI.for.Blazor.Trial" Version="2.28.0" />-->
+    <!--<PackageReference Include="Telerik.UI.for.Blazor.Trial" Version="3.3.0" />-->
 
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="2.28.0" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="3.3.0" />
   </ItemGroup>
 
   <ItemGroup>

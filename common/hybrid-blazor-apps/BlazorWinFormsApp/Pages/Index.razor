@@ -53,18 +53,27 @@
     </ChartCategoryAxes>
 </TelerikChart>
 
-<h3>Button</h3>
+<h3>DatePicker</h3>
+<div>
+    <TelerikDatePicker Width="300px"
+                       Min="@Min"
+                       Max="@Max"
+                       @bind-Value="@SelectedDate">
+    </TelerikDatePicker>
 
-<TelerikButton OnClick="@OnClick" Primary="true" Icon="plus">Click me</TelerikButton>
+    <div>Selected date: @SelectedDate</div>
+</div>
+
+@*add some space below*@
+<div style="height: 400px"></div>
+
+@*<h3>Button</h3>
+
+<TelerikButton OnClick="@OnClick" Icon="plus">Click me</TelerikButton>
 
 <div>
     The button was clicked @(AppState.Counter) times.
-</div>
-
-<h3>DatePicker</h3>
-@SelectedDate
-<br />
-<TelerikDatePicker Min="@Min" Max="@Max" @bind-Value="@SelectedDate"></TelerikDatePicker>
+</div>*@
 
 @code {
     public DateTime Min = new DateTime(2000, 1, 1);

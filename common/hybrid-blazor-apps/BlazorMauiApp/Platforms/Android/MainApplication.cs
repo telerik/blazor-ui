@@ -1,7 +1,5 @@
 ﻿using Android.App;
 using Android.Runtime;
-using Microsoft.Maui;
-using System;
 
 namespace BlazorMauiApp
 {
