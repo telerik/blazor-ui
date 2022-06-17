@@ -15,7 +15,7 @@ This repository contains examples related to [Telerik UI for Blazor components](
 
 The included code examples are applicable for both Blazor WebAssembly and Blazor Server projects. For most of them, a component and some classes are provided to illustrate a specific use case can be achieved. 
 
-> **NOTE**: This repository does not contain the actual source code of the components, or the demos application available at the official [UI for Blazor demos](https://demos.telerik.com/blazor-ui?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme). The demos application is available as an offline project from your Telerik UI for Blazor installation.
+> **NOTE**: This repository does not contain the actual source code of the components, or the demos application available at the official UI for Blazor demos. The demos application is available as an offline project from your Telerik UI for Blazor installation.
 ***
 ## Table of Contents
 
@@ -33,7 +33,6 @@ The included code examples are applicable for both Blazor WebAssembly and Blazor
 * [Contribution](#contribution)
 * [Licensing](#licensing)
 * [Useful Links](#useful-links)
-* 
 ***
 
 ## Common Support Questions
@@ -45,7 +44,7 @@ The included code examples are applicable for both Blazor WebAssembly and Blazor
 
   
 ### When do you plan to release feature X
-Check the [Telerik UI for Blazor Roadmap](https://www.telerik.com/support/whats-new/blazor-ui/roadmap) to see a list of components, features and tooling we have planned.
+Check the [Telerik UI for Blazor Roadmap](https://www.telerik.com/support/whats-new/blazor-ui/roadmap?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme) to see a list of components, features and tooling we have planned.
 
 ### Where do I make suggestions?
 
@@ -187,7 +186,7 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
 </tr>
 <tr>
   <td><b>Blazor DateInput Component</b></td>
-  <td><a href="https://www.telerik.com/blazor-ui/dateinput?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">Date Input Features</a></td>
+  <td><a href="https://www.telerik.com/blazor-ui/date-input?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">Date Input Features</a></td>
   <td><a href="https://docs.telerik.com/blazor-ui/components/dateinput/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">DateInput Documentation</td>
   <td><a href="https://demos.telerik.com/blazor-ui/dateinput/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">DateInput Demos</td>
 </tr>
@@ -199,7 +198,7 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
 </tr>
 <tr>
   <td><b>Blazor DateRangePicker Component</b></td>
-  <td><a href="https://www.telerik.com/blazor-ui/daterangepicker?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">DateRangePicker Features</a></td>
+  <td><a href="https://www.telerik.com/blazor-ui/daterange-picker?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">DateRangePicker Features</a></td>
   <td><a href="https://docs.telerik.com/blazor-ui/components/daterangepicker/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">DateRangePicker Documentation</td>
   <td><a href="https://demos.telerik.com/blazor-ui/daterangepicker/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">DateRangePicker Demos</td>
 </tr>
@@ -231,7 +230,7 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><b>Blazor MultiSelect Component</b></td>
   <td><a href="https://www.telerik.com/blazor-ui/multiselect?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">Multi Select Features</a></td>
   <td><a href="https://docs.telerik.com/blazor-ui/components/multiselect/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">MultiSelect Documentation</td>
-  <td><a href="https://demos.telerik.com/blazor-ui/fileselect/multiselect?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">MultiSelect Demos</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/multiselect?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">MultiSelect Demos</td>
 </tr>
 <tr>
   <td><b>Blazor NumericTextBox Component</b></td>
@@ -354,8 +353,8 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
 <tr>
   <td><b>Blazor Stock Chart Component</b></td>
   <td><a href="https://www.telerik.com/blazor-ui/stock-chart?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">Stock Chart Features</a></td>
-  <td><a href="https://docs.telerik.com/blazor-ui/components/stockchart/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">Blazor StockChart Documentation</td>
-  <td><a href="https://demos.telerik.com/blazor-ui/stockchart/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">Blazor StockChart Demos</td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/stockchart/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">StockChart Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/stockchart/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">StockChart Demos</td>
 </tr> 
   <tr>
   <td><b>Blazor Candlestick Chart Component</b></td>
@@ -372,8 +371,8 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
 <tr>
   <td><b>Blazor Heatmap Chart Component</b></td>
   <td><a href="https://www.telerik.com/blazor-ui/heatmap?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">Heatmap Chart Features</a></td>
-  <td><a href="https://docs.telerik.com/blazor-ui/components/chart/types/heatmap?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">Blazor HeatmapChart Documentation</td>
-  <td><a href="https://demos.telerik.com/blazor-ui/chart/heatmap-chart?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">Blazor HeatmapChart Demos</td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/chart/types/heatmap?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">HeatmapChart Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/chart/heatmap-chart?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">HeatmapChart Demos</td>
 </tr>
 <tr>
   <td><b>Blazor Radar Area Chart Component</b></td>
@@ -384,8 +383,8 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
 <tr>
   <td><b>Blazor Radar Column Chart Component</b></td>
   <td><a href="https://www.telerik.com/blazor-ui/radar-column-chart?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">RadarColumn Chart Features</a></td>
-  <td><a href="https://docs.telerik.com/blazor-ui/components/chart/types/radar-column?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">Blazor RadarColumn Documentation</td>
-  <td><a href="https://demos.telerik.com/blazor-ui/chart/radar-column-chart?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">Blazor RadarColumn Demos</td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/chart/types/radar-column?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">RadarColumn Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/chart/radar-column-chart?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">RadarColumn Demos</td>
 </tr>
 <tr>
   <td><b>Blazor Radar Line Chart Component</b></td>
@@ -402,7 +401,7 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
 <tr>
    <td><b>Blazor Scatter Line Chart Component</b></td>
   <td><a href="https://www.telerik.com/blazor-ui/scatter-line-chart?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">ScatterLine Chart Features</a></td>
-  <td><a href="https://docs.telerik.com/blazor-ui/components/chart/types/scatter-line?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">ScatterLineChart Documentation</td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/chart/types/scatterline?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">ScatterLineChart Documentation</td>
   <td><a href="https://demos.telerik.com/blazor-ui/chart/scatter-chart?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">ScatterLineChart Demos</td>
 </tr>
 </tbody></table>
@@ -428,25 +427,25 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
 <tr>
    <td><b>Blazor ArcGauge Component</b></td>
   <td><a href="https://www.telerik.com/blazor-ui/arc-gauge?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">ArcGauge Features</a></td>
-  <td><a href="https://docs.telerik.com/blazor-ui/components/arcgaugee/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">ArcGauge Documentation</td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/gauges/arc/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">ArcGauge Documentation</td>
   <td><a href="https://demos.telerik.com/blazor-ui/arcgauge/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">ArcGauge Demos</td>
 </tr>
 <tr>
   <td><b>Blazor CircularGauge Component</b></td>
   <td><a href="https://www.telerik.com/blazor-ui/circular-gauge?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">CircularGauge Features</a></td>
-  <td><a href="https://docs.telerik.com/blazor-ui/components/circulargauge/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">CircularGauge Documentation</td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/gauges/circular/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">CircularGauge Documentation</td>
   <td><a href="https://demos.telerik.com/blazor-ui/circulargauge/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">CircularGauge Demos</td>
 </tr>
 <tr>
   <td><b>Blazor LinearGauge Component</b></td>
   <td><a href="https://www.telerik.com/blazor-ui/linear-gauge?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">LinearGauge Features</a></td>
-  <td><a href="https://docs.telerik.com/blazor-ui/components/lineargauge/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">LinearGauge Documentation</td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/gauges/linear/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">LinearGauge Documentation</td>
   <td><a href="https://demos.telerik.com/blazor-ui/lineargauge/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">LinearGauge Demos</td>
 </tr>
 <tr>
   <td><b>Blazor RadialGauge Component</b></td>
   <td><a href="https://www.telerik.com/blazor-ui/radial-gauge?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">RadialGauge Features</a></td>
-  <td><a href="https://docs.telerik.com/blazor-ui/components/radialgauge/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">RadialGauge Documentation</td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/gauges/radial/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">RadialGauge Documentation</td>
   <td><a href="https://demos.telerik.com/blazor-ui/radialgauge/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">RadialGauge Demos</td>
 </tr>
 </tbody></table>
@@ -567,7 +566,7 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><b>Blazor FloatingLabel Component</b></td>
   <td><a href="https://www.telerik.com/blazor-ui/floatinglabel?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">FloatingLabel Features</a></td>
   <td><a href="https://docs.telerik.com/blazor-ui/components/floatinglabel/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">FloatingLabel Documentation</td>
-  <td><a href="https://demos.telerik.com/blazor-ui/panelbar/floatinglabel?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">FloatingLabel Demos</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/floatinglabel/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">FloatingLabel Demos</td>
 </tr>
 </tbody></table>  
 
@@ -581,7 +580,7 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
 </tr>
 <tr>
   <td><b>Blazor Button Component</b></td>
-  <td><a href="https://www.telerik.com/blazor-ui/button?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">Button Features</a></td>
+  <td><a href="https://www.telerik.com/blazor-ui/buttons?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">Button Features</a></td>
   <td><a href="https://docs.telerik.com/blazor-ui/components/button/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">Button Documentation</td>
   <td><a href="https://demos.telerik.com/blazor-ui/button/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">Button Demos</td>
 </tr>
@@ -699,20 +698,7 @@ As part of your Telerik UI for Blazor trial or licensed copy you get access to s
 
 ### 3 Design Themes
 
-<table><tbody>
-<tr>
-  <td><b>Default Theme</b></td>
-  <td><a href="https://www.telerik.com/blazor-ui/components/styling/theme-default?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">Blazor Default Theme</a></td>
-</tr>
-<tr>
-  <td><b> Material Theme</b></td>
-  <td><a href="https://www.telerik.com/blazor-ui/components/styling/theme-material?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">Blazor Material Theme</a></td>
-</tr>
-<tr>
-  <td><b>Bootstrap Theme</b></td>
-  <td><a href="https://www.telerik.com/blazor-ui/components/styling/theme-bootstrap?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme">Blazor Bootstrap Theme</a></td>
-</tr>
-</tbody></table>
+Telerik Ui for Blazor includes [three built-in themes: Blazor Default Theme, Material and Bootstrap Themes](https://docs.telerik.com/blazor-ui/styling-and-themes/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme), as well as multiple color swatches including "Ocean Blue" targeting  accessibility compliance.
 
 ### Design Kits for Figma
 
@@ -786,7 +772,7 @@ For both active trialist and license holders you get access to our legendary tec
 
 ## Useful Links
 
-* Browse all [UI for Blazor component demos live](https://demos.telerik.com/blazor-ui?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme)
+* Browse all [UI for Blazor component demos live](https://demos.telerik.com/blazor-ui)
 * Browse [the Telerik UI for Blazor documentation](https://docs.telerik.com/blazor-ui/introduction?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme)
 * Follow this link to [report bugs and add feature requests](https://feedback.telerik.com/blazor?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme)
 * Browse or contribute to [localization texts](https://github.com/telerik/blazor-ui-messages) used in the samples
