@@ -60,7 +60,6 @@ These sample apps contain just a few commonly used Telerik components such as a 
 
 ## Notes
 
-A couple points to consider:
 
 * There is no debugging protocol exposed for the webview, so inspecting content and debugging is difficult.
 * Access to native APIs from the Blazor Web app code is still to be exposed by the framework - at the moment you have to write your own calls to services and code from the native app that you need to explicitly expose.
