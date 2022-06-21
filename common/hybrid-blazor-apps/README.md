@@ -60,9 +60,7 @@ These sample apps contain just a few commonly used Telerik components such as a 
 
 ## Notes
 
-At the time of writing, this technology is in preview phase, and there may be difficulties and missing features. A few examples include:
 
 * There is no debugging protocol exposed for the webview, so inspecting content and debugging is difficult.
 * Access to native APIs from the Blazor Web app code is still to be exposed by the framework - at the moment you have to write your own calls to services and code from the native app that you need to explicitly expose.
-* There are reports of difficulties getting MAUI to work. It is early days for it yet, and you need to ensure you can run it first, before adding Blazor to the mix.
 * The WebView is not on the [list of officially supported browsers by Telerik UI for Blazor](https://docs.telerik.com/blazor-ui/browser-support). It has its specifics and differences from a standalone browser, and the hybrid blazor app integration should be considered a proof-of-concept for the time being. As the technology and framework matures, we will be monitoring it and we will consider adding it to the list of officially supported environments.
