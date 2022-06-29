@@ -1,6 +1,7 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,17 @@ namespace BlazorWinFormsApp
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            var services = new ServiceCollection();
+
+            ConfigureServices(services);
+
             Application.Run(new Form1());
+        }
+
+        private static void ConfigureServices(ServiceCollection services)
+        {
+            services.AddTelerikBlazor();
         }
     }
 }
