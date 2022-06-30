@@ -776,4 +776,4 @@ For both active trialist and license holders you get access to our legendary tec
 * Browse [the Telerik UI for Blazor documentation](https://docs.telerik.com/blazor-ui/introduction?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme)
 * Follow this link to [report bugs and add feature requests](https://feedback.telerik.com/blazor?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme)
 * Browse or contribute to [localization texts](https://github.com/telerik/blazor-ui-messages) used in the samples
-* Create, runm, share and test Blazor code snippets directly in the browser in our [Blazor REPL code runner](https://blazorrepl.telerik.com/?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme)
+* Create, run, share and test Blazor code snippets directly in the browser in our [Blazor REPL code runner](https://blazorrepl.telerik.com/?utm_medium=referral&utm_source=github&utm_campaign=blazor-ui-trial-gh-public-readme)
