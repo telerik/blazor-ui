@@ -1,6 +1,7 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
 
@@ -17,6 +18,15 @@ namespace BlazorWpfApp
             {
                 MessageBox.Show(error.ExceptionObject.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             };
+
+            var services = new ServiceCollection();
+
+            ConfigureServices(services);
+        }
+
+        private static void ConfigureServices(ServiceCollection services)
+        {
+            services.AddTelerikBlazor();
         }
     }
 }

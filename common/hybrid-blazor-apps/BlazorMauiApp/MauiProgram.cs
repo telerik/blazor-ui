@@ -16,6 +16,8 @@ namespace BlazorMauiApp
                 });
 
             builder.Services.AddMauiBlazorWebView();
+
+            builder.Services.AddTelerikBlazor();
 #if DEBUG
             builder.Services.AddBlazorWebViewDeveloperTools();
 #endif
