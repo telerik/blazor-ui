@@ -20,13 +20,13 @@ This sample uses a Notification component to show the error message to supplemen
         <GridColumn Field="Summary" />
         <GridCommandColumn Width="200px" Resizable="false">
             <GridCommandButton Command="Save" Icon="save" ShowInEdit="true">Update</GridCommandButton>
-            <GridCommandButton Command="Edit" Icon="edit" Primary="true">Edit</GridCommandButton>
+            <GridCommandButton Command="Edit" Icon="edit" ThemeColor="@ThemeConstants.Button.ThemeColor.Primary">Edit</GridCommandButton>
             <GridCommandButton Command="Delete" Icon="delete">Delete</GridCommandButton>
             <GridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true">Cancel</GridCommandButton>
         </GridCommandColumn>
     </GridColumns>
     <GridToolBar>
-        <GridCommandButton Command="Add" Icon="plus" Primary="true">Add Forecast</GridCommandButton>
+        <GridCommandButton Command="Add" Icon="plus" ThemeColor="@ThemeConstants.Button.ThemeColor.Primary">Add Forecast</GridCommandButton>
     </GridToolBar>
 </TelerikGrid>
 
@@ -44,7 +44,12 @@ This sample uses a Notification component to show the error message to supplemen
 
     void ShowErrorNotification(string message)
     {
-        Notification.Show(new NotificationModel { CloseAfter = 0, Text = message, ThemeColor = Telerik.Blazor.ThemeColors.Error });
+        Notification.Show(new NotificationModel
+        {
+            CloseAfter = 0,
+            Text = message,
+            ThemeColor = ThemeConstants.Notification.ThemeColor.Error
+        });
     }
 
     protected override async Task OnInitializedAsync()

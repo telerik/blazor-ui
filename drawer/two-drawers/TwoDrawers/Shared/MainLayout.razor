@@ -17,7 +17,7 @@
     @* First, the Overlay mode drawer as it positions itself absolutely and so it should be as high in the DOM as possible
         in order to not be limited by the rules and positions of its parents *@
     <TelerikDrawer Data="@RightItems" Mode="@DrawerMode.Overlay" Position="@DrawerPosition.Right" @ref="@RightDrawerRef">
-        <Content>
+        <DrawerContent>
 
             @* The nested drawer is the Push drawer - the CSS rule above reduces its z-index so it does not show up above the overlay of the other *@
             <TelerikDrawer Data="@Data"
@@ -26,7 +26,7 @@
                            @ref="@DrawerRef"
                            @bind-SelectedItem="@SelectedItem"
                            Class="nested-drawer">
-                <Content>
+                <DrawerContent>
 
                     @* Here begins the actual content - for example, we start with buttons to toggle the drawers and the @Body later *@
                     <TelerikButton OnClick="@(() => DrawerRef.ToggleAsync())" Icon="menu">Toggle LEFT drawer</TelerikButton>
@@ -36,9 +36,9 @@
                         Selected Item: @SelectedItem?.Text
                         @Body
                     </div>
-                </Content>
+                </DrawerContent>
             </TelerikDrawer>
-        </Content>
+        </DrawerContent>
     </TelerikDrawer>
 
 </TelerikRootComponent>
