@@ -9,7 +9,7 @@
                MiniMode="true"
                @bind-Expanded="@DrawerExpanded"
                @bind-SelectedItem="@SelectedItem">
-    <Content>
+    <DrawerContent>
         <div class="main">
             <div class="top-row px-4">
                 @SelectedItem?.Text
@@ -21,7 +21,7 @@
                 @Body
             </div>
         </div>
-    </Content>
+    </DrawerContent>
 </TelerikDrawer>
 
 

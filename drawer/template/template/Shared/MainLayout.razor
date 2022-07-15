@@ -102,11 +102,11 @@
             @if (DrawerExpanded)
             {
                 <div style="text-align: center; margin-top: 3em; padding-top: 2em; border-top: 2px solid black; white-space:nowrap">
-                    <TelerikButton Icon="logout" Primary="true">Log Out</TelerikButton>
+                    <TelerikButton Icon="logout" ThemeColor="@ThemeConstants.Button.ThemeColor.Primary">Log Out</TelerikButton>
                 </div>
             }
         </Template>
-        <Content>
+        <DrawerContent>
             @* This layout is now in the drawer Content, and is very similar to the default template layout *@
             <div class="main">
                 @* This is the button to collapse/expand the drawer, in this sample it is positioned absolutely so it moves with the drawer and stays above the rest of the content *@
@@ -119,7 +119,7 @@
                     @Body
                 </div>
             </div>
-        </Content>
+        </DrawerContent>
     </TelerikDrawer>
 
 </TelerikRootComponent>

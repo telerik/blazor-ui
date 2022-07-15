@@ -4,7 +4,8 @@
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>select_on_load</RootNamespace>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'select-on-load' " />
   <ItemGroup>
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="2.26.0" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="3.4.0" />
   </ItemGroup>
 </Project>

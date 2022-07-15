@@ -7,7 +7,7 @@
   <ItemGroup>
     <PackageReference Include="MarkdownSharp" Version="2.0.5" />
     <PackageReference Include="ReverseMarkdown" Version="3.12.0" />
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="2.16.0" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="3.4.0" />
   </ItemGroup>
 
 </Project>

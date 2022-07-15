@@ -9,7 +9,7 @@ namespace AdjustHeightWithBrowser.Data
 {
     public class CityService
     {
-        string _dataPath = "data\\worldcities.csv";
+        string _dataPath = $"Data{Path.DirectorySeparatorChar}worldcities.csv";
         public Task<List<City>> GetCitiesAsync()
         {
             List<City> cityList = null;

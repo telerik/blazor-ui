@@ -1,13 +1,13 @@
 ﻿<TelerikButton Icon="paste-markdown" OnClick="@ShowMdEditWindow">View MD</TelerikButton>
 
-<TelerikWindow Visible="@wndVisible" Size="@WindowSize.Medium" Modal="true">
+<TelerikWindow Visible="@wndVisible" Width="60vw" Modal="true">
     <WindowTitle>View and Edit the Raw Markdown</WindowTitle>
     <WindowContent>
         <textarea @bind="@currMd" class="k-textarea k-editor-textarea" style="min-height: 280px; min-width: 490px;" placeholder="You can write markdown here..."></textarea>
         <div class="k-actions k-actions-end" style="text-align: right">
             <div class="k-actions k-actions-end" style="text-align: right">
                 <TelerikButton Class="k-dialog-cancel" OnClick="@( _ => wndVisible = false )">Cancel</TelerikButton>
-                <TelerikButton Class="k-dialog-insert" Primary="true" OnClick="@UpdateContent">Update</TelerikButton>
+                <TelerikButton Class="k-dialog-insert" ThemeColor="@ThemeConstants.Button.ThemeColor.Primary" OnClick="@UpdateContent">Update</TelerikButton>
             </div>
         </div>
     </WindowContent>

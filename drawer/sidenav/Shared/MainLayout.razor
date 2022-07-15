@@ -42,7 +42,7 @@
 <TelerikRootComponent>
 
     <TelerikDrawer Data="@NavigablePages" @bind-Expanded="@DrawerExpanded" MiniMode="true" Mode="@DrawerMode.Push" @ref="@DrawerRef" @bind-SelectedItem="@SelectedItem">
-        <Content>
+        <DrawerContent>
             @* This layout is now in the drawer Content, and is very similar to the default template layout *@
             <div class="main">
                 @* This is the button to collapse/expand the drawer, in this sample it is positioned absolutely so it moves with the drawer and stays above the rest of the content *@
@@ -56,7 +56,7 @@
                     @Body
                 </div>
             </div>
-        </Content>
+        </DrawerContent>
     </TelerikDrawer>
 
 </TelerikRootComponent>
