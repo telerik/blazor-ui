@@ -1,11 +1,17 @@
-﻿<div class="card-container grid">
-    <h3 class="card-title">@Title</h3>
+﻿<div class="card-container">
+    @{
+        if (!string.IsNullOrEmpty(Title))
+        {
+            <h3 class="card-title">@Title</h3>
+        }
+    }
+
     <div class="card-component">
         @ChildContent
     </div>
 </div>
 
 @code {
-    [Parameter] public string Title { get; set; } = "untitled";
+    [Parameter] public string Title { get; set; }
     [Parameter] public RenderFragment ChildContent { get; set; }
 }

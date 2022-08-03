@@ -1,67 +1,152 @@
 ﻿@page "/"
 @inherits CoffeeComponentBase
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject HttpClient Http
+@using Telerik.Blazor.Services
 
-<TelerikTileLayout Columns="3"
-                   Class="tile-layout-style"
-                   Reorderable="true"
-                   @ref="tileLayout"
-                   OnReorder="SaveState">
-    <TileLayoutItems>
-        <TileLayoutItem HeaderText="@L["Sales"]" ColSpan="1">
-            <Content>
-                <img class="k-card-image" src="./img/Sales.jpg">
-                <p class="card-description">@L["Index_SalesCard_Description"]</p>
-                <div class="k-card-actions k-card-actions-stretched">
-                    <span class="k-card-action"><a href="/blazor-coffee/sales" class="k-button k-button-md k-rounded-md k-button-solid k-button-solid-primary">@L["Sales"]</a></span>
-                </div>
-            </Content>
-        </TileLayoutItem>
-        <TileLayoutItem HeaderText="@L["HumanCapital"]" ColSpan="1">
-            <Content>
-                <img class="k-card-image" src="./img/Schedule.jpg">
-                <p class="card-description">@L["Index_EmployeesCard_Description"]</p>
-                <div class="k-card-actions k-card-actions-stretched">
-                    <span class="k-card-action"><a href="/blazor-coffee/manage-employees" class="k-button k-button-md k-rounded-md k-button-solid k-button-solid-primary">@L["HumanCapital"]</a></span>
-                </div>
-            </Content>
-        </TileLayoutItem>
-        <TileLayoutItem HeaderText="@L["ManageProducts"]" ColSpan="1">
-            <Content>
-                <img class="k-card-image" src="./img/coffee.jpg">
-                <p class="card-description">@L["Index_ProductsCard_Description"]</p>
-                <div class="k-card-actions k-card-actions-stretched">
-                    <span class="k-card-action"><a href="/blazor-coffee/manage-products" class="k-button k-button-md k-rounded-md k-button-solid k-button-solid-primary">@L["ManageProducts"]</a></span>
-                </div>
-            </Content>
-        </TileLayoutItem>
-    </TileLayoutItems>
-</TelerikTileLayout>
-
-@code {
-    TelerikTileLayout tileLayout { get; set; }
-
-    async Task SaveState()
+<CardContainer>
+    <CardHeader>
+        <div class="card-header-wrapper">
+            <h3 class="card-title">@Localizer["Employees"]</h3>
+            <CardActions>
+                <TelerikButtonGroup>
+                    <ButtonGroupToggleButton @bind-Selected="@SingleTeamSelected" OnClick="OnButtonGroupClick">@Localizer["ButtonGroup_MyTeam"]</ButtonGroupToggleButton>
+                    <ButtonGroupToggleButton @bind-Selected="@AllTeamsSelected" OnClick="OnButtonGroupClick">@Localizer["ButtonGroup_AllTeams"]</ButtonGroupToggleButton>
+                </TelerikButtonGroup>
+            </CardActions>
+            <span></span>
+        </div>
+    </CardHeader>
+    @if (employees != null)
     {
-        await localStorage.SetItemAsync("IndexLayout", tileLayout.GetState());
+        <TelerikGrid Data="employees"
+                 @ref="@Grid"
+                 Height="480px"
+                 Pageable="true"
+                 Sortable="true"
+                 FilterMode="GridFilterMode.FilterMenu"
+                 Resizable="true"
+                 Groupable="true"
+                 ShowColumnMenu="true">
+            <GridToolBar>
+                <GridSearchBox Width="150px"></GridSearchBox>
+                <span class="k-toolbar-spacer"></span>
+                <GridCommandButton Command="ExcelExport" Icon="file-excel">@Localizer["Grid_ExcelExport"]</GridCommandButton>
+                <GridCommandButton Command="CsvExport" Icon="file-csv">@Localizer["Grid_CsvExport"]</GridCommandButton>
+            </GridToolBar>
+            <GridColumns>
+                <GridCheckboxColumn Width="40px" Resizable="false" ShowColumnMenu="false"></GridCheckboxColumn>
+                <GridColumn Title="@Localizer["Employee_Grid_Title_Personal_Information"]">
+                    <Columns>
+                        <GridColumn Field="@nameof(Employee.FullName)" Title="@Localizer["Employee_Grid_Title_FullName"]" Sortable="false" Width="220px" Filterable="false">
+                            <Template>
+                                @{
+                                    var employee = context as Employee;
+
+                                    <div class="employee-photo" style="border: 2px solid @employee.Team.TeamColor; background-image: url('./img/employees/@(employee.Id).jpg')"></div>
+                                    <div class="employee-name">@employee.FullName</div>
+                                }
+                        </Template>
+                    </GridColumn>
+                    <GridColumn Field="@nameof(Employee.JobTitle)" Width="220px" Title="@Localizer["Employee_Grid_Title_JobTitle"]"></GridColumn>
+                    <GridColumn Field="@nameof(Employee.Country)" Width="100px" Title="@Localizer["Employee_Grid_Title_Country"]">
+                        <Template>
+                            @{
+                                 var employee = context as Employee;
+
+                                <img style="width: 30px;" src="./img/country-flags/@(employee.Country.ToLower()).png" />
+                            }
+                        </Template>
+                    </GridColumn>
+                    <GridColumn Field="@nameof(Employee.IsOnline)" Width="100px" Title="@Localizer["Employee_Grid_Title_Status"]">
+                        <Template>
+                            @{
+                                var employee = context as Employee;
+
+                                if (employee != null && employee.IsOnline)
+                                {
+                                    <span class="k-badge k-badge-md k-badge-solid k-badge-rounded k-badge-success">Online</span>
+                                }
+                                else
+                                {
+                                    <span class="k-badge k-badge-md k-badge-solid k-badge-rounded k-badge-error">Offline</span>
+                                }
+                            }
+                        </Template>
+                    </GridColumn>
+                </Columns>
+            </GridColumn>
+            <GridColumn Title="@Localizer["Employee_Grid_Title_Performance"]">
+                <Columns>
+                    <GridColumn Field="@nameof(Employee.Rating)" Width="110px" Title="@Localizer["Employee_Grid_Title_Rating"]">
+                        <Template>
+                            <Rating CssClass="rating-readonly" Value="((Employee)context).Rating" />
+                        </Template>
+                    </GridColumn>
+                    <GridColumn Field="@nameof(Employee.Target)" Width="230px" Title="@Localizer["Employee_Grid_Title_Engagement"]">
+                        <Template>
+                            @{
+                                var employee = context as Employee;
+
+                                if (employee != null)
+                                {
+                                    <TelerikProgressBar Max="100" Value="employee.Target" />
+                                }
+                            }
+                        </Template>
+                    </GridColumn>
+                    <GridColumn Field="@nameof(Employee.Budget)" DisplayFormat="{0:C}" Width="100px" Title="@Localizer["Employee_Grid_Title_Budget"]"></GridColumn>
+                </Columns>
+            </GridColumn>
+            <GridColumn Title="@Localizer["Employee_Grid_Title_Contacts"]">
+                <Columns>
+                    <GridColumn Field="@nameof(Employee.Phone)" Width="130px" Title="@Localizer["Employee_Grid_Title_Phone"]"></GridColumn>
+                    <GridColumn Field="@nameof(Employee.Address)" DisplayFormat="{0:C}" Width="200px" Title="@Localizer["Employee_Grid_Title_Address"]"></GridColumn>
+                </Columns>
+            </GridColumn>
+        </GridColumns>
+    </TelerikGrid>
     }
+    </CardContainer>
+
+    @code {
+    private List<Employee> employees { get; set; } = new List<Employee>();
+    TelerikGrid<Employee> Grid { get; set; }
+    public bool SingleTeamSelected { get; set; }
+    public bool AllTeamsSelected { get; set; } = true;
 
     protected override void OnInitialized()
     {
-        Layout.DocsTitle = L["Home"];
+        Layout.DocsTitle = Localizer["HumanCapital"];
 
         base.OnInitialized();
     }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnInitializedAsync()
     {
-        if (firstRender)
-        {
-            var state = await localStorage.GetItemAsync<TileLayoutState>("IndexLayout");
-            if (state != null)
-            {
-                tileLayout.SetState(state);
-            }
-        }
+        employees = (await Http.GetFromJsonAsync<Employee[]>("api/employees")).ToList();
     }
+
+    private void OnCellRender(GridCellRenderEventArgs args)
+    {
+        args.Class = "center-cell";
+    }
+
+    public async Task OnButtonGroupClick()
+    {
+        var state = Grid.GetState();
+
+        if (AllTeamsSelected)
+        {
+            state.FilterDescriptors.Add(SingleTeamDescriptor());
+        }
+        else
+        {
+            state = null;
+        }
+
+        await Grid.SetState(state);
+    }
+
+    FilterDescriptor SingleTeamDescriptor() => new FilterDescriptor("TeamId", FilterOperator.IsEqualTo, 3);
 }

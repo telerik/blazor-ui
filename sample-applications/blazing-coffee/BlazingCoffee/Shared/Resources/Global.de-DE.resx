@@ -264,4 +264,85 @@
   <data name="ManageProducts_Update_Success" xml:space="preserve">
     <value>Das Produkt {0} wurde aktualisiert.!</value>
   </data>
+  <data name="ButtonGroup_AllTeams" xml:space="preserve">
+    <value>Meine Mannschaften</value>
+  </data>
+  <data name="ButtonGroup_MyTeam" xml:space="preserve">
+    <value>Mein Mannschaft</value>
+  </data>
+  <data name="ButtonGroup_Trend" xml:space="preserve">
+    <value>Trend</value>
+  </data>
+  <data name="ButtonGroup_Volume" xml:space="preserve">
+    <value>Volumen</value>
+  </data>
+  <data name="Drawer_Dashboard" xml:space="preserve">
+    <value>Armaturenbrett</value>
+  </data>
+  <data name="Drawer_Info" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="Drawer_Profile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="Drawer_Team" xml:space="preserve">
+    <value>Mannschaft</value>
+  </data>
+  <data name="Employee_Grid_Title_Contacts" xml:space="preserve">
+    <value>Kontakte</value>
+  </data>
+  <data name="Employee_Grid_Title_Country" xml:space="preserve">
+    <value>Land</value>
+  </data>
+  <data name="Employee_Grid_Title_Engagement" xml:space="preserve">
+    <value>Verlobung</value>
+  </data>
+  <data name="Employee_Grid_Title_JobTitle" xml:space="preserve">
+    <value>Berufsbezeichnung</value>
+  </data>
+  <data name="Employee_Grid_Title_Performance" xml:space="preserve">
+    <value>Leistung</value>
+  </data>
+  <data name="Employee_Grid_Title_Personal_Information" xml:space="preserve">
+    <value>Angestellter</value>
+  </data>
+  <data name="Employee_Grid_Title_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Grid_CsvExport" xml:space="preserve">
+    <value>In CSV Exportieren</value>
+  </data>
+  <data name="Grid_ExcelExport" xml:space="preserve">
+    <value>In Excel Exportieren</value>
+  </data>
+  <data name="Profile_Bio" xml:space="preserve">
+    <value>Kurze Biographie</value>
+  </data>
+  <data name="Profile_Cancel" xml:space="preserve">
+    <value>Absagen</value>
+  </data>
+  <data name="Profile_Country" xml:space="preserve">
+    <value>Land</value>
+  </data>
+  <data name="Profile_Email" xml:space="preserve">
+    <value>E-Mail-Addresse</value>
+  </data>
+  <data name="Profile_FirstName" xml:space="preserve">
+    <value>Vorname</value>
+  </data>
+  <data name="Profile_IsDeleted" xml:space="preserve">
+    <value>Konto deaktiviert</value>
+  </data>
+  <data name="Profile_LastName" xml:space="preserve">
+    <value>Nachname</value>
+  </data>
+  <data name="Profile_Phone" xml:space="preserve">
+    <value>Telefon</value>
+  </data>
+  <data name="Profile_SaveChanges" xml:space="preserve">
+    <value>Änderungen speichern</value>
+  </data>
+  <data name="Profile_Team" xml:space="preserve">
+    <value>Mannschaft</value>
+  </data>
 </root>

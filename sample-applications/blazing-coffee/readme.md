@@ -1,28 +1,108 @@
-# Blazing Coffee Roasters
+# Blazor Demo Project using Telerik UI for Blazor Components
 
-This is a demo showing how a full-stack .NET application can be built with ASP.NET Core, Blazor Wasm, and Telerik UI for Blazor.
+This is the repository of the Blazor Coffee Warehouse sample project which contains a ready-to-run Blazor WASM project with some of the most popular Telerik UI for Blazor components.The sample project demonstrates how to use the [UI for Blazor components](https://https://www.telerik.com/blazor-ui?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+) and is available for browsing at https://demos.telerik.com/blazor-coffee/. 
+
+## In This Article
+
+* [Used UI for Blazor Components](#used-ui-for-blazor-components)
+* [Blazor Demo Features](#blazor-demo-features)
+* [Requirements](#requirements)
+* [Running the sample Blazor project](#running-the-sample-blazor-project)
+* [Licensing](#licensing)
+* [Setup with Telerik UI for Blazor Commercial](#setup-with-telerik-ui-for-blazor-commercial)
+* [Where can I find help?](#where-can-i-find-help)
+* [Contribution](#contribution)
+* [Useful Links](#useful-links)
+
+## Used UI for Blazor Components
+
+In the sample project, you can explore the usage of the following Blazor UI Components:
+- [Blazor Data Grid UI component](https://demos.telerik.com/blazor-ui/grid/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+)
+- [Blazor Form UI component](https://demos.telerik.com/blazor-ui/form/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+)
+- [Blazor Card UI component](https://demos.telerik.com/blazor-ui/card/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+)
+- [Blazor Charts UI component](https://demos.telerik.com/blazor-ui/chart/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+) 
+- [Blazor Line Chart UI component](https://demos.telerik.com/blazor-ui/chart/line-chart?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+) 
+- [Blazor Column Bar Chart UI component](https://demos.telerik.com/blazor-ui/chart/column-chart?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+) 
+- [Blazor Floating Label UI component](https://demos.telerik.com/blazor-ui/floatinglabel/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+) 
+- [Blazor Drawer UI component](https://demos.telerik.com/blazor-ui/drawer/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+) 
+- [Blazor DateInput UI component](https://demos.telerik.com/blazor-ui/dateinput/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+)
+- [Blazor DateRangePicker UI component](https://demos.telerik.com/blazor-ui/daterangepicker/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+)
+- [Blazor DateTimePicker UI component](https://demos.telerik.com/blazor-ui/datetimepicker/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+)
+- [Blazor DropDownList UI component](https://demos.telerik.com/blazor-ui/dropdownlist/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+)
+- [Blazor Editor UI component]( https://demos.telerik.com/blazor-ui/editor/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+)
+- [Blazor Button UI component](https://demos.telerik.com/blazor-ui/button/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+)
+- [Blazor ButtonGroup UI component](https://demos.telerik.com/blazor-ui/buttongroup/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+)
+- [Blazor TextBox UI component](https://demos.telerik.com/blazor-ui/textbox/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+)
+- [Blazor TextArea UI component](https://demos.telerik.com/blazor-ui/textarea/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+)
+- [Blazor MaskedTextBox UI component](https://demos.telerik.com/blazor-ui/maskedtextbox/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+)
+- [Blazor Checkbox UI component]( https://demos.telerik.com/blazor-ui/checkbox/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+)
+- [Blazor Tooltip UI component](https://demos.telerik.com/blazor-ui/tooltip/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+)
+
+## Blazor Demo Features
+
+The current demo app includes examples of the following features in the Blazor WASM application:
+- Globalization / Localization
+- Full Stack .NET
+    - Blazor Client
+    - Web API Server
+    - Entity Framework Core
+    - Shared logic and resources
+- Theming
+   - [Three built-in themes: Default Theme, Material and Bootstrap](https://docs.telerik.com/blazor-ui/styling-and-themes/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+) 
+   - SASS architecture
+   - Compatible with [Telerik Theme Builder](https://themebuilder.telerik.com/blazor-ui?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+)
 
 ## Requirements
 
 - .NET 6
 - Telerik UI for Blazor (Trial or Commercial)
-- npm (node package manager, for sass themes)
+- NPM (Node Package Manager for SASS themes)(optional)
 
-## Running the Application
+## Running the sample Blazor project
 
-1. Open you CLI and go to `/BlazingCoffee/Client`, then run `npm install`
-    * This restores the needed packages that are later used to create the themes.
-1. Run `npm run build` command
-    * This will compile a custom theme for the project.
+Open the solution file in VS 2022 and, if not already, set the `BlazingCoffee.Server` project as a Startup project and hit Ctrl + F5.
 
-## Telerik UI for Blazor Commercial
+## Licensing
+
+Telerik UI for Blazor is a commercial UI library. To use the components, you need to either register for a free trial or purchase a license.
+
+The 30-day free trial can be obtained from [Telerik UI for Blazor product page](https://www.telerik.com/blazor-ui?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+) and gives you access to all Telerik UI for Blazor components and their full functionality. For more infromation regarding the available license and budnle options you can review the [product pricing page](https://www.telerik.com/purchase/blazor-ui?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+).
+
+For both active trialist and license holders you get access to our legendary technical support provided directly by the UI for Blazor dev team!
+
+## Setup with Telerik UI for Blazor Commercial
 
 If you are using a commercial version of Telerik UI for Blazor.
 
 - In `BlazingCoffee.Client.csproj` remove `.Trial` from the package name. You should have:
 
     ```
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="2.x.x" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="x.x.x" />
     ```
 
 - In `BlazingCoffee.Client/wwwroot.index.html`, remove `.Trial` from the package name in the script path. You should have
@@ -34,59 +114,41 @@ If you are using a commercial version of Telerik UI for Blazor.
 - In `BlazingCoffee.Server.csproj`, remove `.Trial` from all Telerik.* package paths. You should have
 
     ```
-    <PackageReference Include="Telerik.Documents.Core" Version="2021.x.xxxx" />
-    <PackageReference Include="Telerik.Documents.Fixed" Version="2021.x.xxxx" />
-    <PackageReference Include="Telerik.Documents.Flow" Version="2021.x.xxxx" />
-    <PackageReference Include="Telerik.Documents.Flow.FormatProviders.Pdf" Version="2021.x.xxxx" />
-    <PackageReference Include="Telerik.Documents.Spreadsheet" Version="2021.x.xxxx" />
-    <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.OpenXml" Version="2021.x.xxxx" />
-    <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.Pdf" Version="2021.x.xxxx" />
-    <PackageReference Include="Telerik.Documents.SpreadsheetStreaming" Version="2021.x.xxxx" />
-    <PackageReference Include="Telerik.Zip" Version="2021.x.xxxx" />
+    <PackageReference Include="Telerik.Documents.Core" Version="2022.x.xxxx" />
+    <PackageReference Include="Telerik.Documents.Fixed" Version="2022.x.xxxx" />
+    <PackageReference Include="Telerik.Documents.Flow" Version="2022.x.xxxx" />
+    <PackageReference Include="Telerik.Documents.Flow.FormatProviders.Pdf" Version="2022.x.xxxx" />
+    <PackageReference Include="Telerik.Documents.Spreadsheet" Version="2022.x.xxxx" />
+    <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.OpenXml" Version="2022.x.xxxx" />
+    <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.Pdf" Version="2022.x.xxxx" />
+    <PackageReference Include="Telerik.Documents.SpreadsheetStreaming" Version="2022.x.xxxx" />
+    <PackageReference Include="Telerik.Zip" Version="2022.x.xxxx" />
     ```
 
 - In `BlazingCoffee.Shared.csproj` remove `.Trial` from the package name. You should have:
 
     ```
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="2.x.x" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="x.x.x" />
     ```
+## Where can I find help?
 
+1. For community support, we recommend asking questions on Stack Overflow using the [telerik-blazor tag](http://stackoverflow.com/questions/tagged/telerik-blazor).
+2. If you have an active trial or license, you can use the official [support channel](https://www.telerik.com/account/support-tickets) for questions, technical assistance, bug reports or problem resolutions. 
 
+## Contribution
 
-# Demo Features
+**Issues and Pull Requests are welcome.** 
 
-- Globalization / Localization
-- Full Stack .NET
-    - Blazor Client
-    - Web API Server
-    - Entity Framework Core
-    - Shared logic and resources
-- Authentication / Authorization through an in-app database with accounts you can create on the fly. You can read more on authentication and authorization in Blazor at [MSDN: ASP.NET Core Blazor authentication and authorization](https://docs.microsoft.com/en-us/aspnet/core/blazor/security/?view=aspnetcore-5.0).
-- Themeability 
-    - Light/Dark themes
-    - Automatic theme detection based on device theme
-    - SASS architecture
-    - compatible with Telerik Theme Builder
-- CRUD operations
-    - Integrated Grid Popup editor
-    - Round trip CRUD with EF Core
-- File Upload
-    - Upload from Blazor to server
-    - Automated conversion from DOCX > PDF with Telerik Document Processing
-    - Restricted file input (DOCX or PDF)
-- Telerik Components
-    - Drawer
-    - Grid
-    - Drop Down
-    - Date Range Picker
-    - Chart
-    - File Upload
-    - Numeric Input
-    - Icon
-    - Window
-    - Tool Tip
-    - Card*
-    - Rating*
-    - DrawerNavLink*
+To submit a pull request, you should **first [fork](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo) the repo**.
 
-`*` Unofficial/Experimental: These are experimental components that are not officially included with Telerik UI for Blazor. Use at your own risk, there is no support for these items.
+## Useful Links
+
+* Browse all [UI for Blazor component demos live](https://demos.telerik.com/blazor-ui)
+* Browse [the Telerik UI for Blazor documentation](https://docs.telerik.com/blazor-ui/introduction?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+)
+* Follow this link to [report bugs and add feature requests](https://feedback.telerik.com/blazor?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+)
+* Browse or contribute to [localization texts](https://github.com/telerik/blazor-ui-messages?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+) used in the samples
+* Create, run, share and test Blazor code snippets directly in the browser in our [Blazor REPL code runner](https://blazorrepl.telerik.com/?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-bc-demo-app
+)

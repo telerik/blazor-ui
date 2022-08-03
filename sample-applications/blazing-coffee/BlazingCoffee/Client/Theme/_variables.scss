@@ -26,6 +26,8 @@ $series-f: #7378d9;
 $background-color: scale-color($primary, $saturation: -55%, $lightness: 65%);
 $checkbox-bg: #ffffff;
 $link-color: $info;
+$primary-contrast: #fff;
+$base-bg: #fff;
 
 $isDarkTheme: false !default;
 @if ($isDarkTheme)
