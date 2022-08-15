@@ -1,22 +1,24 @@
 @using System.Globalization
+@using System.Text.Json
 
 @inject NavigationManager NavigationManager
 @inject ILocalStorageService LocalStorage
 
-<div style="margin-bottom: 20px;">
-    <TelerikDropDownList Data="@Cultures"
-                         Value="@SelectedCulture"
-                         Width="300px"
-                         ValueChanged="@((string value) => OnValueChanged(value) )"
-                         TextField="@nameof(CultureData.Text)"
-                         ValueField="@nameof(CultureData.Value)">
-        <DropDownListSettings>
-            <DropDownListPopupSettings Height=""></DropDownListPopupSettings>
-        </DropDownListSettings>
-    </TelerikDropDownList>
-</div>
+<TelerikDropDownList Data="@Cultures"
+                     Value="@SelectedCulture"
+                     Width="110px"
+                     ValueChanged="@((string value) => OnValueChanged(value))"
+                     TextField="@nameof(CultureData.Text)"
+                     ValueField="@nameof(CultureData.Value)">
+    <DropDownListSettings>
+        <DropDownListPopupSettings Height="" Width="150px"></DropDownListPopupSettings>
+    </DropDownListSettings>
+</TelerikDropDownList>
 
-@code{ public class CultureData
+@code{
+    const string DefaultCultureShort = "en-US";
+
+    public class CultureData
     {
         public string Text { get; set; }
         public string Value { get; set; }
@@ -53,11 +55,14 @@
     public async Task GetCulture()
     {
         var value = await LocalStorage.GetItemAsStringAsync("BlazorCulture");
-        if (string.IsNullOrEmpty(value))
+        var parsedValue = !string.IsNullOrEmpty(value) ? JsonSerializer.Deserialize<string>(value) : DefaultCultureShort;
+
+        if (string.IsNullOrEmpty(parsedValue))
         {
-            value = "en-US";
+            parsedValue = DefaultCultureShort;
         }
-        SelectedCulture = value;
+        
+        SelectedCulture = parsedValue;
     }
 
     protected override async Task OnInitializedAsync()

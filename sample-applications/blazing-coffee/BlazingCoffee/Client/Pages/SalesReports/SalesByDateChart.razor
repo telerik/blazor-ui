@@ -1,13 +1,38 @@
 ﻿@namespace BlazingCoffee.Client.Pages
+@using System.Globalization
 @inject HttpClient Http
-@inject ITelerikStringLocalizer L
+@inject ITelerikStringLocalizer Localizer
+@page "/sales"
 
-<CardContainer Title="@L["Reporting"]">        
+<CardContainer>
+    <CardHeader>
+        <div class="card-header-wrapper">
+            <h3 class="card-title">@Localizer["Reporting"]</h3>
+            <CardActions>
+                <TelerikButtonGroup>
+                    <ButtonGroupToggleButton @bind-Selected="@TrendChartType" OnClick="ToggleChartType">@Localizer["ButtonGroup_Trend"]</ButtonGroupToggleButton>
+                    <ButtonGroupToggleButton @bind-Selected="@VolumeChartType" OnClick="ToggleChartType">@Localizer["ButtonGroup_Volume"]</ButtonGroupToggleButton>
+                </TelerikButtonGroup>
+            </CardActions>
+            <div class="card-ranges">
+                    <TelerikIcon Icon="k-icon k-i-calendar"></TelerikIcon>
+                <TelerikDateRangePicker StartValue="@StartValue" EndValue="@EndValue"
+                                        BottomView="CalendarView.Year"
+                                        Class="daterangepicker-no-labels"
+                                        StartValueChanged="@((DateTime? sV) => StartValueChangedHandler(sV))"
+                                        EndValueChanged="@((DateTime? eV) => EndValueChangedHandler(eV))">
+                </TelerikDateRangePicker>
+            </div>
+        </div>
+    </CardHeader>
     @if (Data?.Count() > 0)
     {
-        <TelerikChart Height="230px">
-            <ChartTitle Text="@L["ChartTitle_SalesAndRevenueTotal"]" />
-            
+        <TelerikChart Height="400px">
+            <ChartLegend Position="ChartLegendPosition.Bottom" Spacing="140"  Orientation="ChartLegendOrientation.Horizontal" Background="#f4f5f8">
+                <ChartLegendPadding Left="80" Right="80"></ChartLegendPadding>
+            </ChartLegend>
+            <ChartTitle Text="@Localizer["ChartTitle_SalesAndRevenueTotal"]" />
+
             <ChartTooltip Visible="true" Shared="true">
                 <SharedTemplate>
                     <div>
@@ -21,11 +46,11 @@
 
                                 <div>
                                     <span class="k-chart-shared-tooltip-marker"
-                                          style="background-color: @point.SeriesColor;display: inline-block;">
+                                  style="background-color: @point.SeriesColor;display: inline-block;">
                                     </span>
                                     @point.SeriesName: @revenue.ToString("C0")
-                                </div> 
-                            } 
+                                </div>
+                            }
                         }
                     </div>
                 </SharedTemplate>
@@ -34,37 +59,41 @@
             <ChartSeriesItems>
                 @foreach (var item in Data.GroupBy(v => v.Region))
                 {
-                    <ChartSeries Type="ChartSeriesType.Column"
-                                 Name="@item.Key"
-                                 Data="@item"
-                                 Field="@nameof(SalesByDateViewModel.Sum)"
-                                 CategoryField="@nameof(SalesByDateViewModel.Date)" />
+                    <ChartSeries Type="@ChartType"
+                         Name="@item.Key"
+                         Data="@item"
+                         Field="@nameof(SalesByDateViewModel.Sum)"
+                         CategoryField="@nameof(SalesByDateViewModel.Date)" />
                 }
             </ChartSeriesItems>
 
             <ChartValueAxes>
                 <ChartValueAxis Name="RevenueAxis">
-                    <ChartValueAxisTitle Text="@L["ChartValueAxisTitle_TotalSales"]" />
+                    <ChartValueAxisTitle Text="@Localizer["ChartValueAxisTitle_TotalSales"]" />
                     <ChartValueAxisLabels Format="{0:C}" />
-                    <ChartValueAxisMajorGridLines Visible="false" />
                 </ChartValueAxis>
             </ChartValueAxes>
 
             <ChartCategoryAxes>
                 <ChartCategoryAxis Name="Sales By Year">
-                    <ChartCategoryAxisLabels Format="{0:yyyy-MMM}">
-                        <ChartCategoryAxisLabelsRotation Angle="315"></ChartCategoryAxisLabelsRotation>
+                    <ChartCategoryAxisLabels Format="{0:MMMM yyyy}">
                     </ChartCategoryAxisLabels>
                 </ChartCategoryAxis>
             </ChartCategoryAxes>
 
         </TelerikChart>
     }
-</CardContainer>
+    </CardContainer>
 
 @code {
+    public SalesByDateViewModel[] Data { get; set; }
+    public ChartSeriesType ChartType { get; set; } = ChartSeriesType.Line;
+    SalesByDateViewModel[] chartData;
+    DateTime? StartValue { get; set; } = new DateTime(2019,1,1);
+    DateTime? EndValue { get; set; } = new DateTime(2019,5,1);
 
-    [Parameter] public SalesByDateViewModel[] Data { get; set; }
+    public bool TrendChartType { get; set; } = true;
+    public bool VolumeChartType { get; set; }
 
     public string GetParsedDate(object category)
     {
@@ -72,5 +101,51 @@
         DateTime.TryParse(category.ToString(), out date);
 
         return date.ToString("yyyy-MMM");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetChartData();
+    }
+
+    async Task GetChartData()
+    {
+        var apiBase = "api/sales/RegionalSalesByDate";
+        var apiURL = $"{apiBase}/{StartValue?.ToString("s", CultureInfo.InvariantCulture)}/{EndValue?.ToString("s", CultureInfo.InvariantCulture)}";
+        Data = await Http.GetFromJsonAsync<SalesByDateViewModel[]>(apiURL);
+    }
+
+    void StartValueChangedHandler(DateTime? currStart)
+    {
+        //you have to update the model manually because handling the <Parameter>Changed event does not let you use @bind-<Parameter>
+        //not updating the model will effectively cancel the event
+        StartValue = currStart;
+
+    }
+
+    async Task EndValueChangedHandler(DateTime? currEnd)
+    {
+        // you have to update the model manually because handling the <Parameter>Changed event does not let you use @bind-<Parameter>
+        // not updating the model will effectively cancel the event
+        EndValue = currEnd;
+
+        // sample check to execute logic only after the user has selected both ends of the range
+        // if this does not pass, the user has only clicked once in the calendar popup
+        if (currEnd != default(DateTime?))
+        {
+            await GetChartData();
+        }
+    }
+
+    public void ToggleChartType()
+    {
+        if(ChartType == ChartSeriesType.Column)
+        {
+            ChartType = ChartSeriesType.Line;
+        } 
+        else
+        {
+            ChartType = ChartSeriesType.Column;
+        }
     }
 }

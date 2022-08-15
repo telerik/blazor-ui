@@ -9,5 +9,7 @@ namespace BlazingCoffee.Client.Shared
     {
         public string ThemeText { get; set; }
         public string ThemeValue { get; set; }
+        public bool IsSwatch { get; set; }
+        public string MainTheme { get; set; }
     }
 }

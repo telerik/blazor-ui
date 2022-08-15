@@ -1,37 +1,42 @@
 ﻿@namespace BlazingCoffee.Client.Shared
 @inject IJSRuntime js
 
-<TelerikDropDownList Id="theme" 
-                     Data="Themes" 
-                     TextField="ThemeText" 
-                     ValueField="ThemeValue" 
-                     Value="@SelectedTheme" 
-                     Width="300px"
-                     ValueChanged="@( (string v) => HandleThemeSelected(v) )" >
+<TelerikDropDownList Id="theme"
+                     Data="Themes"
+                     TextField="ThemeText"
+                     ValueField="ThemeValue"
+                     Value="@SelectedTheme"
+                     Width="60px"
+                     ValueChanged="@( (string v) => HandleThemeSelected(v) )">
+    <ValueTemplate>
+        <TelerikIcon Icon="palette"></TelerikIcon>
+    </ValueTemplate>
     <DropDownListSettings>
-        <DropDownListPopupSettings Height=""></DropDownListPopupSettings>
+        <DropDownListPopupSettings Height="" Width="150px"></DropDownListPopupSettings>
     </DropDownListSettings>
 </TelerikDropDownList>
 
 @code {
+    string SelectedTheme = "default-ocean-blue";
 
-    string SelectedTheme;
-
-    IEnumerable<ThemeSetting> Themes => new List<ThemeSetting> {
-        new ThemeSetting { ThemeText = "Auto (default)", ThemeValue = "auto" },
-        new ThemeSetting { ThemeText = "Light", ThemeValue = "main" },
-        new ThemeSetting { ThemeText = "Dark", ThemeValue = "main-dark" }
+    IEnumerable<ThemeSetting> Themes => new List<ThemeSetting>
+    {
+        new ThemeSetting { ThemeText = "Ocean Blue", ThemeValue = "default-ocean-blue", IsSwatch = true, MainTheme = "default" },
+        new ThemeSetting { ThemeText = "Default", ThemeValue = "default", IsSwatch = false, MainTheme = "default" },
+        new ThemeSetting { ThemeText = "Bootstrap", ThemeValue = "bootstrap", IsSwatch = false, MainTheme = "bootstrap" },
+        new ThemeSetting { ThemeText = "Material", ThemeValue = "material", IsSwatch = false, MainTheme = "material" }
     };
 
     async Task HandleThemeSelected(string value)
     {
-        await js.InvokeVoidAsync("themeChooser.setTheme", value);
+        await js.InvokeVoidAsync("themeChooser.setTheme", Themes.FirstOrDefault(t=> t.ThemeValue == value));
         SelectedTheme = value;
     }
 
     protected override async Task OnInitializedAsync()
     {
-        var theme = await js.InvokeAsync<string>("themeChooser.getTheme");
-        SelectedTheme = string.IsNullOrEmpty(theme) ? "auto" : theme;
+        var theme = await js.InvokeAsync<ThemeSetting>("themeChooser.getTheme");
+
+        SelectedTheme = string.IsNullOrEmpty(theme.ThemeValue) ? "default-ocean-blue" : theme.ThemeValue;
     }
 }

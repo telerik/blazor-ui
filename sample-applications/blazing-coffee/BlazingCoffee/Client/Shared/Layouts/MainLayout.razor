@@ -2,7 +2,7 @@
 @using BlazingCoffee.Client.Shared.NavMenu
 
 @inherits LayoutComponentBase
-@inject ITelerikStringLocalizer L
+@inject ITelerikStringLocalizer Localizer
 @inject ILocalStorageService LocalStorage
 @inject Services.PublicHttp Http
 @inject MainLayoutState Layout
@@ -16,15 +16,12 @@
             <div class="title">
                 <h1>Blazing Coffee Warehouse</h1>
             </div>
-            @if (Layout.HasDocs)
-            {
-                <div class="information">
-                    <TelerikButton Icon="information" OnClick="@(() => DocsExpanded = !DocsExpanded)" />
-                </div>
+            @{
+                if (!WindowWidthSmall)
+                {
+                    <SettingsChooser></SettingsChooser>
+                }
             }
-            <div class="settings">
-                <TelerikButton Icon="gear" OnClick="@(() => SettingsExpanded = !SettingsExpanded)" />
-            </div>
         </div>
     </div>
     <TelerikDrawer @ref="MenuDrawer"
@@ -38,56 +35,16 @@
             @Body
         </DrawerContent>
     </TelerikDrawer>
-    <TelerikWindow @bind-Visible="SettingsExpanded" Modal="true">
-        <WindowTitle>
-            @L["Settings"]
-        </WindowTitle>
-        <WindowActions>
-            <WindowAction Name="Close" />
-        </WindowActions>
-        <WindowContent>
-            <div class="k-widget k-form">
-                <div class="k-form-field">
-                    <label class="k-label k-form-label" for="theme">
-                        @L["SelectTheme"]
-                    </label>
-                    <div class="k-form-field-wrap">
-                        <ThemeChooser></ThemeChooser>
-                    </div>
-                </div>
-                <div class="k-form-field">
-                    <label class="k-label k-form-label" for="language">
-                        @L["LanguageChooser_SelectLanguage"]
-                    </label>
-                    <div class="k-form-field-wrap">
-                        <CultureChooser />
-                    </div>
-                </div>
-            </div>
-        </WindowContent>
-    </TelerikWindow>
-    <TelerikWindow @bind-Visible="DocsExpanded" Modal="true" Width="70vw">
-        <WindowTitle>
-            @L["MainLayout_Documentation"]: @Layout.DocsTitle
-        </WindowTitle>
-        <WindowActions>
-            <WindowAction Name="Close" />
-        </WindowActions>
-        <WindowContent>
-            <div class="docs-wrapper">
-                @((MarkupString)Docs)
-            </div>
-        </WindowContent>
-    </TelerikWindow>
 </TelerikRootComponent>
 
+<TelerikMediaQuery Media="(max-width: 768px)" OnChange="((changed) => WindowWidthSmall = changed)"></TelerikMediaQuery>
 @code {
-
     TelerikDrawer<DrawerItem> MenuDrawer { get; set; }
 
     bool Expanded { get; set; }
     bool SettingsExpanded { get; set; }
     bool DocsExpanded { get; set; }
+    bool WindowWidthSmall {get; set; }
     string Docs { get; set; }
 
     [CascadingParameter] public CoffeeComponentBase DocumentedComponent { get; set; }
@@ -95,16 +52,12 @@
     IEnumerable<DrawerItem> Data =>
     new List<DrawerItem>
     {
-            new DrawerItem{ Text = L["Home"], Icon = "home", Url="/blazor-coffee/", Group = "home"},
-            new DrawerItem{ Text = L["Sales"], Icon = "dollar", Url="/blazor-coffee/sales", Group = "app"},
-            new DrawerItem{ Text = L["HumanCapital"], Icon = "tell-a-friend", Url="/blazor-coffee/manage-employees", Group = "app"},
-            new DrawerItem{ Text = L["ManageProducts"], Icon = "grid", Url="/blazor-coffee/manage-products", Group = "app"},
-            new DrawerItem{ Text = "GitHub", Icon = "share", Url="https://github.com/telerik/blazor-ui/tree/master/sample-applications/blazing-coffee", Group = "ext"},
-            new DrawerItem{ Text = "Telerik", Icon = "hyperlink-globe", Url="https://www.telerik.com", Group = "ext"},
-            new DrawerItem{ Text = L["Documentation"], Icon = "html", Url="https://docs.telerik.com/blazor-ui/introduction", Group = "ext"},
-            new DrawerItem{ Text = L["Support"], Icon = "question", Url="https://www.telerik.com/account/support-tickets", Group = "ext"}
-                                                                                                                                                            };
-
+            new DrawerItem{ Text = Localizer["Drawer_Team"], Icon = "grid", Url="/blazor-coffee/", Group = "home"},
+            new DrawerItem{ Text = Localizer["Drawer_Dashboard"], Icon = "chart-line-markers", Url="/blazor-coffee/sales", Group = "app"},
+            new DrawerItem{ Text = Localizer["Drawer_Profile"], Icon = "user", Url="/blazor-coffee/profile", Group = "app"},
+            new DrawerItem{ Text = Localizer["Drawer_Info"], Icon = "information", Url="/blazor-coffee/information", Group = "ext"}
+    };
+      
     async Task ToggleMenuDrawer()
     {
         if (Expanded)
@@ -146,7 +99,5 @@
         };
 
         await InvokeAsync(Layout.LayoutStateChange);
-
     }
-
 }
