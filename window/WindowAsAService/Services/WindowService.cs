@@ -14,7 +14,7 @@ namespace WindowAsAService.Services
         {
             var windowInstance = new WindowInstance { Content = content, Title = title };
             Instances.Add(windowInstance);
-            BuilderRef.Rerender();
+            BuilderRef.Refresh();
 
             return windowInstance;
         }
@@ -22,7 +22,7 @@ namespace WindowAsAService.Services
         {
             var windowInstance = new WindowInstance { Content = content, Title = title, Width = width, Height = height };
             Instances.Add(windowInstance);
-            BuilderRef.Rerender();
+            BuilderRef.Refresh();
 
             return windowInstance;
         }
@@ -30,7 +30,7 @@ namespace WindowAsAService.Services
         public void Remove(TelerikWindow windowRef)
         {
             Instances.RemoveAll(x => x.WindowRef == windowRef);
-            BuilderRef.Rerender();
+            BuilderRef.Refresh();
         }
     }
 }
