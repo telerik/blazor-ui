@@ -16,7 +16,7 @@ namespace WindowAsAService.Models
 
         /// <summary>
         /// This is the reference of the TelerikWindow component instance.
-        /// It can be used after the first render follwoing the creation.
+        /// It can be used after the first render following the creation.
         /// </summary>
         public TelerikWindow WindowRef { get; set; }
     }
