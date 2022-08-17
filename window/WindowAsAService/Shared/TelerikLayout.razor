@@ -1,0 +1,14 @@
+﻿@using WindowAsAService.Components
+@using WindowAsAService.Services
+
+@inherits LayoutComponentBase
+
+<TelerikRootComponent>
+    <WindowBuilder Instances="@WindowService.Instances" @ref="@WindowService.BuilderRef"></WindowBuilder>
+    @Body
+</TelerikRootComponent>
+
+@code{
+    [Inject]
+    public WindowService WindowService { get; set; }
+}

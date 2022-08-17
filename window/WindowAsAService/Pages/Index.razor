@@ -1,0 +1,52 @@
+﻿@page "/"
+@using WindowAsAService.Models
+@using WindowAsAService.Services
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+<br />
+
+WindowTitle:
+<TelerikTextBox @bind-Value="@WindowTitle"></TelerikTextBox>
+<br />
+
+WindowContent
+<TelerikTextBox @bind-Value="@WindowContent"></TelerikTextBox>
+
+<br />
+<TelerikButton OnClick="@OpenNewWindow" ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)">Open New Window</TelerikButton>
+
+<br />
+
+@helloString
+
+@code {
+    [Inject]
+    public WindowService WindowService { get; set; }
+
+    public string WindowTitle { get; set; }
+    public string WindowContent { get; set; }
+
+    public WindowInstance LastAddedWindow { get; set; }
+
+    MarkupString helloString;
+
+    void OpenNewWindow()
+    {
+        LastAddedWindow = WindowService.Add(WindowContent, WindowTitle);
+        //LastAddedWindow = WindowService.Add(WindowContent, WindowTitle, Width, Height);
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+
+        // ensure old window instances are properly disposed 
+        if (LastAddedWindow?.Visible == false)
+        {
+            WindowService.Remove(LastAddedWindow.WindowRef);
+            LastAddedWindow = null;
+        }
+    }
+}
