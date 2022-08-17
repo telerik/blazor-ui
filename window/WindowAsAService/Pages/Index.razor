@@ -2,24 +2,20 @@
 @using WindowAsAService.Models
 @using WindowAsAService.Services
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-<br />
 
 WindowTitle:
-<TelerikTextBox @bind-Value="@WindowTitle"></TelerikTextBox>
+<TelerikTextBox @bind-Value="@WindowTitle" Width="300px"></TelerikTextBox>
+
 <br />
 
 WindowContent
-<TelerikTextBox @bind-Value="@WindowContent"></TelerikTextBox>
+<TelerikTextBox @bind-Value="@WindowContent" Width="300px"></TelerikTextBox>
 
 <br />
+
 <TelerikButton OnClick="@OpenNewWindow" ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)">Open New Window</TelerikButton>
 
 <br />
-
-@helloString
 
 @code {
     [Inject]
@@ -29,8 +25,6 @@ WindowContent
     public string WindowContent { get; set; }
 
     public WindowInstance LastAddedWindow { get; set; }
-
-    MarkupString helloString;
 
     void OpenNewWindow()
     {
