@@ -17,4 +17,4 @@ This demo project shows how to use the `<TelerikWindow>` as a service in your ap
 
 ## Notes
 
-* In the application we are removing the reference of the last added window in the `OnAfterRender` lifecycle hook. This is just one way to make sure that you do not store unnecessary window references and you can implement your own method to remove these references. 
+* In the application we are removing the reference of the last added Window in the `OnAfterRender` lifecycle hook. This is just one way to make sure that you do not store unnecessary Window references and you can implement your own method to remove these references. 
