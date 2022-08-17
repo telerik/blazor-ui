@@ -11,7 +11,7 @@ This demo project shows how to use the `<TelerikWindow>` as a service in your ap
 
 ## To use the demo application
 
-* Run the demo applicatio and navigate to the `Index.razor` page.
+* Run the demo application and navigate to the `Index.razor` page.
 * Input the desired title and content of the window in the `<TelerikTextBox>` components. 
 * Click the `Open New Window` button.
 
