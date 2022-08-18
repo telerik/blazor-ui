@@ -6,10 +6,12 @@
                      TextField="ThemeText"
                      ValueField="ThemeValue"
                      Value="@SelectedTheme"
-                     Width="60px"
+                     Width="140px"
                      ValueChanged="@( (string v) => HandleThemeSelected(v) )">
     <ValueTemplate>
         <TelerikIcon Icon="palette"></TelerikIcon>
+        <div class="ddl-separator"></div>
+        <span class="text-content">@((context as ThemeSetting).ThemeText)</span>
     </ValueTemplate>
     <DropDownListSettings>
         <DropDownListPopupSettings Height="" Width="150px"></DropDownListPopupSettings>

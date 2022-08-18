@@ -888,4 +888,7 @@
   <data name="Dialog_Ok" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="Pager_PageDisplay" xml:space="preserve">
+    <value>Page</value>
+  </data>
 </root>

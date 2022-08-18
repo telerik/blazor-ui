@@ -61,6 +61,15 @@ namespace BlazingCoffee.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Blazing Coffee Warehouse.
+        /// </summary>
+        public static string Blazing_Coffee_Title {
+            get {
+                return ResourceManager.GetString("Blazing_Coffee_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All Teams.
         /// </summary>
         public static string ButtonGroup_AllTeams {
@@ -88,7 +97,7 @@ namespace BlazingCoffee.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Volumn.
+        ///   Looks up a localized string similar to Volume.
         /// </summary>
         public static string ButtonGroup_Volume {
             get {
@@ -304,11 +313,20 @@ namespace BlazingCoffee.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Employees.
+        ///   Looks up a localized string similar to Team Members.
         /// </summary>
         public static string Employees {
             get {
                 return ResourceManager.GetString("Employees", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Form Submit Successful!.
+        /// </summary>
+        public static string Form_Submit_Success {
+            get {
+                return ResourceManager.GetString("Form_Submit_Success", resourceCulture);
             }
         }
         
@@ -610,11 +628,20 @@ namespace BlazingCoffee.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reporting.
+        ///   Looks up a localized string similar to Team Efficiency.
         /// </summary>
         public static string Reporting {
             get {
                 return ResourceManager.GetString("Reporting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revenue for.
+        /// </summary>
+        public static string Revenue_For {
+            get {
+                return ResourceManager.GetString("Revenue_For", resourceCulture);
             }
         }
         

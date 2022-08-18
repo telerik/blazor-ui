@@ -190,7 +190,7 @@
     <value>More Info</value>
   </data>
   <data name="Employees" xml:space="preserve">
-    <value>Employees</value>
+    <value>Team Members</value>
   </data>
   <data name="Employee_Grid_Title_FullName" xml:space="preserve">
     <value>Name</value>
@@ -232,7 +232,7 @@
     <value>Report Range:</value>
   </data>
   <data name="Reporting" xml:space="preserve">
-    <value>Reporting</value>
+    <value>Team Efficiency</value>
   </data>
   <data name="ChartTitle_SalesAndRevenueTotal" xml:space="preserve">
     <value>Sales and Revenue Total</value>
@@ -292,7 +292,7 @@
     <value>Trend</value>
   </data>
   <data name="ButtonGroup_Volume" xml:space="preserve">
-    <value>Volumn</value>
+    <value>Volume</value>
   </data>
   <data name="Drawer_Dashboard" xml:space="preserve">
     <value>Dashboard</value>
@@ -341,5 +341,14 @@
   </data>
   <data name="Profile_Team" xml:space="preserve">
     <value>Team</value>
+  </data>
+  <data name="Blazing_Coffee_Title" xml:space="preserve">
+    <value>Blazing Coffee Warehouse</value>
+  </data>
+  <data name="Form_Submit_Success" xml:space="preserve">
+    <value>Form Submit Successful!</value>
+  </data>
+  <data name="Revenue_For" xml:space="preserve">
+    <value>Revenue for</value>
   </data>
 </root>

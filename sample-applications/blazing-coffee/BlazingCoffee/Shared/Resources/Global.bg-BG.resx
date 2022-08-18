@@ -342,4 +342,13 @@
   <data name="Profile_Team" xml:space="preserve">
     <value>Екип</value>
   </data>
+  <data name="Blazing_Coffee_Title" xml:space="preserve">
+    <value>Blazing Склада за Кафе</value>
+  </data>
+  <data name="Form_Submit_Success" xml:space="preserve">
+    <value>Успешно изпратена форма!</value>
+  </data>
+  <data name="Revenue_For" xml:space="preserve">
+    <value>Оборот за</value>
+  </data>
 </root>

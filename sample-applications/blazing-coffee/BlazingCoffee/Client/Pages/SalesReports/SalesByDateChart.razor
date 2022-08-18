@@ -36,7 +36,7 @@
             <ChartTooltip Visible="true" Shared="true">
                 <SharedTemplate>
                     <div>
-                        <div style="font-size: 15px; font-weight: 500;"> Revenue for @GetParsedDate(context.Category) </div>
+                        <div style="font-size: 15px; font-weight: 500;"> @Localizer["Revenue_For"] @GetParsedDate(context.Category) </div>
                         @{
                             List<ChartSeriesTooltipTemplatePoint> points = context.Points;
 
@@ -69,7 +69,6 @@
 
             <ChartValueAxes>
                 <ChartValueAxis Name="RevenueAxis">
-                    <ChartValueAxisTitle Text="@Localizer["ChartValueAxisTitle_TotalSales"]" />
                     <ChartValueAxisLabels Format="{0:C}" />
                 </ChartValueAxis>
             </ChartValueAxes>
