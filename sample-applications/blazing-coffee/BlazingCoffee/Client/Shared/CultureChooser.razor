@@ -3,27 +3,35 @@
 @inject NavigationManager NavigationManager
 @inject ILocalStorageService LocalStorage
 
-<div style="margin-bottom: 20px;">
-    <TelerikDropDownList Data="@Cultures"
-                         Value="@SelectedCulture"
-                         Width="300px"
-                         ValueChanged="@((string value) => OnValueChanged(value) )"
-                         TextField="@nameof(CultureData.Text)"
-                         ValueField="@nameof(CultureData.Value)">
-        <DropDownListSettings>
-            <DropDownListPopupSettings Height=""></DropDownListPopupSettings>
-        </DropDownListSettings>
-    </TelerikDropDownList>
-</div>
+<TelerikDropDownList Data="@Cultures"
+                     Value="@SelectedCulture"
+                     Width="80px"
+                     ValueChanged="@((string value) => OnValueChanged(value))"
+                     TextField="@nameof(CultureData.Text)"
+                     ValueField="@nameof(CultureData.Value)">
+    <ValueTemplate>
+        <span class="k-icon">
+            <img src="./img/globe.svg"/>
+        </span>
+        <div class="ddl-separator"></div>
+        <span class="text-content">@((context as CultureData).Value.Split("-")[0].ToUpper())</span>
+    </ValueTemplate>
+    <DropDownListSettings>
+        <DropDownListPopupSettings Height="" Width="90px"></DropDownListPopupSettings>
+    </DropDownListSettings>
+</TelerikDropDownList>
 
-@code{ public class CultureData
+@code {
+    const string DefaultCultureShort = "en-US";
+
+    public class CultureData
     {
         public string Text { get; set; }
         public string Value { get; set; }
     }
 
     public List<CultureData> Cultures { get; set; } = new List<CultureData>()
-{
+    {
         new  CultureData() { Text = "English", Value = "en-US" },
         new  CultureData() { Text = "German", Value = "de-DE" },
         new  CultureData() { Text = "Spanish", Value = "es-ES" },
@@ -57,7 +65,8 @@
         {
             value = "en-US";
         }
-        SelectedCulture = value;
+
+        SelectedCulture = parsedValue;
     }
 
     protected override async Task OnInitializedAsync()

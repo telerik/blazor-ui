@@ -1,26 +1,32 @@
 ﻿@namespace BlazingCoffee.Client.Shared
 @inject IJSRuntime js
 
-<TelerikDropDownList Id="theme" 
-                     Data="Themes" 
-                     TextField="ThemeText" 
-                     ValueField="ThemeValue" 
-                     Value="@SelectedTheme" 
-                     Width="300px"
-                     ValueChanged="@( (string v) => HandleThemeSelected(v) )" >
+<TelerikDropDownList Id="theme"
+                     Data="Themes"
+                     TextField="ThemeText"
+                     ValueField="ThemeValue"
+                     Value="@SelectedTheme"
+                     Width="140px"
+                     ValueChanged="@( (string v) => HandleThemeSelected(v) )">
+    <ValueTemplate>
+        <TelerikIcon Icon="palette"></TelerikIcon>
+        <div class="ddl-separator"></div>
+        <span class="text-content">@((context as ThemeSetting).ThemeText)</span>
+    </ValueTemplate>
     <DropDownListSettings>
         <DropDownListPopupSettings Height=""></DropDownListPopupSettings>
     </DropDownListSettings>
 </TelerikDropDownList>
 
 @code {
+    string SelectedTheme = "default-ocean-blue";
 
-    string SelectedTheme;
-
-    IEnumerable<ThemeSetting> Themes => new List<ThemeSetting> {
-        new ThemeSetting { ThemeText = "Auto (default)", ThemeValue = "auto" },
-        new ThemeSetting { ThemeText = "Light", ThemeValue = "main" },
-        new ThemeSetting { ThemeText = "Dark", ThemeValue = "main-dark" }
+    IEnumerable<ThemeSetting> Themes => new List<ThemeSetting>
+    {
+        new ThemeSetting { ThemeText = "Ocean Blue", ThemeValue = "default-ocean-blue", IsSwatch = true, MainTheme = "default" },
+        new ThemeSetting { ThemeText = "Default", ThemeValue = "default", IsSwatch = false, MainTheme = "default" },
+        new ThemeSetting { ThemeText = "Bootstrap", ThemeValue = "bootstrap", IsSwatch = false, MainTheme = "bootstrap" },
+        new ThemeSetting { ThemeText = "Material", ThemeValue = "material", IsSwatch = false, MainTheme = "material" }
     };
 
     async Task HandleThemeSelected(string value)

@@ -14,11 +14,6 @@
         color: $primary-contrast;
     }
 
-    .information {
-        flex: 0 0 24px;
-        text-align: center;
-    }
-
     .menu-button, .settings {
         flex: 0 0 48px;
         text-align: center;
@@ -32,9 +27,7 @@
     }
 
     .k-button:hover {
-        background-color: $info;
-        padding: 5px;
-        border-radius: 50%;
+        background-color: transparent;
     }
 
     .title {

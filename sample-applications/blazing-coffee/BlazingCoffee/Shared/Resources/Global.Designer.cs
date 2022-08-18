@@ -61,6 +61,52 @@ namespace BlazingCoffee.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Blazing Coffee Warehouse.
+        /// </summary>
+        public static string Blazing_Coffee_Title {
+            get {
+                return ResourceManager.GetString("Blazing_Coffee_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All Teams.
+        /// </summary>
+        public static string ButtonGroup_AllTeams {
+            get {
+                return ResourceManager.GetString("ButtonGroup_AllTeams", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My Team.
+        /// </summary>
+        public static string ButtonGroup_MyTeam {
+            get {
+                return ResourceManager.GetString("ButtonGroup_MyTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trend.
+        /// </summary>
+        public static string ButtonGroup_Trend {
+            get {
+                return ResourceManager.GetString("ButtonGroup_Trend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volume.
+        /// </summary>
+        public static string ButtonGroup_Volume {
+            get {
+                return ResourceManager.GetString("ButtonGroup_Volume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+>>>>>>> 3e71128 (chore(blazing-coffee): update app styling)
         ///   Looks up a localized string similar to Sales and Revenue Total.
         /// </summary>
         public static string ChartTitle_SalesAndRevenueTotal {
@@ -160,16 +206,16 @@ namespace BlazingCoffee.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Team Name.
+        ///   Looks up a localized string similar to Status.
         /// </summary>
-        public static string Employee_Grid_Title_TeamName {
+        public static string Employee_Grid_Title_Status {
             get {
-                return ResourceManager.GetString("Employee_Grid_Title_TeamName", resourceCulture);
+                return ResourceManager.GetString("Employee_Grid_Title_Status", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Employees.
+        ///   Looks up a localized string similar to Team Members.
         /// </summary>
         public static string Employees {
             get {
@@ -178,6 +224,43 @@ namespace BlazingCoffee.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Employees.
+        /// </summary>
+        public static string Form_Submit_Success {
+            get {
+                return ResourceManager.GetString("Form_Submit_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Form Submit Successful!.
+        /// </summary>
+        public static string Form_Submit_Success {
+            get {
+                return ResourceManager.GetString("Form_Submit_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export to CSV.
+        /// </summary>
+        public static string Grid_CsvExport {
+            get {
+                return ResourceManager.GetString("Grid_CsvExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export to Excel.
+        /// </summary>
+        public static string Grid_ExcelExport {
+            get {
+                return ResourceManager.GetString("Grid_ExcelExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+>>>>>>> 3e71128 (chore(blazing-coffee): update app styling)
         ///   Looks up a localized string similar to Group.
         /// </summary>
         public static string Group {
@@ -367,11 +450,110 @@ namespace BlazingCoffee.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Short Biography.
+        /// </summary>
+        public static string Profile_Bio {
+            get {
+                return ResourceManager.GetString("Profile_Bio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Profile_Cancel {
+            get {
+                return ResourceManager.GetString("Profile_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Country.
+        /// </summary>
+        public static string Profile_Country {
+            get {
+                return ResourceManager.GetString("Profile_Country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email Address.
+        /// </summary>
+        public static string Profile_Email {
+            get {
+                return ResourceManager.GetString("Profile_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First Name.
+        /// </summary>
+        public static string Profile_FirstName {
+            get {
+                return ResourceManager.GetString("Profile_FirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account Deactivated.
+        /// </summary>
+        public static string Profile_IsDeleted {
+            get {
+                return ResourceManager.GetString("Profile_IsDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Name.
+        /// </summary>
+        public static string Profile_LastName {
+            get {
+                return ResourceManager.GetString("Profile_LastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone .
+        /// </summary>
+        public static string Profile_Phone {
+            get {
+                return ResourceManager.GetString("Profile_Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Changes.
+        /// </summary>
+        public static string Profile_SaveChanges {
+            get {
+                return ResourceManager.GetString("Profile_SaveChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Team.
+        /// </summary>
+        public static string Profile_Team {
+            get {
+                return ResourceManager.GetString("Profile_Team", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reporting.
         /// </summary>
         public static string Reporting {
             get {
                 return ResourceManager.GetString("Reporting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revenue for.
+        /// </summary>
+        public static string Revenue_For {
+            get {
+                return ResourceManager.GetString("Revenue_For", resourceCulture);
             }
         }
         

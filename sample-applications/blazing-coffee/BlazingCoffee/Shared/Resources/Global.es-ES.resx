@@ -264,4 +264,94 @@
   <data name="ManageProducts_Update_Success" xml:space="preserve">
     <value>El producto {0} ha sido actualizado</value>
   </data>
+  <data name="ButtonGroup_AllTeams" xml:space="preserve">
+    <value>Mis Equipos</value>
+  </data>
+  <data name="ButtonGroup_MyTeam" xml:space="preserve">
+    <value>Mi Equipo</value>
+  </data>
+  <data name="ButtonGroup_Trend" xml:space="preserve">
+    <value>Tendencia</value>
+  </data>
+  <data name="ButtonGroup_Volume" xml:space="preserve">
+    <value>Volumen</value>
+  </data>
+  <data name="Drawer_Dashboard" xml:space="preserve">
+    <value>Tablero</value>
+  </data>
+  <data name="Drawer_Info" xml:space="preserve">
+    <value>Información</value>
+  </data>
+  <data name="Drawer_Profile" xml:space="preserve">
+    <value>Perfil</value>
+  </data>
+  <data name="Drawer_Team" xml:space="preserve">
+    <value>Equipo</value>
+  </data>
+  <data name="Employee_Grid_Title_Contacts" xml:space="preserve">
+    <value>Contactos</value>
+  </data>
+  <data name="Employee_Grid_Title_Country" xml:space="preserve">
+    <value>País</value>
+  </data>
+  <data name="Employee_Grid_Title_Engagement" xml:space="preserve">
+    <value>Compromiso</value>
+  </data>
+  <data name="Employee_Grid_Title_JobTitle" xml:space="preserve">
+    <value>Título Profesional</value>
+  </data>
+  <data name="Employee_Grid_Title_Performance" xml:space="preserve">
+    <value>Rendimiento</value>
+  </data>
+  <data name="Employee_Grid_Title_Personal_Information" xml:space="preserve">
+    <value>Empleado</value>
+  </data>
+  <data name="Employee_Grid_Title_Status" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="Grid_CsvExport" xml:space="preserve">
+    <value>Exportar a CSV</value>
+  </data>
+  <data name="Grid_ExcelExport" xml:space="preserve">
+    <value>Exportar a Excel</value>
+  </data>
+  <data name="Profile_Bio" xml:space="preserve">
+    <value>Biografia corta</value>
+  </data>
+  <data name="Profile_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Profile_Country" xml:space="preserve">
+    <value>País</value>
+  </data>
+  <data name="Profile_Email" xml:space="preserve">
+    <value>Dirección de correo electrónico</value>
+  </data>
+  <data name="Profile_FirstName" xml:space="preserve">
+    <value>Primer nombre</value>
+  </data>
+  <data name="Profile_IsDeleted" xml:space="preserve">
+    <value>Cuenta desactivada</value>
+  </data>
+  <data name="Profile_LastName" xml:space="preserve">
+    <value>Apellido</value>
+  </data>
+  <data name="Profile_Phone" xml:space="preserve">
+    <value>Teléfono</value>
+  </data>
+  <data name="Profile_SaveChanges" xml:space="preserve">
+    <value>Guardar cambios</value>
+  </data>
+  <data name="Profile_Team" xml:space="preserve">
+    <value>Equipo</value>
+  </data>
+  <data name="Blazing_Coffee_Title" xml:space="preserve">
+    <value>Blazing Almacén de Café</value>
+  </data>
+  <data name="Form_Submit_Success" xml:space="preserve">
+    <value>¡Envío de formulario exitoso!</value>
+  </data>
+  <data name="Revenue_For" xml:space="preserve">
+    <value>Ingresos por</value>
+  </data>
 </root>

@@ -173,7 +173,7 @@
     <value>Werknemers</value>
   </data>
   <data name="Employee_Grid_Title_FullName" xml:space="preserve">
-    <value>Naa&amp;m</value>
+    <value>Naam</value>
   </data>
   <data name="Employee_Grid_Title_Address" xml:space="preserve">
     <value>Adres</value>
@@ -243,5 +243,95 @@
   </data>
   <data name="ManageProducts_Update_Success" xml:space="preserve">
     <value>Het product {0} is bijgewerkt.!</value>
+  </data>
+  <data name="ButtonGroup_AllTeams" xml:space="preserve">
+    <value>Mijn Teams</value>
+  </data>
+  <data name="ButtonGroup_MyTeam" xml:space="preserve">
+    <value>Mijn Team</value>
+  </data>
+  <data name="ButtonGroup_Trend" xml:space="preserve">
+    <value>Trend</value>
+  </data>
+  <data name="ButtonGroup_Volume" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="Drawer_Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="Drawer_Info" xml:space="preserve">
+    <value>Informatie</value>
+  </data>
+  <data name="Drawer_Profile" xml:space="preserve">
+    <value>Profiel</value>
+  </data>
+  <data name="Drawer_Team" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="Employee_Grid_Title_Contacts" xml:space="preserve">
+    <value>Contacten</value>
+  </data>
+  <data name="Employee_Grid_Title_Country" xml:space="preserve">
+    <value>Land</value>
+  </data>
+  <data name="Employee_Grid_Title_Engagement" xml:space="preserve">
+    <value>Inzet</value>
+  </data>
+  <data name="Employee_Grid_Title_JobTitle" xml:space="preserve">
+    <value>Functietitel</value>
+  </data>
+  <data name="Employee_Grid_Title_Performance" xml:space="preserve">
+    <value>Prestatie</value>
+  </data>
+  <data name="Employee_Grid_Title_Personal_Information" xml:space="preserve">
+    <value>Medewerker</value>
+  </data>
+  <data name="Employee_Grid_Title_Status" xml:space="preserve">
+    <value>Voorwaarde</value>
+  </data>
+  <data name="Grid_CsvExport" xml:space="preserve">
+    <value>Exporteren naar CSV</value>
+  </data>
+  <data name="Grid_ExcelExport" xml:space="preserve">
+    <value>Exporteren naar Excel</value>
+  </data>
+  <data name="Profile_Bio" xml:space="preserve">
+    <value>Korte biografie</value>
+  </data>
+  <data name="Profile_Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="Profile_Country" xml:space="preserve">
+    <value>Land</value>
+  </data>
+  <data name="Profile_Email" xml:space="preserve">
+    <value>E-mailadres</value>
+  </data>
+  <data name="Profile_FirstName" xml:space="preserve">
+    <value>Voornaam</value>
+  </data>
+  <data name="Profile_IsDeleted" xml:space="preserve">
+    <value>Account gedeactiveerd</value>
+  </data>
+  <data name="Profile_LastName" xml:space="preserve">
+    <value>Achternaam</value>
+  </data>
+  <data name="Profile_Phone" xml:space="preserve">
+    <value>Telefoon</value>
+  </data>
+  <data name="Profile_SaveChanges" xml:space="preserve">
+    <value>Wijzigingen opslaan</value>
+  </data>
+  <data name="Profile_Team" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="Blazing_Coffee_Title" xml:space="preserve">
+    <value>Blazing Koffie Magazijn</value>
+  </data>
+  <data name="Form_Submit_Success" xml:space="preserve">
+    <value>Formulier verzenden gelukt!</value>
+  </data>
+  <data name="Revenue_For" xml:space="preserve">
+    <value>Inkomsten voor</value>
   </data>
 </root>

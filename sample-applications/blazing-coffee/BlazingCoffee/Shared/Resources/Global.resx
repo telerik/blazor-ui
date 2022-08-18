@@ -190,7 +190,7 @@
     <value>More Info</value>
   </data>
   <data name="Employees" xml:space="preserve">
-    <value>Employees</value>
+    <value>Team Members</value>
   </data>
   <data name="Employee_Grid_Title_FullName" xml:space="preserve">
     <value>Name</value>
@@ -232,7 +232,7 @@
     <value>Report Range:</value>
   </data>
   <data name="Reporting" xml:space="preserve">
-    <value>Reporting</value>
+    <value>Team Efficiency</value>
   </data>
   <data name="ChartTitle_SalesAndRevenueTotal" xml:space="preserve">
     <value>Sales and Revenue Total</value>
@@ -263,5 +263,92 @@
   </data>
   <data name="ManageProducts_Update_Success" xml:space="preserve">
     <value>The product {0} was updated.</value>
+  </data>
+  <data name="Employee_Grid_Title_Contacts" xml:space="preserve">
+    <value>Contacts</value>
+  </data>
+  <data name="Employee_Grid_Title_Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="Employee_Grid_Title_Engagement" xml:space="preserve">
+    <value>Engagement</value>
+  </data>
+  <data name="Employee_Grid_Title_JobTitle" xml:space="preserve">
+    <value>Job Title</value>
+  </data>
+  <data name="Employee_Grid_Title_Performance" xml:space="preserve">
+    <value>Performance</value>
+  </data>
+  <data name="Employee_Grid_Title_Personal_Information" xml:space="preserve">
+    <value>Employee</value>
+  </data>
+  <data name="ButtonGroup_AllTeams" xml:space="preserve">
+    <value>All Teams</value>
+  </data>
+  <data name="ButtonGroup_MyTeam" xml:space="preserve">
+    <value>My Team</value>
+  </data>
+  <data name="ButtonGroup_Trend" xml:space="preserve">
+    <value>Trend</value>
+  </data>
+  <data name="ButtonGroup_Volume" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="Drawer_Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="Drawer_Info" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="Drawer_Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="Drawer_Team" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="Grid_CsvExport" xml:space="preserve">
+    <value>Export to CSV</value>
+  </data>
+  <data name="Grid_ExcelExport" xml:space="preserve">
+    <value>Export to Excel</value>
+  </data>
+  <data name="Profile_Bio" xml:space="preserve">
+    <value>Short Biography</value>
+  </data>
+  <data name="Profile_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Profile_Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="Profile_Email" xml:space="preserve">
+    <value>Email Address</value>
+  </data>
+  <data name="Profile_FirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="Profile_IsDeleted" xml:space="preserve">
+    <value>Account Deactivated</value>
+  </data>
+  <data name="Profile_LastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="Profile_Phone" xml:space="preserve">
+    <value>Phone </value>
+  </data>
+  <data name="Profile_SaveChanges" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+  <data name="Profile_Team" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="Blazing_Coffee_Title" xml:space="preserve">
+    <value>Blazing Coffee Warehouse</value>
+  </data>
+  <data name="Form_Submit_Success" xml:space="preserve">
+    <value>Form Submit Successful!</value>
+  </data>
+  <data name="Revenue_For" xml:space="preserve">
+    <value>Revenue for</value>
   </data>
 </root>

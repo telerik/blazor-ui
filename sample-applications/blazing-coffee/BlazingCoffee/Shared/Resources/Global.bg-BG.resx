@@ -264,4 +264,94 @@
   <data name="ManageProducts_Update_Success" xml:space="preserve">
     <value>Продуктът {0} беше актуализиран.!</value>
   </data>
+  <data name="Employee_Grid_Title_Contacts" xml:space="preserve">
+    <value>Контакти</value>
+  </data>
+  <data name="Employee_Grid_Title_Country" xml:space="preserve">
+    <value>Страна</value>
+  </data>
+  <data name="Employee_Grid_Title_Engagement" xml:space="preserve">
+    <value>Производителност</value>
+  </data>
+  <data name="Employee_Grid_Title_JobTitle" xml:space="preserve">
+    <value>Позиция</value>
+  </data>
+  <data name="Employee_Grid_Title_Performance" xml:space="preserve">
+    <value>Представяне</value>
+  </data>
+  <data name="Employee_Grid_Title_Personal_Information" xml:space="preserve">
+    <value>Служител</value>
+  </data>
+  <data name="ButtonGroup_AllTeams" xml:space="preserve">
+    <value>Всички екипи</value>
+  </data>
+  <data name="ButtonGroup_MyTeam" xml:space="preserve">
+    <value>Моят екип</value>
+  </data>
+  <data name="ButtonGroup_Trend" xml:space="preserve">
+    <value>Тенденция</value>
+  </data>
+  <data name="ButtonGroup_Volume" xml:space="preserve">
+    <value>Обем</value>
+  </data>
+  <data name="Employee_Grid_Title_Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="Drawer_Dashboard" xml:space="preserve">
+    <value>Табло</value>
+  </data>
+  <data name="Drawer_Info" xml:space="preserve">
+    <value>Информация</value>
+  </data>
+  <data name="Drawer_Profile" xml:space="preserve">
+    <value>Профил</value>
+  </data>
+  <data name="Drawer_Team" xml:space="preserve">
+    <value>Екип</value>
+  </data>
+  <data name="Grid_CsvExport" xml:space="preserve">
+    <value>Свали като CSV</value>
+  </data>
+  <data name="Grid_ExcelExport" xml:space="preserve">
+    <value>Свали като Excel</value>
+  </data>
+  <data name="Profile_Bio" xml:space="preserve">
+    <value>Кратка Биография</value>
+  </data>
+  <data name="Profile_Cancel" xml:space="preserve">
+    <value>Отмени</value>
+  </data>
+  <data name="Profile_Country" xml:space="preserve">
+    <value>Държава</value>
+  </data>
+  <data name="Profile_Email" xml:space="preserve">
+    <value>Е-мейл Адрес</value>
+  </data>
+  <data name="Profile_FirstName" xml:space="preserve">
+    <value>Име</value>
+  </data>
+  <data name="Profile_IsDeleted" xml:space="preserve">
+    <value>Деактивиран Акаунт</value>
+  </data>
+  <data name="Profile_LastName" xml:space="preserve">
+    <value>Фамилия</value>
+  </data>
+  <data name="Profile_Phone" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="Profile_SaveChanges" xml:space="preserve">
+    <value>Запази Промените</value>
+  </data>
+  <data name="Profile_Team" xml:space="preserve">
+    <value>Екип</value>
+  </data>
+  <data name="Blazing_Coffee_Title" xml:space="preserve">
+    <value>Blazing Склада за Кафе</value>
+  </data>
+  <data name="Form_Submit_Success" xml:space="preserve">
+    <value>Успешно изпратена форма!</value>
+  </data>
+  <data name="Revenue_For" xml:space="preserve">
+    <value>Оборот за</value>
+  </data>
 </root>

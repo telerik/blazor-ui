@@ -1,0 +1,147 @@
+@page "/profile"
+@using BlazingCoffee.Client.Shared
+@using Telerik.Blazor.Components.Editor
+@using static Telerik.Blazor.ThemeConstants.Notification
+@inject ITelerikStringLocalizer Localizer
+
+<TelerikNotification @ref="@NotificationReference" AnimationType="@AnimationType.ZoomIn" Class="profile-notification"></TelerikNotification>
+
+<CardContainer Title="">
+    <TelerikForm EditContext="@EditContext"
+                 OnValidSubmit="@HandleValidSubmit"
+                 Class="profile-form"
+                 Orientation="FormOrientation.Horizontal">
+        <FormValidation>
+            <DataAnnotationsValidator></DataAnnotationsValidator>
+        </FormValidation>
+        <FormItems>
+            <FormItem>
+                <Template>
+                    <label class="k-form-label">
+                        <Avatar></Avatar>
+                    </label>
+                </Template>
+            </FormItem>
+            <FormItem LabelText="@Localizer["Profile_FirstName"]" Field="@nameof(User.FirstName)"></FormItem>
+            <FormItem LabelText="@Localizer["Profile_LastName"]" Field="@nameof(User.LastName)"></FormItem>
+            <FormItem Field="@nameof(User.Email)">
+                <Template>
+                    <label for="mail" class="k-label k-form-label">@Localizer["Profile_Email"]</label>
+                    <div class="k-form-field-wrap">
+                        <TelerikTextBox Id="mail" @bind-Value="@TestUser.Email" InputMode="email" PlaceHolder="example@domain.com"></TelerikTextBox>
+                        <TelerikValidationMessage For="@(() => TestUser.Email)"></TelerikValidationMessage>
+                    </div>
+                </Template>
+            </FormItem>
+            <FormItem Field="@nameof(User.PhoneNumber)">
+                <Template>
+                    <label for="phone" class="k-label k-form-label">@Localizer["Profile_Phone"]</label>
+                    <div class="k-form-field-wrap">
+                        <TelerikMaskedTextBox @bind-Value="@TestUser.PhoneNumber" Mask="(+9) 9999-999-99-99"></TelerikMaskedTextBox>
+                        <TelerikValidationMessage For="@(() => TestUser.PhoneNumber)"></TelerikValidationMessage>
+                    </div>
+                </Template>
+            </FormItem>
+            <FormItem LabelText="@Localizer["Profile_Country"]" Field="@nameof(User.Country)"></FormItem>
+            <FormItem Field="@nameof(User.Biography)">
+                <Template>
+                    <label for="mail" class="k-label k-form-label">@Localizer["Profile_Bio"]</label>
+                    <div class="k-form-field-wrap">
+                        <TelerikEditor @bind-Value="@TestUser.Biography" Tools="@Tools" Height="200px"></TelerikEditor>
+                        <TelerikValidationMessage For="@(() => TestUser.Biography)"></TelerikValidationMessage>
+                    </div>
+                </Template>
+            </FormItem>
+            <FormItem LabelText="@Localizer["Profile_IsDeleted"]" Field="@nameof(User.IsDeleted)" EditorType="FormEditorType.Switch"></FormItem>
+            <FormItem Field="@nameof(User.TeamId)">
+                <Template>
+                    <label for="mail" class="k-label k-form-label">@Localizer["Profile_Team"]</label>
+                    <div class="k-form-field-wrap">
+                        <TelerikRadioGroup Data="@Teams"
+                                           Layout="RadioGroupLayout.Horizontal"
+                                           @bind-Value="@TestUser.TeamId"></TelerikRadioGroup>
+                        <TelerikValidationMessage For="@(() => TestUser.TeamId)"></TelerikValidationMessage>
+                    </div>
+                </Template>
+            </FormItem>
+            <FormItem>
+                <Template>
+                    <hr />
+                </Template>
+            </FormItem>
+        </FormItems>
+        <FormButtons>
+            <TelerikButton ButtonType="ButtonType.Button" OnClick="ClearContext">@Localizer["Profile_Cancel"]</TelerikButton>
+            <TelerikButton ButtonType="ButtonType.Submit" ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)">@Localizer["Profile_SaveChanges"]</TelerikButton>
+        </FormButtons>
+    </TelerikForm>
+</CardContainer>
+
+@code {
+    public static User TestUser { get; set; } = GetDefaultUser();
+    EditContext EditContext { get; set; }
+    public List<IEditorTool> Tools { get; set; } = GetEditorToolsList();
+    public List<TeamRadioModel> Teams { get; set; } = GetTeamOptions();
+    public TelerikNotification NotificationReference { get; set; }
+
+    public class TeamRadioModel
+    {
+        public string Text { get; set; }
+        public int Value { get; set; }
+    }
+
+    private void ClearContext()
+    {
+        TestUser = GetDefaultUser();
+        EditContext = new EditContext(TestUser);
+    }
+
+    private void HandleValidSubmit()
+    {
+        NotificationReference.Show(new NotificationModel()
+        {
+            Text = Localizer["Form_Submit_Success"],
+            ThemeColor = ThemeColor.Success
+        });
+    }
+
+    private static User GetDefaultUser()
+    {
+        return new User
+            {
+                FirstName = "Peter",
+                LastName = "Douglas",
+                Email = "peter.douglas@progress.com",
+                PhoneNumber = "(+1) 8373-837-93-02",
+                Country = "Bulgaria",
+                TeamId = 2,
+                IsDeleted = false
+            };
+    }
+
+    private static List<IEditorTool> GetEditorToolsList()
+    {
+        return new List<IEditorTool>()
+        {
+            new EditorButtonGroup(new Bold(), new Italic(), new Underline()),
+            new EditorButtonGroup(new AlignLeft(), new AlignCenter(), new AlignRight()),
+            new EditorButtonGroup(new UnorderedList(), new OrderedList(), new Indent(), new Outdent())
+        };
+    }
+
+    private static List<TeamRadioModel> GetTeamOptions()
+    {
+        return new List<TeamRadioModel>()
+        {
+            new TeamRadioModel() { Value = 1, Text="Tiger Team"},
+            new TeamRadioModel() { Value = 2, Text="Lemon Team"},
+            new TeamRadioModel() { Value = 3, Text="Organic Team"},
+            new TeamRadioModel() { Value = 4, Text="Ocean Team"},
+        };
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        EditContext = new EditContext(TestUser);
+    }
+}

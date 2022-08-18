@@ -7,8 +7,8 @@
 @import "./drawer";
 @import "./card-container";
 @import "./common";
-@import "./docs";
-
+/*@import "./docs";*/
+/*
 // TODO: Refactor to partial
 .k-tilelayout {
     background-color: transparent;
@@ -55,19 +55,14 @@ a.k-link.k-state-selected {
     border-top-right-radius: 3px;
 }
 
-.full-screen > h1 {
-    padding: 1em;
-    background-color: $base-bg;
-}
-
 .rating-readonly {
     pointer-events: none;
 }
 
-.tile-layout-style {
+/*.tile-layout-style {
     max-width: 800px;
-}
-
+}*/
+/*
 .crud-notification {
     padding: 1.5rem;
     z-index: 10002;
@@ -101,13 +96,333 @@ a.k-link.k-state-selected {
     padding-top: calc( 8px + 4px);
     padding-bottom: calc( 8px + 4px);
 }
+*/
+.employee-photo {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;               
+    background-size: 32px 35px;
+    background-position: center center;
+    vertical-align: middle;
+    line-height: 32px;
+    box-shadow: inset 0 0 1px #999, inset 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-left: 5px;
+}
 
-.k-checkbox {
-    background-color: $checkbox-bg
+.employee-name {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 32px;
+    padding-left: 10px;
 }
 
 html, body, app {
     height: 100%;
     margin: 0;
     padding: 0;
+}
+<<<<<<< HEAD
+=======
+
+.k-grid-content .k-rating-container .k-rating-item {
+    padding: 0;
+}
+
+.k-grid-content .k-rating-container .k-rating-item .k-icon {
+    font-size: 16px;
+}
+
+.k-grid-content .k-rating-container {
+    margin: 0;
+}
+
+.k-grid-content .k-progressbar-horizontal {
+    width: 100%;
+}
+
+.card-header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.card-header-wrapper .k-card-actions{
+    padding: 0;
+}
+
+.card-header-wrapper .k-button-group .k-button,
+div.k-form-buttons button{
+    min-width: 105px;
+    max-height: 30px;
+}
+
+.daterangepicker-no-labels .k-label {
+    display: none;
+}
+
+.daterangepicker-no-labels .k-floating-label-container {
+    padding: 0;
+}
+
+.card-ranges {
+    display: flex;
+    align-items: center;
+
+    & .k-icon {
+        margin-right: 5px;
+    }
+}
+
+.settings-container {
+    display: flex;
+    align-items: center;
+
+    & .k-dropdownlist {
+        max-height: 30px;
+        margin-left: 5px;
+    }
+}
+
+.profile-form {
+    max-width: 700px;
+    margin: auto;
+
+    & .k-avatar-image img {
+        width: 80px;
+        height: 80px;
+    }
+
+    & > div.k-form-field {
+        margin-top: 1.5rem;
+    }
+
+    & .k-form-buttons {
+        justify-content: center;
+    }
+
+    & hr {
+        margin-top: 2rem;
+        opacity: .2;
+        width: 100%;
+    }
+}
+
+.main-content {
+    color: $base-bg;
+
+    & img {
+        object-fit: contain;
+        width: 100%;
+    }
+}
+
+.info-component {
+    background-color: #151950;
+
+    & a {
+        color: $link-color;
+    }
+}
+
+.image-container {
+    width: 40%;
+    min-width: 350px;
+}
+
+.content-container {
+    width: 60%;
+}
+
+.banner {
+    display: flex;
+    max-width: 1200px;
+    margin: auto;
+
+    & h1 {
+        font-size: 70px;
+        font-weight: 300;
+        letter-spacing: 0;
+        line-height: 1em;
+    }
+
+    & h5 {
+        font-size: 24px;
+        line-height: 1.2em;
+    }
+
+    & p {
+        font-size: 28px;
+    }
+
+    & .content-container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+.source-code {
+    height: 60px;
+    width: 60%;
+    color: #528dee;
+    display: inline-flex;
+    align-items: flex-start;
+
+    & a {
+        color: #528dee;
+        font-size: 20px;
+        display: inline-flex;
+
+        & img {
+            width: 30px;
+            margin-right: 10px;
+        }
+    }
+}
+
+.section-3 {
+    column-count: 2;
+    margin-top: 40px;
+    padding: 0 15px;
+    text-align: left;
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+}
+
+.package-item {
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.package-title a {
+    font-size: 17px;
+    color: #cccccc;
+    text-transform: uppercase;
+}
+
+.component-link {
+    padding: 5px 0;
+
+    a {
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 992px) {
+    .info-component .section-3{
+        column-count: 3;
+    }
+}
+
+@media (max-width: 800px) {
+    .image-container {
+        display: none;
+    }
+
+    .banner {
+        & h1 {
+            font-size: 34px;
+        }
+
+        & h5 {
+            font-size: 20px;
+        }
+
+        & p {
+            font-size: 22px;
+        }
+
+        & .source-code a img {
+            width: 25px;
+        }
+
+        & .source-code a{
+            font-size: 20px;
+        }
+    }
+}
+
+@media (max-width: 1270px){
+    .source-code,
+    .content-container {
+        width: 100%;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 1270px) {
+    .banner {
+        & h1 {
+            font-size: 50px;
+        }
+
+        & h5 {
+            font-size: 22px;
+        }
+
+        & p {
+            font-size: 24px;
+        }
+
+        & .source-code a img {
+            width: 28px;
+        }
+
+        & .source-code a {
+            font-size: 22px;
+        }
+    }
+}
+
+.component-list {
+    max-width: 1200px;
+    margin: auto;
+
+    & p {
+        font-size: 20px;
+        text-align: left;
+        padding: 0 15px;
+    }
+}
+
+.profile-notification .k-notification-container .k-notification-wrap {
+    width: 300px;
+    height: 50px;
+    font-size: 1.5em;
+    text-align: center;
+    align-items: center;
+
+    & .k-i-success{
+        font-size: 30px;
+    }
+}
+
+.k-grid-header .k-header.k-first {
+    border-left-width: 1px;
+}
+
+.k-popup.k-grid-columnmenu-popup{
+    overflow-y: hidden;
+}
+
+.k-grid-header thead tr:not(:first-child) th:first-child {
+    border-left-width: 1px;
+}
+
+.ddl-separator {
+    height: 14px;
+    margin: 0 4px;
+    border-left: 1px solid #424242;
+}
+
+.text-content {
+    font-size: 14px;
+    line-height: 20px;
+}
+
+span.k-dropdownlist .k-input-inner {
+    padding: 8px;
 }
