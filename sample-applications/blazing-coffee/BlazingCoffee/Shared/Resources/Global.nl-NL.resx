@@ -193,7 +193,7 @@
     <value>Werknemers</value>
   </data>
   <data name="Employee_Grid_Title_FullName" xml:space="preserve">
-    <value>Naa&amp;m</value>
+    <value>Naam</value>
   </data>
   <data name="Employee_Grid_Title_Address" xml:space="preserve">
     <value>Adres</value>
@@ -344,5 +344,14 @@
   </data>
   <data name="Profile_Team" xml:space="preserve">
     <value>Team</value>
+  </data>
+  <data name="Blazing_Coffee_Title" xml:space="preserve">
+    <value>Blazing Koffie Magazijn</value>
+  </data>
+  <data name="Form_Submit_Success" xml:space="preserve">
+    <value>Formulier verzenden gelukt!</value>
+  </data>
+  <data name="Revenue_For" xml:space="preserve">
+    <value>Inkomsten voor</value>
   </data>
 </root>

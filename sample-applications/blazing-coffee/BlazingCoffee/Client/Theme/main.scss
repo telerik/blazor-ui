@@ -6,8 +6,8 @@
 @import "./drawer";
 @import "./card-container";
 @import "./common";
-@import "./docs";
-
+/*@import "./docs";*/
+/*
 // TODO: Refactor to partial
 .k-tilelayout {
     background-color: transparent;
@@ -48,7 +48,7 @@ a.k-link.k-state-selected {
 .k-window-titlebar {
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
-}
+}*/
 
 .rating-readonly {
     pointer-events: none;
@@ -58,10 +58,10 @@ a.k-link.k-state-selected {
     color: #ffa600;
 }
 
-.tile-layout-style {
+/*.tile-layout-style {
     max-width: 800px;
-}
-
+}*/
+/*
 .crud-notification {
     padding: 1.5rem;
     z-index: 10002;
@@ -95,7 +95,7 @@ a.k-link.k-state-selected {
     padding-top: calc( 8px + 4px);
     padding-bottom: calc( 8px + 4px);
 }
-
+*/
 .employee-photo {
     display: inline-block;
     width: 32px;
@@ -263,8 +263,7 @@ div.k-form-buttons button{
     width: 60%;
     color: #528dee;
     display: inline-flex;
-    justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 
     & a {
         color: #528dee;
@@ -282,7 +281,7 @@ div.k-form-buttons button{
     column-count: 2;
     margin-top: 40px;
     padding: 0 15px;
-    text-align: center;
+    text-align: left;
 
     ul {
         list-style: none;
@@ -381,7 +380,8 @@ div.k-form-buttons button{
 
     & p {
         font-size: 20px;
-        text-align: center;
+        text-align: left;
+        padding: 0 15px;
     }
 }
 
@@ -395,4 +395,31 @@ div.k-form-buttons button{
     & .k-i-success{
         font-size: 30px;
     }
+}
+
+.k-grid-header .k-header.k-first {
+    border-left-width: 1px;
+}
+
+.k-popup.k-grid-columnmenu-popup{
+    overflow-y: hidden;
+}
+
+.k-grid-header thead tr:not(:first-child) th:first-child {
+    border-left-width: 1px;
+}
+
+.ddl-separator {
+    height: 14px;
+    margin: 0 4px;
+    border-left: 1px solid #424242;
+}
+
+.text-content {
+    font-size: 14px;
+    line-height: 20px;
+}
+
+span.k-dropdownlist .k-input-inner {
+    padding: 8px;
 }

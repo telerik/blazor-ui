@@ -6,16 +6,23 @@
 
 <TelerikDropDownList Data="@Cultures"
                      Value="@SelectedCulture"
-                     Width="110px"
+                     Width="80px"
                      ValueChanged="@((string value) => OnValueChanged(value))"
                      TextField="@nameof(CultureData.Text)"
                      ValueField="@nameof(CultureData.Value)">
+    <ValueTemplate>
+        <span class="k-icon">
+            <img src="./img/globe.svg"/>
+        </span>
+        <div class="ddl-separator"></div>
+        <span class="text-content">@((context as CultureData).Value.Split("-")[0].ToUpper())</span>
+    </ValueTemplate>
     <DropDownListSettings>
-        <DropDownListPopupSettings Height="" Width="150px"></DropDownListPopupSettings>
+        <DropDownListPopupSettings Height="" Width="90px"></DropDownListPopupSettings>
     </DropDownListSettings>
 </TelerikDropDownList>
 
-@code{
+@code {
     const string DefaultCultureShort = "en-US";
 
     public class CultureData
@@ -25,7 +32,7 @@
     }
 
     public List<CultureData> Cultures { get; set; } = new List<CultureData>()
-{
+    {
         new  CultureData() { Text = "English", Value = "en-US" },
         new  CultureData() { Text = "German", Value = "de-DE" },
         new  CultureData() { Text = "Spanish", Value = "es-ES" },
@@ -61,7 +68,7 @@
         {
             parsedValue = DefaultCultureShort;
         }
-        
+
         SelectedCulture = parsedValue;
     }
 
