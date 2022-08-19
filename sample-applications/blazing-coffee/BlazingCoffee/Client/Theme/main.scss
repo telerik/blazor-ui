@@ -6,49 +6,6 @@
 @import "./drawer";
 @import "./card-container";
 @import "./common";
-/*@import "./docs";*/
-/*
-// TODO: Refactor to partial
-.k-tilelayout {
-    background-color: transparent;
-} 
-
-.image-cell {
-    display: flex;
-    align-items: center;
-    &>img {
-        margin-right: 10px;
-    }
-}
-
-.card-menu {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: right;
-    margin: 30px;
-}
-
-.card-description {
-    min-height:4em;
-}
-
-.card-menu > .k-card {
-    width: 280px;
-    margin-right: 2em;
-}
-
-a.k-link.k-state-selected {
-    border-radius: 5px;
-}
-
-.k-window {
-    border-radius: 3px;
-}
-
-.k-window-titlebar {
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-}*/
 
 .rating-readonly {
     pointer-events: none;
@@ -58,44 +15,6 @@ a.k-link.k-state-selected {
     color: #ffa600;
 }
 
-/*.tile-layout-style {
-    max-width: 800px;
-}*/
-/*
-.crud-notification {
-    padding: 1.5rem;
-    z-index: 10002;
-
-    .k-notification {
-        font-size: 1.2rem;
-        padding: 2rem;
-    }
-
-    .k-icon {
-        font-size: auto;
-        height: auto;
-    }
-}
-
-.k-card-action > .k-button {
-    flex: 1 1 auto;
-}
-
-.k-card .k-card-actions-stretched {
-    border-top-width: 1px;
-}
-
-.k-card-actions-stretched {
-    padding: 0;
-    gap: 0;
-}
-
-.k-card-actions-stretched .k-button {
-    border-radius: 0;
-    padding-top: calc( 8px + 4px);
-    padding-bottom: calc( 8px + 4px);
-}
-*/
 .employee-photo {
     display: inline-block;
     width: 32px;
@@ -224,7 +143,7 @@ div.k-form-buttons button{
 
 .image-container {
     width: 40%;
-    min-width: 350px;
+    min-width: 330px;
 }
 
 .content-container {
@@ -237,19 +156,19 @@ div.k-form-buttons button{
     margin: auto;
 
     & h1 {
-        font-size: 70px;
+        font-size: 60px;
         font-weight: 300;
         letter-spacing: 0;
         line-height: 1em;
     }
 
     & h5 {
-        font-size: 24px;
+        font-size: 21px;
         line-height: 1.2em;
     }
 
     & p {
-        font-size: 28px;
+        font-size: 24px;
     }
 
     & .content-container {
@@ -322,23 +241,24 @@ div.k-form-buttons button{
 
     .banner {
         & h1 {
-            font-size: 34px;
+            font-size: 28px;
         }
 
         & h5 {
-            font-size: 20px;
+            font-size: 18px;
         }
 
         & p {
-            font-size: 22px;
+            font-size: 20px;
         }
 
         & .source-code a img {
             width: 25px;
         }
 
-        & .source-code a{
-            font-size: 20px;
+        & .source-code a {
+            font-size: 18px;
+            line-height: 30px;
         }
     }
 }
@@ -348,20 +268,29 @@ div.k-form-buttons button{
     .content-container {
         width: 100%;
     }
+
+    .card-header-wrapper .k-button-group .k-button,
+    div.k-form-buttons button {
+        min-width: 50px;
+    }
+
+    .card-ranges .k-daterangepicker .k-dateinput {
+        width: 8em;
+    }
 }
 
 @media (min-width: 800px) and (max-width: 1270px) {
     .banner {
         & h1 {
-            font-size: 50px;
+            font-size: 36px;
         }
 
         & h5 {
-            font-size: 22px;
+            font-size: 16px;
         }
 
         & p {
-            font-size: 24px;
+            font-size: 16px;
         }
 
         & .source-code a img {
@@ -369,7 +298,8 @@ div.k-form-buttons button{
         }
 
         & .source-code a {
-            font-size: 22px;
+            font-size: 16px;
+            line-height: 30px;
         }
     }
 }
@@ -379,7 +309,7 @@ div.k-form-buttons button{
     margin: auto;
 
     & p {
-        font-size: 20px;
+        font-size: 18px;
         text-align: left;
         padding: 0 15px;
     }
