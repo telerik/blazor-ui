@@ -15,6 +15,10 @@
     color: #ffa600;
 }
 
+html body{
+    overflow: hidden;
+}
+
 .employee-photo {
     display: inline-block;
     width: 32px;
@@ -135,6 +139,7 @@ div.k-form-buttons button{
 
 .info-component {
     background-color: #151950;
+    overflow: hidden;
 
     & a {
         color: $link-color;
@@ -315,15 +320,19 @@ div.k-form-buttons button{
     }
 }
 
-.profile-notification .k-notification-container .k-notification-wrap {
-    width: 300px;
-    height: 50px;
-    font-size: 1.5em;
-    text-align: center;
-    align-items: center;
+.profile-notification {
+    z-index: 1;
 
-    & .k-i-success{
-        font-size: 30px;
+    & .k-notification-container .k-notification-wrap {
+        width: 300px;
+        height: 50px;
+        font-size: 1.5em;
+        text-align: center;
+        align-items: center;
+
+        & .k-i-success {
+            font-size: 30px;
+        }
     }
 }
 
@@ -353,3 +362,4 @@ div.k-form-buttons button{
 span.k-dropdownlist .k-input-inner {
     padding: 8px;
 }
+
