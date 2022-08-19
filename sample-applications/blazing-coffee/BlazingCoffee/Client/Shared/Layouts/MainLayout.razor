@@ -27,7 +27,7 @@
     <TelerikDrawer @ref="MenuDrawer"
                    Expanded="@Expanded"
                    ExpandedChanged="((bool newValue) => ExpandedChangedHandler(newValue))"
-                   Width="280px" Data="Data" Mode="DrawerMode.Push" Position="DrawerPosition.Left" MiniMode="true">
+                   Width="190px" Data="Data" Mode="DrawerMode.Push" Position="DrawerPosition.Left" MiniMode="true">
         <Template>
             <DrawTemplate Data="context"></DrawTemplate>
         </Template>
@@ -86,7 +86,7 @@
         }
         else
         {
-            Expanded = true;
+            Expanded = false;
         }
 
         Layout.LayoutStateChange = async () =>
