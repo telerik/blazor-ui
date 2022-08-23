@@ -52,8 +52,8 @@
                     </div>
                 </Template>
             </FormItem>
-            <FormItem LabelText="@Localizer["Profile_IsDeleted"]" Field="@nameof(User.IsDeleted)" EditorType="FormEditorType.Switch"></FormItem>
-            <FormItem Field="@nameof(User.TeamId)">
+            <FormItem LabelText="@Localizer["Profile_IsDeleted"]" Class="label-centered" Field="@nameof(User.IsDeleted)" EditorType="FormEditorType.Switch"></FormItem>
+            <FormItem Field="@nameof(User.TeamId)" Class="label-centered">
                 <Template>
                     <label for="mail" class="k-label k-form-label">@Localizer["Profile_Team"]</label>
                     <div class="k-form-field-wrap">

@@ -36,7 +36,12 @@
                 <GridCommandButton Command="CsvExport" Icon="file-csv">@Localizer["Grid_CsvExport"]</GridCommandButton>
             </GridToolBar>
             <GridColumns>
-                <GridCheckboxColumn Width="45px" Resizable="false" ShowColumnMenu="false"></GridCheckboxColumn>
+                <GridCheckboxColumn Width="45px"
+                    OnCellRender="@((GridCellRenderEventArgs args) => args.Class = "chkb-centered" )"
+                    HeaderClass="chkb-centered"
+                    Resizable="false" 
+                    ShowColumnMenu="false">
+                </GridCheckboxColumn>
                 <GridColumn Title="@Localizer["Employee_Grid_Title_Personal_Information"]">
                     <Columns>
                         <GridColumn Field="@nameof(Employee.FullName)" Title="@Localizer["Employee_Grid_Title_FullName"]" Sortable="false" Width="220px" Filterable="false">

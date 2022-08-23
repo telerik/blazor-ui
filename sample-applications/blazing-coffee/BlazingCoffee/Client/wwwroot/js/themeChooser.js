@@ -22,6 +22,7 @@
     },
     changeTheme: function (theme) {
         // Build the new css link
+        let oldLink = document.getElementById("theme");
         let cdnParts = ["https://blazor.cdn.telerik.com/blazor/", this.themeVersion, "/kendo-theme-"];
 
         if (theme.isSwatch) {
@@ -29,16 +30,38 @@
         } else {
             cdnParts.push(`${theme.themeValue || this.defaultTheme}/all.css`);
         }
-
+        
+        let head = document.getElementsByTagName("head")[0];
         let newLink = document.createElement("link");
         newLink.setAttribute("id", "theme");
         newLink.setAttribute("rel", "stylesheet");
         newLink.setAttribute("type", "text/css");
         newLink.setAttribute("href", cdnParts.join(""));
 
-        // Remove and replace the theme         
-        let head = document.getElementsByTagName("head")[0];
-        head.querySelector("#theme").remove();
+        // Wait for new styles to load and only then remove the only ones
+        newLink.onload = () => {
+            head.querySelector("#theme").remove();
+
+            // Components such as the chart and the scheduler need
+            // to be re-rendered in order to show the new theme colors
+            var componentElements = document.querySelectorAll([
+                ".k-chart",
+                ".k-scheduler-layout",
+                ".k-gauge"
+            ].join(","));
+
+            var instances = TelerikBlazor._instances;
+
+            for (var i = 0; i < componentElements.length; i++) {
+                var id = componentElements[i].getAttribute("data-id");
+                var instance = instances[id];
+
+                if (instance && instance.refresh) {
+                    instance.refresh();
+                }
+            }
+        };
+
         head.appendChild(newLink);
     },
     init: function () {
