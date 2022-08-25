@@ -1,16 +1,11 @@
 ﻿.k-drawer-container {
     background-color: $background-color;
-    height: calc(100% - 80px);
+    height: auto;
 
     .k-drawer {
         box-shadow: 0 0 10px rgba(0,0,0,.2);
         border-right-width: 0 !important;
     }
-}
-
-.k-drawer-content {
-    overflow: auto;
-    height: 100%;
 }
 
 .k-drawer-items {

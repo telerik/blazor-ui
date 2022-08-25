@@ -15,22 +15,13 @@
     color: #ffa600;
 }
 
-/* 
-    We aim to contain the app in a drawer and make the main content 
-    scrollable. The column menu of the grid is shown on the body of the application
-    and there might be occassions in which it spreads outside of the main content,
-    we should make the body scrollable but since we already have a scroll for the main
-    content, two scrollbars next to each other do not lead to good UX.
-*/
-html, body {
-    overflow-y: scroll;
-    scrollbar-width: none; /* hide scrollbar in Firefox */
+html body {
+    overflow: auto;
 }
 
-html body::-webkit-scrollbar {
-    display: none; /* hide scrollbar in Chrome, Safari, Edge */
+.k-drawer-content {
+    overflow:hidden;
 }
-/* end CSS for hiding scrollbar */
 
 .employee-photo {
     display: inline-block;
@@ -353,10 +344,6 @@ div.k-form-buttons button{
     border-left-width: 1px;
 }
 
-.k-popup.k-grid-columnmenu-popup{
-    overflow-y: hidden;
-}
-
 .k-grid-header thead tr:not(:first-child) th[data-field] {
     border-left-width: 1px;
 }
@@ -386,6 +373,11 @@ span.k-dropdownlist .k-input-inner {
     padding-top: 0;
 }
 
-.k-drawer-container k-drawer-left{
+/*.k-drawer-container k-drawer-left{
     height: 100%;
+}*/
+
+.k-popup.k-grid-columnmenu-popup {
+    width: auto;
+    min-width: 250px;
 }
