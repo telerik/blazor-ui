@@ -16,7 +16,8 @@
 }
 
 html body {
-    overflow: auto;
+    overflow-y: scroll;
+    overflow-x: auto;
 }
 
 .k-drawer-content {
@@ -373,11 +374,10 @@ span.k-dropdownlist .k-input-inner {
     padding-top: 0;
 }
 
-/*.k-drawer-container k-drawer-left{
-    height: 100%;
-}*/
+.k-drawer-container.k-drawer-left {
+    min-height: calc(100% - 80px);
+}
 
 .k-popup.k-grid-columnmenu-popup {
-    width: auto;
-    min-width: 250px;
+    width: 260px;
 }
