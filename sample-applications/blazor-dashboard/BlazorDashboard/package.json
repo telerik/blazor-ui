@@ -1,21 +1,14 @@
 {
-  "name": "blazordashboard",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "blazor-dashboard",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "build": "npx gulp sass"
+    "build": "gulp sass"
   },
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@progress/kendo-theme-bootstrap": "^5.0.0",
-    "@progress/kendo-theme-tasks": "^1.15.1",
+    "@progress/kendo-theme-tasks": "^1.16.0",
     "bootstrap": "^5.0.2",
-    "gulp": "^4.0.0",
-    "sass": "^1.49.8",
-    "autoprefixer": "^10.4.2",
-    "postcss": "^8.4.12",
-    "postcss-calc": "^8.2.4"
+    "gulp": "^4.0.0"
   }
 }

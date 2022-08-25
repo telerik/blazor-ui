@@ -1,19 +1,19 @@
 ﻿// typography
 $roboto: 'Roboto', Helvetica, Arial, sans-serif;
-$ubunto: 'Ubuntu', sans-serif;
+$ubuntu: 'Ubuntu', sans-serif;
 
 $font-weight-200: 200;
 
 // colors
-$white: #fff;
-$black: #000;
+$white: #ffffff;
+$black: #000000;
 $white-50: rgba(255, 255, 255, .5);
-$text-base: #373A3C;
-$border-base: #ddd;
-$active-state-base: #1C7CD5;
+$text-base: #373a3c;
+$border-base: #dddddd;
+$active-state-base: #1c7cd5;
 $hover-bg: #e6e6e6;
-$negative-value: #D9534F;
-$positive-value: #5CB85C;
+$negative-value: #d9534f;
+$positive-value: #5cb85c;
 $body-base-bg: rgba(236, 238, 239, 0.5);
 
 // margins
@@ -39,7 +39,7 @@ $progress-logo-width: 100px;
 
 // dropdownlist
 $dropdownlist-font-size: $font-size-default;
-$dropdownlist-item-selected-bg: #E9ECEF;
+$dropdownlist-item-selected-bg: #e9ecef;
 $dropdownlist-item-selected-text: $active-state-base;
 
 $dropownlist-add-new-padding: 8px;
@@ -51,7 +51,7 @@ $splitter-bar-boxshadow: 5px 5px 5px rgba(#000, 0.2);
 
 // grid
 $grid-header-subtitle: 13px;
-$grid-row-selection-bg: #007BFF;
+$grid-row-selection-bg: #007bff;
 $grid-cell-positive-color: $positive-value;
 $grid-cell-negative-color: $negative-value;
 $grid-sorting-icon-margin: $margin-sm;
@@ -85,8 +85,8 @@ $profile-icon-size: 38px;
 $profile-user-wrapper: 210px;
 
 // charts
-$chart-navigation-drag-handle-bg: #ECEEEF;
-$chart-navigation-drag-handle-border: #818A91;
+$chart-navigation-drag-handle-bg: #eceeef;
+$chart-navigation-drag-handle-border: #818a91;
 
 // dateinputs
 $dateinput-width: 140px;
@@ -130,7 +130,7 @@ $dateinput-width: 140px;
     }
 
     40% {
-        -webkit-transform: scale(1.0)
+        -webkit-transform: scale(1)
     }
 }
 /* End Blazor app loading sign */
@@ -165,7 +165,7 @@ $dateinput-width: 140px;
 
     h1 {
         padding-top: $header-title-padding;
-        font-family: $ubunto;
+        font-family: $ubuntu;
         font-weight: $font-weight-200;
         color: $white;
     }
@@ -410,7 +410,7 @@ kendo-dateinput {
     background: url('../images/footer-bg.svg');
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: blue;
+    background-color: #0000ff;
     z-index: 999;
     font-size: $footer-font-size;
     color: $white;
@@ -439,14 +439,14 @@ kendo-dateinput {
     font-family: $roboto;
     font-size: 14px;
     font-weight: lighter;
-    color: #FFFFFF;
-    background-color: #818A91;
+    color: #ffffff;
+    background-color: #818a91;
     z-index: 11000;
 }
 
 /* Profile */
 h1 {
-    font-family: $ubunto;
+    font-family: $ubuntu;
 }
 
 td {
