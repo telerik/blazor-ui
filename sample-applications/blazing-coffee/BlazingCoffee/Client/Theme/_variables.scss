@@ -30,8 +30,7 @@ $primary-contrast: #fff;
 $base-bg: #fff;
 
 $isDarkTheme: false !default;
-@if ($isDarkTheme)
-{
+@if ($isDarkTheme) {
     $text-color: #ffffff;
     $body-bg: #2f3640;
     $body-text: #ffffff;
@@ -53,4 +52,3 @@ $ocean-team: $primary;
 $pager-number-selected-opacity: 1;
 $pager-number-selected-bg: rgba($primary, $pager-number-selected-opacity);
 $pager-number-selected-text: $body-bg;
-

@@ -1,21 +1,18 @@
-const { kendoSassBuild } = require('@progress/kendo-theme-tasks/src/build/kendo-build');
-const sass = require('sass');
+const { kendoSassBuild } = require('@progress/kendo-theme-tasks');
 
 function buildStyles(done) {
     kendoSassBuild({
         file: './Styles/styles.scss',
         output: {
-            path: './wwwroot/css'
+            path: './wwwroot/css',
+            filename: '[name].css'
         },
         sassOptions: {
-            implementation: sass,
-            outputStyle: 'compressed',
-            quietDeps: true
+            minify: true
         }
     });
 
     done();
-
 }
 
 exports.sass = buildStyles;

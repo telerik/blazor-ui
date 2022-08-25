@@ -60,7 +60,7 @@ a:not([href]):not([class]) {
             margin-bottom: 0;
             float: left;
         }
-    
+
         .k-grid-toolbar .k-button {
             float: right;
         }
@@ -74,7 +74,7 @@ a:not([href]):not([class]) {
         }
     }
 }
-// Planning page 
+// Planning page
 .planning-page {
     .card-container {
         grid-template-columns: repeat(1, 1fr);
@@ -191,7 +191,7 @@ a:not([href]):not([class]) {
     }
 }
 
- @media (min-width: 768px) { 
+ @media (min-width: 768px) {
     .profile-page {
         .k-form {
             margin: 0 auto;

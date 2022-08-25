@@ -7,7 +7,7 @@ h1 {
     font-weight: 400;
 }
 h2 {
-    font-size: 1.0rem;;
+    font-size: 1rem;
     font-weight: 200;
 }
 h3 {
@@ -33,18 +33,18 @@ a {
         font-weight: 400;
     }
     h2 {
-        font-size: 1.25rem;;
+        font-size: 1.25rem;
         font-weight: 200;
     }
 }
 
-@media (min-width: 768px) { 
+@media (min-width: 768px) {
     h1 {
         font-size: 1.75rem;
         font-weight: 400;
     }
     h2 {
-        font-size: 1.75rem;;
+        font-size: 1.75rem;
         font-weight: 200;
     }
 }

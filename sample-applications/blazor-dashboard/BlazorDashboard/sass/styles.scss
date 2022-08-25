@@ -105,6 +105,6 @@ $card-cap-bg: #ffffff;
 $card-bg: #fff;
 
 
-@import "../node_modules/@progress/kendo-theme-bootstrap/dist/all.scss";
-@import "../node_modules/bootstrap/scss/bootstrap.scss";
+@import "~@progress/kendo-theme-bootstrap/dist/all.scss";
+@import "~bootstrap/scss/bootstrap.scss";
 @import "_layout.scss";

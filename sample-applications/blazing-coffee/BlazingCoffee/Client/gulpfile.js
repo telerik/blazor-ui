@@ -1,22 +1,20 @@
-const { kendoSassBuild } = require('@progress/kendo-theme-tasks/src/build/kendo-build');
-const sass = require('sass');
+const { kendoSassBuild } = require('@progress/kendo-theme-tasks');
 
 function buildStyles(done) {
     var themes = ['./Theme/main.scss', './Theme/main-dark.scss'];
 
-    themes.forEach((path) => {
+    themes.forEach((themeFile) => {
         kendoSassBuild({
-            file: path,
+            file: themeFile,
             output: {
-                path: './wwwroot/css'
+                path: './wwwroot/css',
+                filename: '[name].css'
             },
             sassOptions: {
-                implementation: sass,
-                outputStyle: 'compressed',
-                quietDeps: true
+                minify: true
             }
         });
-    })
+    });
 
     done();
 }

@@ -9,8 +9,7 @@ bin/
 *.swp
 *.user
 *.mdb
-node_modules
-*package-lock.json
+node_modules/
 *NuGet.Config
 **/wwwroot/lib
 
