@@ -868,7 +868,7 @@
     <value>Sperren</value>
   </data>
   <data name="ColumnMenu_Reset" xml:space="preserve">
-    <value>Zurücksetzen</value>
+    <value>Abbrechen</value>
   </data>
   <data name="ColumnMenu_SortAscending" xml:space="preserve">
     <value>Aufsteigend sortieren</value>

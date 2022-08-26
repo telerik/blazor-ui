@@ -838,7 +838,7 @@
     <value>Kolommen</value>
   </data>
   <data name="ColumnMenu_Reset" xml:space="preserve">
-    <value>Beginwaarden</value>
+    <value>Annuleren</value>
   </data>
   <data name="ColumnMenu_ColumnMenu" xml:space="preserve">
     <value>Kolommenu</value>

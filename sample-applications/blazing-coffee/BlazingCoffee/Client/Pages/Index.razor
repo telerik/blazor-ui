@@ -27,6 +27,7 @@
                  Sortable="true"
                  FilterMode="GridFilterMode.FilterMenu"
                  Resizable="true"
+                 Page="@Page"
                  Groupable="true"
                  ShowColumnMenu="true">
             <GridToolBar>
@@ -118,6 +119,8 @@
 @code {
     private List<Employee> employees { get; set; } = new List<Employee>();
     TelerikGrid<Employee> Grid { get; set; }
+
+    public int Page { get; set; } = 1;
     public bool SingleTeamSelected { get; set; }
     public bool AllTeamsSelected { get; set; } = true;
 
@@ -151,6 +154,8 @@
             Grid.StateContainer.RemoveFilter("TeamId");
             state = Grid.GetState();
         }
+
+        Page = 1;
 
         await Grid.SetState(state);
     }
