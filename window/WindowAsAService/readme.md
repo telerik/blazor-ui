@@ -6,7 +6,7 @@ This demo project shows how to use the `<TelerikWindow>` as a service in your ap
 
 * Create a service that creates a window instance. You can see an example of such a service fro the **Services** folder in this demo application and the `WindowService.cs` file. 
     * Register that service as a `Singleton` to ensure that the same instance of the `TelerikWindow` will be used across the entire application (`builder.Services.AddSingleton<WindowService>();`).
-* Create a custom component that builds the `<TelerikWindow>` instances. You can see an example of such a service fro the **Components** folder in this demo application and the `WindowBuilder.razor` file. 
+* Create a custom component that builds the `<TelerikWindow>` instances. You can see an example of such a service in the **Components** folder in this demo application and the `WindowBuilder.razor` file. 
 * Add the custom window builder component as a child of the `<TelerikRootComponent>` in the `TelerikLayout.razor` file and `[Inject]` the service that creates the window instances. Make sure to store the `@ref` of the custom window builder component.
 
 ## To use the demo application
