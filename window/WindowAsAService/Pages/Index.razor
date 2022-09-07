@@ -8,8 +8,18 @@ WindowTitle:
 
 <br />
 
-WindowContent
+WindowContent:
 <TelerikTextBox @bind-Value="@WindowContent" Width="300px"></TelerikTextBox>
+
+<br />
+
+Window Height:
+<TelerikTextBox @bind-Value="@WindowHeight" Width="300px"></TelerikTextBox>
+
+<br />
+
+Window Width:
+<TelerikTextBox @bind-Value="@WindowWidth" Width="300px"></TelerikTextBox>
 
 <br />
 
@@ -23,20 +33,21 @@ WindowContent
 
     public string WindowTitle { get; set; }
     public string WindowContent { get; set; }
+    public string WindowHeight { get; set; }
+    public string WindowWidth { get; set; }
 
     public WindowInstance LastAddedWindow { get; set; }
 
     void OpenNewWindow()
     {
-        LastAddedWindow = WindowService.Add(WindowContent, WindowTitle);
-        //LastAddedWindow = WindowService.Add(WindowContent, WindowTitle, Width, Height);
+        LastAddedWindow = WindowService.Add(WindowContent, WindowTitle, WindowWidth, WindowHeight);
     }
 
     protected override void OnAfterRender(bool firstRender)
     {
         base.OnAfterRender(firstRender);
 
-        // ensure old window instances are properly disposed 
+        // ensure old window instances are properly disposed
         if (LastAddedWindow?.Visible == false)
         {
             WindowService.Remove(LastAddedWindow.WindowRef);
