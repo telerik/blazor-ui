@@ -1,5 +1,5 @@
-﻿window.themeChooser = {
-    themeVersion: "3.5.0",
+window.themeChooser = {
+    themeVersion: "3.6.1",
     themeList: [
         { themeValue: "default-ocean-blue", mainTheme:"default", isSwatch: true },
         { themeValue: "default", mainTheme: "default", isSwatch: false },
