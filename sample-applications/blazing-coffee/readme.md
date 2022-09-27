@@ -83,7 +83,9 @@ The current demo app includes examples of the following features in the Blazor W
 
 ## Running the sample Blazor project
 
-Open the solution file in VS 2022 and, if not already, set the `BlazingCoffee.Server` project as a Startup project and hit Ctrl + F5.
+* Open the solution file in VS 2022 and, if not already, set the `BlazingCoffee.Server` project as a Startup project.
+* Hit Ctrl + F5.
+* If you receive a 404 error about missing `/_framework/blazor-hotreload.js`, then disable Hot Reload in the Visual Studio settings: Debugging > General and Debugging > .NET.
 
 ## Licensing
 
