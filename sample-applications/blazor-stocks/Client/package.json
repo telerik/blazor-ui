@@ -6,7 +6,6 @@
     "build": "gulp sass"
   },
   "devDependencies": {
-    "@progress/kendo-theme-bootstrap": "^5.0.0",
     "@progress/kendo-theme-tasks": "^1.16.0",
     "bootstrap": "^5.0.2",
     "gulp": "^4.0.0"
