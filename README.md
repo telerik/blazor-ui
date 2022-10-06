@@ -233,6 +233,12 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><a href="https://demos.telerik.com/blazor-ui/multiselect?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">MultiSelect Demos</td>
 </tr>
 <tr>
+  <td><b>Blazor MultiColumnComboBox Component</b></td>
+  <td><a href="https://www.telerik.com/blazor-ui/multicolumncombobox?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">MultiColumn ComboBox Features</a></td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/multicolumncombobox/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">MultiColumn ComboBox Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/multicolumncombobox?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">MultiColumn ComboBox Demos</td>
+</tr>
+<tr>
   <td><b>Blazor NumericTextBox Component</b></td>
   <td><a href="https://www.telerik.com/blazor-ui/numeric-textbox?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Numeric TextBox Features</a></td>
   <td><a href="https://docs.telerik.com/blazor-ui/components/numerictextbox/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">NumericTextBox Documentation</td>
@@ -488,6 +494,12 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><a href="https://docs.telerik.com/blazor-ui/components/tooltip/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Tooltip Documentation</td>
   <td><a href="https://demos.telerik.com/blazor-ui/tooltip/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Tooltip Demos</td>
 </tr>
+<tr>
+  <td><b>Blazor Skeleton Component</b></td>
+  <td><a href="https://www.telerik.com/blazor-ui/skeleton?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Skeleton Features</a></td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/skeleton/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Skeleton Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/skeleton/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Skeleton Demos</td>
+</tr>
 </tbody></table>
 
 ### Blazor Layout Components
@@ -655,6 +667,16 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><a href="https://www.telerik.com/blazor-ui/wizard?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Wizard Features</a></td>
   <td><a href="https://docs.telerik.com/blazor-ui/components/wizard/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Wizard Documentation</td>
   <td><a href="https://demos.telerik.com/blazor-ui/wizard/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Wizard Demos</td>
+</tr>
+</tbody></table>  
+
+### Blazor PDF Components
+<table><tbody>
+<tr>
+  <td><b>Blazor PDF Viewer Component</b></td>
+  <td><a href="https://www.telerik.com/blazor-ui/pdf-viewer?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">PDF Viewer Features</a></td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/pdfviewer/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">PDF Viewer Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/pdfviewer/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">PDF Viewer Demos</td>
 </tr>
 </tbody></table>  
 
