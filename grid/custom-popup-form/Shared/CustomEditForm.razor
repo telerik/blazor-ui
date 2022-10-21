@@ -19,10 +19,16 @@
             <DataAnnotationsValidator />
             <div class="form-row">
                 <div class="col">
-                    <TelerikTextBox @bind-Value="@SelectedEmployee.Name" Label="First Name"></TelerikTextBox>
+                    <label>
+                        First name:
+                        <TelerikTextBox @bind-Value="@SelectedEmployee.Name"></TelerikTextBox>
+                    </label>
                 </div>
                 <div class="col">
-                    <TelerikTextBox @bind-Value="@SelectedEmployee.LastName" Label="Last Name"></TelerikTextBox>
+                    <label>
+                        Last name:
+                        <TelerikTextBox @bind-Value="@SelectedEmployee.LastName"></TelerikTextBox>
+                    </label>
                 </div>
             </div>
             <div class="form-row">
