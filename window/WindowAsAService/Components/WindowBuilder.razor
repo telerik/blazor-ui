@@ -1,0 +1,27 @@
+﻿@using WindowAsAService.Models
+
+@foreach (var windowInstance in Instances)
+{
+    <TelerikWindow @ref="@windowInstance.WindowRef"
+                   @bind-Visible="@windowInstance.Visible" 
+                   Width="@windowInstance.Width" 
+                   Height="@windowInstance.Height" 
+                   @key="@windowInstance">
+        <WindowTitle>@windowInstance.Title</WindowTitle>
+        <WindowContent>@windowInstance.Content</WindowContent>
+        <WindowActions>
+            <WindowAction Name="Close"></WindowAction>
+        </WindowActions>
+    </TelerikWindow>
+}
+
+
+@code {
+    [Parameter]
+    public List<WindowInstance> Instances { get; set; }
+
+    public void Refresh()
+    {
+        this.StateHasChanged();
+    }
+}
