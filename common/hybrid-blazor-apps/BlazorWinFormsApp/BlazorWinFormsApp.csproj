@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
-        <TargetFramework>net6.0-windows</TargetFramework>
+        <TargetFramework>net7.0-windows</TargetFramework>
         <OutputType>WinExe</OutputType>
         <UseWindowsForms>true</UseWindowsForms>
         <IsShippingPackage>false</IsShippingPackage>
@@ -9,7 +9,7 @@
 
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebView.WindowsForms" Version="6.0.312" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebView.WindowsForms" Version="7.0.0-rc.2.6866" />
 
       <!--if you want to try the trial version-->
       <!--<PackageReference Include="Telerik.UI.for.Blazor.Trial" Version="3,3.0" />-->

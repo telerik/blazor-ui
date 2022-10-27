@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
     <IsShippingPackage>false</IsShippingPackage>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="6.0.312" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="7.0.0-rc.2.6866" />
 
     <!--if you want to try the trial version-->
     <!--<PackageReference Include="Telerik.UI.for.Blazor.Trial" Version="3.3.0" />-->
