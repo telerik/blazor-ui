@@ -265,8 +265,14 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
 <tr>
   <td><b>Blazor TextBox Component</b></td>
   <td><a href="https://www.telerik.com/blazor-ui/textbox?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">TextBox Features</a></td>
-  <td><a href="https://docs.telerik.com/blazor-ui/components/textbox/overview">TextBox Documentation</td>
-  <td><a href="https://demos.telerik.com/blazor-ui/textbox/overview">TextBox Demos</td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/textbox/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">TextBox Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/textbox/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">TextBox Demos</td>
+</tr>
+<tr>
+  <td><b>Blazor Signature Component</b></td>
+  <td><a href="https://www.telerik.com/blazor-ui/signature?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Signature Features</a></td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/signature/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Signature Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/signature/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Signature Demos</td>
 </tr>
 <tr>
   <td><b>Blazor Slider Component</b></td>
