@@ -17,7 +17,7 @@ To run this app locally, you need:
 
 * Node.js
 * to be able to run the latest Telerik UI for Blazor version (more details [here](https://docs.telerik.com/blazor-ui/getting-started/what-you-need))
-* .NET 6 installed - you can download it from [here](https://dotnet.microsoft.com/download)
+* .NET 7 installed - you can download it from [here](https://dotnet.microsoft.com/download)
 
 If you don't have a commercial license for UI for Blazor, [start a trial](https://www.telerik.com/download-trial-file/v2-b/ui-for-blazor) and replace the package reference with `Telerik.UI.for.Blazor.Trial`.
 
