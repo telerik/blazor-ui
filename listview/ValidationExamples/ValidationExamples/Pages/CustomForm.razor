@@ -39,10 +39,12 @@
             <DataAnnotationsValidator />
             <div class="form-row">
                 <div class="col">
-                    <TelerikTextBox @bind-Value="@CurrentlyEditedItem.Name" Label="First Name"></TelerikTextBox>
+                    <label for="name">Name</label>
+                    <TelerikTextBox Id="name" @bind-Value="@CurrentlyEditedItem.Name" ></TelerikTextBox>
                 </div>
                 <div class="col">
-                    <TelerikTextBox @bind-Value="@CurrentlyEditedItem.Team" Label="Team"></TelerikTextBox>
+                    <label for="team">Team</label>
+                    <TelerikTextBox Id="team" @bind-Value="@CurrentlyEditedItem.Team" ></TelerikTextBox>
                 </div>
             </div>
             <div class="form-row">
