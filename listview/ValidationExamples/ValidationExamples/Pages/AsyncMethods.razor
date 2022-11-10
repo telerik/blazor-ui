@@ -9,21 +9,23 @@
     <EditTemplate>
         <div style="border: 1px solid green; margin: 10px; padding: 10px; display: inline-block;">
             @{
-                currEditItem = context;
-                if (isEditing && currEditContext == null)
+                if (currEditContext == null || context != currEditItem)
                 {
-                    currEditContext = new EditContext(currEditItem);
+                    currEditContext = new EditContext(context);
                 }
+                currEditItem = context;
 
                 if (currEditContext != null)
                 {
                     <EditForm EditContext="@currEditContext" Context="formContext">
                         <DataAnnotationsValidator />
-                        <TelerikTextBox @bind-Value="@currEditItem.Name" Label="Name" />
+                        <label for="name">Name</label>
+                        <TelerikTextBox Id="name" @bind-Value="@currEditItem.Name" />
                         <ValidationMessage For="@(() => currEditItem.Name)"></ValidationMessage>
 
                         <br />
-                        <TelerikDropDownList Data="@Teams" @bind-Value="@currEditItem.Team" />
+                        <label for="team">Team</label>
+                        <TelerikDropDownList Id="team" Data="@Teams" @bind-Value="@currEditItem.Team" />
 
                         <ListViewCommandButton Command="Save" Icon="save">Save</ListViewCommandButton>
                         <ListViewCommandButton Command="Cancel" Icon="cancel">Cancel</ListViewCommandButton>
