@@ -2,7 +2,7 @@
 
 # Telerik UI for Blazor Components and Sample Apps
 
-Telerik UI for Blazor enables you to develop new Blazor applications and modernize legacy web projects in half the time with a high-performing Blazor Data Grid and 95+ truly native, easy-to-customize UI components to cover any requirement.
+Telerik UI for Blazor enables you to develop new Blazor applications and modernize legacy web projects in half the time with a high-performing Blazor Data Grid and 100+ truly native, easy-to-customize UI components to cover any requirement.
 
 [![Try Telerik Blazor UI](images/830x230-Blazor-Banner.png)](https://www.telerik.com/blazor-ui/?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github)
 
@@ -511,6 +511,12 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
 ### Blazor Layout Components
 <table><tbody>
 <tr>
+  <td><b>Blazor Avatar Component</b></td>
+  <td><a href="https://www.telerik.com/blazor-ui/avatar?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Avatar Features</a></td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/avatar/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Avatar Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/avatar/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Avatar Demos</td>
+</tr>
+<tr>
   <td><b>Blazor Carousel Component</b></td>
   <td><a href="https://www.telerik.com/blazor-ui/carousel?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Carousel Features</a></td>
   <td><a href="https://docs.telerik.com/blazor-ui/components/carousel/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Carousel Documentation</td>
@@ -578,6 +584,22 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
 </tr>
 </tbody></table>
 
+### Blazor Icon Components
+<table><tbody>
+<tr>
+  <td><b>Blazor FontIcon Component</b></td>
+  <td><a href="https://www.telerik.com/blazor-ui/fonticon?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">FontIcon Features</a></td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/fonticon/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">FontIcon Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/fonticon/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">FontIcon Demos</td>
+</tr>
+<tr>
+  <td><b>Blazor SvgIcon Component</b></td>
+  <td><a href="https://www.telerik.com/blazor-ui/svgicon?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">SvgIcon Features</a></td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/svgicon/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">SvgIcon Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/svgicon/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">SvgIcon Demos</td>
+</tr>
+</tbody></table>  
+
 ### Blazor Label Components
 <table><tbody>
 <tr>
@@ -607,6 +629,18 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><a href="https://www.telerik.com/blazor-ui/buttongroup?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">ButtonGroup Features</a></td>
   <td><a href="https://docs.telerik.com/blazor-ui/components/buttongroup/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">ButtonGroup Documentation</td>
   <td><a href="https://demos.telerik.com/blazor-ui/buttongroup/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">ButtonGroup Demos</td>
+</tr>
+<tr>
+  <td><b>Blazor Chip Component</b></td>
+  <td><a href="https://www.telerik.com/blazor-ui/chip?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Chip Features</a></td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/chip/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Chip Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/chip/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Chip Demos</td>
+</tr>
+<tr>
+  <td><b>Blazor ChipList Component</b></td>
+  <td><a href="https://www.telerik.com/blazor-ui/chiplist?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">ChipList Features</a></td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/chiplist/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">ChipList Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/chiplist/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">ChipList Demos</td>
 </tr>
 <tr>
   <td><b>Blazor SplitButton Component</b></td>
