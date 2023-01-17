@@ -28,7 +28,7 @@
                 <Template>
                     <label for="mail" class="k-label k-form-label">@Localizer["Profile_Email"]</label>
                     <div class="k-form-field-wrap">
-                        <TelerikTextBox Id="mail" @bind-Value="@TestUser.Email" InputMode="email" PlaceHolder="example@domain.com"></TelerikTextBox>
+                        <TelerikTextBox Id="mail" @bind-Value="@TestUser.Email" InputMode="email" Placeholder="example@domain.com"></TelerikTextBox>
                         <TelerikValidationMessage For="@(() => TestUser.Email)"></TelerikValidationMessage>
                     </div>
                 </Template>

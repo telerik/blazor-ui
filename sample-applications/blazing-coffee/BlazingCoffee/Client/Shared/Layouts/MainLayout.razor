@@ -11,7 +11,7 @@
     <div class="header">
         <div class="nav-container">
             <div class="menu-button">
-                <TelerikButton Icon="menu" OnClick="ToggleMenuDrawer" />
+                <TelerikButton Icon="@FontIcon.Menu" OnClick="ToggleMenuDrawer" />
             </div>
             <div class="title">
                 <h1>@Localizer["Blazing_Coffee_Title"]</h1>
@@ -27,7 +27,7 @@
     <TelerikDrawer @ref="MenuDrawer"
                    Expanded="@Expanded"
                    ExpandedChanged="((bool newValue) => ExpandedChangedHandler(newValue))"
-                   Width="190px" Data="Data" Mode="DrawerMode.Push" Position="DrawerPosition.Left" MiniMode="true">
+                   Width="190px" Data="Data" Mode="DrawerMode.Push" Position="DrawerPosition.Start" MiniMode="true">
         <Template>
             <DrawTemplate Data="context"></DrawTemplate>
         </Template>
@@ -52,10 +52,10 @@
     IEnumerable<DrawerItem> Data =>
     new List<DrawerItem>
     {
-            new DrawerItem{ Text = Localizer["Drawer_Team"], Icon = "grid", Url="/blazor-coffee/", Group = "home"},
-            new DrawerItem{ Text = Localizer["Drawer_Dashboard"], Icon = "chart-line-markers", Url="/blazor-coffee/sales", Group = "app"},
-            new DrawerItem{ Text = Localizer["Drawer_Profile"], Icon = "user", Url="/blazor-coffee/profile", Group = "app"},
-            new DrawerItem{ Text = Localizer["Drawer_Info"], Icon = "information", Url="/blazor-coffee/information", Group = "ext"}
+            new DrawerItem{ Text = Localizer["Drawer_Team"], Icon = FontIcon.Grid, Url="/blazor-coffee/", Group = "home"},
+            new DrawerItem{ Text = Localizer["Drawer_Dashboard"], Icon = FontIcon.ChartLineMarkers, Url="/blazor-coffee/sales", Group = "app"},
+            new DrawerItem{ Text = Localizer["Drawer_Profile"], Icon = FontIcon.User, Url="/blazor-coffee/profile", Group = "app"},
+            new DrawerItem{ Text = Localizer["Drawer_Info"], Icon = FontIcon.InfoCircle, Url="/blazor-coffee/information", Group = "ext"}
     };
       
     async Task ToggleMenuDrawer()

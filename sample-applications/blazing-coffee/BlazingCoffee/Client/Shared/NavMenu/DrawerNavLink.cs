@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Telerik.Blazor.Components;
+using Telerik.FontIcons;
 
 namespace BlazingCoffee.Client.Shared.NavMenu
 {
@@ -31,7 +32,7 @@ namespace BlazingCoffee.Client.Shared.NavMenu
         /// <summary>
         /// Gets or Sets the NavLink Icon to display.
         /// </summary>
-        [Parameter] public string Icon { get; set; }
+        [Parameter] public FontIcon? Icon { get; set; }
 
         /// <summary>
         /// Gets or sets the CSS class name applied to the NavLink when the
@@ -167,7 +168,7 @@ namespace BlazingCoffee.Client.Shared.NavMenu
             builder.AddAttribute(5, "tabindex", _isActive ? "0" : "1");
             builder.AddAttribute(6, "role", "menuitem");
             builder.AddAttribute(7, "aria-label", Text);
-            builder.OpenComponent<TelerikIcon>(8);
+            builder.OpenComponent<TelerikFontIcon>(8);
             builder.AddAttribute(9, "Icon", Icon);
             builder.CloseComponent();
             builder.OpenElement(10, "span");
