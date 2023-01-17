@@ -7,7 +7,7 @@
 
 <AuthorizeView>
     <Authorized>
-        <TelerikButton Icon="user" @onclick="BeginSignOut">Log out</TelerikButton>
+        <TelerikButton Icon="@FontIcon.User" @onclick="BeginSignOut">Log out</TelerikButton>
         <img class="k-avatar-rounded" src="@HashEmailForGravatar(context.User.Identity.Name)" />
         <a href="authentication/profile">@context.User.Identity.Name</a>
     </Authorized>

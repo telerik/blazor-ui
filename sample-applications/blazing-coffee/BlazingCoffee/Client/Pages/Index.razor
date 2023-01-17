@@ -30,12 +30,12 @@
                  Page="@Page"
                  Groupable="true"
                  ShowColumnMenu="true">
-            <GridToolBar>
+            <GridToolBarTemplate>
                 <GridSearchBox Width="150px"></GridSearchBox>
                 <span class="k-toolbar-spacer"></span>
-                <GridCommandButton Command="ExcelExport" Icon="file-excel">@Localizer["Grid_ExcelExport"]</GridCommandButton>
-                <GridCommandButton Command="CsvExport" Icon="file-csv">@Localizer["Grid_CsvExport"]</GridCommandButton>
-            </GridToolBar>
+                <GridCommandButton Command="ExcelExport" Icon="@FontIcon.FileExcel">@Localizer["Grid_ExcelExport"]</GridCommandButton>
+                <GridCommandButton Command="CsvExport" Icon="@FontIcon.FileCsv">@Localizer["Grid_CsvExport"]</GridCommandButton>
+            </GridToolBarTemplate>
             <GridColumns>
                 <GridCheckboxColumn Width="45px"
                     OnCellRender="@((GridCellRenderEventArgs args) => args.Class = "chkb-centered" )"
@@ -157,7 +157,7 @@
 
         Page = 1;
 
-        await Grid.SetState(state);
+        await Grid.SetStateAsync(state);
     }
 
     FilterDescriptor SingleTeamDescriptor() => new FilterDescriptor("TeamId", FilterOperator.IsEqualTo, 3);
