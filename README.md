@@ -595,7 +595,7 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
 <tr>
   <td><b>Blazor SvgIcon Component</b></td>
   <td><a href="https://www.telerik.com/blazor-ui/svgicon?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">SvgIcon Features</a></td>
-  <td><a href="https://docs.telerik.com/blazor-ui/components/svgicon/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">SvgIcon Documentation</td>
+  <td><a href="https://docs.telerik.com/blazor-ui/common-features/icons?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github#svgicon-component">SvgIcon Documentation</td>
   <td><a href="https://demos.telerik.com/blazor-ui/svgicon/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">SvgIcon Demos</td>
 </tr>
 </tbody></table>  
