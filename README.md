@@ -589,7 +589,7 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
 <tr>
   <td><b>Blazor FontIcon Component</b></td>
   <td><a href="https://www.telerik.com/blazor-ui/fonticon?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">FontIcon Features</a></td>
-  <td><a href="https://docs.telerik.com/blazor-ui/components/fonticon/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">FontIcon Documentation</td>
+  <td><a href="https://docs.telerik.com/blazor-ui/common-features/icons?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github#fonticon-component">FontIcon Documentation</td>
   <td><a href="https://demos.telerik.com/blazor-ui/fonticon/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">FontIcon Demos</td>
 </tr>
 <tr>
