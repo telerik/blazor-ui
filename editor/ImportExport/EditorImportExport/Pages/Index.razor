@@ -8,8 +8,14 @@
     <EditorCustomTools>
         <EditorCustomTool Name="ExportToPdfTool">
             <div style="margin-right: 50px">
-                <TelerikButton OnClick="@ExportToPdf" Icon="download"></TelerikButton>
-                <TelerikDropDownList Data="@SupportedExportFormats" @bind-Value="@exportFormat" PopupHeight="auto" Width="auto"></TelerikDropDownList>
+                <TelerikButton OnClick="@ExportToPdf" Icon="@FontIcon.Download"></TelerikButton>
+                <TelerikDropDownList Data="@SupportedExportFormats"
+                                     @bind-Value="@exportFormat"
+                                     Width="auto">
+                    <DropDownListSettings>
+                        <DropDownListPopupSettings Height="auto" />
+                    </DropDownListSettings>
+                </TelerikDropDownList>
             </div>
         </EditorCustomTool>
     </EditorCustomTools>
@@ -20,7 +26,7 @@
 <div class="notification-container">
     <TelerikAnimationContainer @ref="@FailureNotification" Width="300px" Height="200px" Top="20px" AnimationType=@AnimationType.SlideDown>
         <div class="k-widget k-popup k-notification k-notification-info">
-            <h3><TelerikIcon Icon="cancel" /> Problem</h3>
+            <h3><TelerikFontIcon Icon="@FontIcon.Cancel" /> Problem</h3>
             <p>
                 The operation failed, there is probably something in the content that prevents the conversion. Try simplifying the content and removing images/lists.
             </p>
@@ -43,7 +49,7 @@
     protected override async Task OnInitializedAsync()
     {
         // add the custom tool for export
-        Tools = new List<IEditorTool>(EditorToolSets.Default);
+        Tools = new List<IEditorTool>(EditorToolSets.All);
         Tools.Insert(0, new CustomTool("ExportToPdfTool"));
 
         // fetch the HTML content from import service
@@ -53,10 +59,12 @@
     // export
     async Task ExportToPdf()
     {
+        // ensure that table cells have inline border styles and are visible in the exported document
+        EditorContent = EditorContent.Replace("<td>", "<td style=\"border:1px solid #ccc;\">");
         // call the export service, it will discern the details based on the extension of the exported file we want
-        bool isSuccess = await fileConverter.ExportAndDownloadHtmlContent(EditorContent, $"EditoContent.{exportFormat}");
+        bool isSuccess = await fileConverter.ExportAndDownloadHtmlContent(EditorContent, $"EditorContent.{exportFormat}");
         // in case here was an issue
-        if(isSuccess == false)
+        if (isSuccess == false)
         {
             await ShowErrorNotification();
         }
