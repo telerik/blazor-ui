@@ -29,7 +29,7 @@ namespace EditorImportExport
             services.AddRazorPages();
             services.AddServerSideBlazor(o => o.DetailedErrors=true).AddHubOptions(o =>
             {
-                o.MaximumReceiveMessageSize = 4 * 1024 * 1024; // 4MB
+                o.MaximumReceiveMessageSize = 64 * 1024 * 1024; // 64MB
             });
             services.AddTelerikBlazor();
             services.AddScoped<FileConverter>();
