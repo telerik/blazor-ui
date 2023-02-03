@@ -3,7 +3,7 @@
 @using custom_edit_form.Data
 @inject AppointmentService ApptService
 
-<TelerikScheduler Data="@Appointments" OnDelete="@DeleteAppointment" OnEdit="@EditHandler"
+<TelerikScheduler @ref="@SchedulerRef" Data="@Appointments" OnDelete="@DeleteAppointment" OnEdit="@EditHandler"
                   AllowCreate="true" AllowDelete="true" AllowUpdate="true" OnUpdate="@UpdateAppointment"
                   @bind-Date="@StartDate" Height="600px" @bind-View="@CurrView">
     <SchedulerViews>
@@ -25,6 +25,7 @@
 </TelerikWindow>
 
 @code {
+    TelerikScheduler<Appointment> SchedulerRef;
     bool CustomEditFormShown { get; set; }
     Appointment CurrentAppointment { get; set; } // we will put here a copy of the appointment for editing
 
@@ -47,6 +48,7 @@
         //we also use it to fetch the fresh data from the service - in a real case other updates may have occurred
         //which is why I chose to use a separate event and not two-way binding. It is also used for refreshing on Cancel
         Appointments = ApptService.GetAppointments();
+        SchedulerRef.Rebind();
     }
 
     void EditHandler(SchedulerEditEventArgs args)
