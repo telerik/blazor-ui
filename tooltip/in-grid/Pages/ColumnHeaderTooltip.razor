@@ -1,0 +1,47 @@
+﻿@page "/column-header-tooltip"
+
+@using TooltipForGridElements.Models
+@using TooltipForGridElements.Services
+
+@inject EmployeeService EmployeeService
+
+<p>
+    This example shows how to attach a tooltip with custom content to a certain column header in the grid.
+    The approach allows you to define more data attributes to the target of the ToolTip.
+    Inside the ToolTip template, you can access the <a href="https://docs.telerik.com/blazor-ui/components/tooltip/template">data attribute values through the template context</a>.
+</p>
+
+<TelerikGrid Data="@GridData" 
+             Height="400px">
+    <GridColumns>
+        <GridColumn Field="@(nameof(BasicEmployee.Id))" Width="120px" />
+        <GridColumn Field="@(nameof(BasicEmployee.Name))" Title="Employee Name" Groupable="false">
+            <HeaderTemplate>
+                <div class="tooltip-target" data-column-name="@(nameof(BasicEmployee.Name))">
+                    @(nameof(BasicEmployee.Name))
+                </div>
+            </HeaderTemplate>
+        </GridColumn>
+        <GridColumn Field="@(nameof(BasicEmployee.Team))" Title="Team" />
+    </GridColumns>
+</TelerikGrid>
+
+<TelerikTooltip TargetSelector=".tooltip-target"
+                Position="@TooltipPosition.Right">
+    <Template Context="ttipContext">
+        @ttipContext.DataAttributes["columnName"]
+    </Template>
+</TelerikTooltip>
+
+@code {
+    public List<BasicEmployee> GridData { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        GridData = await EmployeeService.GetEmployees();
+        // we update the data outside of the standard cycle, so we need this call
+        // if we did it in OnInitializedAsync we wouldn't. We do it here to load it only once
+        // and avoid loading during pre-rendering, just as an example
+        StateHasChanged();
+    }
+}
