@@ -89,6 +89,12 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
 ### Blazor File Management
 <table><tbody>
 <tr>
+  <td><b>Blazor DropZone</b></td>
+  <td><a href="https://www.telerik.com/blazor-ui/dropzone?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">DropZone Features</a></td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/dropzone/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">DropZone Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/dropzone/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">DropZone Demos</td>
+</tr>
+<tr>
   <td><b>Blazor File Manager</b></td>
   <td><a href="https://www.telerik.com/blazor-ui/file-manager?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">FileManager Features</a></td>
   <td><a href="https://docs.telerik.com/blazor-ui/components/filemanager/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">FileManager Documentation</td>
