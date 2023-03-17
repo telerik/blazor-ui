@@ -18,10 +18,10 @@
     "CustomSerializer.Client": {
       "commandName": "Project",
       "launchBrowser": true,
+      "applicationUrl": "http://localhost:62777/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "http://localhost:62777/"
+      }
     }
   }
 }
