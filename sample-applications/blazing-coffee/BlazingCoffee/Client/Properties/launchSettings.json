@@ -4,7 +4,6 @@
     "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:55833/blazor-coffee/",
-      "launchUrl": "",
       "sslPort": 44356
     }
   },
