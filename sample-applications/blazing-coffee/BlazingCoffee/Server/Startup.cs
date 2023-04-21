@@ -47,6 +47,8 @@ namespace BlazingCoffee.Server
                 app.UseHsts();
             }
 
+            app.UsePathBase("/blazor-coffee");
+
             app.UseHttpsRedirection();
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();

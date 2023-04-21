@@ -1894,7 +1894,7 @@ namespace BlazingCoffee.Server.Data
                 return;
             }
 
-            var importPath = Path.Combine(environment.WebRootPath, @"imports\finserv.csv");
+            var importPath = Path.Combine(environment.WebRootPath, "imports", "finserv.csv");
 
             CultureInfo enUSCulture = new CultureInfo("en-US"); // Fixes data import for non-us users 
             using var reader = new StreamReader(importPath);
