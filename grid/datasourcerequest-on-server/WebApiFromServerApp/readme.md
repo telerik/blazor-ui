@@ -2,7 +2,7 @@
 
 The Telerik `DataSourceRequest` must be serialized to the REST API endpoint, so you can use it to obtain the needed data as per its contents (needed page, page size, filter, sort, etc.).
 
-You can obtain the data through extension methods provided by the `Telerik.DataSource` package - the `.ToDataSourceResult(dataSourceRequest)` and `.ToDataSourceResultAsync(dataSourceRequest)`. They can work with collections like `List<T>`, `IEnumerable<T>` and `IQueriable<T>`. You can use `IQueriable` collections coming from another service (such as EntityFramework) to perform optimized queries - the Telerik methods use LINQ expressions internally so that the framework can resolve them in the most efficient manner.
+You can obtain the data through extension methods provided by the `Telerik.DataSource` package - the `.ToDataSourceResult(dataSourceRequest)` and `.ToDataSourceResultAsync(dataSourceRequest)`. They can work with collections like `List<T>`, `IEnumerable<T>` and `IQueryable<T>`. You can use `IQueryable` collections coming from another service (such as EntityFramework) to perform optimized queries - the Telerik methods use LINQ expressions internally so that the framework can resolve them in the most efficient manner.
 
 There are a few specifics to this scenario:
 
@@ -16,4 +16,4 @@ There are a few specifics to this scenario:
 
 * Due to the behaviors described above, it is important to specify the deserialization options in the blazor app service to ignore casing - the API returns, by default, the field names in camelCase, as opposed to the PascalCase expected in C#. This can break the deserialization of the list of the data.
 
-In this sample, both apps start up immediately for brevity. It is expected that you see two browser tabs open when you run the solution and that the one calling the WebAPI will be empty - it does not have a Get action. If both projects don't start on their own, start the WebAPI project yourself so the Blazor app can call it.
+In this sample, both apps start up immediately for brevity. It is expected that you see two browser tabs open when you run the solution and that the one calling the WebAPI will be empty - it does not have a Get action. If both projects don't start on their own, start the WebAPI project yourself so the Blazor app can call it. You can do this by right-clicking on the solution within the Solution Explorer, selecting _Properties_ and choose _Configure Startup Projects_. Enable _Multiple startup projects_ and set the _Action_ to _Start_ to both _SampleWebApi_ and _WebApiFromServerApp_ projects.
