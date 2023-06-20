@@ -18,6 +18,7 @@
     "BlazorDashboard": {
       "commandName": "Project",
       "launchBrowser": true,
+      "launchUrl": "blazor-dashboard-app",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
