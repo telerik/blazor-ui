@@ -45,6 +45,8 @@ namespace BlazorDashboard
                 app.UseHsts();
             }
 
+            app.UsePathBase("/blazor-dashboard-app");
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
