@@ -68,9 +68,15 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
 </tr> 
  <tr>
   <td><b>Blazor TreeList Component</b></td>
-  <td><a href="https://www.telerik.com/blazor-ui/treelist">Tree List Features</a></td>
+  <td><a href="https://www.telerik.com/blazor-ui/treelist">TreeList Features</a></td>
   <td><a href="https://docs.telerik.com/blazor-ui/components/treelist/overview">TreeList Documentation</td>
   <td><a href="https://demos.telerik.com/blazor-ui/treelist/overview">TreeList Demos</td>
+</tr> 
+ <tr>
+  <td><b>Blazor PivotGrid Component</b></td>
+  <td><a href="https://www.telerik.com/blazor-ui/pivotgrid">PivotGrid Features</a></td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/pivotgrid/overview">PivotGrid Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/pivotgrid/overview">PivotGrid Demos</td>
 </tr> 
  <tr>
   <td><b>Blazor Filter Component</b></td>
