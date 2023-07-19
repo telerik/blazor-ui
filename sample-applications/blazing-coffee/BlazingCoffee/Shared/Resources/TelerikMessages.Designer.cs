@@ -205,6 +205,15 @@ namespace BlazingCoffee.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Group column.
+        /// </summary>
+        public static string ColumnMenu_GroupColumn {
+            get {
+                return ResourceManager.GetString("ColumnMenu_GroupColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lock.
         /// </summary>
         public static string ColumnMenu_Lock {
@@ -214,11 +223,38 @@ namespace BlazingCoffee.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Move Next.
+        /// </summary>
+        public static string ColumnMenu_ReorderNext {
+            get {
+                return ResourceManager.GetString("ColumnMenu_ReorderNext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move Previous.
+        /// </summary>
+        public static string ColumnMenu_ReorderPrevious {
+            get {
+                return ResourceManager.GetString("ColumnMenu_ReorderPrevious", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reset.
         /// </summary>
         public static string ColumnMenu_Reset {
             get {
                 return ResourceManager.GetString("ColumnMenu_Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set column position.
+        /// </summary>
+        public static string ColumnMenu_SetColumnPosition {
+            get {
+                return ResourceManager.GetString("ColumnMenu_SetColumnPosition", resourceCulture);
             }
         }
         
@@ -237,6 +273,15 @@ namespace BlazingCoffee.Shared.Resources {
         public static string ColumnMenu_SortDescending {
             get {
                 return ResourceManager.GetString("ColumnMenu_SortDescending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ungroup column.
+        /// </summary>
+        public static string ColumnMenu_UngroupColumn {
+            get {
+                return ResourceManager.GetString("ColumnMenu_UngroupColumn", resourceCulture);
             }
         }
         

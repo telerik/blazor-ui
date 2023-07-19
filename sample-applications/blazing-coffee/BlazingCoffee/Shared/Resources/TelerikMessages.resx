@@ -891,4 +891,19 @@
   <data name="Pager_PageDisplay" xml:space="preserve">
     <value>Page</value>
   </data>
+  <data name="ColumnMenu_GroupColumn" xml:space="preserve">
+    <value>Group column</value>
+  </data>
+  <data name="ColumnMenu_ReorderNext" xml:space="preserve">
+    <value>Move Next</value>
+  </data>
+  <data name="ColumnMenu_ReorderPrevious" xml:space="preserve">
+    <value>Move Previous</value>
+  </data>
+  <data name="ColumnMenu_SetColumnPosition" xml:space="preserve">
+    <value>Set column position</value>
+  </data>
+  <data name="ColumnMenu_UngroupColumn" xml:space="preserve">
+    <value>Ungroup column</value>
+  </data>
 </root>

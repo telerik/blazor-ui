@@ -942,4 +942,19 @@
   <data name="Aggregate_Count" xml:space="preserve">
     <value>Anzahl</value>
   </data>
+  <data name="ColumnMenu_GroupColumn" xml:space="preserve">
+    <value>Gruppenspalte</value>
+  </data>
+  <data name="ColumnMenu_ReorderNext" xml:space="preserve">
+    <value>Als Nächstes neu anordnen</value>
+  </data>
+  <data name="ColumnMenu_ReorderPrevious" xml:space="preserve">
+    <value>Vorheriges neu anordnen</value>
+  </data>
+  <data name="ColumnMenu_SetColumnPosition" xml:space="preserve">
+    <value>Legen Sie die Spaltenposition fest</value>
+  </data>
+  <data name="ColumnMenu_UngroupColumn" xml:space="preserve">
+    <value>Gruppierung der Spalte aufheben</value>
+  </data>
 </root>

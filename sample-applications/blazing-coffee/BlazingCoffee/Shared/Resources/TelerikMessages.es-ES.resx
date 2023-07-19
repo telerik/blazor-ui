@@ -951,4 +951,19 @@
   <data name="Editor_LinkText" xml:space="preserve">
     <value>&amp;Texto:</value>
   </data>
+  <data name="ColumnMenu_GroupColumn" xml:space="preserve">
+    <value>Columna de grupo</value>
+  </data>
+  <data name="ColumnMenu_ReorderNext" xml:space="preserve">
+    <value>Reordenar siguiente</value>
+  </data>
+  <data name="ColumnMenu_ReorderPrevious" xml:space="preserve">
+    <value>Reordenar anterior</value>
+  </data>
+  <data name="ColumnMenu_SetColumnPosition" xml:space="preserve">
+    <value>Establecer la posición de la columna</value>
+  </data>
+  <data name="ColumnMenu_UngroupColumn" xml:space="preserve">
+    <value>Desagrupar columna</value>
+  </data>
 </root>
