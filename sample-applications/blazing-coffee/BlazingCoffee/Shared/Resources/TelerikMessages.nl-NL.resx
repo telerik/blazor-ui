@@ -888,4 +888,19 @@
   <data name="Dialog_Ok" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="ColumnMenu_GroupColumn" xml:space="preserve">
+    <value>Groepskolom</value>
+  </data>
+  <data name="ColumnMenu_ReorderNext" xml:space="preserve">
+    <value>Volgende ordenen</value>
+  </data>
+  <data name="ColumnMenu_ReorderPrevious" xml:space="preserve">
+    <value>Vorige ordenen</value>
+  </data>
+  <data name="ColumnMenu_SetColumnPosition" xml:space="preserve">
+    <value>Kolompositie instellen</value>
+  </data>
+  <data name="ColumnMenu_UngroupColumn" xml:space="preserve">
+    <value>Kolom degroeperen</value>
+  </data>
 </root>

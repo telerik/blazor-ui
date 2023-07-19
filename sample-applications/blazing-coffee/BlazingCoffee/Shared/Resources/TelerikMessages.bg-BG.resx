@@ -948,4 +948,19 @@
   <data name="Aggregate_Count" xml:space="preserve">
     <value>Брой</value>
   </data>
+  <data name="ColumnMenu_GroupColumn" xml:space="preserve">
+    <value>Групирай колоната</value>
+  </data>
+  <data name="ColumnMenu_ReorderNext" xml:space="preserve">
+    <value>Премести напред</value>
+  </data>
+  <data name="ColumnMenu_ReorderPrevious" xml:space="preserve">
+    <value>Премести назад</value>
+  </data>
+  <data name="ColumnMenu_SetColumnPosition" xml:space="preserve">
+    <value>Задайте позиция на колоната</value>
+  </data>
+  <data name="ColumnMenu_UngroupColumn" xml:space="preserve">
+    <value>Разгрупирай колоната</value>
+  </data>
 </root>
