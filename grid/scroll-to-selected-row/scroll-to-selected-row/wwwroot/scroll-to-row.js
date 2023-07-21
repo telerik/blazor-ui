@@ -7,7 +7,13 @@ function scrollToSelectedRow(gridSelector) {
     if (gridWrapper) {
         var selectedRow = gridWrapper.querySelector("tr.k-state-selected");
         if (selectedRow) {
-            selectedRow.scrollIntoView();
+            // scrollIntoView can behave in a few different ways. See
+            // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView
+            selectedRow.scrollIntoView({
+                behavior: "smooth",
+                block: "nearest",
+                inline: "nearest"
+            });
         }
     }
 }
