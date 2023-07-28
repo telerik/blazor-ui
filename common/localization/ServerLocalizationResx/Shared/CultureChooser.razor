@@ -7,9 +7,12 @@
     <TelerikDropDownList Data="@Cultures"
                          Value="@SelectedCulture"
                          ValueChanged="@((string value) => { OnValueChanged(value); })"
-                         PopupHeight=""
                          TextField="@nameof(CultureData.Text)"
-                         ValueField="@nameof(CultureData.Value)">
+                         ValueField="@nameof(CultureData.Value)"
+                         Width="200px">
+        <DropDownListSettings>
+            <DropDownListPopupSettings Height="auto" />
+        </DropDownListSettings>
     </TelerikDropDownList>
     <br />
     Current UI culture (used for localization): @Thread.CurrentThread.CurrentUICulture.Name
@@ -27,7 +30,7 @@
     public List<CultureData> Cultures { get; set; } = new List<CultureData>()
     {
         new  CultureData() { Text = "English", Value = "en-US" },
-        new  CultureData() { Text = "French", Value = "fr-FR" },
+        new  CultureData() { Text = "German", Value = "de-DE" },
         new  CultureData() { Text = "Bulgarian", Value = "bg-BG" },
     };
 

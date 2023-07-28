@@ -41,7 +41,7 @@ namespace ServerLocalizationResx
                 var supportedCultures = new List<CultureInfo>()
             {
                 new CultureInfo("en-US"),
-                new CultureInfo("fr-FR"),
+                new CultureInfo("de-DE"),
                 new CultureInfo("bg-BG")
             };
 

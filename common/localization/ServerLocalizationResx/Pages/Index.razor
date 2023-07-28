@@ -14,9 +14,9 @@
 <TelerikGrid Data="@forecasts"
              Pageable="true" Groupable="true" Sortable="true"
              OnUpdate="@UpdateHandler" OnDelete="@DeleteHandler" OnCreate="@CreateHandler">
-    <GridToolBar>
-        <GridCommandButton Command="Add" Icon="add">@Localizer[nameof(TelerikMessages.Grid_Create)]</GridCommandButton>
-    </GridToolBar>
+    <GridToolBarTemplate>
+        <GridCommandButton Command="Add" Icon="@SvgIcon.Plus">@Localizer[nameof(TelerikMessages.Grid_Create)]</GridCommandButton>
+    </GridToolBarTemplate>
     <GridColumns>
         <GridColumn Field="@(nameof(WeatherForecast.Date))">
             <Template>
@@ -27,10 +27,10 @@
         <GridColumn Field="@(nameof(WeatherForecast.TemperatureF))" />
         <GridColumn Field="@(nameof(WeatherForecast.Summary))" />
         <GridCommandColumn>
-            <GridCommandButton Command="Edit" Icon="edit">@Localizer[nameof(TelerikMessages.Grid_Edit)]</GridCommandButton>
-            <GridCommandButton Command="Delete" Icon="delete">@Localizer[nameof(TelerikMessages.Grid_Delete)]</GridCommandButton>
-            <GridCommandButton Command="Save" Icon="save" ShowInEdit="true">@Localizer[nameof(TelerikMessages.Grid_Update)]</GridCommandButton>
-            <GridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true">@Localizer[nameof(TelerikMessages.Grid_Cancel)]</GridCommandButton>
+            <GridCommandButton Command="Edit" Icon="@SvgIcon.Pencil">@Localizer[nameof(TelerikMessages.Grid_Edit)]</GridCommandButton>
+            <GridCommandButton Command="Delete" Icon="@SvgIcon.Trash">@Localizer[nameof(TelerikMessages.Grid_Delete)]</GridCommandButton>
+            <GridCommandButton Command="Save" Icon="@SvgIcon.Save" ShowInEdit="true">@Localizer[nameof(TelerikMessages.Grid_Update)]</GridCommandButton>
+            <GridCommandButton Command="Cancel" Icon="@SvgIcon.Cancel" ShowInEdit="true">@Localizer[nameof(TelerikMessages.Grid_Cancel)]</GridCommandButton>
         </GridCommandColumn>
     </GridColumns>
 </TelerikGrid>
