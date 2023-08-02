@@ -34,7 +34,7 @@ namespace ServerLocalizationResx
             #region Localization
 
             services.AddControllers();
-            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.AddLocalization();
             services.Configure<RequestLocalizationOptions>(options =>
             {
                 // define the list of cultures your app will support
