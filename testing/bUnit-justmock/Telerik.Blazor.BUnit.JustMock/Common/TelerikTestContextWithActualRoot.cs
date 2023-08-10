@@ -24,6 +24,9 @@ namespace Telerik.Blazor.BUnit.JustMock.Common
         public TelerikTestContextWithActualRoot()
         {
             JSInterop.SetupVoid(x => x.Identifier.StartsWith("TelerikBlazor", StringComparison.InvariantCultureIgnoreCase));
+            JSInterop.Setup<string>(x => x.Identifier.StartsWith("TelerikBlazor", StringComparison.InvariantCultureIgnoreCase)).SetResult(string.Empty);
+            JSInterop.Setup<bool>(x => x.Identifier.StartsWith("TelerikBlazor", StringComparison.InvariantCultureIgnoreCase)).SetResult(default);
+            JSInterop.Setup<double>(x => x.Identifier.StartsWith("TelerikBlazor", StringComparison.InvariantCultureIgnoreCase)).SetResult(default);
 
             // you can also register a real one for actual localization to test that too
             var localizerMock = Mock.Create<ITelerikStringLocalizer>();
