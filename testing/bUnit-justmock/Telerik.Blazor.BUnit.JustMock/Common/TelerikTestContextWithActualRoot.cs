@@ -30,9 +30,6 @@ namespace Telerik.Blazor.BUnit.JustMock.Common
 
             // you can also register a real one for actual localization to test that too
             var localizerMock = Mock.Create<ITelerikStringLocalizer>();
-
-            // make sure JS Interop is available first
-            Services.AddSingleton(this.JSInterop.JSRuntime);
             
             // add the Telerik Blazor services like in a regular app
             Services.AddTelerikBlazor();
