@@ -20,14 +20,13 @@ namespace Telerik.Blazor.BUnit.JustMock.Common
 
         public TelerikTestContext()
         {
-            // mock the JS Interop service, you cannot use the one coming from the context
-            var jsRuntimeMock = Mock.Create<IJSRuntime>();
+            JSInterop.SetupVoid(x => x.Identifier.StartsWith("TelerikBlazor", StringComparison.InvariantCultureIgnoreCase));
+            JSInterop.Setup<string>(x => x.Identifier.StartsWith("TelerikBlazor", StringComparison.InvariantCultureIgnoreCase)).SetResult(string.Empty);
+            JSInterop.Setup<bool>(x => x.Identifier.StartsWith("TelerikBlazor", StringComparison.InvariantCultureIgnoreCase)).SetResult(default);
+            JSInterop.Setup<double>(x => x.Identifier.StartsWith("TelerikBlazor", StringComparison.InvariantCultureIgnoreCase)).SetResult(default);
 
             // you can also register a real one for actual localization to test that too
             var localizerMock = Mock.Create<ITelerikStringLocalizer>();
-
-            // make sure JS Interop is available first
-            Services.AddSingleton(jsRuntimeMock);
 
             // add the Telerik Blazor services like in a regular app
             Services.AddTelerikBlazor();
