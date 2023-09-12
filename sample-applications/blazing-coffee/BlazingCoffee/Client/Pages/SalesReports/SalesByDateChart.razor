@@ -1,5 +1,6 @@
 ﻿@namespace BlazingCoffee.Client.Pages
 @using System.Globalization
+@using Telerik.SvgIcons;
 @inject HttpClient Http
 @inject ITelerikStringLocalizer Localizer
 @page "/sales"
@@ -15,7 +16,7 @@
                 </TelerikButtonGroup>
             </CardActions>
             <div class="card-ranges">
-                    <TelerikFontIcon Icon="@FontIcon.Calendar"></TelerikFontIcon>
+                    <TelerikSvgIcon Icon="@SvgIcon.Calendar"></TelerikSvgIcon>
                 <TelerikDateRangePicker StartValue="@StartValue" EndValue="@EndValue"
                                         BottomView="CalendarView.Year"
                                         Class="daterangepicker-no-labels"

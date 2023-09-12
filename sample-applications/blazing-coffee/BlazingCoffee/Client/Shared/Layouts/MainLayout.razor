@@ -1,5 +1,6 @@
 ﻿@namespace BlazingCoffee.Client.Shared
 @using BlazingCoffee.Client.Shared.NavMenu
+@using Telerik.SvgIcons;
 
 @inherits LayoutComponentBase
 @inject ITelerikStringLocalizer Localizer
@@ -11,7 +12,7 @@
     <div class="header">
         <div class="nav-container">
             <div class="menu-button">
-                <TelerikButton Icon="@FontIcon.Menu" OnClick="ToggleMenuDrawer" />
+                <TelerikButton Icon="@SvgIcon.Menu" OnClick="ToggleMenuDrawer" />
             </div>
             <div class="title">
                 <h1>@Localizer["Blazing_Coffee_Title"]</h1>
@@ -52,10 +53,10 @@
     IEnumerable<DrawerItem> Data =>
     new List<DrawerItem>
     {
-            new DrawerItem{ Text = Localizer["Drawer_Team"], Icon = FontIcon.Grid, Url="/blazor-coffee/", Group = "home"},
-            new DrawerItem{ Text = Localizer["Drawer_Dashboard"], Icon = FontIcon.ChartLineMarkers, Url="/blazor-coffee/sales", Group = "app"},
-            new DrawerItem{ Text = Localizer["Drawer_Profile"], Icon = FontIcon.User, Url="/blazor-coffee/profile", Group = "app"},
-            new DrawerItem{ Text = Localizer["Drawer_Info"], Icon = FontIcon.InfoCircle, Url="/blazor-coffee/information", Group = "ext"}
+            new DrawerItem{ Text = Localizer["Drawer_Team"], Icon = SvgIcon.Grid, Url="/blazor-coffee/", Group = "home"},
+            new DrawerItem{ Text = Localizer["Drawer_Dashboard"], Icon = SvgIcon.ChartLineMarkers, Url="/blazor-coffee/sales", Group = "app"},
+            new DrawerItem{ Text = Localizer["Drawer_Profile"], Icon = SvgIcon.User, Url="/blazor-coffee/profile", Group = "app"},
+            new DrawerItem{ Text = Localizer["Drawer_Info"], Icon = SvgIcon.InfoCircle, Url="/blazor-coffee/information", Group = "ext"}
     };
       
     async Task ToggleMenuDrawer()
