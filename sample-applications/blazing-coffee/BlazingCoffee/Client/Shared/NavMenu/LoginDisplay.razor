@@ -2,12 +2,13 @@
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using System.Security.Cryptography
 @using System.Text
+@using Telerik.SvgIcons;
 @inject NavigationManager Navigation
 @inject SignOutSessionStateManager SignOutManager
 
 <AuthorizeView>
     <Authorized>
-        <TelerikButton Icon="@FontIcon.User" @onclick="BeginSignOut">Log out</TelerikButton>
+        <TelerikButton Icon="@SvgIcon.User" @onclick="BeginSignOut">Log out</TelerikButton>
         <img class="k-avatar-rounded" src="@HashEmailForGravatar(context.User.Identity.Name)" />
         <a href="authentication/profile">@context.User.Identity.Name</a>
     </Authorized>

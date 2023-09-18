@@ -1,4 +1,5 @@
 ﻿@namespace BlazingCoffee.Client.Shared
+@using Telerik.SvgIcons;
 @inject IJSRuntime js
 
 <TelerikDropDownList Id="theme"
@@ -9,7 +10,7 @@
                      Width="140px"
                      ValueChanged="@( (string v) => HandleThemeSelected(v) )">
     <ValueTemplate>
-        <TelerikFontIcon Icon="@FontIcon.Palette"></TelerikFontIcon>
+        <TelerikSvgIcon Icon="@SvgIcon.Palette"></TelerikSvgIcon>
         <div class="ddl-separator"></div>
         <span class="text-content">@((context as ThemeSetting).ThemeText)</span>
     </ValueTemplate>
