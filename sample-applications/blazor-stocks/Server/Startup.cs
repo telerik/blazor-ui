@@ -21,6 +21,7 @@ namespace BlazorFinancePortfolio.Server
         {
 
             services.AddControllersWithViews();
+            services.AddRazorComponents().AddInteractiveWebAssemblyComponents();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,7 +42,6 @@ namespace BlazorFinancePortfolio.Server
             app.UsePathBase("/blazor-financial-portfolio");
 
             app.UseHttpsRedirection();
-            app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -49,8 +49,8 @@ namespace BlazorFinancePortfolio.Server
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapFallbackToFile("index.html");
-            });
+                endpoints.MapRazorComponents<Client.Host>().AddInteractiveWebAssemblyRenderMode();
+			});
         }
     }
 }
