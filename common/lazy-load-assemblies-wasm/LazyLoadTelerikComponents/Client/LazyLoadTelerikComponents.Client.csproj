@@ -1,28 +1,37 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
         <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.0" PrivateAssets="all" />
-        <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Localization" Version="3.1.3" />
-        <PackageReference Include="Telerik.UI.for.Blazor" Version="2.19.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.12" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.12" PrivateAssets="all" />
+        <PackageReference Include="System.Net.Http.Json" Version="7.0.1" />
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.12" />
+        <PackageReference Include="Telerik.UI.for.Blazor" Version="4.6.0" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Shared\LazyLoadTelerikComponents.Shared.csproj" />
     </ItemGroup>
 
-    <!-- Define the assemblies that will be lazy loaded. This is a list for the Telerik assemblies as of 2.19.0 -->
+    <!-- Define the Telerik assemblies and dependencies that will be lazy loaded -->
     <ItemGroup>
+        <!-- Components and data binding -->
         <BlazorWebAssemblyLazyLoad Include="Telerik.Blazor.dll" />
         <BlazorWebAssemblyLazyLoad Include="Telerik.DataSource.dll" />
-        <BlazorWebAssemblyLazyLoad Include="Telerik.Recurrence.dll" />
-        <BlazorWebAssemblyLazyLoad Include="Telerik.Documents.SpreadsheetStreaming.dll" />
-        <BlazorWebAssemblyLazyLoad Include="Telerik.Zip.dll" />
         <BlazorWebAssemblyLazyLoad Include="System.Data.Common.dll" />
         <BlazorWebAssemblyLazyLoad Include="System.Linq.Queryable.dll" />
+        <!-- Icons -->
+        <BlazorWebAssemblyLazyLoad Include="Telerik.SvgIcons.dll" />
+        <BlazorWebAssemblyLazyLoad Include="Telerik.FontIcons.dll" />
+        <!-- PivotGrid -->
+        <BlazorWebAssemblyLazyLoad Include="Telerik.Pivot.Core.dll" />
+        <BlazorWebAssemblyLazyLoad Include="Telerik.Pivot.DataProviders.Xmla.dll" />
+        <!-- Scheduler -->
+        <BlazorWebAssemblyLazyLoad Include="Telerik.Recurrence.dll" />
+        <!-- Excel export -->
+        <BlazorWebAssemblyLazyLoad Include="Telerik.Documents.SpreadsheetStreaming.dll" />
+        <BlazorWebAssemblyLazyLoad Include="Telerik.Zip.dll" />
     </ItemGroup>
 
 </Project>
