@@ -7,8 +7,11 @@
         AdditionalAssemblies="@lazyLoadedAssemblies"
         OnNavigateAsync="@OnNavigateAsync">
     <Navigating>
-        <div style="padding:20px;background-color:blue;color:white">
-            <p>Loading the requested page...</p>
+        <div style="position:fixed;top:0;left:0;
+            width:100vw;height:100vh;
+            display:flex;justify-content:center;align-items:center;
+            background-color:#fff;color:#333;">
+            <p>Optional Loading Screen...</p>
         </div>
     </Navigating>
     <Found Context="routeData">
@@ -32,14 +35,29 @@
             {
                 var assemblies = await assemblyLoader.LoadAssembliesAsync(new List<string>()
                 {
-                    // Define the assemblies that will be lazy loaded. This is a list for the Telerik assemblies as of 2.19.0 
+                    // Lazy load the required Telerik assemblies and dependencies
+
+                    // Components and data binding
                     "Telerik.Blazor.dll",
                     "Telerik.DataSource.dll",
-                    "Telerik.Recurrence.dll",
-                    "Telerik.Documents.SpreadsheetStreaming.dll",
-                    "Telerik.Zip.dll",
                     "System.Data.Common.dll",
-                    "System.Linq.Queryable.dll"
+                    "System.Linq.Queryable.dll",
+
+                    // Svg Icons
+                    "Telerik.SvgIcons.dll",
+                    // Font icons
+                    "Telerik.FontIcons.dll",
+
+                    // PivotGrid
+                    //"Telerik.Pivot.Core.dll",
+                    //"Telerik.Pivot.DataProviders.Xmla.dll",
+
+                    // Scheduler
+                    "Telerik.Recurrence.dll",
+
+                    // Excel export
+                    "Telerik.Documents.SpreadsheetStreaming.dll",
+                    "Telerik.Zip.dll"
                 });
 
                 lazyLoadedAssemblies.AddRange(assemblies);
@@ -47,7 +65,7 @@
         }
         catch (Exception ex)
         {
-            throw new Exception("loading assemblies failed " + ex);
+            throw new Exception("Failed loading assemblies. " + ex);
         }
     }
 }

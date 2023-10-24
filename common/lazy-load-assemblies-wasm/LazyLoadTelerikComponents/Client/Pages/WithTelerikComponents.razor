@@ -18,12 +18,14 @@ Current thread culture (used for date and number formatting): @System.Threading.
 
 <CultureChooser />
 
-<TelerikGrid Data="@forecasts"
-             Pageable="true" Groupable="true" Sortable="true" FilterMode="@GridFilterMode.FilterMenu"
-             OnUpdate="@UpdateHandler" OnDelete="@DeleteHandler" OnCreate="@CreateHandler">
-    <GridToolBar>
-        <GridCommandButton Command="Add" Icon="add">@Loc["Grid_Create"]</GridCommandButton>
-    </GridToolBar>
+<TelerikGrid Data="@Forecasts"
+             Pageable="true" Groupable="true" Sortable="true"
+             FilterMode="@GridFilterMode.FilterMenu"
+             EditMode="@GridEditMode.Inline"
+             OnCreate="@CreateHandler" OnUpdate="@UpdateHandler" OnDelete="@DeleteHandler">
+    <GridToolBarTemplate>
+        <GridCommandButton Command="Add" Icon="@SvgIcon.Plus">@Loc["Grid_Create"]</GridCommandButton>
+    </GridToolBarTemplate>
     <GridColumns>
         <GridColumn Field="@(nameof(WeatherForecast.Date))">
             <Template>
@@ -34,37 +36,37 @@ Current thread culture (used for date and number formatting): @System.Threading.
         <GridColumn Field="@(nameof(WeatherForecast.TemperatureF))" />
         <GridColumn Field="@(nameof(WeatherForecast.Summary))" />
         <GridCommandColumn>
-            <GridCommandButton Command="Edit" Icon="edit">@Loc["Grid_Edit"]</GridCommandButton>
-            <GridCommandButton Command="Delete" Icon="delete">@Loc["Grid_Delete"]</GridCommandButton>
-            <GridCommandButton Command="Save" Icon="save" ShowInEdit="true">@Loc["Grid_Update"]</GridCommandButton>
-            <GridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true">@Loc["Grid_Cancel"]</GridCommandButton>
+            <GridCommandButton Command="Edit" Icon="@SvgIcon.Pencil">@Loc["Grid_Edit"]</GridCommandButton>
+            <GridCommandButton Command="Delete" Icon="@SvgIcon.Trash">@Loc["Grid_Delete"]</GridCommandButton>
+            <GridCommandButton Command="Save" Icon="@SvgIcon.Save" ShowInEdit="true">@Loc["Grid_Update"]</GridCommandButton>
+            <GridCommandButton Command="Cancel" Icon="@SvgIcon.Save" ShowInEdit="true">@Loc["Grid_Cancel"]</GridCommandButton>
         </GridCommandColumn>
     </GridColumns>
 </TelerikGrid>
 
 <p>The Calendar will also take the names of the months, days of the week and the first day of the week from the culture.</p>
 
-<TelerikCalendar @bind-Date="@today" />
+<TelerikCalendar @bind-Date="@DateValue" />
 
 <p>The numeric textbox also reacts to the culture and uses its standard numeric formats.</p>
-<TelerikNumericTextBox @bind-Value="@numericTextBoxValue" Format="N" />
+<TelerikNumericTextBox @bind-Value="@NumericValue" Format="N" />
 
 
 @code {
-    decimal numericTextBoxValue { get; set; } = 1234567.89123m;
-    DateTime today { get; set; } = DateTime.Now.Date;
-    List<WeatherForecast> forecasts { get; set; } = new List<WeatherForecast>();
+    private decimal NumericValue { get; set; } = 1234567.89123m;
+    private DateTime DateValue { get; set; } = DateTime.Now.Date;
+    private List<WeatherForecast> Forecasts { get; set; } = new List<WeatherForecast>();
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetFromJsonAsync<List<WeatherForecast>>("WeatherForecast?count=150");
+        Forecasts = await Http.GetFromJsonAsync<List<WeatherForecast>>("WeatherForecast?count=150");
     }
 
     // sample CUD operations to showcase how to localize command buttons as well
-    public void UpdateHandler(GridCommandEventArgs args)
+    private void UpdateHandler(GridCommandEventArgs args)
     {
         WeatherForecast item = (WeatherForecast)args.Item;
-        var matchingItem = forecasts.FirstOrDefault(c => c.Id == item.Id);
+        var matchingItem = Forecasts.FirstOrDefault(c => c.Id == item.Id);
         if (matchingItem != null)
         {
             matchingItem.Summary = item.Summary;
@@ -73,17 +75,17 @@ Current thread culture (used for date and number formatting): @System.Threading.
         }
     }
 
-    public void DeleteHandler(GridCommandEventArgs args)
+    private void DeleteHandler(GridCommandEventArgs args)
     {
-        WeatherForecast item = (WeatherForecast)args.Item;
-        forecasts.Remove(item);
+        var item = (WeatherForecast)args.Item;
+        Forecasts.Remove(item);
     }
 
-    public void CreateHandler(GridCommandEventArgs args)
+    private void CreateHandler(GridCommandEventArgs args)
     {
-        WeatherForecast item = (WeatherForecast)args.Item;
+        var item = (WeatherForecast)args.Item;
 
-        item.Id = forecasts.Count;
-        forecasts.Insert(0, item);
+        item.Id = Forecasts.Count + 1;
+        Forecasts.Insert(0, item);
     }
 }
