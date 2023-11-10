@@ -46,6 +46,8 @@ namespace BlazorFinancePortfolio.Server
 
             app.UseRouting();
 
+            app.UseAntiforgery();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
