@@ -77,7 +77,7 @@ The current demo app includes examples of the following features in the Blazor W
 
 ## Requirements
 
-- [.NET 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+- [.NET 7](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
 - [Telerik UI for Blazor](https://www.telerik.com/blazor-ui) (Trial or Commercial)
 - [npm](https://www.npmjs.com/) (node package manager, for sass themes)
 

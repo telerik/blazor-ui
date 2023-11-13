@@ -26,7 +26,7 @@ namespace BlazorDashboard
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddRazorComponents().AddInteractiveServerComponents();
+            services.AddServerSideBlazor();
             services.AddSingleton<IssuesGenerator>();
             services.AddTelerikBlazor();
         }
@@ -52,11 +52,10 @@ namespace BlazorDashboard
 
             app.UseRouting();
 
-            app.UseAntiforgery();
-
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorComponents<App>().AddInteractiveServerRenderMode();
+                endpoints.MapBlazorHub();
+                endpoints.MapFallbackToPage("/_Host");
             });
         }
     }
