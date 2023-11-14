@@ -191,6 +191,12 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><a href="https://demos.telerik.com/blazor-ui/flatcolorpicker/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">FlatColorPicker Demos</td>
 </tr>
 <tr>
+  <td><b>Blazor ListBox Component</b></td>
+  <td><a href="https://www.telerik.com/blazor-ui/listbox?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">ListBox Features</a></td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/listbox/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">ListBox Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/listbox/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">ListBox Demos</td>
+</tr>
+<tr>
   <td><b>Blazor ComboBox Component</b></td>
   <td><a href="https://www.telerik.com/blazor-ui/combobox?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">ComboBox Features</a></td>
   <td><a href="https://docs.telerik.com/blazor-ui/components/combobox/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">ComboBox Documentation</td>
@@ -411,6 +417,24 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><a href="https://demos.telerik.com/blazor-ui/chart/radar-column-chart?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">RadarColumn Demos</td>
 </tr>
 <tr>
+  <td><b>Blazor Range Bar Chart Component</b></td>
+  <td><a href="https://www.telerik.com/blazor-ui/range-bar-chart?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">RangeBar Chart Features</a></td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/chart/types/rangebar?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">RangeBar Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/chart/range-bar-chart?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">RadarColumn Demos</td>
+</tr>
+<tr>
+  <td><b>Blazor Range Column Chart Component</b></td>
+  <td><a href="https://www.telerik.com/blazor-ui/range-column-chart?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">RangeColumn Chart Features</a></td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/chart/types/rangecolumn?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">RangeColumn Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/chart/range-column-chart?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">RangeColumn Demos</td>
+</tr>
+<tr>
+  <td><b>Blazor Range Area Chart Component</b></td>
+  <td><a href="https://www.telerik.com/blazor-ui/range-area-chart?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">RangeArea Chart Features</a></td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/chart/types/rangearea?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">RangeArea Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/chart/range-area-chart?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">RangeArea Demos</td>
+</tr>
+<tr>
   <td><b>Blazor Radar Line Chart Component</b></td>
   <td><a href="https://www.telerik.com/blazor-ui/radar-line-chart?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">RadarLine Chart Features</a></td>
   <td><a href="https://docs.telerik.com/blazor-ui/components/chart/types/radar-line?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">RadarLine Documentation</td>
@@ -427,6 +451,12 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><a href="https://www.telerik.com/blazor-ui/scatter-line-chart?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">ScatterLine Chart Features</a></td>
   <td><a href="https://docs.telerik.com/blazor-ui/components/chart/types/scatterline?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">ScatterLineChart Documentation</td>
   <td><a href="https://demos.telerik.com/blazor-ui/chart/scatter-chart?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">ScatterLineChart Demos</td>
+</tr>
+<tr>
+  <td><b>Blazor Waterfall Chart Component</b></td>
+  <td><a href="https://www.telerik.com/blazor-ui/waterfall-chart?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Waterfall Chart Features</a></td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/chart/types/waterfall?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Waterfall Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/chart/waterfall-chart?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Waterfall Demos</td>
 </tr>
 </tbody></table>
 
@@ -522,6 +552,12 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
 
 ### Blazor Layout Components
 <table><tbody>
+<tr>
+  <td><b>Blazor AppBar Component</b></td>
+  <td><a href="https://www.telerik.com/blazor-ui/appbar?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">AppBar Features</a></td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/appbar/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">AppBar Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/appbar/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">AppBar Demos</td>
+</tr>
 <tr>
   <td><b>Blazor Avatar Component</b></td>
   <td><a href="https://www.telerik.com/blazor-ui/avatar?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Avatar Features</a></td>
@@ -683,6 +719,12 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><a href="https://www.telerik.com/blazor-ui/drawer?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Drawer Features</a></td>
   <td><a href="https://docs.telerik.com/blazor-ui/components/drawer/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Drawer Documentation</td>
   <td><a href="https://demos.telerik.com/blazor-ui/drawer/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Drawer Demos</td>
+</tr>
+<tr>
+  <td><b>Blazor DropDownButton Component</b></td>
+  <td><a href="https://www.telerik.com/blazor-ui/dropdownbutton?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">DropDownButton Features</a></td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/dropdownbutton/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">DropDownButton Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/dropdownbutton/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">DropDownButton Demos</td>
 </tr>
 <tr>
   <td><b>Blazor PanelBar Component</b></td>
