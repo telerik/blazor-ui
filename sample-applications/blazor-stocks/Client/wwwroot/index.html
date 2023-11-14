@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -15,7 +15,6 @@
     <link rel="apple-touch-icon" sizes="512x512" href="default-icon-512x512.png" />
 
     <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
-    <HeadOutlet @rendermode="@RenderMode.InteractiveWebAssembly" />
 </head>
 
 <body>
@@ -37,7 +36,7 @@
             <a href class="reload btn-warning p-2"><span class="k-icon k-i-reload"></span> Reload</a>
         </div>
     </div>
-    <script src="_framework/blazor.web.js"></script>
+    <script src="_framework/blazor.webassembly.js"></script>
     <script src="_content/BlazorPro.BlazorSize/blazorSize.min.js"></script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
     <script src="custom-install-prompt.js"></script>

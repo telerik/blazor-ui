@@ -26,7 +26,6 @@ namespace BlazingCoffee.Server
         {
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddRazorComponents().AddInteractiveWebAssemblyComponents();
 
             // Register Database for Store
             services.AddDbContext<CoffeeContext>(options => options.UseSqlite("Data Source=Coffee.db"));
@@ -56,13 +55,11 @@ namespace BlazingCoffee.Server
 
             app.UseRouting();
 
-            app.UseAntiforgery();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
-                endpoints.MapRazorComponents<Client.Host>().AddInteractiveWebAssemblyRenderMode();
+                endpoints.MapFallbackToFile("index.html");
             });
         }
     }
