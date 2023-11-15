@@ -9,12 +9,12 @@
 
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebView.WindowsForms" Version="8.0.0-rc.2.9373" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebView.WindowsForms" Version="8.0.3" />
 
       <!--if you want to try the trial version-->
       <!--<PackageReference Include="Telerik.UI.for.Blazor.Trial" Version="3,3.0" />-->
 
-        <PackageReference Include="Telerik.UI.for.Blazor" Version="3.3.0" />
+        <PackageReference Include="Telerik.UI.for.Blazor" Version="5.0.0" />
     </ItemGroup>
 
     <ItemGroup>

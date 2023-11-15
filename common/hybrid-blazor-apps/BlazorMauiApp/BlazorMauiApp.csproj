@@ -61,7 +61,7 @@
     <!--if you want to try the trial version-->
     <!--<PackageReference Include="Telerik.UI.for.Blazor.Trial" Version="3.3.0" />-->
 
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="3.3.0" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="5.0.0" />
   </ItemGroup>
 
   <!--<ItemGroup>
