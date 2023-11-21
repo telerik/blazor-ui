@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
@@ -11,7 +11,7 @@
     <!-- Trial script file -->
     <!-- If you are using a commercial license, replace the telerik-blazor.js script tag with the one commented below. -->
 
-    <script src="_content/Telerik.UI.for.Blazor.Trial/js/telerik-blazor.js"></script>
+    <script src="_content/Telerik.UI.for.Blazor/js/telerik-blazor.js"></script>
 
     <!-- /Trial script file -->
     <!-- Commercial script file -->
@@ -24,6 +24,7 @@
     <link href="manifest.json" rel="manifest" />
     <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
     <!-- /PWA -->
+    <HeadOutlet @rendermode="@RenderMode.InteractiveWebAssembly" />
 </head>
 
 <body>
@@ -42,7 +43,7 @@
     </app>
 
     <script src="_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication/AuthenticationService.js"></script>
-    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="_framework/blazor.web.js"></script>
     <script src="js/themeChooser.js"></script>
     <script>
         window.themeChooser.init();
