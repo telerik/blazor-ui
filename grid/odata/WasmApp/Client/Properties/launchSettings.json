@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:62775/",
+      "applicationUrl": "https://localhost:62775/",
       "sslPort": 0
     }
   },
@@ -18,10 +18,10 @@
     "WasmApp.Client": {
       "commandName": "Project",
       "launchBrowser": true,
+      "applicationUrl": "https://localhost:62777/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "http://localhost:62777/"
+      }
     }
   }
 }
