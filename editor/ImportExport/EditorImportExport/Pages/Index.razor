@@ -31,8 +31,8 @@
                      VerticalPosition="@NotificationVerticalPosition.Top" />
 
 @code{
-    private string EditorValue { get; set; }
-    private List<IEditorTool> EditorTools { get; set; }
+    private string EditorValue { get; set; } = string.Empty;
+    private List<IEditorTool> EditorTools { get; set; } = new();
 
     private string ExportFormat { get; set; } = "pdf";
     private List<string> SupportedExportFormats { get; set; } = new List<string> { "docx", "html", "pdf", "rtf", "txt" };

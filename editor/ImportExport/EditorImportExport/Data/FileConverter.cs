@@ -78,7 +78,7 @@ namespace EditorImportExport.Data
                 // Export the Editor content.
                 string mimeType;
                 IFormatProvider<RadFlowDocument> exportProvider = GetExportFormatProvider(fileName, out mimeType);
-                byte[] exportFileBytes = null;
+                byte[]? exportFileBytes = null;
                 using (MemoryStream ms = new MemoryStream())
                 {
                     exportProvider.Export(document, ms);
@@ -127,7 +127,7 @@ namespace EditorImportExport.Data
         /// <returns>IFormatProvider<RadFlowDocument> that you can use to read that file and import it as an in-memory document you can convert to other formats</returns>
         private IFormatProvider<RadFlowDocument> GetImportFormatProvider(string extension)
         {
-            IFormatProvider<RadFlowDocument> fileFormatProvider;
+            IFormatProvider<RadFlowDocument>? fileFormatProvider;
             switch (extension)
             {
                 case ".docx":
@@ -163,7 +163,7 @@ namespace EditorImportExport.Data
         /// <returns>IFormatProvider<RadFlowDocument> that you can use to export the original document to a certain file format</returns>
         private IFormatProvider<RadFlowDocument> GetExportFormatProvider(string fileName, out string mimeType)
         {
-            IFormatProvider<RadFlowDocument> fileFormatProvider;
+            IFormatProvider<RadFlowDocument>? fileFormatProvider;
             string extension = Path.GetExtension(fileName);
             switch (extension)
             {
