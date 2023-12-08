@@ -27,6 +27,7 @@ The export happens in the `ExportAndDownloadHtmlContent` method in `FileConverte
 
 1. It creates the in-memory document with the HTML.
 1. It checks what provider to use based on the file exetension.
+1. It adds an image converter that will convert any non-JPG images to JPG. Otherwise the exporting will fail with an exception.
 1. It sends the file to the browser for download with the help of `FileDownloader.cs` and a JavaScript function in `fileDownloader.js`.
 
 You can extend this implementation to save the exported file on the server.
