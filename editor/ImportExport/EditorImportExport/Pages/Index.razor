@@ -1,17 +1,22 @@
 ﻿@page "/"
 
-@using Data
+@using EditorImportExport.Data
 @using Telerik.Blazor.Components.Editor
+
 @inject FileConverter fileConverter
 
-<TelerikEditor @bind-Value="@EditorContent" Tools="@Tools" EditMode="@EditorEditMode.Div" Height="700px">
+<TelerikEditor @bind-Value="@EditorValue" Tools="@EditorTools" EditMode="@EditorEditMode.Div" Height="700px">
     <EditorCustomTools>
-        <EditorCustomTool Name="ExportToPdfTool">
+        <EditorCustomTool Name="ExportTool">
             <div style="margin-right: 50px">
-                <TelerikButton OnClick="@ExportToPdf" Icon="@FontIcon.Download"></TelerikButton>
-                <TelerikDropDownList Data="@SupportedExportFormats"
-                                     @bind-Value="@exportFormat"
-                                     Width="auto">
+                <TelerikButton OnClick="@ExportToPdf" Icon="@SvgIcon.Download"></TelerikButton>
+                <TelerikDropDownList Data="@SupportedExportFormats" @bind-Value="@ExportFormat" Width="auto">
+                    <ItemTemplate>
+                        @context.ToUpper()
+                    </ItemTemplate>
+                    <ValueTemplate>
+                        @context.ToUpper()
+                    </ValueTemplate>
                     <DropDownListSettings>
                         <DropDownListPopupSettings Height="auto" />
                     </DropDownListSettings>
@@ -21,82 +26,58 @@
     </EditorCustomTools>
 </TelerikEditor>
 
-@* This notification is just to show the user there was a problem in case an exception is thrown,
-    it is not related to the import/epoxrt and it is not required *@
-<div class="notification-container">
-    <TelerikAnimationContainer @ref="@FailureNotification" Width="300px" Height="200px" Top="20px" AnimationType=@AnimationType.SlideDown>
-        <div class="k-widget k-popup k-notification k-notification-info">
-            <h3><TelerikFontIcon Icon="@FontIcon.Cancel" /> Problem</h3>
-            <p>
-                The operation failed, there is probably something in the content that prevents the conversion. Try simplifying the content and removing images/lists.
-            </p>
-        </div>
-    </TelerikAnimationContainer>
-</div>
+<TelerikNotification @ref="@NotificationRef"
+                     HorizontalPosition="@NotificationHorizontalPosition.Center"
+                     VerticalPosition="@NotificationVerticalPosition.Top" />
 
 @code{
-    string EditorContent { get; set; }
-    List<IEditorTool> Tools { get; set; }
+    private string EditorValue { get; set; }
+    private List<IEditorTool> EditorTools { get; set; }
 
-    // list of available export formats, hardcoded, but you could tie it to a method from the service
-    string exportFormat { get; set; } = "pdf";
-    List<string> SupportedExportFormats { get; set; } = new List<string> { "pdf", "docx", "txt", "html", "rtf" };
+    private string ExportFormat { get; set; } = "pdf";
+    private List<string> SupportedExportFormats { get; set; } = new List<string> { "docx", "html", "pdf", "rtf", "txt" };
 
-    // this is for the error notification only
-    public TelerikAnimationContainer FailureNotification { get; set; }
+    private TelerikNotification NotificationRef { get; set; } = null!;
 
-    // import and custom tool registration
-    protected override async Task OnInitializedAsync()
+    private async Task ExportToPdf()
     {
-        // add the custom tool for export
-        Tools = new List<IEditorTool>(EditorToolSets.All);
-        Tools.Insert(0, new CustomTool("ExportToPdfTool"));
+        // Make table cell borders visible in the exported file.
+        EditorValue = EditorValue.Replace("<td>", "<td style=\"border:1px solid #999;\">");
 
-        // fetch the HTML content from import service
-        EditorContent = fileConverter.GetHtmlString();
-    }
+        bool exportSuccess = await fileConverter.ExportAndDownloadHtmlContent(EditorValue,
+            $"EditorContent-{DateTime.Now.Millisecond}.{ExportFormat}");
 
-    // export
-    async Task ExportToPdf()
-    {
-        // ensure that table cells have inline border styles and are visible in the exported document
-        EditorContent = EditorContent.Replace("<td>", "<td style=\"border:1px solid #ccc;\">");
-        // call the export service, it will discern the details based on the extension of the exported file we want
-        bool isSuccess = await fileConverter.ExportAndDownloadHtmlContent(EditorContent, $"EditorContent.{exportFormat}");
-        // in case here was an issue
-        if (isSuccess == false)
+        if (!exportSuccess)
         {
-            await ShowErrorNotification();
+            ShowErrorNotification("Editor export");
         }
     }
 
-
-    // these are for the issue notification only
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override void OnInitialized()
     {
-        if (firstRender && EditorContent == null) // denotes an exception in this sample service
+        EditorTools = new List<IEditorTool>(EditorToolSets.Default);
+        EditorTools.Insert(0, new CustomTool("ExportTool"));
+
+        // Load the document as HTML.
+        EditorValue = fileConverter.GetHtmlString();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender && string.IsNullOrEmpty(EditorValue))
         {
-            await ShowErrorNotification();
+            ShowErrorNotification("File import");
         }
     }
 
-    async Task ShowErrorNotification()
+    private void ShowErrorNotification(string text = "Operation")
     {
-        await FailureNotification.ShowAsync();
-
-        await Task.Delay(10000);
-
-        await FailureNotification.HideAsync();
+        NotificationRef.Show(new NotificationModel()
+        {
+            Closable = true,
+            CloseAfter = 10000,
+            ThemeColor = ThemeConstants.Notification.ThemeColor.Error,
+            Text = $"{text} failed. Something in the content may be preventing the format conversion."
+        });
     }
 }
-
-<style type="text/css">
-    /* The specially positioned parent of the notification controls its position */
-    .notification-container {
-        position: fixed;
-        top: 50%;
-        margin-top: -100px;
-        left: 50%;
-        margin-left: -150px;
-    }
-</style>

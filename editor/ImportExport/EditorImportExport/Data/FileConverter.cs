@@ -1,31 +1,29 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.JSInterop;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Telerik.Documents.ImageUtils;
 using Telerik.Windows.Documents.Common.FormatProviders;
-using Telerik.Windows.Documents.Fixed.FormatProviders.Pdf;
-using pdfProviderNamespace = Telerik.Windows.Documents.Flow.FormatProviders.Pdf;
+using Telerik.Windows.Documents.Extensibility;
+using Telerik.Windows.Documents.Flow.FormatProviders.Pdf;
 using Telerik.Windows.Documents.Flow.FormatProviders.Docx;
 using Telerik.Windows.Documents.Flow.FormatProviders.Html;
 using Telerik.Windows.Documents.Flow.FormatProviders.Rtf;
 using Telerik.Windows.Documents.Flow.FormatProviders.Txt;
 using Telerik.Windows.Documents.Flow.Model;
-using Microsoft.JSInterop;
 
 namespace EditorImportExport.Data
 {
     public class FileConverter
     {
         private IWebHostEnvironment Environment { get; set; }
-        private IJSRuntime _js { get; set; }
+        private IJSRuntime Js { get; set; }
 
         /// <summary>
-        /// Import a file from disk and convert it to an HTML string for use in the Editor
+        /// Import a file from disk and convert it to an HTML string for use in the Editor.
         /// </summary>
-        /// <returns>An HTML string that is just the contents of the body tag so the editor can work with them. Returns null to denote an error.</returns>
+        /// <returns>An HTML string that is just the contents of the body tag. Returns null to denote an error.</returns>
         public string GetHtmlString()
         {
             try
@@ -49,25 +47,35 @@ namespace EditorImportExport.Data
             }
             catch(Exception ex)
             {
-                return null;
+                Console.WriteLine("==================================================");
+                Console.WriteLine("Document import failed. The exception message was:");
+                Console.WriteLine("==================================================");
+                Console.WriteLine(ex.Message);
+
+                return string.Empty;
             }
         }
 
         /// <summary>
-        /// Convert the HTML string to a file, download the generated file in the browser
+        /// Convert the HTML string to a file and download it in the browser.
         /// </summary>
         /// <param name="htmlContent">The HTML content to export</param>
-        /// <param name="fileName">The FileName of the downloaded file, its extension is used to fetch the exprot provider</param>
-        /// <returns>Returns true if the operation succeeded, false if there was an exception</returns>
+        /// <param name="fileName">The name of the downloaded file. The file extension is used to fetch the export provider.</param>
+        /// <returns>Returns true if the operation succeeded, false if there was an exception.</returns>
         public async Task<bool> ExportAndDownloadHtmlContent(string htmlContent, string fileName)
         {
             try
             {
-                // prepare a document with the HTML content that we can use for conversion
+                // Prepare a document with the HTML content.
                 HtmlFormatProvider provider = new HtmlFormatProvider();
                 RadFlowDocument document = provider.Import(htmlContent);
 
-                // get the provider to export and then download the file
+                // Enable conversion of non-JPG images to JPG.
+                // https://docs.telerik.com/devtools/document-processing/libraries/radpdfprocessing/cross-platform/images
+                JpegImageConverterBase defaultJpegImageConverter = new JpegImageConverter();
+                FixedExtensibilityManager.JpegImageConverter = defaultJpegImageConverter;
+
+                // Export the Editor content.
                 string mimeType;
                 IFormatProvider<RadFlowDocument> exportProvider = GetExportFormatProvider(fileName, out mimeType);
                 byte[] exportFileBytes = null;
@@ -77,22 +85,28 @@ namespace EditorImportExport.Data
                     exportFileBytes = ms.ToArray();
                 }
 
-                // download the file in the browser
-                await FileDownloader.Save(_js, exportFileBytes, mimeType, fileName);
+                // Download the exported file.
+                await FileDownloader.Save(Js, exportFileBytes, mimeType, fileName);
             }
             catch (Exception ex) 
             {
+                Console.WriteLine("==================================================");
+                Console.WriteLine("Document export failed. The exception message was:");
+                Console.WriteLine("==================================================");
+                Console.WriteLine(ex.Message);
+
                 return false;
             }
+
             return true;
         }
 
         /// <summary>
-        /// Reads the file from the disk as an in-memory document, based on the provided path
+        /// Read the file from the disk as an in-memory document.
         /// </summary>
-        /// <param name="path">Path to the file on disk you wish to import</param>
+        /// <param name="path">Path to the file to import.</param>
         /// <returns>RadFlowDocument that you can use to convert the contents to other formats</returns>
-        RadFlowDocument ReadFile(string path)
+        private RadFlowDocument ReadFile(string path)
         {
             IFormatProvider<RadFlowDocument> fileFormatProvider = GetImportFormatProvider(Path.GetExtension(path));
 
@@ -111,7 +125,7 @@ namespace EditorImportExport.Data
         /// </summary>
         /// <param name="extension">the extension of the file we will import, used to discern the provider type</param>
         /// <returns>IFormatProvider<RadFlowDocument> that you can use to read that file and import it as an in-memory document you can convert to other formats</returns>
-        IFormatProvider<RadFlowDocument> GetImportFormatProvider(string extension)
+        private IFormatProvider<RadFlowDocument> GetImportFormatProvider(string extension)
         {
             IFormatProvider<RadFlowDocument> fileFormatProvider;
             switch (extension)
@@ -135,7 +149,7 @@ namespace EditorImportExport.Data
 
             if (fileFormatProvider == null)
             {
-                throw new NotSupportedException("The chosen file cannot be read with the supported providers.");
+                throw new NotSupportedException("File cannot be read with the supported format providers.");
             }
 
             return fileFormatProvider;
@@ -147,9 +161,8 @@ namespace EditorImportExport.Data
         /// <param name="fileName">the file name you wish to export, the provider is discerned based on its extensiom</param>
         /// <param name="mimeType">an out parameter with the MIME type for this file so you can download it</param>
         /// <returns>IFormatProvider<RadFlowDocument> that you can use to export the original document to a certain file format</returns>
-        IFormatProvider<RadFlowDocument> GetExportFormatProvider(string fileName, out string mimeType)
+        private IFormatProvider<RadFlowDocument> GetExportFormatProvider(string fileName, out string mimeType)
         {
-            // we get both the provider and the MIME type to use only one swtich-case
             IFormatProvider<RadFlowDocument> fileFormatProvider;
             string extension = Path.GetExtension(fileName);
             switch (extension)
@@ -171,7 +184,7 @@ namespace EditorImportExport.Data
                     mimeType = "text/plain";
                     break;
                 case ".pdf":
-                    fileFormatProvider = new pdfProviderNamespace.PdfFormatProvider();
+                    fileFormatProvider = new PdfFormatProvider();
                     mimeType = "application/pdf";
                     break;
                 default:
@@ -182,20 +195,17 @@ namespace EditorImportExport.Data
 
             if (fileFormatProvider == null)
             {
-                throw new NotSupportedException("The chosen format cannot be exported with the supported providers.");
+                throw new NotSupportedException("The selected format cannot be exported with the supported format providers.");
             }
 
             return fileFormatProvider;
         }
 
-        // DI for the environment feature we need - path to the wwwroot folder to read the intial content,
-        // and JS runtime for downloading the file to the browser
+        // DI to obtain the path to the wwwroot folder and JS runtime for downloading the file in the browser.
         public FileConverter(IWebHostEnvironment env, IJSRuntime js)
         {
             Environment = env;
-            _js = js;
+            Js = js;
         }
     }
-
-
 }
