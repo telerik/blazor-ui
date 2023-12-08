@@ -1,7 +1,5 @@
 ﻿using Microsoft.JSInterop;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EditorImportExport.Data
@@ -12,7 +10,7 @@ namespace EditorImportExport.Data
         {
             if (byteData == null)
             {
-                await jsRuntime.InvokeVoidAsync("alert", "The byte array provided for Exporting was Null.");
+                await jsRuntime.InvokeVoidAsync("alert", "The byte array provided for exporting was null.");
             }
             else
             {
