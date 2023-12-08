@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <PackageReference Include="Telerik.UI.for.Blazor" Version="5.0.1" />
-
     <PackageReference Include="Telerik.Documents.Core" Version="2023.3.1106" />
     <PackageReference Include="Telerik.Documents.Fixed" Version="2023.3.1106" />
     <PackageReference Include="Telerik.Documents.Flow" Version="2023.3.1106" />
