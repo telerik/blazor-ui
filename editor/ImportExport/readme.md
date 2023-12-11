@@ -36,4 +36,9 @@ The export is triggered by a [custom Editor tool](https://docs.telerik.com/blazo
 
 ## WebAssembly Support
 
-The [Document Processing tool does not support exporting of image URLs in WebAssembly apps](https://feedback.telerik.com/document-processing/1551306-wordsprocessing-htmlformatprovider-platformnotsupportedexception-thrown-when-trying-to-load-image-from-uri-in-blazor-wasm). It can only export Base64 images in the Editor content
+The [Document Processing tool does not support exporting of image URLs in WebAssembly apps](https://feedback.telerik.com/document-processing/1551306-wordsprocessing-htmlformatprovider-platformnotsupportedexception-thrown-when-trying-to-load-image-from-uri-in-blazor-wasm). For the time being, it can only export Base64 images in the Editor content.
+
+Possible workarounds for non-base64 images are:
+
+* Load the images manually and convert them to Base64 images before the exporting starts.
+* Send the HTML markup with the images to a remote server, make the HTML-to-PDF conversion there, and then send the exported file back to the WebAssembly app for download.
