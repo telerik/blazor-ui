@@ -33,3 +33,7 @@ The export happens in the `ExportAndDownloadHtmlContent` method in `FileConverte
 You can extend this implementation to save the exported file on the server.
 
 The export is triggered by a [custom Editor tool](https://docs.telerik.com/blazor-ui/components/editor/custom-tools) that is placed at the beginning of the Editor toolbar. You can invoke the export in any way you prefer from the view, for example, a button outside the Editor or other event.
+
+## WebAssembly Support
+
+The [Document Processing tool does not support exporting of image URLs in WebAssembly apps](https://feedback.telerik.com/document-processing/1551306-wordsprocessing-htmlformatprovider-platformnotsupportedexception-thrown-when-trying-to-load-image-from-uri-in-blazor-wasm). It can only export Base64 images in the Editor content

@@ -8,20 +8,20 @@
 <TelerikEditor @bind-Value="@EditorValue" Tools="@EditorTools" EditMode="@EditorEditMode.Div" Height="700px">
     <EditorCustomTools>
         <EditorCustomTool Name="ExportTool">
-            <div style="margin-right: 50px">
-                <TelerikButton OnClick="@ExportToPdf" Icon="@SvgIcon.Download"></TelerikButton>
-                <TelerikDropDownList Data="@SupportedExportFormats" @bind-Value="@ExportFormat" Width="auto">
-                    <ItemTemplate>
-                        @context.ToUpper()
-                    </ItemTemplate>
-                    <ValueTemplate>
-                        @context.ToUpper()
-                    </ValueTemplate>
-                    <DropDownListSettings>
-                        <DropDownListPopupSettings Height="auto" />
-                    </DropDownListSettings>
-                </TelerikDropDownList>
-            </div>
+            <TelerikButton OnClick="@ExportToPdf" Icon="@SvgIcon.Download"
+                           ThemeColor="@ThemeConstants.Button.ThemeColor.Primary"></TelerikButton>
+            &nbsp;
+            <TelerikDropDownList Data="@SupportedExportFormats" @bind-Value="@ExportFormat" Width="auto">
+                <ItemTemplate>
+                    @context.ToUpper()
+                </ItemTemplate>
+                <ValueTemplate>
+                    @context.ToUpper()
+                </ValueTemplate>
+                <DropDownListSettings>
+                    <DropDownListPopupSettings Height="auto" />
+                </DropDownListSettings>
+            </TelerikDropDownList>
         </EditorCustomTool>
     </EditorCustomTools>
 </TelerikEditor>
@@ -31,8 +31,8 @@
                      VerticalPosition="@NotificationVerticalPosition.Top" />
 
 @code{
-    private string EditorValue { get; set; }
-    private List<IEditorTool> EditorTools { get; set; }
+    private string EditorValue { get; set; } = string.Empty;
+    private List<IEditorTool> EditorTools { get; set; } = new();
 
     private string ExportFormat { get; set; } = "pdf";
     private List<string> SupportedExportFormats { get; set; } = new List<string> { "docx", "html", "pdf", "rtf", "txt" };
@@ -55,7 +55,7 @@
 
     protected override void OnInitialized()
     {
-        EditorTools = new List<IEditorTool>(EditorToolSets.Default);
+        EditorTools = new List<IEditorTool>(EditorToolSets.All);
         EditorTools.Insert(0, new CustomTool("ExportTool"));
 
         // Load the document as HTML.
