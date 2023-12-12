@@ -36,7 +36,7 @@ The export is triggered by a [custom Editor tool](https://docs.telerik.com/blazo
 
 ## WebAssembly Support
 
-Blazor WebAssembly apps require a few additional NuGet packages and a workload to be installed:
+Blazor WebAssembly apps require a few [additional NuGet packages and a workload](https://docs.telerik.com/devtools/document-processing/libraries/radpdfprocessing/cross-platform/images#requirements) to be installed:
 
 * NuGet package `SkiaSharp.NativeAssets.WebAssembly`
 * NuGet package `SkiaSharp.Views.Blazor`
