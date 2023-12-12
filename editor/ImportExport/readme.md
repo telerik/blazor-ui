@@ -36,7 +36,13 @@ The export is triggered by a [custom Editor tool](https://docs.telerik.com/blazo
 
 ## WebAssembly Support
 
-The [Document Processing tool does not support exporting of image URLs in WebAssembly apps](https://feedback.telerik.com/document-processing/1551306-wordsprocessing-htmlformatprovider-platformnotsupportedexception-thrown-when-trying-to-load-image-from-uri-in-blazor-wasm). For the time being, it can only export Base64 images in the Editor content.
+Blazor WebAssembly apps require a few [additional NuGet packages and a workload](https://docs.telerik.com/devtools/document-processing/libraries/radpdfprocessing/cross-platform/images#requirements) to be installed:
+
+* NuGet package `SkiaSharp.NativeAssets.WebAssembly`
+* NuGet package `SkiaSharp.Views.Blazor`
+* [Workload `wasm-tools`](https://learn.microsoft.com/en-us/aspnet/core/blazor/tooling?view=aspnetcore-8.0&pivots=linux-macos#net-webassembly-build-tools) for the correct .NET version
+
+In addition, the [Document Processing tool does not support exporting of image URLs in WebAssembly apps](https://feedback.telerik.com/document-processing/1551306-wordsprocessing-htmlformatprovider-platformnotsupportedexception-thrown-when-trying-to-load-image-from-uri-in-blazor-wasm). For the time being, it can only export Base64 images in the Editor content.
 
 Possible workarounds for non-base64 images are:
 
