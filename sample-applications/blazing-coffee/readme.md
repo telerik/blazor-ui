@@ -107,7 +107,7 @@ If you are using a commercial version of Telerik UI for Blazor.
     <PackageReference Include="Telerik.UI.for.Blazor" Version="x.x.x" />
     ```
 
-- In `BlazingCoffee.Client/wwwroot.index.html`, remove `.Trial` from the package name in the script path. You should have
+- In `BlazingCoffee/Client/Host.razor`, remove `.Trial` from the package name in the script path. You should have
 
     ```
     <script src="_content/Telerik.UI.for.Blazor/js/telerik-blazor.js"></script>
