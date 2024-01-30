@@ -1,0 +1,18 @@
+﻿@* 
+    The TelerikContainer allows you to use Telerik Blazor components in the interactive parts of a static app.
+    Place the TelerikContainer in interactive Razor components, which are children of static parents.
+
+    The main purpose of the TelerikContainer component is to reuse a
+    TelerikRootComponent with the same settings. If you don't have any parameters for the TelerikRootComponent,
+    then you don't need a TelerikContainer.
+*@
+
+<TelerikRootComponent IconType="@IconType.Svg"
+                      EnableRtl="false">
+    @ChildContent
+</TelerikRootComponent>
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}

@@ -1,0 +1,65 @@
+﻿@page "/interactive-page"
+@rendermode InteractiveServer
+
+<PageTitle>Interactive Page</PageTitle>
+
+<h1>Interactive Page</h1>
+
+<Notes PageInteractivity="interactive" AppInteractivity="static" />
+
+<TelerikContainer>
+    <div class="sample-box">
+
+        <p>
+            <code>Shared/TelerikContainer.razor</code> allows you to reuse
+            one <code>TelerikRootComponent</code> with the same settings.
+        </p>
+
+        <TelerikDatePicker @bind-Value="@DatePickerValue"
+                           Width="200px" />
+
+        <TelerikButton OnClick="@( () => WindowVisible = !WindowVisible )">Toggle Window</TelerikButton>
+
+        <TelerikWindow @bind-Visible="@WindowVisible" Width="300px" Height="200px">
+            <WindowTitle>Telerik Window</WindowTitle>
+            <WindowActions>
+                <WindowAction Name="Close" />
+            </WindowActions>
+            <WindowContent>
+                Window Content
+            </WindowContent>
+        </TelerikWindow>
+
+        <TelerikDialogHelper @ref="@DialogHelperRef" />
+        <TelerikButton OnClick="@OnButtonClick">Show Dialog With Helper</TelerikButton>
+
+        <DialogAwareComponent />
+    </div>
+</TelerikContainer>
+
+<div style="position:relative">
+    <TelerikContainer>
+        <div class="sample-box">
+            <p>
+                This <code>TelerikContainer.razor</code> (and the <code>TelerikRootComponent</code> inside it)
+                is in a container with <code>position:relative</code> style. This setup breaks Telerik popups and they will appear at the wrong place.
+                If you hit such a problem, use the setup from <strong>Interactive App</strong> or <strong>Page With Empty Layout</strong>.
+            </p>
+            <TelerikDatePicker @bind-Value="@DatePickerValue"
+                               Width="200px" />
+        </div>
+    </TelerikContainer>
+</div>
+
+@code {
+    private DateTime DatePickerValue { get; set; } = DateTime.Today;
+
+    private TelerikDialogHelper DialogHelperRef { get; set; } = null!;
+
+    private bool WindowVisible { get; set; }
+
+    private async Task OnButtonClick()
+    {
+        await DialogHelperRef.AlertAsync("Telerik DialogFactory");
+    }
+}

@@ -1,0 +1,18 @@
+﻿@rendermode InteractiveServer
+
+<div class="sample-box" style="background: #fff; color: #000;">
+    <p>Island of interactivity <strong>@Name</strong></p>
+
+    <TelerikContainer>
+        <p>The DatePicker Value is: @DatePickerValue.ToShortDateString()</p>
+        <TelerikDatePicker @bind-Value="@DatePickerValue"
+                           Width="160px" />
+    </TelerikContainer>
+</div>
+
+@code {
+    private DateTime DatePickerValue { get; set; } = DateTime.Today;
+
+    [Parameter]
+    public string Name { get; set; } = "Island";
+}

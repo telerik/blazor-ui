@@ -1,0 +1,15 @@
+﻿@* The TelerikDialogHelper component allows you to use the DialogFactory in interactive Razor components,
+    which are NOT children of the TelerikRootComponent or the TelerikContainer.
+
+    The TelerikDialogHelper MUST be a child of TelerikRootComponent or TelerikContainer to work.
+*@
+
+@code {
+    [CascadingParameter]
+    public DialogFactory Dialogs { get; set; } = null!;
+
+    public async Task AlertAsync(string message)
+    {
+        await Dialogs.AlertAsync(message);
+    }
+}

@@ -1,0 +1,40 @@
+﻿@page "/interactive-app"
+
+<h1>Interactive App</h1>
+
+<Notes PageInteractivity="interactive (inherited)" AppInteractivity="interactive">
+    <Explanation>
+        <strong>The logic for changing the app interactivity is in <code>App.razor</code></strong>.
+    </Explanation>
+</Notes>
+
+<TelerikDatePicker @bind-Value="@DatePickerValue"
+                   Width="200px" />
+
+<TelerikButton OnClick="@( () => WindowVisible = !WindowVisible )">Toggle Window</TelerikButton>
+
+<TelerikWindow @bind-Visible="@WindowVisible" Width="300px" Height="200px">
+    <WindowTitle>Telerik Window</WindowTitle>
+    <WindowActions>
+        <WindowAction Name="Close" />
+    </WindowActions>
+    <WindowContent>
+        Window Content
+    </WindowContent>
+</TelerikWindow>
+
+<TelerikButton OnClick="@OnButtonClick">Show Dialog Directly</TelerikButton>
+
+@code {
+    private DateTime DatePickerValue { get; set; } = DateTime.Today;
+
+    [CascadingParameter]
+    public DialogFactory Dialogs { get; set; } = null!;
+
+    private bool WindowVisible { get; set; }
+
+    private async Task OnButtonClick()
+    {
+        await Dialogs.AlertAsync("Telerik DialogFactory");
+    }
+}

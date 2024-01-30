@@ -1,0 +1,17 @@
+﻿@page "/islands"
+
+<PageTitle>Interactive Islands</PageTitle>
+
+<h1>Interactive Islands</h1>
+
+<Notes PageInteractivity="static" AppInteractivity="static" />
+
+<Island Name="Greenland" />
+
+<p>Static content here.</p>
+
+<Island Name="Thassos" />
+
+@code {
+    private DateTime DatePickerValue { get; set; } = DateTime.Today;
+}

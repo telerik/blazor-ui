@@ -1,0 +1,19 @@
+﻿@*
+    This component MUST be a child of TelerikRootComponent or TelerikContainer to work.
+*@
+
+<div class="sample-box">
+    This is <code>Shared/DialogAwareComponent.razor</code>.
+
+    <TelerikButton OnClick="@OnButtonClick">Show Dialog Directly</TelerikButton>
+</div>
+
+@code {
+    [CascadingParameter]
+    public DialogFactory Dialogs { get; set; } = null!;
+
+    public async Task OnButtonClick()
+    {
+        await Dialogs.AlertAsync("Telerik DialogFactory");
+    }
+}

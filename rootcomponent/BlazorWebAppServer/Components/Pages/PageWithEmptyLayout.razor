@@ -1,0 +1,56 @@
+﻿@page "/interactive-page-empty-layout"
+@layout EmptyLayout
+
+@rendermode InteractiveServer
+
+<PageTitle>Interactive Page with Empty Layout in Static App</PageTitle>
+
+<LayoutContainer>
+    <h1>Interactive Page with Empty Layout</h1>
+
+    <Notes PageInteractivity="interactive" AppInteractivity="static">
+        <Explanation>
+            <strong>
+                Thе page uses an empty non-interactive layout (<code>EmptyLayout.razor</code>),
+                and all the content from <code>MainLayout.razor</code> is copied to <code>Shared/LayoutContainer.razor</code>
+                (including the scoped CSS in <code>MainLayout.razor.css</code>).
+            </strong>
+            The <code>TelerikRootComponent</code> is inside <code>LayoutContainer.razor</code>.
+            The benefit of this approach, compared to <code>InteractivePage.razor</code> and <code>InteractiveIslands.razor</code> is
+            that the <code>TelerikRootComponent</code> wraps all the page content, which ensures correct position of the Telerik popups.
+        </Explanation>
+    </Notes>
+
+    <TelerikDatePicker @bind-Value="@DatePickerValue"
+                       Width="200px" />
+
+    <TelerikButton OnClick="@( () => WindowVisible = !WindowVisible )">Toggle Window</TelerikButton>
+
+    <TelerikWindow @bind-Visible="@WindowVisible" Width="300px" Height="200px">
+        <WindowTitle>Telerik Window</WindowTitle>
+        <WindowActions>
+            <WindowAction Name="Close" />
+        </WindowActions>
+        <WindowContent>
+            Window Content
+        </WindowContent>
+    </TelerikWindow>
+
+    <TelerikDialogHelper @ref="@DialogHelperRef" />
+    <TelerikButton OnClick="@OnButtonClick">Show Dialog With Helper</TelerikButton>
+
+    <DialogAwareComponent />
+</LayoutContainer>
+
+@code {
+    private DateTime DatePickerValue { get; set; } = DateTime.Today;
+
+    private TelerikDialogHelper DialogHelperRef { get; set; } = null!;
+
+    private bool WindowVisible { get; set; }
+
+    private async Task OnButtonClick()
+    {
+        await DialogHelperRef.AlertAsync("Telerik DialogFactory");
+    }
+}
