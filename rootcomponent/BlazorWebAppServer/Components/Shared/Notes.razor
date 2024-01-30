@@ -1,0 +1,28 @@
+﻿<div style="margin: 1em 0; padding: 1em; background: #eee;">
+    <ul>
+        <li>This page is: <strong style="color:#f00">@PageInteractivity</strong></li>
+        <li>The global render mode (including layouts) is: <strong style="color:#f00">@AppInteractivity</strong>.</li>
+        @if (Explanation != null)
+        {
+            <li>@Explanation</li>
+        }
+    </ul>
+
+    <p>Make sure to review the related Telerik documentation:</p>
+
+    <ul>
+        <li><NavLink href="https://docs.telerik.com/blazor-ui/getting-started/web-app#interactivity-considerations" target="_blank">.NET 8 Interactivity Considerations</NavLink></li>
+        <li><NavLink href="https://docs.telerik.com/blazor-ui/components/rootcomponent/overview#net-8-notes" target="_blank">TelerikRootComponent and .NET 8</NavLink></li>
+    </ul>
+</div>
+
+@code {
+    [Parameter]
+    public string PageInteractivity { get; set; } = "static";
+
+    [Parameter]
+    public string AppInteractivity { get; set; } = "static";
+
+    [Parameter]
+    public RenderFragment? Explanation { get; set; }
+}
