@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -36,9 +36,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="6.0.0" />
-    <PackageReference Include="Telerik.Documents.SpreadsheetStreaming.Trial" Version="2023.3.1106" />
-    <PackageReference Include="Telerik.Documents.Flow.Trial" Version="2023.3.1106" />
-    <PackageReference Include="Telerik.Documents.Flow.FormatProviders.Pdf.Trial" Version="2023.3.1106" />
+    <PackageReference Include="Telerik.Documents.SpreadsheetStreaming.Trial" Version="2024.1.124" />
+    <PackageReference Include="Telerik.Documents.Flow.Trial" Version="2024.1.124" />
+    <PackageReference Include="Telerik.Documents.Flow.FormatProviders.Pdf.Trial" Version="2024.1.124" />
   </ItemGroup>
 
   <ItemGroup>
