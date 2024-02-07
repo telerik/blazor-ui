@@ -2,7 +2,7 @@
 
 (**Server** render mode and **Per page / component** interactivity location)
 
-This sample app is an additional resource to the following **Telerik UI for Blazor** documentation:
+This sample app shows several ways to add [`<TelerikRootComponent>`](https://docs.telerik.com/blazor-ui/components/rootcomponent/overview) to a Blazor Web App with **Per page / component** interactivity location. The project is an additional resource to the following [**Telerik UI for Blazor**](https://www.telerik.com/blazor-ui) documentation:
 
-* [.NET 8 Interactivity Considerations](https://docs.telerik.com/blazor-ui/getting-started/web-app#interactivity-considerations)
-* [TelerikRootComponent and .NET 8](https://docs.telerik.com/blazor-ui/components/rootcomponent/overview#net-8-notes)
+* [Using TelerikRootComponent with Per Page/Component Interactivity](https://docs.telerik.com/blazor-ui/components/rootcomponent/per-component-interactivity-location)
+* [Getting Started with Blazor Web App project template](https://docs.telerik.com/blazor-ui/getting-started/web-app)
