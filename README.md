@@ -507,6 +507,12 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
 ### Interactivity & UX 
 <table><tbody>
 <tr>
+   <td><b>Blazor AIPrompt Component</b></td>
+  <td><a href="https://www.telerik.com/blazor-ui/ai-prompt?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">AIPrompt Features</a></td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/aiprompt/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">AIPrompt Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/aiprompt/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">AIPrompt Demos</td>
+</tr>
+<tr>
    <td><b>Blazor ProgressBar Component</b></td>
   <td><a href="https://www.telerik.com/blazor-ui/progressbar?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">ProgressBar Features</a></td>
   <td><a href="https://docs.telerik.com/blazor-ui/components/progressbar/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">ProgressBar Documentation</td>
@@ -535,6 +541,18 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><a href="https://www.telerik.com/blazor-ui/notification?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Notification Features</a></td>
   <td><a href="https://docs.telerik.com/blazor-ui/components/notification/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Notification Documentation</td>
   <td><a href="https://demos.telerik.com/blazor-ui/notification/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Notification Demos</td>
+</tr>
+<tr>
+  <td><b>Blazor Popover Component</b></td>
+  <td><a href="https://www.telerik.com/blazor-ui/popover?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Popover Features</a></td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/popover/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Popover Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/popover/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Popover Demos</td>
+</tr>
+<tr>
+  <td><b>Blazor Popup Component</b></td>
+  <td><a href="https://www.telerik.com/blazor-ui/popup?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Popup Features</a></td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/popup/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Popup Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/popup/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Popup Demos</td>
 </tr>
 <tr>
   <td><b>Blazor Tooltip Component</b></td>
