@@ -1,23 +1,21 @@
 ﻿@inject ITelerikStringLocalizer L
 
-<div class="k-drawer-items">
-    <ul role="menubar" aria-orientation="vertical">
-        <DrawerNavLink href="@Home.Url" Text="@Home.Text" Icon="@Home.Icon" Match="NavLinkMatch.All" />
-        @foreach (var item in Data.Where(item => item.Group == "app"))
+<ul role="menubar" aria-orientation="vertical" class="k-drawer-items">
+    <DrawerNavLink href="@Home.Url" Text="@Home.Text" Icon="@Home.Icon" Match="NavLinkMatch.All" />
+    @foreach (var item in Data.Where(item => item.Group == "app"))
+    {
+        <DrawerNavLink href="@item.Url" Text="@item.Text" Icon="@item.Icon" />
+    }
+</ul>
+<footer>
+    <ul role="menubar" aria-orientation="vertical" class="k-drawer-items">
+        <li class="k-drawer-item k-drawer-separator"></li>
+        @foreach (DrawerItem item in Data.Where(item => item.Group == "ext"))
         {
             <DrawerNavLink href="@item.Url" Text="@item.Text" Icon="@item.Icon" />
         }
     </ul>
-    <footer>
-        <ul role="menubar" aria-orientation="vertical">
-            <li class="k-drawer-item k-drawer-separator"></li>
-            @foreach (DrawerItem item in Data.Where(item => item.Group == "ext"))
-            {
-                <DrawerNavLink href="@item.Url" Text="@item.Text" Icon="@item.Icon" />
-            }
-        </ul>
-    </footer>
-</div>
+</footer>
 
 @code {
 
