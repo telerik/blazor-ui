@@ -89,6 +89,12 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><a href="https://www.telerik.com/blazor-ui/pager?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Pager Features</a></td>
   <td><a href="https://docs.telerik.com/blazor-ui/components/pager/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Pager Documentation</td>
   <td><a href="https://demos.telerik.com/blazor-ui/pager/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Pager Demos</td>
+</tr>
+<tr>
+  <td><b>Blazor Spreadsheet Component</b></td>
+  <td><a href="https://www.telerik.com/blazor-ui/spreadsheet?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Spreadsheet Features</a></td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/spreadsheet/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Spreadsheet Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/spreadsheet/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Spreadsheet Demos</td>
 </tr> 
 </tbody></table>
 
@@ -305,6 +311,12 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><a href="https://demos.telerik.com/blazor-ui/rangeslider/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">RangeSlider Demos</td>
 </tr>
 <tr>
+  <td><b>Blazor Rating Component</b></td>
+  <td><a href="https://www.telerik.com/blazor-ui/rating?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Rating Features</a></td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/rating/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Rating Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/rating/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Rating Demos</td>
+</tr>
+<tr>
   <td><b>Blazor Switch Component</b></td>
   <td><a href="https://www.telerik.com/blazor-ui/switch?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Switch Features</a></td>
   <td><a href="https://docs.telerik.com/blazor-ui/components/switch/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Switch Documentation</td>
@@ -379,6 +391,12 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><a href="https://www.telerik.com/blazor-ui/pie-chart?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Pie Chart Features</a></td>
   <td><a href="https://docs.telerik.com/blazor-ui/components/chart/types/pie?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">PieChart Documentation</td>
   <td><a href="https://demos.telerik.com/blazor-ui/chart/pie-chart?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">PieChart Demos</td>
+</tr>
+<tr>
+  <td><b>Blazor Sankey Chart Component</b></td>
+  <td><a href="https://www.telerik.com/blazor-ui/sankey-chart?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Sankey Chart Features</a></td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/sankey/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">SankeyChart Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/sankey/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">SankeyChart Demos</td>
 </tr> 
 <tr>
   <td><b>Blazor Stock Chart Component</b></td>
@@ -511,6 +529,12 @@ If your feature isn’t listed in the product roadmap, check our dedicated [feed
   <td><a href="https://www.telerik.com/blazor-ui/ai-prompt?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">AIPrompt Features</a></td>
   <td><a href="https://docs.telerik.com/blazor-ui/components/aiprompt/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">AIPrompt Documentation</td>
   <td><a href="https://demos.telerik.com/blazor-ui/aiprompt/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">AIPrompt Demos</td>
+</tr>
+<tr>
+   <td><b>Blazor Badge Component</b></td>
+  <td><a href="https://www.telerik.com/blazor-ui/badge?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Badge Features</a></td>
+  <td><a href="https://docs.telerik.com/blazor-ui/components/badge/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Badge Documentation</td>
+  <td><a href="https://demos.telerik.com/blazor-ui/badge/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github">Badge Demos</td>
 </tr>
 <tr>
    <td><b>Blazor ProgressBar Component</b></td>
