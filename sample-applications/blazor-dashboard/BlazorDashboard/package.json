@@ -8,6 +8,6 @@
   "devDependencies": {
     "@progress/kendo-theme-tasks": "^1.17.6",
     "bootstrap": "^5.0.2",
-    "gulp": "^4.0.0"
+    "gulp": "^5.0.0"
   }
 }
