@@ -1,13 +1,7 @@
 # Printing Charts
 
-This example shows how to print separate Chart components.
+This sample project was obsoleted and removed.
 
-By using the browser printing engine and some custom CSS you can hide everything else on the page so only the chart will show up.
+Please refer to KB article [Print Chart Only](https://docs.telerik.com/blazor-ui/knowledge-base/chart-print-chart-only).
 
-Key points of interest:
-* Add the custom CSS for the print mode in a separate file and include `media` parameter in the stylesheet link (see `_Host.cshtml`).
-* Wrap the Chart component in a container to which you can define a class and style it where needed (for example, if you have multiple charts on the page you can hide some of them and print only a specific one) - see `~/Components/PrintableChart.razor`.
-* We use JS Interop to call the browser `print` method that does the actual printing. What we do is to add the desired CSS to the project so it prints what we want.
-    * You might need to make sure that the browser will print background graphics (this is a checkbox on the browser Print dialog) so that you can get the proper colors on the chart and/or other elements.
-	
-**Note**: A `Class` parameter for the Chart will be available in 2.21.0. 
+If you prefer, you can [browse the removed project in an older version of this repository](https://github.com/telerik/blazor-ui/tree/c8b8bb91835da71824abcf962cffbfff851d932d/chart/print-chart-only).
