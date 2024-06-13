@@ -56,13 +56,11 @@ namespace BlazingCoffee.Server
 
             app.UseRouting();
 
-            app.UseAntiforgery();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
-                endpoints.MapRazorComponents<Client.Host>().AddInteractiveWebAssemblyRenderMode();
+                endpoints.MapRazorComponents<Client.Host>().AddInteractiveWebAssemblyRenderMode().DisableAntiforgery();
             });
         }
     }
