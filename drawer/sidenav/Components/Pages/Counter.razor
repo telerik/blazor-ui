@@ -1,0 +1,19 @@
+﻿@page "/counter"
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p>Current count: @currentCount</p>
+
+<TelerikButton ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)"
+    Icon="SvgIcon.PlusCircle"
+    OnClick="IncrementCount">Click me</TelerikButton>
+
+@code {
+    int currentCount = 0;
+
+    void IncrementCount()
+    {
+        currentCount++;
+    }
+}

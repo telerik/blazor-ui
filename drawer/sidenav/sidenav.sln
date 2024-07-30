@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30204.135
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sidenav", "sidenav.csproj", "{F0ADB0AE-D9D3-474F-93C2-ABF941322207}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sidenav", "sidenav.csproj", "{9C0DD6A8-0499-4F6F-8B16-2BD8BEC0696B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F0ADB0AE-D9D3-474F-93C2-ABF941322207}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F0ADB0AE-D9D3-474F-93C2-ABF941322207}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F0ADB0AE-D9D3-474F-93C2-ABF941322207}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F0ADB0AE-D9D3-474F-93C2-ABF941322207}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C0DD6A8-0499-4F6F-8B16-2BD8BEC0696B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C0DD6A8-0499-4F6F-8B16-2BD8BEC0696B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C0DD6A8-0499-4F6F-8B16-2BD8BEC0696B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C0DD6A8-0499-4F6F-8B16-2BD8BEC0696B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {59C5AE53-A0AD-46B0-BC9B-47C4F95E6D6F}
+		SolutionGuid = {71D46AD0-72E7-4F3F-8DCD-280827978952}
 	EndGlobalSection
 EndGlobal
