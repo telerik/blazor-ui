@@ -1,23 +1,17 @@
-﻿using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using RemoteValidationWasm.Services;
-using System.Threading.Tasks;
-using System.Net.Http;
-using System;
+﻿using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using RemoteValidationWasm.Client;
+using RemoteValidationWasm.Client.Services;
 
-namespace RemoteValidationWasm.Client
-{
-    public class Program
-    {
-        public static async Task Main(string[] args)
-        {
-            var builder = WebAssemblyHostBuilder.CreateDefault(args);
-            builder.RootComponents.Add<App>("app");
-            builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            builder.Services.AddScoped<WeatherForecastService>();
-            builder.Services.AddTelerikBlazor();
+var builder = WebAssemblyHostBuilder.CreateDefault(args);
+builder.RootComponents.Add<App>("#app");
+builder.RootComponents.Add<HeadOutlet>("head::after");
 
-            await builder.Build().RunAsync();
-        }
-    }
-}
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+
+builder.Services.AddScoped<WeatherForecastService>();
+
+builder.Services.AddTelerikBlazor();
+
+await builder.Build().RunAsync();
+

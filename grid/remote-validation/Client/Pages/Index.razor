@@ -1,50 +1,68 @@
 ﻿@page "/"
 
 @using RemoteValidationWasm.Shared
-@using RemoteValidationWasm.Services
+@using RemoteValidationWasm.Client.Services
+
 @inject WeatherForecastService ForecastService
 
-Try Inserting a record with a Date that already exists in the grid.
-<br />
-Try Editing a record and adding the letter "a" in the Summary.
-<br />
-This sample uses a Notification component to show the error message to supplement any data annotation validation in the Popup edit mode, but it can also work with other edit modes.
+<PageTitle>Index</PageTitle>
 
-<TelerikGrid Data="@forecasts" Height="550px" Sortable="true" Pageable="true" PageSize="20"
-                OnUpdate="@UpdateHandler" OnDelete="@DeleteHandler" OnCreate="@CreateHandler" EditMode="@GridEditMode.Popup">
+<p>To trigger remote validation:</p>
+
+<ul>
+    <li>Add a row with a Date that already exists.</li>
+    <li>Update a row that does not contain <em>Q</em> in the Summary.</li>
+    <li>Delete one of the first five rows.</li>
+</ul>
+
+<TelerikGrid Data="@GridData"
+             EditMode="@GridEditMode.Popup"
+             OnCreate="@CreateHandler"
+             OnUpdate="@UpdateHandler"
+             OnDelete="@DeleteHandler"
+             Sortable="true"
+             Pageable="true"
+             Height="500px">
+    <GridToolBarTemplate>
+        <GridCommandButton Command="Add" Icon="@SvgIcon.Plus">Add Item</GridCommandButton>
+    </GridToolBarTemplate>
     <GridColumns>
-        <GridColumn Field="Id" Title="Id" Width="100px" Editable="false" Groupable="false" />
-        <GridColumn Field="Date" DisplayFormat="{0:dddd, dd MMM yyyy}" />
-        <GridColumn Field="TemperatureC" Title="Temp. C" DisplayFormat="{0:N1}" />
-        <GridColumn Field="TemperatureF" Title="Temp. F" DisplayFormat="{0:N1}" />
-        <GridColumn Field="Summary" />
-        <GridCommandColumn Width="200px" Resizable="false">
-            <GridCommandButton Command="Save" Icon="save" ShowInEdit="true">Update</GridCommandButton>
-            <GridCommandButton Command="Edit" Icon="edit" ThemeColor="@ThemeConstants.Button.ThemeColor.Primary">Edit</GridCommandButton>
-            <GridCommandButton Command="Delete" Icon="delete">Delete</GridCommandButton>
-            <GridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true">Cancel</GridCommandButton>
+        <GridColumn Field="@nameof(WeatherForecast.Id)" Width="100px" Editable="false" Groupable="false" />
+        <GridColumn Field="@nameof(WeatherForecast.Date)" DisplayFormat="{0:dddd, dd MMM yyyy}" />
+        <GridColumn Field="@nameof(WeatherForecast.TemperatureC)" Title="Temp. C" DisplayFormat="{0:N1}" />
+        <GridColumn Field="@nameof(WeatherForecast.TemperatureF)" Title="Temp. F" DisplayFormat="{0:N1}" />
+        <GridColumn Field="@nameof(WeatherForecast.Summary)" />
+        <GridCommandColumn Width="200px">
+            <GridCommandButton Command="Edit" Icon="@SvgIcon.Pencil">Edit</GridCommandButton>
+            <GridCommandButton Command="Delete" Icon="@SvgIcon.Trash">Delete</GridCommandButton>
+            <GridCommandButton Command="Save" Icon="@SvgIcon.Save" ShowInEdit="true">Save</GridCommandButton>
+            <GridCommandButton Command="Cancel" Icon="@SvgIcon.Cancel" ShowInEdit="true">Cancel</GridCommandButton>
         </GridCommandColumn>
     </GridColumns>
-    <GridToolBar>
-        <GridCommandButton Command="Add" Icon="plus" ThemeColor="@ThemeConstants.Button.ThemeColor.Primary">Add Forecast</GridCommandButton>
-    </GridToolBar>
 </TelerikGrid>
 
-<TelerikNotification @ref="@Notification"
+<TelerikNotification @ref="@NotificationRef"
                      HorizontalPosition="@NotificationHorizontalPosition.Center"
                      VerticalPosition="@NotificationVerticalPosition.Top"
-                     Class="big-notification">
+                     Class="above-modal-overlay">
 </TelerikNotification>
 
+<style>
+    .above-modal-overlay {
+        z-index: 22222;
+    }
+</style>
 
 @code {
-    List<WeatherForecast> forecasts { get; set; }
-    bool errorExists { get; set; }
-    TelerikNotification Notification { get; set; }
+    private List<WeatherForecast> GridData { get; set; } = new();
 
-    void ShowErrorNotification(string message)
+    #region UI for Validation Errors
+
+    private TelerikNotification? NotificationRef { get; set; }
+
+    private void ShowErrorNotification(string message)
     {
-        Notification.Show(new NotificationModel
+        NotificationRef?.Show(new NotificationModel
         {
             CloseAfter = 0,
             Text = message,
@@ -52,93 +70,83 @@ This sample uses a Notification component to show the error message to supplemen
         });
     }
 
+    #endregion UI for Validation Errors
+
+    #region Grid Data Operations
+
+    private async Task CreateHandler(GridCommandEventArgs args)
+    {
+        WeatherForecast currItem = (WeatherForecast)args.Item;
+
+        try
+        {
+            WeatherForecast insertedForecast = await ForecastService.InsertForecastAsync(currItem);
+            // Update the view data, otherwise reload the Grid data.
+            GridData.Insert(0, insertedForecast);
+        }
+        catch (Exception ex)
+        {
+            // Keep the Grid in edit mode.
+            args.IsCancelled = true;
+
+            ShowErrorNotification(ex.Message);
+        }
+    }
+
+    private async Task UpdateHandler(GridCommandEventArgs args)
+    {
+        WeatherForecast currItem = (WeatherForecast)args.Item;
+
+        await Task.Delay(1);
+
+        try
+        {
+            WeatherForecast updatedForecast = await ForecastService.UpdateForecastAsync(currItem);
+            // Update the view data, otherwise reload the Grid data.
+            var index = GridData.FindIndex(i => i.Id == updatedForecast.Id);
+            if (index != -1)
+            {
+                GridData[index] = updatedForecast;
+            }
+        }
+        catch (Exception ex)
+        {
+            // Keep the Grid in edit mode.
+            args.IsCancelled = true;
+
+            ShowErrorNotification(ex.Message);
+        }
+    }
+
+    private async Task DeleteHandler(GridCommandEventArgs args)
+    {
+        WeatherForecast currItem = (WeatherForecast)args.Item;
+
+        try
+        {
+            await ForecastService.DeleteForecastAsync(currItem);
+            // Update the view data, otherwise reload the Grid data.
+            GridData.Remove(currItem);
+        }
+        catch (Exception ex)
+        {
+            ShowErrorNotification(ex.Message);
+        }
+    }
+
+    #endregion Grid Data Operations
+
+    #region Grid Data Generation
+
     protected override async Task OnInitializedAsync()
     {
         await GetForecasts();
     }
 
-    async Task GetForecasts()
+    private async Task GetForecasts()
     {
-        forecasts = await ForecastService.GetForecastListAsync(DateTime.Now);
+        GridData = await ForecastService.GetForecastListAsync(DateTime.Now);
     }
 
-    // sample error handling for the CUD operations - in this sample through simplistic error messsages coming from the server
-
-    public async Task DeleteHandler(GridCommandEventArgs args)
-    {
-        WeatherForecast currItem = args.Item as WeatherForecast;
-
-        try
-        {
-            await ForecastService.DeleteForecastAsync(currItem);
-            // update the view data
-            forecasts.Remove(currItem);
-        }
-        catch (Exception ex)
-        {
-            // show information to the user
-            ShowErrorNotification(ex.Message);
-        }
-    }
-
-    public async Task CreateHandler(GridCommandEventArgs args)
-    {
-        WeatherForecast currItem = args.Item as WeatherForecast;
-
-        try
-        {
-            // get the inserted data from the server in case it alters it further (e.g., provides an ID)
-            WeatherForecast insertedForecast = await ForecastService.InsertForecastAsync(currItem);
-            // update the view data
-            forecasts.Insert(0, insertedForecast);
-        }
-        catch (Exception ex)
-        {
-            // keep the grid in insert mode
-            args.IsCancelled = true;
-            // show information to the user
-            ShowErrorNotification(ex.Message);
-        }
-    }
-
-    public async Task UpdateHandler(GridCommandEventArgs args)
-    {
-        WeatherForecast currItem = args.Item as WeatherForecast;
-
-        try
-        {
-            // get the inserted data from the server in case it alters it further
-            WeatherForecast updatedForecast = await ForecastService.UpdateForecastAsync(currItem);
-            // update the view data
-            var index = forecasts.FindIndex(i => i.Id == updatedForecast.Id);
-            if (index != -1)
-            {
-                forecasts[index] = updatedForecast;
-            }
-        }
-        catch (Exception ex)
-        {
-            // keep the grid in edit mode
-            args.IsCancelled = true;
-            // show information to the user
-            ShowErrorNotification(ex.Message);
-        }
-    }
+    #endregion Grid Data Generation
 }
-
-<style>
-    .big-notification .k-notification-container .k-notification-wrap {
-        width: 350px;
-        height: 100px;
-        align-items: center;
-        font-size: 32px;
-    }
-
-        .big-notification .k-notification-container .k-notification-wrap .k-icon.k-i-error::before {
-            font-size: 32px;
-        }
-
-    .big-notification {
-        z-index: 654321;
-    }
-</style>
