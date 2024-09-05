@@ -1,6 +1,6 @@
 ﻿@page "/async"
 
-<div class="alert alert-info">This example adds a dummy delay in the update/create operations to simulate an actual remote service (you can add your own, and remove that code). The addition compared to the basic example is the <code>isEditing</code> flag that determines whether to rehydrate the edit context when the delay in the EventCallback re-renders the listview and the templates. This lets you prevent re-initializing that context upon/after completing the data operation.</div>
+<div class="alert alert-info">This example adds a dummy delay in the update/create operations to simulate an actual remote service (you can add your own, and remove that code).</div>
 
 @using System.ComponentModel.DataAnnotations
 
@@ -51,22 +51,15 @@
 @code{
     Employee currEditItem { get; set; }
     EditContext currEditContext { get; set; }
-    bool isEditing { get; set; }
 
     void EditHandler()
     {
-        isEditing = true;
         CleanUpValidation();
     }
 
     async Task CreateHandler(ListViewCommandEventArgs e)
     {
         Employee insertedItem = e.Item as Employee;
-
-
-        // lower the flag so we don't rehydrate the edit context - the EventCallback will re-render the ListView (including its templates) after it completes
-        // you can flip it back to true as needed (e.g., if validation fails, to rehydrate the validation logic)
-        isEditing = false;
 
         // simulate a delay - be that server data operation, or server validation
         await Task.Delay(400);
@@ -76,7 +69,6 @@
         {
             // prevent the listview from going back in view mode
             e.IsCancelled = true;
-            isEditing = true;
             return;
         }
 
@@ -105,10 +97,6 @@
     {
         Employee updatedItem = e.Item as Employee;
 
-        // lower the flag so we don't rehydrate the edit context - the EventCallback will re-render the ListView (including its templates) after it completes
-        // you can flip it back to true as needed (e.g., if validation fails, to rehydrate the validation logic)
-        isEditing = false;
-
         // simulate a delay - be that server data operation, or server validation
         await Task.Delay(400);
 
@@ -117,7 +105,6 @@
         {
             // prevent the listview from going back in view mode
             e.IsCancelled = true;
-            isEditing = true;
             return;
         }
 
@@ -138,7 +125,6 @@
 
     void CancelHandler(ListViewCommandEventArgs e)
     {
-        isEditing = false;
         CleanUpValidation();
     }
 
