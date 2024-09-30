@@ -9,6 +9,7 @@ This is the repository of the Blazor Coffee Warehouse sample project which conta
 * [Blazor Demo Features](#blazor-demo-features)
 * [Requirements](#requirements)
 * [Running the sample Blazor project](#running-the-sample-blazor-project)
+* [Troubleshooting](#troubleshooting)
 * [Licensing](#licensing)
 * [Setup with Telerik UI for Blazor Commercial](#setup-with-telerik-ui-for-blazor-commercial)
 * [Where can I find help?](#where-can-i-find-help)
@@ -85,7 +86,17 @@ The current demo app includes examples of the following features in the Blazor W
 
 * Open the solution file in VS 2022 and, if not already, set the `BlazingCoffee.Server` project as a Startup project.
 * Hit Ctrl + F5.
-* If you receive a 404 error about missing `/_framework/blazor-hotreload.js`, then disable Hot Reload in the Visual Studio settings: Debugging > General and Debugging > .NET.
+
+## Troubleshooting
+
+If you see a never-ending loader on the home screen, check the browser console for errors. You may see a 404 error about a missing `/_framework/blazor-hotreload.js`. In this case, disable Hot Reload in the Visual Studio settings:
+
+* **Debugging** > **General** and also in
+* **Debugging** > **.NET**.
+
+Another option is to run the app through the **Kestrel** web server instead of **IIS Express** by selecting the `BlazingCoffee.Server` launch profile. This works even with enabled hot reload:
+
+<img width="495" alt="Use the BlazingCoffee.Server launch profile to use the Kestrel web server" src="https://github.com/user-attachments/assets/2d7bd2f5-2145-435d-b57b-a8a1e26fd157">
 
 ## Licensing
 
