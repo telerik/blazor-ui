@@ -198,6 +198,9 @@
   <data name="ComboBox_NoData" xml:space="preserve">
     <value>Няма данни</value>
   </data>
+  <data name="DateInput_Clear" xml:space="preserve">
+    <value>Изчисти</value>
+  </data>
   <data name="DateInput_ParsingErrorMessage" xml:space="preserve">
     <value>Дата не може да се парсне. Моля въведете валидна дата.</value>
   </data>
@@ -694,7 +697,7 @@
     <value>Заглавие</value>
   </data>
   <data name="Gantt_Editor_TitleRequiredValidationMessage" xml:space="preserve">
-    <value>Заглавието е задължително</value>
+    <value>Заглавието е задължително.</value>
   </data>
   <data name="Gantt_Month" xml:space="preserve">
     <value>Месец</value>
@@ -795,6 +798,9 @@
   <data name="Group_Empty" xml:space="preserve">
     <value>Дръпни колона и я пусни тук, за да групираш</value>
   </data>
+  <data name="MaskedTextBox_Clear" xml:space="preserve">
+    <value>Изчисти</value>
+  </data>
   <data name="MultiSelect_Apply" xml:space="preserve">
     <value>Приложи</value>
   </data>
@@ -806,6 +812,9 @@
   </data>
   <data name="MultiSelect_NoData" xml:space="preserve">
     <value>Няма намерени данни</value>
+  </data>
+  <data name="NumericTextBox_Clear" xml:space="preserve">
+    <value>Изчисти</value>
   </data>
   <data name="NumericTextBox_DecreaseValue" xml:space="preserve">
     <value>Намали стойността</value>
@@ -1137,6 +1146,9 @@
   <data name="Switch_OnLabel" xml:space="preserve">
     <value>Да</value>
   </data>
+  <data name="TextBox_Clear" xml:space="preserve">
+    <value>Изчисти</value>
+  </data>
   <data name="TimePicker_Cancel" xml:space="preserve">
     <value>Отказ</value>
   </data>
@@ -1171,7 +1183,7 @@
     <value>Избери</value>
   </data>
   <data name="TimePicker_ToggleClock" xml:space="preserve">
-    <value>Отоври/затвори часовника</value>
+    <value>Отвори/затвори часовника</value>
   </data>
   <data name="TimePicker_WeekDay" xml:space="preserve">
     <value>Ден от седмицата</value>
@@ -1514,5 +1526,415 @@
   </data>
   <data name="ColumnMenu_SetColumnPosition" xml:space="preserve">
     <value>Задайте позиция на колоната</value>
+  </data>
+  <data name="Gantt_Editor_DependencyName" xml:space="preserve">
+    <value>Име</value>
+  </data>
+  <data name="Gantt_Editor_DependencyType" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="Gantt_DialogMaximize" xml:space="preserve">
+    <value>Максимизирай</value>
+  </data>
+  <data name="Gantt_DialogMinimize" xml:space="preserve">
+    <value>Минимизирай</value>
+  </data>
+  <data name="Gantt_Editor_General" xml:space="preserve">
+    <value>Общи</value>
+  </data>
+  <data name="Gantt_Editor_Successors" xml:space="preserve">
+    <value>Наследници</value>
+  </data>
+  <data name="Gantt_Editor_Predecessors" xml:space="preserve">
+    <value>Предшественици</value>
+  </data>
+  <data name="Gantt_Editor_Other" xml:space="preserve">
+    <value>Други</value>
+  </data>
+  <data name="Gantt_Editor_Parent" xml:space="preserve">
+    <value>Родител</value>
+  </data>
+  <data name="Gantt_Editor_None" xml:space="preserve">
+    <value>-Няма-</value>
+  </data>
+  <data name="Gantt_Editor_DependencyAdd" xml:space="preserve">
+    <value>Добави</value>
+  </data>
+  <data name="Gantt_Editor_DependencyRemove" xml:space="preserve">
+    <value>Премахни</value>
+  </data>
+  <data name="PivotGridConfigurator_MoveToColumns" xml:space="preserve">
+    <value>Премести към колони</value>
+  </data>
+  <data name="PivotGridConfigurator_MoveToRows" xml:space="preserve">
+    <value>Премести към редове</value>
+  </data>
+  <data name="MultiSelect_ItemsSelected" xml:space="preserve">
+    <value>{0} избрана/и опция/и</value>
+  </data>
+  <data name="MultiSelect_MoreSelected" xml:space="preserve">
+    <value>още {0} избран/и</value>
+  </data>
+  <data name="Editor_DeleteTable" xml:space="preserve">
+    <value>Изтрий таблица</value>
+  </data>
+  <data name="ListBox_NoData" xml:space="preserve">
+    <value>Няма намерени данни</value>
+  </data>
+  <data name="ListBoxToolBarTool_Remove" xml:space="preserve">
+    <value>Премахни</value>
+  </data>
+  <data name="ListBoxToolBarTool_TransferAllFrom" xml:space="preserve">
+    <value>Прехвърляне на всички от</value>
+  </data>
+  <data name="ListBoxToolBarTool_TransferAllTo" xml:space="preserve">
+    <value>Прехвърляне на всички към</value>
+  </data>
+  <data name="ListBoxToolBarTool_TransferFrom" xml:space="preserve">
+    <value>Прехвърляне от</value>
+  </data>
+  <data name="ListBoxToolBarTool_TransferTo" xml:space="preserve">
+    <value>Прехвърляне към</value>
+  </data>
+  <data name="ListBoxToolBarTool_MoveUp" xml:space="preserve">
+    <value>Премести нагоре</value>
+  </data>
+  <data name="ListBoxToolBarTool_MoveDown" xml:space="preserve">
+    <value>Премести надолу</value>
+  </data>
+  <data name="ComboBox_Popup_AriaLabel" xml:space="preserve">
+    <value>Списък с опции</value>
+  </data>
+  <data name="PdfViewer_Document_AriaLabel" xml:space="preserve">
+    <value>Прозорец за изглед на документ</value>
+  </data>
+  <data name="PdfViewer_SearchDialog_AriaLabel" xml:space="preserve">
+    <value>Диалогов прозорец за търсене</value>
+  </data>
+  <data name="PopupList_AriaLabel" xml:space="preserve">
+    <value>Опции</value>
+  </data>
+  <data name="MultiSelect_Open" xml:space="preserve">
+    <value>Отвори</value>
+  </data>
+  <data name="Filter_Expression_Options" xml:space="preserve">
+    <value>Филтър Оператори</value>
+  </data>
+  <data name="AIPrompt_OutputView_ButtonText" xml:space="preserve">
+    <value>Отговори</value>
+  </data>
+  <data name="AIPrompt_OutputView_Copy" xml:space="preserve">
+    <value>Копиране</value>
+  </data>
+  <data name="AIPrompt_OutputView_Retry" xml:space="preserve">
+    <value>Повтори</value>
+  </data>
+  <data name="AIPrompt_PromptView_ButtonText" xml:space="preserve">
+    <value>Попитай AI</value>
+  </data>
+  <data name="AIPrompt_PromptView_Generate" xml:space="preserve">
+    <value>Генериране</value>
+  </data>
+  <data name="AIPrompt_PromptView_PromptPlaceholder" xml:space="preserve">
+    <value>Попитай или генерирай съдържание с AI</value>
+  </data>
+  <data name="AIPrompt_PromptView_SuggestionHeader" xml:space="preserve">
+    <value>Предложения за запитвания</value>
+  </data>
+  <data name="AIPrompt_OutputView_PromptTitle" xml:space="preserve">
+    <value>Генерирай с AI:</value>
+  </data>
+  <data name="Spreadsheet_AddColumnLeft" xml:space="preserve">
+    <value>Добави колона отляво</value>
+  </data>
+  <data name="Spreadsheet_AddColumnRight" xml:space="preserve">
+    <value>Добави колона отдясно</value>
+  </data>
+  <data name="Spreadsheet_AddRowAbove" xml:space="preserve">
+    <value>Добави ред отгоре</value>
+  </data>
+  <data name="Spreadsheet_AddRowBelow" xml:space="preserve">
+    <value>Добави ред отдолу</value>
+  </data>
+  <data name="Spreadsheet_AlignBottom" xml:space="preserve">
+    <value>Подравни отдолу</value>
+  </data>
+  <data name="Spreadsheet_AlignCenter" xml:space="preserve">
+    <value>Подравни в средата</value>
+  </data>
+  <data name="Spreadsheet_AlignJustify" xml:space="preserve">
+    <value>Подравни двустранно</value>
+  </data>
+  <data name="Spreadsheet_AlignLeft" xml:space="preserve">
+    <value>Подравни отляво</value>
+  </data>
+  <data name="Spreadsheet_AlignMiddle" xml:space="preserve">
+    <value>Подравни в среадата</value>
+  </data>
+  <data name="Spreadsheet_AlignRight" xml:space="preserve">
+    <value>Подравни отдясно</value>
+  </data>
+  <data name="Spreadsheet_AlignTop" xml:space="preserve">
+    <value>Подравни отгоре</value>
+  </data>
+  <data name="Spreadsheet_BackgroundColor" xml:space="preserve">
+    <value>Фон</value>
+  </data>
+  <data name="Spreadsheet_Bold" xml:space="preserve">
+    <value>Удебеляване</value>
+  </data>
+  <data name="Spreadsheet_Copy" xml:space="preserve">
+    <value>Копирай</value>
+  </data>
+  <data name="Spreadsheet_Cut" xml:space="preserve">
+    <value>Изрежи</value>
+  </data>
+  <data name="Spreadsheet_DefaultDownloadFileName" xml:space="preserve">
+    <value>Документ</value>
+  </data>
+  <data name="Spreadsheet_DefaultSheetName" xml:space="preserve">
+    <value>Лист</value>
+  </data>
+  <data name="Spreadsheet_DeleteColumn" xml:space="preserve">
+    <value>Изтрий колона</value>
+  </data>
+  <data name="Spreadsheet_DeleteImage" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="Spreadsheet_DeleteRow" xml:space="preserve">
+    <value>Изтрий ред</value>
+  </data>
+  <data name="Spreadsheet_Dialog_ClipboardErrorApplyButtonText" xml:space="preserve">
+    <value>Приеми</value>
+  </data>
+  <data name="Spreadsheet_Dialog_ClipboardErrorCloseButtonText" xml:space="preserve">
+    <value>Затвори</value>
+  </data>
+  <data name="Spreadsheet_Dialog_ClipboardErrorText" xml:space="preserve">
+    <value>&lt;p&gt;За да изпълните това действие е необходим достъп до клипборда.&lt;/p&gt;
+&lt;p&gt;Трябва да отидете до настройките на вашия браузър и да позволите използването на клипборда.&lt;/p&gt;
+&lt;p&gt;Като алтернатива, може да използвате някоя от клавишните комбинации&lt;/p&gt;
+&lt;div&gt;Изрязване = Ctrl/Cmd + X&lt;/div&gt;
+&lt;div&gt;Копиране = Ctrl/Cmd + C&lt;/div&gt;
+&lt;div&gt;Поставяне = Ctrl/Cmd + V&lt;/div&gt;</value>
+  </data>
+  <data name="Spreadsheet_Dialog_ClipboardErrorTitle" xml:space="preserve">
+    <value>Няма достъп до клипборд</value>
+  </data>
+  <data name="Spreadsheet_Dialog_Close" xml:space="preserve">
+    <value>Затвори</value>
+  </data>
+  <data name="Spreadsheet_Dialog_DeleteSheetApplyButtonText" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="Spreadsheet_Dialog_DeleteSheetCancelButtonText" xml:space="preserve">
+    <value>Отмени</value>
+  </data>
+  <data name="Spreadsheet_Dialog_DeleteSheetText" xml:space="preserve">
+    <value>Промените по листа ще бъдата загубени. Сигурни ли сте, че искате да продължите?</value>
+  </data>
+  <data name="Spreadsheet_Dialog_DeleteSheetTitle" xml:space="preserve">
+    <value>Изтрий лист</value>
+  </data>
+  <data name="Spreadsheet_Dialog_InsertLinkApplyButtonText" xml:space="preserve">
+    <value>Постави</value>
+  </data>
+  <data name="Spreadsheet_Dialog_InsertLinkCancelButtonText" xml:space="preserve">
+    <value>Отмени</value>
+  </data>
+  <data name="Spreadsheet_Dialog_InsertLinkInputPlaceholderText" xml:space="preserve">
+    <value>Текст</value>
+  </data>
+  <data name="Spreadsheet_Dialog_InsertLinkLabelText" xml:space="preserve">
+    <value>Адрес:</value>
+  </data>
+  <data name="Spreadsheet_Dialog_InsertLinkRemoveButtonText" xml:space="preserve">
+    <value>Премахни адрес</value>
+  </data>
+  <data name="Spreadsheet_Dialog_InsertLinkRequiredFieldText" xml:space="preserve">
+    <value>Адресът не може да бъде празен.</value>
+  </data>
+  <data name="Spreadsheet_Dialog_InsertLinkTitle" xml:space="preserve">
+    <value>Постави адрес</value>
+  </data>
+  <data name="Spreadsheet_Dialog_RenameSheetApplyButtonText" xml:space="preserve">
+    <value>Преименувай</value>
+  </data>
+  <data name="Spreadsheet_Dialog_RenameSheetButtonText" xml:space="preserve">
+    <value>Преименувай</value>
+  </data>
+  <data name="Spreadsheet_Dialog_RenameSheetCancelButtonText" xml:space="preserve">
+    <value>Отмени</value>
+  </data>
+  <data name="Spreadsheet_Dialog_RenameSheetErrorText" xml:space="preserve">
+    <value>Има съществуващ лист с това име. Моля, използвайте друго име.</value>
+  </data>
+  <data name="Spreadsheet_Dialog_RenameSheetLabelText" xml:space="preserve">
+    <value>Преименувай листа на:</value>
+  </data>
+  <data name="Spreadsheet_Dialog_RenameSheetPlaceholderText" xml:space="preserve">
+    <value>Име на лист</value>
+  </data>
+  <data name="Spreadsheet_Dialog_RenameSheetRequiredFieldText" xml:space="preserve">
+    <value>Името на листа не може да бъде празно.</value>
+  </data>
+  <data name="Spreadsheet_Dialog_RenameSheetTitle" xml:space="preserve">
+    <value>Преименувай лист</value>
+  </data>
+  <data name="Spreadsheet_DownloadFile" xml:space="preserve">
+    <value>Свали</value>
+  </data>
+  <data name="Spreadsheet_FontFamily" xml:space="preserve">
+    <value>Шрифт</value>
+  </data>
+  <data name="Spreadsheet_FontSize" xml:space="preserve">
+    <value>Размер на шрифта</value>
+  </data>
+  <data name="Spreadsheet_HorizontalAlign" xml:space="preserve">
+    <value>Хоризонтално подравняване</value>
+  </data>
+  <data name="Spreadsheet_InsertImage" xml:space="preserve">
+    <value>Постави изображение</value>
+  </data>
+  <data name="Spreadsheet_InsertLink" xml:space="preserve">
+    <value>Постави адрес</value>
+  </data>
+  <data name="Spreadsheet_Italic" xml:space="preserve">
+    <value>Курсив</value>
+  </data>
+  <data name="Spreadsheet_MergeAllCells" xml:space="preserve">
+    <value>Обедини всички</value>
+  </data>
+  <data name="Spreadsheet_MergeCellsHorizontally" xml:space="preserve">
+    <value>Обедини хоризонтално</value>
+  </data>
+  <data name="Spreadsheet_MergeCellsVertically" xml:space="preserve">
+    <value>Обедини вертикално</value>
+  </data>
+  <data name="Spreadsheet_NumberFormatAutomatic" xml:space="preserve">
+    <value>Автоматичен</value>
+  </data>
+  <data name="Spreadsheet_NumberFormatCurrency" xml:space="preserve">
+    <value>Валута</value>
+  </data>
+  <data name="Spreadsheet_NumberFormatDate" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="Spreadsheet_NumberFormatDateTime" xml:space="preserve">
+    <value>Дата и час</value>
+  </data>
+  <data name="Spreadsheet_NumberFormatDuration" xml:space="preserve">
+    <value>Продължителност</value>
+  </data>
+  <data name="Spreadsheet_NumberFormatFinancial" xml:space="preserve">
+    <value>Финансов</value>
+  </data>
+  <data name="Spreadsheet_NumberFormatNumber" xml:space="preserve">
+    <value>Число</value>
+  </data>
+  <data name="Spreadsheet_NumberFormatPercentage" xml:space="preserve">
+    <value>Процент</value>
+  </data>
+  <data name="Spreadsheet_NumberFormatText" xml:space="preserve">
+    <value>Текст</value>
+  </data>
+  <data name="Spreadsheet_NumberFormatTime" xml:space="preserve">
+    <value>Време</value>
+  </data>
+  <data name="Spreadsheet_OpenFile" xml:space="preserve">
+    <value>Отвори</value>
+  </data>
+  <data name="Spreadsheet_Paste" xml:space="preserve">
+    <value>Постави</value>
+  </data>
+  <data name="Spreadsheet_Redo" xml:space="preserve">
+    <value>Стъпка напред</value>
+  </data>
+  <data name="Spreadsheet_SendImageToBack" xml:space="preserve">
+    <value>Постави отзад</value>
+  </data>
+  <data name="Spreadsheet_SendImageToFront" xml:space="preserve">
+    <value>Постави отпред</value>
+  </data>
+  <data name="Spreadsheet_SheetsBar_AddSheet" xml:space="preserve">
+    <value>Добави</value>
+  </data>
+  <data name="Spreadsheet_SheetsBar_DeleteSheet" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="Spreadsheet_SheetsBar_DuplicateSheet" xml:space="preserve">
+    <value>Дублирай</value>
+  </data>
+  <data name="Spreadsheet_SheetsBar_HideSheet" xml:space="preserve">
+    <value>Скрий</value>
+  </data>
+  <data name="Spreadsheet_SheetsBar_MoveSheetLeft" xml:space="preserve">
+    <value>Премести отляво</value>
+  </data>
+  <data name="Spreadsheet_SheetsBar_MoveSheetRight" xml:space="preserve">
+    <value>Премести отдясно</value>
+  </data>
+  <data name="Spreadsheet_SheetsBar_RenameSheetButtonText" xml:space="preserve">
+    <value>Преименувай</value>
+  </data>
+  <data name="Spreadsheet_TextColor" xml:space="preserve">
+    <value>Цвят на текста</value>
+  </data>
+  <data name="Spreadsheet_TextWrap" xml:space="preserve">
+    <value>Подравни текста</value>
+  </data>
+  <data name="Spreadsheet_ToolBar_FileMenu" xml:space="preserve">
+    <value>Файл</value>
+  </data>
+  <data name="Spreadsheet_ToolBar_FormatMenu" xml:space="preserve">
+    <value>Форматиране</value>
+  </data>
+  <data name="Spreadsheet_ToolBar_HomeMenu" xml:space="preserve">
+    <value>Начало</value>
+  </data>
+  <data name="Spreadsheet_ToolBar_InsertMenu" xml:space="preserve">
+    <value>Постави</value>
+  </data>
+  <data name="Spreadsheet_ToolBar_ViewMenu" xml:space="preserve">
+    <value>Визуализиране</value>
+  </data>
+  <data name="Spreadsheet_Underline" xml:space="preserve">
+    <value>Подчертаване</value>
+  </data>
+  <data name="Spreadsheet_Undo" xml:space="preserve">
+    <value>Стъпка назад</value>
+  </data>
+  <data name="Spreadsheet_VerticalAlign" xml:space="preserve">
+    <value>Вертикално подравняване</value>
+  </data>
+  <data name="Spreadsheet_NumberFormat" xml:space="preserve">
+    <value>Формат</value>
+  </data>
+  <data name="Spreadsheet_FormulaInput" xml:space="preserve">
+    <value>Формула</value>
+  </data>
+  <data name="Spreadsheet_NameBox" xml:space="preserve">
+    <value>Списък с имена</value>
+  </data>
+  <data name="Spreadsheet_MergeCells" xml:space="preserve">
+    <value>Сливане на клетки</value>
+  </data>
+  <data name="Spreadsheet_SheetsBar_AllSheets" xml:space="preserve">
+    <value>Всички листове</value>
+  </data>
+  <data name="Spreadsheet_DecreaseDecimal" xml:space="preserve">
+    <value>Намали порядъка</value>
+  </data>
+  <data name="Spreadsheet_GridLines" xml:space="preserve">
+    <value>Покажи/скрий границите на клетките</value>
+  </data>
+  <data name="Spreadsheet_IncreaseDecimal" xml:space="preserve">
+    <value>Увеличи порядъка</value>
+  </data>
+  <data name="Spreadsheet_UnmergeCells" xml:space="preserve">
+    <value>Разделяне на клетки</value>
+  </data>
+  <data name="PdfViewer_DropZone_Hint" xml:space="preserve">
+    <value>Плъзнете и пуснете файлове тук, за да ги качите</value>
   </data>
 </root>

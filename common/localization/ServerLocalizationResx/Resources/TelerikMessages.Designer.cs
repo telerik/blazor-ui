@@ -103,6 +103,78 @@ namespace ServerLocalizationResx.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Output.
+        /// </summary>
+        public static string AIPrompt_OutputView_ButtonText {
+            get {
+                return ResourceManager.GetString("AIPrompt_OutputView_ButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy.
+        /// </summary>
+        public static string AIPrompt_OutputView_Copy {
+            get {
+                return ResourceManager.GetString("AIPrompt_OutputView_Copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generated with AI:.
+        /// </summary>
+        public static string AIPrompt_OutputView_PromptTitle {
+            get {
+                return ResourceManager.GetString("AIPrompt_OutputView_PromptTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Retry.
+        /// </summary>
+        public static string AIPrompt_OutputView_Retry {
+            get {
+                return ResourceManager.GetString("AIPrompt_OutputView_Retry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ask AI.
+        /// </summary>
+        public static string AIPrompt_PromptView_ButtonText {
+            get {
+                return ResourceManager.GetString("AIPrompt_PromptView_ButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate.
+        /// </summary>
+        public static string AIPrompt_PromptView_Generate {
+            get {
+                return ResourceManager.GetString("AIPrompt_PromptView_Generate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ask or generate content with AI.
+        /// </summary>
+        public static string AIPrompt_PromptView_PromptPlaceholder {
+            get {
+                return ResourceManager.GetString("AIPrompt_PromptView_PromptPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prompt Suggestions.
+        /// </summary>
+        public static string AIPrompt_PromptView_SuggestionHeader {
+            get {
+                return ResourceManager.GetString("AIPrompt_PromptView_SuggestionHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string AutoComplete_Cancel {
@@ -535,6 +607,24 @@ namespace ServerLocalizationResx.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Options list.
+        /// </summary>
+        public static string ComboBox_Popup_AriaLabel {
+            get {
+                return ResourceManager.GetString("ComboBox_Popup_AriaLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string DateInput_Clear {
+            get {
+                return ResourceManager.GetString("DateInput_Clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The date format is not parsable. Please enter valid date..
         /// </summary>
         public static string DateInput_ParsingErrorMessage {
@@ -873,6 +963,15 @@ namespace ServerLocalizationResx.Resources {
         public static string Editor_DeleteRow {
             get {
                 return ResourceManager.GetString("Editor_DeleteRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete table.
+        /// </summary>
+        public static string Editor_DeleteTable {
+            get {
+                return ResourceManager.GetString("Editor_DeleteTable", resourceCulture);
             }
         }
         
@@ -1705,6 +1804,15 @@ namespace ServerLocalizationResx.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filter Operators list.
+        /// </summary>
+        public static string Filter_Expression_Options {
+            get {
+                return ResourceManager.GetString("Filter_Expression_Options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filter.
         /// </summary>
         public static string Filter_Filter {
@@ -2092,7 +2200,61 @@ namespace ServerLocalizationResx.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Task.
+        ///   Looks up a localized string similar to Maximize.
+        /// </summary>
+        public static string Gantt_DialogMaximize {
+            get {
+                return ResourceManager.GetString("Gantt_DialogMaximize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimize.
+        /// </summary>
+        public static string Gantt_DialogMinimize {
+            get {
+                return ResourceManager.GetString("Gantt_DialogMinimize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string Gantt_Editor_DependencyAdd {
+            get {
+                return ResourceManager.GetString("Gantt_Editor_DependencyAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Gantt_Editor_DependencyName {
+            get {
+                return ResourceManager.GetString("Gantt_Editor_DependencyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        public static string Gantt_Editor_DependencyRemove {
+            get {
+                return ResourceManager.GetString("Gantt_Editor_DependencyRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string Gantt_Editor_DependencyType {
+            get {
+                return ResourceManager.GetString("Gantt_Editor_DependencyType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit task.
         /// </summary>
         public static string Gantt_Editor_EditorTitle {
             get {
@@ -2119,11 +2281,56 @@ namespace ServerLocalizationResx.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to General.
+        /// </summary>
+        public static string Gantt_Editor_General {
+            get {
+                return ResourceManager.GetString("Gantt_Editor_General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -None-.
+        /// </summary>
+        public static string Gantt_Editor_None {
+            get {
+                return ResourceManager.GetString("Gantt_Editor_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other.
+        /// </summary>
+        public static string Gantt_Editor_Other {
+            get {
+                return ResourceManager.GetString("Gantt_Editor_Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parent.
+        /// </summary>
+        public static string Gantt_Editor_Parent {
+            get {
+                return ResourceManager.GetString("Gantt_Editor_Parent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Complete.
         /// </summary>
         public static string Gantt_Editor_PercentComplete {
             get {
                 return ResourceManager.GetString("Gantt_Editor_PercentComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Predecessors.
+        /// </summary>
+        public static string Gantt_Editor_Predecessors {
+            get {
+                return ResourceManager.GetString("Gantt_Editor_Predecessors", resourceCulture);
             }
         }
         
@@ -2142,6 +2349,15 @@ namespace ServerLocalizationResx.Resources {
         public static string Gantt_Editor_StartTimeValueValidationMessage {
             get {
                 return ResourceManager.GetString("Gantt_Editor_StartTimeValueValidationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successors.
+        /// </summary>
+        public static string Gantt_Editor_Successors {
+            get {
+                return ResourceManager.GetString("Gantt_Editor_Successors", resourceCulture);
             }
         }
         
@@ -2578,6 +2794,87 @@ namespace ServerLocalizationResx.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No Data.
+        /// </summary>
+        public static string ListBox_NoData {
+            get {
+                return ResourceManager.GetString("ListBox_NoData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move Down.
+        /// </summary>
+        public static string ListBoxToolBarTool_MoveDown {
+            get {
+                return ResourceManager.GetString("ListBoxToolBarTool_MoveDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move Up.
+        /// </summary>
+        public static string ListBoxToolBarTool_MoveUp {
+            get {
+                return ResourceManager.GetString("ListBoxToolBarTool_MoveUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        public static string ListBoxToolBarTool_Remove {
+            get {
+                return ResourceManager.GetString("ListBoxToolBarTool_Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transfer All From.
+        /// </summary>
+        public static string ListBoxToolBarTool_TransferAllFrom {
+            get {
+                return ResourceManager.GetString("ListBoxToolBarTool_TransferAllFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transfer All To.
+        /// </summary>
+        public static string ListBoxToolBarTool_TransferAllTo {
+            get {
+                return ResourceManager.GetString("ListBoxToolBarTool_TransferAllTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transfer From.
+        /// </summary>
+        public static string ListBoxToolBarTool_TransferFrom {
+            get {
+                return ResourceManager.GetString("ListBoxToolBarTool_TransferFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transfer To.
+        /// </summary>
+        public static string ListBoxToolBarTool_TransferTo {
+            get {
+                return ResourceManager.GetString("ListBoxToolBarTool_TransferTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string MaskedTextBox_Clear {
+            get {
+                return ResourceManager.GetString("MaskedTextBox_Clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Apply.
         /// </summary>
         public static string MultiSelect_Apply {
@@ -2605,11 +2902,47 @@ namespace ServerLocalizationResx.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} item(s) selected.
+        /// </summary>
+        public static string MultiSelect_ItemsSelected {
+            get {
+                return ResourceManager.GetString("MultiSelect_ItemsSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} more selected.
+        /// </summary>
+        public static string MultiSelect_MoreSelected {
+            get {
+                return ResourceManager.GetString("MultiSelect_MoreSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No data.
         /// </summary>
         public static string MultiSelect_NoData {
             get {
                 return ResourceManager.GetString("MultiSelect_NoData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open.
+        /// </summary>
+        public static string MultiSelect_Open {
+            get {
+                return ResourceManager.GetString("MultiSelect_Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string NumericTextBox_Clear {
+            get {
+                return ResourceManager.GetString("NumericTextBox_Clear", resourceCulture);
             }
         }
         
@@ -2776,6 +3109,24 @@ namespace ServerLocalizationResx.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Document viewport.
+        /// </summary>
+        public static string PdfViewer_Document_AriaLabel {
+            get {
+                return ResourceManager.GetString("PdfViewer_Document_AriaLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Drag and drop files here to upload.
+        /// </summary>
+        public static string PdfViewer_DropZone_Hint {
+            get {
+                return ResourceManager.GetString("PdfViewer_DropZone_Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string PdfViewer_Search_Close {
@@ -2826,6 +3177,15 @@ namespace ServerLocalizationResx.Resources {
         public static string PdfViewer_Search_PreviousMatch {
             get {
                 return ResourceManager.GetString("PdfViewer_Search_PreviousMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search dialog.
+        /// </summary>
+        public static string PdfViewer_SearchDialog_AriaLabel {
+            get {
+                return ResourceManager.GetString("PdfViewer_SearchDialog_AriaLabel", resourceCulture);
             }
         }
         
@@ -2992,6 +3352,24 @@ namespace ServerLocalizationResx.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Move to Columns.
+        /// </summary>
+        public static string PivotGridConfigurator_MoveToColumns {
+            get {
+                return ResourceManager.GetString("PivotGridConfigurator_MoveToColumns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move to Rows.
+        /// </summary>
+        public static string PivotGridConfigurator_MoveToRows {
+            get {
+                return ResourceManager.GetString("PivotGridConfigurator_MoveToRows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select some fields to begin setup.
         /// </summary>
         public static string PivotGridConfigurator_NoFields {
@@ -3010,7 +3388,7 @@ namespace ServerLocalizationResx.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Setttings.
+        ///   Looks up a localized string similar to Settings.
         /// </summary>
         public static string PivotGridConfigurator_Settings {
             get {
@@ -3033,6 +3411,15 @@ namespace ServerLocalizationResx.Resources {
         public static string PivotGridConfiguratorButton_Text {
             get {
                 return ResourceManager.GetString("PivotGridConfiguratorButton_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Options list.
+        /// </summary>
+        public static string PopupList_AriaLabel {
+            get {
+                return ResourceManager.GetString("PopupList_AriaLabel", resourceCulture);
             }
         }
         
@@ -3730,6 +4117,866 @@ namespace ServerLocalizationResx.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add column left.
+        /// </summary>
+        public static string Spreadsheet_AddColumnLeft {
+            get {
+                return ResourceManager.GetString("Spreadsheet_AddColumnLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add column right.
+        /// </summary>
+        public static string Spreadsheet_AddColumnRight {
+            get {
+                return ResourceManager.GetString("Spreadsheet_AddColumnRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add row above.
+        /// </summary>
+        public static string Spreadsheet_AddRowAbove {
+            get {
+                return ResourceManager.GetString("Spreadsheet_AddRowAbove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add row below.
+        /// </summary>
+        public static string Spreadsheet_AddRowBelow {
+            get {
+                return ResourceManager.GetString("Spreadsheet_AddRowBelow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Align bottom.
+        /// </summary>
+        public static string Spreadsheet_AlignBottom {
+            get {
+                return ResourceManager.GetString("Spreadsheet_AlignBottom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Align center.
+        /// </summary>
+        public static string Spreadsheet_AlignCenter {
+            get {
+                return ResourceManager.GetString("Spreadsheet_AlignCenter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Align justify.
+        /// </summary>
+        public static string Spreadsheet_AlignJustify {
+            get {
+                return ResourceManager.GetString("Spreadsheet_AlignJustify", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Align left.
+        /// </summary>
+        public static string Spreadsheet_AlignLeft {
+            get {
+                return ResourceManager.GetString("Spreadsheet_AlignLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Align middle.
+        /// </summary>
+        public static string Spreadsheet_AlignMiddle {
+            get {
+                return ResourceManager.GetString("Spreadsheet_AlignMiddle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Align right.
+        /// </summary>
+        public static string Spreadsheet_AlignRight {
+            get {
+                return ResourceManager.GetString("Spreadsheet_AlignRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Align top.
+        /// </summary>
+        public static string Spreadsheet_AlignTop {
+            get {
+                return ResourceManager.GetString("Spreadsheet_AlignTop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Background color.
+        /// </summary>
+        public static string Spreadsheet_BackgroundColor {
+            get {
+                return ResourceManager.GetString("Spreadsheet_BackgroundColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bold.
+        /// </summary>
+        public static string Spreadsheet_Bold {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Bold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy.
+        /// </summary>
+        public static string Spreadsheet_Copy {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cut.
+        /// </summary>
+        public static string Spreadsheet_Cut {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Cut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Decrease decimal.
+        /// </summary>
+        public static string Spreadsheet_DecreaseDecimal {
+            get {
+                return ResourceManager.GetString("Spreadsheet_DecreaseDecimal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Document.
+        /// </summary>
+        public static string Spreadsheet_DefaultDownloadFileName {
+            get {
+                return ResourceManager.GetString("Spreadsheet_DefaultDownloadFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sheet.
+        /// </summary>
+        public static string Spreadsheet_DefaultSheetName {
+            get {
+                return ResourceManager.GetString("Spreadsheet_DefaultSheetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete column.
+        /// </summary>
+        public static string Spreadsheet_DeleteColumn {
+            get {
+                return ResourceManager.GetString("Spreadsheet_DeleteColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Spreadsheet_DeleteImage {
+            get {
+                return ResourceManager.GetString("Spreadsheet_DeleteImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete row.
+        /// </summary>
+        public static string Spreadsheet_DeleteRow {
+            get {
+                return ResourceManager.GetString("Spreadsheet_DeleteRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string Spreadsheet_Dialog_ClipboardErrorApplyButtonText {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Dialog_ClipboardErrorApplyButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string Spreadsheet_Dialog_ClipboardErrorCloseButtonText {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Dialog_ClipboardErrorCloseButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;p&gt;To complete this action, the site needs access to the clipboard.&lt;/p&gt;
+        ///&lt;p&gt;Go to your browser&apos;s security settings and allow clipboard permissions for this site.&lt;/p&gt;
+        ///&lt;p&gt;Alternatively, use one of the following shortcuts:&lt;/p&gt;
+        ///&lt;div&gt;Cut = Ctrl/Cmd + X&lt;/div&gt;
+        ///&lt;div&gt;Copy = Ctrl/Cmd + C&lt;/div&gt;
+        ///&lt;div&gt;Paste = Ctrl/Cmd + V&lt;/div&gt;.
+        /// </summary>
+        public static string Spreadsheet_Dialog_ClipboardErrorText {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Dialog_ClipboardErrorText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No access to the clipboard.
+        /// </summary>
+        public static string Spreadsheet_Dialog_ClipboardErrorTitle {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Dialog_ClipboardErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string Spreadsheet_Dialog_Close {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Dialog_Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Spreadsheet_Dialog_DeleteSheetApplyButtonText {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Dialog_DeleteSheetApplyButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Spreadsheet_Dialog_DeleteSheetCancelButtonText {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Dialog_DeleteSheetCancelButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The deleted sheet data will be lost. Are you sure you want to proceed?.
+        /// </summary>
+        public static string Spreadsheet_Dialog_DeleteSheetText {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Dialog_DeleteSheetText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete sheet.
+        /// </summary>
+        public static string Spreadsheet_Dialog_DeleteSheetTitle {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Dialog_DeleteSheetTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert.
+        /// </summary>
+        public static string Spreadsheet_Dialog_InsertLinkApplyButtonText {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Dialog_InsertLinkApplyButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Spreadsheet_Dialog_InsertLinkCancelButtonText {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Dialog_InsertLinkCancelButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link text.
+        /// </summary>
+        public static string Spreadsheet_Dialog_InsertLinkInputPlaceholderText {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Dialog_InsertLinkInputPlaceholderText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link:.
+        /// </summary>
+        public static string Spreadsheet_Dialog_InsertLinkLabelText {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Dialog_InsertLinkLabelText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove link.
+        /// </summary>
+        public static string Spreadsheet_Dialog_InsertLinkRemoveButtonText {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Dialog_InsertLinkRemoveButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The link cannot be blank..
+        /// </summary>
+        public static string Spreadsheet_Dialog_InsertLinkRequiredFieldText {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Dialog_InsertLinkRequiredFieldText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert link.
+        /// </summary>
+        public static string Spreadsheet_Dialog_InsertLinkTitle {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Dialog_InsertLinkTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename.
+        /// </summary>
+        public static string Spreadsheet_Dialog_RenameSheetApplyButtonText {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Dialog_RenameSheetApplyButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename.
+        /// </summary>
+        public static string Spreadsheet_Dialog_RenameSheetButtonText {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Dialog_RenameSheetButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Spreadsheet_Dialog_RenameSheetCancelButtonText {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Dialog_RenameSheetCancelButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is an existing sheet with this name. Please enter another name..
+        /// </summary>
+        public static string Spreadsheet_Dialog_RenameSheetErrorText {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Dialog_RenameSheetErrorText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename sheet to:.
+        /// </summary>
+        public static string Spreadsheet_Dialog_RenameSheetLabelText {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Dialog_RenameSheetLabelText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sheet name.
+        /// </summary>
+        public static string Spreadsheet_Dialog_RenameSheetPlaceholderText {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Dialog_RenameSheetPlaceholderText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sheet name cannot be blank..
+        /// </summary>
+        public static string Spreadsheet_Dialog_RenameSheetRequiredFieldText {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Dialog_RenameSheetRequiredFieldText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename sheet.
+        /// </summary>
+        public static string Spreadsheet_Dialog_RenameSheetTitle {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Dialog_RenameSheetTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download.
+        /// </summary>
+        public static string Spreadsheet_DownloadFile {
+            get {
+                return ResourceManager.GetString("Spreadsheet_DownloadFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Font family.
+        /// </summary>
+        public static string Spreadsheet_FontFamily {
+            get {
+                return ResourceManager.GetString("Spreadsheet_FontFamily", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Font size.
+        /// </summary>
+        public static string Spreadsheet_FontSize {
+            get {
+                return ResourceManager.GetString("Spreadsheet_FontSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Formula input.
+        /// </summary>
+        public static string Spreadsheet_FormulaInput {
+            get {
+                return ResourceManager.GetString("Spreadsheet_FormulaInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle grid lines.
+        /// </summary>
+        public static string Spreadsheet_GridLines {
+            get {
+                return ResourceManager.GetString("Spreadsheet_GridLines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Horizontal align.
+        /// </summary>
+        public static string Spreadsheet_HorizontalAlign {
+            get {
+                return ResourceManager.GetString("Spreadsheet_HorizontalAlign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Increase decimal.
+        /// </summary>
+        public static string Spreadsheet_IncreaseDecimal {
+            get {
+                return ResourceManager.GetString("Spreadsheet_IncreaseDecimal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert image.
+        /// </summary>
+        public static string Spreadsheet_InsertImage {
+            get {
+                return ResourceManager.GetString("Spreadsheet_InsertImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert link.
+        /// </summary>
+        public static string Spreadsheet_InsertLink {
+            get {
+                return ResourceManager.GetString("Spreadsheet_InsertLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Italic.
+        /// </summary>
+        public static string Spreadsheet_Italic {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Italic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Merge all.
+        /// </summary>
+        public static string Spreadsheet_MergeAllCells {
+            get {
+                return ResourceManager.GetString("Spreadsheet_MergeAllCells", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Merge cells.
+        /// </summary>
+        public static string Spreadsheet_MergeCells {
+            get {
+                return ResourceManager.GetString("Spreadsheet_MergeCells", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Merge horizontally.
+        /// </summary>
+        public static string Spreadsheet_MergeCellsHorizontally {
+            get {
+                return ResourceManager.GetString("Spreadsheet_MergeCellsHorizontally", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Merge vertically.
+        /// </summary>
+        public static string Spreadsheet_MergeCellsVertically {
+            get {
+                return ResourceManager.GetString("Spreadsheet_MergeCellsVertically", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name box.
+        /// </summary>
+        public static string Spreadsheet_NameBox {
+            get {
+                return ResourceManager.GetString("Spreadsheet_NameBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number format.
+        /// </summary>
+        public static string Spreadsheet_NumberFormat {
+            get {
+                return ResourceManager.GetString("Spreadsheet_NumberFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatic.
+        /// </summary>
+        public static string Spreadsheet_NumberFormatAutomatic {
+            get {
+                return ResourceManager.GetString("Spreadsheet_NumberFormatAutomatic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Currency.
+        /// </summary>
+        public static string Spreadsheet_NumberFormatCurrency {
+            get {
+                return ResourceManager.GetString("Spreadsheet_NumberFormatCurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        public static string Spreadsheet_NumberFormatDate {
+            get {
+                return ResourceManager.GetString("Spreadsheet_NumberFormatDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date Time.
+        /// </summary>
+        public static string Spreadsheet_NumberFormatDateTime {
+            get {
+                return ResourceManager.GetString("Spreadsheet_NumberFormatDateTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duration.
+        /// </summary>
+        public static string Spreadsheet_NumberFormatDuration {
+            get {
+                return ResourceManager.GetString("Spreadsheet_NumberFormatDuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Financial.
+        /// </summary>
+        public static string Spreadsheet_NumberFormatFinancial {
+            get {
+                return ResourceManager.GetString("Spreadsheet_NumberFormatFinancial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number.
+        /// </summary>
+        public static string Spreadsheet_NumberFormatNumber {
+            get {
+                return ResourceManager.GetString("Spreadsheet_NumberFormatNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Percentage.
+        /// </summary>
+        public static string Spreadsheet_NumberFormatPercentage {
+            get {
+                return ResourceManager.GetString("Spreadsheet_NumberFormatPercentage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text.
+        /// </summary>
+        public static string Spreadsheet_NumberFormatText {
+            get {
+                return ResourceManager.GetString("Spreadsheet_NumberFormatText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time.
+        /// </summary>
+        public static string Spreadsheet_NumberFormatTime {
+            get {
+                return ResourceManager.GetString("Spreadsheet_NumberFormatTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open.
+        /// </summary>
+        public static string Spreadsheet_OpenFile {
+            get {
+                return ResourceManager.GetString("Spreadsheet_OpenFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paste.
+        /// </summary>
+        public static string Spreadsheet_Paste {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Paste", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Redo.
+        /// </summary>
+        public static string Spreadsheet_Redo {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Redo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send to back.
+        /// </summary>
+        public static string Spreadsheet_SendImageToBack {
+            get {
+                return ResourceManager.GetString("Spreadsheet_SendImageToBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bring to front.
+        /// </summary>
+        public static string Spreadsheet_SendImageToFront {
+            get {
+                return ResourceManager.GetString("Spreadsheet_SendImageToFront", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string Spreadsheet_SheetsBar_AddSheet {
+            get {
+                return ResourceManager.GetString("Spreadsheet_SheetsBar_AddSheet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All sheets.
+        /// </summary>
+        public static string Spreadsheet_SheetsBar_AllSheets {
+            get {
+                return ResourceManager.GetString("Spreadsheet_SheetsBar_AllSheets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Spreadsheet_SheetsBar_DeleteSheet {
+            get {
+                return ResourceManager.GetString("Spreadsheet_SheetsBar_DeleteSheet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duplicate.
+        /// </summary>
+        public static string Spreadsheet_SheetsBar_DuplicateSheet {
+            get {
+                return ResourceManager.GetString("Spreadsheet_SheetsBar_DuplicateSheet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide.
+        /// </summary>
+        public static string Spreadsheet_SheetsBar_HideSheet {
+            get {
+                return ResourceManager.GetString("Spreadsheet_SheetsBar_HideSheet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move left.
+        /// </summary>
+        public static string Spreadsheet_SheetsBar_MoveSheetLeft {
+            get {
+                return ResourceManager.GetString("Spreadsheet_SheetsBar_MoveSheetLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move right.
+        /// </summary>
+        public static string Spreadsheet_SheetsBar_MoveSheetRight {
+            get {
+                return ResourceManager.GetString("Spreadsheet_SheetsBar_MoveSheetRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename.
+        /// </summary>
+        public static string Spreadsheet_SheetsBar_RenameSheetButtonText {
+            get {
+                return ResourceManager.GetString("Spreadsheet_SheetsBar_RenameSheetButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text color.
+        /// </summary>
+        public static string Spreadsheet_TextColor {
+            get {
+                return ResourceManager.GetString("Spreadsheet_TextColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text wrap.
+        /// </summary>
+        public static string Spreadsheet_TextWrap {
+            get {
+                return ResourceManager.GetString("Spreadsheet_TextWrap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File.
+        /// </summary>
+        public static string Spreadsheet_ToolBar_FileMenu {
+            get {
+                return ResourceManager.GetString("Spreadsheet_ToolBar_FileMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Format.
+        /// </summary>
+        public static string Spreadsheet_ToolBar_FormatMenu {
+            get {
+                return ResourceManager.GetString("Spreadsheet_ToolBar_FormatMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        public static string Spreadsheet_ToolBar_HomeMenu {
+            get {
+                return ResourceManager.GetString("Spreadsheet_ToolBar_HomeMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert.
+        /// </summary>
+        public static string Spreadsheet_ToolBar_InsertMenu {
+            get {
+                return ResourceManager.GetString("Spreadsheet_ToolBar_InsertMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View.
+        /// </summary>
+        public static string Spreadsheet_ToolBar_ViewMenu {
+            get {
+                return ResourceManager.GetString("Spreadsheet_ToolBar_ViewMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Underline.
+        /// </summary>
+        public static string Spreadsheet_Underline {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Underline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Undo.
+        /// </summary>
+        public static string Spreadsheet_Undo {
+            get {
+                return ResourceManager.GetString("Spreadsheet_Undo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unmerge.
+        /// </summary>
+        public static string Spreadsheet_UnmergeCells {
+            get {
+                return ResourceManager.GetString("Spreadsheet_UnmergeCells", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vertical align.
+        /// </summary>
+        public static string Spreadsheet_VerticalAlign {
+            get {
+                return ResourceManager.GetString("Spreadsheet_VerticalAlign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Off.
         /// </summary>
         public static string Switch_OffLabel {
@@ -3762,6 +5009,15 @@ namespace ServerLocalizationResx.Resources {
         public static string TabStrip_ShowPreviousTabs {
             get {
                 return ResourceManager.GetString("TabStrip_ShowPreviousTabs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string TextBox_Clear {
+            get {
+                return ResourceManager.GetString("TextBox_Clear", resourceCulture);
             }
         }
         
