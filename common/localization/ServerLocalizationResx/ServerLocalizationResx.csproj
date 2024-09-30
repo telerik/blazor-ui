@@ -12,14 +12,6 @@
     <PackageReference Include="Telerik.UI.for.Blazor" Version="*" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Services\" />
-    <None Remove="Resources\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\" />
-    <Folder Include="Resources\" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Update="Resources\TelerikMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>TelerikMessages.Designer.cs</LastGenOutput>
