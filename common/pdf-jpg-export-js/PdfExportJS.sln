@@ -1,9 +1,9 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.30503.244
+VisualStudioVersion = 25.0.1706.7
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdfExportJS", "PdfExportJS\PdfExportJS.csproj", "{7B9314A6-C5EF-41E2-BF9A-B0100BAD773A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdfExportJS", "PdfExportJS\PdfExportJS.csproj", "{3F047879-D472-41B7-86B6-61FB2D0083F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7B9314A6-C5EF-41E2-BF9A-B0100BAD773A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B9314A6-C5EF-41E2-BF9A-B0100BAD773A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B9314A6-C5EF-41E2-BF9A-B0100BAD773A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B9314A6-C5EF-41E2-BF9A-B0100BAD773A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F047879-D472-41B7-86B6-61FB2D0083F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F047879-D472-41B7-86B6-61FB2D0083F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F047879-D472-41B7-86B6-61FB2D0083F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F047879-D472-41B7-86B6-61FB2D0083F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {85D59F79-ACB2-4DB4-94CB-E67C73961219}
+		SolutionGuid = {B4DCBEA3-B740-4931-82BB-F3583E1C2230}
 	EndGlobalSection
 EndGlobal
