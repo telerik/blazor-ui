@@ -1,0 +1,69 @@
+﻿@page "/"
+
+@using PdfExportJS.Services
+@inject DrawingService DrawingService
+
+<PageTitle>Export Grid</PageTitle>
+
+<h1>Export Grid</h1>
+
+<div @ref="@ElementToExport">
+    <TelerikGrid Data="@GridData"
+                 Pageable="true"
+                 Sortable="true"
+                 FilterMode="@GridFilterMode.FilterRow"
+                 Groupable="true"
+                 Resizable="true"
+                 Reorderable="true">
+        <GridToolBarTemplate>
+            <TelerikButton OnClick="@ExportJpg"
+                           ThemeColor="@ThemeConstants.Button.ThemeColor.Primary"
+                           Icon="@SvgIcon.Image">Export to JPG</TelerikButton>
+            <TelerikButton OnClick="@ExportPdf"
+                           ThemeColor="@ThemeConstants.Button.ThemeColor.Primary"
+                           Icon="@SvgIcon.FilePdf">Export to PDF</TelerikButton>
+        </GridToolBarTemplate>
+        <GridColumns>
+            <GridColumn Field="@(nameof(SampleData.Id))" Width="120px" />
+            <GridColumn Field="@(nameof(SampleData.Name))" Title="Employee Name" Groupable="false" />
+            <GridColumn Field="@(nameof(SampleData.Team))" Title="Team" />
+            <GridColumn Field="@(nameof(SampleData.HireDate))" Title="Hire Date" />
+        </GridColumns>
+    </TelerikGrid>
+</div>
+
+@code {
+    private ElementReference ElementToExport { get; set; }
+
+    private async Task ExportJpg()
+    {
+        // Create a data URI from the element reference
+        var data = await DrawingService.ExportImage(ElementToExport);
+        // Save the Data URI to a file
+        await DrawingService.SaveAs(data, "grid-jpg-export.jpg");
+    }
+
+    private async Task ExportPdf()
+    {
+        // Create a data URI from the element reference
+        var data = await DrawingService.ExportPDF(ElementToExport);
+        // Save the Data URI to a file
+        await DrawingService.SaveAs(data, "grid-pdf-export.pdf");
+    }
+
+    private IEnumerable<SampleData> GridData = Enumerable.Range(1, 30).Select(x => new SampleData
+    {
+        Id = x,
+        Name = $"name {x}",
+        Team = $"Team {x % 3 + 1}",
+        HireDate = DateTime.Today.AddDays(-Random.Shared.Next(1, 3000))
+    });
+
+    public class SampleData
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Team { get; set; } = string.Empty;
+        public DateTime HireDate { get; set; }
+    }
+}

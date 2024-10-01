@@ -1,0 +1,116 @@
+﻿@page "/export-chart"
+
+@using PdfExportJS.Services
+@inject DrawingService DrawingService
+
+<PageTitle>Export Chart</PageTitle>
+
+<h1>Export Chart</h1>
+
+<TelerikButton OnClick="@ExportChartToJPG"
+               ThemeColor="@ThemeConstants.Button.ThemeColor.Primary"
+               Icon="@SvgIcon.Image">Export to JPG</TelerikButton>
+
+<div @ref="@ElementToExport">
+    <TelerikChart>
+        <ChartSeriesItems>
+            <ChartSeries Type="ChartSeriesType.Line"
+                         Data="@Series1Data"
+                         Field="@nameof(SalesData.Revenue)"
+                         CategoryField="@nameof(SalesData.TimePeriod)"
+                         Name="Product 1">
+            </ChartSeries>
+            <ChartSeries Type="ChartSeriesType.Column"
+                         Data="@Series2Data"
+                         Field="@nameof(SalesData.Revenue)"
+                         CategoryField="@nameof(SalesData.TimePeriod)"
+                         Name="Product 2">
+            </ChartSeries>
+            <ChartSeries Type="ChartSeriesType.Area"
+                         Data="@Series3Data"
+                         Field="@nameof(SalesData.Revenue)"
+                         CategoryField="@nameof(SalesData.TimePeriod)"
+                         Name="Product 3">
+            </ChartSeries>
+        </ChartSeriesItems>
+
+        <ChartCategoryAxes>
+            <ChartCategoryAxis Type="@ChartCategoryAxisType.Date"></ChartCategoryAxis>
+        </ChartCategoryAxes>
+
+        <ChartValueAxes>
+            <ChartValueAxis Max="1200">
+                <ChartValueAxisLabels Format="c2" />
+            </ChartValueAxis>
+        </ChartValueAxes>
+
+        <ChartTitle Text="Revenue per Product"></ChartTitle>
+
+        <ChartLegend Position="ChartLegendPosition.Right">
+        </ChartLegend>
+    </TelerikChart>
+</div>
+
+@code {
+    private ElementReference ElementToExport { get; set; }
+
+    private List<SalesData> Series1Data { get; set; } = new();
+    private List<SalesData> Series2Data { get; set; } = new();
+    private List<SalesData> Series3Data { get; set; } = new();
+
+    private async Task ExportChartToJPG()
+    {
+        var data = await DrawingService.ExportImage(ElementToExport);
+        await DrawingService.SaveAs(data, "chart-jpg-export.jpg");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        GenerateData();
+
+        await base.OnInitializedAsync();
+    }
+
+    private void GenerateData()
+    {
+        var now = DateTime.Today;
+        var monthsBack = 6;
+
+        for (int i = 1; i <= monthsBack; i++)
+        {
+            var dateTimeValue = now.AddMonths(-monthsBack + i);
+
+            Series1Data.Add(new SalesData()
+            {
+                Id = i,
+                Product = "Product 1",
+                Revenue = Random.Shared.Next(1, 1000),
+                TimePeriod = dateTimeValue
+            });
+
+            Series2Data.Add(new SalesData()
+            {
+                Id = i,
+                Product = "Product 2",
+                Revenue = Random.Shared.Next(1, 1000),
+                TimePeriod = dateTimeValue
+            });
+
+            Series3Data.Add(new SalesData()
+            {
+                Id = i,
+                Product = "Product 3",
+                Revenue = Random.Shared.Next(1, 1000),
+                TimePeriod = dateTimeValue
+            });
+        }
+    }
+
+    public class SalesData
+    {
+        public int Id { get; set; }
+        public string Product { get; set; } = string.Empty;
+        public DateTime TimePeriod { get; set; }
+        public decimal Revenue { get; set; }
+    }
+}

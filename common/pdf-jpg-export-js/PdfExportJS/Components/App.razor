@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/" />
+    @{ var telerikUiForBlazorVersion = typeof(TelerikRootComponent).Assembly.GetName().Version; }
+    <script src="_content/Telerik.UI.for.Blazor/js/telerik-blazor.js?@telerikUiForBlazorVersion" defer></script>
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="app.css" />
+    <link rel="stylesheet" href="PdfExportJS.styles.css" />
+    <link rel="stylesheet" href="_content/Telerik.UI.for.Blazor/css/kendo-theme-default/all.css?@telerikUiForBlazorVersion" />
+    @*<link rel="stylesheet" href="_content/Telerik.UI.for.Blazor/css/kendo-font-icons/font-icons.css?@telerikUiForBlazorVersion" />*@
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <HeadOutlet @rendermode="@InteractiveServer" />
+</head>
+
+<body>
+    <Routes @rendermode="@InteractiveServer" />
+    <script src="_framework/blazor.web.js" autostart="false"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            Blazor.start();
+        });
+    </script>
+
+    <!-- These libraries are delivered through LibMan in the project -->
+    <script src="lib/progress/kendo-file-saver/dist/cdn/js/kendo-file-saver.js"></script>
+    <script src="lib/progress/kendo-drawing/dist/cdn/js/kendo-drawing.js"></script>
+    <script src="lib/pako/dist/pako.js"></script>
+
+    <!-- telerikInterop.js exposes the Kendo API to Blazor -->
+    <script src="telerikInterop.js"></script>
+</body>
+
+</html>
