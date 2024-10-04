@@ -29,12 +29,15 @@
     private DateTime DatePickerValue { get; set; } = DateTime.Today;
 
     [CascadingParameter]
-    public DialogFactory Dialogs { get; set; } = null!;
+    public DialogFactory? Dialogs { get; set; }
 
     private bool WindowVisible { get; set; }
 
     private async Task OnButtonClick()
     {
-        await Dialogs.AlertAsync("Telerik DialogFactory");
+        if (Dialogs != null)
+        {
+            await Dialogs.AlertAsync("Telerik DialogFactory");
+        }
     }
 }

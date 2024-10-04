@@ -6,10 +6,13 @@
 
 @code {
     [CascadingParameter]
-    public DialogFactory Dialogs { get; set; } = null!;
+    public DialogFactory? Dialogs { get; set; }
 
     public async Task AlertAsync(string message)
     {
-        await Dialogs.AlertAsync(message);
+        if (Dialogs != null)
+        {
+            await Dialogs.AlertAsync(message);
+        }
     }
 }

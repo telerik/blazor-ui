@@ -9,13 +9,7 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="5.0.1" />
+    <PackageReference Include="Telerik.UI.for.Blazor" Version="6.2.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Components\Shared\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Components\Shared\" />
-  </ItemGroup>
 </Project>

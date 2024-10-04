@@ -45,12 +45,15 @@
 @code {
     private DateTime DatePickerValue { get; set; } = DateTime.Today;
 
-    private TelerikDialogHelper DialogHelperRef { get; set; } = null!;
+    private TelerikDialogHelper? DialogHelperRef { get; set; }
 
     private bool WindowVisible { get; set; }
 
     private async Task OnButtonClick()
     {
-        await DialogHelperRef.AlertAsync("Telerik DialogFactory");
+        if (DialogHelperRef != null)
+        {
+            await DialogHelperRef.AlertAsync("Telerik DialogFactory");
+        }
     }
 }

@@ -10,10 +10,13 @@
 
 @code {
     [CascadingParameter]
-    public DialogFactory Dialogs { get; set; } = null!;
+    public DialogFactory? Dialogs { get; set; }
 
     public async Task OnButtonClick()
     {
-        await Dialogs.AlertAsync("Telerik DialogFactory");
+        if (Dialogs != null)
+        {
+            await Dialogs.AlertAsync("Telerik DialogFactory");
+        }
     }
 }
