@@ -20,6 +20,15 @@ a, .btn-link {
     padding-top: 1.1rem;
 }
 
+h1 {
+    font-size: 1.5rem;
+}
+
+h2 {
+    font-size: 1.2rem;
+    margin-top: 1em;
+}
+
 h1:focus {
     outline: none;
 }

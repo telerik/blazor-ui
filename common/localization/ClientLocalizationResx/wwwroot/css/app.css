@@ -2,6 +2,15 @@ html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+h1 {
+    font-size: 1.5rem;
+}
+
+h2 {
+    font-size: 1.2rem;
+    margin-top: 1em;
+}
+
 h1:focus {
     outline: none;
 }
