@@ -6,18 +6,12 @@ namespace ClientLocalizationResx.Services
     public class SampleResxLocalizer : ITelerikStringLocalizer
     {
         // This indexer is required
-        public string this[string name]
+        public string this[string key]
         {
             get
             {
-                return GetStringFromResource(name);
+                return TelerikMessages.ResourceManager.GetString(key, TelerikMessages.Culture) ?? key;
             }
-        }
-
-        // Sample implementation that uses .resx files in ~/Resources named TelerikMessages.<culture-locale>.resx
-        public string GetStringFromResource(string key)
-        {
-            return TelerikMessages.ResourceManager.GetString(key, TelerikMessages.Culture) ?? key;
         }
     }
 }
