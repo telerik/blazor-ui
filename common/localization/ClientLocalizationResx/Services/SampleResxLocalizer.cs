@@ -1,7 +1,7 @@
-﻿using ServerLocalizationResx.Resources;
+﻿using ClientLocalizationResx.Resources;
 using Telerik.Blazor.Services;
 
-namespace ServerLocalizationResx.Services
+namespace ClientLocalizationResx.Services
 {
     public class SampleResxLocalizer : ITelerikStringLocalizer
     {

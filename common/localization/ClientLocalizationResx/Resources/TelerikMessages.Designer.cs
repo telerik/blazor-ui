@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ServerLocalizationResx.Resources {
+namespace ClientLocalizationResx.Resources {
     using System;
     
     
@@ -36,7 +36,7 @@ namespace ServerLocalizationResx.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ServerLocalizationResx.Resources.TelerikMessages", typeof(TelerikMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ClientLocalizationResx.Resources.TelerikMessages", typeof(TelerikMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

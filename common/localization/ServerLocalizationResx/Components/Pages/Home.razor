@@ -1,0 +1,53 @@
+﻿@page "/"
+
+@using ServerLocalizationResx.Resources
+
+@using System.Globalization
+@using Telerik.Blazor.Services
+
+@inject ITelerikStringLocalizer TelerikLocalizer
+
+<PageTitle>Home</PageTitle>
+
+<h1>Telerik Localization in Blazor Apps</h1>
+
+<ul>
+    <li><b>CurrentCulture</b>: @CultureInfo.CurrentCulture</li>
+    <li><b>CurrentUICulture</b>: @CultureInfo.CurrentUICulture</li>
+    <li><b>Date</b>: @DateTimeValue</li>
+    <li><b>Number</b>: @DoubleValue.ToString("C2")</li>
+</ul>
+
+<h2>Date and Number Formats in Telerik Components</h2>
+
+<TelerikDateTimePicker @bind-Value="@DateTimeValue"
+                       Width="360px" />
+
+<TelerikNumericTextBox @bind-Value="@DoubleValue"
+                       Width="120px" />
+
+<h2>Localized Strings from Telerik Resource Files</h2>
+
+<TelerikButton>@TelerikLocalizer[nameof(TelerikMessages.Grid_Create)]</TelerikButton>
+<TelerikButton>@TelerikLocalizer[nameof(TelerikMessages.Grid_Edit)]</TelerikButton>
+<TelerikButton>@TelerikLocalizer[nameof(TelerikMessages.Grid_Update)]</TelerikButton>
+
+<h2>Localized Strings in Telerik Blazor Components</h2>
+
+<TelerikFilter @bind-Value="@FilterValue">
+    <FilterFields>
+        <FilterField Name="DumyField" Type="@typeof(string)" />
+    </FilterFields>
+</TelerikFilter>
+
+<br />
+
+<TelerikFileSelect />
+
+@code {
+    private DateTime DateTimeValue { get; set; } = DateTime.Now;
+
+    private double DoubleValue { get; set; } = 123.45;
+
+    private Telerik.DataSource.CompositeFilterDescriptor FilterValue { get; set; } = new();
+}
