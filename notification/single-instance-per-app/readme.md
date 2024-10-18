@@ -1,3 +1,7 @@
-# One Notification Instance for All Components
+# One Notification Instance for Multiple Components in the App
 
-This sample project shows a basic example of declaring a single Telerik Notification component in the app (in the `MainLayout`) and passing it as a `CascadingParameter` to the pages and components inside (with a helper class so you can pass component references), so they can choose to use it to show notifiations from a single place, with shared settings, so they can all stack, and you don't have to declare notification components every time you may need to use one.
+This sample app was obsoleted and removed.
+
+Please refer to the Knowledge Base article [How to Reuse One Notification Instance in the App](https://docs.telerik.com/blazor-ui/knowledge-base/notification-single-app-instance).
+
+If you prefer, you can [browse the removed project in an older version of this repository](https://github.com/telerik/blazor-ui/tree/662bdb9e6dba64a11503a6a9c62cd3f357377aec/notification/single-instance-per-app).
