@@ -7,7 +7,7 @@
 @import "./card-container";
 @import "./common";
 
-.rating-readonly {
+.k-rating {
     pointer-events: none;
 }
 
@@ -70,6 +70,7 @@ html, body, app {
     display: flex;
     justify-content: space-between;
     margin-bottom: 1rem;
+    gap: 1rem;
 }
 
 .card-header-wrapper .k-card-actions{
@@ -82,7 +83,7 @@ div.k-form-buttons button{
     max-height: 30px;
 }
 
-.daterangepicker-no-labels .k-label {
+.daterangepicker-no-labels .k-floating-label {
     display: none;
 }
 
