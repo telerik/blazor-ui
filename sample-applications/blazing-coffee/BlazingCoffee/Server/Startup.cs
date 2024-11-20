@@ -1,13 +1,10 @@
-using BlazingCoffee.Server.Data;
-using BlazingCoffee.Server.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using System.Collections.Generic;
 
 namespace BlazingCoffee.Server
 {
@@ -27,6 +24,7 @@ namespace BlazingCoffee.Server
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddRazorComponents().AddInteractiveWebAssemblyComponents();
+            services.AddAntiforgery(o => o.SuppressXFrameOptionsHeader = true);
 
             // Register Database for Store
             services.AddDbContext<CoffeeContext>(options => options.UseSqlite("Data Source=Coffee.db"));
@@ -53,14 +51,21 @@ namespace BlazingCoffee.Server
             app.UseHttpsRedirection();
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
-
             app.UseRouting();
+            app.UseAntiforgery();
+
+            // The app is embeded through an iframe within the Telerik Blazor product page.
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.Append("Content-Security-Policy", "frame-ancestors 'self' https://www.telerik.com;");
+                await next();
+            });
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
-                endpoints.MapRazorComponents<Client.Host>().AddInteractiveWebAssemblyRenderMode().DisableAntiforgery();
+                endpoints.MapRazorComponents<Client.Host>().AddInteractiveWebAssemblyRenderMode();
             });
         }
     }

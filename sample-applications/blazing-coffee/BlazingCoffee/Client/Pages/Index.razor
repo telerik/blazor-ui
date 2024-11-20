@@ -9,13 +9,10 @@
     <CardHeader>
         <div class="card-header-wrapper">
             <h3 class="card-title">@Localizer["Employees"]</h3>
-            <CardActions>
                 <TelerikButtonGroup>
                     <ButtonGroupToggleButton @bind-Selected="@SingleTeamSelected" OnClick="OnButtonGroupClick">@Localizer["ButtonGroup_MyTeam"]</ButtonGroupToggleButton>
                     <ButtonGroupToggleButton @bind-Selected="@AllTeamsSelected" OnClick="OnButtonGroupClick">@Localizer["ButtonGroup_AllTeams"]</ButtonGroupToggleButton>
                 </TelerikButtonGroup>
-            </CardActions>
-            <span></span>
         </div>
     </CardHeader>
     @if (employees != null)
@@ -70,15 +67,9 @@
                         <Template>
                             @{
                                 var employee = context as Employee;
+                                var employeeIsOnline = employee != null && employee.IsOnline;
 
-                                if (employee != null && employee.IsOnline)
-                                {
-                                    <span class="k-badge k-badge-md k-badge-solid k-badge-rounded k-badge-success">Online</span>
-                                }
-                                else
-                                {
-                                    <span class="k-badge k-badge-md k-badge-solid k-badge-rounded k-badge-error">Offline</span>
-                                }
+                                <span class="k-badge k-badge-md k-badge-solid k-rounded-md k-badge-solid-success">@(employee != null && employee.IsOnline ? "Online" : "Offline")</span>
                             }
                         </Template>
                     </GridColumn>
@@ -86,9 +77,9 @@
             </GridColumn>
             <GridColumn Title="@Localizer["Employee_Grid_Title_Performance"]">
                 <Columns>
-                    <GridColumn Field="@nameof(Employee.Rating)" Width="110px" Title="@Localizer["Employee_Grid_Title_Rating"]">
+                    <GridColumn Field="@nameof(Employee.Rating)" Width="185px" Title="@Localizer["Employee_Grid_Title_Rating"]">
                         <Template>
-                            <Rating CssClass="rating-readonly" Value="((Employee)context).Rating" />
+                                <TelerikRating Value="((Employee)context).Rating" />
                         </Template>
                     </GridColumn>
                     <GridColumn Field="@nameof(Employee.Target)" Width="230px" Title="@Localizer["Employee_Grid_Title_Engagement"]">

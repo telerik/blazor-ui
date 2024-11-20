@@ -9,12 +9,10 @@
     <CardHeader>
         <div class="card-header-wrapper">
             <h3 class="card-title">@Localizer["Reporting"]</h3>
-            <CardActions>
                 <TelerikButtonGroup>
                     <ButtonGroupToggleButton @bind-Selected="@TrendChartType" OnClick="ToggleChartType">@Localizer["ButtonGroup_Trend"]</ButtonGroupToggleButton>
                     <ButtonGroupToggleButton @bind-Selected="@VolumeChartType" OnClick="ToggleChartType">@Localizer["ButtonGroup_Volume"]</ButtonGroupToggleButton>
                 </TelerikButtonGroup>
-            </CardActions>
             <div class="card-ranges">
                     <TelerikSvgIcon Icon="@SvgIcon.Calendar"></TelerikSvgIcon>
                 <TelerikDateRangePicker StartValue="@StartValue" EndValue="@EndValue"
