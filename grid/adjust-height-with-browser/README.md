@@ -3,6 +3,7 @@
 > This sample app is mostly obsolete and no longer maintained. The up-to-date Telerik documentation resources and examples are available at:
 > 
 > * [Adjust Grid Height to Match the Browser Viewport Height](https://docs.telerik.com/blazor-ui/knowledge-base/grid-adjust-height-with-browser)
+> * [Hide or Show Grid Columns on Browser Window Resize](https://docs.telerik.com/blazor-ui/components/mediaquery/integration)
 > * [Scroll to Selected Grid Row](https://docs.telerik.com/blazor-ui/knowledge-base/grid-scroll-to-selected-row)
 > * [Apply Custom Grid Row or Cell Styles](https://docs.telerik.com/blazor-ui/knowledge-base/grid-conditional-cell-background)
 > * [Override the Telerik Theme](https://docs.telerik.com/blazor-ui/styling-and-themes/override-theme-styles)
