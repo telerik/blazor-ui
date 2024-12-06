@@ -18,7 +18,7 @@
 
 	<!-- /Trial script file -->
 	<!-- Commercial script file -->
-	<!--<script src="_content/Telerik.UI.for.Blazor/js/telerik-blazor.js"></script>-->
+	<!--<script src="_content/Telerik.UI.for.Blazor/js/telerik-blazor.js" defer></script>-->
 	<!-- /Commercial script file -->
 
 	<HeadOutlet @rendermode="@RenderMode.InteractiveServer" />
@@ -40,6 +40,11 @@
 		</div>
 	</div>
 
-	<script src="_framework/blazor.web.js"></script>
+	<script src="_framework/blazor.web.js" autostart="false"></script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			Blazor.start();
+		});
+	</script>
 </body>
 </html>
