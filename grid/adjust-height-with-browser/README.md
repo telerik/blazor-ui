@@ -1,5 +1,14 @@
 # Change page size according to available height; hide columns based on screen size
 
+> This sample app is mostly obsolete and no longer maintained. The up-to-date Telerik documentation resources and examples are available at:
+> 
+> * [Adjust Grid Height to Match the Browser Viewport Height](https://docs.telerik.com/blazor-ui/knowledge-base/grid-adjust-height-with-browser)
+> * [Scroll to Selected Grid Row](https://docs.telerik.com/blazor-ui/knowledge-base/grid-scroll-to-selected-row)
+> * [Apply Custom Grid Row or Cell Styles](https://docs.telerik.com/blazor-ui/knowledge-base/grid-conditional-cell-background)
+> * [Override the Telerik Theme](https://docs.telerik.com/blazor-ui/styling-and-themes/override-theme-styles)
+>
+> The one behavior that is not demonstrated on the Telerik documentation site is how to change the Grid `PageSize`, depending on the Grid height.
+
 Demonstrates Responsive Grid, Finding and Selecting Row, Formatting
 
 This project was created using the Telerik 'Blank Server Project' template and includes the 'BlazorPro.BlazorSize' NuGet package by Ed Charbeneau to access browser dimensions. It is meant to provide an example for how to address three common requirements for representing data using a grid for database applications.
