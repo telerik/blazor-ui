@@ -1,0 +1,87 @@
+﻿@using TelerikBlazorWASMDashboard.Shared.Models
+@using Telerik.DataSource
+@using Telerik.DataSource.Extensions
+
+@if(Podcasts != null) 
+{
+    <TelerikGrid TItem="PodcastViewModel" 
+                 OnRead=@ReadItems
+                 Sortable="true" 
+                 Height="100%" 
+                 Pageable="false" 
+                 ScrollMode="@GridScrollMode.Scrollable"
+                 OnStateInit="@((GridStateEventArgs<PodcastViewModel> args) => OnStateInit(args))">
+        <GridColumns>
+            <GridColumn Field="@( nameof(PodcastViewModel.Name) )" Title="Podcast Episode" Width="320px" />
+            <GridColumn Field="@( nameof(PodcastViewModel.Streams) )" Width="150px" />
+            <GridColumn Field="@( nameof(PodcastViewModel.Downloads) )" Width="150px" />
+        </GridColumns>
+    </TelerikGrid>
+}
+else
+{
+    <div class="loader-container">
+        <TelerikLoader Class="loader-indicator" Type="@LoaderType.ConvergingSpinner" Size="@(ThemeConstants.Loader.Size.Large)"></TelerikLoader>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public IEnumerable<PodcastViewModel>? Podcasts { get; set; }
+
+    [Parameter]
+    public int TopN { get; set; } = 5;
+
+    IEnumerable<PodcastViewModel>? TopNPodcasts { get; set; }
+    int Total { get; set; }
+    DataSourceRequest? CurrentRequest { get; set; }
+
+    protected void ReadItems(GridReadEventArgs args)
+    {
+        CurrentRequest = args.Request;
+        UpdateTopEpisodes();
+        args.Data = TopNPodcasts;
+        args.Total = Total;
+    }
+
+    void UpdateTopEpisodes()
+    {
+        if (CurrentRequest != null && Podcasts != null)
+        {
+            CurrentRequest.PageSize = 5;
+            var datasourceResult = Podcasts.ToDataSourceResult(CurrentRequest);
+
+            TopNPodcasts = datasourceResult.Data.Cast<PodcastViewModel>().ToList();
+            Total = datasourceResult.Total;
+
+            StateHasChanged();
+        }
+    }
+
+    protected override void OnParametersSet()
+    {
+        UpdateTopEpisodes();
+        base.OnParametersSet();
+    }
+
+    void OnStateInit(GridStateEventArgs<PodcastViewModel> args)
+    {
+        args.GridState = new GridState<PodcastViewModel>()
+        {
+            SortDescriptors = new List<SortDescriptor>
+            {
+                new SortDescriptor { Member = nameof(PodcastViewModel.Streams), SortDirection = ListSortDirection.Descending }
+            }
+        };
+    }
+}
+
+<style>
+    .loader-container {
+        text-align: center;
+        display: inline-table;
+        padding-top: 10px;
+        position: absolute;
+        left: 50%;
+    }
+</style>

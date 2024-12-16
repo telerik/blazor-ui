@@ -1,0 +1,110 @@
+﻿@page "/grid"
+
+@using TelerikBlazorWASMCRUD.Shared
+@using TelerikBlazorWASMCRUD.Services
+@inject WeatherForecastService ForecastService
+@* This is the namespace that is generated from the resx files localizer *@
+
+<TelerikMediaQuery Media="(min-width: 768px)" OnChange="@(mq => IsLargeDevice = mq)"></TelerikMediaQuery>
+
+<TelerikGridLayout ColumnSpacing="2em">
+    <GridLayoutColumns>
+        @if (IsLargeDevice)
+        {
+            <GridLayoutColumn Width="8fr" />
+            <GridLayoutColumn Width="4fr" />
+        }
+        else
+        {
+            <GridLayoutColumn Width="1fr" />
+        }
+    </GridLayoutColumns>
+    <GridLayoutItems>
+        <GridLayoutItem>
+            <TelerikGrid Data="@forecasts" Height="550px" FilterMode="@GridFilterMode.FilterMenu"
+                         Sortable="true" Pageable="true" PageSize="20" Groupable="true" Resizable="true" Reorderable="true"
+                         OnUpdate="@UpdateHandler" OnDelete="@DeleteHandler" OnCreate="@CreateHandler" EditMode="@GridEditMode.Inline">
+                <GridColumns>
+                    <GridColumn Field="Id" Title="Id" Width="100px" Editable="false" Groupable="false" />
+                    <GridColumn Field="Date" Width="220px" DisplayFormat="{0:dddd, dd MMM yyyy}" />
+                    <GridColumn Field="TemperatureC" Title="Temp. C" DisplayFormat="{0:N1}" />
+                    <GridColumn Field="TemperatureF" Title="Temp. F" DisplayFormat="{0:N1}" />
+                    <GridColumn Field="Summary" />
+                    <GridCommandColumn Width="200px" Resizable="false">
+                        <GridCommandButton Command="Save" Icon="@SvgIcon.Save" ShowInEdit="true">Update</GridCommandButton>
+                        <GridCommandButton Command="Edit" Icon="@SvgIcon.Pencil" ThemeColor="@ThemeConstants.Button.ThemeColor.Primary">Edit</GridCommandButton>
+                        <GridCommandButton Command="Delete" Icon="@SvgIcon.Trash">Delete</GridCommandButton>
+                        <GridCommandButton Command="Cancel" Icon="@SvgIcon.Cancel" ShowInEdit="true">Cancel</GridCommandButton>
+                    </GridCommandColumn>
+                </GridColumns>
+                <GridToolBarTemplate>
+                    <GridCommandButton Command="Add" Icon="@SvgIcon.Plus" ThemeColor="@ThemeConstants.Button.ThemeColor.Primary">Add New Record</GridCommandButton>
+                    <GridCommandButton Command="ExcelExport" Icon="@SvgIcon.FileExcel">Export to Excel</GridCommandButton>
+                </GridToolBarTemplate>
+                <GridExport>
+                    <GridExcelExport FileName="weather-forecasts" AllPages="true" />
+                </GridExport>
+            </TelerikGrid>
+
+        </GridLayoutItem>
+        <GridLayoutItem>
+
+            <h3>Telerik UI for Blazor Grid</h3>
+            <p>
+                The Telerik UI for Blazor Data Grid includes a comprehensive set of ready-to-use
+                <a target="_blank" href="https://docs.telerik.com/blazor-ui/components/grid/overview">features</a> covering
+                everything from paging, sorting, filtering, editing, and grouping to row virtualization and
+                accessibility/keyboard support.
+            </p>
+
+            <p>
+                This example demonstrates CRUD operations with data from a service. In a real application, you would
+                probably replace the service with something suitable (for example, EF for a server-side app or HTTP endpoints
+                for a WASM app). Depending on how you store the grid data, you may also need to update the view model data -
+                read more about this in the code comments.
+            </p>
+        </GridLayoutItem>
+    </GridLayoutItems>
+</TelerikGridLayout>
+
+@code {
+    List<WeatherForecast>? forecasts { get; set; }
+    bool IsLargeDevice = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetForecasts();
+    }
+
+    async Task GetForecasts()
+    {
+        forecasts = await ForecastService.GetForecastListAsync(DateTime.Now);
+    }
+
+    public async Task DeleteHandler(GridCommandEventArgs args)
+    {
+        WeatherForecast currItem = (WeatherForecast)args.Item;
+
+        await ForecastService.DeleteForecastAsync(currItem);
+
+        await GetForecasts();
+    }
+
+    public async Task CreateHandler(GridCommandEventArgs args)
+    {
+        WeatherForecast currItem = (WeatherForecast)args.Item;
+
+        await ForecastService.InsertForecastAsync(currItem);
+
+        await GetForecasts();
+    }
+
+    public async Task UpdateHandler(GridCommandEventArgs args)
+    {
+        WeatherForecast currItem = (WeatherForecast)args.Item;
+
+        await ForecastService.UpdateForecastAsync(currItem);
+
+        await GetForecasts();
+    }
+}

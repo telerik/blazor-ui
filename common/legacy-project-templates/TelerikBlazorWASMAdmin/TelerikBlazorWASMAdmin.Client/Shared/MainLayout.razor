@@ -1,0 +1,147 @@
+﻿@layout TelerikLayout
+
+@inherits LayoutComponentBase
+@inject NavigationManager navigationManager
+
+<style>
+    html, body, app, .k-drawer-container, .k-drawer-content, .main {
+        width: 100%;
+        height: 100%;
+        max-height: 100%;
+    }
+
+    .main {
+        overflow-y: auto;
+    }
+
+    .k-drawer-content {
+        overflow-x: auto;
+    }
+
+    .top-row {
+        left: 0;
+    }
+
+    .drawer-hamburger {
+        position: absolute;
+        z-index: 2;
+        margin-top: 13px;
+        margin-left: 30px;
+    }
+
+    .k-drawer-item:hover, .k-drawer-item.k-state-hover, .text-info {
+        color: whitesmoke !important;
+        background-color: #ff6358;
+    }
+</style>
+
+<TelerikDrawer Data="@NavigablePages"
+               @bind-Expanded="@DrawerExpanded"
+               MiniMode="true"
+               Mode="@DrawerMode.Push"
+               @ref="@DrawerRef"
+               @bind-SelectedItem="@SelectedItem">
+    <Template>
+        @if (DrawerExpanded)
+        {
+            <div class="k-d-flex-col k-align-items-center k-justify-content-evenly" style="height:218px;">
+                <div class="k-avatar k-avatar-circle k-avatar-image k-avatar-lg" id="avatar"><img src='/assets/navigation/Avatar.svg' /></div>
+                <div id="name"><strong>Jacksons Danniels</strong></div>
+                <div id="email">jaxons.danniels@company.com</div>
+                <TelerikButton OnClick="@LogoutClick">Logout</TelerikButton>
+            </div>
+        }
+
+        <ul class="k-drawer-items">
+            @foreach (var item in NavigablePages)
+            {
+                <li @onclick="@(() => NavigateToPage(item))"
+                @onclick:stopPropagation
+                    class="k-drawer-item k-level-0 @GetSelectedItemClass(item)" style="white-space:nowrap">
+                    <span style="margin-right: 8px;">
+                        <TelerikSvgIcon Icon="@item.Icon" />
+                    </span>
+                    @if (DrawerExpanded)
+                    {
+                        <div>
+                            <div>@item.Text</div>
+                        </div>
+                    }
+                </li>
+            }
+        </ul>
+    </Template>
+    <DrawerContent>
+        <div class="main">
+            <TelerikButton OnClick="@( () => DrawerRef.ToggleAsync() )" Icon="@SvgIcon.Menu" Class="drawer-hamburger"></TelerikButton>
+            <div class="top-row px-4">
+                <NavLink href="/about" style="text-decoration: none; color: #424242">About</NavLink>
+                <a href="https://docs.telerik.com/blazor-ui/introduction#support-options" style="text-decoration: none; color: #424242" target="_blank">Contacts</a>
+            </div>
+
+            <div class="content px-4">
+                @Body
+            </div>
+        </div>
+    </DrawerContent>
+</TelerikDrawer>
+
+@code{
+    bool DrawerExpanded { get; set; } = true;
+    DrawerItem? SelectedItem { get; set; }
+    TelerikDrawer<DrawerItem?> DrawerRef { get; set; } = null!;
+
+    List<DrawerItem> NavigablePages { get; set; } = new List<DrawerItem>
+    {
+        new DrawerItem { Text = "Dashboard", Url = "/", Icon = SvgIcon.Grid },
+        new DrawerItem { Text = "Performance & Sales", Url = "/performance-and-sales", Icon = SvgIcon.Globe },
+        new DrawerItem { Text = "Products", Url = "/products", Icon = SvgIcon.AggregateFields },
+        new DrawerItem { Text = "Settings", Url = "/settings", Icon = SvgIcon.Gear }
+    };
+
+    protected override void OnInitialized()
+    {
+        string currPage = navigationManager.Uri;
+        DrawerItem? ActivePage = NavigablePages.Where(p => p.Url.ToLowerInvariant() == GetCurrentPage().ToLowerInvariant()).FirstOrDefault();
+        if (ActivePage != null)
+        {
+            SelectedItem = ActivePage;
+        }
+
+        base.OnInitialized();
+    }
+
+    public void NavigateToPage(DrawerItem item)
+    {
+        SelectedItem = item;
+        navigationManager.NavigateTo(SelectedItem.Url);
+    }
+
+    public string GetCurrentPage()
+    {
+        string uriWithoutQueryString = navigationManager.Uri.Split("?")[0];
+        string currPage = uriWithoutQueryString.Substring(Math.Min(navigationManager.Uri.Length, navigationManager.BaseUri.Length));
+        return string.IsNullOrWhiteSpace(currPage) ? "/" : currPage;
+    }
+
+    public string GetSelectedItemClass(DrawerItem item)
+    {
+        if (SelectedItem == null)
+        {
+            return string.Empty;
+        }
+        return SelectedItem.Text.ToLowerInvariant().Equals(item.Text.ToLowerInvariant()) ? "text-info" : "";
+    }
+
+    public class DrawerItem
+    {
+        public string Text { get; set; } = string.Empty;
+        public string Url { get; set; } = string.Empty;
+        public ISvgIcon? Icon { get; set; }
+        public bool IsSeparator { get; set; }
+    }
+
+    void LogoutClick()
+    {
+    }
+}

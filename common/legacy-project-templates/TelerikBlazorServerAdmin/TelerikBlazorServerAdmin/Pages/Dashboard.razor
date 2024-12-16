@@ -1,0 +1,213 @@
+﻿@page "/"
+@using TelerikBlazorServerAdmin.Models.Employee;
+@using TelerikBlazorServerAdmin.Models.Sales;
+@using Data;
+
+@inject IDataService _dataService;
+
+<div class="k-d-flex-col k-justify-content-center">
+    <div class="greeting">
+        Hello Again, Jacksons Danniels!
+    </div>
+
+    <TelerikTileLayout Columns="4"
+                       RowHeight="230px"
+                       ColumnWidth="25%"
+                       Reorderable="true"
+                       Resizable="true"
+                       OnResize="ItemResize">
+        <TileLayoutItems>
+            <TileLayoutItem HeaderText="Tasks on Track" RowSpan="1" ColSpan="1">
+                <Content>
+                    <div style="font-size: 85px;color:#37B400;text-align:center">22</div>
+                    <div style="text-align:center">In Backlog: 43</div>
+                </Content>
+            </TileLayoutItem>
+            <TileLayoutItem HeaderText="Overdue Tasks" RowSpan="1" ColSpan="1">
+                <Content>
+                    <div style="font-size: 85px; color: #F31700; text-align: center ">7</div>
+                    <div style="text-align:center">From Yesterday: 16</div>
+                </Content>
+            </TileLayoutItem>
+            <TileLayoutItem HeaderText="Issues" RowSpan="1" ColSpan="1">
+                <Content>
+                    <div style="font-size: 85px; color: #FFC000; text-align: center ">47</div>
+                    <div style="text-align:center">Closed By Team: 15</div>
+                </Content>
+            </TileLayoutItem>
+            <TileLayoutItem HeaderText="Used Space" RowSpan="1" ColSpan="1">
+                <Content>
+                    <TelerikArcGauge Width="190px" Height="120px">
+                        <ArcGaugeCenterLabel>
+                            <Template>
+                                <div style="font-size:30px;color:#0058E9">
+                                    <strong>@(context.Pointers[0].Value)%</strong>
+                                </div>
+                            </Template>
+                        </ArcGaugeCenterLabel>
+                        <ArcGaugeScales>
+                            <ArcGaugeScale Min="0" Max="100">
+                            </ArcGaugeScale>
+                        </ArcGaugeScales>
+                        <ArcGaugePointers>
+                            <ArcGaugePointer Value="@ArcGaugeValue" Color="#0058E9">
+                            </ArcGaugePointer>
+                        </ArcGaugePointers>
+                    </TelerikArcGauge>
+                    <div style="text-align:center">25 of 50GB Used</div>
+                </Content>
+            </TileLayoutItem>
+            <TileLayoutItem Class="chart-tile" RowSpan="2" ColSpan="4">
+                <HeaderTemplate>
+                    <span style="font-size:16px;font-weight:400">Total Points</span>
+                    <TelerikButtonGroup SelectionMode="@ButtonGroupSelectionMode.Single" Class="my-button-group">
+                        <ButtonGroupToggleButton @bind-Selected="@FirstSelectedBtn">Trend</ButtonGroupToggleButton>
+                        <ButtonGroupToggleButton @bind-Selected="@SecondGroupBtn">Volume</ButtonGroupToggleButton>
+                    </TelerikButtonGroup>
+                </HeaderTemplate>
+                <Content>
+                    <TelerikChart @ref="@DashboardChartRef" Width="100%">
+                        <ChartTooltip Visible="true"></ChartTooltip>
+                        <ChartLegend Position="ChartLegendPosition.Bottom"></ChartLegend>
+
+                        <ChartSeriesItems>
+                            @if (FirstSelectedBtn == true)
+                            {
+                                <ChartSeries Type="ChartSeriesType.Line" Name="APAC" Data="@sales" Field="@nameof(SalesByDateViewModel.Sum)"></ChartSeries>
+                                <ChartSeries Type="ChartSeriesType.Line" Name="CALA" Data="@sales" Field="@nameof(SalesByDateViewModel.SumOne)"></ChartSeries>
+                                <ChartSeries Type="ChartSeriesType.Line" Name="EMEA" Data="@sales" Field="@nameof(SalesByDateViewModel.SumTwo)"></ChartSeries>
+                                <ChartSeries Type="ChartSeriesType.Line" Name="NA" Data="@sales" Field="@nameof(SalesByDateViewModel.SumThree)"></ChartSeries>
+                            }
+
+                        </ChartSeriesItems>
+
+                        <ChartCategoryAxes>
+                            <ChartCategoryAxis Categories="@Categories"></ChartCategoryAxis>
+                        </ChartCategoryAxes>
+
+                        <ChartValueAxes>
+                            <ChartValueAxis AxisCrossingValue="@AxisCrossingValue">
+                                @if (FirstSelectedBtn == true)
+                                {
+                                    <ChartValueAxisLabels Format="c" />
+                                }
+                                else
+                                {
+                                    <ChartValueAxisLabels Format="n0" />
+                                }
+                            </ChartValueAxis>
+                        </ChartValueAxes>
+
+                    </TelerikChart>
+                </Content>
+            </TileLayoutItem>
+            <TileLayoutItem RowSpan="3" ColSpan="4">
+                <HeaderTemplate>
+                    <span style="font-size:16px;font-weight:400">Blazor Team</span>
+                    <TelerikButtonGroup SelectionMode="@ButtonGroupSelectionMode.Single" Class="my-button-group">
+                        <ButtonGroupToggleButton @bind-Selected="@ThirdSelectedBtn">My Team</ButtonGroupToggleButton>
+                        <ButtonGroupToggleButton @bind-Selected="@FourthdGroupBtn">All Teams</ButtonGroupToggleButton>
+                    </TelerikButtonGroup>
+                </HeaderTemplate>
+                <Content>
+                    @if (ThirdSelectedBtn == true)
+                    {
+                        GridEmployees = employees?.Where(e => e.TeamId == 2).ToList();
+                    }
+                    else
+                    {
+                        GridEmployees = employees;
+                    }
+                    <TelerikGrid Data="@GridEmployees" Height="100%" @bind-PageSize="@PageSize"
+                                 @bind-Page="@CurrentPage" Pageable="true" Sortable="true" Resizable="true" Reorderable="true" Groupable="true" ShowColumnMenu="true" SelectionMode="GridSelectionMode.Multiple">
+                        <GridToolBarTemplate>
+                            <GridSearchBox />
+                            <GridCommandButton Command="ExcelExport" Icon="@SvgIcon.FileExcel">Export to Excel</GridCommandButton>
+                            <label class="k-checkbox-label"><TelerikCheckBox @bind-Value="@ExportAllPages" />Export All Pages</label>
+                        </GridToolBarTemplate>
+
+                        <GridExport>
+                            <GridExcelExport FileName="telerik-grid-export" AllPages="@ExportAllPages" />
+                        </GridExport>
+
+                        <GridSettings>
+                            <GridPagerSettings InputType="PagerInputType.Buttons" PageSizes="@PageSizes" ButtonCount="5" />
+                        </GridSettings>
+
+                        <GridColumns>
+                            <GridCheckboxColumn ShowColumnMenu="true" Lockable="false" />
+                            <GridColumn Title="Employees">
+                                <Columns>
+                                    <GridColumn Field="@nameof(Employee.FullName)" Title="Contact Name">
+                                        <Template>
+                                            @{
+                                                var employee = (Employee)context;
+                                                <span class='k-avatar k-avatar-circle k-avatar-image k-avatar-sm'><img src='@($"/assets/employees/{employee.ImgId}.jpg")' /></span>
+                                                <span>@employee.FullName</span>
+                                            }
+                                        </Template>
+                                    </GridColumn>
+                                    <GridColumn Field="@nameof(Employee.JobTitle)" Title="Job title" />
+                                </Columns>
+                            </GridColumn>
+                            <GridColumn Title="Performance">
+                                <Columns>
+                                    <GridColumn Field="@nameof(Employee.Rating)" Title="Rating">
+                                        <Template>
+                                            @{
+                                                var employee = (Employee)context;
+                                                for (int i = 0; i < employee.Rating; i++)
+                                                {
+                                                    <span style="color:orange">
+                                                        <TelerikSvgIcon Icon="@SvgIcon.Star" />
+                                                    </span>
+                                                }
+                                            }
+                                        </Template>
+                                    </GridColumn>
+                                    <GridColumn Field="@nameof(Employee.Budget)" Title="Budget">
+                                        <Template>
+                                            @{
+                                                var employee = (Employee)context;
+                                                if (employee.Budget < 0)
+                                                {
+                                                    <span style="color:red">@(String.Format("{0:c}", employee.Budget))</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>@(String.Format("{0:c}", employee.Budget))</span>
+                                                }
+                                            }
+                                        </Template>
+                                    </GridColumn>
+                                </Columns>
+                            </GridColumn>
+                        </GridColumns>
+                    </TelerikGrid>
+
+                </Content>
+            </TileLayoutItem>
+        </TileLayoutItems>
+    </TelerikTileLayout>
+</div>
+
+<style>
+    .k-arcgauge-label {
+        top: 55px !important;
+    }
+
+    .k-tilelayout-item-body.k-card-body.k-overflow-hidden {
+        text-align: center;
+    }
+
+    .my-button-group {
+        float: right;
+    }
+
+    .greeting {
+        font-weight: 300;
+        font-size: 28px;
+        line-height: 37px;
+        padding: 16px;
+    }
+</style>

@@ -1,0 +1,85 @@
+﻿@page "/"
+
+@using TelerikBlazorServerDashboard.Models
+@using TelerikBlazorServerDashboard.Services
+@using TelerikBlazorServerDashboard.Components.Tiles
+
+@inject DashboardDataService _dataService
+
+<div class="d-flex justify-content-center">
+    <TelerikTileLayout Columns="4"
+                       RowHeight="145px"
+                       ColumnWidth="350px"
+                       Reorderable="true" 
+                       Resizable="true" 
+                       OnResize="@ResizeCharts">
+        <TileLayoutItems>
+            <TileLayoutItem HeaderText="Total Streams">
+                <Content>
+                    <TotalStreams />
+                </Content>
+            </TileLayoutItem>
+            <TileLayoutItem HeaderText="Total Downloads">
+                <Content>
+                    <TotalDownloads />
+                </Content>
+            </TileLayoutItem>
+            <TileLayoutItem HeaderText="Reach">
+                <Content>
+                    <TotalReach />
+                </Content>
+            </TileLayoutItem>
+            <TileLayoutItem HeaderText="Revenue">
+                <Content>
+                    <TotalRevenue />
+                </Content>
+            </TileLayoutItem>
+            <TileLayoutItem HeaderText="Weekly Recap-Downloads" ColSpan="2" RowSpan="2">
+                <Content>
+                    <WeeklyRecap Podcasts="@Podcasts" @ref="@WeeklyRecap"/>
+                </Content>
+            </TileLayoutItem>
+            <TileLayoutItem HeaderText="Performance Trend" ColSpan="2" RowSpan="2">
+                <Content>
+                    <PerformanceTrend Podcasts="@Podcasts" @ref="@PerformanceTrend"/>
+                </Content>
+            </TileLayoutItem>
+            <TileLayoutItem HeaderText="Top 5 Episodes" ColSpan="4" RowSpan="2">
+                <Content>
+                    <TopEpisodes TopN="5" Podcasts="@Podcasts" />
+                </Content>
+            </TileLayoutItem>
+            <TileLayoutItem HeaderText="Listening platforms - App" ColSpan="2" RowSpan="2">
+                <Content>
+                    <PlatformsChart @ref="@AppBreakdown" />
+                </Content>
+            </TileLayoutItem>
+            <TileLayoutItem HeaderText="Listening platforms - Device" ColSpan="2" RowSpan="2">
+                <Content>
+                    <PlatformsChart ByDevice="true" @ref="@DeviceBreakdown" />
+                </Content>
+            </TileLayoutItem>
+        </TileLayoutItems>
+    </TelerikTileLayout>
+</div>
+
+@code{
+    IEnumerable<PodcastViewModel>? Podcasts { get; set; }
+    WeeklyRecap WeeklyRecap { get; set; } = null!;
+    PerformanceTrend PerformanceTrend { get; set; } = null!;
+    PlatformsChart DeviceBreakdown { get; set; } = null!;
+    PlatformsChart AppBreakdown { get; set; } = null!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Podcasts = await _dataService.GetPodcasts();
+    }
+
+    void ResizeCharts()
+    {
+        WeeklyRecap.Resize();
+        PerformanceTrend.Resize();
+        DeviceBreakdown.Resize();
+        AppBreakdown.Resize();
+    }
+}
