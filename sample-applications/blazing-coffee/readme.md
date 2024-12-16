@@ -124,20 +124,6 @@ If you are using a commercial version of Telerik UI for Blazor.
     <script src="_content/Telerik.UI.for.Blazor/js/telerik-blazor.js"></script>
     ```
 
-- In `BlazingCoffee.Server.csproj`, remove `.Trial` from all Telerik.* package paths. You should have
-
-    ```
-    <PackageReference Include="Telerik.Documents.Core" Version="2022.x.xxxx" />
-    <PackageReference Include="Telerik.Documents.Fixed" Version="2022.x.xxxx" />
-    <PackageReference Include="Telerik.Documents.Flow" Version="2022.x.xxxx" />
-    <PackageReference Include="Telerik.Documents.Flow.FormatProviders.Pdf" Version="2022.x.xxxx" />
-    <PackageReference Include="Telerik.Documents.Spreadsheet" Version="2022.x.xxxx" />
-    <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.OpenXml" Version="2022.x.xxxx" />
-    <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.Pdf" Version="2022.x.xxxx" />
-    <PackageReference Include="Telerik.Documents.SpreadsheetStreaming" Version="2022.x.xxxx" />
-    <PackageReference Include="Telerik.Zip" Version="2022.x.xxxx" />
-    ```
-
 - In `BlazingCoffee.Shared.csproj` remove `.Trial` from the package name. You should have:
 
     ```
