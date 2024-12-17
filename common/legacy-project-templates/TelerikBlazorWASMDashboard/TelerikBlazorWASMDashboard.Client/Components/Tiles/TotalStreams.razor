@@ -1,0 +1,13 @@
+﻿@using TelerikBlazorWASMDashboard.Client.Services
+@inject DashboardDataService _dataService
+
+<h2>@Streams.ToString("N0")</h2>
+
+@code{ 
+    int Streams { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        Streams = await _dataService.GetStreams();
+    }
+}
+

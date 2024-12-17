@@ -1,0 +1,108 @@
+﻿@page "/chart"
+
+@using TelerikBlazorServerCRUD.Models
+@using TelerikBlazorServerCRUD.Services
+@inject WeatherForecastService ForecastService
+
+<TelerikMediaQuery Media="(min-width: 768px)" OnChange="@(mq => IsLargeDevice = mq)"></TelerikMediaQuery>
+
+<TelerikGridLayout ColumnSpacing="2em">
+    <GridLayoutColumns>
+        @if (IsLargeDevice)
+        {
+            <GridLayoutColumn Width="8fr" />
+            <GridLayoutColumn Width="4fr" />
+        }
+        else
+        {
+            <GridLayoutColumn Width="1fr" />
+        }
+    </GridLayoutColumns>
+    <GridLayoutItems>
+        <GridLayoutItem>
+            @if (forecasts?.Count > 0)
+            {
+                <TelerikChart>
+                    <ChartCategoryAxes>
+                        <ChartCategoryAxis BaseUnit="@ChartCategoryAxisBaseUnit.Weeks" Type="@ChartCategoryAxisType.Date">
+                            <ChartCategoryAxisLabels Format="{0:dd MMM}" />
+                        </ChartCategoryAxis>
+                    </ChartCategoryAxes>
+
+                    <ChartSeriesItems>
+                        <ChartSeries Type="@ChartSeriesType.Line" Name="High" Color="red"
+                                 Data="@forecasts"
+                                 Field="@nameof(WeatherForecast.TemperatureF)"
+                                 CategoryField="@nameof(WeatherForecast.Date)"
+                                 Aggregate="@ChartSeriesAggregate.Max">
+                            <ChartSeriesLabels Visible="true" Template="#=dataItem.Summary#" />
+                        </ChartSeries>
+
+                        <ChartSeries Type="@ChartSeriesType.Line" Name="Low" Color="blue"
+                                 Data="@forecasts"
+                                 Field="@nameof(WeatherForecast.TemperatureF)"
+                                 CategoryField="@nameof(WeatherForecast.Date)"
+                                 Aggregate="@ChartSeriesAggregate.Min">
+                            <ChartSeriesLabels Visible="true" Template="#=dataItem.Summary#" />
+                        </ChartSeries>
+                    </ChartSeriesItems>
+
+                    <ChartValueAxes>
+                        <ChartValueAxis AxisCrossingValue="new object[] { -50 }">
+                            <ChartValueAxisLabels Format="{0} F"></ChartValueAxisLabels>
+                        </ChartValueAxis>
+                    </ChartValueAxes>
+
+                    <ChartTitle Text="Min and Max temperatures for the upcoming weeks"></ChartTitle>
+                </TelerikChart>
+            }
+            else
+            {
+                <div class="alert alert-info">No data available.</div>
+            }
+
+        </GridLayoutItem>
+        <GridLayoutItem>
+
+            <h3>Telerik UI for Blazor Chart</h3>
+            <p>The Telerik UI for Blazor Charts provide high quality graphical data visualization options.</p>
+
+            <p>
+                They include a variety of chart types and styles that have extensive configuration options. This
+                flexibility allows you to quickly and easily create the exact chart you need to fit your specific
+                requirements for functionality and appearance.
+            </p>
+
+            <p>
+                This example uses the following features:
+                <ul>
+                    <li>
+                        <a target="_blank"
+                           href="https://docs.telerik.com/blazor-ui/components/chart/data-bind">Data binding</a>
+                    </li>
+                    <li>
+                        <a target="_blank"
+                           href="https://docs.telerik.com/blazor-ui/components/chart/date-axis">Date axis</a>
+                    </li>
+                    <li>
+                        <a target="_blank"
+                           href="https://docs.telerik.com/blazor-ui/components/chart/labels-template-and-format">Label templates</a>
+                    </li>
+                </ul>
+            </p>
+        </GridLayoutItem>
+    </GridLayoutItems>
+</TelerikGridLayout>
+
+@code {
+    List<WeatherForecast>? forecasts { get; set; }
+    bool IsLargeDevice = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        DateTime currDate = DateTime.Now.Date;
+        var allForecasts = await ForecastService.GetForecastListAsync(currDate);
+        // use only dates within the last month as a reasonable range of data considering the BaseUnit
+        forecasts = allForecasts.Where(f => currDate.Subtract(f.Date.Date) < new TimeSpan(30, 0, 0, 0)).ToList();
+    }
+}

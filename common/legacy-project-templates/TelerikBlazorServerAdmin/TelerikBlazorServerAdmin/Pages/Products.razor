@@ -1,0 +1,113 @@
+﻿@page "/products"
+@using TelerikBlazorServerAdmin.Models.Sales;
+@using Data;
+
+@inject IDataService _dataService;
+
+<TelerikTileLayout Columns="1"
+                   RowHeight="355px"
+                   ColumnWidth="100%"
+                   Reorderable="true"
+                   Resizable="true"
+                   OnResize="@OnItemResize">
+    <TileLayoutItems>
+        <TileLayoutItem HeaderText="Revenue per Country" RowSpan="1" ColSpan="1">
+            <Content>
+                <TelerikChart Width="1075px" Height="100%">
+                    <ChartLegend Position="ChartLegendPosition.Bottom">
+                    </ChartLegend>
+                    <ChartSeriesItems>
+                        <ChartSeries Type="ChartSeriesType.Bubble"
+                                     Data="@Series1Data"
+                                     Name="North America"
+                                     XField="@nameof(ModelBubbleData.LifeExpectancy)"
+                                     YField="@nameof(ModelBubbleData.FertilityRate)"
+                                     SizeField="@nameof(ModelBubbleData.PopulationChange)">
+                            <ChartSeriesTooltip Visible="true">
+                                <Template>
+                                    @{
+                                        var dataItem = (ModelBubbleData)context.DataItem;
+                                    }
+                                    <div>
+                                        North America: @dataItem.LifeExpectancy: @dataItem.FertilityRate: @dataItem.PopulationChange
+                                    </div>
+                                </Template>
+                            </ChartSeriesTooltip>
+                        </ChartSeries>
+                        <ChartSeries Type="ChartSeriesType.Bubble"
+                                     Data="@Series2Data"
+                                     Name="Europe"
+                                     XField="@nameof(ModelBubbleData.LifeExpectancy)"
+                                     YField="@nameof(ModelBubbleData.FertilityRate)"
+                                     SizeField="@nameof(ModelBubbleData.PopulationChange)">
+                            <ChartSeriesTooltip Visible="true">
+                                <Template>
+                                    @{
+                                        var dataItem = (ModelBubbleData)context.DataItem;
+                                    }
+                                    <div>
+                                        Europe: @dataItem.LifeExpectancy: dataItem.FertilityRate: dataItem.PopulationChange
+                                    </div>
+                                </Template>
+                            </ChartSeriesTooltip>
+                        </ChartSeries>
+                    </ChartSeriesItems>
+
+                </TelerikChart>
+            </Content>
+        </TileLayoutItem>
+        <TileLayoutItem RowSpan="2" ColSpan="1" Class="background-changer">
+            <Content>
+                <TelerikListView Data="@productsData" Height="100%" Width="100%" Pageable="true" @bind-PageSize="@PageSize"
+                                 @bind-Page="@CurrentPage">
+                    <HeaderTemplate>
+                        <TelerikTextBox @bind-Value="@FilterText" Width="50%" Placeholder="Search by Title and press Enter" OnChange="@Filter"></TelerikTextBox>
+                    </HeaderTemplate>
+                    <ListViewSettings>
+                        <ListViewPagerSettings InputType="PagerInputType.Buttons" PageSizes="@PageSizes" ButtonCount="5" />
+                    </ListViewSettings>
+                    <Template>
+                        <div class="listview-item">
+                            <div class="k-card" style="width:260px; height:290px;">
+                                <img class="k-card-image" src="@($"/assets/products/{(context.ID % 9) + 1}.png")" />
+                                <div class="k-card-body">
+                                    <div class="k-card-title">@context.Title</div>
+                                    <div class="k-card-subtitle">@context.Description</div>
+                                </div>
+                                <div class="k-card-footer">
+                                    <div class="k-d-flex-col k-align-items-center">
+                                        <TelerikButton FillMode="@(ThemeConstants.Button.FillMode.Flat)" Icon="@SvgIcon.Eye">Review</TelerikButton>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </Template>
+                </TelerikListView>
+            </Content>
+        </TileLayoutItem>
+    </TileLayoutItems>
+</TelerikTileLayout>
+
+<style>
+    .listview-item {
+        height: 270px;
+        width: 230px;
+        display: inline-flex;
+        margin: 15px;
+    }
+
+    .background-changer {
+        background: inherit;
+        border: none;
+    }
+
+    .k-listview.k-d-flex.telerik-blazor {
+        background: inherit;
+        border: none;
+    }
+
+    .k-listview-header {
+        text-align: center;
+        border-bottom-width: 0
+    }
+</style>

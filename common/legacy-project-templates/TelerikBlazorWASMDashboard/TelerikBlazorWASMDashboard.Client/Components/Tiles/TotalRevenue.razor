@@ -1,0 +1,12 @@
+﻿@using TelerikBlazorWASMDashboard.Client.Services
+@inject DashboardDataService _dataService
+
+<h2>@Revenue.ToString("C0")</h2>
+
+@code{
+    double Revenue { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        Revenue = await _dataService.GetRevenue();
+    }
+}

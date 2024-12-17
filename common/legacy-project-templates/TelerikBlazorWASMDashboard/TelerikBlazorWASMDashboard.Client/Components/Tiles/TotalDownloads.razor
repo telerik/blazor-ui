@@ -1,0 +1,12 @@
+﻿@using TelerikBlazorWASMDashboard.Client.Services
+@inject DashboardDataService _dataService
+
+<h2>@Downloads.ToString("N0")</h2>
+
+@code{
+    int Downloads { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        Downloads = await _dataService.GetDownloads();
+    }
+}

@@ -1,0 +1,50 @@
+﻿@using TelerikBlazorWASMDashboard.Shared.Models
+@using TelerikBlazorWASMDashboard.Client.Services
+@inject DashboardDataService _dataService
+
+<TelerikChart Width="100%" Height="100%" @ref="@ChartRef">
+    <ChartSeriesItems>
+        <ChartSeries Type="@ChartSeriesType.Donut"
+                     Data="@DeviceData"
+                     Field="@nameof(PlatformViewModel.Views)"
+                     CategoryField="@( nameof(PlatformViewModel.Category) )">
+            <ChartSeriesLabels Visible="true"
+                               Position="@ChartSeriesLabelsPosition.OutsideEnd"
+                               Template="#=category#"
+                               Background="transparent">
+                <ChartSeriesTooltip Visible="true">
+                    <Template>
+                        @{
+                            var dataItem = (PlatformViewModel)context.DataItem;
+                        }
+                        @context.Percentage.ToString("P2") use @context.Category
+                        <br />
+                        Total Views on it: @dataItem.Views.ToString("N0")
+                    </Template>
+                </ChartSeriesTooltip>
+            </ChartSeriesLabels>
+        </ChartSeries>
+    </ChartSeriesItems>
+    <ChartLegend Visible="false" />
+</TelerikChart>
+
+@code {
+    [Parameter]
+    public bool ByDevice { get; set; }
+
+    TelerikChart ChartRef { get; set; } = null!;
+
+    IEnumerable<PlatformViewModel>? DeviceData { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        DeviceData = await _dataService.GetPlatformData(ByDevice);
+
+    }
+
+    public void Resize()
+    {
+        ChartRef.Refresh();
+    }
+}
+

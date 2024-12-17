@@ -1,0 +1,42 @@
+﻿
+@using TelerikBlazorServerDashboard.Models
+
+<TelerikChart Width="100%" Height="100%" @ref="@ChartRef">
+    <ChartSeriesItems>
+        <ChartSeries Type="@ChartSeriesType.Column" 
+                     Data="@Podcasts"
+                     Field="@( nameof(PodcastViewModel.Views) )"
+                     CategoryField="@( nameof(PodcastViewModel.Date) )"
+                     Aggregate="@ChartSeriesAggregate.Sum">
+        </ChartSeries>
+    </ChartSeriesItems>
+    <ChartCategoryAxes>
+        <ChartCategoryAxis Type="@ChartCategoryAxisType.Date" BaseUnit="@ChartCategoryAxisBaseUnit.Fit">
+            <ChartCategoryAxisLabels Format="{0:d MMM}">
+                <ChartCategoryAxisLabelsRotation Angle="@LabelsRotation" />
+            </ChartCategoryAxisLabels>
+            <ChartCategoryAxisMajorGridLines Visible="false" />
+            <ChartCategoryAxisMajorTicks Visible="false" />
+        </ChartCategoryAxis>
+    </ChartCategoryAxes>
+    <ChartValueAxes>
+        <ChartValueAxis>
+            <ChartValueAxisLabels Step="3" />
+        </ChartValueAxis>
+    </ChartValueAxes>
+</TelerikChart>
+
+@code {
+    [Parameter]
+    public IEnumerable<PodcastViewModel>? Podcasts { get; set; }
+    
+    TelerikChart ChartRef { get; set; } = null!;
+    
+    string LabelsRotation = "auto";
+
+    public void Resize()
+    {
+        ChartRef.Refresh();
+    }
+}
+
