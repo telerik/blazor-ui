@@ -1,0 +1,51 @@
+﻿@using System.Threading
+
+@inject NavigationManager NavigationManager
+
+<div style="display: flex; margin-right: 10px">
+    <div style="margin-right: 5px; margin-top: 4px">Culture:</div>
+    <TelerikDropDownList Data="@Cultures"
+                         Value="@SelectedCulture"
+                         Width="auto"
+                         ValueChanged="@((string value) => { OnValueChanged(value); })"
+                         TextField="@nameof(CultureData.Text)"
+                         ValueField="@nameof(CultureData.Value)">
+        <DropDownListSettings>
+            <DropDownListPopupSettings Height="auto" />
+        </DropDownListSettings>
+    </TelerikDropDownList>
+</div>
+
+@code {
+    public class CultureData
+    {
+        public string Text { get; set; } = string.Empty;
+        public string Value { get; set; } = string.Empty;
+    }
+
+    public List<CultureData> Cultures { get; set; } = new List<CultureData>()
+    {
+        new  CultureData() { Text = "English", Value = "en-US" },
+        new  CultureData() { Text = "German", Value = "de-DE" },
+        new  CultureData() { Text = "Spanish", Value = "es-ES" },
+        new  CultureData() { Text = "Bulgarian", Value = "bg-BG" },
+    };
+
+    public string SelectedCulture { get; set; } = Thread.CurrentThread.CurrentUICulture.Name;
+
+    public void OnValueChanged(string eventArgs)
+    {
+        SelectedCulture = eventArgs;
+
+        SetCulture(eventArgs);
+    }
+
+    public void SetCulture(string culture)
+    {
+        var uri = new Uri(NavigationManager.Uri).GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
+        var query = $"?culture={Uri.EscapeDataString(culture)}&redirectUri={Uri.EscapeDataString(uri)}";
+
+        // use a path that matches your culture redirect controller from the previous steps
+        NavigationManager.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
+    }
+}

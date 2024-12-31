@@ -1,0 +1,236 @@
+﻿@page "/performance-and-sales"
+@using TelerikBlazorServerAdmin.Models.Sales;
+@using Data;
+
+@inject IDataService _dataService;
+
+<TelerikTileLayout Columns="6"
+                   RowHeight="380px"
+                   ColumnWidth="16%"
+                   Reorderable="true"
+                   Resizable="true"
+                   OnResize="ItemResize">
+    <TileLayoutItems>
+        <TileLayoutItem HeaderText="Sales Revenue" RowSpan="1" ColSpan="6">
+            <Content>
+                <TelerikChart @ref="@AreaChartRef" Height="300px" Width="100%">
+                    <ChartTooltip Visible="true"></ChartTooltip>
+                    <ChartLegend Position="ChartLegendPosition.Bottom"></ChartLegend>
+
+                    <ChartSeriesItems>
+                        <ChartSeries Type="ChartSeriesType.Area" Name="APAC" Data="@sales" Field="@nameof(SalesByDateViewModel.Sum)"></ChartSeries>
+                        <ChartSeries Type="ChartSeriesType.Area" Name="CALA" Data="@sales" Field="@nameof(SalesByDateViewModel.SumOne)"></ChartSeries>
+                        <ChartSeries Type="ChartSeriesType.Area" Name="EMEA" Data="@sales" Field="@nameof(SalesByDateViewModel.SumTwo)"></ChartSeries>
+                        <ChartSeries Type="ChartSeriesType.Area" Name="NA" Data="@sales" Field="@nameof(SalesByDateViewModel.SumThree)"></ChartSeries>
+                    </ChartSeriesItems>
+
+                    <ChartValueAxes>
+                        <ChartValueAxis AxisCrossingValue="@AxisCrossingValue">
+                            <ChartValueAxisLabels Format="c" />
+                        </ChartValueAxis>
+                    </ChartValueAxes>
+
+                </TelerikChart>
+            </Content>
+        </TileLayoutItem>
+        <TileLayoutItem HeaderText="Performance" RowSpan="1" ColSpan="4">
+            <Content>
+                <TelerikChart @ref="@ColumnChartRef" Height="300px">
+                    <ChartValueAxes>
+                        <ChartValueAxis AxisCrossingValue="@AxisCrossingValue"></ChartValueAxis>
+                    </ChartValueAxes>
+
+                    <ChartSeriesItems>
+                        <ChartSeries Type="ChartSeriesType.Column" Gap="10" Name="Product 1" Data="@salesPerformance" Color="#2D73F5" Field="@nameof(SalesByDateViewModel.SumOne)">
+                            <ChartSeriesStack Enabled="true" Group="separateGroup1"></ChartSeriesStack>
+                        </ChartSeries>
+                        <ChartSeries Type="ChartSeriesType.Column" Gap="10" Name="Product 2" Data="@salesPerformance" Color="#AA46BE" Field="@nameof(SalesByDateViewModel.SumTwo)">
+                            <ChartSeriesStack Enabled="true" Group="separateGroup2"></ChartSeriesStack>
+                        </ChartSeries>
+                    </ChartSeriesItems>
+
+                    <ChartLegend Visible="false">
+                    </ChartLegend>
+                    <ChartCategoryAxes>
+                        <ChartCategoryAxis Categories="@xAxisItems"></ChartCategoryAxis>
+                    </ChartCategoryAxes>
+                </TelerikChart>
+            </Content>
+        </TileLayoutItem>
+        <TileLayoutItem HeaderText="All Users" RowSpan="1" ColSpan="2">
+            <Content>
+                <div class="k-d-flex-row k-justify-content-center k-align-items-center" style="height:100%;">
+                    <div class="k-d-flex-col k-justify-content-evenly k-align-items-center" style="width: 100%; height: 200px;">
+                        <TelerikCircularGauge @ref="@UserFirstCirclGauge" Width="100%" Height="100px">
+
+                            <CircularGaugePointers>
+                                <CircularGaugePointer Value="60.2" Size="10" />
+                            </CircularGaugePointers>
+
+                            <CircularGaugeCenterLabel>
+                                <Template>
+                                    @{
+                                        var pointer = context.Pointers.FirstOrDefault();
+
+                                        <div style="font-weight: bold; font-size: 15px; color: rgb(255, 99, 88)">@(pointer?.Value)k</div>
+                                    }
+                                </Template>
+                            </CircularGaugeCenterLabel>
+
+                        </TelerikCircularGauge>
+                        <div class="sales k-card-title">Active Users</div>
+                        <div class="sales k-card-title">100000</div>
+                    </div>
+                    <div class="k-d-flex-col k-justify-content-evenly k-align-items-center" style="width:100%; height:200px;">
+                        <TelerikCircularGauge @ref="@UserSecondCirclGaugeRef" Width="100%" Height="100px">
+
+                            <CircularGaugePointers>
+                                <CircularGaugePointer Color="#666666" Value="25.2" Size="10" />
+                            </CircularGaugePointers>
+
+                            <CircularGaugeCenterLabel>
+                                <Template>
+                                    @{
+                                        var pointer = context.Pointers.FirstOrDefault();
+
+                                        <div style="font-weight: bold; font-size: 15px; color: #666666">-@(pointer?.Value)k</div>
+                                    }
+                                </Template>
+                            </CircularGaugeCenterLabel>
+
+                        </TelerikCircularGauge>
+                        <div class="sales k-card-title">Inactive Users</div>
+                        <div class="sales k-card-title">100000</div>
+                    </div>
+                </div>
+            </Content>
+        </TileLayoutItem>
+        <TileLayoutItem RowSpan="1" ColSpan="3">
+            <HeaderTemplate>
+                Top 5 Cities
+                <span style="float: right;color:#6c757d">Europe</span>
+            </HeaderTemplate>
+            <Content>
+                <TelerikChart @ref="@EuropeChartRef" Height="300px">
+                    <ChartSeriesItems>
+                        <ChartSeries Type="ChartSeriesType.Bar" Name="Product 1" Gap="4" Spacing="0.2" Color="rgb(40, 180, 200)" Data="@salesPerformance" Field="@(nameof(SalesByDateViewModel.Sum))">
+                        </ChartSeries>
+                    </ChartSeriesItems>
+
+                    <ChartCategoryAxes>
+                        <ChartCategoryAxis Categories="@xAxisItemsBarFirst">
+                            <ChartCategoryAxisLabels Font="bold 12px  Roboto,sans-serif" />
+                        </ChartCategoryAxis>
+                    </ChartCategoryAxes>
+
+                    <ChartLegend Visible="false">
+                    </ChartLegend>
+                </TelerikChart>
+            </Content>
+        </TileLayoutItem>
+        <TileLayoutItem RowSpan="1" ColSpan="3">
+            <HeaderTemplate>
+                Top 5 Cities
+                <span style="float: right;color:#6c757d">World</span>
+            </HeaderTemplate>
+            <Content>
+                <TelerikChart @ref="@WorldChartRef" Height="300px">
+                    <ChartSeriesItems>
+                        <ChartSeries Type="ChartSeriesType.Bar" Name="Product 1" Gap="4" Spacing="0.2" Color="rgb(255, 99, 88)" Data="@salesPerformance" Field="@(nameof(SalesByDateViewModel.Sum))">
+                            <ChartSeriesLabels Position="@ChartSeriesLabelsPosition.Right" />
+                        </ChartSeries>
+                    </ChartSeriesItems>
+
+                    <ChartCategoryAxes>
+                        <ChartCategoryAxis Categories="@xAxisItemsBarSecond">
+                            <ChartCategoryAxisLabels Font="bold 12px  Roboto,sans-serif" />
+                        </ChartCategoryAxis>
+                    </ChartCategoryAxes>
+
+                    <ChartLegend Visible="false">
+                    </ChartLegend>
+                </TelerikChart>
+            </Content>
+        </TileLayoutItem>
+        <TileLayoutItem HeaderText="Current Users" RowSpan="1" ColSpan="2">
+            <Content>
+                <div class="k-d-flex-row k-justify-content-center k-align-items-center" style="height:100%;">
+                    <div class="k-d-flex-col k-justify-content-evenly k-align-items-center" style="width: 100%; height: 200px;">
+                        <TelerikCircularGauge @ref="@UserThirdCirclGaugeRef" Width="100%" Height="100px">
+
+                            <CircularGaugePointers>
+                                <CircularGaugePointer Value="8.2" Size="10" />
+                            </CircularGaugePointers>
+
+                            <CircularGaugeCenterLabel>
+                                <Template>
+                                    @{
+                                        var pointer = context.Pointers.FirstOrDefault();
+
+                                        <div style="font-weight: bold; font-size: 15px; color: rgb(255, 99, 88)">@(pointer?.Value)k</div>
+                                    }
+                                </Template>
+                            </CircularGaugeCenterLabel>
+
+                        </TelerikCircularGauge>
+                        <div class="sales k-card-title">Active Users</div>
+                        <div class="sales k-card-title">15000</div>
+                    </div>
+                    <div class="k-d-flex-col k-justify-content-evenly k-align-items-center" style="width:100%; height:200px;">
+                        <TelerikCircularGauge @ref="@UserFourthCirclGaugeRef" Width="100%" Height="100px">
+
+                            <CircularGaugePointers>
+                                <CircularGaugePointer Color="#666666" Value="6.2" Size="10" />
+                            </CircularGaugePointers>
+
+                            <CircularGaugeCenterLabel>
+                                <Template>
+                                    @{
+                                        var pointer = context.Pointers.FirstOrDefault();
+
+                                        <div style="font-weight: bold; font-size: 15px; color: #666666">-@(pointer?.Value)k</div>
+                                    }
+                                </Template>
+                            </CircularGaugeCenterLabel>
+
+                        </TelerikCircularGauge>
+                        <div class="sales k-card-title">Inactive Users</div>
+                        <div class="sales k-card-title">15000</div>
+                    </div>
+                </div>
+            </Content>
+        </TileLayoutItem>
+        <TileLayoutItem HeaderText="Cost Breakdown in Regions" RowSpan="1" ColSpan="4">
+            <Content>
+                <TelerikChart @ref="@PieChartRef" Height="300px">
+                    <ChartSeriesItems>
+                        <ChartSeries Type="ChartSeriesType.Pie" Data="@salesPerformance" Color="rgb(255, 99, 88)" Field="@nameof(SalesByDateViewModel.SegmentValue)" CategoryField="@nameof(SalesByDateViewModel.Cost)" />
+                        <ChartSeries Type="ChartSeriesType.Pie" Data="@salesPerformance" Color="rgb(120, 210, 55)" Field="@nameof(SalesByDateViewModel.SegmentValueOne)" />
+                        <ChartSeries Type="ChartSeriesType.Pie" Data="@salesPerformance" Color="rgb(255, 210, 70)" Field="@nameof(SalesByDateViewModel.SegmentValueTwo)" />
+                        <ChartSeries Type="ChartSeriesType.Pie" Data="@salesPerformance" Color="rgb(40, 180, 200)" Field="@nameof(SalesByDateViewModel.SegmentValueThree)" />
+                    </ChartSeriesItems>
+
+                    <ChartLegend Position="ChartLegendPosition.Right">
+                    </ChartLegend>
+                </TelerikChart>
+            </Content>
+        </TileLayoutItem>
+    </TileLayoutItems>
+</TelerikTileLayout>
+
+<style>
+    .k-card-title {
+        font-size: 20px;
+        line-height: 24px;
+        font-weight: 400;
+        color: #000000
+    }
+
+    .sales {
+        color: #666666
+    }
+
+    #tilelayout .k-card-header {
+        border-style: none;
+    }
+</style>

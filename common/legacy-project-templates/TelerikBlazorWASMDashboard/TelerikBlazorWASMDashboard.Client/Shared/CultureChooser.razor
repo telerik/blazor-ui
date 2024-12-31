@@ -1,0 +1,57 @@
+﻿@using Microsoft.JSInterop
+@using System.Globalization
+@using System.Threading
+
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+<div style="display: flex;">
+    <div style="margin-right: 5px; margin-top: 3px">Culture:</div>
+    <select class="k-dropdownlist telerik-blazor k-picker k-picker-solid k-picker-md k-rounded-md" style="width: auto" @bind="Culture">
+        @foreach (var culture in SupportedCultures)
+        {
+            if(culture.Name == "en-US")
+            {
+                <option value="@culture">English</option>
+            }
+            else if (culture.Name == "de-DE")
+            {
+                <option value="@culture">German</option>
+            }
+            else if (culture.Name == "es-ES")
+            {
+                <option value="@culture">Spanish</option>
+            }
+            else if (culture.Name == "bg-BG")
+            {
+                <option value="@culture">Bulgarian</option>
+            }
+        }
+    </select>
+</div>
+
+@code {
+    private protected readonly CultureInfo[] SupportedCultures = new[]
+           {
+            new CultureInfo("en-US"),
+            new CultureInfo("de-DE"),
+            new CultureInfo("es-ES"),
+            new CultureInfo("bg-BG"),
+        };
+
+    // based on https://github.com/pranavkm/LocSample
+    private protected CultureInfo Culture
+    {
+        get => CultureInfo.CurrentUICulture;
+        set
+        {
+            if (CultureInfo.CurrentUICulture != value)
+            {
+                var jsRuntime = (IJSInProcessRuntime)JSRuntime;
+                jsRuntime.InvokeVoid("blazorCulture.set", value.Name);
+
+                NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+            }
+        }
+    }
+}
