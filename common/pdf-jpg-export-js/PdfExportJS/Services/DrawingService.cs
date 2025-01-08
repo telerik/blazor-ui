@@ -27,8 +27,8 @@ namespace PdfExportJS.Services
         /// </summary>
         /// <param name="elementRef"></param>
         /// <returns>Data URI as a string</returns>
-        public async ValueTask<string> ExportPDF(ElementReference elementRef) =>
-              await Js.InvokeAsync<string>($"{JsNamespace}.exportPDF", elementRef);
+        public async ValueTask<string> ExportPDF(ElementReference elementRef, object? options) =>
+              await Js.InvokeAsync<string>($"{JsNamespace}.exportPDF", elementRef, options);
 
         /// <summary>
         /// Invokes the browser to save a Data URI formatted string to a file.

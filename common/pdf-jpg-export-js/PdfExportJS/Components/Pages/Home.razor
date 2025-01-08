@@ -9,12 +9,12 @@
 
 <div @ref="@ElementToExport">
     <TelerikGrid Data="@GridData"
-                 Pageable="true"
-                 Sortable="true"
-                 FilterMode="@GridFilterMode.FilterRow"
+                 FilterMode="@GridFilterMode.FilterMenu"
                  Groupable="true"
+                 Pageable="true"
                  Resizable="true"
-                 Reorderable="true">
+                 Reorderable="true"
+                 Sortable="true">
         <GridToolBarTemplate>
             <TelerikButton OnClick="@ExportJpg"
                            ThemeColor="@ThemeConstants.Button.ThemeColor.Primary"
@@ -27,7 +27,7 @@
             <GridColumn Field="@(nameof(SampleData.Id))" Width="120px" />
             <GridColumn Field="@(nameof(SampleData.Name))" Title="Employee Name" Groupable="false" />
             <GridColumn Field="@(nameof(SampleData.Team))" Title="Team" />
-            <GridColumn Field="@(nameof(SampleData.HireDate))" Title="Hire Date" />
+            <GridColumn Field="@(nameof(SampleData.HireDate))" Title="Hire Date" DisplayFormat="{0:d}" />
         </GridColumns>
     </TelerikGrid>
 </div>
@@ -45,8 +45,10 @@
 
     private async Task ExportPdf()
     {
+        // Define PDF export options
+        object pdfOptions = new { Landscape = true, PaperSize = "A4" };
         // Create a data URI from the element reference
-        var data = await DrawingService.ExportPDF(ElementToExport);
+        string data = await DrawingService.ExportPDF(ElementToExport, pdfOptions);
         // Save the Data URI to a file
         await DrawingService.SaveAs(data, "grid-pdf-export.pdf");
     }
