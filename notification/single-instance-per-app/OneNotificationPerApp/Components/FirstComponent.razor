@@ -1,6 +1,6 @@
 ﻿<h3>FirstComponent</h3>
 
-<button @onclick="@ShowNotification">Show Notification from First Component</button>
+<TelerikButton OnClick="@ShowNotification">Show Notification from First Component</TelerikButton>
 
 <SecondComponent></SecondComponent>
 
@@ -12,7 +12,7 @@
     {
         Notification.Instance.Show(new NotificationModel()
         {
-            Text = "From First Component",
+            Text = "From FIRST Component",
             ThemeColor = ThemeConstants.Notification.ThemeColor.Primary,
             CloseAfter = 0,
             Closable = false

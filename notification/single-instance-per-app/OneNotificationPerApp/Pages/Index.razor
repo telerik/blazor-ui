@@ -1,10 +1,10 @@
 ﻿@page "/"
 
-<OneNotificationPerApp.Components.FirstComponent></OneNotificationPerApp.Components.FirstComponent>
+<FirstComponent></FirstComponent>
 
 <h3>Index Page</h3>
 
-<button @onclick="@ShowNotification">Show Notification from Index Page</button>
+<TelerikButton OnClick="@ShowNotification">Show Notification from Index Page</TelerikButton>
 
 @code {
     [CascadingParameter]
@@ -14,7 +14,7 @@
     {
         Notification.Instance.Show(new NotificationModel()
         {
-            Text = "From Index Page. Go to the Counter Page and try the button there too",
+            Text = "From INDEX page. Go to the Counter page and click the Button there too.",
             ThemeColor = ThemeConstants.Notification.ThemeColor.Success,
             CloseAfter = 0,
             Closable = true
