@@ -133,7 +133,7 @@ namespace gRPCsample.Client.Pages
             currState.EditItem = null;
             currState.OriginalEditItem = null;
             currState.InsertedItem = new TestDataModel();
-            await GridRef.SetState(currState);
+            await GridRef.SetStateAsync(currState);
         }
 
         public async Task CreateHandler(GridCommandEventArgs args)
