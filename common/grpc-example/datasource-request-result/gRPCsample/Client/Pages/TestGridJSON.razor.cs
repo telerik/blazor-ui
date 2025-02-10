@@ -32,11 +32,11 @@ namespace gRPCsample.Client.Pages
                 if (args.Request.Groups.Count > 0)
                 {
                     var data = GroupDataHelpers.DeserializeGroups<TestGridJSONModel>(result.GroupedData);
-                    args.Data = data.Cast<object>().ToList();
+                    args.Data = data.ToList();
                 }
                 else
                 {
-                    args.Data = result.CurrentPageData.Cast<object>().ToList();
+                    args.Data = result.CurrentPageData.ToList();
                 }
 
                 args.Total = result.TotalItemCount;

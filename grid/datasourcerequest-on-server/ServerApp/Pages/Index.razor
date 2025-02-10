@@ -26,7 +26,7 @@
         // we pass the request to the service, and there Telerik DataSource Extension methods will shape the data
         var datasourceResult = await ForecastService.GetForecastListAsync(args.Request);
 
-        args.Data = datasourceResult.Data.Cast<object>().ToList();
+        args.Data = datasourceResult.Data;
         args.Total = datasourceResult.Total;
     }
 
