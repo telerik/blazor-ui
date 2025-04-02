@@ -1,4 +1,15 @@
 ﻿@page "/"
 
-<TelerikAIPrompt >
+<TelerikAIPrompt PromptSuggestions="@Suggestions">
 </TelerikAIPrompt>
+
+@code {
+    private List<string> Suggestions { get; set; } = new List<string>()
+    {
+        "Craft a professional email response to a meeting request.",
+        "Write a LinkedIn post about the benefits of hybrid work.",
+        "Generate a summary for a business report.",
+        "Suggest improvements for a team productivity strategy.",
+        "Draft an email to request feedback on a project."
+    };
+}
