@@ -11,11 +11,9 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddTelerikBlazor();
 
-builder.Services.AddSingleton(new AzureOpenAIClient(
-    //new Uri("YOUR_AZURE_OPENAI_ENDPOINT"),
-    //new AzureKeyCredential("YOUR_AZURE_OPENAI_CREDENTIAL"))
-    new Uri("https://ai-explorations.openai.azure.com"),
-    new AzureKeyCredential("---")));
+//builder.Services.AddSingleton(new AzureOpenAIClient(
+//   new Uri("YOUR_AZURE_OPENAI_ENDPOINT"),
+//   new AzureKeyCredential("YOUR_AZURE_OPENAI_CREDENTIAL")));
 
 builder.Services.AddChatClient(services => services.GetRequiredService<AzureOpenAIClient>().AsChatClient("gpt-4o-mini"));
 

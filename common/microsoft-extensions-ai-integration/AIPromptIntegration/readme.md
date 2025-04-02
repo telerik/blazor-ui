@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project demonstrates the [integration of the `Microsoft.Extensions.AI` package with the `AIPrompt` component](https://www.telerik.com/blazor-ui/documentation/common-features/microsoft-extensions-ai-integration). The integration enables AI-powered interactions using **Azure OpenAI**, leveraging the built-in [`IChatClient` service](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.ai.ichatclient?view=net-9.0-pp).
+This project demonstrates the [integration of the `Microsoft.Extensions.AI` package with the `AIPrompt` component](https://www.telerik.com/blazor-ui/documentation/common-features/microsoft-extensions-ai-integration). The integration enables AI-powered interactions leveraging the built-in [`IChatClient` service](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.ai.ichatclient?view=net-9.0-pp). The example uses **Azure OpenAI**, but you can use any service supported by `Microsoft.Extensions.AI`. 
 
 ## About `Microsoft.Extensions.AI`
 
@@ -17,7 +17,7 @@ The [`Microsoft.Extensions.AI` package](https://learn.microsoft.com/en-us/dotnet
 
 ## Setup & Configuration
 
-To run the project successfully, you need to provide your **Azure OpenAI URI** and **API key**.
+To run the project successfully, you need to provide your **Azure OpenAI URI** and **API key**. The steps apply to using **Azure Open AI** and the configuration may be different if you are using a different model. Refer to the official Microsoft documentation to see how to configure other models.
 
 ### Steps:
 
