@@ -12,7 +12,7 @@ The [`Microsoft.Extensions.AI` package](https://learn.microsoft.com/en-us/dotnet
 
 - The [`AIPrompt` component](https://www.telerik.com/blazor-ui/documentation/components/aiprompt/overview) is configured to use `Microsoft.Extensions.AI` for AI-driven prompts.
 - The project registers an [`IChatClient` service](https://learn.microsoft.com/en-us/dotnet/api/microsoft.extensions.ai.ichatclient?view=net-9.0-pp) in the `Program.cs` file.
-- The [`OnPromptRequest` event](https://www.telerik.com/blazor-ui/documentation/components/aiprompt/events#onpromptrequest) of the `AIPrompt` is not handled, so the component will automatically use the registered `IChatClient` service for to generate a response.
+- The [`OnPromptRequest` event](https://www.telerik.com/blazor-ui/documentation/components/aiprompt/events#onpromptrequest) of the `AIPrompt` is not handled, so the component will automatically use the registered `IChatClient` service to generate a response.
 - **Azure OpenAI** is used as the AI provider for generating responses.
 
 ## Setup & Configuration
