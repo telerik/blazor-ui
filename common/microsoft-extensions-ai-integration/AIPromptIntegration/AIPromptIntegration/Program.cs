@@ -25,12 +25,8 @@ builder.Services.AddTelerikBlazor();
 #region OpenAI Client registration
 
 //builder.Services.AddSingleton(new OpenAIClient("YOUR_API_KEY"));
-//builder.Services.AddDistributedMemoryCache();
-//builder.Services.AddLogging(b => b.AddConsole().SetMinimumLevel(LogLevel.Trace));
 
-//builder.Services.AddChatClient(services => services.GetRequiredService<OpenAIClient>().AsChatClient("YOUR_MODEL_NAME"))
-//    .UseDistributedCache()
-//    .UseLogging();
+//builder.Services.AddChatClient(services => services.GetRequiredService<OpenAIClient>().AsChatClient("YOUR_MODEL_NAME"));
 
 #endregion OpenAI Client registration
 
@@ -46,12 +42,7 @@ builder.Services.AddTelerikBlazor();
 
 #region Ollama Chat Client registration
 
-//builder.Services.AddDistributedMemoryCache();
-//builder.Services.AddLogging(b => b.AddConsole().SetMinimumLevel(LogLevel.Trace));
-
-//builder.Services.AddChatClient(new OllamaChatClient(new Uri("THE_URI_OF_YOUR_CLIENT"), "llama3.1"))
-//    .UseDistributedCache()
-//    .UseLogging();
+//builder.Services.AddChatClient(new OllamaChatClient(new Uri("THE_URI_OF_YOUR_CLIENT"), "llama3.1"));
 
 #endregion Ollama Chat Client registration
 
