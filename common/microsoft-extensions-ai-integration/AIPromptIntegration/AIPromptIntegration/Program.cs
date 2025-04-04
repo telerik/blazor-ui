@@ -1,6 +1,7 @@
 using AIPromptIntegration.Components;
 using Microsoft.Extensions.AI;
 using Azure;
+using OpenAI;
 using Azure.AI.OpenAI;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,7 +24,7 @@ builder.Services.AddTelerikBlazor();
 
 #region OpenAI Client registration
 
-//builder.Services.AddSingleton(new OpenAIClient("YOUR_API_KEY));
+//builder.Services.AddSingleton(new OpenAIClient("YOUR_API_KEY"));
 //builder.Services.AddDistributedMemoryCache();
 //builder.Services.AddLogging(b => b.AddConsole().SetMinimumLevel(LogLevel.Trace));
 
