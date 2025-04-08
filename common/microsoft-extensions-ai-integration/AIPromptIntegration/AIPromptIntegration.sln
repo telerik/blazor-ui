@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35919.96 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIPromptIntegration", "AIPromptIntegration\AIPromptIntegration.csproj", "{3F047879-D472-41B7-86B6-61FB2D0083F6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3F047879-D472-41B7-86B6-61FB2D0083F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F047879-D472-41B7-86B6-61FB2D0083F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F047879-D472-41B7-86B6-61FB2D0083F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F047879-D472-41B7-86B6-61FB2D0083F6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B4DCBEA3-B740-4931-82BB-F3583E1C2230}
+	EndGlobalSection
+EndGlobal
