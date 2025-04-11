@@ -25,9 +25,9 @@ builder.Services.AddTelerikBlazor();
 //   dotnet user-secrets set ApiKey super-secret-api-key
 
 // 🌐 The Uri of your provider
-var endpoint = builder.Configuration["Endpoint"] ?? throw new InvalidOperationException("Missing configuration: AzureOpenAi:Endpoint. See the README for details.");
+var endpoint = builder.Configuration["Endpoint"] ?? throw new InvalidOperationException("Missing configuration: Endpoint. See the README for details.");
 // 🔑 The API Key for your provider
-var apikey = builder.Configuration["ApiKey"] ?? throw new InvalidOperationException("Missing configuration: AzureOpenAi:ApiKey. See the README for details.");
+var apikey = builder.Configuration["ApiKey"] ?? throw new InvalidOperationException("Missing configuration: ApiKey. See the README for details.");
 // 🧠 The model name or azure deployment name
 var model = "YOUR_MODEL_NAME";
 
