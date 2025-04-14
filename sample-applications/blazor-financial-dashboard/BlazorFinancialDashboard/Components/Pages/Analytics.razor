@@ -1,0 +1,175 @@
+﻿@page "/analytics"
+
+@inject TransactionService TransactionService
+@inject PaymentMethodService PaymentMethodService
+
+<PageTitle>Analytics</PageTitle>
+
+<h1>Analytics</h1>
+
+<UICard Title="Money Cashflow">
+    <TelerikChart>
+        <ChartSeriesItems>
+            <ChartSeries Type="ChartSeriesType.Column"
+                         Data="@GridData.Where(x => x.Category == "Groceries" ).ToList()"
+                         Field="@nameof(Transaction.Amount)"
+                         CategoryField="@nameof(Transaction.Date)"
+                         Color="var(--kendo-color-series-d)"
+                         Name="Groceries">
+            </ChartSeries>
+            <ChartSeries Type="ChartSeriesType.Column"
+                         Data="@GridData.Where(x => x.Category == "Shopping" ).ToList()"
+                         Field="@nameof(Transaction.Amount)"
+                         CategoryField="@nameof(Transaction.Date)"
+                         Color="var(--kendo-color-series-f)"
+                         Name="Shopping">
+            </ChartSeries>
+            <ChartSeries Type="ChartSeriesType.Column"
+                         Data="@GridData.Where(x => x.Category == "Entertainment" ).ToList()"
+                         Field="@nameof(Transaction.Amount)"
+                         CategoryField="@nameof(Transaction.Date)"
+                         Color="var(--kendo-color-series-a)"
+                         Name="Entertainment">
+            </ChartSeries>
+        </ChartSeriesItems>
+
+        <ChartCategoryAxes>
+            <ChartCategoryAxis Type="@ChartCategoryAxisType.Date"
+                               BaseUnit="@ChartCategoryAxisBaseUnit.Months">
+                <ChartCategoryAxisLabels>
+                    <ChartCategoryAxisLabelsRotation Angle="-45" />
+                </ChartCategoryAxisLabels>
+            </ChartCategoryAxis>
+        </ChartCategoryAxes>
+
+        <ChartValueAxes>
+            <ChartValueAxis>
+                <ChartValueAxisLabels Format="c2" />
+            </ChartValueAxis>
+        </ChartValueAxes>
+
+        <ChartTitle Visible="false"></ChartTitle>
+
+        <ChartTooltip Visible="true">
+            <Template>
+                @( ((Transaction)context.DataItem).Amount.ToString("c2") )
+            </Template>
+        </ChartTooltip>
+
+        <ChartLegend Position="ChartLegendPosition.Top">
+        </ChartLegend>
+    </TelerikChart>
+</UICard>
+
+<UICard Title="Personal Transactions">
+    <TelerikGrid Data="@GridData"
+                 TItem="@Transaction"
+                 FilterMode="GridFilterMode.FilterMenu"
+                 Groupable="true"
+                 Height="100%"
+                 Navigable="true"
+                 OnStateInit="@OnGridStateInit"
+                 Pageable="true"
+                 ShowColumnMenu="true"
+                 Sortable="true">
+        <GridToolBar>
+            <GridToolBarExcelExportTool>Export to Excel</GridToolBarExcelExportTool>
+            <GridToolBarPdfExportTool>Export to PDF</GridToolBarPdfExportTool>
+        </GridToolBar>
+        <GridSettings>
+            <GridPagerSettings PageSizes="@( new List<int?> { 10, 50, null } )" />
+            <GridExcelExport AllPages="true"
+                             FileName="blazor-financial-dashboard"
+                             OnBeforeExport="@OnGridBeforeExcelExport" />
+            <GridPdfExport AllPages="true"
+                           FileName="blazor-financial-dashboard"
+                           OnBeforeExport="@OnGridBeforePdfExport"
+                           PageOrientation="@GridPdfExportPageOrientation.Landscape" />
+        </GridSettings>
+        <GridColumns>
+            <GridColumn Field="@nameof(Transaction.Date)"
+                        DisplayFormat="{0:d}" />
+            <GridColumn Field="@nameof(Transaction.Amount)"
+                        DisplayFormat="{0:c2}"
+                        HeaderClass="right-header"
+                        TextAlign="@ColumnTextAlign.Right" />
+            <GridColumn Field="@nameof(Transaction.Merchant)"
+                        HeaderClass="centered-header"
+                        TextAlign="@ColumnTextAlign.Center"
+                        Visible="@IsMediumOrLargeScreen" />
+            <GridColumn Field="@nameof(Transaction.Category)"
+                        HeaderClass="centered-header"
+                        TextAlign="@ColumnTextAlign.Center"
+                        Visible="@IsLargeScreen" />
+            <GridColumn Field="@nameof(Transaction.PaymentMethodId)"
+                        HeaderClass="centered-header"
+                        TextAlign="@ColumnTextAlign.Center"
+                        Visible="@IsLargeScreen">
+                <Template>
+                    @{ var dataItem = (Transaction)context; }
+                    @PaymentMethods.FirstOrDefault(x => x.Id == dataItem.PaymentMethodId)?.Name
+                </Template>
+            </GridColumn>
+            <GridColumn Field="@nameof(Transaction.Status)"
+                        HeaderClass="centered-header"
+                        TextAlign="@ColumnTextAlign.Center">
+                <Template>
+                    @{ var dataItem = (Transaction)context; }
+                    <TelerikBadge ThemeColor="@dataItem.GetStatusThemeColor()"
+                                  Rounded="@ThemeConstants.Badge.Rounded.Large"
+                                  Size="@ThemeConstants.Badge.Size.Large"
+                                  Class="inline-badge">
+                        @dataItem.Status.ToString()
+                    </TelerikBadge>
+                </Template>
+            </GridColumn>
+        </GridColumns>
+    </TelerikGrid>
+</UICard>
+
+@code {
+    private List<Transaction> GridData { get; set; } = new();
+
+    private List<PaymentMethod> PaymentMethods { get; set; } = new();
+
+    [CascadingParameter(Name = "IsLargeScreen")]
+    public bool IsLargeScreen { get; set; }
+    [CascadingParameter(Name = "IsMediumOrLargeScreen")]
+    public bool IsMediumOrLargeScreen { get; set; }
+
+    private void OnGridStateInit(GridStateEventArgs<Transaction> args)
+    {
+        args.GridState.SortDescriptors.Add(new()
+        {
+             Member = nameof(Transaction.Date),
+             SortDirection = ListSortDirection.Descending
+        });
+    }
+    private void OnGridBeforeExcelExport(GridBeforeExcelExportEventArgs args)
+    {
+        args.Columns.First(x => x.Field == nameof(Transaction.Date)).Width = "180px";
+        args.Columns.First(x => x.Field == nameof(Transaction.Amount)).Width = "100px";
+        args.Columns.First(x => x.Field == nameof(Transaction.Category)).Width = "120px";
+        args.Columns.First(x => x.Field == nameof(Transaction.PaymentMethodId)).Width = "100px";
+        args.Columns.First(x => x.Field == nameof(Transaction.Merchant)).Width = "140px";
+        args.Columns.First(x => x.Field == nameof(Transaction.Status)).Width = "100px";
+    }
+
+    private void OnGridBeforePdfExport(GridBeforePdfExportEventArgs args)
+    {
+        args.Columns.First(x => x.Field == nameof(Transaction.Date)).Width = "180px";
+        args.Columns.First(x => x.Field == nameof(Transaction.Amount)).Width = "100px";
+        args.Columns.First(x => x.Field == nameof(Transaction.Category)).Width = "120px";
+        args.Columns.First(x => x.Field == nameof(Transaction.PaymentMethodId)).Width = "100px";
+        args.Columns.First(x => x.Field == nameof(Transaction.Merchant)).Width = "140px";
+        args.Columns.First(x => x.Field == nameof(Transaction.Status)).Width = "100px";
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        GridData = await TransactionService.Read();
+        PaymentMethods = await PaymentMethodService.Read();
+
+        await base.OnInitializedAsync();
+    }
+}

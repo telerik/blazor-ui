@@ -1,0 +1,25 @@
+﻿<UICard Title="@Title" ColSpanOnMediumScreen="4" ColSpanOnLargeScreen="4" TitleGap="thin">
+    <div class="k-pt-3 k-h5">@Value.ToString("C2")</div>
+    <div><span style="color:var(--kendo-color-@ChangeClass)">@GetFormattedChange()</span> than last month</div>
+</UICard>
+
+@code {
+    [Parameter]
+    public string Title { get; set; } = string.Empty;
+
+    [Parameter]
+    public decimal Value { get; set; }
+
+    [Parameter]
+    public double Change { get; set; }
+
+    private string GetFormattedChange()
+    {
+        return string.Concat(
+            Change >= 0 ? "+" : "",
+            Change.ToString("p0")
+        );
+    }
+    
+    private string ChangeClass => Change >= 0 ? "success-emphasis" : "error-emphasis";
+}

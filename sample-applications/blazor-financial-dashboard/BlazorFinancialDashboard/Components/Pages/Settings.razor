@@ -1,0 +1,111 @@
+﻿@page "/settings"
+
+@inject UserService UserService
+@inject CardService CardService
+
+<PageTitle>Settings</PageTitle>
+
+<h1>Settings</h1>
+
+<UICard Title="Personal Information" ColSpanOnLargeScreen="8" ColSpanOnMediumScreen="6">
+    <TelerikForm Model="@AppUser"
+                 Columns="@( IsLargeScreen ? 2 : 1 )"
+                 ColumnSpacing="var(--kendo-spacing-4)"
+                 OnValidSubmit="@OnUserFormSubmit">
+        <FormValidation>
+            <DataAnnotationsValidator />
+        </FormValidation>
+        <FormItems>
+            <FormItem Field="@nameof(User.FirstName)" />
+            <FormItem Field="@nameof(User.LastName)" />
+            <FormItem Field="@nameof(User.Email)" />
+            <FormItem Field="@nameof(User.Tag)" />
+            <FormItem Field="@nameof(User.BirthDate)" />
+            <FormItem Field="@nameof(User.Country)" />
+            <FormItem Field="@nameof(User.Address)" />
+            <FormItem Field="@nameof(User.PostalCode)" />
+        </FormItems>
+    </TelerikForm>
+</UICard>
+
+<UICard Title="Calendar" ColSpanOnLargeScreen="4" ColSpanOnMediumScreen="6">
+    <TelerikCalendar Size="@ThemeConstants.Calendar.Size.Small" />
+</UICard>
+
+<UICard Title="Card Information" ColSpanOnLargeScreen="8" ColSpanOnMediumScreen="6">
+    <TelerikForm Model="@UserCard"
+                 Columns="@( IsLargeScreen ? 2 : 1 )"
+                 ColumnSpacing="var(--kendo-spacing-4)"
+                 OnValidSubmit="@OnCardFormSubmit">
+        <FormValidation>
+            <DataAnnotationsValidator />
+        </FormValidation>
+        <FormItems>
+            <FormItem Field="@nameof(Card.Number)">
+                <Template>
+                    <label class="k-label k-form-label">Number</label>
+                    <div class="k-form-field-wrap">
+                        <TelerikMaskedTextBox Mask="0000-0000-0000-0000"
+                                              @bind-Value="@UserCard.Number" />
+                        <TelerikValidationMessage For="@( () => UserCard.Number )" />
+                    </div>
+                </Template>
+            </FormItem>
+            <FormItem Field="@nameof(Card.BankName)" LabelText="Bank" />
+            <FormItem Field="@nameof(Card.ExpiryDate)" LabelText="Expiry Date" />
+            <FormItem Field="@nameof(Card.HolderName)" LabelText="Holder Name" />
+        </FormItems>
+    </TelerikForm>
+</UICard>
+
+<UICard Title="Weather" ColSpanOnLargeScreen="4" ColSpanOnMediumScreen="6"></UICard>
+
+<TelerikNotification @ref="@NotificationRef"
+                     HorizontalPosition="@NotificationHorizontalPosition.Center"
+                     VerticalPosition="@NotificationVerticalPosition.Top" />
+
+@code {
+    private User AppUser { get; set; } = null!;
+    private Card UserCard { get; set; } = null!;
+
+    [CascadingParameter(Name = "IsLargeScreen")]
+    public bool IsLargeScreen { get; set; }
+    [CascadingParameter(Name = "IsMediumOrLargeScreen")]
+    public bool IsMediumOrLargeScreen { get; set; }
+
+    [CascadingParameter]
+    public MainLayout? MainLayoutRef { get; set; }
+
+    private TelerikNotification? NotificationRef { get; set; }
+
+    private async Task OnUserFormSubmit()
+    {
+        bool success = await UserService.Update(AppUser);
+
+        if (success)
+        {
+            NotificationRef?.Show("User updated successfully!", ThemeConstants.Notification.ThemeColor.Success);
+
+            await MainLayoutRef!.GetAppUser(true);
+        }
+    }
+
+    private async Task OnCardFormSubmit()
+    {
+        bool success = await CardService.Update(UserCard);
+
+        if (success)
+        {
+            NotificationRef?.Show("Card updated successfully!", ThemeConstants.Notification.ThemeColor.Success);
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        AppUser = await UserService.Read(1);
+
+        UserCard = await CardService.Read(1);
+
+        await base.OnInitializedAsync();
+    }
+}

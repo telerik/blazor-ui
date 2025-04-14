@@ -1,0 +1,227 @@
+﻿@page "/"
+@* Angular implementation *@
+@* https://github.com/telerik/kendo-angular/pull/4578/files *@
+
+@* Non-final designs *@
+@* https://www.figma.com/design/S5Orn3haWYmBhgzGR2rcGb/Financial-Dashboard-Demo-App?node-id=673-34674&p=f&t=ojl7zh09Z7gmXiY3-0 *@
+
+@inject TransactionService TransactionService
+@inject PaymentMethodService PaymentMethodService
+
+<PageTitle>Overview</PageTitle>
+
+<h1>Overview</h1>
+
+<SummaryCard Title="Earnings" Value="15000" Change="2" />
+<SummaryCard Title="Spendings" Value="50000" Change="1" />
+<SummaryCard Title="Investments" Value="35000" Change="-0.8" />
+
+<UICard Title="Savings"
+        SubTitle="@Savings.ToString("c2")"
+        ColSpanOnLargeScreen="6"
+        ColSpanOnMediumScreen="6"
+        ContentClass="k-justify-content-between"
+        ContentGap="3">
+    <div class="progressbar-wrapper">
+        <div class="k-d-flex k-justify-content-between">
+            <span>Education</span>
+            <span>@SavingsEducation.ToString("c2")</span>
+        </div>
+        <TelerikProgressBar Max="100" Value="@GetSavingsPercent(SavingsEducation)">
+            <ProgressBarLabel Visible="false" />
+        </TelerikProgressBar>
+    </div>
+    <div class="progressbar-wrapper">
+        <div class="k-d-flex k-justify-content-between">
+            <span>Dream Home</span>
+            <span>@SavingsDreamHome.ToString("c2")</span>
+        </div>
+        <TelerikProgressBar Max="100" Value="@GetSavingsPercent(SavingsDreamHome)">
+            <ProgressBarLabel Visible="false" />
+        </TelerikProgressBar>
+    </div>
+    <div class="progressbar-wrapper">
+        <div class="k-d-flex k-justify-content-between">
+            <span>Car</span>
+            <span>@SavingsCar.ToString("c2")</span>
+        </div>
+        <TelerikProgressBar Max="100" Value="@GetSavingsPercent(SavingsCar)">
+            <ProgressBarLabel Visible="false" />
+        </TelerikProgressBar>
+    </div>
+    <div class="progressbar-wrapper">
+        <div class="k-d-flex k-justify-content-between">
+            <span>Holidays</span>
+            <span>@SavingsHolidays.ToString("c2")</span>
+        </div>
+        <TelerikProgressBar Max="100" Value="@GetSavingsPercent(SavingsHolidays)">
+            <ProgressBarLabel Visible="false" />
+        </TelerikProgressBar>
+    </div>
+    <div class="progressbar-wrapper">
+        <div class="k-d-flex k-justify-content-between">
+            <span>Health Care</span>
+            <span>@SavingsHealthCare.ToString("c2")</span>
+        </div>
+        <TelerikProgressBar Max="100" Value="@GetSavingsPercent(SavingsHealthCare)">
+            <ProgressBarLabel Visible="false" />
+        </TelerikProgressBar>
+    </div>
+</UICard>
+
+<UICard Title="Budget Utilization"
+        SubTitle="@( $"{(UsedBudget / TotalBudget).ToString("P0")} of the Budget used" )"
+        ColSpanOnMediumScreen="6" ColSpanOnLargeScreen="6" TitleGap="11" ContentGap="11">
+    <TelerikArcGauge Width="260px" Height="140px" Class="k-ml-auto k-mr-auto">
+        <ArcGaugePointers>
+            <ArcGaugePointer Value="50" Size="12" Color="var(--kendo-color-series-b)" />
+        </ArcGaugePointers>
+        <ArcGaugeCenterLabel>
+            <Template>
+                <div class="center-label k-font-weight-bold">@( (UsedBudget / TotalBudget).ToString("P0") )</div>
+            </Template>
+        </ArcGaugeCenterLabel>
+    </TelerikArcGauge>
+    <div class="k-d-flex k-justify-content-center k-align-items-center k-gap-x-2">
+        <div class="k-d-flex k-flex-1 k-flex-column k-align-items-end k-color-subtle">
+            <span class="k-font-weight-bold">@( TotalBudget.ToString("C2") )</span>
+            <span class="k-text-right">Total budget</span>
+        </div>
+        <span class="k-separator k-separator-vertical k-border-border"></span>
+        <div class="k-d-flex k-flex-1 k-flex-column k-align-items-start k-color-subtle">
+            <span class="k-font-weight-bold">@( UsedBudget.ToString("C2") )</span>
+            <span>Used budget</span>
+        </div>
+    </div>
+</UICard>
+
+<UICard Title="Transactions">
+    <TelerikGrid Data="@GridData"
+                 TItem="@Transaction"
+                 FilterMode="GridFilterMode.FilterMenu"
+                 Groupable="true"
+                 Height="570px"
+                 Navigable="true"
+                 OnStateInit="@OnGridStateInit"
+                 Pageable="true"
+                 SelectionMode="@GridSelectionMode.Multiple"
+                 @bind-SelectedItems="@GridSelectedItems"
+                 ShowColumnMenu="true"
+                 Sortable="true">
+        <GridToolBar>
+            <GridToolBarExcelExportTool>Export to Excel</GridToolBarExcelExportTool>
+            <GridToolBarPdfExportTool>Export to PDF</GridToolBarPdfExportTool>
+        </GridToolBar>
+        <GridSettings>
+            <GridExcelExport AllPages="true"
+                             FileName="blazor-financial-dashboard"
+                             OnBeforeExport="@OnGridBeforeExcelExport" />
+            <GridPdfExport AllPages="true"
+                           FileName="blazor-financial-dashboard"
+                           OnBeforeExport="@OnGridBeforePdfExport"
+                           PageOrientation="@GridPdfExportPageOrientation.Landscape" />
+        </GridSettings>
+        <GridColumns>
+            <GridCheckboxColumn SelectAll="true" SelectAllMode="@GridSelectAllMode.All" ShowColumnMenu="false" />
+            <GridColumn Field="@nameof(Transaction.Date)"
+                        DisplayFormat="{0:d}" />
+            <GridColumn Field="@nameof(Transaction.Amount)"
+                        DisplayFormat="{0:c2}"
+                        HeaderClass="right-header"
+                        TextAlign="@ColumnTextAlign.Right" />
+            <GridColumn Field="@nameof(Transaction.Merchant)"
+                        HeaderClass="centered-header"
+                        TextAlign="@ColumnTextAlign.Center"
+                        Visible="@IsMediumOrLargeScreen" />
+            <GridColumn Field="@nameof(Transaction.Category)"
+                        HeaderClass="centered-header"
+                        TextAlign="@ColumnTextAlign.Center"
+                        Visible="@IsLargeScreen" />
+            <GridColumn Field="@nameof(Transaction.PaymentMethodId)"
+                        HeaderClass="centered-header"
+                        TextAlign="@ColumnTextAlign.Center"
+                        Visible="@IsLargeScreen">
+                <Template>
+                    @{ var dataItem = (Transaction)context; }
+                    @PaymentMethods.FirstOrDefault(x => x.Id == dataItem.PaymentMethodId)?.Name
+                </Template>
+            </GridColumn>
+            <GridColumn Field="@nameof(Transaction.Status)"
+                        HeaderClass="centered-header"
+                        TextAlign="@ColumnTextAlign.Center">
+                <Template>
+                    @{ var dataItem = (Transaction)context; }
+                    <TelerikBadge ThemeColor="@dataItem.GetStatusThemeColor()"
+                                  Rounded="@ThemeConstants.Badge.Rounded.Large"
+                                  Size="@ThemeConstants.Badge.Size.Large"
+                                  Class="inline-badge">
+                        @dataItem.Status.ToString()
+                    </TelerikBadge>
+                </Template>
+            </GridColumn>
+        </GridColumns>
+    </TelerikGrid>
+</UICard>
+
+@code {
+    private decimal TotalBudget { get; set; } = 15_000;
+    private decimal UsedBudget { get; set; } = 7_500;
+    private decimal Savings { get; set; } = 104_500;
+    private decimal SavingsEducation { get; set; } = 3_000;
+    private decimal SavingsDreamHome { get; set; } = 25_000;
+    private decimal SavingsCar { get; set; } = 6_500;
+    private decimal SavingsHolidays { get; set; } = 20_000;
+    private decimal SavingsHealthCare { get; set; } = 50_000;
+
+    private List<Transaction> GridData { get; set; } = new();
+    private IEnumerable<Transaction> GridSelectedItems { get; set; } = new List<Transaction>();
+
+    private List<PaymentMethod> PaymentMethods { get; set; } = new();
+
+    [CascadingParameter(Name = "IsLargeScreen")]
+    public bool IsLargeScreen { get; set; }
+    [CascadingParameter(Name = "IsMediumOrLargeScreen")]
+    public bool IsMediumOrLargeScreen { get; set; }
+
+    private void OnGridStateInit(GridStateEventArgs<Transaction> args)
+    {
+        args.GridState.SortDescriptors.Add(new()
+        {
+             Member = nameof(Transaction.Date),
+             SortDirection = ListSortDirection.Descending
+        });
+    }
+
+    private void OnGridBeforeExcelExport(GridBeforeExcelExportEventArgs args)
+    {
+        args.Columns.First(x => x.Field == nameof(Transaction.Date)).Width = "180px";
+        args.Columns.First(x => x.Field == nameof(Transaction.Amount)).Width = "100px";
+        args.Columns.First(x => x.Field == nameof(Transaction.Category)).Width = "120px";
+        args.Columns.First(x => x.Field == nameof(Transaction.PaymentMethodId)).Width = "100px";
+        args.Columns.First(x => x.Field == nameof(Transaction.Merchant)).Width = "140px";
+        args.Columns.First(x => x.Field == nameof(Transaction.Status)).Width = "100px";
+    }
+
+    private void OnGridBeforePdfExport(GridBeforePdfExportEventArgs args)
+    {
+        args.Columns.First(x => x.Field == nameof(Transaction.Date)).Width = "180px";
+        args.Columns.First(x => x.Field == nameof(Transaction.Amount)).Width = "100px";
+        args.Columns.First(x => x.Field == nameof(Transaction.Category)).Width = "120px";
+        args.Columns.First(x => x.Field == nameof(Transaction.PaymentMethodId)).Width = "100px";
+        args.Columns.First(x => x.Field == nameof(Transaction.Merchant)).Width = "140px";
+        args.Columns.First(x => x.Field == nameof(Transaction.Status)).Width = "100px";
+    }
+
+    private double GetSavingsPercent(decimal value)
+    {
+        return 100 * Convert.ToDouble(value) / Convert.ToDouble(Savings);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        GridData = await TransactionService.Read();
+        PaymentMethods = await PaymentMethodService.Read();
+
+        await base.OnInitializedAsync();
+    }
+}

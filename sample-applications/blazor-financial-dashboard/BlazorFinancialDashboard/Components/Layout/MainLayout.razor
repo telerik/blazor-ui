@@ -1,0 +1,155 @@
+﻿@inherits LayoutComponentBase
+@layout TelerikLayout
+
+@inject NavigationManager NavManager
+@inject UserService UserService
+
+<TelerikMediaQuery Media="(min-width: 1201px)" OnChange="@( (bool matches) => IsOverMaxWidth = matches )" />
+<TelerikMediaQuery Media="(min-width: 992px)" OnChange="@( (bool matches) => IsLargeScreen = matches )" />
+<TelerikMediaQuery Media="(min-width: 768px)" OnChange="@( (bool matches) => IsMediumOrLargeScreen = matches )" />
+
+<TelerikDrawer Data="@DrawerData"
+               TItem="@NavItem"
+               @bind-Expanded="@DrawerExpanded"
+               SelectedItem="@DrawerSelectedItem"
+               SelectedItemChanged="@DrawerSelectedItemChanged"
+               Mode="@DrawerMode.Overlay"
+               MiniMode="true"
+               Class="mainlayout-drawer">
+    <DrawerContent>
+        <div id="drawer-content-wrapper" class="k-ml-auto k-mr-auto">
+
+            <TelerikAppBar ThemeColor="@ThemeConstants.AppBar.ThemeColor.Base"
+                           Class="appbar-top">
+                <AppBarSection>
+                    <div class="greeting">
+                        <TelerikAvatar Width="42px" Height="42px">
+                            <img src="images/maria-avatar.jpeg" alt="Maria profile photo" />
+                        </TelerikAvatar>
+                        <span>
+                            <strong>Hi, @AppUser.FirstName!</strong>
+                            <span>Welcome back!</span>
+                        </span>
+                    </div>
+                </AppBarSection>
+                <AppBarSpacer />
+                <AppBarSection>
+                    <TelerikTextBox Placeholder="Search"
+                                    Rounded="@ThemeConstants.TextBox.Rounded.Large"
+                                    Class="search-textbox">
+                        <TextBoxPrefixTemplate>
+                            <TelerikSvgIcon Icon="@SvgIconsNS.SvgIcon.Search" />
+                        </TextBoxPrefixTemplate>
+                    </TelerikTextBox>
+                </AppBarSection>
+                <AppBarSpacer />
+                <AppBarSection>
+                    <TelerikButton ThemeColor="@ThemeConstants.Button.ThemeColor.Primary"
+                                   Size="@ThemeConstants.Button.Size.Small"
+                                   Rounded="@ThemeConstants.Button.Rounded.Large"
+                                   OnClick="@GoToAIAssistantPage">AI Assistant</TelerikButton>
+                </AppBarSection>
+                <AppBarSection>
+                    <CultureChooser />
+                </AppBarSection>
+            </TelerikAppBar>
+
+            <main class="k-d-grid k-grid-cols-12 k-gap-4 k-pb-4">
+                <CascadingValue Value="@IsLargeScreen" Name="IsLargeScreen">
+                    <CascadingValue Value="@IsMediumOrLargeScreen" Name="IsMediumOrLargeScreen">
+                        <CascadingValue Value="@this" IsFixed="true">
+                            @Body
+                        </CascadingValue>
+                    </CascadingValue>
+                </CascadingValue>
+            </main>
+
+            <TelerikAppBar ThemeColor="@ThemeConstants.AppBar.ThemeColor.Base"
+                           Class="@( $"appbar-bottom {( IsOverMaxWidth ? "narrow" : string.Empty )}" )">
+                <AppBarSection>
+                    <div class="@( IsOverMaxWidth ? string.Empty : "k-pl-15" )">
+                        <div class="k-d-flex k-align-items-center k-gap-2 k-p-2"><img src="images/github-icon.svg" alt="GitHub logo" /> Get the Source Code</div>
+
+                        <div class="k-p-2">Copyright &copy; @DateTime.Today.Year Progress Software. All rights reserved.</div>
+                    </div>
+                </AppBarSection>
+                <AppBarSpacer />
+            </TelerikAppBar>
+
+        </div>
+    </DrawerContent>
+</TelerikDrawer>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
+
+@code {
+    private IEnumerable<NavItem> DrawerData { get; set; } = new List<NavItem>() {
+        new NavItem("Menu", SvgIconsNS.SvgIcon.Menu, string.Empty),
+        new NavItem(),
+        new NavItem("Overview", SvgIconsNS.SvgIcon.Grid, "/"),
+        new NavItem("Transactions", SvgIconsNS.SvgIcon.ArrowsSwap, "/transactions"),
+        new NavItem("Investments", SvgIconsNS.SvgIcon.Dollar, "/investments"),
+        new NavItem("Analytics", SvgIconsNS.SvgIcon.ChartColumnStacked, "/analytics"),
+        new NavItem("AI Assistant", SvgIconsNS.SvgIcon.Sparkles, "/ai-assistant"),
+        new NavItem(),
+        new NavItem("Settings", SvgIconsNS.SvgIcon.Gear, "/settings")
+    };
+
+    private bool DrawerExpanded { get; set; }
+
+    private NavItem? DrawerSelectedItem { get; set; }
+
+    private bool IsOverMaxWidth { get; set; }
+    private bool IsLargeScreen { get; set; }
+    private bool IsMediumOrLargeScreen { get; set; }
+
+    private User AppUser { get; set; } = null!;
+
+    private void DrawerSelectedItemChanged(NavItem newSelectedItem)
+    {
+        if (newSelectedItem?.Icon is SvgIconsNS.Menu)
+        {
+            DrawerExpanded = !DrawerExpanded;
+        }
+        else
+        {
+            DrawerSelectedItem = newSelectedItem;
+        }
+    }
+    private void GoToAIAssistantPage()
+    {
+        NavItem aiAssistantItem = DrawerData.First(i => i.Url == "/ai-assistant");
+        DrawerSelectedItem = aiAssistantItem;
+        NavManager.NavigateTo(aiAssistantItem.Url);
+    }
+
+    private void SelectDrawerItem()
+    {
+        var url = NavManager.Uri.Replace(NavManager.BaseUri, "/").ToLowerInvariant();
+
+        DrawerSelectedItem = DrawerData.FirstOrDefault(x => x.Url.ToLowerInvariant() == url);
+    }
+
+    internal async Task GetAppUser(bool forceRefresh = false)
+    {
+        AppUser = await UserService.Read(1);
+
+        if (forceRefresh)
+        {
+            StateHasChanged();
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetAppUser();
+
+        SelectDrawerItem();
+
+        await base.OnInitializedAsync();
+    }
+}

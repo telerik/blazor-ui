@@ -1,0 +1,33 @@
+﻿@page "/ai-assistant"
+
+<PageTitle>AI Assistant</PageTitle>
+
+<h1>AI Assistant</h1>
+
+<UICard Title="Related Topics"
+        ColSpanOnLargeScreen="8"
+        ColSpanOnMediumScreen="6">
+</UICard>
+
+<UICard Title="Chat with Roby"
+        ColSpanOnLargeScreen="4"
+        ColSpanOnMediumScreen="6">
+    <TelerikAIPrompt Class="ai-prompt"
+                     Height="100%"
+                     OnPromptRequest="@OnAIPromptRequest"
+                     PromptSuggestions="@AIPromptSuggestions" />
+</UICard>
+
+@code {
+    private readonly List<string> AIPromptSuggestions = new()
+    {
+        $"How to start investing with just {100.ToString("c0")}?",
+        "How to create a financial plan that works?",
+        "Can you give me budgeting tips for better finances?"
+    };
+
+    private void OnAIPromptRequest(AIPromptPromptRequestEventArgs args)
+    {
+        args.Output = "AI response ...";
+    }
+}
