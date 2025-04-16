@@ -26,3 +26,46 @@ To run the project successfully, you need to provide your endpoint and credentia
 3. Replace the placeholder values with your actual endpoint and credentials.
 4. Run the application and interact with the `AIPrompt` component.
 
+### Client Registrations
+
+**Azure AI Inference Client registration**
+
+```csharp
+var innerClient = new Azure.AI.Inference.ChatCompletionsClient(
+        new Uri(endpoint),
+        new AzureKeyCredential(apikey)
+    ).AsChatClient(model);
+```
+
+**Azure OpenAI Client registration**
+
+```csharp
+var innerClient = new AzureOpenAIClient(
+        new Uri(endpoint),
+        new AzureKeyCredential(apikey)
+    ).AsChatClient(model);
+```
+
+**OpenAI Client registration**
+
+```csharp
+var innerClient = new OpenAIClient(apikey)
+                        .AsChatClient(model);
+```
+
+**GitHub Models Client registration**
+
+```csharp
+var innerClient = new OpenAIClient(
+			new ApiKeyCredential(apikey),
+			new OpenAIClientOptions()
+			{
+				Endpoint = new Uri(endpoint)
+			}
+		).AsChatClient(model);
+```
+
+**Ollama Client registration**
+```csharp 
+var innerClient = new OllamaChatClient(new Uri(endpoint), model);
+```
