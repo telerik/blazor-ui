@@ -3,18 +3,18 @@ using Microsoft.Extensions.AI;
 
 // Optional model provider implementations:
 // Azure models
-using Azure; 
+using Azure;
 using Azure.AI.OpenAI;
 // OpenAI models
 using OpenAI;
 // GitHub models
-using System.ClientModel; 
+using System.ClientModel;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
-	.AddInteractiveServerComponents();
+    .AddInteractiveServerComponents();
 
 builder.Services.AddTelerikBlazor();
 
@@ -33,25 +33,25 @@ var model = "YOUR_MODEL_NAME";
 
 // Replace the innerClient below with your preferred model provider 
 var innerClient = new OpenAIClient(
-			new ApiKeyCredential(apikey),
-			new OpenAIClientOptions()
-			{
-				Endpoint = new Uri(endpoint)
-			}
-		).AsChatClient(model);
+    new ApiKeyCredential(apikey),
+    new OpenAIClientOptions()
+    {
+        Endpoint = new Uri(endpoint)
+    }
+    ).AsChatClient(model);
 
 builder.Services.AddChatClient(innerClient) // 🤖 Add the configured chat client
-	.UseFunctionInvocation() // 🛠️ Include tool calling
-	.UseLogging(); //🐞 Include Logging
+    .UseFunctionInvocation() // 🛠️ Include tool calling
+    .UseLogging(); //🐞 Include Logging
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-	app.UseExceptionHandler("/Error", createScopeForErrors: true);
-	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-	app.UseHsts();
+    app.UseExceptionHandler("/Error", createScopeForErrors: true);
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
 }
 
 app.UseHttpsRedirection();
@@ -60,6 +60,6 @@ app.UseStaticFiles();
 app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
-	.AddInteractiveServerRenderMode();
+    .AddInteractiveServerRenderMode();
 
 app.Run();
