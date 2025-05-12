@@ -33,6 +33,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UsePathBase("/blazor-financial-dashboard/");
+
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();

@@ -4,7 +4,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:50496",
+      "applicationUrl": "http://localhost:50496/blazor-financial-dashboard/",
       "sslPort": 44397
     }
   },
@@ -12,6 +12,7 @@
     "https": {
       "commandName": "Project",
       "launchBrowser": true,
+      "launchUrl": "blazor-financial-dashboard",
       "applicationUrl": "https://localhost:7050;http://localhost:5078",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
