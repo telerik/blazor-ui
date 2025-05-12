@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="https://unpkg.com/@@progress/kendo-theme-utils/dist/all.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
     <script src="https://blazor.cdn.telerik.com/blazor/8.1.1/telerik-blazor.min.js" defer></script>
-    <link rel="stylesheet" href="@Assets["app.css"]" />
-    <link rel="stylesheet" href="@Assets["BlazorFinancialDashboard.styles.css"]" />
+    <link rel="stylesheet" href="app.css" />
+    <link rel="stylesheet" href="BlazorFinancialDashboard.styles.css" />
     <link rel="icon" type="image/png" sizes="48x48" href="favicon-48x48.png" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -24,6 +24,7 @@
 <body class="k-body">
     <Routes @rendermode="@InteractiveServer" />
     <script src="_framework/blazor.web.js" autostart="false"></script>
+    <script src="app.js" autostart="false"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             Blazor.start();

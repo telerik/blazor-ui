@@ -58,6 +58,7 @@ h1:focus {
 }
 
 /* Overall Layout and Drawer */
+
 body {
     min-height: 100vh;
     margin: 0;
@@ -121,6 +122,10 @@ main {
     flex: 1 1 auto;
     margin-top: var(--kendo-spacing-5);
     padding-inline: var(--kendo-spacing-15);
+}
+
+main:has(h1:first-child) {
+    grid-template-rows: min-content;
 }
 
 h1,
@@ -190,6 +195,7 @@ h2 {
 }
 
 /* Bottom AppBar */
+
 div.appbar-bottom {
     z-index: 1;
     background-color: var(--kendo-color-surface);
@@ -199,4 +205,20 @@ div.appbar-bottom {
 
 div.appbar-bottom.narrow {
     margin-inline: var(--kendo-spacing-15);
+}
+
+.appbar-bottom a:not(:hover) {
+    text-decoration: none;
+}
+
+/* AI Assistant */
+
+.header-cursor-pointer .k-panelbar-header > .k-link {
+    cursor: pointer;
+}
+
+/* Investements */
+
+.asset {
+    line-height: 1.5;
 }

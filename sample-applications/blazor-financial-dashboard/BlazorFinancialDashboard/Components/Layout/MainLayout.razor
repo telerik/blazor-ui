@@ -34,13 +34,17 @@
                 </AppBarSection>
                 <AppBarSpacer />
                 <AppBarSection>
-                    <TelerikTextBox Placeholder="Search"
-                                    Rounded="@ThemeConstants.TextBox.Rounded.Large"
-                                    Class="search-textbox">
-                        <TextBoxPrefixTemplate>
+                    <TelerikAutoComplete Placeholder="Search"
+                                         Rounded="@ThemeConstants.AutoComplete.Rounded.Large"
+                                         TItem="@string"
+                                         Class="search-textbox">
+                        <AutoCompletePrefixTemplate>
                             <TelerikSvgIcon Icon="@SvgIconsNS.SvgIcon.Search" />
-                        </TextBoxPrefixTemplate>
-                    </TelerikTextBox>
+                        </AutoCompletePrefixTemplate>
+                        <AutoCompleteSettings>
+                            <AutoCompletePopupSettings Height="auto" />
+                        </AutoCompleteSettings>
+                    </TelerikAutoComplete>
                 </AppBarSection>
                 <AppBarSpacer />
                 <AppBarSection>
@@ -68,7 +72,11 @@
                            Class="@( $"appbar-bottom {( IsOverMaxWidth ? "narrow" : string.Empty )}" )">
                 <AppBarSection>
                     <div class="@( IsOverMaxWidth ? string.Empty : "k-pl-15" )">
-                        <div class="k-d-flex k-align-items-center k-gap-2 k-p-2"><img src="images/github-icon.svg" alt="GitHub logo" /> Get the Source Code</div>
+                        <a class="k-d-flex k-align-items-center k-gap-2 k-p-2 k-text-inherit"
+                            href="https://github.com/telerik/blazor-ui/tree/master/sample-applications/blazor-financial-dashboard"
+                            target="_blank">
+                            <img src="images/github-icon.svg" alt="GitHub logo" /> Get the Source Code
+                        </a>
 
                         <div class="k-p-2">Copyright &copy; @DateTime.Today.Year Progress Software. All rights reserved.</div>
                     </div>

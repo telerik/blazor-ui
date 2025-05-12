@@ -1,5 +1,7 @@
 ﻿@page "/analytics"
 
+@inherits ResponsiveComponent
+
 @inject TransactionService TransactionService
 @inject PaymentMethodService PaymentMethodService
 
@@ -8,7 +10,7 @@
 <h1>Analytics</h1>
 
 <UICard Title="Money Cashflow">
-    <TelerikChart>
+    <TelerikChart @ref="@ChartRef">
         <ChartSeriesItems>
             <ChartSeries Type="ChartSeriesType.Column"
                          Data="@GridData.Where(x => x.Category == "Groceries" ).ToList()"
@@ -128,6 +130,7 @@
 </UICard>
 
 @code {
+    private TelerikChart? ChartRef { get; set; }
     private List<Transaction> GridData { get; set; } = new();
 
     private List<PaymentMethod> PaymentMethods { get; set; } = new();
@@ -163,6 +166,14 @@
         args.Columns.First(x => x.Field == nameof(Transaction.PaymentMethodId)).Width = "100px";
         args.Columns.First(x => x.Field == nameof(Transaction.Merchant)).Width = "140px";
         args.Columns.First(x => x.Field == nameof(Transaction.Status)).Width = "100px";
+    }
+
+    [JSInvokable("OnViewPortResize")]
+    public override Task OnViewPortResize()
+    {
+        ChartRef?.Refresh();
+
+        return base.OnViewPortResize();
     }
 
     protected override async Task OnInitializedAsync()

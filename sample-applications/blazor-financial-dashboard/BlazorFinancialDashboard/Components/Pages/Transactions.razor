@@ -227,9 +227,11 @@
         GridData = await TransactionService.Read();
         PaymentMethods = await PaymentMethodService.Read();
 
-        AppUser = await UserService.Read(1);
+        AppUser = await UserService.Read(userId: 1);
 
-        GridSelectedItems = new List<Transaction>() { GridData.First() };
+
+
+        GridSelectedItems = new List<Transaction>() { GridData.OrderByDescending(t => t.Date).First() };
         FormModel = GridData.FirstOrDefault();
 
         await base.OnInitializedAsync();

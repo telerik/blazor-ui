@@ -6,6 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<TransactionService>();
 builder.Services.AddSingleton<PaymentMethodService>();
+builder.Services.AddSingleton<AIAssistantService>();
+builder.Services.AddSingleton<InvestmentService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<CardService>();
 
@@ -33,7 +35,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapStaticAssets();
+app.UseStaticFiles();
 app.UseAntiforgery();
 
 var supportedCultures = new[] { "en-US", "de-DE" };
