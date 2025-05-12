@@ -1,0 +1,1991 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Aggregate_Count" xml:space="preserve">
+    <value>Броя</value>
+  </data>
+  <data name="Aggregate_Max" xml:space="preserve">
+    <value>Максимум</value>
+  </data>
+  <data name="Aggregate_Min" xml:space="preserve">
+    <value>Минимум</value>
+  </data>
+  <data name="Aggregate_Sum" xml:space="preserve">
+    <value>Сума</value>
+  </data>
+  <data name="AutoComplete_Cancel" xml:space="preserve">
+    <value>Откажи</value>
+  </data>
+  <data name="AutoComplete_Clear" xml:space="preserve">
+    <value>Изчисти</value>
+  </data>
+  <data name="AutoComplete_NoData" xml:space="preserve">
+    <value>Няма намерени данни</value>
+  </data>
+  <data name="Calendar_Choose_Decade" xml:space="preserve">
+    <value>Избери десетилетие</value>
+  </data>
+  <data name="Calendar_Choose_Month" xml:space="preserve">
+    <value>Избери месец</value>
+  </data>
+  <data name="Calendar_Choose_Year" xml:space="preserve">
+    <value>Избери година</value>
+  </data>
+  <data name="Calendar_GoToNext" xml:space="preserve">
+    <value>Oтиди на следващ период</value>
+  </data>
+  <data name="Calendar_GoToPrevious" xml:space="preserve">
+    <value>Oтиди на предишен период</value>
+  </data>
+  <data name="Calendar_Today" xml:space="preserve">
+    <value>Днес</value>
+  </data>
+  <data name="Carousel_Next" xml:space="preserve">
+    <value>Следваща</value>
+  </data>
+  <data name="Carousel_Previous" xml:space="preserve">
+    <value>Предишна</value>
+  </data>
+  <data name="ColorAlpha_Label" xml:space="preserve">
+    <value>A</value>
+  </data>
+  <data name="ColorBlue_Label" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="ColorGradient_AlphaSlider_Label" xml:space="preserve">
+    <value>Стойност на плъзгача Alpha</value>
+  </data>
+  <data name="ColorGradient_HueSlider_Label" xml:space="preserve">
+    <value>Стойност на плъзгача Hue</value>
+  </data>
+  <data name="ColorGradient_ToggleButton" xml:space="preserve">
+    <value>Превключи формат.</value>
+  </data>
+  <data name="ColorGreen_Label" xml:space="preserve">
+    <value>G</value>
+  </data>
+  <data name="ColorHex_Label" xml:space="preserve">
+    <value>HEX</value>
+  </data>
+  <data name="ColorHex_Placeholder" xml:space="preserve">
+    <value>HEX цвят</value>
+  </data>
+  <data name="ColorPicker_Apply" xml:space="preserve">
+    <value>Приложи</value>
+  </data>
+  <data name="ColorPicker_Cancel" xml:space="preserve">
+    <value>Откажи</value>
+  </data>
+  <data name="ColorPicker_ClearTitle" xml:space="preserve">
+    <value>Изчисти</value>
+  </data>
+  <data name="ColorPicker_CurrentColor" xml:space="preserve">
+    <value>Текущ цвят</value>
+  </data>
+  <data name="ColorPicker_GradientViewTitle" xml:space="preserve">
+    <value>Избери изглед gradient</value>
+  </data>
+  <data name="ColorPicker_Open" xml:space="preserve">
+    <value>Отвори</value>
+  </data>
+  <data name="ColorPicker_PaletteViewTitle" xml:space="preserve">
+    <value>Избери изглед палитра</value>
+  </data>
+  <data name="ColorPicker_PreviewColor" xml:space="preserve">
+    <value>Преглед на цвят</value>
+  </data>
+  <data name="ColorRed_Label" xml:space="preserve">
+    <value>R</value>
+  </data>
+  <data name="ColumnMenu_Apply" xml:space="preserve">
+    <value>Приложи</value>
+  </data>
+  <data name="ColumnMenu_ColumnMenu" xml:space="preserve">
+    <value>Меню с колони</value>
+  </data>
+  <data name="ColumnMenu_Columns" xml:space="preserve">
+    <value>Колони</value>
+  </data>
+  <data name="ColumnMenu_Lock" xml:space="preserve">
+    <value>Заключи</value>
+  </data>
+  <data name="ColumnMenu_Reset" xml:space="preserve">
+    <value>Рестартирай</value>
+  </data>
+  <data name="ColumnMenu_SortAscending" xml:space="preserve">
+    <value>Сортирай възходящо</value>
+  </data>
+  <data name="ColumnMenu_SortDescending" xml:space="preserve">
+    <value>Сортирай низходящо</value>
+  </data>
+  <data name="ColumnMenu_Unlock" xml:space="preserve">
+    <value>Отключи</value>
+  </data>
+  <data name="ComboBox_Cancel" xml:space="preserve">
+    <value>Откажи</value>
+  </data>
+  <data name="ComboBox_Clear" xml:space="preserve">
+    <value>Премахни</value>
+  </data>
+  <data name="ComboBox_NoData" xml:space="preserve">
+    <value>Няма данни</value>
+  </data>
+  <data name="ComboBox_Open" xml:space="preserve">
+    <value>Отвори</value>
+  </data>
+  <data name="DateInput_Clear" xml:space="preserve">
+    <value>Изчисти</value>
+  </data>
+  <data name="DateInput_ParsingErrorMessage" xml:space="preserve">
+    <value>Дата не може да се парсне. Моля въведете валидна дата.</value>
+  </data>
+  <data name="DateInput_ValidationErrorMessage" xml:space="preserve">
+    <value>Датата не е валидна.</value>
+  </data>
+  <data name="DatePicker_Cancel" xml:space="preserve">
+    <value>Откажи</value>
+  </data>
+  <data name="DatePicker_Open" xml:space="preserve">
+    <value>Отвори</value>
+  </data>
+  <data name="DatePicker_SetDate" xml:space="preserve">
+    <value>Задай дата</value>
+  </data>
+  <data name="DateRangePicker_Cancel" xml:space="preserve">
+    <value>Откажи</value>
+  </data>
+  <data name="DateRangePicker_ConfirmSelection" xml:space="preserve">
+    <value>Потвърди избор</value>
+  </data>
+  <data name="DateRangePicker_End" xml:space="preserve">
+    <value>Край</value>
+  </data>
+  <data name="DateRangePicker_Start" xml:space="preserve">
+    <value>Старт</value>
+  </data>
+  <data name="DateTimePicker_Cancel" xml:space="preserve">
+    <value>Отказ</value>
+  </data>
+  <data name="DateTimePicker_Date" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="DateTimePicker_Open" xml:space="preserve">
+    <value>Отвори</value>
+  </data>
+  <data name="DateTimePicker_Set" xml:space="preserve">
+    <value>Избери</value>
+  </data>
+  <data name="DateTimePicker_Time" xml:space="preserve">
+    <value>Време</value>
+  </data>
+  <data name="Dialog_Cancel" xml:space="preserve">
+    <value>Отказ</value>
+  </data>
+  <data name="Dialog_Close" xml:space="preserve">
+    <value>Затвори</value>
+  </data>
+  <data name="Dialog_Ok" xml:space="preserve">
+    <value>ОК</value>
+  </data>
+  <data name="DropDownList_Cancel" xml:space="preserve">
+    <value>Откажи</value>
+  </data>
+  <data name="DropDownList_NoData" xml:space="preserve">
+    <value>Няма данни</value>
+  </data>
+  <data name="DropDownList_Open" xml:space="preserve">
+    <value>Отвори</value>
+  </data>
+  <data name="Editor_AddColumnAfter" xml:space="preserve">
+    <value>Добави колона от дясно</value>
+  </data>
+  <data name="Editor_AddColumnBefore" xml:space="preserve">
+    <value>Добави колона от ляво</value>
+  </data>
+  <data name="Editor_AddRowAfter" xml:space="preserve">
+    <value>Добави ред отдолу</value>
+  </data>
+  <data name="Editor_AddRowBefore" xml:space="preserve">
+    <value>Добави ред отгоре</value>
+  </data>
+  <data name="Editor_AddRowBelow" xml:space="preserve">
+    <value>Добави ред отдолу</value>
+  </data>
+  <data name="Editor_AlignCenter" xml:space="preserve">
+    <value>Центрирай</value>
+  </data>
+  <data name="Editor_AlignJustify" xml:space="preserve">
+    <value>Подравни</value>
+  </data>
+  <data name="Editor_AlignLeft" xml:space="preserve">
+    <value>Подравни отляво</value>
+  </data>
+  <data name="Editor_AlignRight" xml:space="preserve">
+    <value>Подравни отдясно</value>
+  </data>
+  <data name="Editor_BackColor" xml:space="preserve">
+    <value>Цвят на фона</value>
+  </data>
+  <data name="Editor_Bold" xml:space="preserve">
+    <value>Получер</value>
+  </data>
+  <data name="Editor_CreateLink" xml:space="preserve">
+    <value>Направи препратка</value>
+  </data>
+  <data name="Editor_CreateTable" xml:space="preserve">
+    <value>Създай таблица</value>
+  </data>
+  <data name="Editor_CreateTablePopup" xml:space="preserve">
+    <value>Създай {0} таблица</value>
+  </data>
+  <data name="Editor_DeleteColumn" xml:space="preserve">
+    <value>Изтрий колона</value>
+  </data>
+  <data name="Editor_DeleteRow" xml:space="preserve">
+    <value>Изтрий реда</value>
+  </data>
+  <data name="Editor_DialogCancel" xml:space="preserve">
+    <value>Откажи</value>
+  </data>
+  <data name="Editor_DialogClose" xml:space="preserve">
+    <value>Затвори</value>
+  </data>
+  <data name="Editor_DialogInsert" xml:space="preserve">
+    <value>Добави</value>
+  </data>
+  <data name="Editor_DialogUpdate" xml:space="preserve">
+    <value>Обнови</value>
+  </data>
+  <data name="Editor_FontFamily" xml:space="preserve">
+    <value>Шрифт</value>
+  </data>
+  <data name="Editor_FontSize" xml:space="preserve">
+    <value>Размер на шрифта</value>
+  </data>
+  <data name="Editor_ForeColor" xml:space="preserve">
+    <value>Цвят</value>
+  </data>
+  <data name="Editor_Format" xml:space="preserve">
+    <value>Формат</value>
+  </data>
+  <data name="Editor_ImageAltText" xml:space="preserve">
+    <value>Допълнителен текст:</value>
+  </data>
+  <data name="Editor_ImageHeight" xml:space="preserve">
+    <value>Височина:</value>
+  </data>
+  <data name="Editor_ImageWebAddress" xml:space="preserve">
+    <value>Уеб адрес:</value>
+  </data>
+  <data name="Editor_ImageWidth" xml:space="preserve">
+    <value>Ширина:</value>
+  </data>
+  <data name="Editor_Indent" xml:space="preserve">
+    <value>Добави отстъп</value>
+  </data>
+  <data name="Editor_InsertFile" xml:space="preserve">
+    <value>Вмъкни файл</value>
+  </data>
+  <data name="Editor_InsertHtml" xml:space="preserve">
+    <value>Вмъкни HTML</value>
+  </data>
+  <data name="Editor_InsertImage" xml:space="preserve">
+    <value>Вмъкни картина</value>
+  </data>
+  <data name="Editor_InsertOrderedList" xml:space="preserve">
+    <value>Вмъкни номериран списък</value>
+  </data>
+  <data name="Editor_InsertUnorderedList" xml:space="preserve">
+    <value>Вмъкни списък</value>
+  </data>
+  <data name="Editor_Italic" xml:space="preserve">
+    <value>Курсив</value>
+  </data>
+  <data name="Editor_LinkOpenNewWindow" xml:space="preserve">
+    <value>Отвори в нов прозорец</value>
+  </data>
+  <data name="Editor_LinkText" xml:space="preserve">
+    <value>Текст</value>
+  </data>
+  <data name="Editor_LinkTitle" xml:space="preserve">
+    <value>Заглавие:</value>
+  </data>
+  <data name="Editor_LinkWebAddress" xml:space="preserve">
+    <value>Уеб адрес:</value>
+  </data>
+  <data name="Editor_MergeCells" xml:space="preserve">
+    <value>Сливане на клетки</value>
+  </data>
+  <data name="Editor_Outdent" xml:space="preserve">
+    <value>Премахни отстъп</value>
+  </data>
+  <data name="Editor_Redo" xml:space="preserve">
+    <value>Напред</value>
+  </data>
+  <data name="Editor_SetHtml" xml:space="preserve">
+    <value>Виж HTML-а</value>
+  </data>
+  <data name="Editor_SplitCell" xml:space="preserve">
+    <value>Раздели клетка</value>
+  </data>
+  <data name="Editor_Strikethrough" xml:space="preserve">
+    <value>Зачертай</value>
+  </data>
+  <data name="Editor_Subscript" xml:space="preserve">
+    <value>Долен индекс</value>
+  </data>
+  <data name="Editor_Superscript" xml:space="preserve">
+    <value>Горен индекс</value>
+  </data>
+  <data name="Editor_Underline" xml:space="preserve">
+    <value>Подчертай</value>
+  </data>
+  <data name="Editor_Undo" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="Editor_Unlink" xml:space="preserve">
+    <value>Премахни препратка</value>
+  </data>
+  <data name="FileManager_ConfirmDeleteCancel" xml:space="preserve">
+    <value>Откажи</value>
+  </data>
+  <data name="FileManager_ConfirmDeleteOk" xml:space="preserve">
+    <value>ОК</value>
+  </data>
+  <data name="FileManager_ConfirmDeleteText" xml:space="preserve">
+    <value>Сигурни ли сте, че искате да изтриете файл(овете)?</value>
+  </data>
+  <data name="FileManager_ConfirmDeleteTitle" xml:space="preserve">
+    <value>Изтриване</value>
+  </data>
+  <data name="FileManager_ContextMenu_Delete" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="FileManager_ContextMenu_Download" xml:space="preserve">
+    <value>Свали</value>
+  </data>
+  <data name="FileManager_ContextMenu_Rename" xml:space="preserve">
+    <value>Преименувай</value>
+  </data>
+  <data name="FileManager_DetailsPane_DateCreated" xml:space="preserve">
+    <value>Дата на създаване</value>
+  </data>
+  <data name="FileManager_DetailsPane_DateModified" xml:space="preserve">
+    <value>Дата на промяна</value>
+  </data>
+  <data name="FileManager_DetailsPane_NoFileSelected" xml:space="preserve">
+    <value>Не са избрани файлове</value>
+  </data>
+  <data name="FileManager_DetailsPane_Size" xml:space="preserve">
+    <value>Размер</value>
+  </data>
+  <data name="FileManager_DetailsPane_Type" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="FileManager_FileView_Items" xml:space="preserve">
+    <value>items</value>
+  </data>
+  <data name="FileManager_Grid_DateCreatedColumnTitle" xml:space="preserve">
+    <value>Дата на създаване</value>
+  </data>
+  <data name="FileManager_Grid_FileSizeColumnTitle" xml:space="preserve">
+    <value>Размер на файл</value>
+  </data>
+  <data name="FileManager_Grid_NameColumnTitle" xml:space="preserve">
+    <value>Име</value>
+  </data>
+  <data name="FileManager_SearchBox_Placeholder" xml:space="preserve">
+    <value>Търсене</value>
+  </data>
+  <data name="FileManager_SearchBox_Title" xml:space="preserve">
+    <value>Търсене</value>
+  </data>
+  <data name="FileManager_ToolBar_CreateNewFolder" xml:space="preserve">
+    <value>Нова папка</value>
+  </data>
+  <data name="FileManager_ToolBar_SortBy" xml:space="preserve">
+    <value>Сортирай</value>
+  </data>
+  <data name="FileManager_ToolBar_SortByDateCreated" xml:space="preserve">
+    <value>Дата на създаване</value>
+  </data>
+  <data name="FileManager_ToolBar_SortByDateModified" xml:space="preserve">
+    <value>Дата на редактиране</value>
+  </data>
+  <data name="FileManager_ToolBar_SortByName" xml:space="preserve">
+    <value>Име</value>
+  </data>
+  <data name="FileManager_ToolBar_SortBySize" xml:space="preserve">
+    <value>Размер</value>
+  </data>
+  <data name="FileManager_ToolBar_SortByType" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="FileManager_ToolBar_Upload" xml:space="preserve">
+    <value>Качи</value>
+  </data>
+  <data name="FileManager_ToolBar_ViewDetails" xml:space="preserve">
+    <value>Виж детайли</value>
+  </data>
+  <data name="FileManager_UploadDialogCancel" xml:space="preserve">
+    <value>Откажи</value>
+  </data>
+  <data name="FileManager_UploadDialogOk" xml:space="preserve">
+    <value>ОК</value>
+  </data>
+  <data name="FileManager_UploadDialogTitle" xml:space="preserve">
+    <value>Качи файлове</value>
+  </data>
+  <data name="FileSelect_InvalidFileExtension" xml:space="preserve">
+    <value>Типът на файла не е позволен.</value>
+  </data>
+  <data name="FileSelect_InvalidMaxFileSize" xml:space="preserve">
+    <value>Размерът на файла е твърде голям.</value>
+  </data>
+  <data name="FileSelect_InvalidMinFileSize" xml:space="preserve">
+    <value>Размерът на файла е твърде малък.</value>
+  </data>
+  <data name="FileSelect_Remove" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="FileSelect_SelectFiles" xml:space="preserve">
+    <value>Избери файлове...</value>
+  </data>
+  <data name="Filter_AddExpression" xml:space="preserve">
+    <value>Добави израз</value>
+  </data>
+  <data name="Filter_AddGroup" xml:space="preserve">
+    <value>Добави група</value>
+  </data>
+  <data name="Filter_AdditionalOperator" xml:space="preserve">
+    <value>Допълнителен оператор</value>
+  </data>
+  <data name="Filter_AdditionalValue" xml:space="preserve">
+    <value>Допълнителна стойност</value>
+  </data>
+  <data name="Filter_All" xml:space="preserve">
+    <value>(Всички)</value>
+  </data>
+  <data name="Filter_And" xml:space="preserve">
+    <value>и</value>
+  </data>
+  <data name="Filter_BooleanIsEqualTo" xml:space="preserve">
+    <value>Е равно на</value>
+  </data>
+  <data name="Filter_BooleanIsNotEqualTo" xml:space="preserve">
+    <value>Не е равно на</value>
+  </data>
+  <data name="Filter_Cancel" xml:space="preserve">
+    <value>Откажи</value>
+  </data>
+  <data name="Filter_Clear" xml:space="preserve">
+    <value>Премахни</value>
+  </data>
+  <data name="Filter_DateIsEqualTo" xml:space="preserve">
+    <value>Е равно на</value>
+  </data>
+  <data name="Filter_DateIsGreaterThan" xml:space="preserve">
+    <value>Е след</value>
+  </data>
+  <data name="Filter_DateIsGreaterThanOrEqualTo" xml:space="preserve">
+    <value>Е след или равно на</value>
+  </data>
+  <data name="Filter_DateIsLessThan" xml:space="preserve">
+    <value>Е преди</value>
+  </data>
+  <data name="Filter_DateIsLessThanOrEqualTo" xml:space="preserve">
+    <value>Е преди или равно на</value>
+  </data>
+  <data name="Filter_DateIsNotEqualTo" xml:space="preserve">
+    <value>Не е равно на</value>
+  </data>
+  <data name="Filter_DateIsNotNull" xml:space="preserve">
+    <value>Не е null</value>
+  </data>
+  <data name="Filter_DateIsNull" xml:space="preserve">
+    <value>Е null</value>
+  </data>
+  <data name="Filter_EnumIsEqualTo" xml:space="preserve">
+    <value>E равно на</value>
+  </data>
+  <data name="Filter_EnumIsNotEqualTo" xml:space="preserve">
+    <value>Не е равно на</value>
+  </data>
+  <data name="Filter_EnumIsNotNull" xml:space="preserve">
+    <value>Не е null</value>
+  </data>
+  <data name="Filter_EnumIsNull" xml:space="preserve">
+    <value>Е null</value>
+  </data>
+  <data name="Filter_Filter" xml:space="preserve">
+    <value>Филтрирай</value>
+  </data>
+  <data name="Filter_FilterLabel" xml:space="preserve">
+    <value>Филтър</value>
+  </data>
+  <data name="Filter_FilterSettings" xml:space="preserve">
+    <value>Настройки на филтъра</value>
+  </data>
+  <data name="Filter_Info" xml:space="preserve">
+    <value>Показване на записи със стойност, която</value>
+  </data>
+  <data name="Filter_IsFalse" xml:space="preserve">
+    <value>не е вярно</value>
+  </data>
+  <data name="Filter_IsTrue" xml:space="preserve">
+    <value>е вярно</value>
+  </data>
+  <data name="Filter_NoData" xml:space="preserve">
+    <value>Няма намерени данни</value>
+  </data>
+  <data name="Filter_NumberIsEqualTo" xml:space="preserve">
+    <value>Е равно на</value>
+  </data>
+  <data name="Filter_NumberIsGreaterThan" xml:space="preserve">
+    <value>Е по-голямо от</value>
+  </data>
+  <data name="Filter_NumberIsGreaterThanOrEqualTo" xml:space="preserve">
+    <value>Е по-голяма или равно на</value>
+  </data>
+  <data name="Filter_NumberIsLessThan" xml:space="preserve">
+    <value>Е по-малко от</value>
+  </data>
+  <data name="Filter_NumberIsLessThanOrEqualTo" xml:space="preserve">
+    <value>Е по-малко или равно на</value>
+  </data>
+  <data name="Filter_NumberIsNotEqualTo" xml:space="preserve">
+    <value>Не е равно на</value>
+  </data>
+  <data name="Filter_NumberIsNotNull" xml:space="preserve">
+    <value>Не е null</value>
+  </data>
+  <data name="Filter_NumberIsNull" xml:space="preserve">
+    <value>Е null</value>
+  </data>
+  <data name="Filter_Operator" xml:space="preserve">
+    <value>Оператор</value>
+  </data>
+  <data name="Filter_Or" xml:space="preserve">
+    <value>или</value>
+  </data>
+  <data name="Filter_Remove" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="Filter_Search" xml:space="preserve">
+    <value>Търси</value>
+  </data>
+  <data name="Filter_SelectAll" xml:space="preserve">
+    <value>Избери всички</value>
+  </data>
+  <data name="Filter_SelectValue" xml:space="preserve">
+    <value>-Избери стойност-</value>
+  </data>
+  <data name="Filter_StringContains" xml:space="preserve">
+    <value>Съдържа</value>
+  </data>
+  <data name="Filter_StringDoesNotContain" xml:space="preserve">
+    <value>Не съдържа</value>
+  </data>
+  <data name="Filter_StringEndsWith" xml:space="preserve">
+    <value>Завършва на</value>
+  </data>
+  <data name="Filter_StringIsEmpty" xml:space="preserve">
+    <value>Е празно</value>
+  </data>
+  <data name="Filter_StringIsEqualTo" xml:space="preserve">
+    <value>Е равно на</value>
+  </data>
+  <data name="Filter_StringIsNotEmpty" xml:space="preserve">
+    <value>Не е празно</value>
+  </data>
+  <data name="Filter_StringIsNotEqualTo" xml:space="preserve">
+    <value>Не е равно на</value>
+  </data>
+  <data name="Filter_StringIsNotNull" xml:space="preserve">
+    <value>Не е null</value>
+  </data>
+  <data name="Filter_StringIsNotNullOrEmpty" xml:space="preserve">
+    <value>Има стойност</value>
+  </data>
+  <data name="Filter_StringIsNull" xml:space="preserve">
+    <value>Е null</value>
+  </data>
+  <data name="Filter_StringIsNullOrEmpty" xml:space="preserve">
+    <value>Няма стойност</value>
+  </data>
+  <data name="Filter_StringStartsWith" xml:space="preserve">
+    <value>Започва с</value>
+  </data>
+  <data name="Filter_Value" xml:space="preserve">
+    <value>Стойност</value>
+  </data>
+  <data name="Form_Clear" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="Form_Submit" xml:space="preserve">
+    <value>Изпрати</value>
+  </data>
+  <data name="Gantt_Cancel" xml:space="preserve">
+    <value>Откажи</value>
+  </data>
+  <data name="Gantt_Day" xml:space="preserve">
+    <value>Ден</value>
+  </data>
+  <data name="Gantt_Delete" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="Gantt_DialogClose" xml:space="preserve">
+    <value>Затвори</value>
+  </data>
+  <data name="Gantt_Editor_EditorTitle" xml:space="preserve">
+    <value>Задача</value>
+  </data>
+  <data name="Gantt_Editor_End" xml:space="preserve">
+    <value>Край</value>
+  </data>
+  <data name="Gantt_Editor_EndTimeValueValidationMessage" xml:space="preserve">
+    <value>Крайното време трябва да е след началното.</value>
+  </data>
+  <data name="Gantt_Editor_PercentComplete" xml:space="preserve">
+    <value>Завършеност</value>
+  </data>
+  <data name="Gantt_Editor_Start" xml:space="preserve">
+    <value>Начало</value>
+  </data>
+  <data name="Gantt_Editor_StartTimeValueValidationMessage" xml:space="preserve">
+    <value>Стартовото време трябва да е преди крайното.</value>
+  </data>
+  <data name="Gantt_Editor_Title" xml:space="preserve">
+    <value>Заглавие</value>
+  </data>
+  <data name="Gantt_Editor_TitleRequiredValidationMessage" xml:space="preserve">
+    <value>Заглавието е задължително.</value>
+  </data>
+  <data name="Gantt_Month" xml:space="preserve">
+    <value>Месец</value>
+  </data>
+  <data name="Gantt_Save" xml:space="preserve">
+    <value>Запази</value>
+  </data>
+  <data name="Gantt_Week" xml:space="preserve">
+    <value>Седмица</value>
+  </data>
+  <data name="Gantt_Year" xml:space="preserve">
+    <value>Година</value>
+  </data>
+  <data name="Grid_Cancel" xml:space="preserve">
+    <value>Отказ</value>
+  </data>
+  <data name="Grid_CancelChanges" xml:space="preserve">
+    <value>Отмяна на промените</value>
+  </data>
+  <data name="Grid_CancelDelete" xml:space="preserve">
+    <value>Откажи</value>
+  </data>
+  <data name="Grid_CheckAll" xml:space="preserve">
+    <value>Избери всички</value>
+  </data>
+  <data name="Grid_Columns" xml:space="preserve">
+    <value>Колони</value>
+  </data>
+  <data name="Grid_ColumnSettings" xml:space="preserve">
+    <value>Настройки колони</value>
+  </data>
+  <data name="Grid_Confirmation" xml:space="preserve">
+    <value>Сигурни ли сте, че искате да изтриете този запис?</value>
+  </data>
+  <data name="Grid_ConfirmDelete" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="Grid_ConfirmDeleteCancel" xml:space="preserve">
+    <value>Откажи</value>
+  </data>
+  <data name="Grid_ConfirmDeleteOk" xml:space="preserve">
+    <value>ОК</value>
+  </data>
+  <data name="Grid_ConfirmDeleteText" xml:space="preserve">
+    <value>Сигурни ли сте, че искате да изтриете записа?</value>
+  </data>
+  <data name="Grid_ConfirmDeleteTitle" xml:space="preserve">
+    <value>Изтриване</value>
+  </data>
+  <data name="Grid_Create" xml:space="preserve">
+    <value>Добави</value>
+  </data>
+  <data name="Grid_Csv" xml:space="preserve">
+    <value>Експорт в CSV</value>
+  </data>
+  <data name="Grid_DataTable" xml:space="preserve">
+    <value>Таблица с данни</value>
+  </data>
+  <data name="Grid_Delete" xml:space="preserve">
+    <value>Изтриване</value>
+  </data>
+  <data name="Grid_DialogClose" xml:space="preserve">
+    <value>Затвори</value>
+  </data>
+  <data name="Grid_Done" xml:space="preserve">
+    <value>Готово</value>
+  </data>
+  <data name="Grid_DragItems" xml:space="preserve">
+    <value>избрани редове</value>
+  </data>
+  <data name="Grid_DragRowLabel" xml:space="preserve">
+    <value>Дръпни ред</value>
+  </data>
+  <data name="Grid_Edit" xml:space="preserve">
+    <value>Редактиране</value>
+  </data>
+  <data name="Grid_Excel" xml:space="preserve">
+    <value>Експорт в Excel</value>
+  </data>
+  <data name="Grid_Filter" xml:space="preserve">
+    <value>Филтър</value>
+  </data>
+  <data name="Grid_FilterMenuSettings" xml:space="preserve">
+    <value>{0} колона настройки филтър меню</value>
+  </data>
+  <data name="Grid_FilterRowLabel" xml:space="preserve">
+    <value>{0} филтър</value>
+  </data>
+  <data name="Grid_GroupHeaderLabel" xml:space="preserve">
+    <value>Колонтитул на групиране</value>
+  </data>
+  <data name="Grid_Lock" xml:space="preserve">
+    <value>Заключи</value>
+  </data>
+  <data name="Grid_NoRecords" xml:space="preserve">
+    <value>Няма налични записи.</value>
+  </data>
+  <data name="Grid_Remove" xml:space="preserve">
+    <value>Премахни</value>
+  </data>
+  <data name="Grid_SaveChanges" xml:space="preserve">
+    <value>Запази промените</value>
+  </data>
+  <data name="Grid_Search" xml:space="preserve">
+    <value>Търси...</value>
+  </data>
+  <data name="Grid_Select" xml:space="preserve">
+    <value>Избери</value>
+  </data>
+  <data name="Grid_SelectAllRows" xml:space="preserve">
+    <value>Селектирай всички редове</value>
+  </data>
+  <data name="Grid_SelectRow" xml:space="preserve">
+    <value>Селектирай ред</value>
+  </data>
+  <data name="Grid_SortAscending" xml:space="preserve">
+    <value>Сортирай възходящо</value>
+  </data>
+  <data name="Grid_SortDescending" xml:space="preserve">
+    <value>Сортирай низходящо</value>
+  </data>
+  <data name="Grid_SortedAscending" xml:space="preserve">
+    <value>Сортирано във възходящ ред</value>
+  </data>
+  <data name="Grid_SortedDescending" xml:space="preserve">
+    <value>Сортирано в низходящ ред</value>
+  </data>
+  <data name="Grid_ToolbarLabel" xml:space="preserve">
+    <value>Лента с инструменти на таблицата</value>
+  </data>
+  <data name="Grid_Unlock" xml:space="preserve">
+    <value>Отключи</value>
+  </data>
+  <data name="Grid_Update" xml:space="preserve">
+    <value>Запази</value>
+  </data>
+  <data name="Group_Empty" xml:space="preserve">
+    <value>Дръпни колона и я пусни тук, за да групираш</value>
+  </data>
+  <data name="MaskedTextBox_Clear" xml:space="preserve">
+    <value>Изчисти</value>
+  </data>
+  <data name="MultiSelect_Apply" xml:space="preserve">
+    <value>Приложи</value>
+  </data>
+  <data name="MultiSelect_Cancel" xml:space="preserve">
+    <value>Откажи</value>
+  </data>
+  <data name="MultiSelect_Clear" xml:space="preserve">
+    <value>Изчисти</value>
+  </data>
+  <data name="MultiSelect_NoData" xml:space="preserve">
+    <value>Няма намерени данни</value>
+  </data>
+  <data name="NumericTextBox_Clear" xml:space="preserve">
+    <value>Изчисти</value>
+  </data>
+  <data name="NumericTextBox_DecreaseValue" xml:space="preserve">
+    <value>Намали стойността</value>
+  </data>
+  <data name="NumericTextBox_IncreaseValue" xml:space="preserve">
+    <value>Увеличи стойността</value>
+  </data>
+  <data name="Optional_Label" xml:space="preserve">
+    <value>Незадължителен</value>
+  </data>
+  <data name="Pager_AllPages" xml:space="preserve">
+    <value>Всички</value>
+  </data>
+  <data name="Pager_Display" xml:space="preserve">
+    <value>{0} - {1} от {2} записи</value>
+  </data>
+  <data name="Pager_Empty" xml:space="preserve">
+    <value>Няма записи за показване!</value>
+  </data>
+  <data name="Pager_First" xml:space="preserve">
+    <value>Към първата страница</value>
+  </data>
+  <data name="Pager_ItemsPerPage" xml:space="preserve">
+    <value>записи на страница</value>
+  </data>
+  <data name="Pager_Last" xml:space="preserve">
+    <value>Към последната страница</value>
+  </data>
+  <data name="Pager_MorePages" xml:space="preserve">
+    <value>Още страници</value>
+  </data>
+  <data name="Pager_Next" xml:space="preserve">
+    <value>Към следващата страница</value>
+  </data>
+  <data name="Pager_Of" xml:space="preserve">
+    <value>от {0}</value>
+  </data>
+  <data name="Pager_Page" xml:space="preserve">
+    <value>Страница</value>
+  </data>
+  <data name="Pager_PageDisplay" xml:space="preserve">
+    <value>Страница {0}</value>
+  </data>
+  <data name="Pager_PageInputLabel" xml:space="preserve">
+    <value>Избери страница</value>
+  </data>
+  <data name="Pager_Previous" xml:space="preserve">
+    <value>Към предишната страница</value>
+  </data>
+  <data name="Pager_Refresh" xml:space="preserve">
+    <value>Опресни</value>
+  </data>
+  <data name="Pager_WrapperLabel" xml:space="preserve">
+    <value>Навигиране страницa, страница {0} от {1}</value>
+  </data>
+  <data name="PdfViewer_Search_Close" xml:space="preserve">
+    <value>Затвори</value>
+  </data>
+  <data name="PdfViewer_Search_MatchCase" xml:space="preserve">
+    <value>Търси малки/главни букви</value>
+  </data>
+  <data name="PdfViewer_Search_MatchesOf" xml:space="preserve">
+    <value>от</value>
+  </data>
+  <data name="PdfViewer_Search_NextMatch" xml:space="preserve">
+    <value>Следващо съвпадение</value>
+  </data>
+  <data name="PdfViewer_Search_Placeholder" xml:space="preserve">
+    <value>Търси</value>
+  </data>
+  <data name="PdfViewer_Search_PreviousMatch" xml:space="preserve">
+    <value>Предишно съвпадение</value>
+  </data>
+  <data name="PdfViewer_ToolBar_Download" xml:space="preserve">
+    <value>Свали</value>
+  </data>
+  <data name="PdfViewer_ToolBar_Open" xml:space="preserve">
+    <value>Отвори</value>
+  </data>
+  <data name="PdfViewer_ToolBar_Panning" xml:space="preserve">
+    <value>Активирай местене</value>
+  </data>
+  <data name="PdfViewer_ToolBar_Print" xml:space="preserve">
+    <value>Принтирай</value>
+  </data>
+  <data name="PdfViewer_ToolBar_Search" xml:space="preserve">
+    <value>Търсене</value>
+  </data>
+  <data name="PdfViewer_ToolBar_TextSelection" xml:space="preserve">
+    <value>Активирай селекция</value>
+  </data>
+  <data name="PdfViewer_ToolBar_ZoomActualWidth" xml:space="preserve">
+    <value>Действителна ширина</value>
+  </data>
+  <data name="PdfViewer_ToolBar_ZoomFitToPage" xml:space="preserve">
+    <value>Цяла страница</value>
+  </data>
+  <data name="PdfViewer_ToolBar_ZoomFitToWidth" xml:space="preserve">
+    <value>Изпълни ширината</value>
+  </data>
+  <data name="PdfViewer_ToolBar_ZoomIn" xml:space="preserve">
+    <value>Приближи</value>
+  </data>
+  <data name="PdfViewer_ToolBar_ZoomOut" xml:space="preserve">
+    <value>Отдалечи</value>
+  </data>
+  <data name="Scheduler_AllDay" xml:space="preserve">
+    <value>цял ден</value>
+  </data>
+  <data name="Scheduler_AllEvents" xml:space="preserve">
+    <value>Събития</value>
+  </data>
+  <data name="Scheduler_Cancel" xml:space="preserve">
+    <value>Откажи</value>
+  </data>
+  <data name="Scheduler_ConfirmDeleteCancel" xml:space="preserve">
+    <value>Откажи</value>
+  </data>
+  <data name="Scheduler_ConfirmDeleteOk" xml:space="preserve">
+    <value>ОК</value>
+  </data>
+  <data name="Scheduler_ConfirmDeleteText" xml:space="preserve">
+    <value>Сигурни ли сте, че искате да изтриете събитието?</value>
+  </data>
+  <data name="Scheduler_ConfirmDeleteTitle" xml:space="preserve">
+    <value>Изтриване на събитие</value>
+  </data>
+  <data name="Scheduler_Day" xml:space="preserve">
+    <value>Ден</value>
+  </data>
+  <data name="Scheduler_Delete" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="Scheduler_DialogClose" xml:space="preserve">
+    <value>Затвори</value>
+  </data>
+  <data name="Scheduler_Editor_Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="Scheduler_Editor_EditorTitle" xml:space="preserve">
+    <value>Събитие</value>
+  </data>
+  <data name="Scheduler_Editor_End" xml:space="preserve">
+    <value>Край</value>
+  </data>
+  <data name="Scheduler_Editor_EndTimeRequiredValidationMessage" xml:space="preserve">
+    <value>Крайно време е задължително.</value>
+  </data>
+  <data name="Scheduler_Editor_EndTimeValueValidationMessage" xml:space="preserve">
+    <value>Крайното време трябва да е след началното.</value>
+  </data>
+  <data name="Scheduler_Editor_IsAllDay" xml:space="preserve">
+    <value>Целодневно събитие</value>
+  </data>
+  <data name="Scheduler_Editor_Repeat" xml:space="preserve">
+    <value>Повторение</value>
+  </data>
+  <data name="Scheduler_Editor_Start" xml:space="preserve">
+    <value>Начало</value>
+  </data>
+  <data name="Scheduler_Editor_StartTimeRequiredValidationMessage" xml:space="preserve">
+    <value>Стартово време е задължително.</value>
+  </data>
+  <data name="Scheduler_Editor_StartTimeValueValidationMessage" xml:space="preserve">
+    <value>Стартовото време трябва да е преди крайното.</value>
+  </data>
+  <data name="Scheduler_Editor_Title" xml:space="preserve">
+    <value>Заглавие</value>
+  </data>
+  <data name="Scheduler_Editor_TitleRequiredValidationMessage" xml:space="preserve">
+    <value>Заглавието е задължително.</value>
+  </data>
+  <data name="Scheduler_Month" xml:space="preserve">
+    <value>Месец</value>
+  </data>
+  <data name="Scheduler_MultiDay" xml:space="preserve">
+    <value>Многодневен</value>
+  </data>
+  <data name="Scheduler_Next" xml:space="preserve">
+    <value>Следващ</value>
+  </data>
+  <data name="Scheduler_Previous" xml:space="preserve">
+    <value>Предишен</value>
+  </data>
+  <data name="Scheduler_Recurrence_DeleteRecurring" xml:space="preserve">
+    <value>Сигурен ли сте че искате да изтриете това събитие или цялата серия?</value>
+  </data>
+  <data name="Scheduler_Recurrence_DeleteWindowOccurrence" xml:space="preserve">
+    <value>Изтрии единично събитие</value>
+  </data>
+  <data name="Scheduler_Recurrence_DeleteWindowSeries" xml:space="preserve">
+    <value>Изтрии серията</value>
+  </data>
+  <data name="Scheduler_Recurrence_DeleteWindowTitle" xml:space="preserve">
+    <value>Изтриване на повтарящо се събитие</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Daily_Interval" xml:space="preserve">
+    <value> ден(дни)</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Daily_RepeatEvery" xml:space="preserve">
+    <value>Повтаряй всеки: </value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_End_After" xml:space="preserve">
+    <value>След </value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_End_Label" xml:space="preserve">
+    <value>Край:</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_End_Never" xml:space="preserve">
+    <value>Никога</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_End_Occurrence" xml:space="preserve">
+    <value> повторение(я)</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_End_On" xml:space="preserve">
+    <value>На </value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Frequencies_Daily" xml:space="preserve">
+    <value>Ежедневно</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Frequencies_Monthly" xml:space="preserve">
+    <value>Месечно</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Frequencies_Never" xml:space="preserve">
+    <value>Никога</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Frequencies_Weekly" xml:space="preserve">
+    <value>Седмично</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Frequencies_Yearly" xml:space="preserve">
+    <value>Годишно</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Monthly_Day" xml:space="preserve">
+    <value>Ден </value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Monthly_Interval" xml:space="preserve">
+    <value> месец(и)</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Monthly_RepeatEvery" xml:space="preserve">
+    <value>Повтаряй всеки: </value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Monthly_RepeatOn" xml:space="preserve">
+    <value>Повтаряй на: </value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_OffsetPositions_First" xml:space="preserve">
+    <value>първи(а)</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_OffsetPositions_Fourth" xml:space="preserve">
+    <value>четвърти(та)</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_OffsetPositions_Last" xml:space="preserve">
+    <value>последен(на)</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_OffsetPositions_Second" xml:space="preserve">
+    <value>втори(а)</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_OffsetPositions_Third" xml:space="preserve">
+    <value>трети(та)</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Weekdays_Day" xml:space="preserve">
+    <value>ден</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Weekdays_Weekday" xml:space="preserve">
+    <value>делник</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Weekdays_Weekend" xml:space="preserve">
+    <value>почивен ден</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Weekly_Interval" xml:space="preserve">
+    <value> седмица(и)</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Weekly_RepeatEvery" xml:space="preserve">
+    <value>Повтаряй на: </value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Weekly_RepeatOn" xml:space="preserve">
+    <value>Повтаряй всеки: </value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Yearly_Interval" xml:space="preserve">
+    <value> година(ни)</value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Yearly_Of" xml:space="preserve">
+    <value> от </value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Yearly_RepeatEvery" xml:space="preserve">
+    <value>Повтаряй всеки: </value>
+  </data>
+  <data name="Scheduler_Recurrence_Editor_Yearly_RepeatOn" xml:space="preserve">
+    <value>Повтаряй на: </value>
+  </data>
+  <data name="Scheduler_Recurrence_EditRecurring" xml:space="preserve">
+    <value>Сигурен ли сте че искате да промените това събитие или цялата серия?</value>
+  </data>
+  <data name="Scheduler_Recurrence_EditWindowOccurrence" xml:space="preserve">
+    <value>Промени единично събитие</value>
+  </data>
+  <data name="Scheduler_Recurrence_EditWindowSeries" xml:space="preserve">
+    <value>Промени серията</value>
+  </data>
+  <data name="Scheduler_Recurrence_EditWindowTitle" xml:space="preserve">
+    <value>Промяна на повтарящо се действие</value>
+  </data>
+  <data name="Scheduler_Save" xml:space="preserve">
+    <value>Запази</value>
+  </data>
+  <data name="Scheduler_ShowFullDay" xml:space="preserve">
+    <value>Покажи цял ден</value>
+  </data>
+  <data name="Scheduler_ShowWorkDay" xml:space="preserve">
+    <value>Покажи работни часове</value>
+  </data>
+  <data name="Scheduler_Timeline" xml:space="preserve">
+    <value>Таймлайн</value>
+  </data>
+  <data name="Scheduler_Today" xml:space="preserve">
+    <value>Днес</value>
+  </data>
+  <data name="Scheduler_Week" xml:space="preserve">
+    <value>Седмица</value>
+  </data>
+  <data name="Signature_Clear" xml:space="preserve">
+    <value>Изчисти</value>
+  </data>
+  <data name="Signature_Maximize" xml:space="preserve">
+    <value>Увеличи</value>
+  </data>
+  <data name="Signature_Minimize" xml:space="preserve">
+    <value>Намали</value>
+  </data>
+  <data name="Slider_Decrease" xml:space="preserve">
+    <value>Намали</value>
+  </data>
+  <data name="Slider_Increase" xml:space="preserve">
+    <value>Увеличи</value>
+  </data>
+  <data name="SplitButton_Open" xml:space="preserve">
+    <value>Отвори</value>
+  </data>
+  <data name="Switch_OffLabel" xml:space="preserve">
+    <value>Не</value>
+  </data>
+  <data name="Switch_OnLabel" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="TextBox_Clear" xml:space="preserve">
+    <value>Изчисти</value>
+  </data>
+  <data name="TabStrip_ShowNextTabs" xml:space="preserve">
+    <value>Покажи следващите табове</value>
+  </data>
+  <data name="TabStrip_ShowPreviousTabs" xml:space="preserve">
+    <value>Покажи предишните табове</value>
+  </data>
+  <data name="TimePicker_Cancel" xml:space="preserve">
+    <value>Отказ</value>
+  </data>
+  <data name="TimePicker_Day" xml:space="preserve">
+    <value>Ден</value>
+  </data>
+  <data name="TimePicker_DayPeriod" xml:space="preserve">
+    <value>Сутрин/Следобед</value>
+  </data>
+  <data name="TimePicker_Era" xml:space="preserve">
+    <value>Ера</value>
+  </data>
+  <data name="TimePicker_Hour" xml:space="preserve">
+    <value>Час</value>
+  </data>
+  <data name="TimePicker_Minute" xml:space="preserve">
+    <value>Минути</value>
+  </data>
+  <data name="TimePicker_Month" xml:space="preserve">
+    <value>Месец</value>
+  </data>
+  <data name="TimePicker_Now" xml:space="preserve">
+    <value>Сега</value>
+  </data>
+  <data name="TimePicker_Open" xml:space="preserve">
+    <value>Отвори</value>
+  </data>
+  <data name="TimePicker_Quarter" xml:space="preserve">
+    <value>Тримесечие</value>
+  </data>
+  <data name="TimePicker_Second" xml:space="preserve">
+    <value>Секунди</value>
+  </data>
+  <data name="TimePicker_Set" xml:space="preserve">
+    <value>Избери</value>
+  </data>
+  <data name="TimePicker_ToggleClock" xml:space="preserve">
+    <value>Отвори/затвори часовника</value>
+  </data>
+  <data name="TimePicker_WeekDay" xml:space="preserve">
+    <value>Ден от седмицата</value>
+  </data>
+  <data name="TimePicker_Year" xml:space="preserve">
+    <value>Година</value>
+  </data>
+  <data name="TimePicker_Zone" xml:space="preserve">
+    <value>Зона</value>
+  </data>
+  <data name="TreeList_Cancel" xml:space="preserve">
+    <value>Отказ</value>
+  </data>
+  <data name="TreeList_ConfirmDeleteCancel" xml:space="preserve">
+    <value>Откажи</value>
+  </data>
+  <data name="TreeList_ConfirmDeleteOk" xml:space="preserve">
+    <value>ОК</value>
+  </data>
+  <data name="TreeList_ConfirmDeleteText" xml:space="preserve">
+    <value>Сигурни ли сте, че искате да изтриете записа?</value>
+  </data>
+  <data name="TreeList_ConfirmDeleteTitle" xml:space="preserve">
+    <value>Изтриване</value>
+  </data>
+  <data name="TreeList_Create" xml:space="preserve">
+    <value>Добави</value>
+  </data>
+  <data name="TreeList_Delete" xml:space="preserve">
+    <value>Изтриване</value>
+  </data>
+  <data name="TreeList_DialogClose" xml:space="preserve">
+    <value>Затвори</value>
+  </data>
+  <data name="TreeList_Edit" xml:space="preserve">
+    <value>Редактиране</value>
+  </data>
+  <data name="TreeList_NoRecords" xml:space="preserve">
+    <value>Няма налични записи.</value>
+  </data>
+  <data name="TreeList_Search" xml:space="preserve">
+    <value>Търси...</value>
+  </data>
+  <data name="TreeList_SelectAllRows" xml:space="preserve">
+    <value>Избери всички редове</value>
+  </data>
+  <data name="TreeList_SelectRow" xml:space="preserve">
+    <value>Избери ред</value>
+  </data>
+  <data name="TreeList_SortedAscending" xml:space="preserve">
+    <value>Сортирано във възходящ ред</value>
+  </data>
+  <data name="TreeList_SortedDescending" xml:space="preserve">
+    <value>Сортирано в низходящ ред</value>
+  </data>
+  <data name="TreeList_Update" xml:space="preserve">
+    <value>Запази</value>
+  </data>
+  <data name="Upload_Cancel" xml:space="preserve">
+    <value>Отмени</value>
+  </data>
+  <data name="Upload_Clear" xml:space="preserve">
+    <value>Премахни</value>
+  </data>
+  <data name="Upload_FileStatusFailed" xml:space="preserve">
+    <value>Файлът не беше качен успешно.</value>
+  </data>
+  <data name="Upload_FileStatusUploaded" xml:space="preserve">
+    <value>Файлът е качен успешно.</value>
+  </data>
+  <data name="Upload_HeaderStatusUploaded" xml:space="preserve">
+    <value>Готово</value>
+  </data>
+  <data name="Upload_HeaderStatusUploading" xml:space="preserve">
+    <value>В процес на качване...</value>
+  </data>
+  <data name="Upload_InvalidFileExtension" xml:space="preserve">
+    <value>Типът на файла не е позволен.</value>
+  </data>
+  <data name="Upload_InvalidMaxFileSize" xml:space="preserve">
+    <value>Размерът на файла е твърде голям.</value>
+  </data>
+  <data name="Upload_InvalidMinFileSize" xml:space="preserve">
+    <value>Размерът на файла е твърде малък.</value>
+  </data>
+  <data name="Upload_Remove" xml:space="preserve">
+    <value>Натисни изтрий бутона, за да премахнеш</value>
+  </data>
+  <data name="Upload_Retry" xml:space="preserve">
+    <value>Опитай отново</value>
+  </data>
+  <data name="Upload_SelectFiles" xml:space="preserve">
+    <value>Избери файлове...</value>
+  </data>
+  <data name="Upload_UploadFiles" xml:space="preserve">
+    <value>Качи</value>
+  </data>
+  <data name="Validation_InvalidField" xml:space="preserve">
+    <value>{0} не е валиден.</value>
+  </data>
+  <data name="Wizard_Done" xml:space="preserve">
+    <value>Завършване</value>
+  </data>
+  <data name="Wizard_Next" xml:space="preserve">
+    <value>Следваща</value>
+  </data>
+  <data name="Wizard_Pager" xml:space="preserve">
+    <value>Стъпка {0} от {1} </value>
+  </data>
+  <data name="Wizard_Previous" xml:space="preserve">
+    <value>Предишна</value>
+  </data>
+  <data name="Upload_UploadedState" xml:space="preserve">
+    <value>качени</value>
+  </data>
+  <data name="Upload_SelectedState" xml:space="preserve">
+    <value>избрани</value>
+  </data>
+  <data name="Upload_SelectedFilesAriaLabel" xml:space="preserve">
+    <value>{0} файла {1}. Натисни стрелка надолу, за да навигираш.</value>
+  </data>
+  <data name="DropZone_Hint" xml:space="preserve">
+    <value>Дръпни файлове и ги пусни тук, за да ги качиш</value>
+  </data>
+  <data name="Upload_DropZoneHint" xml:space="preserve">
+    <value>Дръпни файлове и ги пусни тук, за да ги качиш</value>
+  </data>
+  <data name="FileSelect_DropZoneHint" xml:space="preserve">
+    <value>Дръпни файлове и ги пусни тук</value>
+  </data>
+  <data name="DropZone_Note" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ColorGradient_AriaLabel" xml:space="preserve">
+    <value>Избраният цвят е {0}</value>
+  </data>
+  <data name="ColorPalette_AriaLabel" xml:space="preserve">
+    <value>Избраният цвят е {0}</value>
+  </data>
+  <data name="ColorPicker_AriaLabel" xml:space="preserve">
+    <value>Избраният цвят е {0}</value>
+  </data>
+  <data name="FlatColorPicker_AriaLabel" xml:space="preserve">
+    <value>Избраният цвят е {0}</value>
+  </data>
+  <data name="PivotGrid_GrandTotal" xml:space="preserve">
+    <value>Общо</value>
+  </data>
+  <data name="Filter_StringDoesNotEndWith" xml:space="preserve">
+    <value>Не завършва на</value>
+  </data>
+  <data name="Filter_StringDoesNotStartWith" xml:space="preserve">
+    <value>Не започва с</value>
+  </data>
+  <data name="PivotGridConfiguratorButton_Text" xml:space="preserve">
+    <value>Промени настройките</value>
+  </data>
+  <data name="PivotGridConfigurator_Apply" xml:space="preserve">
+    <value>Приеми</value>
+  </data>
+  <data name="PivotGridConfigurator_Cancel" xml:space="preserve">
+    <value>Откажи</value>
+  </data>
+  <data name="PivotGridConfigurator_Columns" xml:space="preserve">
+    <value>Колони</value>
+  </data>
+  <data name="PivotGridConfigurator_Fields" xml:space="preserve">
+    <value>Полета</value>
+  </data>
+  <data name="PivotGridConfigurator_NoFields" xml:space="preserve">
+    <value>Избери някои полета</value>
+  </data>
+  <data name="PivotGridConfigurator_Rows" xml:space="preserve">
+    <value>Редове</value>
+  </data>
+  <data name="PivotGridConfigurator_Settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="PivotGridConfigurator_Values" xml:space="preserve">
+    <value>Стойности</value>
+  </data>
+  <data name="PivotGrid_GrandTotal1" xml:space="preserve">
+    <value>Общо</value>
+  </data>
+  <data name="PivotGrid_IncludeFields" xml:space="preserve">
+    <value>Включи полета</value>
+  </data>
+  <data name="ColumnMenu_GroupColumn" xml:space="preserve">
+    <value>Групирай колоната</value>
+  </data>
+  <data name="ColumnMenu_ReorderNext" xml:space="preserve">
+    <value>Премести напред</value>
+  </data>
+  <data name="ColumnMenu_ReorderPrevious" xml:space="preserve">
+    <value>Премести назад</value>
+  </data>
+  <data name="ColumnMenu_UngroupColumn" xml:space="preserve">
+    <value>Разгрупирай колоната</value>
+  </data>
+  <data name="ColumnMenu_SetColumnPosition" xml:space="preserve">
+    <value>Задайте позиция на колоната</value>
+  </data>
+  <data name="Gantt_DialogMaximize" xml:space="preserve">
+    <value>Максимизирай</value>
+  </data>
+  <data name="Gantt_DialogMinimize" xml:space="preserve">
+    <value>Минимизирай</value>
+  </data>
+  <data name="Gantt_Editor_General" xml:space="preserve">
+    <value>Общи</value>
+  </data>
+  <data name="Gantt_Editor_Predecessors" xml:space="preserve">
+    <value>Предшественици</value>
+  </data>
+  <data name="Gantt_Editor_Successors" xml:space="preserve">
+    <value>Наследници</value>
+  </data>
+  <data name="Gantt_Editor_Other" xml:space="preserve">
+    <value>Други</value>
+  </data>
+  <data name="Gantt_Editor_Parent" xml:space="preserve">
+    <value>Родител</value>
+  </data>
+  <data name="Gantt_Editor_None" xml:space="preserve">
+    <value>-Няма-</value>
+  </data>
+  <data name="Gantt_Editor_DependencyAdd" xml:space="preserve">
+    <value>Добави</value>
+  </data>
+  <data name="Gantt_Editor_DependencyRemove" xml:space="preserve">
+    <value>Премахни</value>
+  </data>
+  <data name="Gantt_Editor_DependencyName" xml:space="preserve">
+    <value>Име</value>
+  </data>
+  <data name="Gantt_Editor_DependencyType" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="PivotGridConfigurator_MoveToColumns" xml:space="preserve">
+    <value>Премести към колони</value>
+  </data>
+  <data name="PivotGridConfigurator_MoveToRows" xml:space="preserve">
+    <value>Премести към редове</value>
+  </data>
+  <data name="MultiSelect_ItemsSelected" xml:space="preserve">
+    <value>{0} избрана/и опция/и</value>
+  </data>
+  <data name="MultiSelect_MoreSelected" xml:space="preserve">
+    <value>още {0} избран/и</value>
+  </data>
+  <data name="Editor_DeleteTable" xml:space="preserve">
+    <value>Изтрий таблица</value>
+  </data>
+  <data name="Aggregate_Average" xml:space="preserve">
+    <value>Средно</value>
+  </data>
+  <data name="ListBoxToolBarTool_MoveDown" xml:space="preserve">
+    <value>Премести надолу</value>
+  </data>
+  <data name="ListBoxToolBarTool_MoveUp" xml:space="preserve">
+    <value>Премести нагоре</value>
+  </data>
+  <data name="ListBoxToolBarTool_Remove" xml:space="preserve">
+    <value>Премахни</value>
+  </data>
+  <data name="ListBoxToolBarTool_TransferAllFrom" xml:space="preserve">
+    <value>Прехвърляне на всички от</value>
+  </data>
+  <data name="ListBoxToolBarTool_TransferAllTo" xml:space="preserve">
+    <value>Прехвърляне на всички към</value>
+  </data>
+  <data name="ListBoxToolBarTool_TransferFrom" xml:space="preserve">
+    <value>Прехвърляне от</value>
+  </data>
+  <data name="ListBoxToolBarTool_TransferTo" xml:space="preserve">
+    <value>Прехвърляне към</value>
+  </data>
+  <data name="ListBox_NoData" xml:space="preserve">
+    <value>Няма намерени данни</value>
+  </data>
+  <data name="ComboBox_Popup_AriaLabel" xml:space="preserve">
+    <value>Списък с опции</value>
+  </data>
+  <data name="PdfViewer_Document_AriaLabel" xml:space="preserve">
+    <value>Прозорец за изглед на документ</value>
+  </data>
+  <data name="PdfViewer_SearchDialog_AriaLabel" xml:space="preserve">
+    <value>Диалогов прозорец за търсене</value>
+  </data>
+  <data name="PopupList_AriaLabel" xml:space="preserve">
+    <value>Опции</value>
+  </data>
+  <data name="MultiSelect_Open" xml:space="preserve">
+    <value>Отвори</value>
+  </data>
+  <data name="Filter_Expression_Options" xml:space="preserve">
+    <value>Филтър Оператори</value>
+  </data>
+  <data name="AIPrompt_OutputView_ButtonText" xml:space="preserve">
+    <value>Отговори</value>
+  </data>
+  <data name="AIPrompt_OutputView_Copy" xml:space="preserve">
+    <value>Копиране</value>
+  </data>
+  <data name="AIPrompt_OutputView_Retry" xml:space="preserve">
+    <value>Повтори</value>
+  </data>
+  <data name="AIPrompt_PromptView_ButtonText" xml:space="preserve">
+    <value>Попитай AI</value>
+  </data>
+  <data name="AIPrompt_PromptView_Generate" xml:space="preserve">
+    <value>Генериране</value>
+  </data>
+  <data name="AIPrompt_PromptView_PromptPlaceholder" xml:space="preserve">
+    <value>Попитай или генерирай съдържание с AI</value>
+  </data>
+  <data name="AIPrompt_PromptView_SuggestionHeader" xml:space="preserve">
+    <value>Предложения за запитвания</value>
+  </data>
+  <data name="AIPrompt_OutputView_PromptTitle" xml:space="preserve">
+    <value>Генерирай с AI:</value>
+  </data>
+  <data name="Spreadsheet_AddColumnLeft" xml:space="preserve">
+    <value>Добави колона отляво</value>
+  </data>
+  <data name="Spreadsheet_AddColumnRight" xml:space="preserve">
+    <value>Добави колона отдясно</value>
+  </data>
+  <data name="Spreadsheet_AddRowAbove" xml:space="preserve">
+    <value>Добави ред отгоре</value>
+  </data>
+  <data name="Spreadsheet_AddRowBelow" xml:space="preserve">
+    <value>Добави ред отдолу</value>
+  </data>
+  <data name="Spreadsheet_AlignBottom" xml:space="preserve">
+    <value>Подравни отдолу</value>
+  </data>
+  <data name="Spreadsheet_AlignCenter" xml:space="preserve">
+    <value>Подравни в средата</value>
+  </data>
+  <data name="Spreadsheet_AlignJustify" xml:space="preserve">
+    <value>Подравни двустранно</value>
+  </data>
+  <data name="Spreadsheet_AlignLeft" xml:space="preserve">
+    <value>Подравни отляво</value>
+  </data>
+  <data name="Spreadsheet_AlignMiddle" xml:space="preserve">
+    <value>Подравни в среадата</value>
+  </data>
+  <data name="Spreadsheet_AlignRight" xml:space="preserve">
+    <value>Подравни отдясно</value>
+  </data>
+  <data name="Spreadsheet_AlignTop" xml:space="preserve">
+    <value>Подравни отгоре</value>
+  </data>
+  <data name="Spreadsheet_BackgroundColor" xml:space="preserve">
+    <value>Фон</value>
+  </data>
+  <data name="Spreadsheet_Bold" xml:space="preserve">
+    <value>Удебеляване</value>
+  </data>
+  <data name="Spreadsheet_Copy" xml:space="preserve">
+    <value>Копирай</value>
+  </data>
+  <data name="Spreadsheet_Cut" xml:space="preserve">
+    <value>Изрежи</value>
+  </data>
+  <data name="Spreadsheet_DefaultDownloadFileName" xml:space="preserve">
+    <value>Документ</value>
+  </data>
+  <data name="Spreadsheet_DefaultSheetName" xml:space="preserve">
+    <value>Лист</value>
+  </data>
+  <data name="Spreadsheet_DeleteColumn" xml:space="preserve">
+    <value>Изтрий колона</value>
+  </data>
+  <data name="Spreadsheet_DeleteImage" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="Spreadsheet_DeleteRow" xml:space="preserve">
+    <value>Изтрий ред</value>
+  </data>
+  <data name="Spreadsheet_Dialog_ClipboardErrorApplyButtonText" xml:space="preserve">
+    <value>Приеми</value>
+  </data>
+  <data name="Spreadsheet_Dialog_ClipboardErrorCloseButtonText" xml:space="preserve">
+    <value>Затвори</value>
+  </data>
+  <data name="Spreadsheet_Dialog_ClipboardErrorText" xml:space="preserve">
+    <value>&lt;p&gt;За да изпълните това действие е необходим достъп до клипборда.&lt;/p&gt;
+&lt;p&gt;Трябва да отидете до настройките на вашия браузър и да позволите използването на клипборда.&lt;/p&gt;
+&lt;p&gt;Като алтернатива, може да използвате някоя от клавишните комбинации&lt;/p&gt;
+&lt;div&gt;Изрязване = Ctrl/Cmd + X&lt;/div&gt;
+&lt;div&gt;Копиране = Ctrl/Cmd + C&lt;/div&gt;
+&lt;div&gt;Поставяне = Ctrl/Cmd + V&lt;/div&gt;</value>
+  </data>
+  <data name="Spreadsheet_Dialog_ClipboardErrorTitle" xml:space="preserve">
+    <value>Няма достъп до клипборд</value>
+  </data>
+  <data name="Spreadsheet_Dialog_Close" xml:space="preserve">
+    <value>Затвори</value>
+  </data>
+  <data name="Spreadsheet_Dialog_DeleteSheetApplyButtonText" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="Spreadsheet_Dialog_DeleteSheetCancelButtonText" xml:space="preserve">
+    <value>Отмени</value>
+  </data>
+  <data name="Spreadsheet_Dialog_DeleteSheetText" xml:space="preserve">
+    <value>Промените по листа ще бъдата загубени. Сигурни ли сте, че искате да продължите?</value>
+  </data>
+  <data name="Spreadsheet_Dialog_DeleteSheetTitle" xml:space="preserve">
+    <value>Изтрий лист</value>
+  </data>
+  <data name="Spreadsheet_Dialog_InsertLinkApplyButtonText" xml:space="preserve">
+    <value>Постави</value>
+  </data>
+  <data name="Spreadsheet_Dialog_InsertLinkCancelButtonText" xml:space="preserve">
+    <value>Отмени</value>
+  </data>
+  <data name="Spreadsheet_Dialog_InsertLinkInputPlaceholderText" xml:space="preserve">
+    <value>Текст</value>
+  </data>
+  <data name="Spreadsheet_Dialog_InsertLinkLabelText" xml:space="preserve">
+    <value>Адрес:</value>
+  </data>
+  <data name="Spreadsheet_Dialog_InsertLinkRemoveButtonText" xml:space="preserve">
+    <value>Премахни адрес</value>
+  </data>
+  <data name="Spreadsheet_Dialog_InsertLinkRequiredFieldText" xml:space="preserve">
+    <value>Адресът не може да бъде празен.</value>
+  </data>
+  <data name="Spreadsheet_Dialog_InsertLinkTitle" xml:space="preserve">
+    <value>Постави адрес</value>
+  </data>
+  <data name="Spreadsheet_Dialog_RenameSheetApplyButtonText" xml:space="preserve">
+    <value>Преименувай</value>
+  </data>
+  <data name="Spreadsheet_Dialog_RenameSheetButtonText" xml:space="preserve">
+    <value>Преименувай</value>
+  </data>
+  <data name="Spreadsheet_Dialog_RenameSheetCancelButtonText" xml:space="preserve">
+    <value>Отмени</value>
+  </data>
+  <data name="Spreadsheet_Dialog_RenameSheetErrorText" xml:space="preserve">
+    <value>Има съществуващ лист с това име. Моля, използвайте друго име.</value>
+  </data>
+  <data name="Spreadsheet_Dialog_RenameSheetLabelText" xml:space="preserve">
+    <value>Преименувай листа на:</value>
+  </data>
+  <data name="Spreadsheet_Dialog_RenameSheetPlaceholderText" xml:space="preserve">
+    <value>Име на лист</value>
+  </data>
+  <data name="Spreadsheet_Dialog_RenameSheetRequiredFieldText" xml:space="preserve">
+    <value>Името на листа не може да бъде празно.</value>
+  </data>
+  <data name="Spreadsheet_Dialog_RenameSheetTitle" xml:space="preserve">
+    <value>Преименувай лист</value>
+  </data>
+  <data name="Spreadsheet_DownloadFile" xml:space="preserve">
+    <value>Свали</value>
+  </data>
+  <data name="Spreadsheet_FontFamily" xml:space="preserve">
+    <value>Шрифт</value>
+  </data>
+  <data name="Spreadsheet_FontSize" xml:space="preserve">
+    <value>Размер на шрифта</value>
+  </data>
+  <data name="Spreadsheet_HorizontalAlign" xml:space="preserve">
+    <value>Хоризонтално подравняване</value>
+  </data>
+  <data name="Spreadsheet_InsertImage" xml:space="preserve">
+    <value>Постави изображение</value>
+  </data>
+  <data name="Spreadsheet_InsertLink" xml:space="preserve">
+    <value>Постави адрес</value>
+  </data>
+  <data name="Spreadsheet_Italic" xml:space="preserve">
+    <value>Курсив</value>
+  </data>
+  <data name="Spreadsheet_MergeAllCells" xml:space="preserve">
+    <value>Обедини всички</value>
+  </data>
+  <data name="Spreadsheet_MergeCellsHorizontally" xml:space="preserve">
+    <value>Обедини хоризонтално</value>
+  </data>
+  <data name="Spreadsheet_MergeCellsVertically" xml:space="preserve">
+    <value>Обедини вертикално</value>
+  </data>
+  <data name="Spreadsheet_NumberFormatAutomatic" xml:space="preserve">
+    <value>Автоматичен</value>
+  </data>
+  <data name="Spreadsheet_NumberFormatCurrency" xml:space="preserve">
+    <value>Валута</value>
+  </data>
+  <data name="Spreadsheet_NumberFormatDate" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="Spreadsheet_NumberFormatDateTime" xml:space="preserve">
+    <value>Дата и час</value>
+  </data>
+  <data name="Spreadsheet_NumberFormatDuration" xml:space="preserve">
+    <value>Продължителност</value>
+  </data>
+  <data name="Spreadsheet_NumberFormatFinancial" xml:space="preserve">
+    <value>Финансов</value>
+  </data>
+  <data name="Spreadsheet_NumberFormatNumber" xml:space="preserve">
+    <value>Число</value>
+  </data>
+  <data name="Spreadsheet_NumberFormatPercentage" xml:space="preserve">
+    <value>Процент</value>
+  </data>
+  <data name="Spreadsheet_NumberFormatText" xml:space="preserve">
+    <value>Текст</value>
+  </data>
+  <data name="Spreadsheet_NumberFormatTime" xml:space="preserve">
+    <value>Време</value>
+  </data>
+  <data name="Spreadsheet_OpenFile" xml:space="preserve">
+    <value>Отвори</value>
+  </data>
+  <data name="Spreadsheet_Paste" xml:space="preserve">
+    <value>Постави</value>
+  </data>
+  <data name="Spreadsheet_Redo" xml:space="preserve">
+    <value>Стъпка напред</value>
+  </data>
+  <data name="Spreadsheet_SendImageToBack" xml:space="preserve">
+    <value>Постави отзад</value>
+  </data>
+  <data name="Spreadsheet_SendImageToFront" xml:space="preserve">
+    <value>Постави отпред</value>
+  </data>
+  <data name="Spreadsheet_SheetsBar_AddSheet" xml:space="preserve">
+    <value>Добави</value>
+  </data>
+  <data name="Spreadsheet_SheetsBar_DeleteSheet" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="Spreadsheet_SheetsBar_DuplicateSheet" xml:space="preserve">
+    <value>Дублирай</value>
+  </data>
+  <data name="Spreadsheet_SheetsBar_HideSheet" xml:space="preserve">
+    <value>Скрий</value>
+  </data>
+  <data name="Spreadsheet_SheetsBar_MoveSheetLeft" xml:space="preserve">
+    <value>Премести отляво</value>
+  </data>
+  <data name="Spreadsheet_SheetsBar_MoveSheetRight" xml:space="preserve">
+    <value>Премести отдясно</value>
+  </data>
+  <data name="Spreadsheet_SheetsBar_RenameSheetButtonText" xml:space="preserve">
+    <value>Преименувай</value>
+  </data>
+  <data name="Spreadsheet_TextColor" xml:space="preserve">
+    <value>Цвят на текста</value>
+  </data>
+  <data name="Spreadsheet_TextWrap" xml:space="preserve">
+    <value>Подравни текста</value>
+  </data>
+  <data name="Spreadsheet_ToolBar_FileMenu" xml:space="preserve">
+    <value>Файл</value>
+  </data>
+  <data name="Spreadsheet_ToolBar_FormatMenu" xml:space="preserve">
+    <value>Форматиране</value>
+  </data>
+  <data name="Spreadsheet_ToolBar_HomeMenu" xml:space="preserve">
+    <value>Начало</value>
+  </data>
+  <data name="Spreadsheet_ToolBar_InsertMenu" xml:space="preserve">
+    <value>Постави</value>
+  </data>
+  <data name="Spreadsheet_ToolBar_ViewMenu" xml:space="preserve">
+    <value>Визуализиране</value>
+  </data>
+  <data name="Spreadsheet_Underline" xml:space="preserve">
+    <value>Подчертаване</value>
+  </data>
+  <data name="Spreadsheet_Undo" xml:space="preserve">
+    <value>Стъпка назад</value>
+  </data>
+  <data name="Spreadsheet_VerticalAlign" xml:space="preserve">
+    <value>Вертикално подравняване</value>
+  </data>
+  <data name="Spreadsheet_NumberFormat" xml:space="preserve">
+    <value>Формат</value>
+  </data>
+  <data name="Spreadsheet_FormulaInput" xml:space="preserve">
+    <value>Формула</value>
+  </data>
+  <data name="Spreadsheet_NameBox" xml:space="preserve">
+    <value>Списък с имена</value>
+  </data>
+  <data name="Spreadsheet_MergeCells" xml:space="preserve">
+    <value>Сливане на клетки</value>
+  </data>
+  <data name="Spreadsheet_SheetsBar_AllSheets" xml:space="preserve">
+    <value>Всички листове</value>
+  </data>
+  <data name="Spreadsheet_DecreaseDecimal" xml:space="preserve">
+    <value>Намали порядъка</value>
+  </data>
+  <data name="Spreadsheet_GridLines" xml:space="preserve">
+    <value>Покажи/скрий границите на клетките</value>
+  </data>
+  <data name="Spreadsheet_IncreaseDecimal" xml:space="preserve">
+    <value>Увеличи порядъка</value>
+  </data>
+  <data name="Spreadsheet_UnmergeCells" xml:space="preserve">
+    <value>Разделяне на клетки</value>
+  </data>
+  <data name="PdfViewer_DropZone_Hint" xml:space="preserve">
+    <value>Плъзнете и пуснете файлове тук, за да ги качите</value>
+  </data>
+  <data name="Scheduler_Agenda" xml:space="preserve">
+    <value>Дневен ред</value>
+  </data>
+  <data name="Scheduler_Time_Column_Title" xml:space="preserve">
+    <value>Часови диапазон</value>
+  </data>
+  <data name="Scheduler_Date_Column_Title" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="Scheduler_Event_Column_Title" xml:space="preserve">
+    <value>Събитие</value>
+  </data>
+  <data name="Scheduler_No_Events_Text" xml:space="preserve">
+    <value>няма събития</value>
+  </data>
+  <data name="PdfViewer_ToolBar_Annotations" xml:space="preserve">
+    <value>Анотации</value>
+  </data>
+  <data name="PdfViewer_ToolBar_HideAnnotations" xml:space="preserve">
+    <value>Скрий</value>
+  </data>
+  <data name="PdfViewer_ToolBar_Highlight" xml:space="preserve">
+    <value>Акцентиране</value>
+  </data>
+  <data name="PdfViewer_ToolBar_FreeText" xml:space="preserve">
+    <value>Свободен текст</value>
+  </data>
+  <data name="PdfViewer_Annotations_TextStyle" xml:space="preserve">
+    <value>Стил на текста</value>
+  </data>
+  <data name="PdfViewer_Annotations_FontSize" xml:space="preserve">
+    <value>Размер на шрифта</value>
+  </data>
+  <data name="PdfViewer_Annotations_Color" xml:space="preserve">
+    <value>Цвят</value>
+  </data>
+  <data name="PdfViewer_Annotations_ConfirmDeleteDialogTitle" xml:space="preserve">
+    <value>Изтрий анотация</value>
+  </data>
+  <data name="PdfViewer_Annotations_ConfirmDeleteDialogText" xml:space="preserve">
+    <value>Сигурни ли сте, че искате да изтриете анотацията?</value>
+  </data>
+  <data name="PdfViewer_Annotations_ConfirmDialogOkButtonText" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="PdfViewer_Annotations_ConfirmDialogCancelButtonText" xml:space="preserve">
+    <value>Откажи</value>
+  </data>
+  <data name="PdfViewer_Annotations_FreeTextEditorPlaceholder" xml:space="preserve">
+    <value>Въведи текст</value>
+  </data>
+</root>

@@ -1,0 +1,239 @@
+﻿@page "/transactions"
+
+@inject TransactionService TransactionService
+@inject PaymentMethodService PaymentMethodService
+@inject UserService UserService
+
+<PageTitle>Transactions</PageTitle>
+
+<h1>Transactions</h1>
+
+<UICard Title="Personal Transactions"
+        ColSpanOnLargeScreen="8"
+        ColSpanOnMediumScreen="12">
+    <TelerikGrid Data="@GridData"
+                 TItem="@Transaction"
+                 FilterMode="GridFilterMode.FilterMenu"
+                 Groupable="true"
+                 Height="100%"
+                 Navigable="true"
+                 OnStateInit="@OnGridStateInit"
+                 Pageable="true"
+                 SelectionMode="@GridSelectionMode.Multiple"
+                 SelectedItems="@GridSelectedItems"
+                 SelectedItemsChanged="GridSelectedItemsChanged"
+                 ShowColumnMenu="true"
+                 Sortable="true">
+        <GridToolBar>
+            <GridToolBarExcelExportTool>Export to Excel</GridToolBarExcelExportTool>
+            <GridToolBarPdfExportTool>Export to PDF</GridToolBarPdfExportTool>
+        </GridToolBar>
+        <GridSettings>
+            <GridExcelExport AllPages="true"
+                             FileName="blazor-financial-dashboard"
+                             OnBeforeExport="@OnGridBeforeExcelExport" />
+            <GridPdfExport AllPages="true"
+                           FileName="blazor-financial-dashboard"
+                           OnBeforeExport="@OnGridBeforePdfExport"
+                           PageOrientation="@GridPdfExportPageOrientation.Landscape" />
+        </GridSettings>
+        <GridColumns>
+            <GridCheckboxColumn SelectAll="true" SelectAllMode="@GridSelectAllMode.All" ShowColumnMenu="false" />
+            <GridColumn Field="@nameof(Transaction.Date)" DisplayFormat="{0:d}" />
+            <GridColumn Field="@nameof(Transaction.Amount)" DisplayFormat="{0:c2}" TextAlign="@ColumnTextAlign.Right" HeaderClass="right-header" />
+            <GridColumn Field="@nameof(Transaction.Merchant)"
+                        HeaderClass="centered-header"
+                        TextAlign="@ColumnTextAlign.Center"
+                        Visible="@IsMediumOrLargeScreen" />
+            <GridColumn Field="@nameof(Transaction.Status)"
+                        HeaderClass="centered-header"
+                        TextAlign="@ColumnTextAlign.Center">
+                <Template>
+                    @{ var dataItem = (Transaction)context; }
+                    <TelerikBadge ThemeColor="@dataItem.GetStatusThemeColor()"
+                                  Rounded="@ThemeConstants.Badge.Rounded.Large"
+                                  Size="@ThemeConstants.Badge.Size.Large"
+                                  Class="inline-badge">
+                        @dataItem.Status.ToString()
+                    </TelerikBadge>
+                </Template>
+            </GridColumn>
+        </GridColumns>
+    </TelerikGrid>
+</UICard>
+
+<UICard Title="Transaction Details"
+        ColSpanOnLargeScreen="4"
+        ColSpanOnMediumScreen="12">
+    @if (FormModel is not null)
+    {
+        <TelerikForm Model="@FormModel">
+            <FormItems>
+                <FormItem Field="@nameof(Transaction.Merchant)">
+                    <Template>
+                        <label class="k-label k-form-label">Merchant</label>
+                        <div class="k-form-field-wrap">
+                            <TelerikTextBox @bind-Value="@FormModel.Merchant" ReadOnly="true" />
+                        </div>
+                    </Template>
+                </FormItem>
+                <FormItem Field="@nameof(Transaction.Status)">
+                    <Template>
+                        <label class="k-label k-form-label">Order Status</label>
+                        <div class="k-form-field-wrap">
+                            <TelerikBadge ThemeColor="@FormModel.GetStatusThemeColor()"
+                                          Rounded="@ThemeConstants.Badge.Rounded.Large"
+                                          Size="@ThemeConstants.Badge.Size.Large"
+                                          Class="inline-badge">
+                                @FormModel.Status.ToString()
+                            </TelerikBadge>
+                        </div>
+                    </Template>
+                </FormItem>
+                <FormItem Field="@nameof(Transaction.Date)"
+                          LabelText="Date and Time"
+                          EditorType="@FormEditorType.DateTimePicker" />
+                <FormItem>
+                    <Template>
+                        <label class="k-label k-form-label">Customer</label>
+                        <div class="k-form-field-wrap">
+                            <TelerikTextBox Value="@string.Concat(AppUser.FirstName, " ", AppUser.LastName)"
+                                            ValueExpression="@( () => AppUser.FirstName )"
+                                            ReadOnly="true" />
+                        </div>
+                    </Template>
+                </FormItem>
+                <FormItem>
+                    <Template>
+                        <label class="k-label k-form-label">Email</label>
+                        <div class="k-form-field-wrap">
+                            <TelerikTextBox Value="@AppUser.Email"
+                                            ValueExpression="@( () => AppUser.Email )"
+                                            ReadOnly="true" />
+
+                        </div>
+                    </Template>
+                </FormItem>
+                <FormItem>
+                    <Template>
+                        <label class="k-label k-form-label">Payment Method</label>
+                        <div class="k-form-field-wrap">
+                            @if (FormModel.PaymentMethodId < 3)
+                            {
+                                <VisaLogo />
+                            }
+                            else
+                            {
+                                @PaymentMethods.FirstOrDefault(x => x.Id == FormModel.PaymentMethodId)?.Name
+                            }
+                        </div>
+                    </Template>
+                </FormItem>
+                <FormItem>
+                    <Template>
+                        <label class="k-label k-form-label">Transaction Hash</label>
+                        <div class="k-form-field-wrap">
+                            <TelerikTextBox Value="@FormModel.Hash"
+                                            ValueExpression="@( () => FormModel.Hash )"
+                                            ReadOnly="true" />
+                        </div>
+                    </Template>
+                </FormItem>
+                <FormItem>
+                    <Template>
+                        <label class="k-label k-form-label">Hash From</label>
+                        <div class="k-form-field-wrap">
+                            <TelerikTextBox Value="@FormModel.HashFrom"
+                                            ValueExpression="@( () => FormModel.HashFrom )"
+                                            ReadOnly="true" />
+                        </div>
+                    </Template>
+                </FormItem>
+                <FormItem>
+                    <Template>
+                        <label class="k-label k-form-label">Hash To</label>
+                        <div class="k-form-field-wrap">
+                            <TelerikTextBox Value="@FormModel.HashTo"
+                                            ValueExpression="@( () => FormModel.HashTo )"
+                                            ReadOnly="true" />
+                        </div>
+                    </Template>
+                </FormItem>
+            </FormItems>
+            <FormButtons></FormButtons>
+        </TelerikForm>
+    }
+</UICard>
+
+@code {
+    private List<Transaction> GridData { get; set; } = new();
+    private IEnumerable<Transaction> GridSelectedItems { get; set; } = new List<Transaction>();
+
+    private List<PaymentMethod> PaymentMethods { get; set; } = new();
+
+    private User AppUser { get; set; } = null!;
+
+    private Transaction? FormModel { get; set; }
+
+    [CascadingParameter(Name = "IsLargeScreen")]
+    public bool IsLargeScreen { get; set; }
+    [CascadingParameter(Name = "IsMediumOrLargeScreen")]
+    public bool IsMediumOrLargeScreen { get; set; }
+
+    private void GridSelectedItemsChanged(IEnumerable<Transaction> newSelectedItems)
+    {
+        GridSelectedItems = newSelectedItems;
+
+        if (GridSelectedItems.Count() > 0)
+        {
+            FormModel = GridSelectedItems.Last();
+        }
+        else
+        {
+            FormModel = default;
+        }
+    }
+
+    private void OnGridStateInit(GridStateEventArgs<Transaction> args)
+    {
+        args.GridState.SortDescriptors.Add(new()
+        {
+             Member = nameof(Transaction.Date),
+             SortDirection = ListSortDirection.Descending
+        });
+    }
+    private void OnGridBeforeExcelExport(GridBeforeExcelExportEventArgs args)
+    {
+        args.Columns.First(x => x.Field == nameof(Transaction.Date)).Width = "180px";
+        args.Columns.First(x => x.Field == nameof(Transaction.Amount)).Width = "100px";
+        args.Columns.First(x => x.Field == nameof(Transaction.Category)).Width = "120px";
+        args.Columns.First(x => x.Field == nameof(Transaction.PaymentMethodId)).Width = "100px";
+        args.Columns.First(x => x.Field == nameof(Transaction.Merchant)).Width = "140px";
+        args.Columns.First(x => x.Field == nameof(Transaction.Status)).Width = "100px";
+    }
+
+    private void OnGridBeforePdfExport(GridBeforePdfExportEventArgs args)
+    {
+        args.Columns.First(x => x.Field == nameof(Transaction.Date)).Width = "180px";
+        args.Columns.First(x => x.Field == nameof(Transaction.Amount)).Width = "100px";
+        args.Columns.First(x => x.Field == nameof(Transaction.Category)).Width = "120px";
+        args.Columns.First(x => x.Field == nameof(Transaction.PaymentMethodId)).Width = "100px";
+        args.Columns.First(x => x.Field == nameof(Transaction.Merchant)).Width = "140px";
+        args.Columns.First(x => x.Field == nameof(Transaction.Status)).Width = "100px";
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        GridData = await TransactionService.Read();
+        PaymentMethods = await PaymentMethodService.Read();
+
+        AppUser = await UserService.Read(userId: 1);
+
+
+
+        GridSelectedItems = new List<Transaction>() { GridData.OrderByDescending(t => t.Date).First() };
+        FormModel = GridData.FirstOrDefault();
+
+        await base.OnInitializedAsync();
+    }
+}

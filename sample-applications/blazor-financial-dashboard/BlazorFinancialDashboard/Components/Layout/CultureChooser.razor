@@ -1,0 +1,34 @@
+﻿@using System.Globalization
+@inject IJSRuntime JS
+@inject NavigationManager Navigation
+
+<TelerikDropDownButton Rounded="@ThemeConstants.DropDownButton.Rounded.Large"
+                       ShowArrowButton="true"
+                       Size="@ThemeConstants.DropDownButton.Size.Small"
+                       ThemeColor="@ThemeConstants.DropDownButton.ThemeColor.Light">
+    <DropDownButtonContent>Currency</DropDownButtonContent>
+    <DropDownButtonItems>
+        <DropDownButtonItem OnClick="@( () => ApplySelectedCulture("en-US") )">US Dollar</DropDownButtonItem>
+        <DropDownButtonItem OnClick="@( () => ApplySelectedCulture("de-DE") )">Euro</DropDownButtonItem>
+    </DropDownButtonItems>
+</TelerikDropDownButton>
+
+@code {
+    private void ApplySelectedCulture(string cultureName)
+    {
+        if (CultureInfo.CurrentCulture.Name != cultureName)
+        {
+            var uri = new Uri(Navigation.Uri)
+                .GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
+            var cultureEscaped = Uri.EscapeDataString(cultureName);
+            var uriEscaped = Uri.EscapeDataString(uri);
+
+            var culture = CultureInfo.GetCultureInfo(cultureName);
+            CultureInfo.CurrentCulture = CultureInfo.CurrentUICulture = culture;
+
+            Navigation.NavigateTo(
+                $"Culture/Set?culture={cultureEscaped}&redirectUri={uriEscaped}",
+                forceLoad: true);
+        }
+    }
+}

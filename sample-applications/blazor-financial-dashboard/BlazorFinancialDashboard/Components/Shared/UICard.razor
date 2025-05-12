@@ -1,0 +1,39 @@
+﻿<div class="uicard k-col-span-12 k-col-span-md-@ColSpanOnMediumScreen k-col-span-lg-@ColSpanOnLargeScreen
+            k-d-flex k-flex-col k-gap-@TitleGap k-p-4 k-bg-surface-alt k-overflow-x-auto k-rounded-xl">
+    <div class="k-d-flex k-flex-col k-gap-1">
+        <h2>@Title</h2>
+        @if (!string.IsNullOrEmpty(SubTitle))
+        {
+            <div class="card-subtitle k-mt-3">@SubTitle</div>
+        }
+    </div>
+    <div class="k-flex-1 k-d-flex k-flex-col k-gap-@ContentGap @ContentClass">
+        @ChildContent
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Title { get; set; } = string.Empty;
+
+    [Parameter]
+    public string SubTitle { get; set; } = string.Empty;
+
+    [Parameter]
+    public int ColSpanOnMediumScreen { get; set; } = 12;
+
+    [Parameter]
+    public int ColSpanOnLargeScreen { get; set; } = 12;
+
+    [Parameter]
+    public string TitleGap { get; set; } = "4";
+
+    [Parameter]
+    public string ContentGap { get; set; } = "0";
+
+    [Parameter]
+    public string ContentClass { get; set; } = string.Empty;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}

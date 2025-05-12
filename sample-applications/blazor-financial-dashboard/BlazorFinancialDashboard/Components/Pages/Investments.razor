@@ -1,0 +1,196 @@
+﻿@page "/investments"
+
+@inherits ResponsiveComponent
+
+@inject InvestmentService InvestmentService
+
+<PageTitle>Investments</PageTitle>
+
+<h1>Investments</h1>
+
+<UICard Title="Total Investments" ColSpanOnLargeScreen="5" ColSpanOnMediumScreen="12">
+    <TelerikChart @ref="@PieChartRef" Height="240px">
+        <ChartSeriesItems>
+            <ChartSeries Type="@ChartSeriesType.Pie"
+                         Data="@PieChartData"
+                         CategoryField="@nameof(TotalInvestment.Category)"
+                         Field="@nameof(TotalInvestment.Value)">
+                <ChartSeriesLabels Format="{0:C0}" Visible="true" Position="@ChartSeriesLabelsPosition.InsideEnd" />
+            </ChartSeries>
+        </ChartSeriesItems>
+        <ChartLegend Position="@ChartLegendPosition.Right" />
+    </TelerikChart>
+</UICard>
+
+<UICard Title="Today's Top 5 Movers" ColSpanOnLargeScreen="7" ColSpanOnMediumScreen="12">
+    <TelerikListView Data="@ListViewData">
+        <Template>
+            @{ decimal dailyChangeAmount = (Convert.ToDecimal(context.DailyChange) * context.CurrentValue); }
+            <div class="k-d-grid k-grid-cols-4 k-gap-4 k-align-items-center k-pt-2 k-pb-2">
+                <div class="k-d-flex k-gap-2 k-align-items-center">
+                    <TelerikAvatar Type="@AvatarType.Image">
+                        <img src="@( $"images/asset-{context.Symbol.ToLowerInvariant()}.png" )" alt="@context.AssetName" />
+                    </TelerikAvatar>
+                    <span class="k-d-flex k-flex-col asset">
+                        <strong>@context.Symbol</strong>
+                        <span class="k-font-size-sm">@context.AssetName</span>
+                    </span>
+                </div>
+                <span class="k-pl-4 k-font-medium">@( dailyChangeAmount.ToString("C2") )</span>
+                <span class="k-pl-4 k-d-flex k-align-items-center @GetChangeColor(context.DailyChange)">
+                    <TelerikSvgIcon Icon="@GetChangeIcon(context.DailyChange)" Size="@ThemeConstants.SvgIcon.Size.Small" />
+                    @context.DailyChange.ToString("P1")
+                </span>
+                <span class="k-text-right k-pr-2 k-font-medium">@context.CurrentValue.ToString("C2")</span>
+            </div>
+        </Template>
+    </TelerikListView>
+</UICard>
+
+<UICard Title="Stock Chart">
+
+@* Navigator basic setup *@
+
+<TelerikStockChart @ref="@StockChartRef"
+                   DateField="@nameof(StockDataPoint.Date)"
+                   Height="480px">
+
+    <StockChartNavigator>
+
+        <StockChartNavigatorSeriesItems>
+            <StockChartNavigatorSeries Type="StockChartSeriesType.Line"
+                                       Name="Product 1"
+                                       Data="@StockChartProduct1Data"
+                                       Field="@nameof(StockDataPoint.High)"
+                                       CategoryField="@nameof(StockDataPoint.Date)">
+            </StockChartNavigatorSeries>
+
+            <StockChartNavigatorSeries Type="StockChartSeriesType.Line"
+                                       Name="Product 2"
+                                       Data="@StockChartProduct2Data"
+                                       Field="@nameof(StockDataPoint.High)"
+                                       CategoryField="@nameof(StockDataPoint.Date)">
+            </StockChartNavigatorSeries>
+        </StockChartNavigatorSeriesItems>
+
+    </StockChartNavigator>
+
+    <StockChartCategoryAxes>
+        <StockChartCategoryAxis BaseUnit="@ChartCategoryAxisBaseUnit.Months"></StockChartCategoryAxis>
+    </StockChartCategoryAxes>
+
+    <StockChartSeriesItems>
+        <StockChartSeries Type="StockChartSeriesType.Candlestick"
+                          Name="Product 1"
+                          Data="@StockChartProduct1Data"
+                          OpenField="@nameof(StockDataPoint.Open)"
+                          CloseField="@nameof(StockDataPoint.Close)"
+                          HighField="@nameof(StockDataPoint.High)"
+                          LowField="@nameof(StockDataPoint.Low)">
+            <StockChartSeriesTooltip Visible="false"></StockChartSeriesTooltip>
+        </StockChartSeries>
+
+        <StockChartSeries Type="StockChartSeriesType.Candlestick"
+                          Name="Product 2"
+                          Data="@StockChartProduct2Data"
+                          OpenField="@nameof(StockDataPoint.Open)"
+                          CloseField="@nameof(StockDataPoint.Close)"
+                          HighField="@nameof(StockDataPoint.High)"
+                          LowField="@nameof(StockDataPoint.Low)">
+            <StockChartSeriesTooltip Visible="false"></StockChartSeriesTooltip>
+        </StockChartSeries>
+    </StockChartSeriesItems>
+
+</TelerikStockChart>
+
+@code {
+    public List<StockDataPoint> StockChartProduct1Data { get; set; }
+    public List<StockDataPoint> StockChartProduct2Data { get; set; }
+
+    public async Task GenerateChartData()
+    {
+        StockChartProduct1Data = new List<StockDataPoint>()
+        {
+            new StockDataPoint(new DateTime(2019, 1, 1), 41.62m, 40.12m, 41.69m, 39.81m, 2632000),
+            new StockDataPoint(new DateTime(2019, 2, 1), 39.88m, 40.12m, 41.12m, 39.75m, 3584700),
+            new StockDataPoint(new DateTime(2019, 3, 1), 42m, 42.62m, 43.31m, 41.38m, 7631700),
+            new StockDataPoint(new DateTime(2019, 4, 1), 42.25m, 43.06m, 43.31m, 41.12m, 4922200)
+        };
+
+        StockChartProduct2Data = new List<StockDataPoint>()
+        {
+            new StockDataPoint(new DateTime(2019, 1, 1), 39m, 38m, 44m, 37m, 26320),
+            new StockDataPoint(new DateTime(2019, 2, 1), 37m, 38m, 41m, 40m, 35847),
+            new StockDataPoint(new DateTime(2019, 3, 1), 42m, 43m, 45m, 41m, 76317),
+            new StockDataPoint(new DateTime(2019, 4, 1), 40m, 42m, 43m, 42m, 49222)
+        };
+
+        await Task.FromResult(StockChartProduct1Data);
+        await Task.FromResult(StockChartProduct2Data);
+    }
+
+    public class StockDataPoint
+    {
+        public StockDataPoint() { }
+
+        public StockDataPoint(DateTime date, decimal open, decimal close, decimal high, decimal low, int volume)
+        {
+            Date = date;
+            Open = open;
+            Close = close;
+            High = high;
+            Low = low;
+            Volume = volume;
+        }
+        public DateTime Date { get; set; }
+
+        public decimal Open { get; set; }
+
+        public decimal Close { get; set; }
+
+        public decimal High { get; set; }
+
+        public decimal Low { get; set; }
+
+        public int Volume { get; set; }
+    }
+}
+
+</UICard>
+
+@code {
+    private List<TotalInvestment> PieChartData { get; set; } = new();
+    private List<AssetInfo> ListViewData { get; set; } = new();
+
+    private TelerikChart? PieChartRef { get; set; }
+    private TelerikStockChart? StockChartRef { get; set; }
+
+    private string GetChangeColor(double amount)
+    {
+        return amount >= 0 ? "k-text-success" : "k-text-error";
+    }
+
+    private SvgIconsNS.ISvgIcon GetChangeIcon(double amount)
+    {
+        return amount >= 0 ? new SvgIconsNS.CaretAltUp() : new SvgIconsNS.CaretAltDown();
+    }
+
+    [JSInvokable("OnViewPortResize")]
+    public override Task OnViewPortResize()
+    {
+        PieChartRef?.Refresh();
+        StockChartRef?.Refresh();
+
+        return base.OnViewPortResize();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        PieChartData = await InvestmentService.ReadTotalInvestments();
+        ListViewData = await InvestmentService.ReadTopMovers();
+
+        await GenerateChartData();
+
+        await base.OnInitializedAsync();
+    }
+}

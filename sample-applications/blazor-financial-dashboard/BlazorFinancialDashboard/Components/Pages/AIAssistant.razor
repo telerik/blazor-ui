@@ -1,0 +1,63 @@
+﻿@page "/ai-assistant"
+
+@inject AIAssistantService AIAssistantService
+
+<PageTitle>AI Assistant</PageTitle>
+
+<h1>AI Assistant</h1>
+
+<UICard Title="Related Topics"
+        ColSpanOnLargeScreen="8"
+        ColSpanOnMediumScreen="6">
+    <TelerikPanelBar Data="@FAQs"
+                    @bind-ExpandedItems="@PanelBarExpandedItems"
+                    ExpandMode="@PanelBarExpandMode.Multiple"
+                    Class="header-cursor-pointer">
+        <PanelBarBindings>
+            <PanelBarBinding>
+                <HeaderTemplate>
+                    @( ((FAQ)context).Question )
+                </HeaderTemplate>
+                <ContentTemplate>
+                    <div class="k-pt-4 k-pb-4 k-pl-6 k-pr-6">
+                        @( ((FAQ)context).Answer )
+                    </div>
+                </ContentTemplate>
+            </PanelBarBinding>
+        </PanelBarBindings>
+    </TelerikPanelBar>
+</UICard>
+
+<UICard Title="Chat with Roby"
+        ColSpanOnLargeScreen="4"
+        ColSpanOnMediumScreen="6">
+    <TelerikAIPrompt Class="ai-prompt"
+                     Height="100%"
+                     OnPromptRequest="@OnAIPromptRequest"
+                     PromptSuggestions="@AIPromptSuggestions" />
+</UICard>
+
+@code {
+    private IEnumerable<FAQ>? FAQs { get; set; }
+
+    private IEnumerable<object> PanelBarExpandedItems { get; set; } = new List<object>();
+    private readonly List<string> AIPromptSuggestions = new()
+    {
+        $"How to start investing with just {100.ToString("c0")}?",
+        "How to create a financial plan that works?",
+        "Can you give me budgeting tips for better finances?"
+    };
+
+    private async Task OnAIPromptRequest(AIPromptPromptRequestEventArgs args)
+    {
+        args.Output = await AIAssistantService.AskAI(args.Prompt);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        FAQs = await AIAssistantService.Read();
+        PanelBarExpandedItems = FAQs;
+
+        await base.OnInitializedAsync();
+    }
+}

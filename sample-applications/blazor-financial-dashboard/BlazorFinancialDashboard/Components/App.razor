@@ -1,0 +1,50 @@
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Localization
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/blazor-financial-dashboard/" />
+    <link rel="stylesheet" href="https://blazor.cdn.telerik.com/blazor/8.1.1/kendo-theme-material/swatches/material-main-dark.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@@progress/kendo-theme-utils/dist/all.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
+    <script src="https://blazor.cdn.telerik.com/blazor/8.1.1/telerik-blazor.min.js" defer></script>
+    <link rel="stylesheet" href="app.css" />
+    <link rel="stylesheet" href="BlazorFinancialDashboard.styles.css" />
+    <link rel="icon" type="image/png" sizes="48x48" href="favicon-48x48.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" type="image/png" href="/apple-touch-icon.png" />
+    <HeadOutlet @rendermode="@InteractiveServer" />
+</head>
+
+<body class="k-body">
+    <Routes @rendermode="@InteractiveServer" />
+    <script src="_framework/blazor.web.js" autostart="false"></script>
+    <script src="app.js" autostart="false"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            Blazor.start();
+        });
+    </script>
+</body>
+
+</html>
+
+@code {
+    [CascadingParameter]
+    public HttpContext? HttpContext { get; set; }
+
+    protected override void OnInitialized()
+    {
+        HttpContext?.Response.Cookies.Append(
+            CookieRequestCultureProvider.DefaultCookieName,
+            CookieRequestCultureProvider.MakeCookieValue(
+                new RequestCulture(
+                    CultureInfo.CurrentCulture,
+                    CultureInfo.CurrentUICulture)));
+    }
+}
