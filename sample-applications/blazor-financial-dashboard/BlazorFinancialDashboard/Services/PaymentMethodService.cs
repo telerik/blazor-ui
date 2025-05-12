@@ -26,7 +26,7 @@ namespace BlazorFinancialDashboard.Services
         }
 
         public PaymentMethodService()
-		{
+	{
             Data ??= GenerateData();
         }
     }
