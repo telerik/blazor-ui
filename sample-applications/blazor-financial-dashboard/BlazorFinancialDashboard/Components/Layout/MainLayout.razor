@@ -130,7 +130,7 @@
     }
     private void GoToAIAssistantPage()
     {
-        NavItem aiAssistantItem = DrawerData.First(i => i.Url == "/ai-assistant");
+        NavItem aiAssistantItem = DrawerData.First(i => i.Url == "/blazor-financial-dashboard/ai-assistant");
         DrawerSelectedItem = aiAssistantItem;
         NavManager.NavigateTo(aiAssistantItem.Url);
     }
