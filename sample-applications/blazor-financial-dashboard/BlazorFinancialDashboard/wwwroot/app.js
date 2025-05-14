@@ -13,7 +13,15 @@ viewPortResizeObserver = {
     },
 
     addComponent: function(dotNetRef) {
-        if (viewPortResizeObserver.dotNetRefs.indexOf(dotNetRef) < 0) {
+        let shouldAddComponent = true;
+
+        viewPortResizeObserver.dotNetRefs.forEach(x => {
+            if (x._id == dotNetRef._id) {
+                shouldAddComponent = false;
+            }
+        });
+
+        if (shouldAddComponent) {
             viewPortResizeObserver.dotNetRefs.push(dotNetRef);
         }
     },
@@ -22,18 +30,16 @@ viewPortResizeObserver = {
         clearTimeout(viewPortResizeObserver.timeoutId);
 
         viewPortResizeObserver.timeoutId = window.setTimeout(function() {
-            viewPortResizeObserver.dotNetRefs.forEach((dotNetRef) => {
+            viewPortResizeObserver.dotNetRefs.forEach(dotNetRef => {
                 dotNetRef.invokeMethodAsync(viewPortResizeObserver.serverMethodName);
             });
         }, viewPortResizeObserver.resizeDebounceDelay);
     },
 
     removeComponent: function(dotNetRef) {
-        let idx = viewPortResizeObserver.dotNetRefs.indexOf(dotNetRef);
-
-        if (idx >= 0) {
-            viewPortResizeObserver.dotNetRefs.splice(idx, 1);
-        }
+        viewPortResizeObserver.dotNetRefs = viewPortResizeObserver.dotNetRefs.filter(x => {
+            return x._id != dotNetRef._id;
+        });
     },
 
     destroy() {
