@@ -72,6 +72,7 @@
                  Navigable="true"
                  OnStateInit="@OnGridStateInit"
                  Pageable="true"
+                 @bind-PageSize="@PageSize"
                  ShowColumnMenu="true"
                  Sortable="true">
         <GridToolBar>
@@ -132,7 +133,7 @@
 @code {
     private TelerikChart? ChartRef { get; set; }
     private List<Transaction> GridData { get; set; } = new();
-
+    private int PageSize { get; set; } = 10;
     private List<PaymentMethod> PaymentMethods { get; set; } = new();
 
     [CascadingParameter(Name = "IsLargeScreen")]
