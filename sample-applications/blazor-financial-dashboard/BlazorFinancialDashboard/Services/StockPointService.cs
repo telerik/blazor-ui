@@ -19,11 +19,12 @@ public class StockPointService
 
         return Enumerable.Range(1, 365).Select(i =>
         {
-            decimal baseDailyValue = rnd.Next(minRnd, maxRnd) * 1.123m + DateTime.Today.AddDays(-i).Month % 6;
-            decimal lowValue = baseDailyValue - rnd.Next(5, 10) * 1.12m;
-            decimal openValue = baseDailyValue - rnd.Next(0, 5) * 1.12m;
-            decimal closeValue = baseDailyValue + rnd.Next(0, 5) * 1.12m;
-            decimal highValue = baseDailyValue + rnd.Next(5, 10) * 1.12m;
+            int monthlyRnd = DateTime.Today.AddDays(-i).Month % 5 + 2;
+            decimal baseDailyValue = rnd.Next(minRnd, maxRnd) * 1.123m + monthlyRnd;
+            decimal lowValue = baseDailyValue - rnd.Next(monthlyRnd, monthlyRnd * 2) * 1.12m;
+            decimal openValue = baseDailyValue - rnd.Next(0, monthlyRnd) * 1.12m;
+            decimal closeValue = baseDailyValue + rnd.Next(0, monthlyRnd) * 1.12m;
+            decimal highValue = baseDailyValue + rnd.Next(monthlyRnd, monthlyRnd * 2) * 1.12m;
             decimal volumneValue = rnd.Next(0, 10_000) * 1.2345m;
 
             var sp = new StockPoint(DateTime.Today.AddDays(-i), openValue, closeValue, highValue, lowValue, volumneValue);
