@@ -72,9 +72,14 @@
                 </StockChartNavigator>
 
                 <StockChartCategoryAxes>
-                    <StockChartCategoryAxis BaseUnit="@ChartCategoryAxisBaseUnit.Fit">
-                    </StockChartCategoryAxis>
+                    <StockChartCategoryAxis BaseUnit="@ChartCategoryAxisBaseUnit.Fit"
+                                            AxisCrossingValue="@(new object[] { 0, int.MaxValue })" />
                 </StockChartCategoryAxes>
+
+                <StockChartValueAxes>
+                    <StockChartValueAxis Name="candle-axis" Min="0" Max="60" />
+                    <StockChartValueAxis Name="volumne-axis" Min="0" Max="400_000" />
+                </StockChartValueAxes>
 
                 <StockChartSeriesItems>
                     <StockChartSeries Type="StockChartSeriesType.Candlestick"
@@ -85,7 +90,22 @@
                                       HighField="@nameof(StockPoint.High)"
                                       LowField="@nameof(StockPoint.Low)"
                                       Aggregate="@ChartSeriesAggregate.Avg"
-                                      Color="var(--kendo-color-series-c)">
+                                      Color="var(--kendo-color-series-c)"
+                                      Axis="candle-axis">
+                    </StockChartSeries>
+                    <StockChartSeries Type="StockChartSeriesType.Column"
+                                      Name="@stockChartItem.Value.Name"
+                                      Data="@stockChartItem.Value.StockChartData"
+                                      Field="@nameof(StockPoint.Volume)"
+                                      Aggregate="@ChartSeriesAggregate.Sum"
+                                      Color="var(--kendo-color-series-c)"
+                                      Axis="volumne-axis">
+                        <StockChartSeriesTooltip>
+                            <Template>
+                                @{ var dataItem = (StockPoint)context.DataItem; }
+                                @dataItem.Volume.ToString("C2")
+                            </Template>
+                        </StockChartSeriesTooltip>
                     </StockChartSeries>
                 </StockChartSeriesItems>
 
