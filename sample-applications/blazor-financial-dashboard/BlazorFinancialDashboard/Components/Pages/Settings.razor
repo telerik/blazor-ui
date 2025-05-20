@@ -7,7 +7,7 @@
 
 <h1>Settings</h1>
 
-<UICard Title="Personal Information" ColSpanOnLargeScreen="8" ColSpanOnMediumScreen="6">
+<UICard Title="Personal Information" ColSpanOnLargeScreen="12" ColSpanOnMediumScreen="12">
     <TelerikForm Model="@AppUser"
                  Columns="@( IsLargeScreen ? 2 : 1 )"
                  ColumnSpacing="var(--kendo-spacing-4)"
@@ -26,10 +26,6 @@
             <FormItem Field="@nameof(User.PostalCode)" />
         </FormItems>
     </TelerikForm>
-</UICard>
-
-<UICard Title="Calendar" ColSpanOnLargeScreen="4" ColSpanOnMediumScreen="6">
-    <TelerikCalendar Size="@ThemeConstants.Calendar.Size.Small" />
 </UICard>
 
 <UICard Title="Card Information" ColSpanOnLargeScreen="8" ColSpanOnMediumScreen="6">
@@ -58,7 +54,11 @@
     </TelerikForm>
 </UICard>
 
-<UICard Title="Weather" ColSpanOnLargeScreen="4" ColSpanOnMediumScreen="6"></UICard>
+<UICard Title="Calendar" ColSpanOnLargeScreen="4" ColSpanOnMediumScreen="6">
+    <TelerikCalendar Size="@ThemeConstants.Calendar.Size.Small" />
+</UICard>
+
+@* <UICard Title="Weather" ColSpanOnLargeScreen="4" ColSpanOnMediumScreen="6"></UICard> *@
 
 <TelerikNotification @ref="@NotificationRef"
                      HorizontalPosition="@NotificationHorizontalPosition.Center"

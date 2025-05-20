@@ -3,6 +3,7 @@
 @inherits ResponsiveComponent
 
 @inject InvestmentService InvestmentService
+@inject StockPointService StockPointService
 
 <PageTitle>Investments</PageTitle>
 
@@ -48,113 +49,49 @@
 </UICard>
 
 <UICard Title="Stock Chart">
+<TelerikTabStrip @bind-ActiveTabIndex="@TabStripActiveTabIndex" Class="no-content-padding">
 
-@* Navigator basic setup *@
-
-<TelerikStockChart @ref="@StockChartRef"
-                   DateField="@nameof(StockDataPoint.Date)"
-                   Height="480px">
-
-    <StockChartNavigator>
-
-        <StockChartNavigatorSeriesItems>
-            <StockChartNavigatorSeries Type="StockChartSeriesType.Line"
-                                       Name="Product 1"
-                                       Data="@StockChartProduct1Data"
-                                       Field="@nameof(StockDataPoint.High)"
-                                       CategoryField="@nameof(StockDataPoint.Date)">
-            </StockChartNavigatorSeries>
-
-            <StockChartNavigatorSeries Type="StockChartSeriesType.Line"
-                                       Name="Product 2"
-                                       Data="@StockChartProduct2Data"
-                                       Field="@nameof(StockDataPoint.High)"
-                                       CategoryField="@nameof(StockDataPoint.Date)">
-            </StockChartNavigatorSeries>
-        </StockChartNavigatorSeriesItems>
-
-    </StockChartNavigator>
-
-    <StockChartCategoryAxes>
-        <StockChartCategoryAxis BaseUnit="@ChartCategoryAxisBaseUnit.Months"></StockChartCategoryAxis>
-    </StockChartCategoryAxes>
-
-    <StockChartSeriesItems>
-        <StockChartSeries Type="StockChartSeriesType.Candlestick"
-                          Name="Product 1"
-                          Data="@StockChartProduct1Data"
-                          OpenField="@nameof(StockDataPoint.Open)"
-                          CloseField="@nameof(StockDataPoint.Close)"
-                          HighField="@nameof(StockDataPoint.High)"
-                          LowField="@nameof(StockDataPoint.Low)">
-            <StockChartSeriesTooltip Visible="false"></StockChartSeriesTooltip>
-        </StockChartSeries>
-
-        <StockChartSeries Type="StockChartSeriesType.Candlestick"
-                          Name="Product 2"
-                          Data="@StockChartProduct2Data"
-                          OpenField="@nameof(StockDataPoint.Open)"
-                          CloseField="@nameof(StockDataPoint.Close)"
-                          HighField="@nameof(StockDataPoint.High)"
-                          LowField="@nameof(StockDataPoint.Low)">
-            <StockChartSeriesTooltip Visible="false"></StockChartSeriesTooltip>
-        </StockChartSeries>
-    </StockChartSeriesItems>
-
-</TelerikStockChart>
-
-@code {
-    public List<StockDataPoint> StockChartProduct1Data { get; set; }
-    public List<StockDataPoint> StockChartProduct2Data { get; set; }
-
-    public async Task GenerateChartData()
+    @foreach (var stockChartItem in StockChartData)
     {
-        StockChartProduct1Data = new List<StockDataPoint>()
-        {
-            new StockDataPoint(new DateTime(2019, 1, 1), 41.62m, 40.12m, 41.69m, 39.81m, 2632000),
-            new StockDataPoint(new DateTime(2019, 2, 1), 39.88m, 40.12m, 41.12m, 39.75m, 3584700),
-            new StockDataPoint(new DateTime(2019, 3, 1), 42m, 42.62m, 43.31m, 41.38m, 7631700),
-            new StockDataPoint(new DateTime(2019, 4, 1), 42.25m, 43.06m, 43.31m, 41.12m, 4922200)
-        };
+        <TabStripTab Title="@stockChartItem.Value.Name" @key="@stockChartItem">
+            <TelerikStockChart @ref="stockChartItem.Value.StockChartRef"
+                               DateField="@nameof(StockPoint.Date)"
+                               Width="96%"
+                               Height="480px">
 
-        StockChartProduct2Data = new List<StockDataPoint>()
-        {
-            new StockDataPoint(new DateTime(2019, 1, 1), 39m, 38m, 44m, 37m, 26320),
-            new StockDataPoint(new DateTime(2019, 2, 1), 37m, 38m, 41m, 40m, 35847),
-            new StockDataPoint(new DateTime(2019, 3, 1), 42m, 43m, 45m, 41m, 76317),
-            new StockDataPoint(new DateTime(2019, 4, 1), 40m, 42m, 43m, 42m, 49222)
-        };
+                <StockChartNavigator>
+                    <StockChartNavigatorSeriesItems>
+                        <StockChartNavigatorSeries Type="StockChartSeriesType.Line"
+                                                   Name="@stockChartItem.Value.Name"
+                                                   Data="@stockChartItem.Value.StockChartData"
+                                                   Field="@nameof(StockPoint.High)"
+                                                   CategoryField="@nameof(StockPoint.Date)"
+                                                   Color="var(--kendo-color-series-c)">
+                        </StockChartNavigatorSeries>
+                    </StockChartNavigatorSeriesItems>
+                </StockChartNavigator>
 
-        await Task.FromResult(StockChartProduct1Data);
-        await Task.FromResult(StockChartProduct2Data);
+                <StockChartCategoryAxes>
+                    <StockChartCategoryAxis BaseUnit="@ChartCategoryAxisBaseUnit.Months"></StockChartCategoryAxis>
+                </StockChartCategoryAxes>
+
+                <StockChartSeriesItems>
+                    <StockChartSeries Type="StockChartSeriesType.Candlestick"
+                                      Name="@stockChartItem.Value.Name"
+                                      Data="@stockChartItem.Value.StockChartData"
+                                      OpenField="@nameof(StockPoint.Open)"
+                                      CloseField="@nameof(StockPoint.Close)"
+                                      HighField="@nameof(StockPoint.High)"
+                                      LowField="@nameof(StockPoint.Low)"
+                                      Aggregate="@ChartSeriesAggregate.Avg"
+                                      Color="var(--kendo-color-series-c)">
+                    </StockChartSeries>
+                </StockChartSeriesItems>
+
+            </TelerikStockChart>
+        </TabStripTab>
     }
-
-    public class StockDataPoint
-    {
-        public StockDataPoint() { }
-
-        public StockDataPoint(DateTime date, decimal open, decimal close, decimal high, decimal low, int volume)
-        {
-            Date = date;
-            Open = open;
-            Close = close;
-            High = high;
-            Low = low;
-            Volume = volume;
-        }
-        public DateTime Date { get; set; }
-
-        public decimal Open { get; set; }
-
-        public decimal Close { get; set; }
-
-        public decimal High { get; set; }
-
-        public decimal Low { get; set; }
-
-        public int Volume { get; set; }
-    }
-}
+</TelerikTabStrip>
 
 </UICard>
 
@@ -163,7 +100,22 @@
     private List<AssetInfo> ListViewData { get; set; } = new();
 
     private TelerikChart? PieChartRef { get; set; }
-    private TelerikStockChart? StockChartRef { get; set; }
+    private List<StockPoint> StockChartData1 { get; set; } = new();
+    private List<StockPoint> StockChartData2 { get; set; } = new();
+    private List<StockPoint> StockChartData3 { get; set; } = new();
+    private List<StockPoint> StockChartData4 { get; set; } = new();
+    private List<StockPoint> StockChartData5 { get; set; } = new();
+
+    private int TabStripActiveTabIndex { get; set; }
+
+    private Dictionary<int, InvestmentStockChart> StockChartData { get; set; } = new()
+    {
+        { 0, new InvestmentStockChart() { Name = "Solar Flux"} },
+        { 1, new InvestmentStockChart() { Name = "Quantum" } },
+        { 2, new InvestmentStockChart() { Name = "Neopharm" } },
+        { 3, new InvestmentStockChart() { Name = "Solaris" } },
+        { 4, new InvestmentStockChart() { Name = "Globefin Bank" } }
+    };
 
     private string GetChangeColor(double amount)
     {
@@ -179,7 +131,7 @@
     public override Task OnViewPortResize()
     {
         PieChartRef?.Refresh();
-        StockChartRef?.Refresh();
+        StockChartData[TabStripActiveTabIndex].StockChartRef?.Refresh();
 
         return base.OnViewPortResize();
     }
@@ -189,7 +141,10 @@
         PieChartData = await InvestmentService.ReadTotalInvestments();
         ListViewData = await InvestmentService.ReadTopMovers();
 
-        await GenerateChartData();
+        foreach (var item in StockChartData)
+        {
+            item.Value.StockChartData = await StockPointService.Read();
+        }
 
         await base.OnInitializedAsync();
     }
