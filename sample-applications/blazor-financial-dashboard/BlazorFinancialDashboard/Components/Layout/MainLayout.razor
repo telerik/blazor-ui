@@ -2,6 +2,7 @@
 @layout TelerikLayout
 
 @inject NavigationManager NavManager
+@inject SearchService SearchService
 @inject UserService UserService
 
 <TelerikMediaQuery Media="(min-width: 1201px)" OnChange="@( (bool matches) => IsOverMaxWidth = matches )" />
@@ -34,9 +35,15 @@
                 </AppBarSection>
                 <AppBarSpacer />
                 <AppBarSection>
-                    <TelerikAutoComplete Placeholder="Search"
+                    <TelerikAutoComplete OnRead="@OnAutoCompleteRead"
+                                         TItem="@SearchablePage"
+                                         @bind-Value="@AutoCompleteValue"
+                                         ValueField="@nameof(SearchablePage.Title)"
+                                         Filterable="true"
+                                         FilterOperator="@StringFilterOperator.Contains"
+                                         OnChange="@OnAutoCompleteValueChange"
+                                         Placeholder="Search app content or components"
                                          Rounded="@ThemeConstants.AutoComplete.Rounded.Large"
-                                         TItem="@string"
                                          Class="search-textbox">
                         <AutoCompletePrefixTemplate>
                             <TelerikSvgIcon Icon="@SvgIconsNS.SvgIcon.Search" />
@@ -95,7 +102,7 @@
 </div>
 
 @code {
-    private IEnumerable<NavItem> DrawerData { get; set; } = new List<NavItem>() {
+    private readonly IEnumerable<NavItem> DrawerData = new List<NavItem>() {
         new NavItem("Menu", SvgIconsNS.SvgIcon.Menu, string.Empty),
         new NavItem(),
         new NavItem("Overview", SvgIconsNS.SvgIcon.Grid, "/blazor-financial-dashboard/"),
@@ -110,6 +117,8 @@
     private bool DrawerExpanded { get; set; }
 
     private NavItem? DrawerSelectedItem { get; set; }
+
+    private string AutoCompleteValue { get; set; } = string.Empty;
 
     private bool IsOverMaxWidth { get; set; }
     private bool IsLargeScreen { get; set; }
@@ -150,6 +159,43 @@
         {
             StateHasChanged();
         }
+    }
+
+    private void OnAutoCompleteValueChange(object currentValue)
+    {
+        string currentStringValue = currentValue?.ToString()?.ToLowerInvariant() ?? "";
+
+        if (string.IsNullOrEmpty(currentStringValue))
+        {
+            return;
+        }
+
+        SearchablePage? matchedPage = FilteredAutoCompleteData.FirstOrDefault(x => x.Title.ToLowerInvariant().Contains(currentStringValue));
+
+        if (matchedPage is not null && matchedPage.Title != DrawerSelectedItem?.Text)
+        {
+            NavItem? matchedNavItem = DrawerData.FirstOrDefault(x => x.Text == matchedPage.Title);
+
+            if (matchedNavItem is not null)
+            {
+                DrawerSelectedItem = matchedNavItem;
+                NavManager.NavigateTo(matchedNavItem.Url);
+                AutoCompleteValue = string.Empty;
+                FilteredAutoCompleteData = new();
+            }
+        }
+    }
+
+    private List<SearchablePage> FilteredAutoCompleteData { get; set; } = new();
+
+    private async Task OnAutoCompleteRead(AutoCompleteReadEventArgs args)
+    {
+        var result = await SearchService.Read(args.Request);
+
+        args.Data = result.Data;
+        args.Total = result.Total;
+
+        FilteredAutoCompleteData = result.Data.Cast<SearchablePage>().ToList();
     }
 
     protected override async Task OnInitializedAsync()

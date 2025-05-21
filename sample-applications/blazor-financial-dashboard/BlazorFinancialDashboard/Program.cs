@@ -4,12 +4,14 @@ using Telerik.Blazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSingleton<TransactionService>();
-builder.Services.AddSingleton<PaymentMethodService>();
 builder.Services.AddSingleton<AIAssistantService>();
-builder.Services.AddSingleton<InvestmentService>();
-builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<CardService>();
+builder.Services.AddSingleton<InvestmentService>();
+builder.Services.AddSingleton<PaymentMethodService>();
+builder.Services.AddSingleton<SearchService>();
+builder.Services.AddSingleton<StockPointService>();
+builder.Services.AddSingleton<TransactionService>();
+builder.Services.AddScoped<UserService>();
 
 builder.Services.AddTelerikBlazor();
 

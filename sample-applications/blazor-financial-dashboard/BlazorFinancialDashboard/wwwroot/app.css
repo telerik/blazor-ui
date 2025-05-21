@@ -222,3 +222,7 @@ div.appbar-bottom.narrow {
 .asset {
     line-height: 1.5;
 }
+
+.no-content-padding .k-tabstrip-content {
+    padding-inline: 0;
+}

@@ -2,8 +2,8 @@
 
 namespace BlazorFinancialDashboard.Services
 {
-	public class PaymentMethodService
-	{
+    public class PaymentMethodService
+    {
         private List<PaymentMethod> Data { get; set; }
 
         public async Task<List<PaymentMethod>> Read()
@@ -26,7 +26,7 @@ namespace BlazorFinancialDashboard.Services
         }
 
         public PaymentMethodService()
-	{
+        {
             Data ??= GenerateData();
         }
     }
