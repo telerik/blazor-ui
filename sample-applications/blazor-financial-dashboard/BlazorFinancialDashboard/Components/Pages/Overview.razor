@@ -203,7 +203,10 @@
             args.Columns.First(x => x.Field == nameof(Transaction.Category)).Width = "120px";
             args.Columns.First(x => x.Field == nameof(Transaction.PaymentMethodId)).Width = "100px";
         }
-        args.Columns.First(x => x.Field == nameof(Transaction.Merchant)).Width = "140px";
+        if (IsMediumOrLargeScreen)
+        {
+            args.Columns.First(x => x.Field == nameof(Transaction.Merchant)).Width = "140px";
+        }
         args.Columns.First(x => x.Field == nameof(Transaction.Status)).Width = "100px";
     }
 
@@ -216,7 +219,10 @@
             args.Columns.First(x => x.Field == nameof(Transaction.Category)).Width = "120px";
             args.Columns.First(x => x.Field == nameof(Transaction.PaymentMethodId)).Width = "100px";
         }
-        args.Columns.First(x => x.Field == nameof(Transaction.Merchant)).Width = "140px";
+        if (IsMediumOrLargeScreen)
+        {
+            args.Columns.First(x => x.Field == nameof(Transaction.Merchant)).Width = "140px";
+        }
         args.Columns.First(x => x.Field == nameof(Transaction.Status)).Width = "100px";
     }
 
