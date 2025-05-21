@@ -9,7 +9,7 @@
 	<PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
 	<PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
 	<ItemGroup>
-		<PackageReference Include="Telerik.UI.for.Blazor" Version="8.1.1" />
+		<PackageReference Include="Telerik.UI.for.Blazor" Version="9.0.0" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Compile Update="Resources\TelerikMessages.Designer.cs">
