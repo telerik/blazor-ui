@@ -10,7 +10,7 @@ public class SearchService
     {
         new SearchablePage("AI Assistant", "ai assist help chat roby faq related topics panelbar aiprompt prompt"),
         new SearchablePage("Analytics", "money cashflow flow chart personal transactions grid purchases merchants"),
-        new SearchablePage("Investments", "total investment invest chart stocks bonds real estate mutual funds crypto currency commodities today top movers btc bitcoin eth etherium xrp ripple tth theter unicornlistview stock chart stockchart"),
+        new SearchablePage("Investments", "total investment invest chart stocks bonds real estate mutual funds crypto currency commodities today top movers btc bitcoin eth ethereum xrp ripple tth theter unicornlistview stock chart stockchart"),
         new SearchablePage("Overview", "drawer earnings spendings investments savings budget utilization arcgauge gauge transactions grid"),
         new SearchablePage("Settings", "personal information user account form calendar bank card information mask maskedtextbox notification"),
         new SearchablePage("Transactions", "personal transactions grid badge transaction details form textbox purchase history"),
