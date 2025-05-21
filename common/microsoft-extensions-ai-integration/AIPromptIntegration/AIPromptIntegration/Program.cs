@@ -28,21 +28,34 @@ builder.Services.AddTelerikBlazor();
 var endpoint = builder.Configuration["Endpoint"] ?? throw new InvalidOperationException("Missing configuration: Endpoint. See the README for details.");
 // 🔑 The API Key for your provider
 var apikey = builder.Configuration["ApiKey"] ?? throw new InvalidOperationException("Missing configuration: ApiKey. See the README for details.");
-// 🧠 The model name or azure deployment name
+// 🧠 The model name or Azure deployment name
 var model = "YOUR_MODEL_NAME";
 
-// Replace the innerClient below with your preferred model provider 
-var innerClient = new OpenAIClient(
+// Use your preferred AI client below
+
+// If using OpenAIClient
+builder.Services.AddSingleton(new OpenAIClient(
     new ApiKeyCredential(apikey),
     new OpenAIClientOptions()
     {
         Endpoint = new Uri(endpoint)
     }
-    ).AsChatClient(model);
+));
 
-builder.Services.AddChatClient(innerClient) // 🤖 Add the configured chat client
+builder.Services.AddChatClient(services => services.GetRequiredService<OpenAIClient>().GetChatClient(model).AsIChatClient())  // 🤖 Add the configured chat client
     .UseFunctionInvocation() // 🛠️ Include tool calling
     .UseLogging(); //🐞 Include Logging
+
+// OR
+
+// If using AzureOpenAIClient
+
+// builder.Services.AddSingleton(new AzureOpenAIClient(
+//     new Uri(endpoint),
+//     new AzureKeyCredential(apikey)
+// ));
+
+// builder.Services.AddChatClient(services => services.GetRequiredService<AzureOpenAIClient>().GetChatClient(model).AsIChatClient());
 
 var app = builder.Build();
 
