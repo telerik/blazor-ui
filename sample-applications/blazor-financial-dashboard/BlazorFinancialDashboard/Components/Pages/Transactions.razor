@@ -19,7 +19,7 @@
                  Navigable="true"
                  OnStateInit="@OnGridStateInit"
                  Pageable="true"
-                 SelectionMode="@GridSelectionMode.Multiple"
+                 SelectionMode="@GridSelectionMode.Single"
                  SelectedItems="@GridSelectedItems"
                  SelectedItemsChanged="GridSelectedItemsChanged"
                  ShowColumnMenu="true"
@@ -38,7 +38,7 @@
                            PageOrientation="@GridPdfExportPageOrientation.Landscape" />
         </GridSettings>
         <GridColumns>
-            <GridCheckboxColumn SelectAll="true" SelectAllMode="@GridSelectAllMode.All" ShowColumnMenu="false" />
+            <GridCheckboxColumn SelectAll="false" ShowColumnMenu="false" />
             <GridColumn Field="@nameof(Transaction.Date)" DisplayFormat="{0:d}" />
             <GridColumn Field="@nameof(Transaction.Amount)" DisplayFormat="{0:c2}" TextAlign="@ColumnTextAlign.Right" HeaderClass="right-header" />
             <GridColumn Field="@nameof(Transaction.Merchant)"

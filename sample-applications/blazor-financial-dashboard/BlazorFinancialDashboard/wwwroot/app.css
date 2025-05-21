@@ -226,3 +226,10 @@ div.appbar-bottom.narrow {
 .no-content-padding .k-tabstrip-content {
     padding-inline: 0;
 }
+
+/* Settings */
+
+div.centered-calendar {
+    margin: 0 auto;
+    width: 100%;
+}

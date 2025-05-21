@@ -28,7 +28,7 @@
     </TelerikForm>
 </UICard>
 
-<UICard Title="Card Information" ColSpanOnLargeScreen="8" ColSpanOnMediumScreen="6">
+<UICard Title="Card Information" ColSpanOnLargeScreen="7" ColSpanOnMediumScreen="6">
     <TelerikForm Model="@UserCard"
                  Columns="@( IsLargeScreen ? 2 : 1 )"
                  ColumnSpacing="var(--kendo-spacing-4)"
@@ -54,8 +54,8 @@
     </TelerikForm>
 </UICard>
 
-<UICard Title="Calendar" ColSpanOnLargeScreen="4" ColSpanOnMediumScreen="6">
-    <TelerikCalendar Size="@ThemeConstants.Calendar.Size.Small" />
+<UICard Title="Calendar" ColSpanOnLargeScreen="5" ColSpanOnMediumScreen="6">
+    <TelerikCalendar Size="@ThemeConstants.Calendar.Size.Small" Class="centered-calendar" />
 </UICard>
 
 @* <UICard Title="Weather" ColSpanOnLargeScreen="4" ColSpanOnMediumScreen="6"></UICard> *@
