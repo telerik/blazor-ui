@@ -19,11 +19,11 @@
 <SummaryCard Title="Investments" Value="35000" Change="-0.8" />
 
 <UICard Title="Savings"
-SubTitle="@Savings.ToString("c2")"
-ColSpanOnLargeScreen="6"
-ColSpanOnMediumScreen="6"
-ContentClass="k-justify-content-between"
-ContentGap="3">
+        SubTitle="@Savings.ToString("c2")"
+        ColSpanOnLargeScreen="6"
+        ColSpanOnMediumScreen="6"
+        ContentClass="k-justify-content-between"
+        ContentGap="3">
     <div class="progressbar-wrapper">
         <div class="k-d-flex k-justify-content-between">
             <span>Education</span>
@@ -72,8 +72,8 @@ ContentGap="3">
 </UICard>
 
 <UICard Title="Budget Utilization"
-SubTitle="@( $"{(UsedBudget / TotalBudget).ToString("P0")} of the Budget used" )"
-ColSpanOnMediumScreen="6" ColSpanOnLargeScreen="6" TitleGap="11" ContentGap="11">
+        SubTitle="@( $"{(UsedBudget / TotalBudget).ToString("P0")} of the Budget used" )"
+        ColSpanOnMediumScreen="6" ColSpanOnLargeScreen="6" TitleGap="11" ContentGap="11">
     <TelerikArcGauge Width="260px" Height="140px" Class="k-ml-auto k-mr-auto">
         <ArcGaugePointers>
             <ArcGaugePointer Value="50" Size="12" Color="var(--kendo-color-series-b)" />
@@ -99,64 +99,64 @@ ColSpanOnMediumScreen="6" ColSpanOnLargeScreen="6" TitleGap="11" ContentGap="11"
 
 <UICard Title="Transactions">
     <TelerikGrid Data="@GridData"
-    TItem="@Transaction"
-    FilterMode="GridFilterMode.FilterMenu"
-    Groupable="true"
-    Height="570px"
-    Navigable="true"
-    OnStateInit="@OnGridStateInit"
-    Pageable="true"
-    SelectionMode="@GridSelectionMode.Multiple"
-    @bind-SelectedItems="@GridSelectedItems"
-    ShowColumnMenu="true"
-    Sortable="true">
+                 TItem="@Transaction"
+                 FilterMode="GridFilterMode.FilterMenu"
+                 Groupable="true"
+                 Height="570px"
+                 Navigable="true"
+                 OnStateInit="@OnGridStateInit"
+                 Pageable="true"
+                 SelectionMode="@GridSelectionMode.Multiple"
+                 @bind-SelectedItems="@GridSelectedItems"
+                 ShowColumnMenu="true"
+                 Sortable="true">
         <GridToolBar>
             <GridToolBarExcelExportTool>Export to Excel</GridToolBarExcelExportTool>
             <GridToolBarPdfExportTool>Export to PDF</GridToolBarPdfExportTool>
         </GridToolBar>
         <GridSettings>
             <GridExcelExport AllPages="true"
-            FileName="blazor-financial-dashboard"
-            OnBeforeExport="@OnGridBeforeExcelExport" />
+                             FileName="blazor-financial-dashboard"
+                             OnBeforeExport="@OnGridBeforeExcelExport" />
             <GridPdfExport AllPages="true"
-            FileName="blazor-financial-dashboard"
-            OnBeforeExport="@OnGridBeforePdfExport"
-            PageOrientation="@GridPdfExportPageOrientation.Landscape" />
+                           FileName="blazor-financial-dashboard"
+                           OnBeforeExport="@OnGridBeforePdfExport"
+                           PageOrientation="@GridPdfExportPageOrientation.Landscape" />
         </GridSettings>
         <GridColumns>
             <GridCheckboxColumn SelectAll="true" SelectAllMode="@GridSelectAllMode.All" ShowColumnMenu="false" />
             <GridColumn Field="@nameof(Transaction.Date)"
-            DisplayFormat="{0:d}" />
+                        DisplayFormat="{0:d}" />
             <GridColumn Field="@nameof(Transaction.Amount)"
-            DisplayFormat="{0:c2}"
-            HeaderClass="right-header"
-            TextAlign="@ColumnTextAlign.Right" />
+                        DisplayFormat="{0:c2}"
+                        HeaderClass="right-header"
+                        TextAlign="@ColumnTextAlign.Right" />
             <GridColumn Field="@nameof(Transaction.Merchant)"
-            HeaderClass="centered-header"
-            TextAlign="@ColumnTextAlign.Center"
-            Visible="@IsMediumOrLargeScreen" />
+                        HeaderClass="centered-header"
+                        TextAlign="@ColumnTextAlign.Center"
+                        Visible="@IsMediumOrLargeScreen" />
             <GridColumn Field="@nameof(Transaction.Category)"
-            HeaderClass="centered-header"
-            TextAlign="@ColumnTextAlign.Center"
-            Visible="@IsLargeScreen" />
+                        HeaderClass="centered-header"
+                        TextAlign="@ColumnTextAlign.Center"
+                        Visible="@IsLargeScreen" />
             <GridColumn Field="@nameof(Transaction.PaymentMethodId)"
-            HeaderClass="centered-header"
-            TextAlign="@ColumnTextAlign.Center"
-            Visible="@IsLargeScreen">
+                        HeaderClass="centered-header"
+                        TextAlign="@ColumnTextAlign.Center"
+                        Visible="@IsLargeScreen">
                 <Template>
                     @{ var dataItem = (Transaction)context; }
                     @PaymentMethods.FirstOrDefault(x => x.Id == dataItem.PaymentMethodId)?.Name
                 </Template>
             </GridColumn>
             <GridColumn Field="@nameof(Transaction.Status)"
-            HeaderClass="centered-header"
-            TextAlign="@ColumnTextAlign.Center">
+                        HeaderClass="centered-header"
+                        TextAlign="@ColumnTextAlign.Center">
                 <Template>
                     @{ var dataItem = (Transaction)context; }
                     <TelerikBadge ThemeColor="@dataItem.GetStatusThemeColor()"
-                    Rounded="@ThemeConstants.Badge.Rounded.Large"
-                    Size="@ThemeConstants.Badge.Size.Large"
-                    Class="inline-badge">
+                                  Rounded="@ThemeConstants.Badge.Rounded.Large"
+                                  Size="@ThemeConstants.Badge.Size.Large"
+                                  Class="inline-badge">
                         @dataItem.Status.ToString()
                     </TelerikBadge>
                 </Template>
@@ -189,8 +189,8 @@ ColSpanOnMediumScreen="6" ColSpanOnLargeScreen="6" TitleGap="11" ContentGap="11"
     {
         args.GridState.SortDescriptors.Add(new()
         {
-             Member = nameof(Transaction.Date),
-             SortDirection = ListSortDirection.Descending
+            Member = nameof(Transaction.Date),
+            SortDirection = ListSortDirection.Descending
         });
     }
 
@@ -198,8 +198,11 @@ ColSpanOnMediumScreen="6" ColSpanOnLargeScreen="6" TitleGap="11" ContentGap="11"
     {
         args.Columns.First(x => x.Field == nameof(Transaction.Date)).Width = "180px";
         args.Columns.First(x => x.Field == nameof(Transaction.Amount)).Width = "100px";
-        args.Columns.First(x => x.Field == nameof(Transaction.Category)).Width = "120px";
-        args.Columns.First(x => x.Field == nameof(Transaction.PaymentMethodId)).Width = "100px";
+        if (IsLargeScreen)
+        {
+            args.Columns.First(x => x.Field == nameof(Transaction.Category)).Width = "120px";
+            args.Columns.First(x => x.Field == nameof(Transaction.PaymentMethodId)).Width = "100px";
+        }
         args.Columns.First(x => x.Field == nameof(Transaction.Merchant)).Width = "140px";
         args.Columns.First(x => x.Field == nameof(Transaction.Status)).Width = "100px";
     }
@@ -208,8 +211,11 @@ ColSpanOnMediumScreen="6" ColSpanOnLargeScreen="6" TitleGap="11" ContentGap="11"
     {
         args.Columns.First(x => x.Field == nameof(Transaction.Date)).Width = "180px";
         args.Columns.First(x => x.Field == nameof(Transaction.Amount)).Width = "100px";
-        args.Columns.First(x => x.Field == nameof(Transaction.Category)).Width = "120px";
-        args.Columns.First(x => x.Field == nameof(Transaction.PaymentMethodId)).Width = "100px";
+        if (IsLargeScreen)
+        {
+            args.Columns.First(x => x.Field == nameof(Transaction.Category)).Width = "120px";
+            args.Columns.First(x => x.Field == nameof(Transaction.PaymentMethodId)).Width = "100px";
+        }
         args.Columns.First(x => x.Field == nameof(Transaction.Merchant)).Width = "140px";
         args.Columns.First(x => x.Field == nameof(Transaction.Status)).Width = "100px";
     }

@@ -206,6 +206,10 @@
     {
         args.Columns.First(x => x.Field == nameof(Transaction.Date)).Width = "180px";
         args.Columns.First(x => x.Field == nameof(Transaction.Amount)).Width = "100px";
+        if (IsMediumOrLargeScreen)
+        {
+            args.Columns.First(x => x.Field == nameof(Transaction.Merchant)).Width = "140px";
+        }
         args.Columns.First(x => x.Field == nameof(Transaction.Status)).Width = "100px";
     }
 
@@ -213,6 +217,10 @@
     {
         args.Columns.First(x => x.Field == nameof(Transaction.Date)).Width = "180px";
         args.Columns.First(x => x.Field == nameof(Transaction.Amount)).Width = "100px";
+        if (IsMediumOrLargeScreen)
+        {
+            args.Columns.First(x => x.Field == nameof(Transaction.Merchant)).Width = "140px";
+        }
         args.Columns.First(x => x.Field == nameof(Transaction.Status)).Width = "100px";
     }
 
