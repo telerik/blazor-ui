@@ -25,9 +25,9 @@ public class StockPointService
             decimal openValue = baseDailyValue - rnd.Next(0, monthlyRnd) * 1.12m;
             decimal closeValue = baseDailyValue + rnd.Next(0, monthlyRnd) * 1.12m;
             decimal highValue = baseDailyValue + rnd.Next(monthlyRnd, monthlyRnd * 2) * 1.12m;
-            decimal volumneValue = rnd.Next(0, 10_000) * 1.2345m;
+            decimal volumeValue = rnd.Next(0, 10_000) * 1.2345m;
 
-            var sp = new StockPoint(DateTime.Today.AddDays(-i), openValue, closeValue, highValue, lowValue, volumneValue);
+            var sp = new StockPoint(DateTime.Today.AddDays(-i), openValue, closeValue, highValue, lowValue, volumeValue);
 
             return sp;
         }).ToList();
