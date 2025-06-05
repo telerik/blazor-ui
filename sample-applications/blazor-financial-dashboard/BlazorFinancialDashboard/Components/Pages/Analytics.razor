@@ -107,6 +107,7 @@
             <GridColumn Field="@nameof(Transaction.PaymentMethodId)"
                         HeaderClass="centered-header"
                         TextAlign="@ColumnTextAlign.Center"
+                        Title="Payment Method"
                         Visible="@IsLargeScreen">
                 <Template>
                     @{ var dataItem = (Transaction)context; }
@@ -151,34 +152,12 @@
     }
     private void OnGridBeforeExcelExport(GridBeforeExcelExportEventArgs args)
     {
-        args.Columns.First(x => x.Field == nameof(Transaction.Date)).Width = "180px";
-        args.Columns.First(x => x.Field == nameof(Transaction.Amount)).Width = "100px";
-        if (IsLargeScreen)
-        {
-            args.Columns.First(x => x.Field == nameof(Transaction.Category)).Width = "120px";
-            args.Columns.First(x => x.Field == nameof(Transaction.PaymentMethodId)).Width = "100px";
-        }
-        if (IsMediumOrLargeScreen)
-        {
-            args.Columns.First(x => x.Field == nameof(Transaction.Merchant)).Width = "140px";
-        }
-        args.Columns.First(x => x.Field == nameof(Transaction.Status)).Width = "100px";
+        CommonUtils.SetExportableColumnWidths(args.Columns);
     }
 
     private void OnGridBeforePdfExport(GridBeforePdfExportEventArgs args)
     {
-        args.Columns.First(x => x.Field == nameof(Transaction.Date)).Width = "180px";
-        args.Columns.First(x => x.Field == nameof(Transaction.Amount)).Width = "100px";
-        if (IsLargeScreen)
-        {
-            args.Columns.First(x => x.Field == nameof(Transaction.Category)).Width = "120px";
-            args.Columns.First(x => x.Field == nameof(Transaction.PaymentMethodId)).Width = "100px";
-        }
-        if (IsMediumOrLargeScreen)
-        {
-            args.Columns.First(x => x.Field == nameof(Transaction.Merchant)).Width = "140px";
-        }
-        args.Columns.First(x => x.Field == nameof(Transaction.Status)).Width = "100px";
+        CommonUtils.SetExportableColumnWidths(args.Columns);
     }
 
     [JSInvokable("OnViewPortResize")]
