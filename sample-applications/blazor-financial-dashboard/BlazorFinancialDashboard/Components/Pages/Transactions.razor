@@ -204,24 +204,12 @@
     }
     private void OnGridBeforeExcelExport(GridBeforeExcelExportEventArgs args)
     {
-        args.Columns.First(x => x.Field == nameof(Transaction.Date)).Width = "180px";
-        args.Columns.First(x => x.Field == nameof(Transaction.Amount)).Width = "100px";
-        if (IsMediumOrLargeScreen)
-        {
-            args.Columns.First(x => x.Field == nameof(Transaction.Merchant)).Width = "140px";
-        }
-        args.Columns.First(x => x.Field == nameof(Transaction.Status)).Width = "100px";
+        CommonUtils.SetExportableColumnWidths(args.Columns);
     }
 
     private void OnGridBeforePdfExport(GridBeforePdfExportEventArgs args)
     {
-        args.Columns.First(x => x.Field == nameof(Transaction.Date)).Width = "180px";
-        args.Columns.First(x => x.Field == nameof(Transaction.Amount)).Width = "100px";
-        if (IsMediumOrLargeScreen)
-        {
-            args.Columns.First(x => x.Field == nameof(Transaction.Merchant)).Width = "140px";
-        }
-        args.Columns.First(x => x.Field == nameof(Transaction.Status)).Width = "100px";
+        CommonUtils.SetExportableColumnWidths(args.Columns);
     }
 
     protected override async Task OnInitializedAsync()
