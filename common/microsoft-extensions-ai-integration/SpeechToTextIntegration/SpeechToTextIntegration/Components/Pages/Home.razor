@@ -1,0 +1,190 @@
+﻿@page "/"
+
+@using Microsoft.Extensions.AI
+
+@inject IJSRuntime JSRuntime
+@inject ISpeechToTextClient SpeechToTextClient
+
+<TelerikTextArea @bind-Value="@TextValue"
+                 Width="300px"
+                 ShowSuffixSeparator="false">
+    <TextAreaSuffixTemplate>
+        <span class="k-spacer"></span>
+        <TelerikSpeechToTextButton OnStart="@OnStartHandler"
+                                   OnEnd="@OnEndHandler"
+                                   FillMode="@ThemeConstants.Button.FillMode.Flat"
+                                   IntegrationMode="@SpeechToTextButtonIntegrationMode.None">
+        </TelerikSpeechToTextButton>
+    </TextAreaSuffixTemplate>
+</TelerikTextArea>
+
+@code {
+    private string TextValue { get; set; } = string.Empty;
+    private DotNetObjectReference<Home>? dotNetObjectReference;
+
+    private async Task OnStartHandler()
+    {
+        await JSRuntime.InvokeVoidAsync("speechRecognitionStarted");
+    }
+
+    private async Task OnEndHandler()
+    {
+        await JSRuntime.InvokeVoidAsync("speechRecognitionEnded");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            try
+            {
+                await JSRuntime.InvokeVoidAsync("initializeSpeechToTextButton");
+
+                dotNetObjectReference = DotNetObjectReference.Create(this);
+
+                await JSRuntime.InvokeVoidAsync("setDotNetObjectReference", dotNetObjectReference);
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"JSInterop failed: {ex.Message}");
+            }
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    [JSInvokable("OnRecordedAudio")]
+    public async Task OnRecordedAudio(byte[] audioBytes)
+    {
+        if (audioBytes == null || audioBytes.Length == 0)
+        {
+            return;
+        }
+
+        try
+        {
+            using var stream = new MemoryStream(audioBytes);
+
+            await GetSpeechToTextResponse(stream);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            return;
+        }
+    }
+
+    private async Task GetSpeechToTextResponse(MemoryStream stream)
+    {
+        var response = await SpeechToTextClient.GetTextAsync(stream);
+        TextValue = response.Text;
+        StateHasChanged();
+    }
+}
+
+<script>
+    // Function to initialize the speechToTextButton object
+    window.initializeSpeechToTextButton = function() {
+        console.log("Initializing speechToTextButton object...");
+
+        // Create a dedicated object for speech-to-text functionality
+        window.speechToTextButton = {
+            // Properties
+            mediaRecorder: null,
+            recordingAborted: false,
+            audioChunks: [],
+            stream: null,
+
+            // Methods
+            bindMediaRecorderEvents() {
+                console.log("Binding media recorder events...");
+                this.mediaRecorder.onstart = () => this.onStart();
+                this.mediaRecorder.ondataavailable = (e) => this.audioChunks.push(e.data);
+                this.mediaRecorder.onstop = async () => {
+                    if (this.mediaRecorder) {
+                        const audioBlob = new Blob(this.audioChunks, { type: 'audio/wav' });
+                        const arrayBuffer = await audioBlob.arrayBuffer();
+                        const uint8Array = new Uint8Array(arrayBuffer);
+                        // Call back to Blazor with the recorded audio data
+                        try {
+                            if (window.dotNetObjectReference) {
+                                await window.dotNetObjectReference.invokeMethodAsync("OnRecordedAudio", uint8Array);
+                            } else {
+                                console.warn("dotNetObjectReference is not set.");
+                            }
+                        } catch (error) {
+                            console.error("Error calling OnRecordedAudio:", error);
+                        }
+                        this.audioChunks = [];
+                        this.unbindMediaRecorderEvents();
+                        this.onEnd();
+                    }
+                };
+            },
+
+            unbindMediaRecorderEvents() {
+                console.log("Unbinding media recorder events...");
+                if (this.stream) {
+                    this.stream.getTracks().forEach(track => track.stop());
+                    this.stream = null;
+                }
+                if (this.mediaRecorder) {
+                    this.mediaRecorder.onstart = null;
+                    this.mediaRecorder.ondataavailable = null;
+                    this.mediaRecorder.onstop = null;
+                    this.mediaRecorder.onerror = null;
+                    if (this.mediaRecorder.stream) {
+                        this.mediaRecorder.stream.getTracks().forEach(track => track.stop());
+                    }
+                    this.mediaRecorder = null;
+                }
+            },
+
+            async startMediaRecorder() {
+                console.log("Starting media recorder...");
+                this.recordingAborted = false;
+                this.stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                this.mediaRecorder = new MediaRecorder(this.stream);
+                this.bindMediaRecorderEvents();
+                this.mediaRecorder.start();
+            },
+
+            async stopMediaRecorder() {
+                console.log("Stopping media recorder...");
+                if (this.mediaRecorder && this.mediaRecorder.state !== 'inactive') {
+                    this.mediaRecorder.stop();
+                }
+            },
+
+            // Event callbacks
+            onStart() {
+                // add any additional logic here if necessary
+                console.log("Media recorder started");
+            },
+
+            onEnd() {
+                // add any additional logic here if necessary
+                console.log("Media recorder ended");
+            },
+
+            // Public API methods
+            async speechRecognitionStarted() {
+                console.log("Speech recognition started - called from Blazor");
+                await this.startMediaRecorder();
+            },
+
+            async speechRecognitionEnded() {
+                console.log("Speech recognition ended - called from Blazor");
+                await this.stopMediaRecorder();
+            },
+        };
+
+        // Expose the API methods to window for Blazor interop
+        window.speechRecognitionStarted = () => window.speechToTextButton.speechRecognitionStarted();
+        window.speechRecognitionEnded = () => window.speechToTextButton.speechRecognitionEnded();
+        window.setDotNetObjectReference = (value) => window.dotNetObjectReference = value;
+
+        console.log("speechToTextButton object initialized successfully");
+    };
+
+</script>
