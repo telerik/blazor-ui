@@ -35,7 +35,7 @@ To run the project successfully, you need to provide your endpoint and credentia
 var innerClient = new Azure.AI.Inference.ChatCompletionsClient(
         new Uri(endpoint),
         new AzureKeyCredential(apikey)
-    ).AsChatClient(model);
+    );
 ```
 
 **Azure OpenAI Client registration**
@@ -45,15 +45,20 @@ var innerClient = new Azure.AI.Inference.ChatCompletionsClient(
 var innerClient = new AzureOpenAIClient(
         new Uri(endpoint),
         new AzureKeyCredential(apikey)
-    ).AsChatClient(model);
+    );
 ```
 
 **OpenAI Client registration**
 
 >Program.cs
 ```csharp
-var innerClient = new OpenAIClient(apikey)
-                        .AsChatClient(model);
+var innerClient = new OpenAIClient(
+    new ApiKeyCredential(apikey),
+    new OpenAIClientOptions()
+    {
+        Endpoint = new Uri(endpoint)
+    }
+);
 ```
 
 **GitHub Models Client registration**
@@ -66,7 +71,7 @@ var innerClient = new OpenAIClient(
 			{
 				Endpoint = new Uri(endpoint)
 			}
-		).AsChatClient(model);
+		);
 ```
 
 **Ollama Client registration**
