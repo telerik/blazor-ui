@@ -29,9 +29,9 @@
     <PackageVersion Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="7.0.15" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.36" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.20" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.0" />
-    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.36" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.20" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.36" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="6.0.101-preview.9.1843" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebView.WindowsForms" Version="8.0.3" />
@@ -52,7 +52,7 @@
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0-preview.2.25163.2" />
     <PackageVersion Include="Microsoft.Extensions.FileProviders.Embedded" Version="6.0.0-rc.2.21480.10" />
     <PackageVersion Include="Microsoft.Extensions.Http" Version="6.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Localization" Version="7.0.12" />
+    <PackageVersion Include="Microsoft.Extensions.Localization" Version="8.0.20" />
     <PackageVersion Include="Microsoft.Extensions.Localization.Abstractions" Version="8.0.1" />
     <PackageVersion Include="Microsoft.Identity.Web" Version="1.11.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
@@ -63,9 +63,9 @@
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     <PackageVersion Include="Swashbuckle.AspNetCore.Filters" Version="6.0.0" />
     <PackageVersion Include="System.ComponentModel.Annotations" Version="5.0.0" />
-  <!-- Replaced vulnerable System.Data.SqlClient (GHSA-98g6-xh36-x2p7) with Microsoft.Data.SqlClient -->
-  <PackageVersion Include="Microsoft.Data.SqlClient" Version="5.2.2" />
-    <PackageVersion Include="System.Net.Http.Json" Version="6.0.2" />
+    <!-- Replaced vulnerable System.Data.SqlClient (GHSA-98g6-xh36-x2p7) with Microsoft.Data.SqlClient -->
+    <PackageVersion Include="Microsoft.Data.SqlClient" Version="5.2.2" />
+    <PackageVersion Include="System.Net.Http.Json" Version="8.0.1" />
     <PackageVersion Include="System.Text.Json" Version="8.0.5" />
     <PackageVersion Include="Telerik.DataSource" Version="4.0.1" />
     <PackageVersion Include="Telerik.Documents.Core" Version="2025.3.806" />
