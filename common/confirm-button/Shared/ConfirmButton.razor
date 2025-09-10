@@ -1,4 +1,5 @@
 ﻿
+@using Telerik.SvgIcons
 <TelerikButton Icon="@Icon" OnClick="@( _ => WindowVisible = true )">
     @ButtonText
 </TelerikButton>
@@ -13,7 +14,7 @@
     [Parameter] public string ButtonText { get; set; }
     [Parameter] public string ConfirmTitle { get; set; }
     [Parameter] public string ConfirmText { get; set; }
-    [Parameter] public string Icon { get; set; }
+    [Parameter] public ISvgIcon Icon { get; set; } = SvgIcon.QuestionCircle;
     [Parameter] public EventCallback OnClick { get; set; }
     bool WindowVisible { get; set; }
     async void RaiseConfirm()
