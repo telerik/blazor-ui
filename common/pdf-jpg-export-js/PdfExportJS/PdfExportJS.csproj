@@ -1,16 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="*" />
-    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.175" />
+  <PackageReference Include="Telerik.UI.for.Blazor" />
+  <!-- Removed Microsoft.Web.LibraryManager.Build due to unresolved unpkg libraries in libman.json; restore later if CDN assets required -->
   </ItemGroup>
   <ItemGroup>
     <None Remove="Services\" />
