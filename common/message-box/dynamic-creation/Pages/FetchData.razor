@@ -1,4 +1,6 @@
-﻿@page "/fetchdata"
+﻿@page "/"
+@page "/fetchdata"
+@using Telerik.SvgIcons
 @using PopupControl.Data
 @using System.Collections.ObjectModel
 @using PopupControl.Controls.Popup
@@ -13,8 +15,8 @@
         <GridColumn Field="TemperatureF" />
         <GridColumn Field="Summary" />
         <GridCommandColumn Width="150px">
-            <GridCommandButton OnClick="@AddForecast" Icon="plus"></GridCommandButton>
-            <GridCommandButton OnClick="@((args)=> EditForecast(args.Item as WeatherForecast))" Icon="arrow-chevron-right"></GridCommandButton>
+            <GridCommandButton OnClick="@AddForecast" Icon="@SvgIcon.Plus"></GridCommandButton>
+            <GridCommandButton OnClick="@((args)=> EditForecast(args.Item as WeatherForecast))" Icon="@SvgIcon.ChevronRight"></GridCommandButton>
         </GridCommandColumn>
     </GridColumns>
 </TelerikGrid>

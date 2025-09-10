@@ -6,6 +6,8 @@
 @using MessageBoxControl.Controls.MessageBox
 @inject MessageBoxControl.Controls.MessageBox.MessageBoxService MessageBoxService
 
+@using Telerik.SvgIcons
+
 <TelerikGrid Data="@forecasts">
     <GridColumns>
         <GridColumn Field="Date" />
@@ -13,7 +15,7 @@
         <GridColumn Field="TemperatureF" />
         <GridColumn Field="Summary" />
         <GridCommandColumn Width="300px">
-            <GridCommandButton OnClick="@((args)=> DeleteRecord(args.Item as WeatherForecast))" Icon="delete"></GridCommandButton>
+            <GridCommandButton OnClick="@((args)=> DeleteRecord(args.Item as WeatherForecast))" Icon="@SvgIcon.Trash"></GridCommandButton>
         </GridCommandColumn>
     </GridColumns>
 </TelerikGrid>
