@@ -3,6 +3,8 @@
 @using export_to_xlsx_hierarchy.Models
 
 @inject IJSRuntime JSRuntime
+@using Telerik.SvgIcons
+@using Telerik.Blazor
 
 <TelerikGrid Data=@GridData
              Pageable="true"
@@ -14,7 +16,7 @@
              FilterMode="GridFilterMode.FilterMenu"
              AutoGenerateColumns="true">
     <GridToolBar>
-        <GridCommandButton Command="ExportToExcel" Icon="file-excel" OnClick="ExportToExcel">Export To Excel</GridCommandButton>
+    <GridCommandButton Command="ExportToExcel" Icon="@SvgIcon.FileExcel" OnClick="ExportToExcel">Export To Excel</GridCommandButton>
         <TelerikDropDownList Data="formats" TItem="string" TValue="string" @bind-Value="SelectedFormat" />
     </GridToolBar>
     <GridColumns>
