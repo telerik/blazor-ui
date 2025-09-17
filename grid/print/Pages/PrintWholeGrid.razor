@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using Telerik.SvgIcons
 
 @inject IJSRuntime JsInterop
 
@@ -49,7 +50,7 @@
              FilterMode="Telerik.Blazor.GridFilterMode.FilterRow"
              Resizable="true" Reorderable="true">
     <GridToolBar>
-        <GridCommandButton Command="Print" OnClick="@Print" Icon="print">Print</GridCommandButton>
+    <GridCommandButton Command="Print" OnClick="@Print" Icon="@SvgIcon.Print">Print</GridCommandButton>
     </GridToolBar>
     <GridColumns>
         <GridColumn Field="@(nameof(SampleData.Id))" Width="120px" />
