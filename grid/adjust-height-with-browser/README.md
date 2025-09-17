@@ -1,7 +1,8 @@
 # Change page size according to available height; hide columns based on screen size
 
 > This sample app is mostly obsolete and no longer maintained. The up-to-date Telerik documentation resources and examples are available at:
-> 
+> * [Grid Adaptive Mode](https://demos.telerik.com/blazor-ui/grid/adaptive)
+> * [Grid Adaptive Mode Stacked Columns](https://www.telerik.com/blazor-ui/documentation/components/grid/columns/stacked)
 > * [Adjust Grid Height to Match the Browser Viewport Height](https://docs.telerik.com/blazor-ui/knowledge-base/grid-adjust-height-with-browser)
 > * [Hide or Show Grid Columns on Browser Window Resize](https://docs.telerik.com/blazor-ui/components/mediaquery/integration)
 > * [Scroll to Selected Grid Row](https://docs.telerik.com/blazor-ui/knowledge-base/grid-scroll-to-selected-row)
