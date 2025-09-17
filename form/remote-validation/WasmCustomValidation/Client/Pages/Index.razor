@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using Telerik.Blazor
 
 @using System.Net
 @using System.Net.Http.Json
@@ -34,7 +35,7 @@ This sample uses a Notification component to show the error message to supplemen
 
     void ShowErrorNotification(string message)
     {
-        Notification.Show(new NotificationModel { CloseAfter = 0, Text = message, ThemeColor = Telerik.Blazor.ThemeColors.Error });
+    Notification.Show(new NotificationModel { CloseAfter = 0, Text = message, ThemeColor = ThemeConstants.Notification.ThemeColor.Error });
     }
 
     private async Task HandleValidSubmit(EditContext editContext)
