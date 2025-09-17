@@ -3,6 +3,8 @@
 @using System.Net.Http.Json
 @using RemoteValidationInGridEditorTemplate.Shared
 @inject HttpClient Http
+@using Telerik.Blazor
+@using Telerik.SvgIcons
 
 Try to Update an item with an empty "Name" field.
 <br />
@@ -36,8 +38,8 @@ This sample uses a Notification component to show the error message to supplemen
             </EditorTemplate>
         </GridColumn>
         <GridCommandColumn>
-            <GridCommandButton Command="Save" Icon="save" ShowInEdit="true">Update</GridCommandButton>
-            <GridCommandButton Command="Edit" Icon="edit">Edit</GridCommandButton>
+            <GridCommandButton Command="Save" Icon="@SvgIcon.Save" ShowInEdit="true">Update</GridCommandButton>
+            <GridCommandButton Command="Edit" Icon="@SvgIcon.Pencil">Edit</GridCommandButton>
         </GridCommandColumn>
     </GridColumns>
 </TelerikGrid>
@@ -59,7 +61,7 @@ This sample uses a Notification component to show the error message to supplemen
 
     void ShowErrorNotification(string message)
     {
-        Notification.Show(new NotificationModel { CloseAfter = 0, Text = message, ThemeColor = Telerik.Blazor.ThemeColors.Error });
+        Notification.Show(new NotificationModel { CloseAfter = 0, Text = message, ThemeColor = ThemeConstants.Notification.ThemeColor.Error });
     }
 
     public async Task UpdateHandler(GridCommandEventArgs args)
