@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="6.0.2" />
+    <PackageReference Include="Telerik.UI.for.Blazor" />
   </ItemGroup>
 
 </Project>
+
