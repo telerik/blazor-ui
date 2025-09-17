@@ -16,7 +16,9 @@
 
     @* First, the Overlay mode drawer as it positions itself absolutely and so it should be as high in the DOM as possible
         in order to not be limited by the rules and positions of its parents *@
-    <TelerikDrawer Data="@RightItems" Mode="@DrawerMode.Overlay" Position="@DrawerPosition.Right" @ref="@RightDrawerRef">
+    @using Telerik.SvgIcons
+
+    <TelerikDrawer Data="@RightItems" Mode="@DrawerMode.Overlay" Position="@DrawerPosition.End" @ref="@RightDrawerRef">
         <DrawerContent>
 
             @* The nested drawer is the Push drawer - the CSS rule above reduces its z-index so it does not show up above the overlay of the other *@
@@ -29,8 +31,8 @@
                 <DrawerContent>
 
                     @* Here begins the actual content - for example, we start with buttons to toggle the drawers and the @Body later *@
-                    <TelerikButton OnClick="@(() => DrawerRef.ToggleAsync())" Icon="menu">Toggle LEFT drawer</TelerikButton>
-                    <TelerikButton OnClick="@(() => RightDrawerRef.ToggleAsync())" Icon="menu">Toggle RIGHT drawer</TelerikButton>
+                    <TelerikButton OnClick="@(() => DrawerRef.ToggleAsync())" Icon="@SvgIcon.Menu">Toggle LEFT drawer</TelerikButton>
+                    <TelerikButton OnClick="@(() => RightDrawerRef.ToggleAsync())" Icon="@SvgIcon.Menu">Toggle RIGHT drawer</TelerikButton>
 
                     <div class="m-5">
                         Selected Item: @SelectedItem?.Text
@@ -51,21 +53,21 @@
     // the left (Push) drawer goes to the counter and fetch data pages
     IEnumerable<DrawerItem> Data { get; set; } = new List<DrawerItem>
         {
-                new DrawerItem { Text = "Counter", Icon = "plus", Url = "counter"},
-                new DrawerItem { Text = "FetchData", Icon = "grid-layout", Url = "fetchdata"},
+                new DrawerItem { Text = "Counter", Icon = SvgIcon.Plus, Url = "counter"},
+                new DrawerItem { Text = "FetchData", Icon = SvgIcon.GridLayout, Url = "fetchdata"},
             };
 
     //the right (overlay) drawer always goes to the home page for brevity and simplicity
     IEnumerable<DrawerItem> RightItems { get; set; } = new List<DrawerItem>
         {
-                new DrawerItem { Text = "First", Icon = "minus-outline", Url= "/"},
-                new DrawerItem { Text = "Second", Icon = "minus-circle", Url = "/"},
+                new DrawerItem { Text = "First", Icon = SvgIcon.MinusOutline, Url= "/"},
+                new DrawerItem { Text = "Second", Icon = SvgIcon.MinusCircle, Url = "/"},
             };
 
     public class DrawerItem
     {
         public string Text { get; set; }
-        public string Icon { get; set; }
+        public Telerik.SvgIcons.ISvgIcon Icon { get; set; }
         public string Url { get; set; }
     }
 }
