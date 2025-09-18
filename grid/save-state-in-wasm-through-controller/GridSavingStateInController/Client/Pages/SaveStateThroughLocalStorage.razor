@@ -1,6 +1,9 @@
 ﻿@page "/save-state-localstorage"
 
 @using Services; 
+@using Telerik.SvgIcons;
+@using Telerik.Blazor
+@using Telerik.Blazor.Components
 
 @inject LocalStorage LocalStorage
 @inject IJSRuntime JsInterop
@@ -27,14 +30,14 @@
         <GridColumn Field="@(nameof(SampleData.Name))" Title="Employee Name" />
         <GridColumn Field="@(nameof(SampleData.Team))" Title="Team" />
         <GridCommandColumn>
-            <GridCommandButton Command="Edit" Icon="edit">Edit</GridCommandButton>
-            <GridCommandButton Command="Delete" Icon="delete">Delete</GridCommandButton>
-            <GridCommandButton Command="Save" Icon="save" ShowInEdit="true">Save</GridCommandButton>
-            <GridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true">Cancel</GridCommandButton>
+            <GridCommandButton Command="Edit" Icon="@SvgIcon.Pencil">Edit</GridCommandButton>
+            <GridCommandButton Command="Delete" Icon="@SvgIcon.Trash">Delete</GridCommandButton>
+            <GridCommandButton Command="Save" Icon="@SvgIcon.Save" ShowInEdit="true">Save</GridCommandButton>
+            <GridCommandButton Command="Cancel" Icon="@SvgIcon.Cancel" ShowInEdit="true">Cancel</GridCommandButton>
         </GridCommandColumn>
     </GridColumns>
     <GridToolBar>
-        <GridCommandButton Command="Add" Icon="add">Add Employee</GridCommandButton>
+    <GridCommandButton Command="Add" Icon="@SvgIcon.Plus">Add Employee</GridCommandButton>
     </GridToolBar>
 </TelerikGrid>
 
@@ -86,7 +89,7 @@
         // clean up the storage
         await LocalStorage.RemoveItem(UniqueStorageKey);
 
-        await Grid.SetState(null); // pass null to reset the state
+        await Grid.SetStateAsync(null); // pass null to reset the state
     }
 
     void ReloadPage()
