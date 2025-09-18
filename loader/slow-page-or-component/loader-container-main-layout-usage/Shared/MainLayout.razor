@@ -11,7 +11,7 @@
             <a href="https://docs.microsoft.com/en-us/aspnet/" target="_blank">About</a>
         </div>
 
-        <TelerikLoaderContainer Visible="@LoaderVisible" LoaderType="@LoaderType.ConvergingSpinner" Size="@LoaderSize.Large"></TelerikLoaderContainer>
+    <TelerikLoaderContainer Visible="@LoaderVisible" LoaderType="@LoaderType.ConvergingSpinner"></TelerikLoaderContainer>
 
         <CascadingValue Value="@ChangeLoaderVisibility" TValue="Action<bool>">
             <div class="content px-4">
