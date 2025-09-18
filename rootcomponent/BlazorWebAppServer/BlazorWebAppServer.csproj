@@ -9,7 +9,8 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="6.2.0" />
+    <PackageReference Include="Telerik.UI.for.Blazor" />
   </ItemGroup>
 
 </Project>
+
