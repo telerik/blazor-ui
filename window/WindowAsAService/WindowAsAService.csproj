@@ -1,16 +1,18 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
   
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseRazorSourceGenerator>false</UseRazorSourceGenerator>
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="3.5.0" />
+    <PackageReference Include="Telerik.UI.for.Blazor" />
   </ItemGroup>
   
   <ProjectExtensions><VisualStudio><UserProperties UseCdnSupport="" /></VisualStudio></ProjectExtensions>
 
 </Project>
+
+
