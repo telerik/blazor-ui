@@ -74,7 +74,7 @@ namespace load_appointments_on_demand.Services
             // here we just filter in memory for demonstration purposes because it is easy to follow in the example
             // do NOT do this in the real app - this is the equivalend of selecting all rows, getting them to the app and filtering here
             appointments = appointments.Where(a =>
-                (a.Start.Date < endData.Date && a.End.Date > startDate.Date)     //OR ends in the current range
+                (a.Start.Date < endDate.Date && a.End.Date > startDate.Date)     //OR ends in the current range
             ).ToList();
 
             // always add all recurring ones if you don't want to expand and
