@@ -4,6 +4,8 @@
 @using AddRemoveTiles.Services
 @using AddRemoveTiles.Components
 @using AddRemoveTiles.Components.Tiles
+@using Telerik.SvgIcons
+@using Telerik.Blazor
 
 @inject DashboardDataService DataService
 @inject TilesDataService TilesData
@@ -34,7 +36,7 @@
                                                 </span>
                                                 @*The JS script is in the "_Host.cshtml" file*@
                                                 <span onpointerdown="stopPropagation(event)">
-                                                    <TelerikButton Icon="close" Title="Delete tile" Class="k-flat" OnClick="@(() => Remove(item))"></TelerikButton>
+                                                    <TelerikButton Icon="@SvgIcon.X" Title="Delete tile" Class="k-flat" OnClick="@(() => Remove(item))"></TelerikButton>
                                                 </span>
                                             </div>
                                         </HeaderTemplate>
@@ -63,8 +65,8 @@
                         <CardHeader>
                             <CardTitle>@item.Title</CardTitle>
                         </CardHeader>
-                        <CardActions Layout="@CardActionsLayout.Stretched">
-                            <TelerikButton Icon="plus" Title="Add tile" Enabled="!item.Visible" Class="k-flat" OnClick="@(() => Add(item))">Add</TelerikButton>
+                        <CardActions Layout="@CardActionsLayout.Start">
+                            <TelerikButton Icon="@SvgIcon.Plus" Title="Add tile" Enabled="!item.Visible" Class="k-flat" OnClick="@(() => Add(item))">Add</TelerikButton>
                         </CardActions>
                     </TelerikCard>
                 }
