@@ -9,14 +9,14 @@
 @if (!IsEditing)
 {
     <span style="margin-right: 1em;">@Item.Text</span>
-    <TelerikButton Icon="pencil" OnClick="@Edit" Class="k-flat"></TelerikButton>
+    <TelerikButton Icon="@SvgIcon.Pencil" OnClick="@Edit" Class="k-flat"></TelerikButton>
 }
 else
 {
     <span @onclick:stopPropagation="true">@* Stop the treenode from taking focus when you click in the textbox *@
         <TelerikTextBox @bind-Value="@Item.Text" @ref="@tbRef"></TelerikTextBox>
     </span>
-    <TelerikButton Icon="save" OnClick="@Save"></TelerikButton>
+    <TelerikButton Icon="@SvgIcon.Save" OnClick="@Save"></TelerikButton>
 }
 
 
