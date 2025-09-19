@@ -10,7 +10,7 @@
 
     <!-- Blazor / UI helpers -->
     <PackageVersion Include="Blazored.LocalStorage" Version="4.1.5" />
-    <PackageVersion Include="BlazorPro.BlazorSize" Version="2.0.2" />
+    <PackageVersion Include="BlazorPro.BlazorSize" Version="3.1.0" />
 
     <!-- Testing / coverage -->
     <PackageVersion Include="bunit.web" Version="1.6.4" />
@@ -47,7 +47,7 @@
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.20" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.20" />
-    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.36" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.20" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="6.0.101-preview.9.1843" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebView.WindowsForms" Version="8.0.3" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="8.0.3" />

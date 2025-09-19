@@ -6,7 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-      <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.0" />
+      <!-- Version managed centrally -->
+      <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" />
   </ItemGroup>
 
   <ItemGroup>
