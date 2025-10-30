@@ -21,6 +21,8 @@
     </GridLayoutColumns>
     <GridLayoutItems>
         <GridLayoutItem>
+            @using Telerik.SvgIcons
+
             <TelerikGrid Data="@forecasts" Height="550px" FilterMode="@GridFilterMode.FilterMenu"
                          Sortable="true" Pageable="true" PageSize="20" Groupable="true" Resizable="true" Reorderable="true"
                          OnUpdate="@UpdateHandler" OnDelete="@DeleteHandler" OnCreate="@CreateHandler" EditMode="@GridEditMode.Inline">

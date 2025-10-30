@@ -11,12 +11,12 @@
         <div style="border: 1px solid black; margin: 10px; padding: 10px; display: inline-block;">
             Employee: @context.Id <br />
             Name: @context.Name in team: @context.Team
-            <TelerikButton OnClick="@( _ => EditExisting(context) )" Icon="edit">Edit</TelerikButton>
-            <ListViewCommandButton Command="Delete" Icon="delete">Delete</ListViewCommandButton>
+            <TelerikButton OnClick="@( _ => EditExisting(context) )" Icon="@SvgIcon.Pencil">Edit</TelerikButton>
+            <ListViewCommandButton Command="Delete" Icon="@SvgIcon.Trash">Delete</ListViewCommandButton>
         </div>
     </Template>
     <HeaderTemplate>
-        <TelerikButton OnClick="@AddNew" Icon="plus">Add Employee</TelerikButton>
+    <TelerikButton OnClick="@AddNew" Icon="@SvgIcon.Plus">Add Employee</TelerikButton>
     </HeaderTemplate>
 </TelerikListView>
 
@@ -49,8 +49,8 @@
             </div>
             <div class="form-row">
                 <ValidationSummary />
-                <TelerikButton Icon="save" ThemeColor="@ThemeConstants.Button.ThemeColor.Primary" ButtonType="@ButtonType.Submit">Save</TelerikButton>
-                <TelerikButton Icon="cancel" OnClick="@ClearSelection" ButtonType="@ButtonType.Button">Cancel</TelerikButton>
+                <TelerikButton Icon="@SvgIcon.Save" ThemeColor="@ThemeConstants.Button.ThemeColor.Primary" ButtonType="@ButtonType.Submit">Save</TelerikButton>
+                <TelerikButton Icon="@SvgIcon.Cancel" OnClick="@ClearSelection" ButtonType="@ButtonType.Button">Cancel</TelerikButton>
             </div>
         </EditForm>
     </WindowContent>

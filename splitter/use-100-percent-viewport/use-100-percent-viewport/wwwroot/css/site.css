@@ -3,6 +3,8 @@
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     height: 100%;
+    margin: 0;
+    overflow: hidden; /* required for 100% viewport splitter layout */
 }
 
 a, .btn-link {

@@ -4,10 +4,12 @@
 @using pre_validate_item_for_grid_state_init.Services
 @using System.ComponentModel.DataAnnotations;
 @inject WeatherForecastService ForecastService
+@using Telerik.SvgIcons
+@using Telerik.Blazor
 
 <TelerikButton OnClick="@CreateHandler">Add Forecast</TelerikButton>
 <TelerikButton OnClick="@DiscardHandler">Discard current forecast being edited with annotation message</TelerikButton>
-<TelerikTextArea @bind-Value="@TextAreaValue" Label="Message:" AutoSize="true" Enabled="false"></TelerikTextArea>
+<TelerikTextArea Placeholder="Validation Message..." @bind-Value="@TextAreaValue" Title="Message:" Enabled="false" ResizeMode="TextAreaResizeMode.Horizontal"></TelerikTextArea>
 <TelerikGrid @ref="grid" Data="@forecasts" Height="550px" FilterMode="@GridFilterMode.FilterMenu"
              Sortable="true" Pageable="true" PageSize="20" Groupable="true" Resizable="true" Reorderable="true"
              OnUpdate="@UpdateHandler" OnDelete="@DeleteHandler" EditMode="@GridEditMode.Incell">
@@ -18,7 +20,7 @@
         <GridColumn Field="TemperatureF" Title="Temp. F" DisplayFormat="{0:N1}" />
         <GridColumn Field="Summary" />
         <GridCommandColumn Width="90px" Resizable="false">
-            <GridCommandButton Command="Delete" Icon="delete"></GridCommandButton>
+            <GridCommandButton Command="Delete" Icon="@SvgIcon.Trash"></GridCommandButton>
         </GridCommandColumn>
     </GridColumns>
 </TelerikGrid>

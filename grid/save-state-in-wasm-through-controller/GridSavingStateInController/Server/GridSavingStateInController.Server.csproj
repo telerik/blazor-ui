@@ -1,16 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-  
+<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" />
   </ItemGroup>
-  
   <ItemGroup>
     <ProjectReference Include="..\Client\GridSavingStateInController.Client.csproj" />
     <ProjectReference Include="..\Shared\GridSavingStateInController.Shared.csproj" />
   </ItemGroup>
-
 </Project>

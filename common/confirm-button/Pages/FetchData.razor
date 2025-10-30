@@ -19,21 +19,21 @@
                                    ConfirmText="@( $"Are you sure you want to delete forecast {currItem.Id}?" )"
                                    ButtonText="Delete"
                                    ConfirmTitle="Please confirm!"
-                                   Icon="delete"/>
+                                   Icon="@SvgIcon.Trash"/>
                 }
             </Template>
         </GridColumn>
         <GridCommandColumn Width="300px">
-            <GridCommandButton Command="Save" Icon="save" ShowInEdit="true">Update</GridCommandButton>
-            <GridCommandButton Command="Edit" Icon="edit">Edit</GridCommandButton>
-            <GridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true">Cancel</GridCommandButton>
+            <GridCommandButton Command="Save" Icon="@SvgIcon.Save" ShowInEdit="true">Update</GridCommandButton>
+            <GridCommandButton Command="Edit" Icon="@SvgIcon.Pencil">Edit</GridCommandButton>
+            <GridCommandButton Command="Cancel" Icon="@SvgIcon.Cancel" ShowInEdit="true">Cancel</GridCommandButton>
 
             @* Approach 2: overriding the built-in Delete command functionality *@
-            <GridCommandButton Command="Delete" Icon="delete" OnClick="@DeleteWithConfirmation">Delete</GridCommandButton>
+            <GridCommandButton Command="Delete" Icon="@SvgIcon.Trash" OnClick="@DeleteWithConfirmation">Delete</GridCommandButton>
         </GridCommandColumn>
     </GridColumns>
     <GridToolBar>
-        <GridCommandButton Command="Add" Icon="add">Add Forecast</GridCommandButton>
+    <GridCommandButton Command="Add" Icon="@SvgIcon.Plus">Add Forecast</GridCommandButton>
     </GridToolBar>
 </TelerikGrid>
 

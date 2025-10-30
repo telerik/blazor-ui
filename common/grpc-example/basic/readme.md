@@ -14,11 +14,11 @@ In summary - using gRPC in Blazor is not different from using it in any other ap
 
 Getting started with gRPC from MSDN:
 
-* [Introduction to gRPC on .NET Core](https://docs.microsoft.com/en-us/aspnet/core/grpc/?view=aspnetcore-3.0)
-* [Tutorial: Create a gRPC client and server in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/tutorials/grpc/grpc-start?view=aspnetcore-3.0&tabs=visual-studio)
-* [gRPC services with C#](https://docs.microsoft.com/en-us/aspnet/core/grpc/basics?view=aspnetcore-3.0)
-* [gRPC services with ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/grpc/aspnetcore?view=aspnetcore-3.0&tabs=visual-studio)
-* [Call gRPC services with the .NET client](https://docs.microsoft.com/en-us/aspnet/core/grpc/client?view=aspnetcore-3.0)
+* [Introduction to gRPC on .NET Core](https://docs.microsoft.com/en-us/aspnet/core/grpc/)
+* [Tutorial: Create a gRPC client and server in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/tutorials/grpc/grpc-start&tabs=visual-studio)
+* [gRPC services with C#](https://docs.microsoft.com/en-us/aspnet/core/grpc/basics)
+* [gRPC services with ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/grpc/aspnetcore&tabs=visual-studio)
+* [Call gRPC services with the .NET client](https://docs.microsoft.com/en-us/aspnet/core/grpc/client)
 
 >For WebAssembly applications, see ~this blog post dated 15 Jan 2020: [https://blog.stevensanderson.com/2020/01/15/2020-01-15-grpc-web-in-blazor-webassembly/](https://blog.stevensanderson.com/2020/01/15/2020-01-15-grpc-web-in-blazor-webassembly/). It is a starting point with some workarounds that will probably become part of the standard tooling.~ the following blog post that made `gRPC-web` official: [https://devblogs.microsoft.com/aspnet/grpc-web-for-net-now-available/](https://devblogs.microsoft.com/aspnet/grpc-web-for-net-now-available/)
 

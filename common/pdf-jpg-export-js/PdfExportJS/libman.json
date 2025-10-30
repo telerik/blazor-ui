@@ -11,7 +11,7 @@
 			"destination": "wwwroot/lib/progress/kendo-file-saver/"
 		},
 		{
-			"library": "@progress/kendo-drawing@1.20.4",
+			"library": "@progress/kendo-drawing@1.21.2",
 			"destination": "wwwroot/lib/progress/kendo-drawing/"
 		}
 	]

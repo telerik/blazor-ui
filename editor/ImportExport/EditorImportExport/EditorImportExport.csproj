@@ -1,22 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="5.0.1" />
-    <PackageReference Include="Telerik.Documents.Core" Version="2023.3.1106" />
-    <PackageReference Include="Telerik.Documents.Fixed" Version="2023.3.1106" />
-    <PackageReference Include="Telerik.Documents.Flow" Version="2023.3.1106" />
-    <PackageReference Include="Telerik.Documents.Flow.FormatProviders.Pdf" Version="2023.3.1106" />
-    <PackageReference Include="Telerik.Documents.Spreadsheet" Version="2023.3.1106" />
-    <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.OpenXml" Version="2023.3.1106" />
-    <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.Pdf" Version="2023.3.1106" />
-    <PackageReference Include="Telerik.Documents.SpreadsheetStreaming" Version="2023.3.1106" />
-    <PackageReference Include="Telerik.Zip" Version="2023.3.1106" />
-    <PackageReference Include="Telerik.Documents.ImageUtils" Version="2023.3.1106" />
+    <PackageReference Include="Telerik.UI.for.Blazor" />
+    <PackageReference Include="Telerik.Documents.Core"  />
+    <PackageReference Include="Telerik.Documents.Fixed"  />
+    <PackageReference Include="Telerik.Documents.Flow"  />
+    <PackageReference Include="Telerik.Documents.Flow.FormatProviders.Pdf"  />
+    <PackageReference Include="Telerik.Documents.Spreadsheet"  />
+    <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.OpenXml"  />
+    <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.Pdf"  />
+    <PackageReference Include="Telerik.Documents.SpreadsheetStreaming"  />
+    <PackageReference Include="Telerik.Zip"  />
+    <PackageReference Include="Telerik.Documents.ImageUtils"  />
   </ItemGroup>
 </Project>
+
+
+

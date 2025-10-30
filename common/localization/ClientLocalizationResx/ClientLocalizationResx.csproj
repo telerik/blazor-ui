@@ -1,12 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
-
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
   </PropertyGroup>
-
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' ">
     <ExternalConsole>true</ExternalConsole>
   </PropertyGroup>
@@ -14,12 +12,11 @@
     <ExternalConsole>true</ExternalConsole>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.*" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.*" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="8.*" />
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="6.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Extensions.Localization" />
+    <PackageReference Include="Telerik.UI.for.Blazor" />
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Update="Resources\TelerikMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

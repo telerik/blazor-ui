@@ -6,7 +6,7 @@
 <TelerikGrid Data=@GridData Sortable="true" Pageable="true">
     <GridColumns>
         <GridCommandColumn>
-            <GridCommandButton OnClick="@((args)=> SelectEmployee(args.Item as Employee))" Icon="edit">Edit</GridCommandButton>
+            <GridCommandButton OnClick="@((args)=> SelectEmployee(args.Item as Employee))" Icon="@SvgIcon.Pencil">Edit</GridCommandButton>
         </GridCommandColumn>
         <GridColumn Field=@nameof(Employee.Id) Title="Id" />
         <GridColumn Field=@nameof(Employee.Name) Title="Name" />
@@ -19,7 +19,7 @@
         </GridColumn>
     </GridColumns>
     <GridToolBar>
-        <TelerikButton OnClick="@( () => SelectEmployee(null) )" Icon="add">Add Employee</TelerikButton>
+    <TelerikButton OnClick="@( () => SelectEmployee(null) )" Icon="@SvgIcon.Plus">Add Employee</TelerikButton>
     </GridToolBar>
 </TelerikGrid>
 
@@ -46,8 +46,8 @@
                 <TelerikValidationSummary />
             </FormValidation>
             <FormButtons>
-                <TelerikButton Icon="save" ThemeColor="@ThemeConstants.Button.ThemeColor.Primary" ButtonType="@ButtonType.Submit">Save</TelerikButton>
-                <TelerikButton Icon="cancel" OnClick="@ClearSelection" ButtonType="@ButtonType.Button">Cancel</TelerikButton>
+                <TelerikButton Icon="@SvgIcon.Save" ThemeColor="@ThemeConstants.Button.ThemeColor.Primary" ButtonType="@ButtonType.Submit">Save</TelerikButton>
+                <TelerikButton Icon="@SvgIcon.Cancel" OnClick="@ClearSelection" ButtonType="@ButtonType.Button">Cancel</TelerikButton>
             </FormButtons>
         </TelerikForm>
     </WindowContent>

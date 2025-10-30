@@ -1,16 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-  
+<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" />
   </ItemGroup>
-  
   <ItemGroup>
     <ProjectReference Include="..\Client\LazyLoadTelerikComponents.Client.csproj" />
     <ProjectReference Include="..\Shared\LazyLoadTelerikComponents.Shared.csproj" />
   </ItemGroup>
-
 </Project>

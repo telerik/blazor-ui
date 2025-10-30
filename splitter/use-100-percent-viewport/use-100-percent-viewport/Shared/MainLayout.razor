@@ -2,16 +2,7 @@
 
 @inherits LayoutComponentBase
 
-<style>
-    /* CSS rules to prepare the whole 100% height layout
-    Note that for percentage height to work, the parent element must have a defined height in percent or pixels. If the parent has a percentage height too, rule applies up the DOM tree until a pixel height is reached, or until the <html> element is reached.
-    */
-    html, body {
-        height: 100%;
-        margin: 0;
-        overflow: hidden;
-    }
-</style>
+@* Moved global 100% height styles to site.css to avoid Razor parsing issue *@
 
 <TelerikSplitter Height="100%" Width="100%" Orientation="@SplitterOrientation.Vertical">
     <SplitterPanes>

@@ -1,15 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
+<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
-
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'ClientApp.Server' " />
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.15" />
-    <PackageReference Include="Telerik.DataSource" Version="3.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" />
+    <PackageReference Include="Telerik.DataSource" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Client\WasmApp.Client.csproj" />
     <ProjectReference Include="..\Shared\WasmApp.Shared.csproj" />

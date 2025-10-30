@@ -33,14 +33,14 @@
         <GridColumn Field="@nameof(TestDataModel.Modified)" FieldType="@typeof(DateTime)" Title="Modified" Editable="false" Width="180px" DisplayFormat="{0:dd/MM/yyyy HH:mm:ss}" />
         <GridColumn Field="@nameof(TestDataModel.Created)" FieldType="@typeof(DateTime)" Title="Created" Editable="false" Width="180px" DisplayFormat="{0:dd/MM/yyyy HH:mm:ss}" />
         <GridCommandColumn Width="100px" Locked="true">
-            <GridCommandButton Command="Save" Icon="SvgIcon.Save" ShowInEdit="true"></GridCommandButton>
-            <GridCommandButton Command="Edit" Icon="SvgIcon.Pencil"></GridCommandButton>
-            <GridCommandButton Command="Cancel" Icon="SvgIcon.Cancel" ShowInEdit="true"></GridCommandButton>
-            <GridCommandButton Command="Delete" Icon="SvgIcon.Trash" OnClick="@DeleteWithConfirmation"></GridCommandButton>
+            <GridCommandButton Command="Save" Icon="@SvgIcon.Save" ShowInEdit="true"></GridCommandButton>
+            <GridCommandButton Command="Edit" Icon="@SvgIcon.Pencil"></GridCommandButton>
+            <GridCommandButton Command="Cancel" Icon="@SvgIcon.Cancel" ShowInEdit="true"></GridCommandButton>
+            <GridCommandButton Command="Delete" Icon="@SvgIcon.Trash" OnClick="@DeleteWithConfirmation"></GridCommandButton>
         </GridCommandColumn>
     </GridColumns>
     <GridToolBarTemplate>
-        <GridCommandButton Command="CustomAdd" Icon="SvgIcon.Plus" OnClick="@StartInsert">Add Record</GridCommandButton>
+    <GridCommandButton Command="CustomAdd" Icon="@SvgIcon.Plus" OnClick="@StartInsert">Add Record</GridCommandButton>
     </GridToolBarTemplate>
 </TelerikGrid>
 

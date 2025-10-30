@@ -1,27 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <None Remove="Common\Common.Proto" />
     <None Remove="TestData\TestData.proto" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.29.3" />
-    <PackageReference Include="Grpc.Net.Client" Version="2.67.0" />
-    <PackageReference Include="Grpc.Tools" Version="2.69.0">
+    <PackageReference Include="Google.Protobuf" />
+    <PackageReference Include="Grpc.Net.Client" />
+    <PackageReference Include="Grpc.Tools">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="7.1.0" />
+    <PackageReference Include="Telerik.UI.for.Blazor" />
   </ItemGroup>
-
   <ItemGroup>
     <Protobuf Include="Common\Common.Proto" />
     <Protobuf Include="TestData\TestData.proto" />
   </ItemGroup>
-
 </Project>

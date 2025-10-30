@@ -1,6 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
+	  <!-- disabled until project can be updated with nullable best practices -->
+	  <Nullable>disable</Nullable>
     <TargetFramework>net8.0</TargetFramework>
     <!-- PWA -->
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
@@ -19,16 +21,16 @@
   <!-- /PWA -->
 
   <ItemGroup>
-    <PackageReference Include="Blazored.LocalStorage" Version="4.1.5" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.1" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="8.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.1" />
-    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.113" />
-    <PackageReference Include="System.Net.Http.Json" Version="8.0.0" />
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="11.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
-    <PackageReference Include="Markdig" Version="0.26.0" />
+    <PackageReference Include="Blazored.LocalStorage" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" />
+    <PackageReference Include="Microsoft.Extensions.Localization" />
+    <PackageReference Include="Microsoft.Web.LibraryManager.Build" />
+    <PackageReference Include="System.Net.Http.Json" />
+    <PackageReference Include="Telerik.UI.for.Blazor" />
+    <PackageReference Include="Microsoft.Extensions.Http" />
+    <PackageReference Include="Markdig" />
   </ItemGroup>
 
   <ItemGroup>

@@ -7,7 +7,7 @@
 <TelerikGrid Data=@GridData Sortable="true" Pageable="true">
     <GridColumns>
         <GridCommandColumn>
-            <GridCommandButton OnClick="@((args)=> SelectEmployee(args.Item as Employee))" Icon="edit">Edit</GridCommandButton>
+            <GridCommandButton OnClick="@((args)=> SelectEmployee(args.Item as Employee))" Icon="@SvgIcon.Pencil">Edit</GridCommandButton>
         </GridCommandColumn>
         <GridColumn Field=@nameof(Employee.Id) Title="Id" />
         <GridColumn Field=@nameof(Employee.Name) Title="Name" />
@@ -20,7 +20,7 @@
         </GridColumn>
     </GridColumns>
     <GridToolBar>
-        <TelerikButton OnClick="@( () => SelectEmployee(null) )" Icon="add">Add Employee</TelerikButton>
+    <TelerikButton OnClick="@( () => SelectEmployee(null) )" Icon="@SvgIcon.Plus">Add Employee</TelerikButton>
     </GridToolBar>
 </TelerikGrid>
 

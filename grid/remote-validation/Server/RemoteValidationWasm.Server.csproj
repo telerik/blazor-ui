@@ -1,18 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.*" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Client\RemoteValidationWasm.Client.csproj" />
     <ProjectReference Include="..\Shared\RemoteValidationWasm.Shared.csproj" />
   </ItemGroup>
-
 </Project>
