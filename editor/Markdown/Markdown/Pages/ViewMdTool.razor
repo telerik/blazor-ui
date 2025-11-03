@@ -1,4 +1,5 @@
-﻿<TelerikButton Icon="paste-markdown" OnClick="@ShowMdEditWindow">View MD</TelerikButton>
+﻿@using Telerik.SvgIcons
+<TelerikButton Icon="@SvgIcon.ClipboardMarkdown" OnClick="@ShowMdEditWindow">View MD</TelerikButton>
 
 <TelerikWindow Visible="@wndVisible" Width="60vw" Modal="true">
     <WindowTitle>View and Edit the Raw Markdown</WindowTitle>

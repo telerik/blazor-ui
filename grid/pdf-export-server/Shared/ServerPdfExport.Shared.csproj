@@ -1,12 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
-
-    <ItemGroup>
-        <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
-        <PackageReference Include="Telerik.DataSource" Version="2.1.1" />
-    </ItemGroup>
-
+  <ItemGroup>
+    <PackageReference Include="System.ComponentModel.Annotations" />
+    <PackageReference Include="Telerik.DataSource" />
+  </ItemGroup>
 </Project>

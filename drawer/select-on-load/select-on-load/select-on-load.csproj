@@ -1,11 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>select_on_load</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'select-on-load' " />
   <ItemGroup>
-    <PackageReference Include="Telerik.UI.for.Blazor" Version="3.4.0" />
+    <PackageReference Include="Telerik.UI.for.Blazor" />
   </ItemGroup>
 </Project>
+

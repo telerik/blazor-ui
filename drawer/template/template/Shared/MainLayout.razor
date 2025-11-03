@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@using Telerik.SvgIcons
 
 @inject NavigationManager _navMan
 
@@ -20,6 +21,10 @@
     /* horizontal scroll happens in the drawer content to keep the drawer on the left side of the screen */
     .k-drawer-content {
         overflow-x: auto;
+    }
+
+    .k-drawer-items ul {
+        padding: 0;
     }
 
     /* sizing of the header */
@@ -50,18 +55,18 @@
         <Template>
             @* the header *@
             <TelerikButton OnClick="@( () => DrawerRef.ToggleAsync() )"
-                           Icon="menu"
+                           Icon="@SvgIcon.Menu"
                            Class="drawer-hamburger" />
             <div class="mt-5">
                 @if (DrawerExpanded)
                 {
-                    <div class="text-info" style="border-bottom:solid; font-weight: bold; margin-bottom: 3em; white-space:nowrap">
+                    <div class="text-info" style="padding-left: 5px;border-bottom:solid; font-weight: bold; margin-bottom: 3em; white-space:nowrap">
                         My Custom Navigation
                     </div>
                 }
                 else
                 {
-                    <div class="text-info" style="border-bottom:solid; font-weight: bold;">
+                    <div class="text-info" style="padding-left: 5px;border-bottom:solid; font-weight: bold;">
                         Nav
                     </div>
                 }
@@ -86,7 +91,7 @@
                         <li @onclick="@(() => NavigateToPage(item))"
                             @onclick:stopPropagation
                             class="k-drawer-item @GetSelectedItemClass(item)" style="white-space:nowrap">
-                            <span class="k-icon k-i-@item.Icon" style="margin-right: 8px;"></span>
+                            <TelerikSvgIcon Icon="@item.Icon"/>
                             @if (DrawerExpanded)
                             {
                                 <div>
@@ -102,7 +107,7 @@
             @if (DrawerExpanded)
             {
                 <div style="text-align: center; margin-top: 3em; padding-top: 2em; border-top: 2px solid black; white-space:nowrap">
-                    <TelerikButton Icon="logout" ThemeColor="@ThemeConstants.Button.ThemeColor.Primary">Log Out</TelerikButton>
+                    <TelerikButton Icon="@SvgIcon.Logout" ThemeColor="@ThemeConstants.Button.ThemeColor.Primary">Log Out</TelerikButton>
                 </div>
             }
         </Template>
@@ -131,9 +136,9 @@
 
     List<DrawerItem> NavigablePages { get; set; } = new List<DrawerItem>
 {
-        new DrawerItem { Text = "Home", Url = "/", Icon = "home" },
-        new DrawerItem { Text = "Counter", Url = "counter", Icon = "plus-outline" },
-        new DrawerItem { Text = "FetchData", Url = "fetchdata", Icon = "grid" }
+        new DrawerItem { Text = "Home", Url = "/", Icon = SvgIcon.Home },
+        new DrawerItem { Text = "Counter", Url = "counter", Icon = SvgIcon.PlusOutline },
+        new DrawerItem { Text = "FetchData", Url = "fetchdata", Icon = SvgIcon.Grid }
     };
 
     protected override void OnInitialized()
@@ -179,7 +184,7 @@
     {
         public string Text { get; set; }
         public string Url { get; set; }
-        public string Icon { get; set; }
+        public ISvgIcon Icon { get; set; }
         public bool IsSeparator { get; set; }
     }
 }

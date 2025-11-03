@@ -131,9 +131,21 @@
         UpdateValidationModel();
     }
 
-    void RemoveFailedFilesFromList(List<Telerik.Blazor.Components.Upload.UploadFileInfo> files)
+    void RemoveFailedFilesFromList(IEnumerable<object> files)
     {
-        foreach (var file in files)
+        foreach (dynamic file in files)
+        {
+            if (FilesValidationInfo.Keys.Contains(file.Id))
+            {
+                FilesValidationInfo.Remove(file.Id);
+            }
+        }
+    }
+
+    // Legacy overload for generated code referencing UploadFileInfo (pre v11 API)
+    void RemoveFailedFilesFromListLegacy(IEnumerable<object> files)
+    {
+        foreach (dynamic file in files)
         {
             if (FilesValidationInfo.Keys.Contains(file.Id))
             {

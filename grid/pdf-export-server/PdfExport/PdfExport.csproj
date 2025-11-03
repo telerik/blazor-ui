@@ -1,19 +1,21 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Telerik.Documents.Core" Version="2022.1.106" />
-        <PackageReference Include="Telerik.Documents.Fixed" Version="2022.1.106" />
-        <PackageReference Include="Telerik.Zip" Version="2022.1.106" />
+        <PackageReference Include="Telerik.Documents.Core"  />
+        <PackageReference Include="Telerik.Documents.Fixed"  />
+        <PackageReference Include="Telerik.Zip"  />
 
-        <PackageReference Include="Telerik.Documents.Spreadsheet" Version="2022.1.106" />
-        <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.Pdf" Version="2022.1.106" />
+        <PackageReference Include="Telerik.Documents.Spreadsheet"  />
+        <PackageReference Include="Telerik.Documents.Spreadsheet.FormatProviders.Pdf"  />
 
-        <PackageReference Include="Telerik.DataSource" Version="2.1.1" />
+        <PackageReference Include="Telerik.DataSource"  />
     </ItemGroup>
 
 </Project>
+
+

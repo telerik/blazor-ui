@@ -15,9 +15,9 @@
              @bind-PageSize="PageSize"
              @ref="@Grid">
     <GridToolBar>
-        <GridCommandButton Icon="arrow-rotate-cw" OnClick="RefreshTable">Refresh</GridCommandButton>
-        <GridCommandButton Command="ExcelExport" Icon="file-excel">Export .xlsx</GridCommandButton>
-        <GridCommandButton Command="CsvExport" Icon="file-csv">Export .csv</GridCommandButton>
+    <GridCommandButton Icon="@SvgIcon.Redo" OnClick="RefreshTable">Refresh</GridCommandButton>
+    <GridCommandButton Command="ExcelExport" Icon="@SvgIcon.FileExcel">Export .xlsx</GridCommandButton>
+    <GridCommandButton Command="CsvExport" Icon="@SvgIcon.FileCsv">Export .csv</GridCommandButton>
         <span class="k-toolbar-spacer"></span>
         <GridSearchBox />
     </GridToolBar>

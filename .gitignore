@@ -460,3 +460,7 @@ MigrationBackup/
 
 # macOS folder settings
 .DS_Store
+/maintenance/build-logs/Build_Failures.txt
+/maintenance/build-logs/Build_Failure_Details.txt
+/maintenance/build-logs/Build_Results.csv
+/maintenance/build-logs/Build_Summary.txt

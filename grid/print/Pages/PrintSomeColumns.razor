@@ -1,4 +1,5 @@
 ﻿@page "/print-columns"
+@using Telerik.SvgIcons
 
 @inject IJSRuntime JsInterop
 
@@ -7,7 +8,7 @@
              FilterMode="Telerik.Blazor.GridFilterMode.FilterRow"
              Resizable="true" Reorderable="true">
     <GridToolBar>
-        <GridCommandButton Command="Print" OnClick="@Print" Icon="print">Print</GridCommandButton>
+        <GridCommandButton Command="Print" OnClick="@Print" Icon="@SvgIcon.Print">Print</GridCommandButton>
     </GridToolBar>
     <GridColumns>
         @*Use the Visible parameter of the columns to define which of them will not be visible in print mode.*@
@@ -19,10 +20,10 @@
         @*Command column is included only for presentation purposes.
         No handlers are set for the command buttons.*@
         <GridCommandColumn Visible="@(!isPrinting)">
-            <GridCommandButton Command="Save" Icon="save" ShowInEdit="true">Update</GridCommandButton>
-            <GridCommandButton Command="Edit" Icon="edit">Edit</GridCommandButton>
-            <GridCommandButton Command="Delete" Icon="delete">Delete</GridCommandButton>
-            <GridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true">Cancel</GridCommandButton>
+            <GridCommandButton Command="Save" Icon="@SvgIcon.Save" ShowInEdit="true">Update</GridCommandButton>
+            <GridCommandButton Command="Edit" Icon="@SvgIcon.Pencil">Edit</GridCommandButton>
+            <GridCommandButton Command="Delete" Icon="@SvgIcon.Trash">Delete</GridCommandButton>
+            <GridCommandButton Command="Cancel" Icon="@SvgIcon.Cancel" ShowInEdit="true">Cancel</GridCommandButton>
         </GridCommandColumn>        
     </GridColumns>
 </TelerikGrid>

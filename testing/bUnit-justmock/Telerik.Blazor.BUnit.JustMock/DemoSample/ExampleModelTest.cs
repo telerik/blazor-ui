@@ -23,8 +23,7 @@ namespace Telerik.Blazor.BUnit.JustMock
 
             var form = formPage.FindComponent<TelerikForm>();
             
-            var formItem = form.FindComponent<FormItem>();
-            var textboxComponent = formItem.FindComponent<TelerikTextBox>();
+            var textboxComponent = formPage.FindComponent<TelerikTextBox>();
 
             var tbText = textboxComponent.Instance.Value;
 
