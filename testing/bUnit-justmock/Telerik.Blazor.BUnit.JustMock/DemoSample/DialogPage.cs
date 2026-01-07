@@ -10,7 +10,7 @@ namespace Telerik.Blazor.BUnit.JustMock
         [Fact]
         public void Dialog_alert_triggered_on_button_click()
         {
-            _ = RenderComponent<Dialog>();
+            _ = Render<Dialog>();
 
             var button = this.RootComponent.Find("button[id=\"dialog-show-button\"]");
 

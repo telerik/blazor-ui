@@ -10,7 +10,7 @@ namespace Telerik.Blazor.BUnit.JustMock
         [Fact]
         public void Greeting_message_displayed()
         {
-            var indexPage = RenderComponent<Index>();
+            var indexPage = Render<Index>();
 
             var button = indexPage.Find(".k-button");
 

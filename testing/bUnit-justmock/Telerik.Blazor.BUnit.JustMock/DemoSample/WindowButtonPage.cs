@@ -10,7 +10,7 @@ namespace Telerik.Blazor.BUnit.JustMock
         [Fact]
         public void Button_in_window_is_rendered()
         {
-            _ = RenderComponent<Window_Button>();
+            _ = Render<Window_Button>();
 
             var button = this.RootComponent.Find("button[id=\"window-test-button\"]");
             
@@ -20,7 +20,7 @@ namespace Telerik.Blazor.BUnit.JustMock
         [Fact]
         public void Button_in_window_click_action()
         {
-            _ = RenderComponent<Window_Button>();
+            _ = Render<Window_Button>();
 
             var button = this.RootComponent.Find("button[id=\"window-test-button\"]");
 

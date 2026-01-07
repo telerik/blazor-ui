@@ -12,7 +12,7 @@ namespace Telerik.Blazor.BUnit.JustMock
         [Fact]
         public void DetailTemplate_is_rendered()
         {
-            var gridPage = RenderComponent<Grid>();
+            var gridPage = Render<Grid>();
 
             var grid = gridPage.FindComponent<TelerikGrid<Person>>();
 
@@ -26,7 +26,7 @@ namespace Telerik.Blazor.BUnit.JustMock
         [Fact]
         public void ItemTemplate_is_rendered()
         {
-            var gridPage = RenderComponent<Grid>();
+            var gridPage = Render<Grid>();
 
             var grid = gridPage.FindComponent<TelerikGrid<Person>>();
 

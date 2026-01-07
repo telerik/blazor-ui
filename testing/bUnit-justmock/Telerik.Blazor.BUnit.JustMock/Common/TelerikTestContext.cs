@@ -1,4 +1,5 @@
 ﻿using Bunit;
+using Bunit.Rendering;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
@@ -12,7 +13,7 @@ namespace Telerik.Blazor.BUnit.JustMock.Common
     /// <summary>
     /// TestContext using a CascadingValue of type <see cref="TelerikRootComponent"/>, rather than the actual implementation.
     /// </summary>
-    public class TelerikTestContext : TestContext
+    public class TelerikTestContext : BunitContext
     {
         private IRenderedComponent<TelerikRootComponent>? rootComponent;
         public IRenderedComponent<TelerikRootComponent> RootComponent
@@ -33,7 +34,7 @@ namespace Telerik.Blazor.BUnit.JustMock.Common
             Services.AddSingleton(localizerMock);
         }
 
-        public override IRenderedFragment Render(RenderFragment renderFragment)
+        public override IRenderedComponent<ContainerFragment> Render(RenderFragment renderFragment)
         {
             EnsureRootComponent();
             return base.Render(renderFragment);
@@ -45,16 +46,10 @@ namespace Telerik.Blazor.BUnit.JustMock.Common
             return base.Render<TComponent>(renderFragment);
         }
 
-        public override IRenderedComponent<TComponent> RenderComponent<TComponent>(params ComponentParameter[] parameters)
+        public override IRenderedComponent<TComponent> Render<TComponent>(Action<ComponentParameterCollectionBuilder<TComponent>> parameterBuilder)
         {
             EnsureRootComponent();
-            return base.RenderComponent<TComponent>(parameters);
-        }
-
-        public override IRenderedComponent<TComponent> RenderComponent<TComponent>(Action<ComponentParameterCollectionBuilder<TComponent>> parameterBuilder)
-        {
-            EnsureRootComponent();
-            return base.RenderComponent(parameterBuilder);
+            return base.Render(parameterBuilder);
         }
 
         private void EnsureRootComponent()
@@ -62,7 +57,7 @@ namespace Telerik.Blazor.BUnit.JustMock.Common
             if (rootComponent is not null) return;
 
             // add a Telerik Root Component to hold all Telerik components and other content
-            rootComponent = (IRenderedComponent<TelerikRootComponent>)Renderer.RenderComponent<TelerikRootComponent>(new ComponentParameterCollection());
+            rootComponent = (IRenderedComponent<TelerikRootComponent>)Renderer.Render<TelerikRootComponent>();
 
             // provide the Telerik Root Component to the child components that need it (the Telerik components)
             RenderTree.TryAdd<CascadingValue<TelerikRootComponent>>(p =>

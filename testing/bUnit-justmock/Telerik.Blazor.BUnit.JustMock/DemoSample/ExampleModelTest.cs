@@ -19,7 +19,7 @@ namespace Telerik.Blazor.BUnit.JustMock
         [Fact]
         public void Name_Initial_Value()
         {
-            var formPage = RenderComponent<ExampleForm>();
+            var formPage = Render<ExampleForm>();
 
             var form = formPage.FindComponent<TelerikForm>();
             

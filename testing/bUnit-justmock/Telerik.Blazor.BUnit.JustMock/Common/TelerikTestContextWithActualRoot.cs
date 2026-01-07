@@ -1,4 +1,5 @@
 ﻿using Bunit;
+using Bunit.Rendering;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
@@ -13,7 +14,7 @@ namespace Telerik.Blazor.BUnit.JustMock.Common
     /// TestContext using an actual <see cref="TelerikRootComponent"/> that wraps the rendered content from the CUT. 
     /// Useful when the test depends on a certain logic contained within the RootComponent, such as when testing Dialogs.
     /// </summary>
-    public class TelerikTestContextWithActualRoot : TestContext
+    public class TelerikTestContextWithActualRoot : BunitContext
     {
         private IRenderedComponent<TelerikRootComponent>? rootComponent;
         private RenderFragment rootFragment;
@@ -36,7 +37,7 @@ namespace Telerik.Blazor.BUnit.JustMock.Common
             Services.AddSingleton(localizerMock);
         }
 
-        public override IRenderedFragment Render(RenderFragment renderFragment)
+        public override IRenderedComponent<ContainerFragment> Render(RenderFragment renderFragment)
         {
             EnsureRootComponent(renderFragment);
             return base.Render(rootFragment);
@@ -48,30 +49,14 @@ namespace Telerik.Blazor.BUnit.JustMock.Common
             return base.Render<TComponent>(rootFragment);
         }
 
-        public override IRenderedComponent<TComponent> RenderComponent<TComponent>(params ComponentParameter[] parameters)
-        {
-            return base.RenderComponent<TComponent>(parameters);
-        }
-
-        public override IRenderedComponent<TComponent> RenderComponent<TComponent>(Action<ComponentParameterCollectionBuilder<TComponent>> parameterBuilder)
-        {
-            return base.RenderComponent(parameterBuilder);
-        }
-
         public void EnsureRootComponent(RenderFragment fragment)
         {
             if (rootComponent is not null) return;
 
-            // Initialize a parameter collection with ChildContent prop, which contains the currently tested
-            // fragment. This way anything we test will correctly be a descendant of the TelerikRootComponent.
-            var cpc = new ComponentParameterCollection();
-            cpc.Add(ComponentParameter.CreateParameter("ChildContent", fragment));
-
-            // Save a copy of the root fragment
-            rootFragment = cpc.ToRenderFragment<TelerikRootComponent>();
-
             // Render the root component and assign it to a field so it can be used when testing
-            rootComponent = base.Render<TelerikRootComponent>(rootFragment);
+            rootComponent = base.Render<TelerikRootComponent>((ComponentParameterCollectionBuilder<TelerikRootComponent> cpcb) => cpcb.AddChildContent(fragment));
+
+            //rootFragment =
         }
     }
 }
