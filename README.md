@@ -15,7 +15,7 @@ This repository contains examples related to [Telerik UI for Blazor components](
 
 The included code examples are applicable for both Blazor WebAssembly and Blazor Server projects. For most of them, a component and some classes are provided to illustrate a specific use case can be achieved. 
 
-> **NOTE**: This repository does not contain the actual source code of the components, or the demos application available at the official UI for Blazor demos. The demos application is available as an offline project from your Telerik UI for Blazor installation.
+> **NOTE**: This repository does not contain the actual source code of the components or the [official UI for Blazor demos application](https://demos.telerik.com/blazor-ui?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github). The demos application is available as an offline project from your [Telerik UI for Blazor installation](https://www.telerik.com/blazor-ui/documentation/installation/automated?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github). On the other hand, this repository contains the [source code for the sample apps](https://github.com/telerik/blazor-ui/tree/master/sample-applications) that are linked on the [demos application home page](https://demos.telerik.com/blazor-ui?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github#popular-sample-apps).
 ***
 ## Table of Contents
 
@@ -912,7 +912,7 @@ The [Blazor Coffee Warehouse Application](https://demos.telerik.com/blazor-coffe
 
 The projects usually reference a commercial version of UI for Blazor components. If you only have a trial license, replace the reference to the NuGet package and to the JS Interop file and/or Theme [accordingly](https://docs.telerik.com/blazor-ui/getting-started/what-you-need?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github).
 
-The references (both to Telerik UI for Blazor, and the .NET framework) are usually up-to-date for the time of creation. You may need to update to their latest versions and make any necessary changes. The Blazor framework is evolving rapidly and these examples may not get their references updated all the time. Nevertheless, the general approaches should remain valid, barring breaking changes in the framework.
+The references (both to Telerik UI for Blazor, and the .NET framework) are usually up-to-date for the time of creation. You may need to [update to their latest versions](https://www.telerik.com/blazor-ui/documentation/upgrade/overview?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github) and make any [necessary changes](https://www.telerik.com/blazor-ui/documentation/upgrade/breaking-changes/list?utm_medium=referral&utm_source=github&utm_campaign=blazor-awareness-components-examples-github). The Blazor framework is evolving and these examples may not get their references updated all the time. Nevertheless, the general approaches should remain valid.
 
 ## Contribution
 
