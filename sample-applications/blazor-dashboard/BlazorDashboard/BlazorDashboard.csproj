@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <!-- Version managed centrally in Directory.Packages.props -->
-    <PackageReference Include="Telerik.UI.for.Blazor" VersionOverride="12.0.0" />
+    <PackageReference Include="Telerik.UI.for.Blazor" VersionOverride="13.0.0" />
   </ItemGroup>
 
 </Project>
