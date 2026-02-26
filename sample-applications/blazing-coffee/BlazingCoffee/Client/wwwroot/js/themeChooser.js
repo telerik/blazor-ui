@@ -1,5 +1,5 @@
 window.themeChooser = {
-    themeVersion: "11.0.0",
+    themeVersion: "13.0.0",
     themeList: [
         { themeValue: "default-ocean-blue", mainTheme:"default", isSwatch: true },
         { themeValue: "default", mainTheme: "default", isSwatch: false },
