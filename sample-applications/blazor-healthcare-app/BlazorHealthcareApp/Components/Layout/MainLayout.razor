@@ -219,6 +219,7 @@
             "/schedule" => "schedule",
             "/patients" => "patients",
             "/clinical-analytics" => "clinical-analytics",
+            _ when path.StartsWith("/patient/") => "patients",
             _ => ""
         };
     }

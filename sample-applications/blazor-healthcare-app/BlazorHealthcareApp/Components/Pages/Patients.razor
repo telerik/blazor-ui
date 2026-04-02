@@ -1,5 +1,6 @@
 ﻿@page "/patients"
 @rendermode InteractiveServer
+@inject NavigationManager Nav
 
 <style>
     /* ========== HEADING ========== */
@@ -164,176 +165,6 @@
     .hc-view-btn:hover { background: #E2E8F0; }
     .hc-view-btn svg { width: 14px; height: 14px; }
 
-    /* ========== DRILLDOWN PANEL ========== */
-    .hc-drilldown {
-        width: 420px; min-width: 360px; max-width: 420px;
-        background: #FFFFFF;
-        border-left: 1px solid rgba(23, 56, 99, 0.08);
-        box-shadow: -2px 0 8px rgba(0, 0, 0, 0.04);
-        border-radius: 0 16px 16px 0;
-        display: flex; flex-direction: column;
-        overflow-y: auto; overflow-x: hidden;
-        margin-left: -1px;
-    }
-
-    .hc-dd-header {
-        display: flex; align-items: center; gap: 12px;
-        padding: 20px 24px; border-bottom: 1px solid rgba(23, 56, 99, 0.08);
-        position: sticky; top: 0; background: #FFFFFF; z-index: 2;
-    }
-    .hc-dd-back {
-        width: 32px; height: 32px; border-radius: 8px;
-        background: #F3F5F7; border: 1px solid rgba(23, 56, 99, 0.08);
-        display: flex; align-items: center; justify-content: center;
-        cursor: pointer; flex-shrink: 0;
-    }
-    .hc-dd-back:hover { background: #E2E8F0; }
-    .hc-dd-back svg { width: 16px; height: 16px; color: #232A36; }
-    .hc-dd-header-info { flex: 1; display: flex; align-items: center; gap: 10px; min-width: 0; }
-    .hc-dd-header-name { font-weight: 600; font-size: 18px; color: #232A36; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .hc-dd-close {
-        width: 32px; height: 32px; border-radius: 8px;
-        background: transparent; border: none;
-        display: flex; align-items: center; justify-content: center;
-        cursor: pointer; flex-shrink: 0; color: #4A5666;
-    }
-    .hc-dd-close:hover { background: #F3F5F7; }
-
-    /* Patient summary */
-    .hc-dd-summary {
-        padding: 20px 24px; display: flex; align-items: center; gap: 16px;
-        border-bottom: 1px solid rgba(23, 56, 99, 0.08);
-    }
-    .hc-avatar-lg {
-        width: 56px; height: 56px; min-width: 56px; border-radius: 9999px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        display: flex; align-items: center; justify-content: center;
-        color: #FFFFFF; font-weight: 600; font-size: 20px;
-    }
-    .hc-dd-demographics { display: flex; flex-direction: column; gap: 2px; }
-    .hc-dd-name { font-weight: 600; font-size: 16px; color: #232A36; }
-    .hc-dd-detail { font-size: 13px; color: #4A5666; }
-
-    /* Sections */
-    .hc-dd-section { padding: 16px 24px; border-bottom: 1px solid rgba(23, 56, 99, 0.08); }
-    .hc-dd-section:last-child { border-bottom: none; }
-    .hc-dd-section-title {
-        font-weight: 700; font-size: 14px; color: #232A36;
-        text-transform: uppercase; letter-spacing: 0.5px;
-        margin: 0 0 12px 0;
-    }
-
-    /* Vitals grid */
-    .hc-vitals-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .hc-vital-card {
-        background: #F9FAFB; border: 1px solid rgba(23, 56, 99, 0.08);
-        border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 4px;
-    }
-    .hc-vital-label { font-size: 11px; color: #4A5666; text-transform: uppercase; letter-spacing: 0.3px; font-weight: 500; }
-    .hc-vital-value { font-size: 20px; font-weight: 700; color: #232A36; }
-    .hc-vital-unit { font-size: 12px; color: #4A5666; font-weight: 400; }
-    .hc-vital-normal { color: #1C5A00; }
-    .hc-vital-warning { color: #5E4700; }
-    .hc-vital-critical { color: #7A0C00; }
-
-    /* Tag list */
-    .hc-tag-list { display: flex; flex-wrap: wrap; gap: 8px; }
-    .hc-tag {
-        display: inline-flex; align-items: center; padding: 4px 12px;
-        border-radius: 9999px; font-size: 13px; font-weight: 500;
-        background: #FFF4D3; border: 1px solid #FFD760; color: #5E4700;
-    }
-
-    /* Lab results mini-table */
-    .hc-lab-table { width: 100%; border-collapse: collapse; }
-    .hc-lab-table th {
-        text-align: left; font-size: 11px; color: #4A5666;
-        text-transform: uppercase; letter-spacing: 0.3px; font-weight: 500;
-        padding: 0 0 8px 0; border-bottom: 1px solid rgba(23, 56, 99, 0.08);
-    }
-    .hc-lab-table td {
-        font-size: 13px; color: #232A36; padding: 8px 0;
-        border-bottom: 1px solid rgba(23, 56, 99, 0.08);
-    }
-    .hc-lab-table tr:last-child td { border-bottom: none; }
-    .hc-lab-normal { color: #1C5A00; font-weight: 500; }
-    .hc-lab-abnormal { color: #7A0C00; font-weight: 500; }
-
-    /* Medication list */
-    .hc-med-item {
-        display: flex; justify-content: space-between; align-items: center;
-        padding: 8px 0; border-bottom: 1px solid rgba(23, 56, 99, 0.08);
-    }
-    .hc-med-item:last-child { border-bottom: none; }
-    .hc-med-name { font-size: 14px; color: #232A36; font-weight: 500; }
-    .hc-med-dose { font-size: 13px; color: #4A5666; }
-
-    /* Visit timeline */
-    .hc-visit-item {
-        display: flex; gap: 12px; padding: 8px 0;
-        border-bottom: 1px solid rgba(23, 56, 99, 0.08);
-    }
-    .hc-visit-item:last-child { border-bottom: none; }
-    .hc-visit-date {
-        font-size: 12px; color: #4A5666; white-space: nowrap; min-width: 80px;
-        font-weight: 500; padding-top: 2px;
-    }
-    .hc-visit-info { display: flex; flex-direction: column; gap: 2px; }
-    .hc-visit-reason { font-size: 13px; color: #232A36; }
-    .hc-visit-doctor { font-size: 12px; color: #4A5666; }
-
-    /* Add note */
-    .hc-dd-note-area {
-        width: 100%; min-height: 60px; padding: 10px 12px;
-        border: 1px solid rgba(23, 56, 99, 0.08); border-radius: 8px;
-        font-family: 'Poppins', sans-serif; font-size: 13px; color: #232A36;
-        resize: vertical; margin-bottom: 10px; background: #FFFFFF;
-    }
-    .hc-dd-note-area::placeholder { color: #94A3B8; }
-
-    .hc-btn-ai {
-        display: inline-flex; align-items: center; gap: 6px;
-        padding: 8px 16px;
-        background: linear-gradient(135deg, #AC58FF 0%, #4B5FFA 100%);
-        border: none; border-radius: 9999px; color: #FFFFFF;
-        font-family: 'Poppins', sans-serif;
-        font-size: 13px; font-weight: 500;
-        cursor: pointer; white-space: nowrap;
-    }
-    .hc-btn-ai:hover { filter: brightness(1.1); }
-    .hc-btn-ai svg { width: 14px; height: 14px; }
-
-    /* AI Section in drilldown */
-    .hc-dd-ai-prompts { display: flex; flex-direction: column; gap: 6px; }
-    .hc-dd-ai-prompt {
-        display: block; width: 100%;
-        padding: 8px 12px;
-        background: #F1F5F9; border: 1px solid rgba(23, 56, 99, 0.08);
-        border-radius: 8px; font-family: 'Poppins', sans-serif;
-        font-size: 13px; color: #232A36;
-        cursor: pointer; text-align: left;
-    }
-    .hc-dd-ai-prompt:hover { background: #E2E8F0; }
-
-    .hc-dd-ai-response {
-        padding: 12px; background: #F8FAFC; border-radius: 8px;
-        font-size: 13px; color: #232A36; line-height: 160%;
-        border: 1px solid rgba(23, 56, 99, 0.08);
-        white-space: pre-line;
-    }
-    .hc-dd-ai-label {
-        font-weight: 600; font-size: 11px; color: #4A5666;
-        margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;
-    }
-    .hc-dd-ai-reset {
-        display: block; width: 100%; padding: 8px 12px;
-        background: #F1F5F9; border: 1px solid rgba(23, 56, 99, 0.08);
-        border-radius: 8px; font-family: 'Poppins', sans-serif;
-        font-size: 13px; color: #334155; font-weight: 500;
-        cursor: pointer; text-align: center;
-    }
-    .hc-dd-ai-reset:hover { background: #E2E8F0; }
-
     /* ========== AI SIDE PANEL ========== */
     .hc-ai-panel {
         width: 380px; min-width: 340px; max-width: 380px;
@@ -471,20 +302,13 @@
     /* ========== RESPONSIVE ========== */
     @@media (max-width: 1200px) {
         .hc-patients-main { flex-direction: column; }
-        .hc-drilldown {
-            width: 100%; max-width: 100%; min-width: 0;
-            border-left: none; border-top: 1px solid rgba(23, 56, 99, 0.08);
-            border-radius: 0 0 16px 16px; margin-left: 0;
-            max-height: 500px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-        }
         .hc-ai-panel {
             width: 100%; max-width: 100%; min-width: 0;
             margin-left: 0; margin-top: 16px;
             border-radius: 16px;
             max-height: 500px;
         }
-        .hc-grid-card { border-radius: 16px 16px 0 0; }
+        .hc-grid-card { border-radius: 16px; }
     }
 
     @@media (max-width: 960px) {
@@ -497,8 +321,6 @@
         .hc-heading p { font-size: 14px; }
         .hc-heading-actions { width: 100%; }
         .hc-btn-primary, .hc-btn-secondary { flex: 1; justify-content: center; font-size: 14px; padding: 8px 14px; }
-        .hc-drilldown { min-width: 0; }
-        .hc-vitals-grid { grid-template-columns: 1fr; }
     }
 </style>
 
@@ -532,8 +354,6 @@
                      Sortable="true"
                      Resizable="true"
                      FilterMode="@GridFilterMode.FilterRow"
-                     SelectionMode="@GridSelectionMode.Single"
-                     @bind-SelectedItems="@SelectedPatients"
                      OnRowClick="@OnRowClick"
                      Height="100%">
             <GridSettings>
@@ -574,8 +394,9 @@
                     <Template>
                         @{
                             var p = (PatientModel)context;
+                            var profileUrl = $"/patient/{p.Id}";
                         }
-                        <button class="hc-view-btn" @onclick="() => OpenDrilldown(p)" @onclick:stopPropagation="true">
+                        <button class="hc-view-btn" @onclick="@(() => Nav.NavigateTo(profileUrl))" @onclick:stopPropagation="true">
                             <svg viewBox="0 0 16 16" fill="none"><path d="M1 8C1 8 3.5 3 8 3C12.5 3 15 8 15 8C15 8 12.5 13 8 13C3.5 13 1 8 1 8Z" stroke="#232A36" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="8" r="2.5" stroke="#232A36" stroke-width="1.2"/></svg>
                             View Profile
                         </button>
@@ -583,173 +404,7 @@
                 </GridColumn>
             </GridColumns>
         </TelerikGrid>
-    </div>
-
-    <!-- DRILLDOWN PANEL -->
-    @if (showDrilldown && selectedPatient != null)
-    {
-        <div class="hc-drilldown">
-            <!-- Header -->
-            <div class="hc-dd-header">
-                <button class="hc-dd-back" @onclick="CloseDrilldown" title="Back">
-                    <svg viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8L10 4" stroke="#232A36" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </button>
-                <div class="hc-dd-header-info">
-                    <span class="hc-dd-header-name">@selectedPatient.Name</span>
-                    @{
-                        var ddChipClass = selectedPatient.Status switch
-                        {
-                            "Critical" => "hc-chip-critical",
-                            "Monitoring" => "hc-chip-monitoring",
-                            _ => "hc-chip-stable"
-                        };
-                    }
-                    <span class="hc-chip @ddChipClass" style="font-size: 11px; padding: 2px 10px;">@selectedPatient.Status</span>
-                </div>
-                <button class="hc-dd-close" @onclick="CloseDrilldown" title="Close">
-                    <svg viewBox="0 0 16 16" fill="none"><path d="M4 4L12 12M12 4L4 12" stroke="#4A5666" stroke-width="1.33" stroke-linecap="round"/></svg>
-                </button>
-            </div>
-
-            <!-- Patient Summary -->
-            <div class="hc-dd-summary">
-                <div class="hc-avatar-lg">@selectedPatient.Initials</div>
-                <div class="hc-dd-demographics">
-                    <span class="hc-dd-name">@selectedPatient.Name</span>
-                    <span class="hc-dd-detail">@selectedPatient.Age years, @selectedPatient.Gender &bull; @selectedPatient.BloodType</span>
-                    <span class="hc-dd-detail">@selectedPatient.Ward &bull; @selectedPatient.Diagnosis</span>
-                </div>
-            </div>
-
-            <!-- Vitals -->
-            <div class="hc-dd-section">
-                <div class="hc-dd-section-title">Vitals</div>
-                <div class="hc-vitals-grid">
-                    <div class="hc-vital-card">
-                        <span class="hc-vital-label">Heart Rate</span>
-                        <span class="hc-vital-value @(selectedPatient.HeartRate > 100 ? "hc-vital-critical" : "hc-vital-normal")">@selectedPatient.HeartRate <span class="hc-vital-unit">bpm</span></span>
-                    </div>
-                    <div class="hc-vital-card">
-                        <span class="hc-vital-label">Blood Pressure</span>
-                        <span class="hc-vital-value @(selectedPatient.BpSystolic > 140 ? "hc-vital-warning" : "hc-vital-normal")">@selectedPatient.BpSystolic/@selectedPatient.BpDiastolic <span class="hc-vital-unit">mmHg</span></span>
-                    </div>
-                    <div class="hc-vital-card">
-                        <span class="hc-vital-label">Temperature</span>
-                        <span class="hc-vital-value @(selectedPatient.Temperature > 99.5m ? "hc-vital-warning" : "hc-vital-normal")">@selectedPatient.Temperature° <span class="hc-vital-unit">F</span></span>
-                    </div>
-                    <div class="hc-vital-card">
-                        <span class="hc-vital-label">O₂ Saturation</span>
-                        <span class="hc-vital-value @(selectedPatient.O2Saturation < 95 ? "hc-vital-critical" : "hc-vital-normal")">@selectedPatient.O2Saturation<span class="hc-vital-unit">%</span></span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Allergies -->
-            <div class="hc-dd-section">
-                <div class="hc-dd-section-title">Allergies</div>
-                @if (selectedPatient.Allergies.Any())
-                {
-                    <div class="hc-tag-list">
-                        @foreach (var allergy in selectedPatient.Allergies)
-                        {
-                            <span class="hc-tag">@allergy</span>
-                        }
-                    </div>
-                }
-                else
-                {
-                    <span style="font-size: 13px; color: #4A5666;">No known allergies</span>
-                }
-            </div>
-
-            <!-- Lab Results -->
-            <div class="hc-dd-section">
-                <div class="hc-dd-section-title">Lab Results</div>
-                <table class="hc-lab-table">
-                    <thead>
-                        <tr>
-                            <th>Test</th>
-                            <th>Value</th>
-                            <th>Ref. Range</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var lab in selectedPatient.LabResults)
-                        {
-                            <tr>
-                                <td>@lab.Test</td>
-                                <td>@lab.Value</td>
-                                <td>@lab.RefRange</td>
-                                <td><span class="@(lab.IsNormal ? "hc-lab-normal" : "hc-lab-abnormal")">@(lab.IsNormal ? "Normal" : "Abnormal")</span></td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Medications -->
-            <div class="hc-dd-section">
-                <div class="hc-dd-section-title">Medications</div>
-                @foreach (var med in selectedPatient.Medications)
-                {
-                    <div class="hc-med-item">
-                        <span class="hc-med-name">@med.Name</span>
-                        <span class="hc-med-dose">@med.Dosage</span>
-                    </div>
-                }
-            </div>
-
-            <!-- Recent Visits -->
-            <div class="hc-dd-section">
-                <div class="hc-dd-section-title">Recent Visits</div>
-                @foreach (var visit in selectedPatient.RecentVisits)
-                {
-                    <div class="hc-visit-item">
-                        <span class="hc-visit-date">@visit.Date</span>
-                        <div class="hc-visit-info">
-                            <span class="hc-visit-reason">@visit.Reason</span>
-                            <span class="hc-visit-doctor">@visit.Doctor</span>
-                        </div>
-                    </div>
-                }
-            </div>
-
-            <!-- Add Note + AI -->
-            <div class="hc-dd-section">
-                <div class="hc-dd-section-title">Add Note</div>
-                <textarea class="hc-dd-note-area" placeholder="Write a clinical note..."></textarea>
-                <button class="hc-btn-ai">
-                    <svg viewBox="0 0 16 16" fill="none"><path d="M8 2L9.1 5.5H12.8L9.85 7.7L10.9 11.2L8 9L5.1 11.2L6.15 7.7L3.2 5.5H6.9L8 2Z" stroke="white" stroke-width="1" fill="none" stroke-linejoin="round"/></svg>
-                    Generate with AI
-                </button>
-            </div>
-
-            <!-- AI Assistant Prompts -->
-            <div class="hc-dd-section">
-                <div class="hc-dd-section-title">AI Insights</div>
-                <div class="hc-dd-ai-prompts">
-                    @if (string.IsNullOrEmpty(aiDrilldownResponse))
-                    {
-                        <button class="hc-dd-ai-prompt" @onclick='() => AskDrilldownAI("Summarize patient history")'>Summarize patient history</button>
-                        <button class="hc-dd-ai-prompt" @onclick='() => AskDrilldownAI("Highlight risk factors")'>Highlight risk factors</button>
-                        <button class="hc-dd-ai-prompt" @onclick='() => AskDrilldownAI("Explain lab results")'>Explain lab results</button>
-                        <button class="hc-dd-ai-prompt" @onclick='() => AskDrilldownAI("Suggest diagnostic tests")'>Suggest diagnostic tests</button>
-                    }
-                    else
-                    {
-                        <div class="hc-dd-ai-response">
-                            <div class="hc-dd-ai-label">AI Response</div>
-                            @aiDrilldownResponse
-                        </div>
-                        <button class="hc-dd-ai-reset" @onclick="ResetDrilldownAI">← Ask another question</button>
-                    }
-                </div>
-            </div>
-        </div>
-    }
-
-    <!-- AI ASSISTANT SIDE PANEL -->
+    </div>    <!-- AI ASSISTANT SIDE PANEL -->
     @if (isAIPanelOpen)
     {
         <div class="hc-ai-panel">
@@ -796,10 +451,6 @@
 @code {
     private int PageSize = 10;
     private int CurrentPage = 1;
-    private bool showDrilldown;
-    private PatientModel? selectedPatient;
-    private IEnumerable<PatientModel> SelectedPatients { get; set; } = Enumerable.Empty<PatientModel>();
-    private string aiDrilldownResponse = "";
 
     private bool isAIPanelOpen;
     private TelerikChat<PatientAIChatMsg> aiChatRef = null!;
@@ -817,67 +468,8 @@
     {
         if (args.Item is PatientModel patient)
         {
-            OpenDrilldown(patient);
+            Nav.NavigateTo($"/patient/{patient.Id}");
         }
-    }
-
-    private void OpenDrilldown(PatientModel patient)
-    {
-        selectedPatient = patient;
-        SelectedPatients = new List<PatientModel> { patient };
-        showDrilldown = true;
-        aiDrilldownResponse = "";
-    }
-
-    private void CloseDrilldown()
-    {
-        showDrilldown = false;
-        selectedPatient = null;
-        SelectedPatients = Enumerable.Empty<PatientModel>();
-    }
-
-    private void AskDrilldownAI(string prompt)
-    {
-        if (selectedPatient == null) return;
-        var name = selectedPatient.Name;
-
-        aiDrilldownResponse = prompt switch
-        {
-            "Summarize patient history" =>
-                $"{name}, {selectedPatient.Age}{(selectedPatient.Gender == "Male" ? "M" : "F")}, admitted to {selectedPatient.Ward} with {selectedPatient.Diagnosis}.\n" +
-                $"Status: {selectedPatient.Status}. Current vitals: HR {selectedPatient.HeartRate} bpm, BP {selectedPatient.BpSystolic}/{selectedPatient.BpDiastolic}, Temp {selectedPatient.Temperature}°F, SpO₂ {selectedPatient.O2Saturation}%.\n" +
-                $"Known allergies: {(selectedPatient.Allergies.Any() ? string.Join(", ", selectedPatient.Allergies) : "None")}.\n" +
-                $"Currently on {selectedPatient.Medications.Count} medication(s). Last visit: {selectedPatient.RecentVisits.FirstOrDefault()?.Reason ?? "N/A"}.",
-
-            "Highlight risk factors" =>
-                $"Risk assessment for {name}:\n" +
-                (selectedPatient.BpSystolic > 140 ? "⚠ Elevated blood pressure detected — monitor for hypertensive episodes.\n" : "") +
-                (selectedPatient.HeartRate > 100 ? "⚠ Tachycardia present — evaluate underlying cause.\n" : "") +
-                (selectedPatient.O2Saturation < 95 ? "⚠ Low oxygen saturation — consider supplemental O₂.\n" : "") +
-                (selectedPatient.Temperature > 99.5m ? "⚠ Mild fever detected — monitor for infection.\n" : "") +
-                (selectedPatient.Allergies.Any() ? $"⚠ Drug allergies: {string.Join(", ", selectedPatient.Allergies)} — verify all prescriptions.\n" : "") +
-                (selectedPatient.Status == "Critical" ? "🔴 Patient is in critical status — frequent monitoring recommended." : "Overall risk: moderate. Continue standard monitoring."),
-
-            "Explain lab results" =>
-                $"Lab interpretation for {name}:\n" +
-                string.Join("\n", selectedPatient.LabResults.Select(l =>
-                    $"• {l.Test}: {l.Value} (ref: {l.RefRange}) — {(l.IsNormal ? "Within normal range." : "Outside normal range — follow up recommended.")}")),
-
-            "Suggest diagnostic tests" =>
-                $"Recommended follow-up tests for {name} ({selectedPatient.Diagnosis}):\n" +
-                "• Complete Blood Count (CBC) — baseline hematology panel\n" +
-                "• Comprehensive Metabolic Panel (CMP) — kidney and liver function\n" +
-                (selectedPatient.Status == "Critical" ? "• Arterial Blood Gas (ABG) — assess oxygenation\n• Lactate level — evaluate tissue perfusion\n" : "") +
-                (selectedPatient.BpSystolic > 140 ? "• Renal function panel — assess hypertension impact\n• Echocardiogram — cardiac evaluation\n" : "") +
-                "• Repeat vitals in 4 hours",
-
-            _ => "I'm sorry, I don't have information for that query."
-        };
-    }
-
-    private void ResetDrilldownAI()
-    {
-        aiDrilldownResponse = "";
     }
 
     // ========== AI SIDE PANEL ==========
