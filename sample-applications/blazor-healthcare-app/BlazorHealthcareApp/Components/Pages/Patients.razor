@@ -1,0 +1,1247 @@
+﻿@page "/patients"
+@rendermode InteractiveServer
+
+<style>
+    /* ========== HEADING ========== */
+    .hc-heading {
+        display: flex; align-items: flex-start; justify-content: space-between;
+        gap: 16px; width: 100%; position: relative; z-index: 1; flex-wrap: wrap;
+    }
+    .hc-heading-text { display: flex; flex-direction: column; gap: 8px; }
+    .hc-heading h1 {
+        font-weight: 600; font-size: 42px; line-height: 120%;
+        color: #232A36; margin: 0;
+    }
+    .hc-heading p {
+        font-weight: 400; font-size: 16px; line-height: 150%;
+        color: #4A5666; margin: 0;
+    }
+    .hc-heading-actions { display: flex; gap: 12px; align-items: center; flex-shrink: 0; }
+
+    .hc-btn-primary {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 10px 20px;
+        background: #334155; border: 1px solid #334155;
+        border-radius: 9999px; color: #FFFFFF;
+        font-family: 'Poppins', sans-serif;
+        font-size: 16px; font-weight: 400; line-height: 150%;
+        cursor: pointer; white-space: nowrap;
+    }
+    .hc-btn-primary:hover { background: #1e293b; }
+    .hc-btn-primary svg { width: 16px; height: 16px; }
+
+    .hc-btn-secondary {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 10px 20px;
+        background: #F3F5F7; border: 1px solid rgba(23, 56, 99, 0.08);
+        border-radius: 9999px; color: #232A36;
+        font-family: 'Poppins', sans-serif;
+        font-size: 16px; font-weight: 400; line-height: 150%;
+        cursor: pointer; white-space: nowrap;
+    }
+    .hc-btn-secondary:hover { background: #E2E8F0; }
+    .hc-btn-secondary svg { width: 16px; height: 16px; }
+
+    /* ========== MAIN CONTENT ========== */
+    .hc-patients-main {
+        display: flex; gap: 0; width: 100%; position: relative; z-index: 1;
+        min-height: 0; flex: 1;
+    }
+
+    /* ========== GRID CARD ========== */
+    .hc-grid-card {
+        flex: 1; min-width: 0;
+        background: #FFFFFF;
+        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04), 0px 2px 6px -1px rgba(0, 0, 0, 0.06);
+        border-radius: 16px;
+        border: 1px solid rgba(23, 56, 99, 0.08);
+        overflow: hidden;
+        position: relative; z-index: 1;
+        transition: flex 0.3s ease;
+    }
+
+    /* ========== GRID OVERRIDES ========== */
+    .hc-grid-card .k-grid {
+        border: none; font-family: 'Poppins', sans-serif;
+    }
+    .hc-grid-card .k-grid-header .k-header,
+    .hc-grid-card .k-grid-header .k-table-th {
+        background: #F9FAFB !important;
+        border-bottom: 1px solid rgba(23, 56, 99, 0.08);
+        border-right: none;
+        font-weight: 700; font-size: 14px; color: #232A36;
+        padding: 14px 16px;
+        white-space: nowrap;
+    }
+    .hc-grid-card .k-grid-header {
+        border-bottom: 1px solid rgba(23, 56, 99, 0.08);
+    }
+    .hc-grid-card .k-filter-row,
+    .hc-grid-card .k-filter-row .k-table-th {
+        background: #F9FAFB !important;
+        border-bottom: 1px solid rgba(23, 56, 99, 0.08);
+        border-right: none;
+        padding: 8px 16px;
+    }
+    .hc-grid-card .k-filter-row .k-filtercell .k-filtercell-wrapper {
+        gap: 4px;
+    }
+    .hc-grid-card .k-filter-row input.k-input-inner {
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px; color: #232A36;
+        padding: 4px 8px;
+    }
+    .hc-grid-card .k-grid td,
+    .hc-grid-card .k-grid .k-table-td {
+        padding: 8px 16px !important;
+        font-size: 14px; color: #232A36;
+        border-bottom: none !important;
+        border-right: none;
+        vertical-align: middle;
+    }
+    .hc-grid-card .k-master-row { height: 48px; }
+    .hc-grid-card .k-master-row:nth-child(even) td,
+    .hc-grid-card .k-master-row:nth-child(even) .k-table-td {
+        background: rgba(56, 66, 80, 0.05);
+    }
+    .hc-grid-card .k-master-row:nth-child(odd) td,
+    .hc-grid-card .k-master-row:nth-child(odd) .k-table-td {
+        background: #FFFFFF;
+    }
+    .hc-grid-card .k-master-row:hover td,
+    .hc-grid-card .k-master-row:hover .k-table-td {
+        background: rgba(99, 102, 251, 0.06) !important;
+        cursor: pointer;
+    }
+    .hc-grid-card .k-grid-content { overflow-y: auto; }
+    .hc-grid-card .k-grid-header { padding-right: 0 !important; }
+    .hc-grid-card .k-grid .k-pager {
+        border-top: 1px solid rgba(23, 56, 99, 0.08);
+        background: #FFFFFF;
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px; color: #4A5666;
+        padding: 8px 16px;
+    }
+    .hc-grid-card .k-pager .k-pager-numbers .k-button.k-selected {
+        background: #334155; color: #FFFFFF; border-color: #334155;
+    }
+    .hc-grid-card .k-selected td,
+    .hc-grid-card .k-selected .k-table-td {
+        background: rgba(99, 102, 251, 0.08) !important;
+    }
+
+    /* ========== PATIENT NAME CELL ========== */
+    .hc-patient-cell { display: flex; align-items: center; gap: 10px; }
+    .hc-avatar-sm {
+        width: 32px; height: 32px; min-width: 32px; border-radius: 9999px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex; align-items: center; justify-content: center;
+        color: #FFFFFF; font-weight: 600; font-size: 12px;
+        overflow: hidden;
+    }
+    .hc-patient-cell-name { font-weight: 400; font-size: 14px; color: #232A36; white-space: nowrap; }
+
+    /* ========== STATUS CHIPS ========== */
+    .hc-chip {
+        display: inline-flex; align-items: center; justify-content: center;
+        padding: 4px 12px; border-radius: 9999px;
+        font-size: 12px; font-weight: 500; line-height: 133%; white-space: nowrap;
+        border: 1px solid;
+    }
+    .hc-chip-critical { background: #FCDDDA; border-color: #F76F60; color: #7A0C00; }
+    .hc-chip-monitoring { background: #FFF4D3; border-color: #FFD760; color: #5E4700; }
+    .hc-chip-stable { background: #DCF0D3; border-color: #81D15F; color: #1C5A00; }
+
+    /* ========== VIEW PROFILE BUTTON ========== */
+    .hc-view-btn {
+        display: inline-flex; align-items: center; gap: 4px;
+        padding: 6px 14px;
+        background: #F3F5F7; border: 1px solid rgba(23, 56, 99, 0.08);
+        border-radius: 9999px; cursor: pointer;
+        font-family: 'Poppins', sans-serif;
+        font-size: 13px; color: #232A36; white-space: nowrap;
+    }
+    .hc-view-btn:hover { background: #E2E8F0; }
+    .hc-view-btn svg { width: 14px; height: 14px; }
+
+    /* ========== DRILLDOWN PANEL ========== */
+    .hc-drilldown {
+        width: 420px; min-width: 360px; max-width: 420px;
+        background: #FFFFFF;
+        border-left: 1px solid rgba(23, 56, 99, 0.08);
+        box-shadow: -2px 0 8px rgba(0, 0, 0, 0.04);
+        border-radius: 0 16px 16px 0;
+        display: flex; flex-direction: column;
+        overflow-y: auto; overflow-x: hidden;
+        margin-left: -1px;
+    }
+
+    .hc-dd-header {
+        display: flex; align-items: center; gap: 12px;
+        padding: 20px 24px; border-bottom: 1px solid rgba(23, 56, 99, 0.08);
+        position: sticky; top: 0; background: #FFFFFF; z-index: 2;
+    }
+    .hc-dd-back {
+        width: 32px; height: 32px; border-radius: 8px;
+        background: #F3F5F7; border: 1px solid rgba(23, 56, 99, 0.08);
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer; flex-shrink: 0;
+    }
+    .hc-dd-back:hover { background: #E2E8F0; }
+    .hc-dd-back svg { width: 16px; height: 16px; color: #232A36; }
+    .hc-dd-header-info { flex: 1; display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .hc-dd-header-name { font-weight: 600; font-size: 18px; color: #232A36; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .hc-dd-close {
+        width: 32px; height: 32px; border-radius: 8px;
+        background: transparent; border: none;
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer; flex-shrink: 0; color: #4A5666;
+    }
+    .hc-dd-close:hover { background: #F3F5F7; }
+
+    /* Patient summary */
+    .hc-dd-summary {
+        padding: 20px 24px; display: flex; align-items: center; gap: 16px;
+        border-bottom: 1px solid rgba(23, 56, 99, 0.08);
+    }
+    .hc-avatar-lg {
+        width: 56px; height: 56px; min-width: 56px; border-radius: 9999px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex; align-items: center; justify-content: center;
+        color: #FFFFFF; font-weight: 600; font-size: 20px;
+    }
+    .hc-dd-demographics { display: flex; flex-direction: column; gap: 2px; }
+    .hc-dd-name { font-weight: 600; font-size: 16px; color: #232A36; }
+    .hc-dd-detail { font-size: 13px; color: #4A5666; }
+
+    /* Sections */
+    .hc-dd-section { padding: 16px 24px; border-bottom: 1px solid rgba(23, 56, 99, 0.08); }
+    .hc-dd-section:last-child { border-bottom: none; }
+    .hc-dd-section-title {
+        font-weight: 700; font-size: 14px; color: #232A36;
+        text-transform: uppercase; letter-spacing: 0.5px;
+        margin: 0 0 12px 0;
+    }
+
+    /* Vitals grid */
+    .hc-vitals-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .hc-vital-card {
+        background: #F9FAFB; border: 1px solid rgba(23, 56, 99, 0.08);
+        border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 4px;
+    }
+    .hc-vital-label { font-size: 11px; color: #4A5666; text-transform: uppercase; letter-spacing: 0.3px; font-weight: 500; }
+    .hc-vital-value { font-size: 20px; font-weight: 700; color: #232A36; }
+    .hc-vital-unit { font-size: 12px; color: #4A5666; font-weight: 400; }
+    .hc-vital-normal { color: #1C5A00; }
+    .hc-vital-warning { color: #5E4700; }
+    .hc-vital-critical { color: #7A0C00; }
+
+    /* Tag list */
+    .hc-tag-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .hc-tag {
+        display: inline-flex; align-items: center; padding: 4px 12px;
+        border-radius: 9999px; font-size: 13px; font-weight: 500;
+        background: #FFF4D3; border: 1px solid #FFD760; color: #5E4700;
+    }
+
+    /* Lab results mini-table */
+    .hc-lab-table { width: 100%; border-collapse: collapse; }
+    .hc-lab-table th {
+        text-align: left; font-size: 11px; color: #4A5666;
+        text-transform: uppercase; letter-spacing: 0.3px; font-weight: 500;
+        padding: 0 0 8px 0; border-bottom: 1px solid rgba(23, 56, 99, 0.08);
+    }
+    .hc-lab-table td {
+        font-size: 13px; color: #232A36; padding: 8px 0;
+        border-bottom: 1px solid rgba(23, 56, 99, 0.08);
+    }
+    .hc-lab-table tr:last-child td { border-bottom: none; }
+    .hc-lab-normal { color: #1C5A00; font-weight: 500; }
+    .hc-lab-abnormal { color: #7A0C00; font-weight: 500; }
+
+    /* Medication list */
+    .hc-med-item {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 8px 0; border-bottom: 1px solid rgba(23, 56, 99, 0.08);
+    }
+    .hc-med-item:last-child { border-bottom: none; }
+    .hc-med-name { font-size: 14px; color: #232A36; font-weight: 500; }
+    .hc-med-dose { font-size: 13px; color: #4A5666; }
+
+    /* Visit timeline */
+    .hc-visit-item {
+        display: flex; gap: 12px; padding: 8px 0;
+        border-bottom: 1px solid rgba(23, 56, 99, 0.08);
+    }
+    .hc-visit-item:last-child { border-bottom: none; }
+    .hc-visit-date {
+        font-size: 12px; color: #4A5666; white-space: nowrap; min-width: 80px;
+        font-weight: 500; padding-top: 2px;
+    }
+    .hc-visit-info { display: flex; flex-direction: column; gap: 2px; }
+    .hc-visit-reason { font-size: 13px; color: #232A36; }
+    .hc-visit-doctor { font-size: 12px; color: #4A5666; }
+
+    /* Add note */
+    .hc-dd-note-area {
+        width: 100%; min-height: 60px; padding: 10px 12px;
+        border: 1px solid rgba(23, 56, 99, 0.08); border-radius: 8px;
+        font-family: 'Poppins', sans-serif; font-size: 13px; color: #232A36;
+        resize: vertical; margin-bottom: 10px; background: #FFFFFF;
+    }
+    .hc-dd-note-area::placeholder { color: #94A3B8; }
+
+    .hc-btn-ai {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 8px 16px;
+        background: linear-gradient(135deg, #AC58FF 0%, #4B5FFA 100%);
+        border: none; border-radius: 9999px; color: #FFFFFF;
+        font-family: 'Poppins', sans-serif;
+        font-size: 13px; font-weight: 500;
+        cursor: pointer; white-space: nowrap;
+    }
+    .hc-btn-ai:hover { filter: brightness(1.1); }
+    .hc-btn-ai svg { width: 14px; height: 14px; }
+
+    /* AI Section in drilldown */
+    .hc-dd-ai-prompts { display: flex; flex-direction: column; gap: 6px; }
+    .hc-dd-ai-prompt {
+        display: block; width: 100%;
+        padding: 8px 12px;
+        background: #F1F5F9; border: 1px solid rgba(23, 56, 99, 0.08);
+        border-radius: 8px; font-family: 'Poppins', sans-serif;
+        font-size: 13px; color: #232A36;
+        cursor: pointer; text-align: left;
+    }
+    .hc-dd-ai-prompt:hover { background: #E2E8F0; }
+
+    .hc-dd-ai-response {
+        padding: 12px; background: #F8FAFC; border-radius: 8px;
+        font-size: 13px; color: #232A36; line-height: 160%;
+        border: 1px solid rgba(23, 56, 99, 0.08);
+        white-space: pre-line;
+    }
+    .hc-dd-ai-label {
+        font-weight: 600; font-size: 11px; color: #4A5666;
+        margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .hc-dd-ai-reset {
+        display: block; width: 100%; padding: 8px 12px;
+        background: #F1F5F9; border: 1px solid rgba(23, 56, 99, 0.08);
+        border-radius: 8px; font-family: 'Poppins', sans-serif;
+        font-size: 13px; color: #334155; font-weight: 500;
+        cursor: pointer; text-align: center;
+    }
+    .hc-dd-ai-reset:hover { background: #E2E8F0; }
+
+    /* ========== AI SIDE PANEL ========== */
+    .hc-ai-panel {
+        width: 380px; min-width: 340px; max-width: 380px;
+        background: #FFFFFF;
+        border: 1px solid rgba(23, 56, 99, 0.08);
+        border-radius: 16px;
+        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04), 0px 2px 6px -1px rgba(0, 0, 0, 0.06);
+        display: flex; flex-direction: column;
+        overflow: hidden;
+        margin-left: 16px;
+        position: relative; z-index: 1;
+    }
+    .hc-ai-panel-header {
+        padding: 14px 20px;
+        background: #FFFFFF;
+        color: #232A36;
+        display: flex; align-items: center; gap: 10px;
+        flex-shrink: 0;
+        border-bottom: 1px solid rgba(23, 56, 99, 0.08);
+    }
+    .hc-ai-panel-header-icon {
+        width: 24px; height: 24px; min-width: 24px;
+        display: flex; align-items: center; justify-content: center;
+    }
+    .hc-ai-panel-header-icon svg { width: 20px; height: 20px; }
+    .hc-ai-panel-header-text { display: flex; flex-direction: column; flex: 1; }
+    .hc-ai-panel-header-title { font-weight: 700; font-size: 15px; line-height: 140%; color: #232A36; }
+    .hc-ai-panel-header-sub { display: none; }
+    .hc-ai-panel-close {
+        background: none; border: none; cursor: pointer;
+        color: #94A3B8;
+        width: 32px; height: 32px;
+        display: flex; align-items: center; justify-content: center;
+        border-radius: 8px;
+        transition: background 0.2s ease, color 0.2s ease;
+    }
+    .hc-ai-panel-close:hover { background: rgba(35, 42, 54, 0.06); color: #232A36; }
+    .hc-ai-panel-close svg { width: 16px; height: 16px; }
+
+    .hc-ai-panel-welcome {
+        text-align: center;
+        padding: 24px 20px 8px;
+        display: flex; flex-direction: column; align-items: center; gap: 8px;
+    }
+    .hc-ai-panel-welcome-date {
+        font-size: 12px; color: #94A3B8;
+        background: #F1F5F9; border-radius: 9999px;
+        padding: 4px 12px;
+    }
+    .hc-ai-panel-welcome-greeting {
+        font-size: 14px; color: #232A36; line-height: 160%;
+    }
+    .hc-ai-panel-welcome-greeting strong { display: block; font-size: 16px; margin-bottom: 4px; }
+
+    /* TelerikChat overrides for patients AI panel */
+    .hc-ai-panel .k-chat {
+        border: none;
+        border-radius: 0 0 16px 16px;
+        font-family: 'Poppins', sans-serif;
+        background: #FFFFFF;
+    }
+    .hc-ai-panel .k-chat .k-message-list {
+        background: #FFFFFF;
+    }
+    .hc-ai-panel .k-chat .k-bubble {
+        border-radius: 16px;
+        font-size: 14px;
+        line-height: 160%;
+        font-family: 'Poppins', sans-serif;
+    }
+    .hc-ai-panel .k-chat .k-message-group-receiver .k-bubble {
+        background: #F8FAFC;
+        border: 1px solid rgba(23, 56, 99, 0.08);
+        color: #232A36;
+        border-bottom-left-radius: 4px;
+    }
+    .hc-ai-panel .k-chat .k-message-group-sender .k-bubble {
+        background: #2D3655;
+        border: none;
+        color: #FFFFFF;
+        border-bottom-right-radius: 4px;
+    }
+    .hc-ai-panel .k-chat .k-quick-replies .k-quick-reply {
+        border-radius: 9999px;
+        padding: 8px 14px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 13px;
+        color: #334155;
+        border: 1px solid rgba(23, 56, 99, 0.12);
+        background: #FFFFFF;
+    }
+    .hc-ai-panel .k-chat .k-quick-replies .k-quick-reply:hover {
+        background: #F1F5F9;
+        border-color: rgba(99, 102, 251, 0.3);
+    }
+    .hc-ai-panel .k-chat .k-message-box-wrapper {
+        border-top: 1px solid rgba(23, 56, 99, 0.08);
+        padding: 8px 12px;
+    }
+    .hc-ai-panel .k-chat .k-prompt-box {
+        font-family: 'Poppins', sans-serif;
+        border: 1px solid rgba(23, 56, 99, 0.12);
+        border-radius: 12px;
+        background: #F9FAFB;
+    }
+    .hc-ai-panel .k-chat .k-prompt-box:focus-within {
+        border-color: rgba(99, 102, 251, 0.4);
+        box-shadow: 0 0 0 2px rgba(99, 102, 251, 0.1);
+    }
+    .hc-ai-panel .k-chat .k-prompt-box-textarea.k-input-inner {
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
+        color: #232A36;
+    }
+    .hc-ai-panel .k-chat .k-suggestion {
+        border-radius: 9999px;
+    }
+    .hc-ai-panel .k-chat .k-message-author {
+        display: none;
+    }
+    .hc-ai-panel .k-chat .k-timestamp {
+        display: none;
+    }
+    .hc-ai-panel .k-chat .k-no-avatar {
+        margin-left: 0;
+    }
+
+    /* Active AI button state */
+    .hc-btn-ai-active {
+        background: linear-gradient(135deg, #AC58FF 0%, #4B5FFA 100%) !important;
+        border-color: transparent !important;
+        color: #FFFFFF !important;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @@media (max-width: 1200px) {
+        .hc-patients-main { flex-direction: column; }
+        .hc-drilldown {
+            width: 100%; max-width: 100%; min-width: 0;
+            border-left: none; border-top: 1px solid rgba(23, 56, 99, 0.08);
+            border-radius: 0 0 16px 16px; margin-left: 0;
+            max-height: 500px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+        .hc-ai-panel {
+            width: 100%; max-width: 100%; min-width: 0;
+            margin-left: 0; margin-top: 16px;
+            border-radius: 16px;
+            max-height: 500px;
+        }
+        .hc-grid-card { border-radius: 16px 16px 0 0; }
+    }
+
+    @@media (max-width: 960px) {
+        .hc-heading h1 { font-size: 32px; }
+    }
+
+    @@media (max-width: 640px) {
+        .hc-heading { gap: 12px; }
+        .hc-heading h1 { font-size: 26px; }
+        .hc-heading p { font-size: 14px; }
+        .hc-heading-actions { width: 100%; }
+        .hc-btn-primary, .hc-btn-secondary { flex: 1; justify-content: center; font-size: 14px; padding: 8px 14px; }
+        .hc-drilldown { min-width: 0; }
+        .hc-vitals-grid { grid-template-columns: 1fr; }
+    }
+</style>
+
+<!-- ========== HEADING ========== -->
+<div class="hc-heading">
+    <div class="hc-heading-text">
+        <h1>Patients</h1>
+        <p>Monitor patient trends, vitals, lab results, and risk levels in one place</p>
+    </div>
+    <div class="hc-heading-actions">
+        <button class="hc-btn-primary @(isAIPanelOpen ? "hc-btn-ai-active" : "")" @onclick="ToggleAIPanel">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M8 2L9.1 5.5H12.8L9.85 7.7L10.9 11.2L8 9L5.1 11.2L6.15 7.7L3.2 5.5H6.9L8 2Z" stroke="white" stroke-width="1.2" fill="none" stroke-linejoin="round"/></svg>
+            AI Assistance
+        </button>
+        <button class="hc-btn-secondary">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M8 10V2M8 10L5 7M8 10L11 7" stroke="#232A36" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12V13C2 13.55 2.45 14 3 14H13C13.55 14 14 13.55 14 13V12" stroke="#232A36" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Export
+        </button>
+    </div>
+</div>
+
+<!-- ========== MAIN: GRID + DRILLDOWN ========== -->
+<div class="hc-patients-main">
+    <!-- GRID CARD -->
+    <div class="hc-grid-card">
+        <TelerikGrid Data="@PatientData"
+                     TItem="PatientModel"
+                     Pageable="true"
+                     @bind-PageSize="@PageSize"
+                     @bind-Page="@CurrentPage"
+                     Sortable="true"
+                     Resizable="true"
+                     FilterMode="@GridFilterMode.FilterRow"
+                     SelectionMode="@GridSelectionMode.Single"
+                     @bind-SelectedItems="@SelectedPatients"
+                     OnRowClick="@OnRowClick"
+                     Height="100%">
+            <GridSettings>
+                <GridPagerSettings PageSizes="@(new List<int?> { 5, 10, 20 })" InputType="@PagerInputType.Buttons" ButtonCount="5" />
+            </GridSettings>
+            <GridColumns>
+                <GridColumn Field="@nameof(PatientModel.Name)" Title="Patient Name" Width="220px">
+                    <Template>
+                        @{
+                            var p = (PatientModel)context;
+                        }
+                        <div class="hc-patient-cell">
+                            <div class="hc-avatar-sm">@p.Initials</div>
+                            <span class="hc-patient-cell-name">@p.Name</span>
+                        </div>
+                    </Template>
+                </GridColumn>
+                <GridColumn Field="@nameof(PatientModel.Age)" Title="Age" Width="80px" />
+                <GridColumn Field="@nameof(PatientModel.Status)" Title="Status" Width="140px">
+                    <Template>
+                        @{
+                            var p = (PatientModel)context;
+                            var chipClass = p.Status switch
+                            {
+                                "Critical" => "hc-chip-critical",
+                                "Monitoring" => "hc-chip-monitoring",
+                                _ => "hc-chip-stable"
+                            };
+                        }
+                        <span class="hc-chip @chipClass">@p.Status</span>
+                    </Template>
+                </GridColumn>
+                <GridColumn Field="@nameof(PatientModel.Gender)" Title="Gender" Width="100px" />
+                <GridColumn Field="@nameof(PatientModel.BloodType)" Title="Blood Type" Width="110px" />
+                <GridColumn Field="@nameof(PatientModel.Ward)" Title="Ward" Width="130px" />
+                <GridColumn Field="@nameof(PatientModel.Diagnosis)" Title="Diagnosis" />
+                <GridColumn Field="@nameof(PatientModel.Id)" Title="Actions" Width="160px" Filterable="false" Sortable="false">
+                    <Template>
+                        @{
+                            var p = (PatientModel)context;
+                        }
+                        <button class="hc-view-btn" @onclick="() => OpenDrilldown(p)" @onclick:stopPropagation="true">
+                            <svg viewBox="0 0 16 16" fill="none"><path d="M1 8C1 8 3.5 3 8 3C12.5 3 15 8 15 8C15 8 12.5 13 8 13C3.5 13 1 8 1 8Z" stroke="#232A36" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="8" r="2.5" stroke="#232A36" stroke-width="1.2"/></svg>
+                            View Profile
+                        </button>
+                    </Template>
+                </GridColumn>
+            </GridColumns>
+        </TelerikGrid>
+    </div>
+
+    <!-- DRILLDOWN PANEL -->
+    @if (showDrilldown && selectedPatient != null)
+    {
+        <div class="hc-drilldown">
+            <!-- Header -->
+            <div class="hc-dd-header">
+                <button class="hc-dd-back" @onclick="CloseDrilldown" title="Back">
+                    <svg viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8L10 4" stroke="#232A36" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <div class="hc-dd-header-info">
+                    <span class="hc-dd-header-name">@selectedPatient.Name</span>
+                    @{
+                        var ddChipClass = selectedPatient.Status switch
+                        {
+                            "Critical" => "hc-chip-critical",
+                            "Monitoring" => "hc-chip-monitoring",
+                            _ => "hc-chip-stable"
+                        };
+                    }
+                    <span class="hc-chip @ddChipClass" style="font-size: 11px; padding: 2px 10px;">@selectedPatient.Status</span>
+                </div>
+                <button class="hc-dd-close" @onclick="CloseDrilldown" title="Close">
+                    <svg viewBox="0 0 16 16" fill="none"><path d="M4 4L12 12M12 4L4 12" stroke="#4A5666" stroke-width="1.33" stroke-linecap="round"/></svg>
+                </button>
+            </div>
+
+            <!-- Patient Summary -->
+            <div class="hc-dd-summary">
+                <div class="hc-avatar-lg">@selectedPatient.Initials</div>
+                <div class="hc-dd-demographics">
+                    <span class="hc-dd-name">@selectedPatient.Name</span>
+                    <span class="hc-dd-detail">@selectedPatient.Age years, @selectedPatient.Gender &bull; @selectedPatient.BloodType</span>
+                    <span class="hc-dd-detail">@selectedPatient.Ward &bull; @selectedPatient.Diagnosis</span>
+                </div>
+            </div>
+
+            <!-- Vitals -->
+            <div class="hc-dd-section">
+                <div class="hc-dd-section-title">Vitals</div>
+                <div class="hc-vitals-grid">
+                    <div class="hc-vital-card">
+                        <span class="hc-vital-label">Heart Rate</span>
+                        <span class="hc-vital-value @(selectedPatient.HeartRate > 100 ? "hc-vital-critical" : "hc-vital-normal")">@selectedPatient.HeartRate <span class="hc-vital-unit">bpm</span></span>
+                    </div>
+                    <div class="hc-vital-card">
+                        <span class="hc-vital-label">Blood Pressure</span>
+                        <span class="hc-vital-value @(selectedPatient.BpSystolic > 140 ? "hc-vital-warning" : "hc-vital-normal")">@selectedPatient.BpSystolic/@selectedPatient.BpDiastolic <span class="hc-vital-unit">mmHg</span></span>
+                    </div>
+                    <div class="hc-vital-card">
+                        <span class="hc-vital-label">Temperature</span>
+                        <span class="hc-vital-value @(selectedPatient.Temperature > 99.5m ? "hc-vital-warning" : "hc-vital-normal")">@selectedPatient.Temperature° <span class="hc-vital-unit">F</span></span>
+                    </div>
+                    <div class="hc-vital-card">
+                        <span class="hc-vital-label">O₂ Saturation</span>
+                        <span class="hc-vital-value @(selectedPatient.O2Saturation < 95 ? "hc-vital-critical" : "hc-vital-normal")">@selectedPatient.O2Saturation<span class="hc-vital-unit">%</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Allergies -->
+            <div class="hc-dd-section">
+                <div class="hc-dd-section-title">Allergies</div>
+                @if (selectedPatient.Allergies.Any())
+                {
+                    <div class="hc-tag-list">
+                        @foreach (var allergy in selectedPatient.Allergies)
+                        {
+                            <span class="hc-tag">@allergy</span>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <span style="font-size: 13px; color: #4A5666;">No known allergies</span>
+                }
+            </div>
+
+            <!-- Lab Results -->
+            <div class="hc-dd-section">
+                <div class="hc-dd-section-title">Lab Results</div>
+                <table class="hc-lab-table">
+                    <thead>
+                        <tr>
+                            <th>Test</th>
+                            <th>Value</th>
+                            <th>Ref. Range</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var lab in selectedPatient.LabResults)
+                        {
+                            <tr>
+                                <td>@lab.Test</td>
+                                <td>@lab.Value</td>
+                                <td>@lab.RefRange</td>
+                                <td><span class="@(lab.IsNormal ? "hc-lab-normal" : "hc-lab-abnormal")">@(lab.IsNormal ? "Normal" : "Abnormal")</span></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Medications -->
+            <div class="hc-dd-section">
+                <div class="hc-dd-section-title">Medications</div>
+                @foreach (var med in selectedPatient.Medications)
+                {
+                    <div class="hc-med-item">
+                        <span class="hc-med-name">@med.Name</span>
+                        <span class="hc-med-dose">@med.Dosage</span>
+                    </div>
+                }
+            </div>
+
+            <!-- Recent Visits -->
+            <div class="hc-dd-section">
+                <div class="hc-dd-section-title">Recent Visits</div>
+                @foreach (var visit in selectedPatient.RecentVisits)
+                {
+                    <div class="hc-visit-item">
+                        <span class="hc-visit-date">@visit.Date</span>
+                        <div class="hc-visit-info">
+                            <span class="hc-visit-reason">@visit.Reason</span>
+                            <span class="hc-visit-doctor">@visit.Doctor</span>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- Add Note + AI -->
+            <div class="hc-dd-section">
+                <div class="hc-dd-section-title">Add Note</div>
+                <textarea class="hc-dd-note-area" placeholder="Write a clinical note..."></textarea>
+                <button class="hc-btn-ai">
+                    <svg viewBox="0 0 16 16" fill="none"><path d="M8 2L9.1 5.5H12.8L9.85 7.7L10.9 11.2L8 9L5.1 11.2L6.15 7.7L3.2 5.5H6.9L8 2Z" stroke="white" stroke-width="1" fill="none" stroke-linejoin="round"/></svg>
+                    Generate with AI
+                </button>
+            </div>
+
+            <!-- AI Assistant Prompts -->
+            <div class="hc-dd-section">
+                <div class="hc-dd-section-title">AI Insights</div>
+                <div class="hc-dd-ai-prompts">
+                    @if (string.IsNullOrEmpty(aiDrilldownResponse))
+                    {
+                        <button class="hc-dd-ai-prompt" @onclick='() => AskDrilldownAI("Summarize patient history")'>Summarize patient history</button>
+                        <button class="hc-dd-ai-prompt" @onclick='() => AskDrilldownAI("Highlight risk factors")'>Highlight risk factors</button>
+                        <button class="hc-dd-ai-prompt" @onclick='() => AskDrilldownAI("Explain lab results")'>Explain lab results</button>
+                        <button class="hc-dd-ai-prompt" @onclick='() => AskDrilldownAI("Suggest diagnostic tests")'>Suggest diagnostic tests</button>
+                    }
+                    else
+                    {
+                        <div class="hc-dd-ai-response">
+                            <div class="hc-dd-ai-label">AI Response</div>
+                            @aiDrilldownResponse
+                        </div>
+                        <button class="hc-dd-ai-reset" @onclick="ResetDrilldownAI">← Ask another question</button>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- AI ASSISTANT SIDE PANEL -->
+    @if (isAIPanelOpen)
+    {
+        <div class="hc-ai-panel">
+            <div class="hc-ai-panel-header">
+                <div class="hc-ai-panel-header-icon">
+                    <svg viewBox="0 0 20 20" fill="none"><path d="M10 1l1.5 4.5L16 7l-4.5 1.5L10 13l-1.5-4.5L4 7l4.5-1.5L10 1z" fill="#7C5CFC" opacity="0.9"/><path d="M15 11l1 3 3 1-3 1-1 3-1-3-3-1 3-1 1-3z" fill="#7C5CFC" opacity="0.7"/><path d="M4 12l.75 2.25L7 15l-2.25.75L4 18l-.75-2.25L1 15l2.25-.75L4 12z" fill="#7C5CFC" opacity="0.5"/></svg>
+                </div>
+                <div class="hc-ai-panel-header-text">
+                    <span class="hc-ai-panel-header-title">AI Assistant</span>
+                    <span class="hc-ai-panel-header-sub">Patient Discovery Insights</span>
+                </div>
+                <button class="hc-ai-panel-close" @onclick="ToggleAIPanel">
+                    <svg viewBox="0 0 16 16" fill="none"><path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </button>
+            </div>
+
+            <TelerikChat @ref="aiChatRef"
+                         Data="@aiChatData"
+                         AuthorId="@("user")"
+                         Suggestions="@aiChatSuggestions"
+                         OnSendMessage="@OnAIChatSendMessage"
+                         OnSuggestionClick="@OnAIChatSuggestionClick"
+                         Placeholder="Type a message"
+                         Height="100%"
+                         EnableSpeechToText="false"
+                         EnableFileUpload="true">
+                <ChatSettings>
+                    <ChatTextAreaSettings Mode="@PromptBoxMode.MultiLine" Rows="3" MaxTextAreaHeight="120px" />
+                </ChatSettings>
+                <NoDataTemplate>
+                    <div class="hc-ai-panel-welcome">
+                        <span class="hc-ai-panel-welcome-date">@DateTime.Now.ToString("dddd, MMMM dd, yyyy")</span>
+                        <div class="hc-ai-panel-welcome-greeting">
+                            <strong>@("\U0001F44B") Hello! I'm your AI Assistant.</strong>
+                            I can help you with your daily clinical tasks, patient information, and quick actions. Try one of the suggestions below!
+                        </div>
+                    </div>
+                </NoDataTemplate>
+            </TelerikChat>
+        </div>
+    }
+</div>
+
+@code {
+    private int PageSize = 10;
+    private int CurrentPage = 1;
+    private bool showDrilldown;
+    private PatientModel? selectedPatient;
+    private IEnumerable<PatientModel> SelectedPatients { get; set; } = Enumerable.Empty<PatientModel>();
+    private string aiDrilldownResponse = "";
+
+    private bool isAIPanelOpen;
+    private TelerikChat<PatientAIChatMsg> aiChatRef = null!;
+    private List<PatientAIChatMsg> aiChatData = new();
+    private List<string> aiChatSuggestions = new() { "Summarize patient history", "Highlight risk" };
+
+    private List<PatientModel> PatientData = new();
+
+    protected override void OnInitialized()
+    {
+        PatientData = GeneratePatients();
+    }
+
+    private void OnRowClick(GridRowClickEventArgs args)
+    {
+        if (args.Item is PatientModel patient)
+        {
+            OpenDrilldown(patient);
+        }
+    }
+
+    private void OpenDrilldown(PatientModel patient)
+    {
+        selectedPatient = patient;
+        SelectedPatients = new List<PatientModel> { patient };
+        showDrilldown = true;
+        aiDrilldownResponse = "";
+    }
+
+    private void CloseDrilldown()
+    {
+        showDrilldown = false;
+        selectedPatient = null;
+        SelectedPatients = Enumerable.Empty<PatientModel>();
+    }
+
+    private void AskDrilldownAI(string prompt)
+    {
+        if (selectedPatient == null) return;
+        var name = selectedPatient.Name;
+
+        aiDrilldownResponse = prompt switch
+        {
+            "Summarize patient history" =>
+                $"{name}, {selectedPatient.Age}{(selectedPatient.Gender == "Male" ? "M" : "F")}, admitted to {selectedPatient.Ward} with {selectedPatient.Diagnosis}.\n" +
+                $"Status: {selectedPatient.Status}. Current vitals: HR {selectedPatient.HeartRate} bpm, BP {selectedPatient.BpSystolic}/{selectedPatient.BpDiastolic}, Temp {selectedPatient.Temperature}°F, SpO₂ {selectedPatient.O2Saturation}%.\n" +
+                $"Known allergies: {(selectedPatient.Allergies.Any() ? string.Join(", ", selectedPatient.Allergies) : "None")}.\n" +
+                $"Currently on {selectedPatient.Medications.Count} medication(s). Last visit: {selectedPatient.RecentVisits.FirstOrDefault()?.Reason ?? "N/A"}.",
+
+            "Highlight risk factors" =>
+                $"Risk assessment for {name}:\n" +
+                (selectedPatient.BpSystolic > 140 ? "⚠ Elevated blood pressure detected — monitor for hypertensive episodes.\n" : "") +
+                (selectedPatient.HeartRate > 100 ? "⚠ Tachycardia present — evaluate underlying cause.\n" : "") +
+                (selectedPatient.O2Saturation < 95 ? "⚠ Low oxygen saturation — consider supplemental O₂.\n" : "") +
+                (selectedPatient.Temperature > 99.5m ? "⚠ Mild fever detected — monitor for infection.\n" : "") +
+                (selectedPatient.Allergies.Any() ? $"⚠ Drug allergies: {string.Join(", ", selectedPatient.Allergies)} — verify all prescriptions.\n" : "") +
+                (selectedPatient.Status == "Critical" ? "🔴 Patient is in critical status — frequent monitoring recommended." : "Overall risk: moderate. Continue standard monitoring."),
+
+            "Explain lab results" =>
+                $"Lab interpretation for {name}:\n" +
+                string.Join("\n", selectedPatient.LabResults.Select(l =>
+                    $"• {l.Test}: {l.Value} (ref: {l.RefRange}) — {(l.IsNormal ? "Within normal range." : "Outside normal range — follow up recommended.")}")),
+
+            "Suggest diagnostic tests" =>
+                $"Recommended follow-up tests for {name} ({selectedPatient.Diagnosis}):\n" +
+                "• Complete Blood Count (CBC) — baseline hematology panel\n" +
+                "• Comprehensive Metabolic Panel (CMP) — kidney and liver function\n" +
+                (selectedPatient.Status == "Critical" ? "• Arterial Blood Gas (ABG) — assess oxygenation\n• Lactate level — evaluate tissue perfusion\n" : "") +
+                (selectedPatient.BpSystolic > 140 ? "• Renal function panel — assess hypertension impact\n• Echocardiogram — cardiac evaluation\n" : "") +
+                "• Repeat vitals in 4 hours",
+
+            _ => "I'm sorry, I don't have information for that query."
+        };
+    }
+
+    private void ResetDrilldownAI()
+    {
+        aiDrilldownResponse = "";
+    }
+
+    // ========== AI SIDE PANEL ==========
+
+    private void ToggleAIPanel()
+    {
+        isAIPanelOpen = !isAIPanelOpen;
+        if (!isAIPanelOpen)
+        {
+            aiChatData.Clear();
+            aiChatSuggestions = new() { "Summarize patient history", "Highlight risk" };
+        }
+    }
+
+    private async Task OnAIChatSuggestionClick(ChatSuggestionClickEventArgs args)
+    {
+        var suggestion = args.Suggestion;
+        var userText = suggestion switch
+        {
+            "Summarize patient history" => "Can you summarize the patient list?",
+            "Highlight risk" => "Identify high-risk patients",
+            _ => suggestion
+        };
+
+        aiChatData.Add(new PatientAIChatMsg { Id = Guid.NewGuid().ToString(), Text = userText, AuthorId = "user", AuthorName = "Dr. Carter", Timestamp = DateTime.Now });
+        aiChatSuggestions = new();
+
+        var typingMsg = new PatientAIChatMsg { Id = "typing", Text = "", AuthorId = "ai", AuthorName = "AI Assistant", IsTyping = true, Timestamp = DateTime.Now };
+        aiChatData.Add(typingMsg);
+        StateHasChanged();
+
+        await Task.Delay(1200);
+        aiChatData.Remove(typingMsg);
+
+        var response = suggestion switch
+        {
+            "Summarize patient history" => $"You currently have {PatientData.Count} patients across multiple wards. {PatientData.Count(p => p.Status == "Critical")} patients are in critical status, {PatientData.Count(p => p.Status == "Monitoring")} are being monitored, and {PatientData.Count(p => p.Status == "Stable")} are stable. Key focus areas: Cardiology ({PatientData.Count(p => p.Ward == "Cardiology")} patients) and Neurology ({PatientData.Count(p => p.Ward == "Neurology")} patients).",
+            "Highlight risk" => BuildHighRiskResponse(),
+            _ => "I'm sorry, I don't have information for that query."
+        };
+
+        aiChatData.Add(new PatientAIChatMsg { Id = Guid.NewGuid().ToString(), Text = response, AuthorId = "ai", AuthorName = "AI Assistant", Timestamp = DateTime.Now });
+    }
+
+    private async Task OnAIChatSendMessage(ChatSendMessageEventArgs args)
+    {
+        var text = args.Message?.Trim();
+        if (string.IsNullOrEmpty(text)) return;
+
+        aiChatData.Add(new PatientAIChatMsg { Id = Guid.NewGuid().ToString(), Text = text, AuthorId = "user", AuthorName = "Dr. Carter", Timestamp = DateTime.Now });
+        aiChatSuggestions = new();
+
+        var typingMsg = new PatientAIChatMsg { Id = "typing", Text = "", AuthorId = "ai", AuthorName = "AI Assistant", IsTyping = true, Timestamp = DateTime.Now };
+        aiChatData.Add(typingMsg);
+        StateHasChanged();
+
+        await Task.Delay(1000);
+        aiChatData.Remove(typingMsg);
+
+        var lower = text.ToLowerInvariant();
+        string response;
+        if (lower.Contains("risk") || lower.Contains("critical") || lower.Contains("high-risk"))
+            response = BuildHighRiskResponse();
+        else if (lower.Contains("summary") || lower.Contains("summarize") || lower.Contains("list") || lower.Contains("overview"))
+            response = $"You currently have {PatientData.Count} patients across multiple wards. {PatientData.Count(p => p.Status == "Critical")} patients are in critical status, {PatientData.Count(p => p.Status == "Monitoring")} are being monitored, and {PatientData.Count(p => p.Status == "Stable")} are stable.";
+        else if (lower.Contains("allerg"))
+        {
+            var withAllergies = PatientData.Where(p => p.Allergies.Any()).ToList();
+            response = $"{withAllergies.Count} patients have known allergies: " + string.Join("; ", withAllergies.Select(p => $"{p.Name} ({string.Join(", ", p.Allergies)})")) + ". Verify allergy bands before administering medication.";
+        }
+        else
+            response = "I can help with patient summaries, risk analysis, allergy checks, and clinical insights. Try asking about a specific topic!";
+
+        aiChatData.Add(new PatientAIChatMsg { Id = Guid.NewGuid().ToString(), Text = response, AuthorId = "ai", AuthorName = "AI Assistant", Timestamp = DateTime.Now });
+    }
+
+    private string BuildHighRiskResponse()
+    {
+        var critical = PatientData.Where(p => p.Status == "Critical").ToList();
+        if (!critical.Any()) return "No patients currently in critical status. All patients are stable or being monitored.";
+
+        var lines = critical.Select(p =>
+            $"\u2022 {p.Name} ({p.Age}{(p.Gender == "Male" ? "M" : "F")}, {p.Ward}) \u2014 {p.Diagnosis}. " +
+            (p.BpSystolic > 140 ? $"BP {p.BpSystolic}/{p.BpDiastolic} (elevated). " : "") +
+            (p.HeartRate > 100 ? $"HR {p.HeartRate} bpm (tachycardia). " : "") +
+            (p.O2Saturation < 95 ? $"SpO\u2082 {p.O2Saturation}% (low). " : "")
+        );
+
+        return $"Based on current vitals and status, {critical.Count} patient(s) show elevated risk levels:\n\n" + string.Join("\n", lines) + "\n\nRecommend frequent monitoring and immediate clinical review.";
+    }
+
+    // ========== MODELS ==========
+
+    public class PatientModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = "";
+        public string Initials { get; set; } = "";
+        public int Age { get; set; }
+        public string Status { get; set; } = "";
+        public string Gender { get; set; } = "";
+        public string BloodType { get; set; } = "";
+        public string Ward { get; set; } = "";
+        public string Diagnosis { get; set; } = "";
+
+        // Drilldown detail fields
+        public int HeartRate { get; set; }
+        public int BpSystolic { get; set; }
+        public int BpDiastolic { get; set; }
+        public decimal Temperature { get; set; }
+        public int O2Saturation { get; set; }
+        public List<string> Allergies { get; set; } = new();
+        public List<LabResult> LabResults { get; set; } = new();
+        public List<Medication> Medications { get; set; } = new();
+        public List<Visit> RecentVisits { get; set; } = new();
+    }
+
+    public class LabResult
+    {
+        public string Test { get; set; } = "";
+        public string Value { get; set; } = "";
+        public string RefRange { get; set; } = "";
+        public bool IsNormal { get; set; }
+    }
+
+    public class Medication
+    {
+        public string Name { get; set; } = "";
+        public string Dosage { get; set; } = "";
+    }
+
+    public class Visit
+    {
+        public string Date { get; set; } = "";
+        public string Reason { get; set; } = "";
+        public string Doctor { get; set; } = "";
+    }
+
+    public class PatientAIChatMsg
+    {
+        public string Id { get; set; } = "";
+        public string Text { get; set; } = "";
+        public string AuthorId { get; set; } = "";
+        public string AuthorName { get; set; } = "";
+        public DateTime Timestamp { get; set; }
+        public bool IsTyping { get; set; }
+    }
+
+    // ========== DATA GENERATION ==========
+
+    private List<PatientModel> GeneratePatients()
+    {
+        return new List<PatientModel>
+        {
+            new() { Id = 1, Name = "James Wilson", Initials = "JW", Age = 44, Status = "Monitoring", Gender = "Male", BloodType = "A+", Ward = "General", Diagnosis = "Persistent cough",
+                HeartRate = 76, BpSystolic = 128, BpDiastolic = 82, Temperature = 98.8m, O2Saturation = 97,
+                Allergies = new() { "Penicillin" },
+                LabResults = new() { new() { Test = "WBC", Value = "11.2 K/uL", RefRange = "4.5-11.0", IsNormal = false }, new() { Test = "CRP", Value = "2.4 mg/L", RefRange = "0-10", IsNormal = true }, new() { Test = "Glucose", Value = "98 mg/dL", RefRange = "70-100", IsNormal = true } },
+                Medications = new() { new() { Name = "Dextromethorphan", Dosage = "30mg twice daily" }, new() { Name = "Guaifenesin", Dosage = "400mg every 4h" } },
+                RecentVisits = new() { new() { Date = "Mar 28", Reason = "Lab work — CBC, CMP", Doctor = "Dr. Carter" }, new() { Date = "Mar 20", Reason = "Initial visit — cough evaluation", Doctor = "Dr. Carter" } }
+            },
+            new() { Id = 2, Name = "Sophia Martinez", Initials = "SM", Age = 31, Status = "Stable", Gender = "Female", BloodType = "O+", Ward = "Neurology", Diagnosis = "Migraines",
+                HeartRate = 72, BpSystolic = 118, BpDiastolic = 76, Temperature = 98.4m, O2Saturation = 99,
+                Allergies = new(),
+                LabResults = new() { new() { Test = "CBC", Value = "Normal", RefRange = "—", IsNormal = true }, new() { Test = "TSH", Value = "2.1 mIU/L", RefRange = "0.4-4.0", IsNormal = true } },
+                Medications = new() { new() { Name = "Sumatriptan", Dosage = "50mg as needed" }, new() { Name = "Topiramate", Dosage = "25mg daily" } },
+                RecentVisits = new() { new() { Date = "Mar 26", Reason = "Migraine review", Doctor = "Dr. Patel" }, new() { Date = "Mar 10", Reason = "Neurology consult", Doctor = "Dr. Patel" } }
+            },
+            new() { Id = 3, Name = "Daniel Thompson", Initials = "DT", Age = 58, Status = "Critical", Gender = "Male", BloodType = "B+", Ward = "Cardiology", Diagnosis = "Acute MI",
+                HeartRate = 108, BpSystolic = 152, BpDiastolic = 94, Temperature = 99.2m, O2Saturation = 92,
+                Allergies = new() { "Aspirin", "Iodine" },
+                LabResults = new() { new() { Test = "Troponin", Value = "2.8 ng/mL", RefRange = "0-0.04", IsNormal = false }, new() { Test = "BNP", Value = "890 pg/mL", RefRange = "0-100", IsNormal = false }, new() { Test = "D-Dimer", Value = "0.8 ug/mL", RefRange = "0-0.5", IsNormal = false } },
+                Medications = new() { new() { Name = "Heparin", Dosage = "IV drip per protocol" }, new() { Name = "Metoprolol", Dosage = "25mg twice daily" }, new() { Name = "Atorvastatin", Dosage = "80mg daily" } },
+                RecentVisits = new() { new() { Date = "Mar 29", Reason = "Emergency admission — chest pain", Doctor = "Dr. Reeves" }, new() { Date = "Feb 15", Reason = "Cardiology follow-up", Doctor = "Dr. Reeves" } }
+            },
+            new() { Id = 4, Name = "Ava Patel", Initials = "AP", Age = 27, Status = "Stable", Gender = "Female", BloodType = "AB+", Ward = "General", Diagnosis = "Allergic dermatitis",
+                HeartRate = 68, BpSystolic = 112, BpDiastolic = 72, Temperature = 98.2m, O2Saturation = 99,
+                Allergies = new() { "Shellfish", "Latex" },
+                LabResults = new() { new() { Test = "IgE", Value = "245 IU/mL", RefRange = "0-100", IsNormal = false }, new() { Test = "Eosinophils", Value = "8%", RefRange = "1-4", IsNormal = false } },
+                Medications = new() { new() { Name = "Cetirizine", Dosage = "10mg daily" }, new() { Name = "Hydrocortisone cream", Dosage = "1% topical" } },
+                RecentVisits = new() { new() { Date = "Mar 27", Reason = "Skin rash follow-up", Doctor = "Dr. Carter" }, new() { Date = "Mar 18", Reason = "Allergy testing", Doctor = "Dr. Brooks" } }
+            },
+            new() { Id = 5, Name = "Michael O'Connor", Initials = "MO", Age = 62, Status = "Monitoring", Gender = "Male", BloodType = "O-", Ward = "Cardiology", Diagnosis = "Hypertension",
+                HeartRate = 82, BpSystolic = 148, BpDiastolic = 92, Temperature = 98.6m, O2Saturation = 96,
+                Allergies = new() { "Sulfa drugs" },
+                LabResults = new() { new() { Test = "Creatinine", Value = "1.4 mg/dL", RefRange = "0.7-1.3", IsNormal = false }, new() { Test = "Potassium", Value = "4.2 mEq/L", RefRange = "3.5-5.0", IsNormal = true }, new() { Test = "Cholesterol", Value = "242 mg/dL", RefRange = "0-200", IsNormal = false } },
+                Medications = new() { new() { Name = "Lisinopril", Dosage = "20mg daily" }, new() { Name = "Amlodipine", Dosage = "5mg daily" } },
+                RecentVisits = new() { new() { Date = "Mar 25", Reason = "BP monitoring", Doctor = "Dr. Carter" }, new() { Date = "Mar 12", Reason = "Medication adjustment", Doctor = "Dr. Carter" } }
+            },
+            new() { Id = 6, Name = "Emily Chen", Initials = "EC", Age = 35, Status = "Monitoring", Gender = "Female", BloodType = "A-", Ward = "General", Diagnosis = "Chronic fatigue",
+                HeartRate = 88, BpSystolic = 110, BpDiastolic = 70, Temperature = 98.0m, O2Saturation = 98,
+                Allergies = new(),
+                LabResults = new() { new() { Test = "TSH", Value = "6.2 mIU/L", RefRange = "0.4-4.0", IsNormal = false }, new() { Test = "Ferritin", Value = "12 ng/mL", RefRange = "20-200", IsNormal = false }, new() { Test = "Vitamin D", Value = "18 ng/mL", RefRange = "30-100", IsNormal = false } },
+                Medications = new() { new() { Name = "Levothyroxine", Dosage = "50mcg daily" }, new() { Name = "Ferrous sulfate", Dosage = "325mg daily" } },
+                RecentVisits = new() { new() { Date = "Mar 24", Reason = "Fatigue follow-up", Doctor = "Dr. Carter" }, new() { Date = "Mar 8", Reason = "Initial evaluation", Doctor = "Dr. Carter" } }
+            },
+            new() { Id = 7, Name = "Alexander Novak", Initials = "AN", Age = 52, Status = "Stable", Gender = "Male", BloodType = "B-", Ward = "Pulmonology", Diagnosis = "COPD",
+                HeartRate = 78, BpSystolic = 124, BpDiastolic = 80, Temperature = 98.4m, O2Saturation = 94,
+                Allergies = new() { "Codeine" },
+                LabResults = new() { new() { Test = "FEV1", Value = "62%", RefRange = ">80%", IsNormal = false }, new() { Test = "ABG pH", Value = "7.38", RefRange = "7.35-7.45", IsNormal = true } },
+                Medications = new() { new() { Name = "Tiotropium", Dosage = "18mcg inhaled daily" }, new() { Name = "Albuterol", Dosage = "PRN inhaler" } },
+                RecentVisits = new() { new() { Date = "Mar 22", Reason = "Pulmonary function test", Doctor = "Dr. Hernandez" }, new() { Date = "Mar 5", Reason = "COPD management review", Doctor = "Dr. Hernandez" } }
+            },
+            new() { Id = 8, Name = "Isabella Rossi", Initials = "IR", Age = 40, Status = "Stable", Gender = "Female", BloodType = "O+", Ward = "General", Diagnosis = "Annual physical",
+                HeartRate = 70, BpSystolic = 116, BpDiastolic = 74, Temperature = 98.6m, O2Saturation = 99,
+                Allergies = new(),
+                LabResults = new() { new() { Test = "CBC", Value = "Normal", RefRange = "—", IsNormal = true }, new() { Test = "Lipid Panel", Value = "Normal", RefRange = "—", IsNormal = true } },
+                Medications = new() { new() { Name = "Multivitamin", Dosage = "1 tablet daily" } },
+                RecentVisits = new() { new() { Date = "Mar 29", Reason = "Annual physical exam", Doctor = "Dr. Carter" } }
+            },
+            new() { Id = 9, Name = "Benjamin Carter", Initials = "BC", Age = 47, Status = "Monitoring", Gender = "Male", BloodType = "A+", Ward = "Gastroenterology", Diagnosis = "GERD",
+                HeartRate = 74, BpSystolic = 126, BpDiastolic = 80, Temperature = 98.6m, O2Saturation = 98,
+                Allergies = new() { "NSAIDs" },
+                LabResults = new() { new() { Test = "H. Pylori", Value = "Negative", RefRange = "Negative", IsNormal = true }, new() { Test = "Lipase", Value = "42 U/L", RefRange = "0-60", IsNormal = true } },
+                Medications = new() { new() { Name = "Omeprazole", Dosage = "20mg daily" }, new() { Name = "Famotidine", Dosage = "20mg as needed" } },
+                RecentVisits = new() { new() { Date = "Mar 23", Reason = "GERD follow-up", Doctor = "Dr. Lopez" }, new() { Date = "Mar 1", Reason = "Upper GI endoscopy", Doctor = "Dr. Lopez" } }
+            },
+            new() { Id = 10, Name = "Olivia Grant", Initials = "OG", Age = 29, Status = "Stable", Gender = "Female", BloodType = "B+", Ward = "Orthopedics", Diagnosis = "ACL tear",
+                HeartRate = 66, BpSystolic = 114, BpDiastolic = 72, Temperature = 98.2m, O2Saturation = 99,
+                Allergies = new(),
+                LabResults = new() { new() { Test = "CRP", Value = "1.2 mg/L", RefRange = "0-10", IsNormal = true }, new() { Test = "CBC", Value = "Normal", RefRange = "—", IsNormal = true } },
+                Medications = new() { new() { Name = "Ibuprofen", Dosage = "400mg every 6h" }, new() { Name = "Acetaminophen", Dosage = "500mg as needed" } },
+                RecentVisits = new() { new() { Date = "Mar 28", Reason = "Pre-op assessment", Doctor = "Dr. Kim" }, new() { Date = "Mar 15", Reason = "MRI review — ACL tear confirmed", Doctor = "Dr. Kim" } }
+            },
+            new() { Id = 11, Name = "Lucas Rivera", Initials = "LR", Age = 71, Status = "Critical", Gender = "Male", BloodType = "AB-", Ward = "ICU", Diagnosis = "Sepsis",
+                HeartRate = 112, BpSystolic = 88, BpDiastolic = 56, Temperature = 101.8m, O2Saturation = 89,
+                Allergies = new() { "Vancomycin" },
+                LabResults = new() { new() { Test = "Lactate", Value = "4.2 mmol/L", RefRange = "0.5-2.0", IsNormal = false }, new() { Test = "WBC", Value = "18.6 K/uL", RefRange = "4.5-11.0", IsNormal = false }, new() { Test = "Procalcitonin", Value = "8.4 ng/mL", RefRange = "0-0.5", IsNormal = false } },
+                Medications = new() { new() { Name = "Meropenem", Dosage = "1g IV every 8h" }, new() { Name = "Norepinephrine", Dosage = "IV drip per protocol" }, new() { Name = "Normal Saline", Dosage = "IV fluid resuscitation" } },
+                RecentVisits = new() { new() { Date = "Mar 29", Reason = "ICU admission — septic shock", Doctor = "Dr. Reeves" } }
+            },
+            new() { Id = 12, Name = "Mia Johansson", Initials = "MJ", Age = 24, Status = "Stable", Gender = "Female", BloodType = "O+", Ward = "General", Diagnosis = "Tonsillitis",
+                HeartRate = 80, BpSystolic = 110, BpDiastolic = 68, Temperature = 100.2m, O2Saturation = 98,
+                Allergies = new(),
+                LabResults = new() { new() { Test = "Rapid Strep", Value = "Positive", RefRange = "Negative", IsNormal = false }, new() { Test = "WBC", Value = "12.1 K/uL", RefRange = "4.5-11.0", IsNormal = false } },
+                Medications = new() { new() { Name = "Amoxicillin", Dosage = "500mg three times daily" }, new() { Name = "Ibuprofen", Dosage = "400mg every 6h" } },
+                RecentVisits = new() { new() { Date = "Mar 28", Reason = "Sore throat evaluation", Doctor = "Dr. Carter" } }
+            },
+            new() { Id = 13, Name = "Ethan Brooks", Initials = "EB", Age = 56, Status = "Monitoring", Gender = "Male", BloodType = "A+", Ward = "Cardiology", Diagnosis = "Atrial fibrillation",
+                HeartRate = 96, BpSystolic = 136, BpDiastolic = 86, Temperature = 98.4m, O2Saturation = 96,
+                Allergies = new() { "Amiodarone" },
+                LabResults = new() { new() { Test = "INR", Value = "2.8", RefRange = "2.0-3.0", IsNormal = true }, new() { Test = "TSH", Value = "1.8 mIU/L", RefRange = "0.4-4.0", IsNormal = true } },
+                Medications = new() { new() { Name = "Warfarin", Dosage = "5mg daily" }, new() { Name = "Diltiazem", Dosage = "120mg daily" } },
+                RecentVisits = new() { new() { Date = "Mar 26", Reason = "INR check", Doctor = "Dr. Reeves" }, new() { Date = "Mar 14", Reason = "ECG monitoring", Doctor = "Dr. Reeves" } }
+            },
+            new() { Id = 14, Name = "Charlotte Adams", Initials = "CA", Age = 38, Status = "Stable", Gender = "Female", BloodType = "B+", Ward = "General", Diagnosis = "Iron deficiency anemia",
+                HeartRate = 84, BpSystolic = 108, BpDiastolic = 68, Temperature = 98.0m, O2Saturation = 98,
+                Allergies = new(),
+                LabResults = new() { new() { Test = "Hemoglobin", Value = "10.2 g/dL", RefRange = "12-16", IsNormal = false }, new() { Test = "Ferritin", Value = "8 ng/mL", RefRange = "20-200", IsNormal = false }, new() { Test = "Iron", Value = "35 ug/dL", RefRange = "60-170", IsNormal = false } },
+                Medications = new() { new() { Name = "Ferrous sulfate", Dosage = "325mg twice daily" }, new() { Name = "Vitamin C", Dosage = "500mg daily" } },
+                RecentVisits = new() { new() { Date = "Mar 25", Reason = "Anemia follow-up", Doctor = "Dr. Carter" }, new() { Date = "Mar 10", Reason = "Initial blood work review", Doctor = "Dr. Carter" } }
+            },
+            new() { Id = 15, Name = "William Tanaka", Initials = "WT", Age = 65, Status = "Monitoring", Gender = "Male", BloodType = "O-", Ward = "Endocrinology", Diagnosis = "Type 2 Diabetes",
+                HeartRate = 78, BpSystolic = 142, BpDiastolic = 88, Temperature = 98.6m, O2Saturation = 97,
+                Allergies = new() { "Metformin" },
+                LabResults = new() { new() { Test = "HbA1c", Value = "8.2%", RefRange = "4-5.6", IsNormal = false }, new() { Test = "Fasting Glucose", Value = "186 mg/dL", RefRange = "70-100", IsNormal = false }, new() { Test = "Creatinine", Value = "1.1 mg/dL", RefRange = "0.7-1.3", IsNormal = true } },
+                Medications = new() { new() { Name = "Glipizide", Dosage = "10mg twice daily" }, new() { Name = "Insulin Glargine", Dosage = "20 units at bedtime" } },
+                RecentVisits = new() { new() { Date = "Mar 24", Reason = "Diabetes management review", Doctor = "Dr. Nguyen" }, new() { Date = "Mar 3", Reason = "HbA1c lab draw", Doctor = "Dr. Nguyen" } }
+            },
+            new() { Id = 16, Name = "Amelia Foster", Initials = "AF", Age = 33, Status = "Stable", Gender = "Female", BloodType = "AB+", Ward = "Dermatology", Diagnosis = "Psoriasis",
+                HeartRate = 70, BpSystolic = 112, BpDiastolic = 74, Temperature = 98.4m, O2Saturation = 99,
+                Allergies = new(),
+                LabResults = new() { new() { Test = "ESR", Value = "22 mm/hr", RefRange = "0-20", IsNormal = false }, new() { Test = "CRP", Value = "3.1 mg/L", RefRange = "0-10", IsNormal = true } },
+                Medications = new() { new() { Name = "Adalimumab", Dosage = "40mg SC biweekly" }, new() { Name = "Triamcinolone cream", Dosage = "0.1% topical" } },
+                RecentVisits = new() { new() { Date = "Mar 22", Reason = "Psoriasis flare review", Doctor = "Dr. Brooks" }, new() { Date = "Feb 28", Reason = "Biologic therapy check", Doctor = "Dr. Brooks" } }
+            },
+            new() { Id = 17, Name = "Jack Sullivan", Initials = "JS", Age = 73, Status = "Critical", Gender = "Male", BloodType = "A-", Ward = "ICU", Diagnosis = "Pneumonia",
+                HeartRate = 104, BpSystolic = 96, BpDiastolic = 62, Temperature = 102.4m, O2Saturation = 88,
+                Allergies = new() { "Penicillin", "Sulfa drugs" },
+                LabResults = new() { new() { Test = "WBC", Value = "19.4 K/uL", RefRange = "4.5-11.0", IsNormal = false }, new() { Test = "Procalcitonin", Value = "5.2 ng/mL", RefRange = "0-0.5", IsNormal = false }, new() { Test = "PaO2", Value = "58 mmHg", RefRange = "80-100", IsNormal = false } },
+                Medications = new() { new() { Name = "Levofloxacin", Dosage = "750mg IV daily" }, new() { Name = "Supplemental O2", Dosage = "4L nasal cannula" }, new() { Name = "Acetaminophen", Dosage = "650mg every 6h" } },
+                RecentVisits = new() { new() { Date = "Mar 29", Reason = "ICU transfer — worsening pneumonia", Doctor = "Dr. Hernandez" }, new() { Date = "Mar 27", Reason = "Admission — community-acquired pneumonia", Doctor = "Dr. Carter" } }
+            },
+            new() { Id = 18, Name = "Grace Kim", Initials = "GK", Age = 42, Status = "Stable", Gender = "Female", BloodType = "O+", Ward = "General", Diagnosis = "Seasonal allergies",
+                HeartRate = 72, BpSystolic = 118, BpDiastolic = 76, Temperature = 98.6m, O2Saturation = 99,
+                Allergies = new() { "Pollen", "Dust mites" },
+                LabResults = new() { new() { Test = "IgE", Value = "180 IU/mL", RefRange = "0-100", IsNormal = false }, new() { Test = "CBC", Value = "Normal", RefRange = "—", IsNormal = true } },
+                Medications = new() { new() { Name = "Loratadine", Dosage = "10mg daily" }, new() { Name = "Fluticasone nasal spray", Dosage = "2 sprays daily" } },
+                RecentVisits = new() { new() { Date = "Mar 20", Reason = "Allergy management visit", Doctor = "Dr. Carter" } }
+            },
+            new() { Id = 19, Name = "Henry Wallace", Initials = "HW", Age = 80, Status = "Monitoring", Gender = "Male", BloodType = "B-", Ward = "Neurology", Diagnosis = "Parkinson's disease",
+                HeartRate = 68, BpSystolic = 132, BpDiastolic = 78, Temperature = 97.8m, O2Saturation = 96,
+                Allergies = new(),
+                LabResults = new() { new() { Test = "Vitamin B12", Value = "310 pg/mL", RefRange = "200-900", IsNormal = true }, new() { Test = "Folate", Value = "8.2 ng/mL", RefRange = "2.7-17", IsNormal = true } },
+                Medications = new() { new() { Name = "Carbidopa-Levodopa", Dosage = "25/100mg three times daily" }, new() { Name = "Pramipexole", Dosage = "0.5mg three times daily" } },
+                RecentVisits = new() { new() { Date = "Mar 21", Reason = "Tremor assessment", Doctor = "Dr. Patel" }, new() { Date = "Feb 28", Reason = "Medication titration", Doctor = "Dr. Patel" } }
+            },
+            new() { Id = 20, Name = "Lily Nakamura", Initials = "LN", Age = 19, Status = "Stable", Gender = "Female", BloodType = "A+", Ward = "General", Diagnosis = "Mononucleosis",
+                HeartRate = 82, BpSystolic = 106, BpDiastolic = 66, Temperature = 100.6m, O2Saturation = 98,
+                Allergies = new(),
+                LabResults = new() { new() { Test = "Monospot", Value = "Positive", RefRange = "Negative", IsNormal = false }, new() { Test = "WBC", Value = "13.4 K/uL", RefRange = "4.5-11.0", IsNormal = false }, new() { Test = "Liver Enzymes", Value = "Mildly elevated", RefRange = "Normal", IsNormal = false } },
+                Medications = new() { new() { Name = "Acetaminophen", Dosage = "500mg every 6h" } },
+                RecentVisits = new() { new() { Date = "Mar 27", Reason = "Fatigue and sore throat", Doctor = "Dr. Carter" } }
+            },
+            new() { Id = 21, Name = "Samuel Torres", Initials = "ST", Age = 55, Status = "Stable", Gender = "Male", BloodType = "O+", Ward = "Orthopedics", Diagnosis = "Hip replacement recovery",
+                HeartRate = 74, BpSystolic = 122, BpDiastolic = 78, Temperature = 98.4m, O2Saturation = 98,
+                Allergies = new() { "Codeine" },
+                LabResults = new() { new() { Test = "CBC", Value = "Normal", RefRange = "—", IsNormal = true }, new() { Test = "CRP", Value = "5.8 mg/L", RefRange = "0-10", IsNormal = true } },
+                Medications = new() { new() { Name = "Enoxaparin", Dosage = "40mg SC daily" }, new() { Name = "Tramadol", Dosage = "50mg every 6h" } },
+                RecentVisits = new() { new() { Date = "Mar 26", Reason = "Post-op day 3 — hip replacement", Doctor = "Dr. Kim" }, new() { Date = "Mar 23", Reason = "Surgery — total hip arthroplasty", Doctor = "Dr. Kim" } }
+            },
+            new() { Id = 22, Name = "Chloe Anderson", Initials = "CA", Age = 48, Status = "Monitoring", Gender = "Female", BloodType = "AB+", Ward = "Oncology", Diagnosis = "Breast cancer — stage II",
+                HeartRate = 86, BpSystolic = 120, BpDiastolic = 76, Temperature = 98.8m, O2Saturation = 97,
+                Allergies = new() { "Contrast dye" },
+                LabResults = new() { new() { Test = "CA 15-3", Value = "38 U/mL", RefRange = "0-30", IsNormal = false }, new() { Test = "WBC", Value = "3.8 K/uL", RefRange = "4.5-11.0", IsNormal = false }, new() { Test = "Hemoglobin", Value = "11.4 g/dL", RefRange = "12-16", IsNormal = false } },
+                Medications = new() { new() { Name = "Tamoxifen", Dosage = "20mg daily" }, new() { Name = "Ondansetron", Dosage = "8mg as needed" } },
+                RecentVisits = new() { new() { Date = "Mar 25", Reason = "Chemotherapy cycle 3", Doctor = "Dr. Liu" }, new() { Date = "Mar 11", Reason = "Chemotherapy cycle 2", Doctor = "Dr. Liu" } }
+            },
+            new() { Id = 23, Name = "Nathan Perry", Initials = "NP", Age = 36, Status = "Stable", Gender = "Male", BloodType = "B+", Ward = "General", Diagnosis = "Lower back pain",
+                HeartRate = 72, BpSystolic = 120, BpDiastolic = 78, Temperature = 98.6m, O2Saturation = 99,
+                Allergies = new(),
+                LabResults = new() { new() { Test = "ESR", Value = "14 mm/hr", RefRange = "0-20", IsNormal = true }, new() { Test = "CBC", Value = "Normal", RefRange = "—", IsNormal = true } },
+                Medications = new() { new() { Name = "Naproxen", Dosage = "500mg twice daily" }, new() { Name = "Cyclobenzaprine", Dosage = "10mg at bedtime" } },
+                RecentVisits = new() { new() { Date = "Mar 24", Reason = "Back pain evaluation", Doctor = "Dr. Carter" } }
+            },
+            new() { Id = 24, Name = "Zoe Mitchell", Initials = "ZM", Age = 83, Status = "Monitoring", Gender = "Female", BloodType = "O-", Ward = "Cardiology", Diagnosis = "Congestive heart failure",
+                HeartRate = 92, BpSystolic = 138, BpDiastolic = 84, Temperature = 98.2m, O2Saturation = 93,
+                Allergies = new() { "ACE inhibitors" },
+                LabResults = new() { new() { Test = "BNP", Value = "620 pg/mL", RefRange = "0-100", IsNormal = false }, new() { Test = "Creatinine", Value = "1.6 mg/dL", RefRange = "0.7-1.3", IsNormal = false }, new() { Test = "Sodium", Value = "132 mEq/L", RefRange = "136-145", IsNormal = false } },
+                Medications = new() { new() { Name = "Furosemide", Dosage = "40mg daily" }, new() { Name = "Carvedilol", Dosage = "12.5mg twice daily" }, new() { Name = "Spironolactone", Dosage = "25mg daily" } },
+                RecentVisits = new() { new() { Date = "Mar 26", Reason = "CHF exacerbation", Doctor = "Dr. Reeves" }, new() { Date = "Mar 10", Reason = "Cardiology follow-up", Doctor = "Dr. Reeves" } }
+            },
+            new() { Id = 25, Name = "Ryan Cooper", Initials = "RC", Age = 45, Status = "Stable", Gender = "Male", BloodType = "A+", Ward = "General", Diagnosis = "Anxiety disorder",
+                HeartRate = 88, BpSystolic = 124, BpDiastolic = 80, Temperature = 98.6m, O2Saturation = 99,
+                Allergies = new(),
+                LabResults = new() { new() { Test = "TSH", Value = "2.4 mIU/L", RefRange = "0.4-4.0", IsNormal = true }, new() { Test = "CBC", Value = "Normal", RefRange = "—", IsNormal = true } },
+                Medications = new() { new() { Name = "Sertraline", Dosage = "100mg daily" }, new() { Name = "Lorazepam", Dosage = "0.5mg as needed" } },
+                RecentVisits = new() { new() { Date = "Mar 22", Reason = "Medication review", Doctor = "Dr. Carter" }, new() { Date = "Feb 20", Reason = "Anxiety management", Doctor = "Dr. Carter" } }
+            },
+            new() { Id = 26, Name = "Hannah Moore", Initials = "HM", Age = 60, Status = "Stable", Gender = "Female", BloodType = "B-", Ward = "Rheumatology", Diagnosis = "Rheumatoid arthritis",
+                HeartRate = 74, BpSystolic = 126, BpDiastolic = 80, Temperature = 98.4m, O2Saturation = 98,
+                Allergies = new() { "Sulfasalazine" },
+                LabResults = new() { new() { Test = "RF", Value = "64 IU/mL", RefRange = "0-14", IsNormal = false }, new() { Test = "Anti-CCP", Value = "82 U/mL", RefRange = "0-20", IsNormal = false }, new() { Test = "ESR", Value = "38 mm/hr", RefRange = "0-20", IsNormal = false } },
+                Medications = new() { new() { Name = "Methotrexate", Dosage = "15mg weekly" }, new() { Name = "Folic acid", Dosage = "1mg daily" }, new() { Name = "Prednisone", Dosage = "5mg daily" } },
+                RecentVisits = new() { new() { Date = "Mar 20", Reason = "RA flare assessment", Doctor = "Dr. Singh" }, new() { Date = "Feb 18", Reason = "Lab monitoring", Doctor = "Dr. Singh" } }
+            },
+            new() { Id = 27, Name = "Dylan Murphy", Initials = "DM", Age = 22, Status = "Stable", Gender = "Male", BloodType = "O+", Ward = "Orthopedics", Diagnosis = "Fractured wrist",
+                HeartRate = 68, BpSystolic = 118, BpDiastolic = 72, Temperature = 98.6m, O2Saturation = 99,
+                Allergies = new(),
+                LabResults = new() { new() { Test = "CBC", Value = "Normal", RefRange = "—", IsNormal = true } },
+                Medications = new() { new() { Name = "Acetaminophen", Dosage = "500mg every 6h" } },
+                RecentVisits = new() { new() { Date = "Mar 28", Reason = "Cast application — distal radius fracture", Doctor = "Dr. Kim" } }
+            },
+            new() { Id = 28, Name = "Victoria Hughes", Initials = "VH", Age = 50, Status = "Monitoring", Gender = "Female", BloodType = "A-", Ward = "Nephrology", Diagnosis = "Chronic kidney disease",
+                HeartRate = 80, BpSystolic = 146, BpDiastolic = 90, Temperature = 98.4m, O2Saturation = 97,
+                Allergies = new() { "NSAIDs" },
+                LabResults = new() { new() { Test = "GFR", Value = "42 mL/min", RefRange = ">60", IsNormal = false }, new() { Test = "Creatinine", Value = "2.1 mg/dL", RefRange = "0.7-1.3", IsNormal = false }, new() { Test = "Potassium", Value = "5.4 mEq/L", RefRange = "3.5-5.0", IsNormal = false } },
+                Medications = new() { new() { Name = "Losartan", Dosage = "50mg daily" }, new() { Name = "Sodium bicarbonate", Dosage = "650mg twice daily" }, new() { Name = "Epoetin alfa", Dosage = "4000 units SC weekly" } },
+                RecentVisits = new() { new() { Date = "Mar 24", Reason = "CKD stage 3b review", Doctor = "Dr. Nguyen" }, new() { Date = "Mar 5", Reason = "Lab monitoring", Doctor = "Dr. Nguyen" } }
+            },
+            new() { Id = 29, Name = "Oscar Fernandez", Initials = "OF", Age = 68, Status = "Stable", Gender = "Male", BloodType = "AB+", Ward = "General", Diagnosis = "Osteoarthritis",
+                HeartRate = 70, BpSystolic = 130, BpDiastolic = 82, Temperature = 98.2m, O2Saturation = 98,
+                Allergies = new(),
+                LabResults = new() { new() { Test = "Uric Acid", Value = "6.2 mg/dL", RefRange = "3.4-7.0", IsNormal = true }, new() { Test = "CBC", Value = "Normal", RefRange = "—", IsNormal = true } },
+                Medications = new() { new() { Name = "Celecoxib", Dosage = "200mg daily" }, new() { Name = "Glucosamine", Dosage = "1500mg daily" } },
+                RecentVisits = new() { new() { Date = "Mar 22", Reason = "Joint pain follow-up", Doctor = "Dr. Carter" }, new() { Date = "Feb 15", Reason = "Knee X-ray review", Doctor = "Dr. Kim" } }
+            },
+            new() { Id = 30, Name = "Ella Patterson", Initials = "EP", Age = 26, Status = "Stable", Gender = "Female", BloodType = "O+", Ward = "General", Diagnosis = "Urinary tract infection",
+                HeartRate = 76, BpSystolic = 110, BpDiastolic = 70, Temperature = 99.8m, O2Saturation = 99,
+                Allergies = new() { "Trimethoprim" },
+                LabResults = new() { new() { Test = "Urinalysis", Value = "WBC +++", RefRange = "Negative", IsNormal = false }, new() { Test = "Urine Culture", Value = "E. coli", RefRange = "No growth", IsNormal = false } },
+                Medications = new() { new() { Name = "Nitrofurantoin", Dosage = "100mg twice daily" }, new() { Name = "Phenazopyridine", Dosage = "200mg three times daily" } },
+                RecentVisits = new() { new() { Date = "Mar 28", Reason = "UTI symptoms — dysuria, frequency", Doctor = "Dr. Carter" } }
+            }
+        };
+    }
+}

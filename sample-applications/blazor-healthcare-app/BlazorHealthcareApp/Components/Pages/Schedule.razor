@@ -1,0 +1,365 @@
+﻿@page "/schedule"
+@rendermode InteractiveServer
+
+<style>
+    /* ========== HEADING ========== */
+    .hc-heading { display: flex; flex-direction: column; gap: 8px; width: 100%; position: relative; z-index: 1; }
+    .hc-heading h1 {
+        font-weight: 600; font-size: 42px; line-height: 120%;
+        color: #232A36; margin: 0;
+    }
+    .hc-heading p {
+        font-weight: 400; font-size: 16px; line-height: 150%;
+        color: #4A5666; margin: 0;
+    }
+
+    /* ========== MAIN 2-COL ========== */
+    .hc-main {
+        display: flex;
+        gap: 32px;
+        width: 100%;
+        flex: 1;
+        position: relative;
+        z-index: 1;
+    }
+    .hc-left { display: flex; flex-direction: column; gap: 32px; flex: 1 1 70%; min-width: 0; }
+    .hc-right { display: flex; flex-direction: column; width: 30%; min-width: min(320px, 100%); }
+
+    /* ========== CARDS ========== */
+    .hc-card {
+        background: #FFFFFF;
+        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04), 0px 2px 6px -1px rgba(0, 0, 0, 0.06);
+        border-radius: 16px;
+        padding: 24px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .hc-card-title {
+        font-weight: 700; font-size: 24px; line-height: 150%;
+        color: #232A36; margin: 0 0 20px 0;
+    }
+
+    /* ========== SCHEDULER OVERRIDES ========== */
+    .hc-scheduler-wrapper .k-scheduler {
+        border-radius: 12px;
+        border: 1px solid rgba(23, 56, 99, 0.08);
+        font-family: 'Poppins', sans-serif;
+    }
+    .hc-scheduler-wrapper .k-scheduler .k-scheduler-toolbar {
+        background: #F9FAFB;
+        border-bottom: 1px solid rgba(23, 56, 99, 0.08);
+    }
+    .hc-scheduler-wrapper .k-scheduler .k-event {
+        background: #EBECFF;
+        border-left: 4px solid #6366FB;
+        color: #383BA8;
+        border-radius: 6px;
+        font-size: 13px;
+    }
+    .hc-scheduler-wrapper .k-scheduler .k-event:hover {
+        background: #D4D6FF;
+    }
+    .hc-scheduler-wrapper .k-scheduler .k-event .k-event-template {
+        font-family: 'Poppins', sans-serif;
+        font-size: 13px;
+        padding: 2px 4px;
+    }
+
+    /* ========== RIGHT COL — DAILY TASKS ========== */
+    .hc-right-card {
+        background: #FFFFFF;
+        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04), 0px 2px 6px -1px rgba(0, 0, 0, 0.06);
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        position: relative;
+        z-index: 1;
+    }
+
+    .hc-tasks-header {
+        padding: 24px 24px 16px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .hc-tasks-header-title {
+        font-weight: 700; font-size: 24px; line-height: 150%;
+        color: #232A36; margin: 0; flex-shrink: 0;
+    }
+
+    .hc-tasks-search {
+        display: flex;
+        align-items: center;
+        padding: 2px 8px;
+        flex: 1;
+        height: 36px;
+        background: #FFFFFF;
+        border: 1px solid rgba(23, 56, 99, 0.08);
+        border-radius: 9999px;
+        gap: 4px;
+    }
+    .hc-tasks-search-icon { display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; color: #4A5666; }
+    .hc-tasks-search input {
+        border: none; outline: none; background: transparent;
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px; color: #232A36; width: 100%; padding: 2px 4px;
+    }
+    .hc-tasks-search input::placeholder { color: #4A5666; }
+
+    .hc-tasks-add-btn {
+        height: 36px; min-width: 36px; max-width: 36px;
+        background: #334155; border: 1px solid #334155;
+        border-radius: 9999px;
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer; color: #FFFFFF; flex-shrink: 0;
+        gap: 0;
+        padding: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        transition: max-width 0.3s ease-in-out, padding 0.3s ease-in-out, gap 0.3s ease-in-out, background 0.2s ease;
+    }
+    .hc-tasks-add-btn:hover {
+        background: #1e293b;
+        max-width: 160px;
+        padding: 0 14px 0 10px;
+        gap: 6px;
+    }
+    .hc-tasks-add-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    .hc-tasks-add-btn-text {
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px; font-weight: 500;
+        color: #FFFFFF;
+        opacity: 0;
+        max-width: 0;
+        overflow: hidden;
+        transition: opacity 0.25s ease-in-out 0.05s, max-width 0.3s ease-in-out;
+    }
+    .hc-tasks-add-btn:hover .hc-tasks-add-btn-text {
+        opacity: 1;
+        max-width: 100px;
+    }
+
+    /* Task list */
+    .hc-tasks-list {
+        padding: 0 16px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        overflow-y: auto;
+        flex: 1;
+    }
+
+    .hc-task-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 16px;
+        background: #FFFFFF;
+        border: 1px solid rgba(23, 56, 99, 0.06);
+        border-radius: 12px;
+        transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    }
+    .hc-task-item:hover {
+        border-color: rgba(99, 102, 251, 0.15);
+        box-shadow: 0px 8px 20px rgba(0, 100, 200, 0.1);
+    }
+
+    .hc-task-checkbox {
+        width: 22px; height: 22px; min-width: 22px;
+        border: 2px solid #CBD5E1;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        background: #FFFFFF;
+        appearance: none; -webkit-appearance: none;
+        transition: all 0.15s ease;
+    }
+    .hc-task-checkbox:checked {
+        background: #334155;
+        border-color: #334155;
+    }
+    .hc-task-checkbox:checked::after {
+        content: '';
+        width: 10px; height: 6px;
+        border-left: 2px solid #FFFFFF;
+        border-bottom: 2px solid #FFFFFF;
+        transform: rotate(-45deg);
+        margin-top: -2px;
+    }
+
+    .hc-task-text {
+        flex: 1;
+        font-size: 15px;
+        line-height: 150%;
+        color: #232A36;
+    }
+    .hc-task-text.completed {
+        text-decoration: line-through;
+        color: #94A3B8;
+    }
+
+    .hc-priority-badge {
+        display: inline-flex; align-items: center; justify-content: center;
+        padding: 4px 10px;
+        border-radius: 9999px;
+        font-size: 12px; line-height: 133%;
+        white-space: nowrap;
+        font-weight: 500;
+        flex-shrink: 0;
+    }
+    .hc-priority-high { background: #FEE2E2; border: 1px solid #FCA5A5; color: #991B1B; }
+    .hc-priority-medium { background: #FEF3C7; border: 1px solid #FCD34D; color: #92400E; }
+    .hc-priority-low { background: #D1FAE5; border: 1px solid #6EE7B7; color: #065F46; }
+
+
+
+    /* ========== RESPONSIVE ========== */
+    @@media (max-width: 1200px) {
+        .hc-main { flex-direction: column; }
+        .hc-left { flex: 1 1 auto; }
+        .hc-right { width: 100%; min-width: 0; }
+        .hc-right-card { height: auto; max-height: 650px; }
+    }
+
+    @@media (max-width: 960px) {
+        .hc-heading h1 { font-size: 32px; }
+    }
+
+    @@media (max-width: 640px) {
+        .hc-heading h1 { font-size: 26px; }
+        .hc-heading p { font-size: 14px; }
+        .hc-card { padding: 16px; }
+        .hc-card-title { font-size: 20px; margin-bottom: 16px; }
+        .hc-tasks-header-title { font-size: 20px; }
+        .hc-tasks-header { flex-wrap: wrap; }
+    }
+</style>
+
+<!-- ========== MAIN 2-COL ========== -->
+<div class="hc-main">
+    <!-- LEFT COLUMN — Scheduler -->
+    <div class="hc-left">
+        <div class="hc-card">
+            <div class="hc-card-title">Doctor's Schedule</div>
+            <div class="hc-scheduler-wrapper">
+                <TelerikScheduler Data="@SchedulerAppointments"
+                                  @bind-Date="@SelectedDate"
+                                  @bind-View="@CurrentView"
+                                  Height="650px"
+                                  AllowCreate="false"
+                                  AllowUpdate="false"
+                                  AllowDelete="false">
+                    <SchedulerViews>
+                        <SchedulerDayView StartTime="@DayStart" EndTime="@DayEnd" WorkDayStart="@DayStart" WorkDayEnd="@DayEnd" />
+                        <SchedulerWeekView StartTime="@DayStart" EndTime="@DayEnd" WorkDayStart="@DayStart" WorkDayEnd="@DayEnd" />
+                        <SchedulerMonthView />
+                    </SchedulerViews>
+                </TelerikScheduler>
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT COLUMN — Daily Tasks -->
+    <div class="hc-right">
+        <div class="hc-right-card">
+            <div class="hc-tasks-header">
+                <div class="hc-tasks-header-title">Daily Tasks</div>
+                <div class="hc-tasks-search">
+                    <div class="hc-tasks-search-icon">
+                        <TelerikSvgIcon Icon="@SvgIcon.Search" />
+                    </div>
+                    <input type="text" placeholder="Search tasks" />
+                </div>
+                <button class="hc-tasks-add-btn" title="Add task">
+                    <svg viewBox="0 0 16 16" fill="none"><line x1="3.33" y1="8" x2="12.67" y2="8" stroke="white" stroke-width="1.33" stroke-linecap="round"/><line x1="8" y1="3.33" x2="8" y2="12.67" stroke="white" stroke-width="1.33" stroke-linecap="round"/></svg>
+                    <span class="hc-tasks-add-btn-text">Add Task</span>
+                </button>
+            </div>
+
+            <div class="hc-tasks-list">
+                @foreach (var task in DailyTasks)
+                {
+                    <div class="hc-task-item">
+                        <input type="checkbox"
+                               class="hc-task-checkbox"
+                               checked="@task.IsCompleted"
+                               @onchange="() => ToggleTask(task)" />
+                        <span class="hc-task-text @(task.IsCompleted ? "completed" : "")">@task.Title</span>
+                        <span class="hc-priority-badge hc-priority-@task.Priority.ToLowerInvariant()">@task.Priority</span>
+                    </div>
+                }
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+@code {
+    private DateTime SelectedDate { get; set; } = new DateTime(2026, 3, 30);
+    private SchedulerView CurrentView { get; set; } = SchedulerView.Week;
+    private DateTime DayStart { get; set; } = new DateTime(2000, 1, 1, 7, 0, 0);
+    private DateTime DayEnd { get; set; } = new DateTime(2000, 1, 1, 19, 0, 0);
+
+    private List<ScheduleAppointment> SchedulerAppointments = new();
+    private List<TaskItem> DailyTasks = new();
+
+    protected override void OnInitialized()
+    {
+        var baseDate = new DateTime(2026, 3, 30); // Monday
+
+        SchedulerAppointments = new List<ScheduleAppointment>
+        {
+            new() { Title = "Follow-up: James Wilson", Description = "Persistent cough review", Start = baseDate.AddHours(9), End = baseDate.AddHours(9).AddMinutes(30), IsAllDay = false },
+            new() { Title = "New Patient: Sarah Brooks", Description = "Initial consultation", Start = baseDate.AddHours(10), End = baseDate.AddHours(10).AddMinutes(45), IsAllDay = false },
+            new() { Title = "Lab Review: Ava Patel", Description = "Allergy test results", Start = baseDate.AddHours(11), End = baseDate.AddHours(11).AddMinutes(30), IsAllDay = false },
+            new() { Title = "Check-up: Michael O'Connor", Description = "Blood pressure monitoring", Start = baseDate.AddHours(14), End = baseDate.AddHours(14).AddMinutes(30), IsAllDay = false },
+            new() { Title = "Consultation: Emily Chen", Description = "Fatigue and dizziness follow-up", Start = baseDate.AddHours(15), End = baseDate.AddHours(15).AddMinutes(45), IsAllDay = false },
+            new() { Title = "Team Huddle", Description = "Weekly staff sync", Start = baseDate.AddDays(1).AddHours(8), End = baseDate.AddDays(1).AddHours(8).AddMinutes(30), IsAllDay = false },
+            new() { Title = "Surgery Prep: Daniel Thompson", Description = "Pre-op assessment", Start = baseDate.AddDays(1).AddHours(10), End = baseDate.AddDays(1).AddHours(11), IsAllDay = false },
+            new() { Title = "Grand Rounds", Description = "Cardiology case presentation", Start = baseDate.AddDays(2).AddHours(9), End = baseDate.AddDays(2).AddHours(10).AddMinutes(30), IsAllDay = false },
+            new() { Title = "Follow-up: Sophia Martinez", Description = "Migraine management review", Start = baseDate.AddDays(2).AddHours(13), End = baseDate.AddDays(2).AddHours(13).AddMinutes(30), IsAllDay = false },
+            new() { Title = "New Patient: Alexander Novak", Description = "Chest congestion evaluation", Start = baseDate.AddDays(3).AddHours(9), End = baseDate.AddDays(3).AddHours(9).AddMinutes(45), IsAllDay = false },
+            new() { Title = "Peer Review Meeting", Description = "Monthly case review", Start = baseDate.AddDays(4).AddHours(14), End = baseDate.AddDays(4).AddHours(15).AddMinutes(30), IsAllDay = false },
+        };
+
+        DailyTasks = new List<TaskItem>
+        {
+            new() { Id = 1, Title = "Complete discharge paperwork for John Smith", IsCompleted = true, Priority = "High" },
+            new() { Id = 2, Title = "Call pharmacy for Emma Davis prescription", IsCompleted = true, Priority = "Medium" },
+            new() { Id = 3, Title = "Sign off on radiology reports", IsCompleted = false, Priority = "Low" },
+            new() { Id = 4, Title = "Review insurance authorization requests", IsCompleted = true, Priority = "High" },
+            new() { Id = 5, Title = "Update treatment plan for Mike Davis", IsCompleted = false, Priority = "High" },
+            new() { Id = 6, Title = "Sign off on radiology reports", IsCompleted = false, Priority = "Medium" },
+            new() { Id = 7, Title = "Review lab results for Sarah Johnson", IsCompleted = false, Priority = "Low" },
+            new() { Id = 8, Title = "Complete discharge paperwork for John Smith", IsCompleted = false, Priority = "High" },
+            new() { Id = 9, Title = "Review lab results for Sarah Johnson", IsCompleted = false, Priority = "High" },
+            new() { Id = 10, Title = "Review insurance authorization requests", IsCompleted = true, Priority = "Medium" },
+        };
+    }
+
+    private void ToggleTask(TaskItem task)
+    {
+        task.IsCompleted = !task.IsCompleted;
+    }
+
+    public class ScheduleAppointment
+    {
+        public string Title { get; set; } = "";
+        public string Description { get; set; } = "";
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
+        public bool IsAllDay { get; set; }
+    }
+
+    public class TaskItem
+    {
+        public int Id { get; set; }
+        public string Title { get; set; } = "";
+        public bool IsCompleted { get; set; }
+        public string Priority { get; set; } = "";
+    }
+}

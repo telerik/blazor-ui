@@ -1,0 +1,1212 @@
+﻿@page "/"
+@rendermode InteractiveServer
+
+<style>
+    /* ========== HEADING ========== */
+    .hc-heading { display: flex; flex-direction: column; gap: 8px; width: 100%; position: relative; z-index: 1; }
+    .hc-heading h1 {
+        font-weight: 600; font-size: 42px; line-height: 120%;
+        color: #232A36; margin: 0;
+    }
+    .hc-heading p {
+        font-weight: 400; font-size: 16px; line-height: 150%;
+        color: #4A5666; margin: 0;
+    }
+
+    /* ========== MAIN 2-COL ========== */
+    .hc-main {
+        display: flex;
+        gap: 32px;
+        width: 100%;
+        flex: 1;
+        position: relative;
+        z-index: 1;
+    }
+    .hc-left { display: flex; flex-direction: column; gap: 32px; flex: 1 1 62%; min-width: 0; }
+    .hc-right { display: flex; flex-direction: column; width: 36%; min-width: min(340px, 100%); }
+
+    /* ========== CARDS ========== */
+    .hc-card {
+        background: #FFFFFF;
+        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04), 0px 2px 6px -1px rgba(0, 0, 0, 0.06);
+        border-radius: 16px;
+        padding: 24px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .hc-card-title {
+        font-weight: 700; font-size: 24px; line-height: 150%;
+        color: #232A36; margin: 0 0 20px 0;
+    }
+
+    /* ========== QUICK ACTIONS ========== */
+    .hc-quick-actions { display: flex; gap: 22px; }
+
+    .hc-qa-card {
+        flex: 1;
+        background: #F1F5F9;
+        border: 1px solid rgba(23, 56, 99, 0.08);
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+        transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    }
+    .hc-qa-card:hover {
+        border-color: rgba(99, 102, 251, 0.15);
+        box-shadow: 0px 8px 20px rgba(0, 100, 200, 0.1);
+    }
+    .hc-qa-header { padding: 12px; display: flex; flex-direction: column; gap: 4px; }
+    .hc-qa-title { font-weight: 700; font-size: 16px; line-height: 150%; color: #232A36; margin: 0; }
+    .hc-qa-subtitle { font-weight: 400; font-size: 14px; line-height: 142%; color: #4A5666; margin: 0; }
+
+    .hc-qa-footer { padding: 12px; display: flex; align-items: center; }
+
+    .hc-qa-plus {
+        height: 42px; min-width: 42px; max-width: 42px;
+        background: #334155; border: 1px solid #334155;
+        border-radius: 9999px;
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer; color: #FFFFFF;
+        gap: 0;
+        padding: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        transition: max-width 0.3s ease-in-out, padding 0.3s ease-in-out, gap 0.3s ease-in-out;
+    }
+    .hc-qa-plus:hover { background: #1e293b; }
+    .hc-qa-plus svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    .hc-qa-btn-text {
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px; font-weight: 500;
+        color: #FFFFFF;
+        opacity: 0;
+        max-width: 0;
+        overflow: hidden;
+        transition: opacity 0.25s ease-in-out 0.05s, max-width 0.3s ease-in-out;
+    }
+
+    .hc-qa-card:hover .hc-qa-plus {
+        max-width: 200px;
+        padding: 0 16px 0 12px;
+        gap: 6px;
+    }
+    .hc-qa-card:hover .hc-qa-btn-text {
+        opacity: 1;
+        max-width: 120px;
+    }
+
+    .hc-qa-icon {
+        position: absolute; right: 12px; top: 12px;
+        width: 42px; height: 42px;
+        opacity: 0.4;
+        display: flex; align-items: center; justify-content: center;
+        color: #6366FB;
+        transition: opacity 0.3s ease-in-out, filter 0.3s ease-in-out;
+    }
+    .hc-qa-card:hover .hc-qa-icon {
+        opacity: 0.7;
+        filter: saturate(1.6) brightness(1.05);
+    }
+    .hc-qa-icon svg { width: 42px; height: 42px; }
+    .hc-qa-icon .k-svg-icon { width: 42px; height: 42px; }
+
+    /* ========== APPOINTMENTS ========== */
+    .hc-appt-header {
+        display: flex; justify-content: space-between; align-items: center;
+        margin-bottom: 20px;
+    }
+    .hc-appt-header .hc-card-title { margin: 0; }
+
+    .hc-view-schedule-btn {
+        display: flex; align-items: center; gap: 4px;
+        padding: 8px 16px;
+        background: #334155; border: 1px solid #334155;
+        border-radius: 9999px;
+        color: #FFFFFF;
+        font-family: 'Poppins', sans-serif;
+        font-size: 16px; font-weight: 400; line-height: 150%;
+        cursor: pointer; text-decoration: none; white-space: nowrap;
+    }
+    .hc-view-schedule-btn:hover { background: #1e293b; color: #FFFFFF; text-decoration: none; }
+    .hc-view-schedule-btn svg { width: 16px; height: 16px; }
+
+    /* Grid overrides */
+    .hc-grid-wrapper .k-grid { border-radius: 8px; border: 1px solid rgba(23, 56, 99, 0.08); font-family: 'Poppins', sans-serif; }
+    .hc-grid-wrapper .k-grid table { table-layout: fixed; }
+    .hc-grid-wrapper .k-grid .k-grid-header .k-header {
+        background: #F9FAFB !important;
+        border-bottom: 1px solid rgba(23, 56, 99, 0.08);
+        font-weight: 500; font-size: 14px; color: #232A36;
+        padding: 8px 12px;
+        text-align: left;
+    }
+    .hc-grid-wrapper .k-grid td {
+        padding: 8px 12px !important;
+        font-size: 14px; color: #232A36;
+        border-bottom: none !important;
+        vertical-align: middle;
+        text-align: left;
+    }
+    .hc-grid-wrapper .k-grid .k-master-row { height: 42px; }
+    .hc-grid-wrapper .k-grid .k-master-row:nth-child(even) td {
+        background: rgba(56, 66, 80, 0.05);
+    }
+    .hc-grid-wrapper .k-grid .k-master-row:nth-child(odd) td {
+        background: #FFFFFF;
+    }
+    .hc-grid-wrapper .k-grid .k-grid-content { overflow-y: auto; max-height: 440px; }
+    .hc-grid-wrapper .k-grid .k-grid-header { padding-right: 0 !important; }
+    .hc-grid-wrapper .k-grid .k-pager { display: none !important; }
+
+    /* Status badges */
+    .hc-badge {
+        display: inline-flex; align-items: center; justify-content: center;
+        padding: 6px 10px;
+        border-radius: 9999px;
+        font-size: 12px; line-height: 133%;
+        white-space: nowrap;
+    }
+    .hc-badge-complete { background: #EAEFF5; border: 1px solid #CBD5E1; color: #000214; }
+    .hc-badge-inprogress { background: #EBECFF; border: 1px solid #D4D6FF; color: #383BA8; }
+    .hc-badge-upcoming { background: #FDF6FF; border: 1px solid #DDB5FB; color: #37164B; }
+    .hc-badge-cancelled { background: #D2E2FB; border: 1px solid #6098F2; color: #002259; }
+
+    /* ========== RIGHT COL ========== */
+    .hc-right-card {
+        background: #FFFFFF;
+        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04), 0px 2px 6px -1px rgba(0, 0, 0, 0.06);
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        position: relative;
+        z-index: 1;
+    }
+
+    .hc-right-section-header {
+        padding: 24px 24px 12px;
+        font-weight: 700; font-size: 24px; line-height: 150%;
+        color: #232A36;
+    }
+
+    /* Next patient */
+    .hc-next-patient { padding: 12px 24px 24px; display: flex; flex-direction: column; gap: 20px; }
+
+    .hc-patient-row {
+        display: flex; justify-content: space-between; align-items: center;
+    }
+
+    .hc-patient-info { display: flex; align-items: center; gap: 12px; }
+
+    .hc-patient-avatar {
+        width: 72px; height: 72px; border-radius: 50%;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        display: flex; align-items: center; justify-content: center;
+        color: #fff; font-weight: 600; font-size: 24px;
+        overflow: hidden; flex-shrink: 0;
+    }
+
+    .hc-patient-name-block { display: flex; flex-direction: column; }
+    .hc-patient-name-row { display: flex; align-items: center; gap: 4px; }
+    .hc-patient-name {
+        font-weight: 400; font-size: 20px; line-height: 150%;
+        color: #232A36;
+    }
+
+    .hc-view-profile-btn {
+        display: inline-flex; align-items: center; gap: 4px;
+        background: none; border: none; cursor: pointer;
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px; color: #4A5666; padding: 4px 8px;
+        border-radius: 9999px;
+    }
+    .hc-view-profile-btn:hover { background: rgba(35, 42, 54, 0.06); }
+    .hc-view-profile-btn svg { width: 16px; height: 16px; }
+
+    .hc-patient-detail { font-size: 14px; color: #4A5666; line-height: 142%; }
+
+    .hc-appt-time-block { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; flex-shrink: 0; }
+    .hc-appt-time-row { display: flex; align-items: center; gap: 6px; }
+    .hc-appt-time-row svg { width: 16px; height: 16px; color: #4A5666; }
+    .hc-appt-time-text { font-size: 14px; color: #4A5666; }
+    .hc-appt-time-label { font-size: 14px; color: #4A5666; }
+
+    /* Info cards (reason / allergy) */
+    .hc-info-card {
+        border: 1px solid rgba(23, 56, 99, 0.08);
+        border-radius: 12px;
+        padding: 16px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        background: #FFFFFF;
+        transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+        cursor: pointer;
+    }
+    .hc-info-card:hover {
+        border-color: rgba(99, 102, 251, 0.15);
+        box-shadow: 0px 8px 20px rgba(0, 100, 200, 0.1);
+    }
+
+    .hc-info-icon {
+        width: 48px; height: 48px; min-width: 48px;
+        border-radius: 8px;
+        display: flex; align-items: center; justify-content: center;
+        transition: filter 0.3s ease-in-out;
+    }
+    .hc-info-card:hover .hc-info-icon {
+        filter: saturate(1.4) brightness(1.05);
+    }
+    .hc-info-icon svg { width: 22px; height: 22px; }
+    .hc-info-icon-blue { background: #D2E2FB; border: 1px solid #D2E2FB; }
+    .hc-info-icon-blue svg { color: #6098F2; }
+    .hc-info-icon-yellow { background: #FFF4D3; border: 1px solid #FFF4D3; }
+    .hc-info-icon-yellow svg { color: #FFD760; }
+
+    .hc-info-text { flex: 1; display: flex; flex-direction: column; }
+    .hc-info-label { font-weight: 700; font-size: 16px; line-height: 150%; color: #3D3D3D; }
+    .hc-info-desc-row { display: flex; justify-content: space-between; align-items: center; }
+    .hc-info-desc { font-size: 14px; color: #4A5666; line-height: 142%; }
+
+    .hc-details-btn {
+        display: flex; align-items: center; gap: 4px;
+        background: none; border: none; cursor: pointer;
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px; color: #4A5666; padding: 2px 8px; white-space: nowrap;
+    }
+    .hc-details-btn:hover { color: #232A36; }
+    .hc-details-btn svg { width: 16px; height: 16px; }
+
+    .hc-divider { width: 100%; height: 1px; background: rgba(23, 56, 99, 0.08); margin: 0; }
+
+    /* Daily alerts */
+    .hc-alerts-list { padding: 12px 24px 24px; display: flex; flex-direction: column; gap: 16px; overflow-y: auto; flex: 1; }
+
+    .hc-alert-box {
+        border-left: 4px solid #CBD5E1;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+        cursor: pointer;
+    }
+    .hc-alert-box:hover {
+        border-left-color: rgba(99, 102, 251, 0.4);
+        box-shadow: 0px 8px 20px rgba(0, 100, 200, 0.1);
+    }
+    .hc-alert-content {
+        background: #F1F5F9;
+        border-width: 1px 1px 1px 0px;
+        border-style: solid;
+        border-color: rgba(23, 56, 99, 0.08);
+        border-radius: 0px 12px 12px 0px;
+        padding: 8px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+    .hc-alert-text { font-size: 16px; line-height: 150%; color: #232A36; }
+    .hc-alert-meta { display: flex; justify-content: space-between; align-items: center; }
+    .hc-alert-time { font-size: 14px; color: #4A5666; }
+
+    .hc-review-btn {
+        display: inline-flex; align-items: center; gap: 4px;
+        background: none; border: none; cursor: pointer;
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px; color: #334155; padding: 2px 0 2px 8px;
+    }
+    .hc-review-btn:hover { color: #232A36; }
+    .hc-review-btn svg { width: 16px; height: 16px; }
+
+    /* ========== AI FAB ========== */
+    .hc-fab {
+        position: fixed; bottom: 40px; right: 40px;
+        z-index: 1000;
+        width: 68px; height: 68px;
+        background: linear-gradient(135deg, #AC58FF 0%, #4B5FFA 100%);
+        box-shadow: 0px 10px 12px rgba(0, 0, 0, 0.16), 0px 4px 16px rgba(0, 0, 0, 0.12);
+        border-radius: 9999px;
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer; border: none; color: #FFFFFF;
+    }
+    .hc-fab:hover { filter: brightness(1.1); }
+    .hc-fab svg { width: 24px; height: 24px; }
+
+    /* ========== AI CHAT PANEL ========== */
+    .hc-chat-wrapper {
+        position: fixed; bottom: 120px; right: 40px;
+        width: 400px; height: 560px;
+        background: #FFFFFF;
+        border-radius: 20px;
+        box-shadow: 0px 12px 48px rgba(0, 0, 0, 0.16), 0px 4px 16px rgba(0, 0, 0, 0.08);
+        z-index: 1100;
+        display: flex; flex-direction: column;
+        overflow: hidden;
+        font-family: 'Poppins', sans-serif;
+    }
+    .hc-chat-header {
+        padding: 14px 20px;
+        background: #FFFFFF;
+        color: #232A36;
+        display: flex; align-items: center; gap: 10px;
+        flex-shrink: 0;
+        border-bottom: 1px solid rgba(23, 56, 99, 0.08);
+    }
+    .hc-chat-header-icon {
+        width: 24px; height: 24px; min-width: 24px;
+        display: flex; align-items: center; justify-content: center;
+    }
+    .hc-chat-header-icon svg { width: 20px; height: 20px; }
+    .hc-chat-header-text { display: flex; flex-direction: column; flex: 1; }
+    .hc-chat-header-title { font-weight: 700; font-size: 15px; line-height: 140%; color: #232A36; }
+    .hc-chat-header-sub { display: none; }
+    .hc-chat-close {
+        background: none; border: none; cursor: pointer;
+        color: #94A3B8;
+        width: 32px; height: 32px;
+        display: flex; align-items: center; justify-content: center;
+        border-radius: 8px;
+        transition: background 0.2s ease, color 0.2s ease;
+    }
+    .hc-chat-close:hover { background: rgba(35, 42, 54, 0.06); color: #232A36; }
+    .hc-chat-close svg { width: 16px; height: 16px; }
+
+    .hc-chat-welcome {
+        text-align: center;
+        padding: 24px 20px 8px;
+        display: flex; flex-direction: column; align-items: center; gap: 8px;
+    }
+    .hc-chat-welcome-date {
+        font-size: 12px; color: #94A3B8;
+        background: #F1F5F9; border-radius: 9999px;
+        padding: 4px 12px;
+    }
+    .hc-chat-welcome-greeting {
+        font-size: 14px; color: #232A36; line-height: 160%;
+    }
+    .hc-chat-welcome-greeting strong { display: block; font-size: 16px; margin-bottom: 4px; }
+
+    /* TelerikChat overrides */
+    .hc-chat-wrapper .k-chat {
+        border: none;
+        border-radius: 0 0 20px 20px;
+        font-family: 'Poppins', sans-serif;
+        background: #FFFFFF;
+    }
+    .hc-chat-wrapper .k-chat .k-message-list {
+        background: #FFFFFF;
+    }
+    .hc-chat-wrapper .k-chat .k-bubble {
+        border-radius: 16px;
+        font-size: 14px;
+        line-height: 160%;
+        font-family: 'Poppins', sans-serif;
+    }
+    .hc-chat-wrapper .k-chat .k-message-group-receiver .k-bubble {
+        background: #F8FAFC;
+        border: 1px solid rgba(23, 56, 99, 0.08);
+        color: #232A36;
+        border-bottom-left-radius: 4px;
+    }
+    .hc-chat-wrapper .k-chat .k-message-group-sender .k-bubble {
+        background: #2D3655;
+        border: none;
+        color: #FFFFFF;
+        border-bottom-right-radius: 4px;
+    }
+    .hc-chat-wrapper .k-chat .k-quick-replies .k-quick-reply {
+        border-radius: 9999px;
+        padding: 8px 14px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 13px;
+        color: #334155;
+        border: 1px solid rgba(23, 56, 99, 0.12);
+        background: #FFFFFF;
+        transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .hc-chat-wrapper .k-chat .k-quick-replies .k-quick-reply:hover {
+        background: #F1F5F9;
+        border-color: rgba(99, 102, 251, 0.3);
+        box-shadow: 0px 2px 8px rgba(99, 102, 251, 0.1);
+    }
+    .hc-chat-wrapper .k-chat .k-message-box-wrapper {
+        border-top: 1px solid rgba(23, 56, 99, 0.08);
+        padding: 8px 12px;
+    }
+    .hc-chat-wrapper .k-chat .k-prompt-box {
+        font-family: 'Poppins', sans-serif;
+        border: 1px solid rgba(23, 56, 99, 0.12);
+        border-radius: 12px;
+        background: #F9FAFB;
+    }
+    .hc-chat-wrapper .k-chat .k-prompt-box:focus-within {
+        border-color: rgba(99, 102, 251, 0.4);
+        box-shadow: 0 0 0 2px rgba(99, 102, 251, 0.1);
+    }
+    .hc-chat-wrapper .k-chat .k-prompt-box-textarea.k-input-inner {
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
+        color: #232A36;
+    }
+    .hc-chat-wrapper .k-chat .k-suggestion {
+        border-radius: 9999px;
+    }
+    .hc-chat-wrapper .k-chat .k-message-author {
+        display: none;
+    }
+    .hc-chat-wrapper .k-chat .k-timestamp {
+        display: none;
+    }
+    .hc-chat-wrapper .k-chat .k-no-avatar {
+        margin-left: 0;
+    }
+
+    /* ========== MODAL DIALOGS ========== */
+    .hc-modal.k-window {
+        border-radius: 20px !important;
+        overflow: hidden;
+        font-family: 'Poppins', sans-serif;
+        box-shadow: 0px 12px 40px rgba(0, 0, 0, 0.12), 0px 4px 12px rgba(0, 0, 0, 0.06);
+    }
+    .hc-modal .k-window-titlebar {
+        padding: 24px 28px 16px;
+        background: #FFFFFF;
+        border-bottom: none;
+        border-radius: 20px 20px 0 0;
+    }
+    .hc-modal .k-window-titlebar .k-window-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #232A36;
+    }
+    .hc-modal .k-window-titlebar .k-window-action {
+        color: #94A3B8;
+        opacity: 0.7;
+    }
+    .hc-modal .k-window-titlebar .k-window-action:hover {
+        color: #232A36;
+        opacity: 1;
+        background: transparent;
+    }
+    .hc-modal .k-window-content {
+        padding: 0;
+        border-radius: 0 0 20px 20px;
+    }
+    .hc-modal-body {
+        padding: 0 28px 28px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .hc-modal-field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .hc-modal-label {
+        font-weight: 500;
+        font-size: 14px;
+        color: #232A36;
+    }
+    .hc-modal .k-dropdownlist,
+    .hc-modal .k-multiselect,
+    .hc-modal .k-textbox {
+        border-radius: 10px !important;
+        background: #F9FAFB;
+        border: 1px solid rgba(23, 56, 99, 0.12);
+    }
+    .hc-modal .k-dropdownlist:focus-within,
+    .hc-modal .k-multiselect:focus-within,
+    .hc-modal .k-textbox:focus-within {
+        border-color: rgba(99, 102, 251, 0.4);
+        box-shadow: 0 0 0 2px rgba(99, 102, 251, 0.1);
+    }
+    .hc-modal-textarea {
+        border-radius: 10px !important;
+        background: #F9FAFB;
+        border: 1px solid rgba(23, 56, 99, 0.12);
+    }
+    .hc-modal-textarea:focus-within {
+        border-color: rgba(99, 102, 251, 0.4);
+        box-shadow: 0 0 0 2px rgba(99, 102, 251, 0.1);
+    }
+    .hc-modal-textarea .k-input-inner {
+        min-height: 160px;
+    }
+    .hc-modal-popup.k-animation-container {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .hc-modal-popup .k-list-content,
+    .hc-modal-popup .k-popup {
+        border-radius: 10px;
+    }
+    .hc-lab-checklist {
+        max-height: 250px;
+        overflow-y: auto;
+        border: 1px solid rgba(23, 56, 99, 0.08);
+        border-radius: 10px;
+        background: #FFFFFF;
+    }
+    .hc-lab-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 16px;
+        cursor: pointer;
+        border-bottom: 1px solid rgba(23, 56, 99, 0.06);
+        transition: box-shadow 0.2s ease-in-out;
+    }
+    .hc-lab-row:last-child {
+        border-bottom: none;
+    }
+    .hc-lab-row:hover {
+        box-shadow: 0px 8px 20px rgba(0, 100, 200, 0.1);
+        z-index: 1;
+        position: relative;
+    }
+    .hc-lab-row-selected {
+        background: rgba(99, 102, 251, 0.04);
+    }
+    .hc-lab-check {
+        width: 22px;
+        height: 22px;
+        min-width: 22px;
+        border-radius: 50%;
+        border: 2px solid #CBD5E1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.15s ease, border-color 0.15s ease;
+    }
+    .hc-lab-check svg {
+        width: 12px;
+        height: 12px;
+    }
+    .hc-lab-checked {
+        background: #334155;
+        border-color: #334155;
+    }
+    .hc-lab-name {
+        font-size: 14px;
+        color: #232A36;
+        line-height: 150%;
+    }
+    .hc-modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        padding-top: 4px;
+    }
+    .hc-modal-btn {
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 10px 24px;
+        border-radius: 12px;
+        cursor: pointer;
+        border: none;
+        transition: background 0.2s ease;
+    }
+    .hc-modal-btn-secondary {
+        background: transparent;
+        color: #4A5666;
+    }
+    .hc-modal-btn-secondary:hover {
+        background: rgba(35, 42, 54, 0.06);
+    }
+    .hc-modal-btn-primary {
+        background: #334155;
+        color: #FFFFFF;
+        padding: 10px 28px;
+    }
+    .hc-modal-btn-primary:hover {
+        background: #1e293b;
+    }
+
+    /* ========== RESPONSIVE ========== */
+
+    @@media (max-width: 1200px) {
+        .hc-main { flex-direction: column; }
+        .hc-left { flex: 1 1 auto; }
+        .hc-right { width: 100%; min-width: 0; }
+        .hc-right-card { height: auto; }
+    }
+
+    @@media (max-width: 960px) {
+        .hc-heading h1 { font-size: 32px; }
+        .hc-quick-actions { flex-wrap: wrap; }
+        .hc-qa-card { flex: 1 1 calc(50% - 11px); min-width: 200px; }
+        .hc-patient-row { flex-wrap: wrap; gap: 12px; }
+        .hc-appt-time-block { align-items: flex-start; }
+    }
+
+    @@media (max-width: 640px) {
+        .hc-heading h1 { font-size: 26px; }
+        .hc-heading p { font-size: 14px; }
+        .hc-card { padding: 16px; }
+        .hc-card-title { font-size: 20px; margin-bottom: 16px; }
+        .hc-quick-actions { gap: 12px; }
+        .hc-qa-card { flex: 1 1 100%; min-width: 0; }
+        .hc-appt-header { flex-wrap: wrap; gap: 12px; }
+        .hc-view-schedule-btn { font-size: 14px; padding: 6px 12px; }
+        .hc-right-section-header { font-size: 20px; }
+        .hc-patient-avatar { width: 56px; height: 56px; font-size: 20px; }
+        .hc-patient-name { font-size: 18px; }
+        .hc-info-card { padding: 12px; gap: 12px; }
+        .hc-fab { width: 56px; height: 56px; bottom: 24px; right: 24px; }
+        .hc-fab svg { width: 20px; height: 20px; }
+        .hc-chat-wrapper { width: calc(100vw - 32px); right: 16px; bottom: 96px; height: 70vh; }
+    }
+</style>
+
+<!-- ========== HEADING ========== -->
+    <div class="hc-heading">
+        <h1>Good morning, Dr. Carter</h1>
+        <p>Today is @DateTime.Now.ToString("dddd, MMMM, dd, yyyy")</p>
+    </div>
+
+    <!-- ========== MAIN 2-COL ========== -->
+    <div class="hc-main">
+        <!-- LEFT COLUMN -->
+        <div class="hc-left">
+            <!-- Quick Actions -->
+            <div class="hc-card">
+                <div class="hc-card-title">Quick Actions</div>
+                <div class="hc-quick-actions">
+                    <div class="hc-qa-card">
+                        <div class="hc-qa-icon">
+                            <svg class="shortcut-icon" width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <g>
+                                    <path d="M23.45 3.5H10.5C9.57174 3.5 8.6815 3.86875 8.02513 4.52513C7.36875 5.1815 7 6.07174 7 7V35C7 35.9283 7.36875 36.8185 8.02513 37.4749C8.6815 38.1313 9.57174 38.5 10.5 38.5H31.5C32.4283 38.5 33.3185 38.1313 33.9749 37.4749C34.6313 36.8185 35 35.9283 35 35V22.05" stroke="#6366FB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M3.5 10.5H10.5" stroke="#6366FB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M3.5 17.5H10.5" stroke="#6366FB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M3.5 24.5H10.5" stroke="#6366FB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M3.5 31.5H10.5" stroke="#6366FB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M37.4115 9.84527C38.1086 9.14815 38.5002 8.20265 38.5002 7.21677C38.5002 6.23089 38.1086 5.28539 37.4115 4.58827C36.7143 3.89115 35.7688 3.49951 34.783 3.49951C33.7971 3.49951 32.8516 3.89115 32.1545 4.58827L23.387 13.3593C22.9709 13.7751 22.6663 14.2891 22.5015 14.8538L21.0367 19.8763C20.9928 20.0269 20.9902 20.1865 21.0291 20.3384C21.068 20.4904 21.1471 20.6291 21.258 20.74C21.3689 20.8509 21.5076 20.93 21.6595 20.9689C21.8115 21.0078 21.9711 21.0052 22.1217 20.9613L27.1442 19.4965C27.7089 19.3316 28.2229 19.0271 28.6387 18.611L37.4115 9.84527Z" stroke="#6366FB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="hc-qa-header">
+                            <div class="hc-qa-title">Add new clinical note</div>
+                            <div class="hc-qa-subtitle">Clinical text overview</div>
+                        </div>
+                        <div class="hc-qa-footer">
+                            <button class="hc-qa-plus" @onclick="() => isNoteModalOpen = true">
+                                <svg viewBox="0 0 16 16" fill="none"><line x1="3.33" y1="8" x2="12.67" y2="8" stroke="white" stroke-width="1.33" stroke-linecap="round"/><line x1="8" y1="3.33" x2="8" y2="12.67" stroke="white" stroke-width="1.33" stroke-linecap="round"/></svg>
+                                <span class="hc-qa-btn-text">Add note</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="hc-qa-card">
+                        <div class="hc-qa-icon">
+                            <svg class="shortcut-icon" width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <g>
+                                    <path d="M24.5 3.5V14C24.4997 14.5871 24.6471 15.1648 24.9287 15.68L34.5712 33.32C34.8629 33.8531 35.0107 34.4529 35.0002 35.0604C34.9898 35.668 34.8213 36.2623 34.5114 36.785C34.2015 37.3077 33.7608 37.7407 33.2328 38.0414C32.7048 38.3421 32.1076 38.5001 31.5 38.5H10.5C9.89232 38.5001 9.29511 38.3421 8.76709 38.0414C8.23907 37.7407 7.79844 37.3077 7.48854 36.785C7.17864 36.2623 7.01016 35.668 6.99967 35.0604C6.98918 34.4529 7.13704 33.8531 7.42871 33.32L17.0712 15.68C17.3528 15.1648 17.5002 14.5871 17.5 14V3.5" stroke="#6366FB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M11.2927 26.25H30.7072" stroke="#6366FB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M14.875 3.5H27.125" stroke="#6366FB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="hc-qa-header">
+                            <div class="hc-qa-title">Request lab test</div>
+                            <div class="hc-qa-subtitle">Request information</div>
+                        </div>
+                        <div class="hc-qa-footer">
+                            <button class="hc-qa-plus" @onclick="() => isTestModalOpen = true">
+                                <svg viewBox="0 0 16 16" fill="none"><line x1="3.33" y1="8" x2="12.67" y2="8" stroke="white" stroke-width="1.33" stroke-linecap="round"/><line x1="8" y1="3.33" x2="8" y2="12.67" stroke="white" stroke-width="1.33" stroke-linecap="round"/></svg>
+                                <span class="hc-qa-btn-text">Request test</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="hc-qa-card">
+                        <div class="hc-qa-icon">
+                            <TelerikSvgIcon Icon="@SvgIcon.Comment" />
+                        </div>
+                        <div class="hc-qa-header">
+                            <div class="hc-qa-title">Message nurse</div>
+                            <div class="hc-qa-subtitle">Communication note</div>
+                        </div>
+                        <div class="hc-qa-footer">
+                            <button class="hc-qa-plus" @onclick="() => isMessageModalOpen = true">
+                                <svg viewBox="0 0 16 16" fill="none"><line x1="3.33" y1="8" x2="12.67" y2="8" stroke="white" stroke-width="1.33" stroke-linecap="round"/><line x1="8" y1="3.33" x2="8" y2="12.67" stroke="white" stroke-width="1.33" stroke-linecap="round"/></svg>
+                                <span class="hc-qa-btn-text">Send message</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Today's Appointments -->
+            <div class="hc-card" style="flex: 1; display: flex; flex-direction: column;">
+                <div class="hc-appt-header">
+                    <div class="hc-card-title">Today's Appointments</div>
+                    <a href="/schedule" class="hc-view-schedule-btn">
+                        <svg viewBox="0 0 16 16" fill="none"><line x1="3.33" y1="8" x2="12.67" y2="8" stroke="white" stroke-width="1.33" stroke-linecap="round"/><line x1="8" y1="3.33" x2="8" y2="12.67" stroke="white" stroke-width="1.33" stroke-linecap="round"/></svg>
+                        View Schedule
+                    </a>
+                </div>
+                <div class="hc-grid-wrapper" style="flex: 1;">
+                    <TelerikGrid Data="@Appointments"
+                                 Pageable="false"
+                                 Sortable="false"
+                                 Height="100%">
+                        <GridColumns>
+                            <GridColumn Field="@nameof(Appointment.Time)" Title="Time" Width="120px" />
+                            <GridColumn Field="@nameof(Appointment.PatientName)" Title="Patient Name" Width="160px" />
+                            <GridColumn Field="@nameof(Appointment.Reason)" Title="Reason" />
+                            <GridColumn Field="@nameof(Appointment.Status)" Title="Status" Width="150px">
+                                <Template>
+                                    @{
+                                        var appt = (Appointment)context;
+                                        var badgeClass = appt.Status switch
+                                        {
+                                            "Complete" => "hc-badge-complete",
+                                            "In Progress" => "hc-badge-inprogress",
+                                            "Upcoming" => "hc-badge-upcoming",
+                                            "Cancelled" => "hc-badge-cancelled",
+                                            _ => "hc-badge-complete"
+                                        };
+                                    }
+                                    <span class="hc-badge @badgeClass">@appt.Status</span>
+                                </Template>
+                            </GridColumn>
+                            <GridColumn Field="@nameof(Appointment.Room)" Title="Room" Width="120px" />
+                        </GridColumns>
+                    </TelerikGrid>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="hc-right">
+            <div class="hc-right-card">
+                <!-- Next Patient -->
+                <div class="hc-right-section-header">Next Patient</div>
+                <div class="hc-next-patient">
+                    <div class="hc-patient-row">
+                        <div class="hc-patient-info">
+                            <div class="hc-patient-avatar">JW</div>
+                            <div class="hc-patient-name-block">
+                                <div class="hc-patient-name-row">
+                                    <span class="hc-patient-name">James Wilson</span>
+                                    <button class="hc-view-profile-btn">
+                                        <TelerikSvgIcon Icon="@SvgIcon.HyperlinkOpen" />
+                                        View profile
+                                    </button>
+                                </div>
+                                <span class="hc-patient-detail">44 years, Male</span>
+                            </div>
+                        </div>
+                        <div class="hc-appt-time-block">
+                            <div class="hc-appt-time-row">
+                                <TelerikSvgIcon Icon="@SvgIcon.Clock" />
+                                <span class="hc-appt-time-text">11:00 AM</span>
+                            </div>
+                            <span class="hc-appt-time-label">Appointment time</span>
+                        </div>
+                    </div>
+
+                    <div class="hc-info-card">
+                        <div class="hc-info-icon hc-info-icon-blue">
+                            <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="3" y="5" width="16" height="14" rx="2" stroke="#6098F2" stroke-width="2"/>
+                                <line x1="11" y1="9" x2="11" y2="13" stroke="#6098F2" stroke-width="2" stroke-linecap="round"/>
+                                <line x1="9" y1="11" x2="13" y2="11" stroke="#6098F2" stroke-width="2" stroke-linecap="round"/>
+                                <line x1="5" y1="5" x2="5" y2="2" stroke="#6098F2" stroke-width="2" stroke-linecap="round"/>
+                                <line x1="17" y1="5" x2="17" y2="2" stroke="#6098F2" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <div class="hc-info-text">
+                            <span class="hc-info-label">Reason for visit</span>
+                            <div class="hc-info-desc-row">
+                                <span class="hc-info-desc">Persistent cough and chest congestion</span>
+                                <button class="hc-details-btn">
+                                    Details
+                                    <TelerikSvgIcon Icon="@SvgIcon.ChevronRight" />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hc-info-card">
+                        <div class="hc-info-icon hc-info-icon-yellow">
+                            <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="11" cy="11" r="9" stroke="#FFD760" stroke-width="2"/>
+                                <circle cx="11" cy="11" r="3" stroke="#FFD760" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <div class="hc-info-text">
+                            <span class="hc-info-label">Allergy Alert</span>
+                            <div class="hc-info-desc-row">
+                                <span class="hc-info-desc">Penicillin</span>
+                                <button class="hc-details-btn">
+                                    Details
+                                    <TelerikSvgIcon Icon="@SvgIcon.ChevronRight" />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hc-divider" style="margin: 0 20px;"></div>
+
+                <!-- Daily Alerts -->
+                <div class="hc-right-section-header">Daily Alerts</div>
+                <div class="hc-alerts-list">
+                    @foreach (var alert in DailyAlerts)
+                    {
+                        <div class="hc-alert-box">
+                            <div class="hc-alert-content">
+                                <span class="hc-alert-text">@alert.Text</span>
+                                <div class="hc-alert-meta">
+                                    <span class="hc-alert-time">@alert.Timestamp</span>
+                                    <button class="hc-review-btn">
+                                        Review
+                                        <svg viewBox="0 0 16 16" fill="none"><path d="M5 3L10 8L5 13" stroke="#334155" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- ========== QUICK ACTION MODALS ========== -->
+<TelerikWindow @bind-Visible="@isNoteModalOpen" Modal="true" Width="520px" Class="hc-modal">
+    <WindowTitle>
+        <strong>New Clinical Note</strong>
+    </WindowTitle>
+    <WindowActions>
+        <WindowAction Name="Close" />
+    </WindowActions>
+    <WindowContent>
+        <div class="hc-modal-body">
+            <div class="hc-modal-field">
+                <label class="hc-modal-label">Select Patient</label>
+                <TelerikDropDownList Data="@patientNames" @bind-Value="@selectedPatient" Width="240px">
+                    <DropDownListSettings>
+                        <DropDownListPopupSettings Class="hc-modal-popup" />
+                    </DropDownListSettings>
+                </TelerikDropDownList>
+            </div>
+            <div class="hc-modal-field">
+                <label class="hc-modal-label">Clinical Note</label>
+                <TelerikTextArea @bind-Value="@noteText" Width="100%" PlaceHolder="Add clinical notes, observations, treatment plans, etc." Class="hc-modal-textarea" />
+            </div>
+            <div class="hc-modal-actions">
+                <button class="hc-modal-btn hc-modal-btn-secondary" @onclick="() => isNoteModalOpen = false">Discard</button>
+                <button class="hc-modal-btn hc-modal-btn-primary" @onclick="() => isNoteModalOpen = false">Save note</button>
+            </div>
+        </div>
+    </WindowContent>
+</TelerikWindow>
+
+<TelerikWindow @bind-Visible="@isTestModalOpen" Modal="true" Width="520px" Class="hc-modal">
+    <WindowTitle>
+        <strong>Request Lab Tests</strong>
+    </WindowTitle>
+    <WindowActions>
+        <WindowAction Name="Close" />
+    </WindowActions>
+    <WindowContent>
+        <div class="hc-modal-body">
+            <div class="hc-modal-field">
+                <label class="hc-modal-label">Select Patient</label>
+                <TelerikDropDownList Data="@patientNames" @bind-Value="@selectedPatient" Width="240px">
+                    <DropDownListSettings>
+                        <DropDownListPopupSettings Class="hc-modal-popup" />
+                    </DropDownListSettings>
+                </TelerikDropDownList>
+            </div>
+            <div class="hc-modal-field">
+                <label class="hc-modal-label">Select Lab Tests</label>
+                <TelerikMultiSelect Data="@labTests" @bind-Value="@selectedLabTests" Width="100%" Placeholder="Search Lab Tests" AutoClose="false">
+                    <MultiSelectSettings>
+                        <MultiSelectPopupSettings Class="hc-modal-popup" />
+                    </MultiSelectSettings>
+                </TelerikMultiSelect>
+            </div>
+            <div class="hc-lab-checklist">
+                @foreach (var test in labTests)
+                {
+                    <div class="hc-lab-row @(selectedLabTests.Contains(test) ? "hc-lab-row-selected" : "")" @onclick="() => ToggleLabTest(test)">
+                        <div class="hc-lab-check @(selectedLabTests.Contains(test) ? "hc-lab-checked" : "")">
+                            @if (selectedLabTests.Contains(test))
+                            {
+                                <svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6L5 8.5L9.5 3.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            }
+                        </div>
+                        <span class="hc-lab-name">@test</span>
+                    </div>
+                }
+            </div>
+            <div class="hc-modal-actions">
+                <button class="hc-modal-btn hc-modal-btn-secondary" @onclick="() => isTestModalOpen = false">Discard</button>
+                <button class="hc-modal-btn hc-modal-btn-primary" @onclick="() => isTestModalOpen = false">Send request</button>
+            </div>
+        </div>
+    </WindowContent>
+</TelerikWindow>
+
+<TelerikWindow @bind-Visible="@isMessageModalOpen" Modal="true" Width="520px" Class="hc-modal">
+    <WindowTitle>
+        <strong>Message Nurse</strong>
+    </WindowTitle>
+    <WindowActions>
+        <WindowAction Name="Close" />
+    </WindowActions>
+    <WindowContent>
+        <div class="hc-modal-body">
+            <div class="hc-modal-field">
+                <label class="hc-modal-label">To</label>
+                <TelerikDropDownList Data="@nurseRecipients" Value="@selectedNurse" ValueChanged="@((string v) => OnNurseChanged(v))" Width="240px">
+                    <DropDownListSettings>
+                        <DropDownListPopupSettings Class="hc-modal-popup" />
+                    </DropDownListSettings>
+                </TelerikDropDownList>
+            </div>
+            <div class="hc-modal-field">
+                <label class="hc-modal-label">Subject</label>
+                <TelerikTextBox @bind-Value="@messageSubject" Width="100%" PlaceHolder="Enter subject" />
+            </div>
+            <div class="hc-modal-field">
+                <label class="hc-modal-label">Description</label>
+                <TelerikTextArea @bind-Value="@messageText" Width="100%" PlaceHolder="Write your message here..." Class="hc-modal-textarea" />
+            </div>
+            <div class="hc-modal-actions">
+                <button class="hc-modal-btn hc-modal-btn-secondary" @onclick="() => isMessageModalOpen = false">Discard</button>
+                <button class="hc-modal-btn hc-modal-btn-primary" @onclick="() => isMessageModalOpen = false">Send message</button>
+            </div>
+        </div>
+    </WindowContent>
+</TelerikWindow>
+
+<!-- ========== AI FAB ========== -->
+<button class="hc-fab" @onclick="ToggleAIChat" title="AI Assistant">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21 11.5C21.0034 12.8199 20.6951 14.1219 20.1 15.3C19.3944 16.7118 18.3098 17.8992 16.9674 18.7293C15.6251 19.5594 14.0782 19.9994 12.5 20C11.1801 20.0035 9.87812 19.6951 8.7 19.1L3 21L4.9 15.3C4.30493 14.1219 3.99656 12.8199 4 11.5C4.00061 9.92179 4.44061 8.37488 5.27072 7.03258C6.10083 5.69028 7.28825 4.6056 8.7 3.90003C9.87812 3.30496 11.1801 2.99659 12.5 3.00003H13C15.0843 3.11502 17.053 3.99479 18.5291 5.47089C20.0052 6.94699 20.885 8.91568 21 11V11.5Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+</button>
+
+@if (isAIChatOpen)
+{
+    <div class="hc-chat-wrapper">
+        <!-- Header -->
+        <div class="hc-chat-header">
+            <div class="hc-chat-header-icon">
+                <svg viewBox="0 0 20 20" fill="none"><path d="M10 1l1.5 4.5L16 7l-4.5 1.5L10 13l-1.5-4.5L4 7l4.5-1.5L10 1z" fill="#7C5CFC" opacity="0.9"/><path d="M15 11l1 3 3 1-3 1-1 3-1-3-3-1 3-1 1-3z" fill="#7C5CFC" opacity="0.7"/><path d="M4 12l.75 2.25L7 15l-2.25.75L4 18l-.75-2.25L1 15l2.25-.75L4 12z" fill="#7C5CFC" opacity="0.5"/></svg>
+            </div>
+            <div class="hc-chat-header-text">
+                <span class="hc-chat-header-title">AI Assistant</span>
+                <span class="hc-chat-header-sub">Powered by Clinical Insights</span>
+            </div>
+            <button class="hc-chat-close" @onclick="ToggleAIChat">
+                <svg viewBox="0 0 16 16" fill="none"><path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+        </div>
+
+        <TelerikChat @ref="chatRef"
+                     Data="@chatData"
+                     AuthorId="@("user")"
+                     Suggestions="@chatSuggestions"
+                     OnSendMessage="@OnChatSendMessage"
+                     OnSuggestionClick="@OnChatSuggestionClick"
+                     Placeholder="Type a message"
+                     Height="100%"
+                     EnableSpeechToText="true"
+                     EnableFileUpload="true">
+            <ChatSettings>
+                <ChatTextAreaSettings Mode="@PromptBoxMode.MultiLine" Rows="3" MaxTextAreaHeight="120px" />
+            </ChatSettings>
+            <NoDataTemplate>
+                <div class="hc-chat-welcome">
+                    <span class="hc-chat-welcome-date">@DateTime.Now.ToString("dddd, MMMM dd, yyyy")</span>
+                    <div class="hc-chat-welcome-greeting">
+                        <strong>@("\U0001F44B") Hello! I'm your AI Assistant.</strong>
+                        I can help you with your daily clinical tasks, patient information, and quick actions. Try one of the suggestions below!
+                    </div>
+                </div>
+            </NoDataTemplate>
+        </TelerikChat>
+    </div>
+}
+
+@code {
+    private bool isAIChatOpen;
+    private TelerikChat<AIChatMsg> chatRef = null!;
+    private List<AIChatMsg> chatData = new();
+    private List<string> chatSuggestions = new() { "Summary for next patient", "Provide lab results" };
+
+    // Quick Action modal state
+    private bool isNoteModalOpen;
+    private bool isTestModalOpen;
+    private bool isMessageModalOpen;
+
+    // Modal form data
+    private string selectedPatient = "James Wilson (P-104582)";
+    private List<string> patientNames = new() { "James Wilson (P-104582)", "Ava Patel (P-103201)", "Emily Chen (P-105887)", "Alexander Novak (P-102445)" };
+
+    private string noteText = "";
+
+    private List<string> selectedLabTests = new();
+    private List<string> labTests = new() { "Complete blood count (CBC)", "Comprehensive metabolic panel (CMP)", "Basic metabolic panel (BMP)", "Lipid panel", "Thyroid function test", "Hemoglobin A1C", "Urinalysis", "Chest X-Ray", "MRI" };
+
+    private void ToggleLabTest(string test)
+    {
+        if (selectedLabTests.Contains(test))
+        {
+            selectedLabTests.Remove(test);
+        }
+        else
+        {
+            selectedLabTests.Add(test);
+        }
+    }
+
+    private string selectedNurse = "oliviaparker@email.com";
+    private List<string> nurseRecipients = new() { "oliviaparker@email.com", "sarah.jones@email.com", "mike.chen@email.com", "lisa.rodriguez@email.com" };
+    private string messageSubject = "";
+    private string messageText = "";
+
+    private void OnNurseChanged(string nurse)
+    {
+        selectedNurse = nurse;
+
+        (messageSubject, messageText) = nurse switch
+        {
+            "oliviaparker@email.com" => ("Patient Update – James Wilson", "Hi Olivia,\n\nPlease prepare Room 456 for James Wilson's 11:00 AM appointment. He has a Penicillin allergy — ensure the chart is flagged.\n\nThank you."),
+            "sarah.jones@email.com" => ("Lab Results Follow-Up – Sophia Martinez", "Hi Sarah,\n\nSophia Martinez's CRP levels came back elevated. Please schedule a follow-up blood draw for tomorrow morning and update her chart.\n\nThanks."),
+            "mike.chen@email.com" => ("Medication Review – Ava Patel", "Hi Mike,\n\nAva Patel is currently in Room 456 with an allergic reaction. Please verify her current medications and confirm no shellfish-derived compounds are in her treatment plan.\n\nAppreciate it."),
+            "lisa.rodriguez@email.com" => ("Discharge Prep – Daniel Thompson", "Hi Lisa,\n\nDaniel Thompson's appointment is complete. Please prepare his discharge summary and ensure the referral to physical therapy is included.\n\nThank you."),
+            _ => ("", "")
+        };
+    }
+
+    private List<Appointment> Appointments = new()
+    {
+        new() { Time = "09:00 AM", PatientName = "Daniel Thompson", Reason = "Persistent lower back pain after lifting boxes", Status = "Complete", Room = "204 (Floor 2)" },
+        new() { Time = "09:30 AM", PatientName = "Sophia Martinez", Reason = "Recurring migraines with sensitivity to light", Status = "Complete", Room = "456 (Floor 4)" },
+        new() { Time = "10:00 AM", PatientName = "Michael O'Connor", Reason = "Follow-up appointment for elevated blood pressure", Status = "Complete", Room = "79A (Floor 0)" },
+        new() { Time = "10:30 AM", PatientName = "Ava Patel", Reason = "Allergic reaction causing skin rash", Status = "In Progress", Room = "456 (Floor 4)" },
+        new() { Time = "11:00 AM", PatientName = "James Wilson", Reason = "Knee pain after a basketball injury", Status = "Upcoming", Room = "456 (Floor 4)" },
+        new() { Time = "11:30 AM", PatientName = "Emily Chen", Reason = "Ongoing fatigue and dizziness", Status = "Cancelled", Room = "456 (Floor 4)" },
+        new() { Time = "12:00 PM", PatientName = "Alexander Novak", Reason = "Persistent cough and chest congestion", Status = "Upcoming", Room = "204 (Floor 2)" },
+        new() { Time = "12:30 PM", PatientName = "Isabella Rossi", Reason = "Annual physical exam", Status = "Upcoming", Room = "456 (Floor 4)" },
+        new() { Time = "1:00 PM", PatientName = "Benjamin Carter", Reason = "Stomach pain and acid reflux symptoms", Status = "Cancelled", Room = "204 (Floor 2)" },
+    };
+
+    private List<Alert> DailyAlerts = new()
+    {
+        new() { Text = "CRP elevated \u2013 Sophia Martinez", Timestamp = "15 min ago" },
+        new() { Text = "Blood pressure high \u2013 James Carter", Timestamp = "15 min ago" },
+        new() { Text = "Glucose levels elevated \u2013 Daniel Rivera", Timestamp = "15 min ago" },
+        new() { Text = "High cholesterol detected \u2013 Ava Thompson", Timestamp = "15 min ago" },
+    };
+
+    private void ToggleAIChat()
+    {
+        isAIChatOpen = !isAIChatOpen;
+        if (!isAIChatOpen)
+        {
+            chatData.Clear();
+            chatSuggestions = new() { "Summary for next patient", "Provide lab results" };
+        }
+    }
+
+    private async Task OnChatSuggestionClick(ChatSuggestionClickEventArgs args)
+    {
+        var suggestion = args.Suggestion;
+        var userText = suggestion switch
+        {
+            "Summary for next patient" => "Can you summarize the next patient?",
+            "Provide lab results" => "Provide lab results for next patient",
+            _ => suggestion
+        };
+
+        chatData.Add(new AIChatMsg { Id = Guid.NewGuid().ToString(), Text = userText, AuthorId = "user", AuthorName = "Dr. Carter", Timestamp = DateTime.Now });
+        chatSuggestions = new();
+
+        var typingMsg = new AIChatMsg { Id = "typing", Text = "", AuthorId = "ai", AuthorName = "AI Assistant", IsTyping = true, Timestamp = DateTime.Now };
+        chatData.Add(typingMsg);
+        StateHasChanged();
+
+        await Task.Delay(1200);
+
+        chatData.Remove(typingMsg);
+
+        var response = suggestion switch
+        {
+            "Summary for next patient" => "James Wilson (P-104582) is a 45-year-old male admitted for hypertensive crisis. Vitals are stabilizing, but BP remains slightly elevated at 145/95. No known allergies.",
+            "Provide lab results" => "Lab results for James Wilson (collected 03/28/2026): CBC: WBC 11.2 (H), RBC 4.8, Hgb 14.1, Plt 245. CMP: Glucose 98, BUN 18, Creatinine 1.0. CRP: 2.4 mg/L (normal). Chest X-ray: Mild bronchial thickening noted.",
+            _ => "I'm sorry, I don't have information for that query."
+        };
+
+        chatData.Add(new AIChatMsg { Id = Guid.NewGuid().ToString(), Text = response, AuthorId = "ai", AuthorName = "AI Assistant", Timestamp = DateTime.Now });
+    }
+
+    private async Task OnChatSendMessage(ChatSendMessageEventArgs args)
+    {
+        var text = args.Message?.Trim();
+        if (string.IsNullOrEmpty(text)) return;
+
+        chatData.Add(new AIChatMsg { Id = Guid.NewGuid().ToString(), Text = text, AuthorId = "user", AuthorName = "Dr. Carter", Timestamp = DateTime.Now });
+        chatSuggestions = new();
+
+        var typingMsg = new AIChatMsg { Id = "typing", Text = "", AuthorId = "ai", AuthorName = "AI Assistant", IsTyping = true, Timestamp = DateTime.Now };
+        chatData.Add(typingMsg);
+        StateHasChanged();
+
+        await Task.Delay(1000);
+
+        chatData.Remove(typingMsg);
+
+        var lower = text.ToLowerInvariant();
+        string response;
+        if (lower.Contains("summary") || lower.Contains("next patient") || lower.Contains("summarize"))
+            response = "James Wilson (P-104582) is a 45-year-old male admitted for hypertensive crisis. Vitals are stabilizing, but BP remains slightly elevated at 145/95. No known allergies.";
+        else if (lower.Contains("lab") || lower.Contains("result"))
+            response = "Lab results for James Wilson (collected 03/28/2026): CBC: WBC 11.2 (H), RBC 4.8, Hgb 14.1, Plt 245. CMP: Glucose 98, BUN 18, Creatinine 1.0. CRP: 2.4 mg/L (normal). Chest X-ray: Mild bronchial thickening noted.";
+        else if (lower.Contains("how many") || lower.Contains("patient") && lower.Contains("today"))
+            response = "You have 9 patients scheduled today: 3 Complete, 1 In Progress, 3 Upcoming, 2 Cancelled. Next patient: James Wilson at 11:00 AM.";
+        else if (lower.Contains("allerg"))
+            response = "2 patients with known allergies today: Ava Patel \u2013 Shellfish allergy (10:30 AM, In Progress), James Wilson \u2013 Penicillin allergy (11:00 AM, Upcoming). Please verify allergy bands before administering medication.";
+        else
+            response = "I can help with patient summaries, lab results, scheduling, and allergy information. Try asking about a specific topic!";
+
+        chatData.Add(new AIChatMsg { Id = Guid.NewGuid().ToString(), Text = response, AuthorId = "ai", AuthorName = "AI Assistant", Timestamp = DateTime.Now });
+    }
+
+    public class Appointment
+    {
+        public string Time { get; set; } = "";
+        public string PatientName { get; set; } = "";
+        public string Reason { get; set; } = "";
+        public string Status { get; set; } = "";
+        public string Room { get; set; } = "";
+    }
+
+    public class Alert
+    {
+        public string Text { get; set; } = "";
+        public string Timestamp { get; set; } = "";
+    }
+
+    public class AIChatMsg
+    {
+        public string Id { get; set; } = "";
+        public string Text { get; set; } = "";
+        public string AuthorId { get; set; } = "";
+        public string AuthorName { get; set; } = "";
+        public DateTime Timestamp { get; set; }
+        public bool IsTyping { get; set; }
+    }
+}
+

@@ -1,0 +1,230 @@
+﻿@inherits LayoutComponentBase
+@inject NavigationManager Nav
+
+<TelerikRootComponent>
+    <div class="hc-dashboard">
+        <!-- ========== APPBAR ========== -->
+        <div class="hc-appbar">
+            <div class="hc-appbar-left">
+                <a href="/" class="hc-logo">
+                    <svg class="hc-logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="16" cy="16" r="14" fill="url(#logoGrad)" />
+                        <path d="M10 22C10 22 12 14 16 14C20 14 22 22 22 22" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+                        <circle cx="16" cy="10" r="3" fill="#fff"/>
+                        <defs><linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#64C2DB"/><stop offset="0.37" stop-color="#7476ED"/><stop offset="0.59" stop-color="#C994DF"/><stop offset="1" stop-color="#E56F8C"/></linearGradient></defs>
+                    </svg>
+                    <span class="hc-logo-text">Logoipsum</span>
+                </a>
+            </div>
+
+            <div class="hc-appbar-center">
+                <div class="hc-segmented">
+                    <a href="/" class="hc-segment @(ActiveSegment == "home" ? "active" : "")">
+                        <TelerikSvgIcon Icon="@SvgIcon.Home" />
+                        <span>Home</span>
+                    </a>
+                    <a href="/schedule" class="hc-segment @(ActiveSegment == "schedule" ? "active" : "")">
+                        <TelerikSvgIcon Icon="@SvgIcon.Calendar" />
+                        <span>Schedule</span>
+                    </a>
+                    <a href="/patients" class="hc-segment @(ActiveSegment == "patients" ? "active" : "")">
+                        <TelerikSvgIcon Icon="@SvgIcon.User" />
+                        <span>Patients</span>
+                    </a>
+                    <a href="/clinical-analytics" class="hc-segment @(ActiveSegment == "clinical-analytics" ? "active" : "")">
+                        <TelerikSvgIcon Icon="@SvgIcon.ChartColumnStacked" />
+                        <span>Clinical Analytics</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="hc-appbar-right">
+                <div class="hc-search">
+                    <div class="hc-search-icon">
+                        <TelerikSvgIcon Icon="@SvgIcon.Search" />
+                    </div>
+                    <input type="text" placeholder="Search patient name or ID" />
+                </div>
+
+                <button class="hc-icon-btn" title="Toggle theme">
+                    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="8" cy="8" r="3" stroke="#232A36" stroke-width="1.33"/>
+                        <line x1="8" y1="1" x2="8" y2="3" stroke="#232A36" stroke-width="1.33" stroke-linecap="round"/>
+                        <line x1="8" y1="13" x2="8" y2="15" stroke="#232A36" stroke-width="1.33" stroke-linecap="round"/>
+                        <line x1="2.9" y1="2.9" x2="4.3" y2="4.3" stroke="#232A36" stroke-width="1.33" stroke-linecap="round"/>
+                        <line x1="11.7" y1="11.7" x2="13.1" y2="13.1" stroke="#232A36" stroke-width="1.33" stroke-linecap="round"/>
+                        <line x1="1" y1="8" x2="3" y2="8" stroke="#232A36" stroke-width="1.33" stroke-linecap="round"/>
+                        <line x1="13" y1="8" x2="15" y2="8" stroke="#232A36" stroke-width="1.33" stroke-linecap="round"/>
+                        <line x1="2.9" y1="13.1" x2="4.3" y2="11.7" stroke="#232A36" stroke-width="1.33" stroke-linecap="round"/>
+                        <line x1="11.7" y1="4.3" x2="13.1" y2="2.9" stroke="#232A36" stroke-width="1.33" stroke-linecap="round"/>
+                    </svg>
+                </button>
+
+                <div class="hc-notif-wrapper">
+                    <button class="hc-icon-btn" title="Notifications" @onclick="ToggleNotifications" @onclick:stopPropagation="true">
+                        <TelerikSvgIcon Icon="@SvgIcon.Bell" />
+                    </button>
+                    <div class="hc-notif-badge"></div>
+
+                    @if (isNotificationOpen)
+                    {
+                        <div class="hc-notif-popup" @onclick:stopPropagation="true">
+                            <div class="hc-notif-popup-header">
+                                <span class="hc-notif-popup-title">Notifications</span>
+                                <button class="hc-notif-mark-read" @onclick="MarkAllRead">Mark all read</button>
+                            </div>
+                            @foreach (var notif in Notifications)
+                            {
+                                <div class="hc-notif-item">
+                                    <div class="hc-notif-item-icon">
+                                        <TelerikSvgIcon Icon="@SvgIcon.Bell" />
+                                    </div>
+                                    <div class="hc-notif-item-text">
+                                        <span class="hc-notif-item-title">@notif.Title</span>
+                                        <span class="hc-notif-item-desc">@notif.Description</span>
+                                    </div>
+                                    <span class="hc-notif-item-time">@notif.Time</span>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+
+                <div class="hc-separator"></div>
+
+                <button class="hc-avatar-btn" @onclick="ToggleProfile" title="Profile">
+                    <div class="hc-avatar">DC</div>
+                </button>
+            </div>
+        </div>
+
+        <!-- ========== PROFILE MODAL ========== -->
+        <TelerikWindow @bind-Visible="@isProfileOpen" Modal="true" Width="500px" Class="hc-profile-modal">
+            <WindowTitle>
+                Profile Management
+            </WindowTitle>
+            <WindowActions>
+                <WindowAction Name="Close" />
+            </WindowActions>
+            <WindowContent>
+                <div class="hc-pm-body">
+                    <!-- Profile Image -->
+                    <div class="hc-pm-section-label">Profile Image</div>
+                    <div class="hc-pm-photo-area">
+                        <div class="hc-pm-photo">
+                            <span>DC</span>
+                        </div>
+                    </div>
+                    <button class="hc-pm-upload-btn">
+                        <TelerikSvgIcon Icon="@SvgIcon.Upload" />
+                        <span>Upload Image</span>
+                    </button>
+
+                    <!-- Personal Information -->
+                    <div class="hc-pm-section-title">Personal Information</div>
+
+                    <div class="hc-pm-policy">
+                        <strong>Password Policy</strong>
+                        <span>@((MarkupString)"&bull;") Please change your password every two weeks</span>
+                    </div>
+
+                    <div class="hc-pm-field">
+                        <label class="hc-pm-label">Full Name</label>
+                        <TelerikTextBox @bind-Value="@profileName" PlaceHolder="Enter your name" />
+                    </div>
+                    <div class="hc-pm-field">
+                        <label class="hc-pm-label">Email Address</label>
+                        <TelerikTextBox @bind-Value="@profileEmail" PlaceHolder="Enter your email" />
+                    </div>
+                    <div class="hc-pm-field">
+                        <label class="hc-pm-label">Phone Number</label>
+                        <TelerikTextBox @bind-Value="@profilePhone" PlaceHolder="Enter your phone" />
+                    </div>
+
+                    <div class="hc-pm-actions">
+                        <button class="hc-pm-btn hc-pm-btn-clear" @onclick="() => isProfileOpen = false">Clear</button>
+                        <button class="hc-pm-btn hc-pm-btn-submit" @onclick="() => isProfileOpen = false">Submit</button>
+                    </div>
+                </div>
+            </WindowContent>
+        </TelerikWindow>
+
+        <!-- ========== PAGE CONTENT ========== -->
+        <div class="hc-body-wrapper">
+            @Body
+        </div>
+    </div>
+
+    <div id="blazor-error-ui" data-nosnippet>
+        An unhandled error has occurred.
+        <a href="." class="reload">Reload</a>
+        <span class="dismiss">🗙</span>
+    </div>
+</TelerikRootComponent>
+
+@code {
+    private string ActiveSegment = "home";
+    private bool isNotificationOpen;
+    private bool isProfileOpen;
+
+    private List<NotificationItem> Notifications = new()
+    {
+        new() { Title = "Follow-up Reminder", Description = "A follow-up consultation is recom...", Time = "5 min ago" },
+        new() { Title = "Extended Request", Description = "Based on Emma's current conditi...", Time = "35 min ago" },
+        new() { Title = "Medication Check", Description = "Ensure patient is taking medications...", Time = "1 h ago" },
+    };
+
+    private void ToggleNotifications()
+    {
+        isNotificationOpen = !isNotificationOpen;
+        if (isNotificationOpen) isProfileOpen = false;
+    }
+    private void MarkAllRead() => isNotificationOpen = false;
+
+    private void ToggleProfile()
+    {
+        isProfileOpen = !isProfileOpen;
+        if (isProfileOpen) isNotificationOpen = false;
+    }
+
+    private string profileName = "Emily Carter";
+    private string profileEmail = "drcarter@email.com";
+    private string profilePhone = "+(555) 776-90-84";
+
+    public class NotificationItem
+    {
+        public string Title { get; set; } = "";
+        public string Description { get; set; } = "";
+        public string Time { get; set; } = "";
+    }
+
+    protected override void OnInitialized()
+    {
+        UpdateActiveSegment();
+        Nav.LocationChanged += OnLocationChanged;
+    }
+
+    private void OnLocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
+    {
+        UpdateActiveSegment();
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void UpdateActiveSegment()
+    {
+        var path = new Uri(Nav.Uri).AbsolutePath.TrimEnd('/').ToLowerInvariant();
+        ActiveSegment = path switch
+        {
+            "" or "/" => "home",
+            "/schedule" => "schedule",
+            "/patients" => "patients",
+            "/clinical-analytics" => "clinical-analytics",
+            _ => ""
+        };
+    }
+
+    public void Dispose()
+    {
+        Nav.LocationChanged -= OnLocationChanged;
+    }
+}

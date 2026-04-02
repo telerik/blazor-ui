@@ -1,0 +1,755 @@
+﻿@page "/clinical-analytics"
+@rendermode InteractiveServer
+
+<style>
+    /* ========== HEADING / TOOLBAR ========== */
+    .hc-ca-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        position: relative;
+        z-index: 10;
+        gap: 24px;
+    }
+
+    .hc-ca-heading {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .hc-ca-heading h1 {
+        font-weight: 600;
+        font-size: 42px;
+        line-height: 120%;
+        color: #232A36;
+        margin: 0;
+    }
+
+    .hc-ca-heading p {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 150%;
+        color: #4A5666;
+        margin: 0;
+    }
+
+    .hc-ca-controls {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-shrink: 0;
+    }
+
+    /* DropDown pill style */
+    .hc-ca-controls .k-dropdownlist {
+        border-radius: 9999px;
+        border: 1px solid rgba(23, 56, 99, 0.08);
+        font-family: 'Poppins', sans-serif;
+        font-size: 16px;
+        min-width: 249px;
+    }
+
+    .hc-ca-controls .k-dropdownlist .k-input-inner {
+        font-family: 'Poppins', sans-serif;
+    }
+
+    /* Export button pill */
+    .hc-ca-export-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        padding: 4px 12px;
+        background: #F3F5F7;
+        border: 1px solid rgba(23, 56, 99, 0.08);
+        border-radius: 9999px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        color: #232A36;
+        cursor: pointer;
+        white-space: nowrap;
+        height: 34px;
+    }
+
+    .hc-ca-export-btn:hover {
+        background: #E8EAED;
+    }
+
+    .hc-ca-export-btn .k-svg-icon,
+    .hc-ca-export-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    /* ========== CHARTS CONTAINER ========== */
+    .hc-ca-charts {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+        width: 100%;
+        position: relative;
+        z-index: 10;
+    }
+
+    /* ========== CARD ========== */
+    .hc-ca-card {
+        background: #FFFFFF;
+        border: 1px solid rgba(255, 255, 255, 0.0001);
+        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04), 0px 2px 6px -1px rgba(0, 0, 0, 0.06);
+        border-radius: 16px;
+        position: relative;
+        z-index: 10;
+        overflow: hidden;
+    }
+
+    .hc-ca-card-header {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .hc-ca-card-title {
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 150%;
+        color: #232A36;
+        margin: 0;
+    }
+
+    .hc-ca-card-subtitle {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 142%;
+        color: #4A5666;
+        margin: 0;
+    }
+
+    .hc-ca-card-body {
+        padding: 10px 20px 20px;
+    }
+
+    .hc-ca-chart-area {
+        background: linear-gradient(179.48deg, rgba(255, 255, 255, 0) 0.02%, rgba(255, 255, 255, 0.2) 49.56%, rgba(255, 255, 255, 0.4) 74.34%);
+        border-radius: 12px;
+        padding: 16px;
+    }
+
+    /* ========== BULLET CHART ROW ========== */
+    .hc-ca-bullet-row {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .hc-ca-bullet-item {
+        position: relative;
+    }
+
+    .hc-ca-bullet-label {
+        font-family: 'Poppins', sans-serif;
+        font-size: 12px;
+        color: #232A36;
+        text-align: center;
+        position: absolute;
+        top: 4px;
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    /* ========== BOTTOM ROW ========== */
+    .hc-ca-bottom-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+        width: 100%;
+    }
+
+    /* ========== GAUGE CARD ========== */
+    .hc-ca-gauge-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding: 0 20px 20px;
+    }
+
+    .hc-ca-gauge-label-text {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 150%;
+        color: #3D3D3D;
+        text-align: center;
+    }
+
+    .hc-ca-gauge-legend {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .hc-ca-gauge-legend-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .hc-ca-gauge-legend-left {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .hc-ca-legend-dot {
+        width: 15px;
+        height: 15px;
+        border-radius: 9999px;
+        flex-shrink: 0;
+    }
+
+    .hc-ca-legend-label {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 142%;
+        color: #232A36;
+    }
+
+    .hc-ca-legend-range {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 142%;
+        color: #232A36;
+    }
+
+    /* ========== DONUT CENTER ALIGN ========== */
+    .hc-ca-donut-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 20px 20px;
+    }
+
+    /* ========== CHART OVERRIDES ========== */
+    .hc-ca-card .k-chart {
+        font-family: 'Poppins', sans-serif;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @@media (max-width: 1440px) {
+        .hc-ca-heading h1 {
+            font-size: 36px;
+        }
+    }
+
+    @@media (max-width: 1200px) {
+        .hc-ca-toolbar {
+            flex-wrap: wrap;
+        }
+
+        .hc-ca-heading h1 {
+            font-size: 32px;
+        }
+
+        .hc-ca-card-body {
+            padding: 10px 16px 16px;
+        }
+    }
+
+    @@media (max-width: 960px) {
+        .hc-ca-bottom-row {
+            grid-template-columns: 1fr;
+        }
+
+        .hc-ca-heading h1 {
+            font-size: 28px;
+        }
+
+        .hc-ca-controls {
+            flex-wrap: wrap;
+        }
+    }
+
+    @@media (max-width: 640px) {
+        .hc-ca-heading h1 {
+            font-size: 24px;
+        }
+
+        .hc-ca-heading p {
+            font-size: 14px;
+        }
+
+        .hc-ca-card-header {
+            padding: 16px;
+        }
+
+        .hc-ca-card-body {
+            padding: 8px 12px 12px;
+        }
+
+        .hc-ca-bottom-row {
+            gap: 20px;
+        }
+
+        .hc-ca-charts {
+            gap: 20px;
+        }
+    }
+</style>
+
+<!-- ========== TOOLBAR ========== -->
+<div class="hc-ca-toolbar">
+    <div class="hc-ca-heading">
+        <h1>Clinical Analytics</h1>
+        <p>Patient trends, vitals, lab results, and risk assessment overview</p>
+    </div>
+    <div class="hc-ca-controls">
+        <TelerikDropDownList Data="@Patients"
+                             @bind-Value="@SelectedPatientId"
+                             TextField="DisplayText"
+                             ValueField="Id"
+                             Width="249px" />
+        <button class="hc-ca-export-btn" @onclick="OnExportClick">
+            <TelerikSvgIcon Icon="@SvgIcon.Download" />
+            <span>Export</span>
+        </button>
+    </div>
+</div>
+
+<!-- ========== CHARTS ========== -->
+<div class="hc-ca-charts">
+
+    <!-- ===== VITALS OVER TIME (Line Chart) ===== -->
+    <div class="hc-ca-card">
+        <div class="hc-ca-card-header">
+            <h2 class="hc-ca-card-title">Vitals Over Time</h2>
+            <p class="hc-ca-card-subtitle">Multi-series tracking of blood pressure, heart rate, SpO2, and temperature</p>
+        </div>
+        <div class="hc-ca-card-body">
+            <div class="hc-ca-chart-area">
+                <TelerikChart Height="340px">
+                    <ChartSeriesItems>
+                        <ChartSeries Type="ChartSeriesType.Line"
+                                     Name="Systolic BP"
+                                     Data="@VitalsData"
+                                     Field="SystolicBP"
+                                     CategoryField="Month"
+                                     Color="#FF6358"
+                                     Style="ChartSeriesStyle.Smooth">
+                            <ChartSeriesMarkers Visible="true" Size="10" Background="#FFFFFF">
+                                <ChartSeriesMarkersBorder Color="#FF6358" Width="2" />
+                            </ChartSeriesMarkers>
+                        </ChartSeries>
+                        <ChartSeries Type="ChartSeriesType.Line"
+                                     Name="Diastolic BP"
+                                     Data="@VitalsData"
+                                     Field="DiastolicBP"
+                                     CategoryField="Month"
+                                     Color="#FFE162"
+                                     Style="ChartSeriesStyle.Smooth">
+                            <ChartSeriesMarkers Visible="true" Size="10" Background="#FFFFFF">
+                                <ChartSeriesMarkersBorder Color="#FFE162" Width="2" />
+                            </ChartSeriesMarkers>
+                        </ChartSeries>
+                        <ChartSeries Type="ChartSeriesType.Line"
+                                     Name="Heart Rate"
+                                     Data="@VitalsData"
+                                     Field="HeartRate"
+                                     CategoryField="Month"
+                                     Color="#4CD180"
+                                     Style="ChartSeriesStyle.Smooth">
+                            <ChartSeriesMarkers Visible="true" Size="10" Background="#FFFFFF">
+                                <ChartSeriesMarkersBorder Color="#4CD180" Width="2" />
+                            </ChartSeriesMarkers>
+                        </ChartSeries>
+                        <ChartSeries Type="ChartSeriesType.Line"
+                                     Name="SpO2 (%)"
+                                     Data="@VitalsData"
+                                     Field="SpO2"
+                                     CategoryField="Month"
+                                     Color="#4B5FFA"
+                                     Style="ChartSeriesStyle.Smooth">
+                            <ChartSeriesMarkers Visible="true" Size="10" Background="#FFFFFF">
+                                <ChartSeriesMarkersBorder Color="#4B5FFA" Width="2" />
+                            </ChartSeriesMarkers>
+                        </ChartSeries>
+                        <ChartSeries Type="ChartSeriesType.Line"
+                                     Name="Temperature"
+                                     Data="@VitalsData"
+                                     Field="Temperature"
+                                     CategoryField="Month"
+                                     Color="#AC58FF"
+                                     Style="ChartSeriesStyle.Smooth">
+                            <ChartSeriesMarkers Visible="true" Size="10" Background="#FFFFFF">
+                                <ChartSeriesMarkersBorder Color="#AC58FF" Width="2" />
+                            </ChartSeriesMarkers>
+                        </ChartSeries>
+                        <ChartSeries Type="ChartSeriesType.Line"
+                                     Name="Pulse"
+                                     Data="@VitalsData"
+                                     Field="Pulse"
+                                     CategoryField="Month"
+                                     Color="#FF5892"
+                                     Style="ChartSeriesStyle.Smooth">
+                            <ChartSeriesMarkers Visible="true" Size="10" Background="#FFFFFF">
+                                <ChartSeriesMarkersBorder Color="#FF5892" Width="2" />
+                            </ChartSeriesMarkers>
+                        </ChartSeries>
+                    </ChartSeriesItems>
+                    <ChartCategoryAxes>
+                        <ChartCategoryAxis>
+                            <ChartCategoryAxisLabels>
+                                <ChartCategoryAxisLabelsRotation Angle="-90" />
+                            </ChartCategoryAxisLabels>
+                            <ChartCategoryAxisMajorGridLines Visible="false" />
+                        </ChartCategoryAxis>
+                    </ChartCategoryAxes>
+                    <ChartValueAxes>
+                        <ChartValueAxis Min="0" Max="35">
+                            <ChartValueAxisLabels />
+                            <ChartValueAxisMajorGridLines Color="rgba(23,56,99,0.08)" />
+                        </ChartValueAxis>
+                    </ChartValueAxes>
+                    <ChartLegend Position="ChartLegendPosition.Bottom">
+                        <ChartLegendLabels />
+                    </ChartLegend>
+                    <ChartTooltip Visible="true" />
+                </TelerikChart>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== ALERTS OVER TIME (Stacked Column Chart) ===== -->
+    <div class="hc-ca-card">
+        <div class="hc-ca-card-header">
+            <h2 class="hc-ca-card-title">Alerts Over Time</h2>
+            <p class="hc-ca-card-subtitle">Alert count trendy by severity level</p>
+        </div>
+        <div class="hc-ca-card-body">
+            <div class="hc-ca-chart-area">
+                <TelerikChart Height="340px">
+                    <ChartSeriesItems>
+                        <ChartSeries Type="ChartSeriesType.Column"
+                                     Name="Critical"
+                                     Data="@AlertsOverTimeData"
+                                     Field="Critical"
+                                     CategoryField="Month"
+                                     Color="#FF6358">
+                            <ChartSeriesStack Enabled="true" Group="alerts" />
+                        </ChartSeries>
+                        <ChartSeries Type="ChartSeriesType.Column"
+                                     Name="Warning"
+                                     Data="@AlertsOverTimeData"
+                                     Field="Warning"
+                                     CategoryField="Month"
+                                     Color="#FFE162">
+                            <ChartSeriesStack Enabled="true" Group="alerts" />
+                        </ChartSeries>
+                        <ChartSeries Type="ChartSeriesType.Column"
+                                     Name="Info"
+                                     Data="@AlertsOverTimeData"
+                                     Field="Info"
+                                     CategoryField="Month"
+                                     Color="#4B5FFA">
+                            <ChartSeriesStack Enabled="true" Group="alerts" />
+                        </ChartSeries>
+                    </ChartSeriesItems>
+                    <ChartCategoryAxes>
+                        <ChartCategoryAxis>
+                            <ChartCategoryAxisLabels>
+                                <ChartCategoryAxisLabelsRotation Angle="-90" />
+                            </ChartCategoryAxisLabels>
+                            <ChartCategoryAxisMajorGridLines Visible="false" />
+                        </ChartCategoryAxis>
+                    </ChartCategoryAxes>
+                    <ChartValueAxes>
+                        <ChartValueAxis Min="0" Max="35">
+                            <ChartValueAxisLabels />
+                            <ChartValueAxisMajorGridLines Color="rgba(23,56,99,0.08)" />
+                        </ChartValueAxis>
+                    </ChartValueAxes>
+                    <ChartLegend Position="ChartLegendPosition.Bottom">
+                        <ChartLegendLabels />
+                    </ChartLegend>
+                    <ChartTooltip Visible="true" />
+                </TelerikChart>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== LAB RESULTS RANGE (Bullet Chart Style) ===== -->
+    <div class="hc-ca-card">
+        <div class="hc-ca-card-header">
+            <h2 class="hc-ca-card-title">Lab Results Range</h2>
+            <p class="hc-ca-card-subtitle">Multi-metric range chart showing latest lab results against optimal ranges</p>
+        </div>
+        <div class="hc-ca-card-body">
+            <div class="hc-ca-chart-area">
+                <div class="hc-ca-bullet-row">
+                    @foreach (var lab in LabResultsData)
+                    {
+                        <div class="hc-ca-bullet-item">
+                            <TelerikChart Height="99px">
+                                <ChartSeriesItems>
+                                    <ChartSeries Type="ChartSeriesType.RangeBar"
+                                                 Data="@(new List<object> { new { Category = lab.Name, From = 0, To = lab.RangeLow } })"
+                                                 FromField="From"
+                                                 ToField="To"
+                                                 CategoryField="Category"
+                                                 Color="rgba(0,0,0,0.2)"
+                                                 Gap="6"
+                                                 Spacing="0" />
+                                    <ChartSeries Type="ChartSeriesType.RangeBar"
+                                                 Data="@(new List<object> { new { Category = lab.Name, From = lab.RangeLow, To = lab.RangeMid } })"
+                                                 FromField="From"
+                                                 ToField="To"
+                                                 CategoryField="Category"
+                                                 Color="rgba(0,0,0,0.1)"
+                                                 Gap="6"
+                                                 Spacing="0" />
+                                    <ChartSeries Type="ChartSeriesType.RangeBar"
+                                                 Data="@(new List<object> { new { Category = lab.Name, From = lab.RangeMid, To = lab.RangeMax } })"
+                                                 FromField="From"
+                                                 ToField="To"
+                                                 CategoryField="Category"
+                                                 Color="rgba(0,0,0,0.05)"
+                                                 Gap="6"
+                                                 Spacing="0" />
+                                    <ChartSeries Type="ChartSeriesType.Bar"
+                                                 Data="@(new List<object> { new { Category = lab.Name, Value = lab.Value } })"
+                                                 Field="Value"
+                                                 CategoryField="Category"
+                                                 Color="@lab.BarColor"
+                                                 Gap="12"
+                                                 Spacing="0" />
+                                </ChartSeriesItems>
+                                <ChartCategoryAxes>
+                                    <ChartCategoryAxis Visible="false">
+                                        <ChartCategoryAxisLabels Visible="false" />
+                                    </ChartCategoryAxis>
+                                </ChartCategoryAxes>
+                                <ChartValueAxes>
+                                    <ChartValueAxis Min="0" Max="20">
+                                        <ChartValueAxisLabels />
+                                        <ChartValueAxisMajorGridLines Color="rgba(23,56,99,0.08)" />
+                                    </ChartValueAxis>
+                                </ChartValueAxes>
+                                <ChartLegend Visible="false" />
+                                <ChartTooltip Visible="true" />
+                                <ChartTitle Text="@lab.TargetLabel" Position="ChartTitlePosition.Top" Align="ChartTitleAlign.Center" />
+                            </TelerikChart>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== BOTTOM ROW: DONUT + GAUGE ===== -->
+    <div class="hc-ca-bottom-row">
+
+        <!-- ALERTS BY CATEGORY (Donut Chart) -->
+        <div class="hc-ca-card">
+            <div class="hc-ca-card-header">
+                <h2 class="hc-ca-card-title">Alerts by Category</h2>
+                <p class="hc-ca-card-subtitle">Distribution of alerts by clinical category</p>
+            </div>
+            <div class="hc-ca-donut-body">
+                <TelerikChart Height="360px">
+                    <ChartSeriesItems>
+                        <ChartSeries Type="ChartSeriesType.Donut"
+                                     Data="@AlertsByCategoryData"
+                                     Field="Value"
+                                     CategoryField="Category"
+                                     ColorField="Color"
+                                     HoleSize="80">
+                            <ChartSeriesLabels Visible="true"
+                                               Position="ChartSeriesLabelsPosition.OutsideEnd"
+                                               Template="#=category#"
+                                               Background="transparent" />
+                            <ChartSeriesLegendItem>
+                                <ChartSeriesLegendItemMarkers Type="ChartSeriesMarkersType.Circle" />
+                            </ChartSeriesLegendItem>
+                        </ChartSeries>
+                    </ChartSeriesItems>
+                    <ChartLegend Position="ChartLegendPosition.Bottom">
+                        <ChartLegendLabels />
+                    </ChartLegend>
+                    <ChartTooltip Visible="true" />
+                </TelerikChart>
+            </div>
+        </div>
+
+        <!-- RISK SCORE (Arc Gauge) -->
+        <div class="hc-ca-card">
+            <div class="hc-ca-card-header">
+                <h2 class="hc-ca-card-title">Risk Score</h2>
+                <p class="hc-ca-card-subtitle">Patient health risk assessment</p>
+            </div>
+            <div class="hc-ca-gauge-wrapper">
+                <TelerikArcGauge Width="302px" Height="160px">
+                    <ArcGaugeScales>
+                        <ArcGaugeScale Min="0" Max="100" StartAngle="0" EndAngle="180">
+                            <ArcGaugeScaleLabels Visible="false" />
+                        </ArcGaugeScale>
+                    </ArcGaugeScales>
+                    <ArcGaugePointers>
+                        <ArcGaugePointer Value="@RiskScoreValue" Size="14" Color="#BFA94A" />
+                    </ArcGaugePointers>
+                    <ArcGaugeCenterLabel>
+                        <Template>
+                            <div style="font-family: Poppins, sans-serif; font-weight: 700; font-size: 32px; color: #BFA94A; text-align: center; line-height: 1.2;">
+                                @(RiskScoreValue)%
+                            </div>
+                        </Template>
+                    </ArcGaugeCenterLabel>
+                </TelerikArcGauge>
+
+                <div class="hc-ca-gauge-label-text">Out of 100</div>
+
+                <div class="hc-ca-gauge-legend">
+                    <div class="hc-ca-gauge-legend-row">
+                        <div class="hc-ca-gauge-legend-left">
+                            <div class="hc-ca-legend-dot" style="background: #FF6358;"></div>
+                            <span class="hc-ca-legend-label">High Risk</span>
+                        </div>
+                        <span class="hc-ca-legend-range">0-39</span>
+                    </div>
+                    <div class="hc-ca-gauge-legend-row">
+                        <div class="hc-ca-gauge-legend-left">
+                            <div class="hc-ca-legend-dot" style="background: #BFA94A;"></div>
+                            <span class="hc-ca-legend-label">Medium Risk</span>
+                        </div>
+                        <span class="hc-ca-legend-range">40-69</span>
+                    </div>
+                    <div class="hc-ca-gauge-legend-row">
+                        <div class="hc-ca-gauge-legend-left">
+                            <div class="hc-ca-legend-dot" style="background: #4CD180;"></div>
+                            <span class="hc-ca-legend-label">Low Risk</span>
+                        </div>
+                        <span class="hc-ca-legend-range">70-100</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    /* ========== PATIENT SELECTION ========== */
+    private int SelectedPatientId { get; set; } = 1;
+
+    private List<PatientOption> Patients { get; set; } = new()
+    {
+        new() { Id = 1, DisplayText = "James Wilson (P-104582)" },
+        new() { Id = 2, DisplayText = "Sophia Martinez (P-203847)" },
+        new() { Id = 3, DisplayText = "Michael O'Connor (P-301928)" },
+        new() { Id = 4, DisplayText = "Ava Patel (P-409283)" },
+    };
+
+    /* ========== RISK SCORE ========== */
+    private int RiskScoreValue { get; set; } = 50;
+
+    /* ========== VITALS DATA ========== */
+    private List<VitalDataPoint> VitalsData { get; set; } = new()
+    {
+        new() { Month = "Jan", SystolicBP = 25, DiastolicBP = 10, HeartRate = 13, SpO2 = 10, Temperature = 8,  Pulse = 2  },
+        new() { Month = "Feb", SystolicBP = 24, DiastolicBP = 14, HeartRate = 15, SpO2 = 15, Temperature = 7,  Pulse = 9  },
+        new() { Month = "Mar", SystolicBP = 27, DiastolicBP = 20, HeartRate = 33, SpO2 = 15, Temperature = 10, Pulse = 11 },
+        new() { Month = "Apr", SystolicBP = 25, DiastolicBP = 18, HeartRate = 20, SpO2 = 20, Temperature = 8,  Pulse = 13 },
+        new() { Month = "May", SystolicBP = 30, DiastolicBP = 13, HeartRate = 17, SpO2 = 16, Temperature = 13, Pulse = 12 },
+    };
+
+    /* ========== ALERTS OVER TIME DATA ========== */
+    private List<AlertTimeData> AlertsOverTimeData { get; set; } = new()
+    {
+        new() { Month = "Jan", Critical = 5, Warning = 4, Info = 18 },
+        new() { Month = "Feb", Critical = 8, Warning = 7, Info = 11 },
+        new() { Month = "Mar", Critical = 7, Warning = 10, Info = 5 },
+        new() { Month = "Apr", Critical = 10, Warning = 3, Info = 17 },
+        new() { Month = "May", Critical = 7, Warning = 5, Info = 15 },
+        new() { Month = "Jun", Critical = 4, Warning = 2, Info = 8 },
+        new() { Month = "Jul", Critical = 7, Warning = 6, Info = 15 },
+        new() { Month = "Aug", Critical = 8, Warning = 8, Info = 12 },
+        new() { Month = "Sep", Critical = 9, Warning = 3, Info = 20 },
+        new() { Month = "Oct", Critical = 4, Warning = 3, Info = 6 },
+    };
+
+    /* ========== LAB RESULTS DATA ========== */
+    private List<LabResult> LabResultsData { get; set; } = new()
+    {
+        new() { Name = "WBC",        Value = 7,  RangeLow = 7, RangeMid = 13, RangeMax = 20, BarColor = "#FFE989", TargetLabel = "MIN" },
+        new() { Name = "Hemoglobin", Value = 7,  RangeLow = 7, RangeMid = 13, RangeMax = 20, BarColor = "#FF8A82", TargetLabel = "MIN" },
+        new() { Name = "Platelets",  Value = 15, RangeLow = 7, RangeMid = 13, RangeMax = 20, BarColor = "#79DDA0", TargetLabel = "MAX" },
+    };
+
+    /* ========== ALERTS BY CATEGORY DATA ========== */
+    private List<AlertCategoryData> AlertsByCategoryData { get; set; } = new()
+    {
+        new() { Category = "Arrhythmia",            Value = 12, Color = "#FF6358" },
+        new() { Category = "Hypertension",          Value = 18, Color = "#FFE162" },
+        new() { Category = "High Cholesterol",      Value = 25, Color = "#4CD180" },
+        new() { Category = "Medication Adherence",  Value = 34, Color = "#4B5FFA" },
+        new() { Category = "Inflammation",          Value = 43, Color = "#AC58FF" },
+        new() { Category = "Cardiac Risk",          Value = 51, Color = "#FF5892" },
+    };
+
+    /* ========== EVENT HANDLERS ========== */
+    private void OnExportClick()
+    {
+        // Placeholder for export functionality
+    }
+
+    /* ========== MODELS ========== */
+    public class PatientOption
+    {
+        public int Id { get; set; }
+        public string DisplayText { get; set; } = "";
+    }
+
+    public class VitalDataPoint
+    {
+        public string Month { get; set; } = "";
+        public double SystolicBP { get; set; }
+        public double DiastolicBP { get; set; }
+        public double HeartRate { get; set; }
+        public double SpO2 { get; set; }
+        public double Temperature { get; set; }
+        public double Pulse { get; set; }
+    }
+
+    public class AlertTimeData
+    {
+        public string Month { get; set; } = "";
+        public double Critical { get; set; }
+        public double Warning { get; set; }
+        public double Info { get; set; }
+    }
+
+    public class LabResult
+    {
+        public string Name { get; set; } = "";
+        public double Value { get; set; }
+        public double RangeLow { get; set; }
+        public double RangeMid { get; set; }
+        public double RangeMax { get; set; }
+        public string BarColor { get; set; } = "";
+        public string TargetLabel { get; set; } = "";
+    }
+
+    public class AlertCategoryData
+    {
+        public string Category { get; set; } = "";
+        public double Value { get; set; }
+        public string Color { get; set; } = "";
+    }
+}
