@@ -236,7 +236,16 @@
         <div class="hc-pd-header-card">
             <div class="hc-pd-profile-row">
                 <div class="hc-pd-profile-left">
-                    <div class="hc-pd-avatar">@patient.Initials</div>
+                    <div class="hc-pd-avatar">
+                        @if (!string.IsNullOrEmpty(patient.ImageUrl))
+                        {
+                            <img src="@patient.ImageUrl" alt="@patient.Name" style="width:100%;height:100%;object-fit:cover;border-radius:9999px;" />
+                        }
+                        else
+                        {
+                            @patient.Initials
+                        }
+                    </div>
                     <span class="hc-pd-name">@patient.Name</span>
                 </div>
                 @{
