@@ -57,6 +57,12 @@
         font-family: 'Poppins', sans-serif;
     }
 
+    /* DropDown popup border-radius to match the pill input */
+    .hc-ca-dropdown-popup.k-animation-container .k-list-container,
+    .hc-ca-dropdown-popup .k-list-container {
+        border-radius: 16px;
+    }
+
     /* Export button pill */
     .hc-ca-export-btn {
         display: flex;
@@ -105,6 +111,8 @@
         position: relative;
         z-index: 10;
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
     }
 
     .hc-ca-card-header {
@@ -140,28 +148,6 @@
         padding: 16px;
     }
 
-    /* ========== BULLET CHART ROW ========== */
-    .hc-ca-bullet-row {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .hc-ca-bullet-item {
-        position: relative;
-    }
-
-    .hc-ca-bullet-label {
-        font-family: 'Poppins', sans-serif;
-        font-size: 12px;
-        color: #232A36;
-        text-align: center;
-        position: absolute;
-        top: 4px;
-        z-index: 2;
-        pointer-events: none;
-    }
-
     /* ========== BOTTOM ROW ========== */
     .hc-ca-bottom-row {
         display: grid;
@@ -177,6 +163,8 @@
         align-items: center;
         gap: 20px;
         padding: 0 20px 20px;
+        flex: 1;
+        justify-content: flex-end;
     }
 
     .hc-ca-gauge-label-text {
@@ -237,6 +225,31 @@
         flex-direction: column;
         align-items: center;
         padding: 10px 20px 20px;
+    }
+
+    /* Donut custom legend */
+    .hc-ca-donut-legend {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+        padding-top: 8px;
+    }
+    .hc-ca-donut-legend-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .hc-ca-donut-legend-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        flex-shrink: 0;
+    }
+    .hc-ca-donut-legend-text {
+        font-family: 'Poppins', sans-serif;
+        font-size: 12px;
+        color: #4A5666;
     }
 
     /* ========== CHART OVERRIDES ========== */
@@ -317,7 +330,11 @@
                              @bind-Value="@SelectedPatientId"
                              TextField="DisplayText"
                              ValueField="Id"
-                             Width="249px" />
+                             Width="249px">
+            <DropDownListSettings>
+                <DropDownListPopupSettings Class="hc-ca-dropdown-popup" />
+            </DropDownListSettings>
+        </TelerikDropDownList>
         <button class="hc-ca-export-btn" @onclick="OnExportClick">
             <TelerikSvgIcon Icon="@SvgIcon.Download" />
             <span>Export</span>
@@ -486,70 +503,86 @@
         </div>
     </div>
 
-    <!-- ===== LAB RESULTS RANGE (Bullet Chart Style) ===== -->
+    <!-- ===== PATIENT HEALTH METRICS OVER TIME (Area Chart) ===== -->
     <div class="hc-ca-card">
         <div class="hc-ca-card-header">
-            <h2 class="hc-ca-card-title">Lab Results Range</h2>
-            <p class="hc-ca-card-subtitle">Multi-metric range chart showing latest lab results against optimal ranges</p>
+            <h2 class="hc-ca-card-title">Patient Health Metrics Over Time</h2>
+            <p class="hc-ca-card-subtitle">Long-term tracking of key lab results and health indicators</p>
         </div>
         <div class="hc-ca-card-body">
             <div class="hc-ca-chart-area">
-                <div class="hc-ca-bullet-row">
-                    @foreach (var lab in LabResultsData)
-                    {
-                        <div class="hc-ca-bullet-item">
-                            <TelerikChart Height="99px">
-                                <ChartSeriesItems>
-                                    <ChartSeries Type="ChartSeriesType.RangeBar"
-                                                 Data="@(new List<object> { new { Category = lab.Name, From = 0, To = lab.RangeLow } })"
-                                                 FromField="From"
-                                                 ToField="To"
-                                                 CategoryField="Category"
-                                                 Color="rgba(0,0,0,0.2)"
-                                                 Gap="6"
-                                                 Spacing="0" />
-                                    <ChartSeries Type="ChartSeriesType.RangeBar"
-                                                 Data="@(new List<object> { new { Category = lab.Name, From = lab.RangeLow, To = lab.RangeMid } })"
-                                                 FromField="From"
-                                                 ToField="To"
-                                                 CategoryField="Category"
-                                                 Color="rgba(0,0,0,0.1)"
-                                                 Gap="6"
-                                                 Spacing="0" />
-                                    <ChartSeries Type="ChartSeriesType.RangeBar"
-                                                 Data="@(new List<object> { new { Category = lab.Name, From = lab.RangeMid, To = lab.RangeMax } })"
-                                                 FromField="From"
-                                                 ToField="To"
-                                                 CategoryField="Category"
-                                                 Color="rgba(0,0,0,0.05)"
-                                                 Gap="6"
-                                                 Spacing="0" />
-                                    <ChartSeries Type="ChartSeriesType.Bar"
-                                                 Data="@(new List<object> { new { Category = lab.Name, Value = lab.Value } })"
-                                                 Field="Value"
-                                                 CategoryField="Category"
-                                                 Color="@lab.BarColor"
-                                                 Gap="12"
-                                                 Spacing="0" />
-                                </ChartSeriesItems>
-                                <ChartCategoryAxes>
-                                    <ChartCategoryAxis Visible="false">
-                                        <ChartCategoryAxisLabels Visible="false" />
-                                    </ChartCategoryAxis>
-                                </ChartCategoryAxes>
-                                <ChartValueAxes>
-                                    <ChartValueAxis Min="0" Max="20">
-                                        <ChartValueAxisLabels />
-                                        <ChartValueAxisMajorGridLines Color="rgba(23,56,99,0.08)" />
-                                    </ChartValueAxis>
-                                </ChartValueAxes>
-                                <ChartLegend Visible="false" />
-                                <ChartTooltip Visible="true" />
-                                <ChartTitle Text="@lab.TargetLabel" Position="ChartTitlePosition.Top" Align="ChartTitleAlign.Center" />
-                            </TelerikChart>
-                        </div>
-                    }
-                </div>
+                <TelerikChart Height="400px">
+                    <ChartSeriesItems>
+                        <ChartSeries Type="ChartSeriesType.Area"
+                                     Data="@HealthMetricsData"
+                                     Field="Glucose"
+                                     CategoryField="Month"
+                                     Name="Glucose (mg/dL)"
+                                     Color="#4477FF"
+                                     Style="@ChartSeriesStyle.Smooth"
+                                     Opacity="0.15">
+                            <ChartSeriesLine Color="#4477FF" Width="2" Style="@ChartSeriesLineStyle.Smooth" />
+                        </ChartSeries>
+                        <ChartSeries Type="ChartSeriesType.Area"
+                                     Data="@HealthMetricsData"
+                                     Field="Cholesterol"
+                                     CategoryField="Month"
+                                     Name="Cholesterol (mg/dL)"
+                                     Color="#7B5CFA"
+                                     Style="@ChartSeriesStyle.Smooth"
+                                     Opacity="0.15">
+                            <ChartSeriesLine Color="#7B5CFA" Width="2" Style="@ChartSeriesLineStyle.Smooth" />
+                        </ChartSeries>
+                        <ChartSeries Type="ChartSeriesType.Area"
+                                     Data="@HealthMetricsData"
+                                     Field="Hemoglobin"
+                                     CategoryField="Month"
+                                     Name="Hemoglobin (g/dL)"
+                                     Color="#00B87A"
+                                     Style="@ChartSeriesStyle.Smooth"
+                                     Opacity="0.15">
+                            <ChartSeriesLine Color="#00B87A" Width="2" Style="@ChartSeriesLineStyle.Smooth" />
+                        </ChartSeries>
+                        <ChartSeries Type="ChartSeriesType.Area"
+                                     Data="@HealthMetricsData"
+                                     Field="Creatinine"
+                                     CategoryField="Month"
+                                     Name="Creatinine (mg/dL)"
+                                     Color="#FF9F43"
+                                     Style="@ChartSeriesStyle.Smooth"
+                                     Opacity="0.15">
+                            <ChartSeriesLine Color="#FF9F43" Width="2" Style="@ChartSeriesLineStyle.Smooth" />
+                        </ChartSeries>
+                        <ChartSeries Type="ChartSeriesType.Area"
+                                     Data="@HealthMetricsData"
+                                     Field="Bilirubin"
+                                     CategoryField="Month"
+                                     Name="Bilirubin (mg/dL)"
+                                     Color="#FF4757"
+                                     Style="@ChartSeriesStyle.Smooth"
+                                     Opacity="0.15">
+                            <ChartSeriesLine Color="#FF4757" Width="2" Style="@ChartSeriesLineStyle.Smooth" />
+                        </ChartSeries>
+                    </ChartSeriesItems>
+                    <ChartCategoryAxes>
+                        <ChartCategoryAxis>
+                            <ChartCategoryAxisLabels Font="12px Poppins, sans-serif" Color="#94A3B8" />
+                            <ChartCategoryAxisMajorGridLines Visible="false" />
+                            <ChartCategoryAxisLine Visible="false" />
+                        </ChartCategoryAxis>
+                    </ChartCategoryAxes>
+                    <ChartValueAxes>
+                        <ChartValueAxis Min="0" Max="220" MajorUnit="55">
+                            <ChartValueAxisLabels Font="12px Poppins, sans-serif" Color="#94A3B8" />
+                            <ChartValueAxisMajorGridLines Color="#F0F0F0" DashType="@DashType.Dot" />
+                            <ChartValueAxisLine Visible="false" />
+                        </ChartValueAxis>
+                    </ChartValueAxes>
+                    <ChartLegend Position="ChartLegendPosition.Bottom">
+                        <ChartLegendLabels Font="13px Poppins, sans-serif" Color="#4A5666" />
+                    </ChartLegend>
+                    <ChartTooltip Visible="true" Shared="true" />
+                </TelerikChart>
             </div>
         </div>
     </div>
@@ -564,28 +597,38 @@
                 <p class="hc-ca-card-subtitle">Distribution of alerts by clinical category</p>
             </div>
             <div class="hc-ca-donut-body">
-                <TelerikChart Height="360px">
+                <TelerikChart Height="370px" Width="100%">
                     <ChartSeriesItems>
                         <ChartSeries Type="ChartSeriesType.Donut"
                                      Data="@AlertsByCategoryData"
                                      Field="Value"
                                      CategoryField="Category"
                                      ColorField="Color"
-                                     HoleSize="80">
+                                     HoleSize="85"
+                                     Size="65"
+                                     StartAngle="90">
                             <ChartSeriesLabels Visible="true"
                                                Position="ChartSeriesLabelsPosition.OutsideEnd"
                                                Template="#=category#"
-                                               Background="transparent" />
-                            <ChartSeriesLegendItem>
-                                <ChartSeriesLegendItemMarkers Type="ChartSeriesMarkersType.Circle" />
-                            </ChartSeriesLegendItem>
+                                               Background="transparent"
+                                               Color="#232A36"
+                                               Font="13px Poppins, sans-serif"
+                                               Distance="20" />
                         </ChartSeries>
                     </ChartSeriesItems>
-                    <ChartLegend Position="ChartLegendPosition.Bottom">
-                        <ChartLegendLabels />
-                    </ChartLegend>
+                    <ChartLegend Visible="false" />
                     <ChartTooltip Visible="true" />
                 </TelerikChart>
+                <div class="hc-ca-donut-legend">
+                    @for (int i = 0; i < AlertsByCategoryData.Count; i++)
+                    {
+                        var item = AlertsByCategoryData[i];
+                        <div class="hc-ca-donut-legend-item">
+                            <span class="hc-ca-donut-legend-dot" style="background: @item.Color;"></span>
+                            <span class="hc-ca-donut-legend-text">@i:@((int)item.Value)</span>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
 
@@ -684,12 +727,16 @@
         new() { Month = "Oct", Critical = 4, Warning = 3, Info = 6 },
     };
 
-    /* ========== LAB RESULTS DATA ========== */
-    private List<LabResult> LabResultsData { get; set; } = new()
+    /* ========== HEALTH METRICS DATA ========== */
+    private List<HealthMetricPoint> HealthMetricsData { get; set; } = new()
     {
-        new() { Name = "WBC",        Value = 7,  RangeLow = 7, RangeMid = 13, RangeMax = 20, BarColor = "#FFE989", TargetLabel = "MIN" },
-        new() { Name = "Hemoglobin", Value = 7,  RangeLow = 7, RangeMid = 13, RangeMax = 20, BarColor = "#FF8A82", TargetLabel = "MIN" },
-        new() { Name = "Platelets",  Value = 15, RangeLow = 7, RangeMid = 13, RangeMax = 20, BarColor = "#79DDA0", TargetLabel = "MAX" },
+        new() { Month = "Oct", Glucose = 95,  Cholesterol = 180, Hemoglobin = 13.5, Creatinine = 1.0, Bilirubin = 0.8 },
+        new() { Month = "Nov", Glucose = 98,  Cholesterol = 185, Hemoglobin = 13.2, Creatinine = 1.1, Bilirubin = 0.9 },
+        new() { Month = "Dec", Glucose = 102, Cholesterol = 192, Hemoglobin = 13.8, Creatinine = 1.0, Bilirubin = 0.7 },
+        new() { Month = "Jan", Glucose = 105, Cholesterol = 198, Hemoglobin = 14.0, Creatinine = 1.2, Bilirubin = 0.8 },
+        new() { Month = "Feb", Glucose = 108, Cholesterol = 202, Hemoglobin = 13.6, Creatinine = 1.1, Bilirubin = 0.9 },
+        new() { Month = "Mar", Glucose = 110, Cholesterol = 208, Hemoglobin = 14.2, Creatinine = 1.0, Bilirubin = 0.7 },
+        new() { Month = "Apr", Glucose = 112, Cholesterol = 212, Hemoglobin = 13.9, Creatinine = 1.1, Bilirubin = 0.8 },
     };
 
     /* ========== ALERTS BY CATEGORY DATA ========== */
@@ -735,15 +782,14 @@
         public double Info { get; set; }
     }
 
-    public class LabResult
+    public class HealthMetricPoint
     {
-        public string Name { get; set; } = "";
-        public double Value { get; set; }
-        public double RangeLow { get; set; }
-        public double RangeMid { get; set; }
-        public double RangeMax { get; set; }
-        public string BarColor { get; set; } = "";
-        public string TargetLabel { get; set; } = "";
+        public string Month { get; set; } = "";
+        public double Glucose { get; set; }
+        public double Cholesterol { get; set; }
+        public double Hemoglobin { get; set; }
+        public double Creatinine { get; set; }
+        public double Bilirubin { get; set; }
     }
 
     public class AlertCategoryData

@@ -1,5 +1,6 @@
 ﻿@page "/"
 @rendermode InteractiveServer
+@inject NavigationManager Nav
 
 <style>
     /* ========== HEADING ========== */
@@ -791,11 +792,13 @@
                 <div class="hc-next-patient">
                     <div class="hc-patient-row">
                         <div class="hc-patient-info">
-                            <div class="hc-patient-avatar">JW</div>
+                            <div class="hc-patient-avatar">
+                                <img src="images/james-wilson.jpg" alt="James Wilson" style="width:100%;height:100%;object-fit:cover;" />
+                            </div>
                             <div class="hc-patient-name-block">
                                 <div class="hc-patient-name-row">
                                     <span class="hc-patient-name">James Wilson</span>
-                                    <button class="hc-view-profile-btn">
+                                    <button class="hc-view-profile-btn" @onclick="GoToPatientProfile">
                                         <TelerikSvgIcon Icon="@SvgIcon.HyperlinkOpen" />
                                         View profile
                                     </button>
@@ -1044,6 +1047,11 @@
     private TelerikChat<AIChatMsg> chatRef = null!;
     private List<AIChatMsg> chatData = new();
     private List<string> chatSuggestions = new() { "Summary for next patient", "Provide lab results" };
+
+    private void GoToPatientProfile()
+    {
+        Nav.NavigateTo("/patient/1");
+    }
 
     // Quick Action modal state
     private bool isNoteModalOpen;

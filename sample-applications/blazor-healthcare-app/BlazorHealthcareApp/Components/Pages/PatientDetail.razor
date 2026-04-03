@@ -3,6 +3,12 @@
 @inject NavigationManager Nav
 
 <style>
+    /* ========== PAGE SCOPED CONTAINER ========== */
+    .hc-pd-page {
+        display: flex; flex-direction: column; gap: 20px;
+    }
+    .hc-pd-page * { pointer-events: auto; }
+
     /* ========== BREADCRUMB ========== */
     .hc-pd-breadcrumb {
         display: flex; align-items: center; gap: 8px;
@@ -20,28 +26,29 @@
 
     /* ========== HEADER ROW (3 cards) ========== */
     .hc-pd-header {
-        display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;
+        display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px;
         width: 100%; position: relative; z-index: 1;
     }
     .hc-pd-header-card {
         background: #FFFFFF;
         box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04), 0px 2px 6px -1px rgba(0, 0, 0, 0.06);
         border-radius: 16px;
-        padding: 24px;
-        display: flex; flex-direction: column; gap: 16px;
+        padding: 20px 24px;
+        display: flex; flex-direction: column; gap: 14px;
     }
 
     /* Basic Info card */
-    .hc-pd-profile-row { display: flex; align-items: center; gap: 14px; }
+    .hc-pd-profile-row { display: flex; align-items: center; gap: 14px; justify-content: space-between; }
+    .hc-pd-profile-left { display: flex; align-items: center; gap: 12px; }
     .hc-pd-avatar {
-        width: 64px; height: 64px; min-width: 64px; border-radius: 9999px;
+        width: 56px; height: 56px; min-width: 56px; border-radius: 9999px;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         display: flex; align-items: center; justify-content: center;
-        color: #FFFFFF; font-weight: 600; font-size: 22px;
+        color: #FFFFFF; font-weight: 600; font-size: 20px;
         overflow: hidden; flex-shrink: 0;
     }
-    .hc-pd-profile-info { display: flex; flex-direction: column; gap: 4px; }
-    .hc-pd-name { font-weight: 600; font-size: 20px; color: #232A36; line-height: 130%; }
+    .hc-pd-profile-info { display: flex; flex-direction: column; gap: 3px; }
+    .hc-pd-name { font-weight: 600; font-size: 18px; color: #232A36; line-height: 130%; }
     .hc-pd-chip {
         display: inline-flex; align-items: center; justify-content: center;
         padding: 3px 10px; border-radius: 9999px;
@@ -59,27 +66,19 @@
     .hc-pd-basic-value { font-size: 14px; color: #232A36; font-weight: 500; }
 
     /* Vitals header card */
-    .hc-pd-vitals-title { font-weight: 700; font-size: 16px; color: #232A36; margin: 0; }
-    .hc-pd-vitals-grid { display: flex; flex-direction: column; gap: 8px; }
+    .hc-pd-vitals-title { font-weight: 700; font-size: 14px; color: #232A36; margin: 0; }
+    .hc-pd-vitals-grid { display: flex; flex-direction: column; gap: 6px; }
     .hc-pd-vitals-row { display: flex; justify-content: space-between; align-items: center; }
-    .hc-pd-vitals-label { font-size: 14px; color: #4A5666; }
-    .hc-pd-vitals-value { font-size: 14px; font-weight: 500; color: #232A36; }
-    .hc-pd-vitals-value-critical { color: #7A0C00; }
+    .hc-pd-vitals-label { font-size: 13px; color: #4A5666; }
+    .hc-pd-vitals-value { font-size: 13px; font-weight: 500; color: #232A36; }
+    .hc-pd-vitals-value-critical { color: #E53E3E; }
 
     /* Admission card */
-    .hc-pd-admission-title { font-weight: 700; font-size: 16px; color: #232A36; margin: 0; }
-    .hc-pd-admission-grid { display: flex; flex-direction: column; gap: 8px; }
+    .hc-pd-admission-title { font-weight: 700; font-size: 14px; color: #232A36; margin: 0; }
+    .hc-pd-admission-grid { display: flex; flex-direction: column; gap: 6px; }
     .hc-pd-admission-row { display: flex; justify-content: space-between; align-items: center; }
-    .hc-pd-admission-label { font-size: 14px; color: #4A5666; }
-    .hc-pd-admission-value { font-size: 14px; color: #232A36; font-weight: 500; }
-
-    /* ========== MAIN 2-COL ========== */
-    .hc-pd-main {
-        display: flex; gap: 24px; width: 100%; flex: 1;
-        position: relative; z-index: 1; min-height: 0;
-    }
-    .hc-pd-left { display: flex; flex-direction: column; gap: 24px; flex: 1 1 65%; min-width: 0; }
-    .hc-pd-right { display: flex; flex-direction: column; gap: 20px; width: 35%; min-width: min(320px, 100%); }
+    .hc-pd-admission-label { font-size: 13px; color: #4A5666; }
+    .hc-pd-admission-value { font-size: 13px; color: #232A36; font-weight: 500; }
 
     /* ========== CARDS ========== */
     .hc-pd-card {
@@ -88,6 +87,7 @@
         border-radius: 16px;
         padding: 24px;
         position: relative; z-index: 1;
+        width: 100%;
     }
     .hc-pd-card-header {
         display: flex; justify-content: space-between; align-items: center;
@@ -107,56 +107,87 @@
     .hc-pd-save-btn svg { width: 14px; height: 14px; }
 
     /* ========== EDITOR OVERRIDES ========== */
-    .hc-pd-editor-wrapper .k-editor {
+    .hc-pd-page .hc-pd-editor-wrapper .k-editor {
         border: 1px solid rgba(23, 56, 99, 0.08);
-        border-radius: 12px;
+        border-radius: 16px;
         font-family: 'Poppins', sans-serif;
         overflow: hidden;
     }
-    .hc-pd-editor-wrapper .k-editor .k-editor-toolbar {
+    .hc-pd-page .hc-pd-editor-wrapper .k-editor .k-editor-toolbar {
         background: #F9FAFB;
         border-bottom: 1px solid rgba(23, 56, 99, 0.08);
-        padding: 6px 8px;
+        padding: 8px 12px;
     }
-    .hc-pd-editor-wrapper .k-editor .k-editable-area {
+    .hc-pd-page .hc-pd-editor-wrapper .k-editor .k-editable-area {
         font-family: 'Poppins', sans-serif;
         font-size: 14px; color: #232A36;
         line-height: 170%;
     }
 
+
+
     /* ========== LAB RESULTS GRID ========== */
-    .hc-pd-lab-grid .k-grid {
+    .hc-pd-page .hc-pd-lab-grid .k-grid {
         border: 1px solid rgba(23, 56, 99, 0.08);
-        border-radius: 12px;
+        border-radius: 16px;
         font-family: 'Poppins', sans-serif;
         overflow: hidden;
     }
-    .hc-pd-lab-grid .k-grid-header .k-header,
-    .hc-pd-lab-grid .k-grid-header .k-table-th {
+    .hc-pd-page .hc-pd-lab-grid .k-grid-header .k-header,
+    .hc-pd-page .hc-pd-lab-grid .k-grid-header .k-table-th {
         background: #F9FAFB !important;
         border-bottom: 1px solid rgba(23, 56, 99, 0.08);
         border-right: none;
         font-weight: 700; font-size: 13px; color: #232A36;
         padding: 12px 16px;
     }
-    .hc-pd-lab-grid .k-grid-header {
+    .hc-pd-page .hc-pd-lab-grid .k-grid-header {
         border-bottom: 1px solid rgba(23, 56, 99, 0.08);
     }
-    .hc-pd-lab-grid .k-grid td,
-    .hc-pd-lab-grid .k-grid .k-table-td {
+    .hc-pd-page .hc-pd-lab-grid .k-grid td,
+    .hc-pd-page .hc-pd-lab-grid .k-grid .k-table-td {
         padding: 10px 16px !important;
         font-size: 14px; color: #232A36;
         border-bottom: 1px solid rgba(23, 56, 99, 0.04);
         border-right: none;
         vertical-align: middle;
     }
-    .hc-pd-lab-grid .k-master-row { height: 44px; }
-    .hc-pd-lab-grid .k-master-row:hover td,
-    .hc-pd-lab-grid .k-master-row:hover .k-table-td {
+    .hc-pd-page .hc-pd-lab-grid .k-master-row { height: 44px; }
+    .hc-pd-page .hc-pd-lab-grid .k-master-row:hover td,
+    .hc-pd-page .hc-pd-lab-grid .k-master-row:hover .k-table-td {
         background: rgba(99, 102, 251, 0.04) !important;
     }
-    .hc-pd-lab-grid .k-grid .k-pager { display: none !important; }
-    .hc-pd-lab-grid .k-grid-header { padding-right: 0 !important; }
+    .hc-pd-page .hc-pd-lab-grid .k-grid .k-pager { display: none !important; }
+    .hc-pd-page .hc-pd-lab-grid .k-grid-header { padding-right: 0 !important; }
+
+    /* Always show sort arrow indicator in every column header */
+    .hc-pd-page .hc-pd-lab-grid .k-header .k-sort-icon,
+    .hc-pd-page .hc-pd-lab-grid .k-table-th .k-sort-icon {
+        display: inline-flex !important;
+        opacity: 0.35;
+    }
+    .hc-pd-page .hc-pd-lab-grid .k-header .k-sort-icon .k-icon,
+    .hc-pd-page .hc-pd-lab-grid .k-table-th .k-sort-icon .k-icon {
+        display: inline-flex !important;
+    }
+    .hc-pd-page .hc-pd-lab-grid .k-sorted .k-sort-icon {
+        opacity: 1;
+    }
+    /* Remove vertical scrollbar */
+    .hc-pd-page .hc-pd-lab-grid .k-grid-content {
+        overflow: hidden !important;
+    }
+    .hc-pd-page .hc-pd-lab-grid .k-grid-header-wrap {
+        border-right: none !important;
+    }
+    /* Custom sort arrow in header */
+    .hc-pd-sort-arrow {
+        display: inline-flex; align-items: center; margin-left: 2px; opacity: 0.45;
+    }
+    .hc-pd-sort-arrow svg { width: 10px; height: 10px; }
+    /* Equal-width columns */
+    .hc-pd-page .hc-pd-lab-grid .k-grid .k-table { table-layout: fixed; width: 100%; }
+    .hc-pd-page .hc-pd-lab-grid .k-grid-header .k-table { table-layout: fixed; width: 100%; }
 
     .hc-pd-lab-chip {
         display: inline-flex; align-items: center; justify-content: center;
@@ -167,83 +198,9 @@
     .hc-pd-lab-monitoring { background: #FFF4D3; border-color: #FFD760; color: #5E4700; }
     .hc-pd-lab-stable { background: #DCF0D3; border-color: #81D15F; color: #1C5A00; }
 
-    /* ========== RIGHT SIDEBAR CARDS ========== */
-
-    /* Vital mini cards */
-    .hc-pd-vital-mini {
-        background: #FFFFFF;
-        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04), 0px 2px 6px -1px rgba(0, 0, 0, 0.06);
-        border-radius: 16px;
-        padding: 16px 20px;
-        display: flex; align-items: center; justify-content: space-between;
-        gap: 12px;
-        transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
-        border: 1px solid rgba(23, 56, 99, 0.06);
-    }
-    .hc-pd-vital-mini:hover {
-        border-color: rgba(99, 102, 251, 0.15);
-        box-shadow: 0px 8px 20px rgba(0, 100, 200, 0.1);
-    }
-    .hc-pd-vital-mini-info { display: flex; flex-direction: column; gap: 2px; }
-    .hc-pd-vital-mini-label { font-size: 12px; color: #4A5666; font-weight: 500; }
-    .hc-pd-vital-mini-value { font-size: 22px; font-weight: 700; color: #232A36; }
-    .hc-pd-vital-mini-unit { font-size: 12px; color: #4A5666; font-weight: 400; }
-    .hc-pd-vital-mini-chart { width: 100px; height: 40px; flex-shrink: 0; }
-    .hc-pd-vital-mini-chart .k-chart { border: none; background: transparent; }
-
-    /* Allergy card */
-    .hc-pd-allergy-card {
-        background: #FFF5F5;
-        border: 1px solid #FCA5A5;
-        border-radius: 16px;
-        padding: 20px;
-    }
-    .hc-pd-allergy-title {
-        font-weight: 700; font-size: 14px; color: #991B1B;
-        display: flex; align-items: center; gap: 8px; margin: 0 0 12px 0;
-    }
-    .hc-pd-allergy-title svg { width: 16px; height: 16px; }
-    .hc-pd-allergy-list { display: flex; flex-wrap: wrap; gap: 8px; }
-    .hc-pd-allergy-tag {
-        display: inline-flex; align-items: center; padding: 4px 12px;
-        border-radius: 9999px; font-size: 13px; font-weight: 500;
-        background: #FEE2E2; border: 1px solid #FCA5A5; color: #991B1B;
-    }
-    .hc-pd-no-allergy { font-size: 13px; color: #4A5666; }
-
-    /* Med list card */
-    .hc-pd-list-card {
-        background: #FFFFFF;
-        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04), 0px 2px 6px -1px rgba(0, 0, 0, 0.06);
-        border-radius: 16px;
-        padding: 20px;
-    }
-    .hc-pd-list-title { font-weight: 700; font-size: 16px; color: #232A36; margin: 0 0 12px 0; }
-
-    .hc-pd-med-item {
-        display: flex; justify-content: space-between; align-items: center;
-        padding: 10px 0; border-bottom: 1px solid rgba(23, 56, 99, 0.06);
-    }
-    .hc-pd-med-item:last-child { border-bottom: none; }
-    .hc-pd-med-name { font-size: 14px; color: #232A36; font-weight: 500; }
-    .hc-pd-med-dose { font-size: 13px; color: #4A5666; }
-
-    .hc-pd-visit-item {
-        display: flex; gap: 12px; padding: 10px 0;
-        border-bottom: 1px solid rgba(23, 56, 99, 0.06);
-    }
-    .hc-pd-visit-item:last-child { border-bottom: none; }
-    .hc-pd-visit-date { font-size: 12px; color: #4A5666; white-space: nowrap; min-width: 70px; font-weight: 500; padding-top: 2px; }
-    .hc-pd-visit-info { display: flex; flex-direction: column; gap: 2px; }
-    .hc-pd-visit-reason { font-size: 14px; color: #232A36; }
-    .hc-pd-visit-doctor { font-size: 12px; color: #4A5666; }
-
     /* ========== RESPONSIVE ========== */
     @@media (max-width: 1200px) {
         .hc-pd-header { grid-template-columns: 1fr; }
-        .hc-pd-main { flex-direction: column; }
-        .hc-pd-left { flex: 1 1 auto; }
-        .hc-pd-right { width: 100%; min-width: 0; }
     }
 
     @@media (max-width: 640px) {
@@ -254,6 +211,7 @@
     }
 </style>
 
+<div class="hc-pd-page">
 @if (patient != null)
 {
     <!-- ========== BREADCRUMB ========== -->
@@ -274,19 +232,19 @@
         <!-- Basic Information -->
         <div class="hc-pd-header-card">
             <div class="hc-pd-profile-row">
-                <div class="hc-pd-avatar">@patient.Initials</div>
-                <div class="hc-pd-profile-info">
+                <div class="hc-pd-profile-left">
+                    <div class="hc-pd-avatar">@patient.Initials</div>
                     <span class="hc-pd-name">@patient.Name</span>
-                    @{
-                        var chipClass = patient.Status switch
-                        {
-                            "Critical" => "hc-pd-chip-critical",
-                            "Monitoring" => "hc-pd-chip-monitoring",
-                            _ => "hc-pd-chip-stable"
-                        };
-                    }
-                    <span class="hc-pd-chip @chipClass">@patient.Status</span>
                 </div>
+                @{
+                    var chipClass = patient.Status switch
+                    {
+                        "Critical" => "hc-pd-chip-critical",
+                        "Monitoring" => "hc-pd-chip-monitoring",
+                        _ => "hc-pd-chip-stable"
+                    };
+                }
+                <span class="hc-pd-chip @chipClass">@patient.Status</span>
             </div>
             <div>
                 <div class="hc-pd-basic-title">Basic Information</div>
@@ -358,225 +316,74 @@
         </div>
     </div>
 
-    <!-- ========== MAIN 2-COL ========== -->
-    <div class="hc-pd-main">
-        <!-- LEFT COLUMN -->
-        <div class="hc-pd-left">
-            <!-- Patient Note -->
-            <div class="hc-pd-card">
-                <div class="hc-pd-card-header">
-                    <h3 class="hc-pd-card-title">Patient Note</h3>
-                    <button class="hc-pd-save-btn">
-                        <svg viewBox="0 0 16 16" fill="none"><path d="M12.67 2H3.33C2.6 2 2 2.6 2 3.33V12.67C2 13.4 2.6 14 3.33 14H12.67C13.4 14 14 13.4 14 12.67V3.33C14 2.6 13.4 2 12.67 2Z" stroke="#232A36" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M11.33 14V9.33H4.67V14" stroke="#232A36" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4.67 2V5.33H10" stroke="#232A36" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        Save
-                    </button>
-                </div>
-                <div class="hc-pd-editor-wrapper">
-                    <TelerikEditor @bind-Value="@editorValue" Height="300px" Tools="@EditorTools" />
-                </div>
-            </div>
-
-            <!-- Lab Results -->
-            <div class="hc-pd-card">
-                <div class="hc-pd-card-header">
-                    <h3 class="hc-pd-card-title">Recent Lab Results</h3>
-                </div>
-                <div class="hc-pd-lab-grid">
-                    <TelerikGrid Data="@labResults"
-                                 TItem="LabResultRow"
-                                 Sortable="true"
-                                 Pageable="false"
-                                 Height="auto">
-                        <GridColumns>
-                            <GridColumn Field="@nameof(LabResultRow.Test)" Title="Test" />
-                            <GridColumn Field="@nameof(LabResultRow.Result)" Title="Result" Width="120px" />
-                            <GridColumn Field="@nameof(LabResultRow.Reference)" Title="Reference" Width="120px" />
-                            <GridColumn Field="@nameof(LabResultRow.Status)" Title="Status" Width="130px">
-                                <Template>
-                                    @{
-                                        var lab = (LabResultRow)context;
-                                        var labChip = lab.Status switch
-                                        {
-                                            "Critical" => "hc-pd-lab-critical",
-                                            "Monitoring" => "hc-pd-lab-monitoring",
-                                            _ => "hc-pd-lab-stable"
-                                        };
-                                    }
-                                    <span class="hc-pd-lab-chip @labChip">@lab.Status</span>
-                                </Template>
-                            </GridColumn>
-                            <GridColumn Field="@nameof(LabResultRow.Note)" Title="Note" />
-                        </GridColumns>
-                    </TelerikGrid>
-                </div>
-            </div>
+    <!-- ========== PATIENT NOTE (full width) ========== -->
+    <div class="hc-pd-card">
+        <div class="hc-pd-card-header">
+            <h3 class="hc-pd-card-title">Patient Note</h3>
+            <button class="hc-pd-save-btn">
+                <svg viewBox="0 0 16 16" fill="none"><path d="M12.67 2H3.33C2.6 2 2 2.6 2 3.33V12.67C2 13.4 2.6 14 3.33 14H12.67C13.4 14 14 13.4 14 12.67V3.33C14 2.6 13.4 2 12.67 2Z" stroke="#232A36" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M11.33 14V9.33H4.67V14" stroke="#232A36" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4.67 2V5.33H10" stroke="#232A36" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Save
+            </button>
         </div>
+        <div class="hc-pd-editor-wrapper">
+            <TelerikEditor @bind-Value="@editorValue" Height="260px" Tools="@EditorTools" />
+        </div>
+    </div>
 
-        <!-- RIGHT COLUMN -->
-        <div class="hc-pd-right">
-            <!-- Vitals Mini Cards -->
-            <div class="hc-pd-vital-mini">
-                <div class="hc-pd-vital-mini-info">
-                    <span class="hc-pd-vital-mini-label">Heart Rate</span>
-                    <span class="hc-pd-vital-mini-value">@patient.HeartRate <span class="hc-pd-vital-mini-unit">bpm</span></span>
-                </div>
-                <div class="hc-pd-vital-mini-chart">
-                    <TelerikChart Height="40px" Width="100px">
-                        <ChartSeriesItems>
-                            <ChartSeries Type="ChartSeriesType.Line" Data="@heartRateData" Field="Value" Style="ChartSeriesStyle.Smooth" Color="#6366FB">
-                                <ChartSeriesMarkers Visible="false" />
-                            </ChartSeries>
-                        </ChartSeriesItems>
-                        <ChartValueAxes>
-                            <ChartValueAxis Visible="false">
-                                <ChartValueAxisMajorGridLines Visible="false" />
-                                <ChartValueAxisMinorGridLines Visible="false" />
-                            </ChartValueAxis>
-                        </ChartValueAxes>
-                        <ChartCategoryAxes>
-                            <ChartCategoryAxis Visible="false">
-                                <ChartCategoryAxisMajorGridLines Visible="false" />
-                            </ChartCategoryAxis>
-                        </ChartCategoryAxes>
-                        <ChartLegend Visible="false" />
-                    </TelerikChart>
-                </div>
-            </div>
-
-            <div class="hc-pd-vital-mini">
-                <div class="hc-pd-vital-mini-info">
-                    <span class="hc-pd-vital-mini-label">Temperature</span>
-                    <span class="hc-pd-vital-mini-value">@patient.Temperature<span class="hc-pd-vital-mini-unit">°F</span></span>
-                </div>
-                <div class="hc-pd-vital-mini-chart">
-                    <TelerikChart Height="40px" Width="100px">
-                        <ChartSeriesItems>
-                            <ChartSeries Type="ChartSeriesType.Line" Data="@temperatureData" Field="Value" Style="ChartSeriesStyle.Smooth" Color="#F59E0B">
-                                <ChartSeriesMarkers Visible="false" />
-                            </ChartSeries>
-                        </ChartSeriesItems>
-                        <ChartValueAxes>
-                            <ChartValueAxis Visible="false">
-                                <ChartValueAxisMajorGridLines Visible="false" />
-                                <ChartValueAxisMinorGridLines Visible="false" />
-                            </ChartValueAxis>
-                        </ChartValueAxes>
-                        <ChartCategoryAxes>
-                            <ChartCategoryAxis Visible="false">
-                                <ChartCategoryAxisMajorGridLines Visible="false" />
-                            </ChartCategoryAxis>
-                        </ChartCategoryAxes>
-                        <ChartLegend Visible="false" />
-                    </TelerikChart>
-                </div>
-            </div>
-
-            <div class="hc-pd-vital-mini">
-                <div class="hc-pd-vital-mini-info">
-                    <span class="hc-pd-vital-mini-label">Blood Pressure</span>
-                    <span class="hc-pd-vital-mini-value">@patient.BpSystolic/@patient.BpDiastolic <span class="hc-pd-vital-mini-unit">mmHg</span></span>
-                </div>
-                <div class="hc-pd-vital-mini-chart">
-                    <TelerikChart Height="40px" Width="100px">
-                        <ChartSeriesItems>
-                            <ChartSeries Type="ChartSeriesType.Line" Data="@bpData" Field="Value" Style="ChartSeriesStyle.Smooth" Color="#10B981">
-                                <ChartSeriesMarkers Visible="false" />
-                            </ChartSeries>
-                        </ChartSeriesItems>
-                        <ChartValueAxes>
-                            <ChartValueAxis Visible="false">
-                                <ChartValueAxisMajorGridLines Visible="false" />
-                                <ChartValueAxisMinorGridLines Visible="false" />
-                            </ChartValueAxis>
-                        </ChartValueAxes>
-                        <ChartCategoryAxes>
-                            <ChartCategoryAxis Visible="false">
-                                <ChartCategoryAxisMajorGridLines Visible="false" />
-                            </ChartCategoryAxis>
-                        </ChartCategoryAxes>
-                        <ChartLegend Visible="false" />
-                    </TelerikChart>
-                </div>
-            </div>
-
-            <div class="hc-pd-vital-mini">
-                <div class="hc-pd-vital-mini-info">
-                    <span class="hc-pd-vital-mini-label">SpO₂</span>
-                    <span class="hc-pd-vital-mini-value">@patient.O2Saturation<span class="hc-pd-vital-mini-unit">%</span></span>
-                </div>
-                <div class="hc-pd-vital-mini-chart">
-                    <TelerikChart Height="40px" Width="100px">
-                        <ChartSeriesItems>
-                            <ChartSeries Type="ChartSeriesType.Line" Data="@spo2Data" Field="Value" Style="ChartSeriesStyle.Smooth" Color="#EF4444">
-                                <ChartSeriesMarkers Visible="false" />
-                            </ChartSeries>
-                        </ChartSeriesItems>
-                        <ChartValueAxes>
-                            <ChartValueAxis Visible="false">
-                                <ChartValueAxisMajorGridLines Visible="false" />
-                                <ChartValueAxisMinorGridLines Visible="false" />
-                            </ChartValueAxis>
-                        </ChartValueAxes>
-                        <ChartCategoryAxes>
-                            <ChartCategoryAxis Visible="false">
-                                <ChartCategoryAxisMajorGridLines Visible="false" />
-                            </ChartCategoryAxis>
-                        </ChartCategoryAxes>
-                        <ChartLegend Visible="false" />
-                    </TelerikChart>
-                </div>
-            </div>
-
-            <!-- Allergy Card -->
-            <div class="hc-pd-allergy-card">
-                <div class="hc-pd-allergy-title">
-                    <svg viewBox="0 0 16 16" fill="none"><path d="M8 1L1 14H15L8 1Z" stroke="#991B1B" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 6V9" stroke="#991B1B" stroke-width="1.2" stroke-linecap="round"/><circle cx="8" cy="11.5" r="0.5" fill="#991B1B"/></svg>
-                    Allergies
-                </div>
-                @if (patient.Allergies.Any())
-                {
-                    <div class="hc-pd-allergy-list">
-                        @foreach (var allergy in patient.Allergies)
-                        {
-                            <span class="hc-pd-allergy-tag">@allergy</span>
-                        }
-                    </div>
-                }
-                else
-                {
-                    <span class="hc-pd-no-allergy">No known allergies</span>
-                }
-            </div>
-
-            <!-- Active Medications -->
-            <div class="hc-pd-list-card">
-                <div class="hc-pd-list-title">Active Medications</div>
-                @foreach (var med in patient.Medications)
-                {
-                    <div class="hc-pd-med-item">
-                        <span class="hc-pd-med-name">@med.Name</span>
-                        <span class="hc-pd-med-dose">@med.Dosage</span>
-                    </div>
-                }
-            </div>
-
-            <!-- Last Visits -->
-            <div class="hc-pd-list-card">
-                <div class="hc-pd-list-title">Last Visits</div>
-                @foreach (var visit in patient.RecentVisits)
-                {
-                    <div class="hc-pd-visit-item">
-                        <span class="hc-pd-visit-date">@visit.Date</span>
-                        <div class="hc-pd-visit-info">
-                            <span class="hc-pd-visit-reason">@visit.Reason</span>
-                            <span class="hc-pd-visit-doctor">@visit.Doctor</span>
-                        </div>
-                    </div>
-                }
-            </div>
+    <!-- ========== LAB RESULTS (full width) ========== -->
+    <div class="hc-pd-card">
+        <div class="hc-pd-card-header">
+            <h3 class="hc-pd-card-title">Recent Lab Results</h3>
+        </div>
+        <div class="hc-pd-lab-grid">
+            <TelerikGrid Data="@labResults"
+                         TItem="LabResultRow"
+                         Sortable="true"
+                         Pageable="false">
+                <GridColumns>
+                    <GridColumn Field="@nameof(LabResultRow.Test)" Title="Test">
+                        <HeaderTemplate>
+                            Test <span class="hc-pd-sort-arrow"><svg viewBox="0 0 10 10" fill="none"><path d="M5 2V8M5 2L2.5 4.5M5 2L7.5 4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        </HeaderTemplate>
+                    </GridColumn>
+                    <GridColumn Field="@nameof(LabResultRow.Result)" Title="Result">
+                        <HeaderTemplate>
+                            Result <span class="hc-pd-sort-arrow"><svg viewBox="0 0 10 10" fill="none"><path d="M5 2V8M5 2L2.5 4.5M5 2L7.5 4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        </HeaderTemplate>
+                    </GridColumn>
+                    <GridColumn Field="@nameof(LabResultRow.Reference)" Title="Reference">
+                        <HeaderTemplate>
+                            Reference <span class="hc-pd-sort-arrow"><svg viewBox="0 0 10 10" fill="none"><path d="M5 2V8M5 2L2.5 4.5M5 2L7.5 4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        </HeaderTemplate>
+                    </GridColumn>
+                    <GridColumn Field="@nameof(LabResultRow.Status)" Title="Status">
+                        <HeaderTemplate>
+                            Status <span class="hc-pd-sort-arrow"><svg viewBox="0 0 10 10" fill="none"><path d="M5 2V8M5 2L2.5 4.5M5 2L7.5 4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        </HeaderTemplate>
+                        <Template>
+                            @{
+                                var lab = (LabResultRow)context;
+                                var labChip = lab.Status switch
+                                {
+                                    "Critical" => "hc-pd-lab-critical",
+                                    "Monitoring" => "hc-pd-lab-monitoring",
+                                    _ => "hc-pd-lab-stable"
+                                };
+                            }
+                            <span class="hc-pd-lab-chip @labChip">@lab.Status</span>
+                        </Template>
+                    </GridColumn>
+                    <GridColumn Field="@nameof(LabResultRow.Note)" Title="Note">
+                        <HeaderTemplate>
+                            Note <span class="hc-pd-sort-arrow"><svg viewBox="0 0 10 10" fill="none"><path d="M5 2V8M5 2L2.5 4.5M5 2L7.5 4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        </HeaderTemplate>
+                    </GridColumn>
+                </GridColumns>
+            </TelerikGrid>
         </div>
     </div>
 }
+</div>
 
 @code {
     [Parameter] public int PatientId { get; set; }
@@ -585,12 +392,24 @@
     private string editorValue = "";
     private List<LabResultRow> labResults = new();
 
-    private List<IEditorTool> EditorTools = Telerik.Blazor.Components.Editor.EditorToolSets.All;
-
-    private List<VitalPoint> heartRateData = new();
-    private List<VitalPoint> temperatureData = new();
-    private List<VitalPoint> bpData = new();
-    private List<VitalPoint> spo2Data = new();
+    private List<IEditorTool> EditorTools = new List<IEditorTool>()
+    {
+        new Telerik.Blazor.Components.Editor.EditorButtonGroup(
+            new Telerik.Blazor.Components.Editor.Bold(),
+            new Telerik.Blazor.Components.Editor.Italic(),
+            new Telerik.Blazor.Components.Editor.Underline(),
+            new Telerik.Blazor.Components.Editor.Strikethrough()
+        ),
+        new Telerik.Blazor.Components.Editor.FontFamily(),
+        new Telerik.Blazor.Components.Editor.FontSize(),
+        new Telerik.Blazor.Components.Editor.EditorButtonGroup(
+            new Telerik.Blazor.Components.Editor.AlignLeft(),
+            new Telerik.Blazor.Components.Editor.AlignCenter(),
+            new Telerik.Blazor.Components.Editor.AlignRight(),
+            new Telerik.Blazor.Components.Editor.AlignJustify()
+        ),
+        new Telerik.Blazor.Components.Editor.Format(),
+    };
 
     protected override void OnInitialized()
     {
@@ -627,21 +446,9 @@
             new() { Test = "LDL Cholesterol", Result = "162 mg/dL", Reference = "4.5-6.0", Status = "Monitoring", Note = "Pre-diabetic range" },
             new() { Test = "C-Reactive Protein (CRP)", Result = "18 mg/L", Reference = "<5.0", Status = "Critical", Note = "Significant inflammatory elevation" },
         };
-
-        // Sparkline data
-        var rng = new Random(PatientId);
-        heartRateData = Enumerable.Range(0, 7).Select(i => new VitalPoint { Value = patient.HeartRate + rng.Next(-8, 9) }).ToList();
-        temperatureData = Enumerable.Range(0, 7).Select(i => new VitalPoint { Value = (double)patient.Temperature + (rng.NextDouble() * 1.2 - 0.6) }).ToList();
-        bpData = Enumerable.Range(0, 7).Select(i => new VitalPoint { Value = patient.BpSystolic + rng.Next(-10, 11) }).ToList();
-        spo2Data = Enumerable.Range(0, 7).Select(i => new VitalPoint { Value = patient.O2Saturation + rng.Next(-3, 4) }).ToList();
     }
 
     // ========== MODELS ==========
-
-    public class VitalPoint
-    {
-        public double Value { get; set; }
-    }
 
     public class LabResultRow
     {

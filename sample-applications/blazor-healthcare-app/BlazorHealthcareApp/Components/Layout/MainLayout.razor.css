@@ -18,10 +18,10 @@
 .hc-dashboard::before {
     content: '';
     position: absolute;
-    width: 3234px;
-    height: 1015px;
-    left: -1032px;
-    top: -426px;
+    width: 3000px;
+    height: 1200px;
+    left: -400px;
+    top: -100px;
     background: conic-gradient(from 269.87deg at 47.29% 49.93%, #F2E0EA 0deg, #EAE2F0 166.15deg, #E4E3F4 226.73deg, #D8DAF2 308.08deg, #DEE4F6 351.35deg, #F2E0EA 360deg);
     filter: blur(80px);
     transform: rotate(-15.79deg);
@@ -67,7 +67,7 @@
 
 /* Logo */
 .hc-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
-.hc-logo-icon { width: 32px; height: 32px; }
+.hc-logo-icon { height: 32px; width: auto; }
 .hc-logo-text { font-weight: 600; font-size: 18px; color: #232A36; }
 
 /* Segmented control */
@@ -114,18 +114,6 @@
     border-radius: 9999px;
     gap: 4px;
 }
-.hc-search-icon { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; color: #4A5666; }
-.hc-search input {
-    border: none;
-    outline: none;
-    background: transparent;
-    font-family: 'Poppins', sans-serif;
-    font-size: 16px;
-    color: #232A36;
-    width: 100%;
-    padding: 4px 8px;
-}
-.hc-search input::placeholder { color: #4A5666; }
 
 /* Icon buttons */
 .hc-icon-btn {
@@ -246,176 +234,7 @@
     overflow: hidden;
 }
 
-/* Profile modal (TelerikWindow) */
-.hc-profile-modal.k-window {
-    border-radius: 20px !important;
-    overflow: hidden;
-    font-family: 'Poppins', sans-serif;
-    box-shadow: 0px 12px 40px rgba(0, 0, 0, 0.12), 0px 4px 12px rgba(0, 0, 0, 0.06);
-}
-.hc-profile-modal .k-window-titlebar {
-    padding: 24px 28px 16px;
-    background: #FFFFFF;
-    border-bottom: none;
-}
-.hc-profile-modal .k-window-titlebar .k-window-title {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
-    font-size: 20px;
-    color: #232A36;
-}
-.hc-profile-modal .k-window-titlebar .k-window-action {
-    color: #4A5666;
-    border-radius: 8px;
-}
-.hc-profile-modal .k-window-titlebar .k-window-action:hover {
-    background: rgba(35, 42, 54, 0.06);
-    color: #232A36;
-}
-.hc-profile-modal .k-window-content {
-    padding: 0;
-    background: #FFFFFF;
-}
-
-.hc-pm-body {
-    display: flex;
-    flex-direction: column;
-    padding: 24px 28px;
-    gap: 0;
-    font-family: 'Poppins', sans-serif;
-}
-
-.hc-pm-section-label {
-    font-weight: 500;
-    font-size: 14px;
-    color: #4A5666;
-    margin-bottom: 12px;
-}
-
-.hc-pm-photo-area {
-    width: 100%;
-    height: 220px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #E2E8F0 0%, #CBD5E1 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 16px;
-    overflow: hidden;
-}
-
-.hc-pm-photo {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 48px;
-    font-weight: 600;
-    color: #94A3B8;
-}
-
-.hc-pm-upload-btn {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 12px 20px;
-    background: #334155;
-    border: none;
-    border-radius: 10px;
-    color: #FFFFFF;
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s ease;
-    margin-bottom: 24px;
-}
-.hc-pm-upload-btn:hover { background: #1e293b; }
-.hc-pm-upload-btn .k-svg-icon,
-.hc-pm-upload-btn svg { width: 16px; height: 16px; }
-
-.hc-pm-section-title {
-    font-weight: 600;
-    font-size: 16px;
-    color: #232A36;
-    margin-bottom: 16px;
-}
-
-.hc-pm-policy {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding: 14px 16px;
-    background: #ECFDF5;
-    border-left: 3px solid #34D399;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    font-size: 13px;
-    color: #065F46;
-    line-height: 160%;
-}
-.hc-pm-policy strong {
-    font-weight: 600;
-    font-size: 14px;
-    color: #065F46;
-}
-
-.hc-pm-field {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-bottom: 16px;
-}
-.hc-pm-label {
-    font-weight: 500;
-    font-size: 14px;
-    color: #232A36;
-}
-.hc-pm-field .k-textbox {
-    border-radius: 10px;
-    border: 1px solid rgba(23, 56, 99, 0.12);
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
-}
-.hc-pm-field .k-textbox:focus-within {
-    border-color: rgba(99, 102, 251, 0.4);
-    box-shadow: 0 0 0 2px rgba(99, 102, 251, 0.1);
-}
-
-.hc-pm-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-    margin-top: 8px;
-    padding-top: 16px;
-}
-.hc-pm-btn {
-    padding: 10px 24px;
-    border-radius: 10px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    border: none;
-    transition: background 0.2s ease, box-shadow 0.2s ease;
-}
-.hc-pm-btn-clear {
-    background: #F1F5F9;
-    color: #4A5666;
-}
-.hc-pm-btn-clear:hover {
-    background: #E2E8F0;
-}
-.hc-pm-btn-submit {
-    background: #334155;
-    color: #FFFFFF;
-}
-.hc-pm-btn-submit:hover {
-    background: #1e293b;
-}
+/* Profile modal styles moved to app.css (TelerikWindow portals outside scoped CSS) */
 
 /* ========== RESPONSIVE ========== */
 

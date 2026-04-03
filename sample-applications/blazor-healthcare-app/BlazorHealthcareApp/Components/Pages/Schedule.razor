@@ -18,11 +18,10 @@
         display: flex;
         gap: 32px;
         width: 100%;
-        flex: 1;
         position: relative;
         z-index: 1;
     }
-    .hc-left { display: flex; flex-direction: column; gap: 32px; flex: 1 1 70%; min-width: 0; }
+    .hc-left { display: flex; flex-direction: column; flex: 1 1 70%; min-width: 0; }
     .hc-right { display: flex; flex-direction: column; width: 30%; min-width: min(320px, 100%); }
 
     /* ========== CARDS ========== */
@@ -33,6 +32,8 @@
         padding: 24px;
         position: relative;
         z-index: 1;
+        display: flex;
+        flex-direction: column;
     }
 
     .hc-card-title {
@@ -42,28 +43,158 @@
 
     /* ========== SCHEDULER OVERRIDES ========== */
     .hc-scheduler-wrapper .k-scheduler {
-        border-radius: 12px;
-        border: 1px solid rgba(23, 56, 99, 0.08);
+        border-radius: 16px;
+        border: 1px solid rgba(23, 56, 99, 0.06);
         font-family: 'Poppins', sans-serif;
+        box-shadow: none;
     }
     .hc-scheduler-wrapper .k-scheduler .k-scheduler-toolbar {
-        background: #F9FAFB;
-        border-bottom: 1px solid rgba(23, 56, 99, 0.08);
+        background: #FFFFFF;
+        border-bottom: 1px solid rgba(23, 56, 99, 0.06);
+        padding: 10px 16px;
     }
-    .hc-scheduler-wrapper .k-scheduler .k-event {
-        background: #EBECFF;
-        border-left: 4px solid #6366FB;
-        color: #383BA8;
-        border-radius: 6px;
+    /* Soften grid lines */
+    .hc-scheduler-wrapper .k-scheduler .k-scheduler-cell,
+    .hc-scheduler-wrapper .k-scheduler td,
+    .hc-scheduler-wrapper .k-scheduler th {
+        border-color: #F0F0F0;
+    }
+    .hc-scheduler-wrapper .k-scheduler .k-scheduler-head {
+        border-color: #F0F0F0;
+    }
+    .hc-scheduler-wrapper .k-scheduler .k-scheduler-times td {
         font-size: 13px;
+        color: #94A3B8;
+        font-weight: 400;
+    }
+    /* Date header */
+    .hc-scheduler-wrapper .k-scheduler .k-scheduler-header th {
+        font-size: 13px;
+        color: #64748B;
+        font-weight: 500;
+        border-color: #F0F0F0;
+    }
+    /* Event styling */
+    .hc-scheduler-wrapper .k-scheduler .k-event {
+        background: #E0E0FF;
+        border-left: 4px solid #7B7FDE;
+        border-top: none;
+        border-right: none;
+        border-bottom: none;
+        color: #383BA8;
+        border-radius: 10px;
+        font-size: 13px;
+        box-shadow: 0 1px 3px rgba(99, 102, 251, 0.08);
     }
     .hc-scheduler-wrapper .k-scheduler .k-event:hover {
-        background: #D4D6FF;
+        background: #D2D2FF;
     }
     .hc-scheduler-wrapper .k-scheduler .k-event .k-event-template {
         font-family: 'Poppins', sans-serif;
         font-size: 13px;
-        padding: 2px 4px;
+        padding: 4px 8px;
+    }
+    /* Custom event content */
+    .hc-event-title {
+        font-weight: 600;
+        font-size: 13px;
+        color: #383BA8;
+        line-height: 1.4;
+    }
+    .hc-event-meta {
+        font-size: 11px;
+        font-weight: 400;
+        color: #6366FB;
+        opacity: 0.8;
+        margin-top: 2px;
+    }
+    /* View selector — segmented control */
+    .hc-scheduler-wrapper .k-scheduler .k-scheduler-views {
+        background: rgba(255, 255, 255, 0.45);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        border-radius: 9999px;
+        padding: 2px;
+        gap: 0;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+    .hc-scheduler-wrapper .k-scheduler .k-scheduler-views .k-button {
+        border-radius: 9999px !important;
+        border: none !important;
+        background: transparent !important;
+        font-family: 'Poppins', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 5px 14px;
+        color: #64748B;
+        box-shadow: none !important;
+        min-width: auto;
+        line-height: 1.4;
+    }
+    .hc-scheduler-wrapper .k-scheduler .k-scheduler-views .k-button.k-selected {
+        background: #FFFFFF !important;
+        color: #232A36;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08) !important;
+    }
+    .hc-scheduler-wrapper .k-scheduler .k-scheduler-views .k-button:hover:not(.k-selected) {
+        background: rgba(255, 255, 255, 0.5) !important;
+        color: #232A36;
+    }
+    /* Navigation buttons */
+    .hc-scheduler-wrapper .k-scheduler .k-scheduler-navigation .k-button {
+        font-family: 'Poppins', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        color: #64748B;
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+    .hc-scheduler-wrapper .k-scheduler .k-scheduler-navigation .k-button:hover {
+        color: #232A36;
+        background: rgba(255, 255, 255, 0.4) !important;
+    }
+    .hc-scheduler-wrapper .k-scheduler .k-nav-current {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 500;
+        font-size: 14px;
+        color: #232A36;
+    }
+    /* AllDay row */
+    .hc-scheduler-wrapper .k-scheduler .k-scheduler-head .k-scheduler-group:first-child {
+        border-color: #F0F0F0;
+    }
+    /* Hide built-in footer */
+    .hc-scheduler-wrapper .k-scheduler .k-scheduler-footer {
+        display: none;
+    }
+    /* Footer */
+    .hc-scheduler-footer {
+        display: flex;
+        justify-content: flex-start;
+        padding: 16px 0 0;
+    }
+    .hc-scheduler-footer-btn {
+        font-family: 'Poppins', sans-serif;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 20px;
+        background: transparent;
+        color: #334155;
+        border: 1px solid #CBD5E1;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .hc-scheduler-footer-btn:hover {
+        background: rgba(35, 42, 54, 0.04);
+        border-color: #94A3B8;
+    }
+    .hc-scheduler-footer-btn svg {
+        width: 14px;
+        height: 14px;
     }
 
     /* ========== RIGHT COL — DAILY TASKS ========== */
@@ -73,7 +204,7 @@
         border-radius: 16px;
         display: flex;
         flex-direction: column;
-        height: 100%;
+        max-height: 690px;
         position: relative;
         z-index: 1;
     }
@@ -214,6 +345,146 @@
     .hc-priority-medium { background: #FEF3C7; border: 1px solid #FCD34D; color: #92400E; }
     .hc-priority-low { background: #D1FAE5; border: 1px solid #6EE7B7; color: #065F46; }
 
+    /* ========== MODAL ========== */
+    .hc-modal.k-window {
+        border-radius: 20px !important;
+        overflow: hidden;
+        font-family: 'Poppins', sans-serif;
+        box-shadow: 0px 12px 40px rgba(0, 0, 0, 0.12), 0px 4px 12px rgba(0, 0, 0, 0.06);
+    }
+    .hc-modal .k-window-titlebar {
+        padding: 24px 28px 16px;
+        background: #FFFFFF;
+        border-bottom: none;
+        border-radius: 20px 20px 0 0;
+    }
+    .hc-modal .k-window-titlebar .k-window-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #232A36;
+    }
+    .hc-modal .k-window-titlebar .k-window-action {
+        color: #94A3B8;
+        opacity: 0.7;
+    }
+    .hc-modal .k-window-titlebar .k-window-action:hover {
+        color: #232A36;
+        opacity: 1;
+        background: transparent;
+    }
+    .hc-modal .k-window-content {
+        padding: 0;
+        border-radius: 0 0 20px 20px;
+    }
+    .hc-modal-body {
+        padding: 0 28px 28px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .hc-modal-field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .hc-modal-label {
+        font-weight: 500;
+        font-size: 14px;
+        color: #232A36;
+    }
+    .hc-modal-input {
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
+        color: #232A36;
+        padding: 10px 14px;
+        border-radius: 10px;
+        background: #F9FAFB;
+        border: 1px solid rgba(23, 56, 99, 0.12);
+        outline: none;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .hc-modal-input:focus {
+        border-color: rgba(99, 102, 251, 0.4);
+        box-shadow: 0 0 0 2px rgba(99, 102, 251, 0.1);
+    }
+    .hc-modal-textarea {
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
+        color: #232A36;
+        padding: 10px 14px;
+        border-radius: 10px;
+        background: #F9FAFB;
+        border: 1px solid rgba(23, 56, 99, 0.12);
+        outline: none;
+        width: 100%;
+        box-sizing: border-box;
+        min-height: 120px;
+        resize: vertical;
+    }
+    .hc-modal-textarea:focus {
+        border-color: rgba(99, 102, 251, 0.4);
+        box-shadow: 0 0 0 2px rgba(99, 102, 251, 0.1);
+    }
+    .hc-priority-seg {
+        display: inline-flex;
+        align-items: center;
+        padding: 2px;
+        background: linear-gradient(0deg, rgba(35, 42, 54, 0.08), rgba(35, 42, 54, 0.08)), #ECEFF3;
+        border-radius: 9999px;
+        align-self: flex-start;
+    }
+    .hc-priority-seg-btn {
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 6px 16px;
+        border: none;
+        background: transparent;
+        color: #4A5666;
+        cursor: pointer;
+        border-radius: 9999px;
+        transition: background 0.15s, color 0.15s;
+    }
+    .hc-priority-seg-btn:hover {
+        background: rgba(255, 255, 255, 0.5);
+    }
+    .hc-priority-seg-btn.active {
+        background: #FFFFFF;
+        color: #232A36;
+    }
+    .hc-modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        padding-top: 4px;
+    }
+    .hc-modal-btn {
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 10px 24px;
+        border-radius: 12px;
+        cursor: pointer;
+        border: none;
+        transition: background 0.2s ease;
+    }
+    .hc-modal-btn-secondary {
+        background: transparent;
+        color: #4A5666;
+    }
+    .hc-modal-btn-secondary:hover {
+        background: rgba(35, 42, 54, 0.06);
+    }
+    .hc-modal-btn-primary {
+        background: #334155;
+        color: #FFFFFF;
+        padding: 10px 28px;
+    }
+    .hc-modal-btn-primary:hover {
+        background: #1e293b;
+    }
+
 
 
     /* ========== RESPONSIVE ========== */
@@ -243,21 +514,36 @@
     <!-- LEFT COLUMN — Scheduler -->
     <div class="hc-left">
         <div class="hc-card">
-            <div class="hc-card-title">Doctor's Schedule</div>
-            <div class="hc-scheduler-wrapper">
+            <div class="hc-scheduler-wrapper" style="flex: 1;">
                 <TelerikScheduler Data="@SchedulerAppointments"
                                   @bind-Date="@SelectedDate"
                                   @bind-View="@CurrentView"
-                                  Height="650px"
+                                  Height="600px"
                                   AllowCreate="false"
                                   AllowUpdate="false"
                                   AllowDelete="false">
+                    <ItemTemplate>
+                        @{
+                            var apt = (ScheduleAppointment)(object)context;
+                        }
+                        <div>
+                            <div class="hc-event-title">@apt.Title</div>
+                            <div class="hc-event-meta">@apt.Start.ToString("h:mm")–@apt.End.ToString("h:mm tt") · @apt.Room</div>
+                        </div>
+                    </ItemTemplate>
                     <SchedulerViews>
                         <SchedulerDayView StartTime="@DayStart" EndTime="@DayEnd" WorkDayStart="@DayStart" WorkDayEnd="@DayEnd" />
                         <SchedulerWeekView StartTime="@DayStart" EndTime="@DayEnd" WorkDayStart="@DayStart" WorkDayEnd="@DayEnd" />
                         <SchedulerMonthView />
+                        <SchedulerAgendaView />
                     </SchedulerViews>
                 </TelerikScheduler>
+            </div>
+            <div class="hc-scheduler-footer">
+                <button class="hc-scheduler-footer-btn">
+                    <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="#334155" stroke-width="1.2"/><line x1="2" y1="5.5" x2="14" y2="5.5" stroke="#334155" stroke-width="1.2"/><line x1="5.5" y1="2" x2="5.5" y2="5.5" stroke="#334155" stroke-width="1.2"/><line x1="10.5" y1="2" x2="10.5" y2="5.5" stroke="#334155" stroke-width="1.2"/></svg>
+                    View Schedule
+                </button>
             </div>
         </div>
     </div>
@@ -273,7 +559,7 @@
                     </div>
                     <input type="text" placeholder="Search tasks" />
                 </div>
-                <button class="hc-tasks-add-btn" title="Add task">
+                <button class="hc-tasks-add-btn" title="Add task" @onclick="OpenAddTaskModal">
                     <svg viewBox="0 0 16 16" fill="none"><line x1="3.33" y1="8" x2="12.67" y2="8" stroke="white" stroke-width="1.33" stroke-linecap="round"/><line x1="8" y1="3.33" x2="8" y2="12.67" stroke="white" stroke-width="1.33" stroke-linecap="round"/></svg>
                     <span class="hc-tasks-add-btn-text">Add Task</span>
                 </button>
@@ -298,32 +584,65 @@
     </div>
 </div>
 
+<!-- ========== ADD TASK MODAL ========== -->
+<TelerikWindow @bind-Visible="@isAddTaskModalOpen" Modal="true" Width="520px" Class="hc-modal">
+    <WindowTitle>
+        <strong>Add Task</strong>
+    </WindowTitle>
+    <WindowActions>
+        <WindowAction Name="Close" />
+    </WindowActions>
+    <WindowContent>
+        <div class="hc-modal-body">
+            <div class="hc-modal-field">
+                <label class="hc-modal-label">Task Name</label>
+                <input type="text" class="hc-modal-input" @bind="newTaskName" placeholder="Enter task name" />
+            </div>
+            <div class="hc-modal-field">
+                <label class="hc-modal-label">Priority</label>
+                <div class="hc-priority-seg">
+                    <button class="hc-priority-seg-btn @(newTaskPriority == "Low" ? "active" : "")" @onclick="SetPriorityLow">Low</button>
+                    <button class="hc-priority-seg-btn @(newTaskPriority == "Medium" ? "active" : "")" @onclick="SetPriorityMedium">Medium</button>
+                    <button class="hc-priority-seg-btn @(newTaskPriority == "High" ? "active" : "")" @onclick="SetPriorityHigh">High</button>
+                </div>
+            </div>
+            <div class="hc-modal-field">
+                <label class="hc-modal-label">Description</label>
+                <textarea class="hc-modal-textarea" @bind="newTaskDescription" placeholder="Enter task description"></textarea>
+            </div>
+            <div class="hc-modal-actions">
+                <button class="hc-modal-btn hc-modal-btn-secondary" @onclick="CloseAddTaskModal">Discard</button>
+                <button class="hc-modal-btn hc-modal-btn-primary" @onclick="AddTask">Add task</button>
+            </div>
+        </div>
+    </WindowContent>
+</TelerikWindow>
+
 @code {
-    private DateTime SelectedDate { get; set; } = new DateTime(2026, 3, 30);
-    private SchedulerView CurrentView { get; set; } = SchedulerView.Week;
+    private DateTime SelectedDate { get; set; } = new DateTime(2026, 3, 10);
+    private SchedulerView CurrentView { get; set; } = SchedulerView.Day;
     private DateTime DayStart { get; set; } = new DateTime(2000, 1, 1, 7, 0, 0);
-    private DateTime DayEnd { get; set; } = new DateTime(2000, 1, 1, 19, 0, 0);
+    private DateTime DayEnd { get; set; } = new DateTime(2000, 1, 1, 17, 0, 0);
 
     private List<ScheduleAppointment> SchedulerAppointments = new();
     private List<TaskItem> DailyTasks = new();
 
+    private bool isAddTaskModalOpen;
+    private string newTaskName = "";
+    private string newTaskPriority = "Low";
+    private string newTaskDescription = "";
+
     protected override void OnInitialized()
     {
-        var baseDate = new DateTime(2026, 3, 30); // Monday
+        var baseDate = new DateTime(2026, 3, 10); // Tuesday
 
         SchedulerAppointments = new List<ScheduleAppointment>
         {
-            new() { Title = "Follow-up: James Wilson", Description = "Persistent cough review", Start = baseDate.AddHours(9), End = baseDate.AddHours(9).AddMinutes(30), IsAllDay = false },
-            new() { Title = "New Patient: Sarah Brooks", Description = "Initial consultation", Start = baseDate.AddHours(10), End = baseDate.AddHours(10).AddMinutes(45), IsAllDay = false },
-            new() { Title = "Lab Review: Ava Patel", Description = "Allergy test results", Start = baseDate.AddHours(11), End = baseDate.AddHours(11).AddMinutes(30), IsAllDay = false },
-            new() { Title = "Check-up: Michael O'Connor", Description = "Blood pressure monitoring", Start = baseDate.AddHours(14), End = baseDate.AddHours(14).AddMinutes(30), IsAllDay = false },
-            new() { Title = "Consultation: Emily Chen", Description = "Fatigue and dizziness follow-up", Start = baseDate.AddHours(15), End = baseDate.AddHours(15).AddMinutes(45), IsAllDay = false },
-            new() { Title = "Team Huddle", Description = "Weekly staff sync", Start = baseDate.AddDays(1).AddHours(8), End = baseDate.AddDays(1).AddHours(8).AddMinutes(30), IsAllDay = false },
-            new() { Title = "Surgery Prep: Daniel Thompson", Description = "Pre-op assessment", Start = baseDate.AddDays(1).AddHours(10), End = baseDate.AddDays(1).AddHours(11), IsAllDay = false },
-            new() { Title = "Grand Rounds", Description = "Cardiology case presentation", Start = baseDate.AddDays(2).AddHours(9), End = baseDate.AddDays(2).AddHours(10).AddMinutes(30), IsAllDay = false },
-            new() { Title = "Follow-up: Sophia Martinez", Description = "Migraine management review", Start = baseDate.AddDays(2).AddHours(13), End = baseDate.AddDays(2).AddHours(13).AddMinutes(30), IsAllDay = false },
-            new() { Title = "New Patient: Alexander Novak", Description = "Chest congestion evaluation", Start = baseDate.AddDays(3).AddHours(9), End = baseDate.AddDays(3).AddHours(9).AddMinutes(45), IsAllDay = false },
-            new() { Title = "Peer Review Meeting", Description = "Monthly case review", Start = baseDate.AddDays(4).AddHours(14), End = baseDate.AddDays(4).AddHours(15).AddMinutes(30), IsAllDay = false },
+            new() { Title = "Follow-up \u2013 Sarah Mitchel", Description = "Persistent cough review", Room = "Room 112", Start = baseDate.AddHours(8), End = baseDate.AddHours(8).AddMinutes(45), IsAllDay = false },
+            new() { Title = "Follow-up \u2013 Michael Carter", Description = "Blood pressure monitoring", Room = "Room 112", Start = baseDate.AddHours(9), End = baseDate.AddHours(9).AddMinutes(20), IsAllDay = false },
+            new() { Title = "Initial Consultation \u2013 Emily Rodrigues", Description = "Initial consultation", Room = "Room 208", Start = baseDate.AddHours(10).AddMinutes(30), End = baseDate.AddHours(11), IsAllDay = false },
+            new() { Title = "Lab Results Review \u2013 David Kim", Description = "Allergy test results", Room = "Room 305", Start = baseDate.AddHours(11).AddMinutes(45), End = baseDate.AddHours(12), IsAllDay = false },
+            new() { Title = "Annual Physical \u2013 Laura Bennett", Description = "Annual checkup", Room = "Room 101", Start = baseDate.AddHours(14), End = baseDate.AddHours(14).AddMinutes(45), IsAllDay = false },
         };
 
         DailyTasks = new List<TaskItem>
@@ -346,10 +665,43 @@
         task.IsCompleted = !task.IsCompleted;
     }
 
+    private void OpenAddTaskModal()
+    {
+        newTaskName = "Review insurance authorization requests";
+        newTaskPriority = "Low";
+        newTaskDescription = "Review and evaluate incoming insurance authorization requests to ensure all information is accurate, complete, and compliant with relevant policies and guidelines before proceeding with approval or further action.";
+        isAddTaskModalOpen = true;
+    }
+
+    private void CloseAddTaskModal()
+    {
+        isAddTaskModalOpen = false;
+    }
+
+    private void SetPriorityLow() => newTaskPriority = "Low";
+    private void SetPriorityMedium() => newTaskPriority = "Medium";
+    private void SetPriorityHigh() => newTaskPriority = "High";
+
+    private void AddTask()
+    {
+        if (!string.IsNullOrWhiteSpace(newTaskName))
+        {
+            DailyTasks.Add(new TaskItem
+            {
+                Id = DailyTasks.Count + 1,
+                Title = newTaskName,
+                IsCompleted = false,
+                Priority = newTaskPriority
+            });
+        }
+        isAddTaskModalOpen = false;
+    }
+
     public class ScheduleAppointment
     {
         public string Title { get; set; } = "";
         public string Description { get; set; } = "";
+        public string Room { get; set; } = "";
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public bool IsAllDay { get; set; }
@@ -360,6 +712,6 @@
         public int Id { get; set; }
         public string Title { get; set; } = "";
         public bool IsCompleted { get; set; }
-        public string Priority { get; set; } = "";
+        public string Priority { get; set; } = "Low";
     }
 }

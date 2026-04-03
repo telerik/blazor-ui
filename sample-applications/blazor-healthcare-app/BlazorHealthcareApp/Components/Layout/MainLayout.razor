@@ -2,18 +2,12 @@
 @inject NavigationManager Nav
 
 <TelerikRootComponent>
-    <div class="hc-dashboard">
+    <div class="hc-dashboard @(isTransparentMode ? "hc-transparent" : "")">
         <!-- ========== APPBAR ========== -->
         <div class="hc-appbar">
             <div class="hc-appbar-left">
                 <a href="/" class="hc-logo">
-                    <svg class="hc-logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="16" cy="16" r="14" fill="url(#logoGrad)" />
-                        <path d="M10 22C10 22 12 14 16 14C20 14 22 22 22 22" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
-                        <circle cx="16" cy="10" r="3" fill="#fff"/>
-                        <defs><linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#64C2DB"/><stop offset="0.37" stop-color="#7476ED"/><stop offset="0.59" stop-color="#C994DF"/><stop offset="1" stop-color="#E56F8C"/></linearGradient></defs>
-                    </svg>
-                    <span class="hc-logo-text">Logoipsum</span>
+                    <img src="images/Logo1.svg" alt="Logoipsum" class="hc-logo-icon" />
                 </a>
             </div>
 
@@ -40,23 +34,34 @@
 
             <div class="hc-appbar-right">
                 <div class="hc-search">
-                    <div class="hc-search-icon">
-                        <TelerikSvgIcon Icon="@SvgIcon.Search" />
-                    </div>
-                    <input type="text" placeholder="Search patient name or ID" />
+                    <TelerikAutoComplete Data="@SearchPatients"
+                                         @bind-Value="@searchText"
+                                         ValueField="Name"
+                                         Filterable="true"
+                                         FilterOperator="@StringFilterOperator.Contains"
+                                         Placeholder="Search patient name or ID"
+                                         Width="100%"
+                                         ShowPrefixSeparator="false"
+                                         OnChange="@OnSearchPatientSelected">
+                        <AutoCompletePrefixTemplate>
+                            <TelerikSvgIcon Icon="@SvgIcon.Search" />
+                        </AutoCompletePrefixTemplate>
+                        <AutoCompleteSettings>
+                            <AutoCompletePopupSettings Class="hc-search-popup" Height="auto" MaxHeight="300px" />
+                        </AutoCompleteSettings>
+                    </TelerikAutoComplete>
                 </div>
 
-                <button class="hc-icon-btn" title="Toggle theme">
+                <button class="hc-icon-btn" title="Toggle theme" @onclick="ToggleTransparency">
                     <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="8" cy="8" r="3" stroke="#232A36" stroke-width="1.33"/>
-                        <line x1="8" y1="1" x2="8" y2="3" stroke="#232A36" stroke-width="1.33" stroke-linecap="round"/>
-                        <line x1="8" y1="13" x2="8" y2="15" stroke="#232A36" stroke-width="1.33" stroke-linecap="round"/>
-                        <line x1="2.9" y1="2.9" x2="4.3" y2="4.3" stroke="#232A36" stroke-width="1.33" stroke-linecap="round"/>
-                        <line x1="11.7" y1="11.7" x2="13.1" y2="13.1" stroke="#232A36" stroke-width="1.33" stroke-linecap="round"/>
-                        <line x1="1" y1="8" x2="3" y2="8" stroke="#232A36" stroke-width="1.33" stroke-linecap="round"/>
-                        <line x1="13" y1="8" x2="15" y2="8" stroke="#232A36" stroke-width="1.33" stroke-linecap="round"/>
-                        <line x1="2.9" y1="13.1" x2="4.3" y2="11.7" stroke="#232A36" stroke-width="1.33" stroke-linecap="round"/>
-                        <line x1="11.7" y1="4.3" x2="13.1" y2="2.9" stroke="#232A36" stroke-width="1.33" stroke-linecap="round"/>
+                        <defs>
+                            <mask id="interlockMask">
+                                <rect width="16" height="16" fill="white"/>
+                                <circle cx="6" cy="10" r="1.5" fill="black"/>
+                            </mask>
+                        </defs>
+                        <circle cx="10" cy="10" r="4" stroke="#232A36" stroke-width="1.5"/>
+                        <circle cx="6" cy="6" r="4" stroke="#232A36" stroke-width="1.5" mask="url(#interlockMask)"/>
                     </svg>
                 </button>
 
@@ -93,13 +98,15 @@
                 <div class="hc-separator"></div>
 
                 <button class="hc-avatar-btn" @onclick="ToggleProfile" title="Profile">
-                    <div class="hc-avatar">DC</div>
+                    <div class="hc-avatar">
+                        <img src="images/dr-carter.jpg" alt="Dr. Carter" style="width:100%;height:100%;object-fit:cover;" />
+                    </div>
                 </button>
             </div>
         </div>
 
         <!-- ========== PROFILE MODAL ========== -->
-        <TelerikWindow @bind-Visible="@isProfileOpen" Modal="true" Width="500px" Class="hc-profile-modal">
+        <TelerikWindow @bind-Visible="@isProfileOpen" Modal="true" Width="450px" Class="hc-profile-modal">
             <WindowTitle>
                 Profile Management
             </WindowTitle>
@@ -112,7 +119,7 @@
                     <div class="hc-pm-section-label">Profile Image</div>
                     <div class="hc-pm-photo-area">
                         <div class="hc-pm-photo">
-                            <span>DC</span>
+                            <img src="images/dr-carter.jpg" alt="Dr. Carter" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;border-radius:inherit;" />
                         </div>
                     </div>
                     <button class="hc-pm-upload-btn">
@@ -166,6 +173,9 @@
     private string ActiveSegment = "home";
     private bool isNotificationOpen;
     private bool isProfileOpen;
+    private bool isTransparentMode;
+
+    private void ToggleTransparency() => isTransparentMode = !isTransparentMode;
 
     private List<NotificationItem> Notifications = new()
     {
@@ -190,6 +200,37 @@
     private string profileName = "Emily Carter";
     private string profileEmail = "drcarter@email.com";
     private string profilePhone = "+(555) 776-90-84";
+
+    /* ========== SEARCH ========== */
+    private string searchText = "";
+
+    private List<SearchPatientItem> SearchPatients = new()
+    {
+        new() { Id = 1, Name = "James Wilson" },
+        new() { Id = 2, Name = "Sophia Martinez" },
+        new() { Id = 3, Name = "Daniel Thompson" },
+        new() { Id = 4, Name = "Ava Patel" },
+        new() { Id = 5, Name = "Michael O'Connor" },
+        new() { Id = 6, Name = "Emily Chen" },
+        new() { Id = 7, Name = "Alexander Novak" },
+    };
+
+    private void OnSearchPatientSelected()
+    {
+        if (string.IsNullOrWhiteSpace(searchText)) return;
+        var match = SearchPatients.FirstOrDefault(p => p.Name == searchText);
+        if (match != null)
+        {
+            searchText = "";
+            Nav.NavigateTo($"/patient/{match.Id}");
+        }
+    }
+
+    public class SearchPatientItem
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = "";
+    }
 
     public class NotificationItem
     {

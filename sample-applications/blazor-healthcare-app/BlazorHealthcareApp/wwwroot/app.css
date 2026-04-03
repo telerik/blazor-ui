@@ -60,3 +60,214 @@ h1:focus {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
     text-align: start;
 }
+
+/* ========== PROFILE MODAL (global — TelerikWindow portals outside scoped CSS) ========== */
+.hc-profile-modal.k-window {
+    border-radius: 20px !important;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0px 12px 40px rgba(0, 0, 0, 0.12), 0px 4px 12px rgba(0, 0, 0, 0.06);
+}
+.hc-profile-modal .k-window-titlebar {
+    padding: 20px 24px 12px;
+    background: #FFFFFF !important;
+    background-color: #FFFFFF !important;
+    border-bottom: none !important;
+    border-bottom-width: 0 !important;
+    box-shadow: none !important;
+}
+.hc-profile-modal .k-window-titlebar .k-window-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: #232A36;
+}
+.hc-profile-modal .k-window-titlebar .k-window-action {
+    color: #4A5666;
+    border-radius: 8px;
+}
+.hc-profile-modal .k-window-titlebar .k-window-action:hover {
+    background: rgba(35, 42, 54, 0.06);
+    color: #232A36;
+}
+.hc-profile-modal .k-window-content {
+    padding: 0;
+    background: #FFFFFF;
+}
+.hc-pm-body {
+    display: flex;
+    flex-direction: column;
+    padding: 0 24px 24px;
+    gap: 0;
+    font-family: 'Poppins', sans-serif;
+}
+.hc-pm-section-label {
+    font-weight: 500;
+    font-size: 14px;
+    color: #4A5666;
+    margin-bottom: 12px;
+}
+.hc-pm-photo-area {
+    width: 100%;
+    height: 260px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #E2E8F0 0%, #CBD5E1 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+.hc-pm-photo {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    font-weight: 600;
+    color: #94A3B8;
+}
+.hc-pm-upload-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: #334155;
+    border: none;
+    border-radius: 10px;
+    color: #FFFFFF;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    margin-bottom: 24px;
+}
+.hc-pm-upload-btn:hover { background: #1e293b; }
+.hc-pm-upload-btn .k-svg-icon,
+.hc-pm-upload-btn svg { width: 16px; height: 16px; }
+.hc-pm-section-title {
+    font-weight: 600;
+    font-size: 16px;
+    color: #232A36;
+    margin-bottom: 16px;
+}
+.hc-pm-policy {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 16px;
+    background: #F0F0FF;
+    border-left: 3px solid #7B7FDE;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: #383BA8;
+    line-height: 160%;
+}
+.hc-pm-policy strong {
+    font-weight: 600;
+    font-size: 14px;
+    color: #383BA8;
+}
+.hc-pm-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+.hc-pm-label {
+    font-weight: 500;
+    font-size: 14px;
+    color: #232A36;
+}
+.hc-pm-field .k-textbox {
+    border-radius: 10px;
+    border: 1px solid rgba(23, 56, 99, 0.12);
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+}
+.hc-pm-field .k-textbox:focus-within {
+    border-color: rgba(99, 102, 251, 0.4);
+    box-shadow: 0 0 0 2px rgba(99, 102, 251, 0.1);
+}
+.hc-pm-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 8px;
+    padding-top: 16px;
+}
+.hc-pm-btn {
+    padding: 10px 24px;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+.hc-pm-btn-clear {
+    background: #F1F5F9;
+    color: #4A5666;
+}
+.hc-pm-btn-clear:hover { background: #E2E8F0; }
+.hc-pm-btn-submit {
+    background: #334155;
+    color: #FFFFFF;
+}
+.hc-pm-btn-submit:hover { background: #1e293b; }
+
+/* ========== SEARCH AUTOCOMPLETE (global — popup portals outside scoped CSS) ========== */
+.hc-search-popup.k-animation-container .k-list-container,
+.hc-search-popup .k-list-container {
+    border-radius: 16px;
+}
+.hc-search .k-autocomplete,
+.hc-search .k-input {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    height: 100%;
+}
+.hc-search .k-autocomplete .k-input-inner,
+.hc-search .k-input .k-input-inner {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    color: #232A36;
+    padding: 4px 8px;
+}
+.hc-search .k-autocomplete .k-input-inner::placeholder,
+.hc-search .k-input .k-input-inner::placeholder {
+    color: #4A5666;
+}
+.hc-search .k-clear-value {
+    color: #94A3B8;
+}
+.hc-search .k-input-prefix {
+    color: #4A5666;
+}
+.hc-search .k-input-prefix .k-svg-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* ========== TRANSPARENT MODE (toggled via appbar button) ========== */
+.hc-dashboard.hc-transparent .hc-card,
+.hc-dashboard.hc-transparent .hc-right-card,
+.hc-dashboard.hc-transparent .hc-info-card,
+.hc-dashboard.hc-transparent .hc-grid-card,
+.hc-dashboard.hc-transparent .hc-pd-header-card,
+.hc-dashboard.hc-transparent .hc-pd-card,
+.hc-dashboard.hc-transparent .hc-ca-card,
+.hc-dashboard.hc-transparent .hc-ai-panel,
+.hc-dashboard.hc-transparent .hc-chat-wrapper,
+.hc-dashboard.hc-transparent .hc-task-item {
+    background: rgba(255, 255, 255, 0.7) !important;
+}
