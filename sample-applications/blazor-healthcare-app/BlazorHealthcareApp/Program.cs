@@ -1,4 +1,5 @@
 using BlazorHealthcareApp.Components;
+using BlazorHealthcareApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,12 @@ builder.Services.AddTelerikBlazor();
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+// ========== Application Services ==========
+builder.Services.AddScoped<PatientService>();
+builder.Services.AddScoped<HomeService>();
+builder.Services.AddScoped<ScheduleService>();
+builder.Services.AddScoped<AnalyticsService>();
 
 var app = builder.Build();
 

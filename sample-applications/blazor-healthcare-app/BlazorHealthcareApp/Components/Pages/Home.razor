@@ -1,6 +1,8 @@
 ﻿@page "/"
 @rendermode InteractiveServer
 @inject NavigationManager Nav
+@inject HomeService HomeService
+@inject PatientService PatientService
 
 <style>
     /* ========== HEADING ========== */
@@ -320,7 +322,7 @@
         font-size: 14px; color: #334155; padding: 2px 0 2px 8px;
     }
     .hc-review-btn:hover { color: #232A36; }
-    .hc-review-btn svg { width: 16px; height: 16px; }
+    .hc-review-btn svg { width: 16px, height: 16px; }
 
     /* ========== AI FAB ========== */
     .hc-fab {
@@ -1012,7 +1014,7 @@
                 <span class="hc-chat-header-sub">Powered by Clinical Insights</span>
             </div>
             <button class="hc-chat-close" @onclick="ToggleAIChat">
-                <svg viewBox="0 0 16 16" fill="none"><path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <svg viewBox="0 0 16 16" fill="none"><path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
         </div>
 
@@ -1044,14 +1046,11 @@
 
 @code {
     private bool isAIChatOpen;
-    private TelerikChat<AIChatMsg> chatRef = null!;
-    private List<AIChatMsg> chatData = new();
+    private TelerikChat<AIChatMessage> chatRef = null!;
+    private List<AIChatMessage> chatData = new();
     private List<string> chatSuggestions = new() { "Summary for next patient", "Provide lab results" };
 
-    private void GoToPatientProfile()
-    {
-        Nav.NavigateTo("/patient/1");
-    }
+    private void GoToPatientProfile() => Nav.NavigateTo("/patient/1");
 
     // Quick Action modal state
     private bool isNoteModalOpen;
@@ -1060,64 +1059,42 @@
 
     // Modal form data
     private string selectedPatient = "James Wilson (P-104582)";
-    private List<string> patientNames = new() { "James Wilson (P-104582)", "Ava Patel (P-103201)", "Emily Chen (P-105887)", "Alexander Novak (P-102445)" };
+    private List<string> patientNames = new();
 
     private string noteText = "";
 
     private List<string> selectedLabTests = new();
-    private List<string> labTests = new() { "Complete blood count (CBC)", "Comprehensive metabolic panel (CMP)", "Basic metabolic panel (BMP)", "Lipid panel", "Thyroid function test", "Hemoglobin A1C", "Urinalysis", "Chest X-Ray", "MRI" };
+    private List<string> labTests = new();
 
     private void ToggleLabTest(string test)
     {
-        if (selectedLabTests.Contains(test))
-        {
-            selectedLabTests.Remove(test);
-        }
-        else
-        {
-            selectedLabTests.Add(test);
-        }
+        if (selectedLabTests.Contains(test)) selectedLabTests.Remove(test);
+        else selectedLabTests.Add(test);
     }
 
     private string selectedNurse = "oliviaparker@email.com";
-    private List<string> nurseRecipients = new() { "oliviaparker@email.com", "sarah.jones@email.com", "mike.chen@email.com", "lisa.rodriguez@email.com" };
+    private List<string> nurseRecipients = new();
     private string messageSubject = "";
     private string messageText = "";
 
     private void OnNurseChanged(string nurse)
     {
         selectedNurse = nurse;
-
-        (messageSubject, messageText) = nurse switch
-        {
-            "oliviaparker@email.com" => ("Patient Update – James Wilson", "Hi Olivia,\n\nPlease prepare Room 456 for James Wilson's 11:00 AM appointment. He has a Penicillin allergy — ensure the chart is flagged.\n\nThank you."),
-            "sarah.jones@email.com" => ("Lab Results Follow-Up – Sophia Martinez", "Hi Sarah,\n\nSophia Martinez's CRP levels came back elevated. Please schedule a follow-up blood draw for tomorrow morning and update her chart.\n\nThanks."),
-            "mike.chen@email.com" => ("Medication Review – Ava Patel", "Hi Mike,\n\nAva Patel is currently in Room 456 with an allergic reaction. Please verify her current medications and confirm no shellfish-derived compounds are in her treatment plan.\n\nAppreciate it."),
-            "lisa.rodriguez@email.com" => ("Discharge Prep – Daniel Thompson", "Hi Lisa,\n\nDaniel Thompson's appointment is complete. Please prepare his discharge summary and ensure the referral to physical therapy is included.\n\nThank you."),
-            _ => ("", "")
-        };
+        (messageSubject, messageText) = HomeService.GetNurseMessageTemplate(nurse);
     }
 
-    private List<Appointment> Appointments = new()
-    {
-        new() { Time = "09:00 AM", PatientName = "Daniel Thompson", Reason = "Persistent lower back pain after lifting boxes", Status = "Complete", Room = "204 (Floor 2)" },
-        new() { Time = "09:30 AM", PatientName = "Sophia Martinez", Reason = "Recurring migraines with sensitivity to light", Status = "Complete", Room = "456 (Floor 4)" },
-        new() { Time = "10:00 AM", PatientName = "Michael O'Connor", Reason = "Follow-up appointment for elevated blood pressure", Status = "Complete", Room = "79A (Floor 0)" },
-        new() { Time = "10:30 AM", PatientName = "Ava Patel", Reason = "Allergic reaction causing skin rash", Status = "In Progress", Room = "456 (Floor 4)" },
-        new() { Time = "11:00 AM", PatientName = "James Wilson", Reason = "Knee pain after a basketball injury", Status = "Upcoming", Room = "456 (Floor 4)" },
-        new() { Time = "11:30 AM", PatientName = "Emily Chen", Reason = "Ongoing fatigue and dizziness", Status = "Cancelled", Room = "456 (Floor 4)" },
-        new() { Time = "12:00 PM", PatientName = "Alexander Novak", Reason = "Persistent cough and chest congestion", Status = "Upcoming", Room = "204 (Floor 2)" },
-        new() { Time = "12:30 PM", PatientName = "Isabella Rossi", Reason = "Annual physical exam", Status = "Upcoming", Room = "456 (Floor 4)" },
-        new() { Time = "1:00 PM", PatientName = "Benjamin Carter", Reason = "Stomach pain and acid reflux symptoms", Status = "Cancelled", Room = "204 (Floor 2)" },
-    };
+    private List<Appointment> Appointments = new();
+    private List<DailyAlert> DailyAlerts = new();
 
-    private List<Alert> DailyAlerts = new()
+    protected override void OnInitialized()
     {
-        new() { Text = "CRP elevated \u2013 Sophia Martinez", Timestamp = "15 min ago" },
-        new() { Text = "Blood pressure high \u2013 James Carter", Timestamp = "15 min ago" },
-        new() { Text = "Glucose levels elevated \u2013 Daniel Rivera", Timestamp = "15 min ago" },
-        new() { Text = "High cholesterol detected \u2013 Ava Thompson", Timestamp = "15 min ago" },
-    };
+        Appointments    = HomeService.GetTodaysAppointments();
+        DailyAlerts     = HomeService.GetDailyAlerts();
+        patientNames    = HomeService.GetPatientNames();
+        labTests        = HomeService.GetLabTests();
+        nurseRecipients = HomeService.GetNurseRecipients();
+        (messageSubject, messageText) = HomeService.GetNurseMessageTemplate(selectedNurse);
+    }
 
     private void ToggleAIChat()
     {
@@ -1135,29 +1112,28 @@
         var userText = suggestion switch
         {
             "Summary for next patient" => "Can you summarize the next patient?",
-            "Provide lab results" => "Provide lab results for next patient",
-            _ => suggestion
+            "Provide lab results"      => "Provide lab results for next patient",
+            _                          => suggestion
         };
 
-        chatData.Add(new AIChatMsg { Id = Guid.NewGuid().ToString(), Text = userText, AuthorId = "user", AuthorName = "Dr. Carter", Timestamp = DateTime.Now });
+        chatData.Add(new AIChatMessage { Id = Guid.NewGuid().ToString(), Text = userText, AuthorId = "user", AuthorName = "Dr. Carter", Timestamp = DateTime.Now });
         chatSuggestions = new();
 
-        var typingMsg = new AIChatMsg { Id = "typing", Text = "", AuthorId = "ai", AuthorName = "AI Assistant", IsTyping = true, Timestamp = DateTime.Now };
+        var typingMsg = new AIChatMessage { Id = "typing", Text = "", AuthorId = "ai", AuthorName = "AI Assistant", IsTyping = true, Timestamp = DateTime.Now };
         chatData.Add(typingMsg);
         StateHasChanged();
 
         await Task.Delay(1200);
-
         chatData.Remove(typingMsg);
 
         var response = suggestion switch
         {
             "Summary for next patient" => "James Wilson (P-104582) is a 45-year-old male admitted for hypertensive crisis. Vitals are stabilizing, but BP remains slightly elevated at 145/95. No known allergies.",
-            "Provide lab results" => "Lab results for James Wilson (collected 03/28/2026): CBC: WBC 11.2 (H), RBC 4.8, Hgb 14.1, Plt 245. CMP: Glucose 98, BUN 18, Creatinine 1.0. CRP: 2.4 mg/L (normal). Chest X-ray: Mild bronchial thickening noted.",
-            _ => "I'm sorry, I don't have information for that query."
+            "Provide lab results"      => "Lab results for James Wilson (collected 03/28/2026): CBC: WBC 11.2 (H), RBC 4.8, Hgb 14.1, Plt 245. CMP: Glucose 98, BUN 18, Creatinine 1.0. CRP: 2.4 mg/L (normal). Chest X-ray: Mild bronchial thickening noted.",
+            _                          => "I'm sorry, I don't have information for that query."
         };
 
-        chatData.Add(new AIChatMsg { Id = Guid.NewGuid().ToString(), Text = response, AuthorId = "ai", AuthorName = "AI Assistant", Timestamp = DateTime.Now });
+        chatData.Add(new AIChatMessage { Id = Guid.NewGuid().ToString(), Text = response, AuthorId = "ai", AuthorName = "AI Assistant", Timestamp = DateTime.Now });
     }
 
     private async Task OnChatSendMessage(ChatSendMessageEventArgs args)
@@ -1165,15 +1141,14 @@
         var text = args.Message?.Trim();
         if (string.IsNullOrEmpty(text)) return;
 
-        chatData.Add(new AIChatMsg { Id = Guid.NewGuid().ToString(), Text = text, AuthorId = "user", AuthorName = "Dr. Carter", Timestamp = DateTime.Now });
+        chatData.Add(new AIChatMessage { Id = Guid.NewGuid().ToString(), Text = text, AuthorId = "user", AuthorName = "Dr. Carter", Timestamp = DateTime.Now });
         chatSuggestions = new();
 
-        var typingMsg = new AIChatMsg { Id = "typing", Text = "", AuthorId = "ai", AuthorName = "AI Assistant", IsTyping = true, Timestamp = DateTime.Now };
+        var typingMsg = new AIChatMessage { Id = "typing", Text = "", AuthorId = "ai", AuthorName = "AI Assistant", IsTyping = true, Timestamp = DateTime.Now };
         chatData.Add(typingMsg);
         StateHasChanged();
 
         await Task.Delay(1000);
-
         chatData.Remove(typingMsg);
 
         var lower = text.ToLowerInvariant();
@@ -1189,32 +1164,7 @@
         else
             response = "I can help with patient summaries, lab results, scheduling, and allergy information. Try asking about a specific topic!";
 
-        chatData.Add(new AIChatMsg { Id = Guid.NewGuid().ToString(), Text = response, AuthorId = "ai", AuthorName = "AI Assistant", Timestamp = DateTime.Now });
-    }
-
-    public class Appointment
-    {
-        public string Time { get; set; } = "";
-        public string PatientName { get; set; } = "";
-        public string Reason { get; set; } = "";
-        public string Status { get; set; } = "";
-        public string Room { get; set; } = "";
-    }
-
-    public class Alert
-    {
-        public string Text { get; set; } = "";
-        public string Timestamp { get; set; } = "";
-    }
-
-    public class AIChatMsg
-    {
-        public string Id { get; set; } = "";
-        public string Text { get; set; } = "";
-        public string AuthorId { get; set; } = "";
-        public string AuthorName { get; set; } = "";
-        public DateTime Timestamp { get; set; }
-        public bool IsTyping { get; set; }
+        chatData.Add(new AIChatMessage { Id = Guid.NewGuid().ToString(), Text = response, AuthorId = "ai", AuthorName = "AI Assistant", Timestamp = DateTime.Now });
     }
 }
 

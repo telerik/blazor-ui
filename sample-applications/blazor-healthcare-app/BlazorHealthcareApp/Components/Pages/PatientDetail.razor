@@ -1,6 +1,9 @@
 @page "/patient/{PatientId:int}"
 @rendermode InteractiveServer
 @inject NavigationManager Nav
+@inject PatientService PatientService
+@using BlazorHealthcareApp.Models
+@using BlazorHealthcareApp.Services
 
 <style>
     /* ========== PAGE SCOPED CONTAINER ========== */
@@ -222,7 +225,7 @@
         </a>
         <span class="hc-pd-breadcrumb-sep">&gt;</span>
         <span class="hc-pd-breadcrumb-current">
-            <svg viewBox="0 0 16 16" fill="none"><path d="M3 5H13M3 8H9M3 11H11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            <svg viewBox="0 0 16 16" fill="none"><path d="M3 5H13M3 8H9M3 11H11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Patient Profile
         </span>
     </div>
@@ -413,42 +416,39 @@
 
     protected override void OnInitialized()
     {
-        var patients = GeneratePatients();
-        var found = patients.FirstOrDefault(p => p.Id == PatientId);
-        if (found == null)
+        patient = PatientService.GetPatientDetail(PatientId);
+        if (patient is null)
         {
             Nav.NavigateTo("/patients");
             return;
         }
 
-        patient = found;
-
-        editorValue = $"<p>Patient reports mild chest discomfort experienced earlier in the morning during light physical activity. " +
-            $"The pain was described as a brief pressure sensation lasting approximately 3–4 minutes and resolved without intervention. " +
-            $"No associated symptoms such as shortness of breath, dizziness, or nausea were reported.</p>" +
-            $"<p>Vital signs remain stable, and the patient appears comfortable at rest. Blood pressure slightly elevated but consistent " +
-            $"with previous readings. ECG results reviewed and show normal sinus rhythm with no acute abnormalities.</p>" +
-            $"<p>Patient advised to avoid strenuous activity until further evaluation is completed. Continue monitoring vital signs and " +
-            $"assess for any recurrence of chest discomfort. Follow-up consultation with cardiology scheduled for later today.</p>" +
-            $"<p>Patient denies any new symptoms and remains stable under observation with no further episodes reported.</p>";
+        editorValue = "<p>Patient reports mild chest discomfort experienced earlier in the morning during light physical activity. " +
+            "The pain was described as a brief pressure sensation lasting approximately 3\u20134 minutes and resolved without intervention. " +
+            "No associated symptoms such as shortness of breath, dizziness, or nausea were reported.</p>" +
+            "<p>Vital signs remain stable, and the patient appears comfortable at rest. Blood pressure slightly elevated but consistent " +
+            "with previous readings. ECG results reviewed and show normal sinus rhythm with no acute abnormalities.</p>" +
+            "<p>Patient advised to avoid strenuous activity until further evaluation is completed. Continue monitoring vital signs and " +
+            "assess for any recurrence of chest discomfort. Follow-up consultation with cardiology scheduled for later today.</p>" +
+            "<p>Patient denies any new symptoms and remains stable under observation with no further episodes reported.</p>";
 
         labResults = new List<LabResultRow>
         {
-            new() { Test = "C-Reactive Protein (CRP)", Result = "18 mg/L", Reference = "<5.0", Status = "Critical", Note = "Significant inflammatory elevation" },
-            new() { Test = "LDL Cholesterol", Result = "162 mg/dL", Reference = "<100", Status = "Monitoring", Note = "Above target for cardiac risk patients" },
-            new() { Test = "Troponin I", Result = "0.03 ng/mL", Reference = "<0.004", Status = "Critical", Note = "Borderline - serial monitoring ordered" },
-            new() { Test = "Hemoglobin A1c", Result = "5.5%", Reference = "<5.7", Status = "Monitoring", Note = "Pre-diabetic range" },
-            new() { Test = "eGFR (Kidney Function)", Result = "78 mL/min", Reference = ">60", Status = "Stable", Note = "Adequate renal function" },
-            new() { Test = "Potassium", Result = "3.9 mEq/L", Reference = "3.5-5.0", Status = "Monitoring", Note = "Within normal limits" },
-            new() { Test = "C-Reactive Protein (CRP)", Result = "20 mg/L", Reference = "<5.9", Status = "Stable", Note = "Borderline - serial monitoring ordered" },
-            new() { Test = "Hemoglobin A1c", Result = "178 mg/DI", Reference = "<0.03", Status = "Critical", Note = "Above target for cardiac risk patients" },
-            new() { Test = "eGFR (Kidney Function)", Result = "6.7%", Reference = "<100", Status = "Critical", Note = "Significant inflammatory elevation" },
-            new() { Test = "LDL Cholesterol", Result = "162 mg/dL", Reference = "4.5-6.0", Status = "Monitoring", Note = "Pre-diabetic range" },
-            new() { Test = "C-Reactive Protein (CRP)", Result = "18 mg/L", Reference = "<5.0", Status = "Critical", Note = "Significant inflammatory elevation" },
+            new() { Test = "C-Reactive Protein (CRP)",  Result = "18 mg/L",    Reference = "<5.0",    Status = "Critical",   Note = "Significant inflammatory elevation" },
+            new() { Test = "LDL Cholesterol",           Result = "162 mg/dL",  Reference = "<100",    Status = "Monitoring", Note = "Above target for cardiac risk patients" },
+            new() { Test = "Troponin I",                Result = "0.03 ng/mL", Reference = "<0.004",  Status = "Critical",   Note = "Borderline - serial monitoring ordered" },
+            new() { Test = "Hemoglobin A1c",            Result = "5.5%",       Reference = "<5.7",    Status = "Monitoring", Note = "Pre-diabetic range" },
+            new() { Test = "eGFR (Kidney Function)",    Result = "78 mL/min",  Reference = ">60",     Status = "Stable",     Note = "Adequate renal function" },
+            new() { Test = "Potassium",                 Result = "3.9 mEq/L",  Reference = "3.5-5.0", Status = "Monitoring", Note = "Within normal limits" },
+            new() { Test = "C-Reactive Protein (CRP)",  Result = "20 mg/L",    Reference = "<5.9",    Status = "Stable",     Note = "Borderline - serial monitoring ordered" },
+            new() { Test = "Hemoglobin A1c",            Result = "178 mg/DI",  Reference = "<0.03",   Status = "Critical",   Note = "Above target for cardiac risk patients" },
+            new() { Test = "eGFR (Kidney Function)",    Result = "6.7%",       Reference = "<100",    Status = "Critical",   Note = "Significant inflammatory elevation" },
+            new() { Test = "LDL Cholesterol",           Result = "162 mg/dL",  Reference = "4.5-6.0", Status = "Monitoring", Note = "Pre-diabetic range" },
+            new() { Test = "C-Reactive Protein (CRP)",  Result = "18 mg/L",    Reference = "<5.0",    Status = "Critical",   Note = "Significant inflammatory elevation" },
         };
     }
 
-    // ========== MODELS ==========
+    // ========== LOCAL VIEW MODEL (lab results grid only) ==========
 
     public class LabResultRow
     {
@@ -457,119 +457,5 @@
         public string Reference { get; set; } = "";
         public string Status { get; set; } = "";
         public string Note { get; set; } = "";
-    }
-
-    public class PatientDetailModel
-    {
-        public int Id { get; set; }
-        public string Name { get; set; } = "";
-        public string Initials { get; set; } = "";
-        public int Age { get; set; }
-        public string Status { get; set; } = "";
-        public string Gender { get; set; } = "";
-        public string BloodType { get; set; } = "";
-        public string Ward { get; set; } = "";
-        public string Diagnosis { get; set; } = "";
-        public int HeartRate { get; set; }
-        public int BpSystolic { get; set; }
-        public int BpDiastolic { get; set; }
-        public decimal Temperature { get; set; }
-        public int O2Saturation { get; set; }
-        public int RespiratoryRate { get; set; }
-        public string Department { get; set; } = "";
-        public string Room { get; set; } = "";
-        public string AdmissionDate { get; set; } = "";
-        public string AssignedNurse { get; set; } = "";
-        public List<string> Allergies { get; set; } = new();
-        public List<LabResult> LabResults { get; set; } = new();
-        public List<Medication> Medications { get; set; } = new();
-        public List<Visit> RecentVisits { get; set; } = new();
-    }
-
-    public class LabResult
-    {
-        public string Test { get; set; } = "";
-        public string Value { get; set; } = "";
-        public string RefRange { get; set; } = "";
-        public bool IsNormal { get; set; }
-    }
-
-    public class Medication
-    {
-        public string Name { get; set; } = "";
-        public string Dosage { get; set; } = "";
-    }
-
-    public class Visit
-    {
-        public string Date { get; set; } = "";
-        public string Reason { get; set; } = "";
-        public string Doctor { get; set; } = "";
-    }
-
-    // ========== DATA ==========
-
-    private List<PatientDetailModel> GeneratePatients()
-    {
-        var nurses = new[] { "Olivia Parker", "Sarah Jones", "Mike Chen", "Lisa Rodriguez", "Emma White" };
-        var departments = new Dictionary<string, string>
-        {
-            { "General", "Internal Medicine" }, { "Cardiology", "Cardiology" }, { "Neurology", "Neurology" },
-            { "Pulmonology", "Pulmonology" }, { "Orthopedics", "Orthopedics" }, { "ICU", "Critical Care" },
-            { "Gastroenterology", "Gastroenterology" }, { "Endocrinology", "Endocrinology" },
-            { "Dermatology", "Dermatology" }, { "Oncology", "Oncology" }, { "Rheumatology", "Rheumatology" },
-            { "Nephrology", "Nephrology" }
-        };
-
-        var basePatients = new List<(int Id, string Name, string Initials, int Age, string Status, string Gender, string BloodType, string Ward, string Diagnosis,
-            int HR, int BpS, int BpD, decimal Temp, int O2, List<string> Allergies,
-            List<LabResult> Labs, List<Medication> Meds, List<Visit> Visits)>
-        {
-            (1, "James Wilson", "JW", 44, "Monitoring", "Male", "A+", "General", "Persistent cough",
-                76, 128, 82, 98.8m, 97, new() { "Penicillin" },
-                new() { new() { Test = "WBC", Value = "11.2 K/uL", RefRange = "4.5-11.0", IsNormal = false }, new() { Test = "CRP", Value = "2.4 mg/L", RefRange = "0-10", IsNormal = true }, new() { Test = "Glucose", Value = "98 mg/dL", RefRange = "70-100", IsNormal = true } },
-                new() { new() { Name = "Dextromethorphan", Dosage = "30mg twice daily" }, new() { Name = "Guaifenesin", Dosage = "400mg every 4h" } },
-                new() { new() { Date = "Mar 28", Reason = "Lab work — CBC, CMP", Doctor = "Dr. Carter" }, new() { Date = "Mar 20", Reason = "Initial visit — cough evaluation", Doctor = "Dr. Carter" } }),
-            (2, "Sophia Martinez", "SM", 31, "Stable", "Female", "O+", "Neurology", "Migraines",
-                72, 118, 76, 98.4m, 99, new(),
-                new() { new() { Test = "CBC", Value = "Normal", RefRange = "—", IsNormal = true }, new() { Test = "TSH", Value = "2.1 mIU/L", RefRange = "0.4-4.0", IsNormal = true } },
-                new() { new() { Name = "Sumatriptan", Dosage = "50mg as needed" }, new() { Name = "Topiramate", Dosage = "25mg daily" } },
-                new() { new() { Date = "Mar 26", Reason = "Migraine review", Doctor = "Dr. Patel" }, new() { Date = "Mar 10", Reason = "Neurology consult", Doctor = "Dr. Patel" } }),
-            (3, "Daniel Thompson", "DT", 58, "Critical", "Male", "B+", "Cardiology", "Acute MI",
-                108, 152, 94, 99.2m, 92, new() { "Aspirin", "Iodine" },
-                new() { new() { Test = "Troponin", Value = "2.8 ng/mL", RefRange = "0-0.04", IsNormal = false }, new() { Test = "BNP", Value = "890 pg/mL", RefRange = "0-100", IsNormal = false }, new() { Test = "D-Dimer", Value = "0.8 ug/mL", RefRange = "0-0.5", IsNormal = false } },
-                new() { new() { Name = "Heparin", Dosage = "IV drip per protocol" }, new() { Name = "Metoprolol", Dosage = "25mg twice daily" }, new() { Name = "Atorvastatin", Dosage = "80mg daily" } },
-                new() { new() { Date = "Mar 29", Reason = "Emergency admission — chest pain", Doctor = "Dr. Reeves" }, new() { Date = "Feb 15", Reason = "Cardiology follow-up", Doctor = "Dr. Reeves" } }),
-            (4, "Ava Patel", "AP", 27, "Stable", "Female", "AB+", "General", "Allergic dermatitis",
-                68, 112, 72, 98.2m, 99, new() { "Shellfish", "Latex" },
-                new() { new() { Test = "IgE", Value = "245 IU/mL", RefRange = "0-100", IsNormal = false }, new() { Test = "Eosinophils", Value = "8%", RefRange = "1-4", IsNormal = false } },
-                new() { new() { Name = "Cetirizine", Dosage = "10mg daily" }, new() { Name = "Hydrocortisone cream", Dosage = "1% topical" } },
-                new() { new() { Date = "Mar 27", Reason = "Skin rash follow-up", Doctor = "Dr. Carter" }, new() { Date = "Mar 18", Reason = "Allergy testing", Doctor = "Dr. Brooks" } }),
-            (5, "Michael O'Connor", "MO", 62, "Monitoring", "Male", "O-", "Cardiology", "Hypertension",
-                82, 148, 92, 98.6m, 96, new() { "Sulfa drugs" },
-                new() { new() { Test = "Creatinine", Value = "1.4 mg/dL", RefRange = "0.7-1.3", IsNormal = false }, new() { Test = "Potassium", Value = "4.2 mEq/L", RefRange = "3.5-5.0", IsNormal = true }, new() { Test = "Cholesterol", Value = "242 mg/dL", RefRange = "0-200", IsNormal = false } },
-                new() { new() { Name = "Lisinopril", Dosage = "20mg daily" }, new() { Name = "Amlodipine", Dosage = "5mg daily" } },
-                new() { new() { Date = "Mar 25", Reason = "BP monitoring", Doctor = "Dr. Carter" }, new() { Date = "Mar 12", Reason = "Medication adjustment", Doctor = "Dr. Carter" } }),
-        };
-
-        var rng = new Random(42);
-        var rooms = new[] { "101", "204", "304", "456", "79A", "312", "508" };
-
-        return basePatients.Select(p =>
-        {
-            var dept = departments.ContainsKey(p.Ward) ? departments[p.Ward] : p.Ward;
-            return new PatientDetailModel
-            {
-                Id = p.Id, Name = p.Name, Initials = p.Initials, Age = p.Age, Status = p.Status,
-                Gender = p.Gender, BloodType = p.BloodType, Ward = p.Ward + " Unit B",
-                Diagnosis = p.Diagnosis, HeartRate = p.HR, BpSystolic = p.BpS, BpDiastolic = p.BpD,
-                Temperature = p.Temp, O2Saturation = p.O2, RespiratoryRate = 14 + rng.Next(0, 6),
-                Department = dept, Room = rooms[rng.Next(rooms.Length)],
-                AdmissionDate = "Mar " + (5 + rng.Next(0, 24)) + ", 2026",
-                AssignedNurse = nurses[rng.Next(nurses.Length)],
-                Allergies = p.Allergies, LabResults = p.Labs,
-                Medications = p.Meds, RecentVisits = p.Visits
-            };
-        }).ToList();
     }
 }
