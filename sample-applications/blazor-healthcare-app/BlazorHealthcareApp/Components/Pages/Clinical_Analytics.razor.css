@@ -1,0 +1,309 @@
+/* ========== HEADING / TOOLBAR ========== */
+.hc-ca-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+    gap: 24px;
+}
+
+.hc-ca-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+}
+
+.hc-ca-heading h1 {
+    font-weight: 600;
+    font-size: 42px;
+    line-height: 120%;
+    color: #232A36;
+    margin: 0;
+}
+
+.hc-ca-heading p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    color: #4A5666;
+    margin: 0;
+}
+
+.hc-ca-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+}
+
+/* DropDown pill style */
+.hc-ca-controls ::deep .k-dropdownlist {
+    border-radius: 9999px;
+    border: 1px solid rgba(23, 56, 99, 0.08);
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    min-width: 249px;
+}
+
+.hc-ca-controls ::deep .k-dropdownlist .k-input-inner {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Export button pill */
+.hc-ca-export-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 4px 12px;
+    background: #F3F5F7;
+    border: 1px solid rgba(23, 56, 99, 0.08);
+    border-radius: 9999px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #232A36;
+    cursor: pointer;
+    white-space: nowrap;
+    height: 34px;
+}
+
+.hc-ca-export-btn:hover {
+    background: #E8EAED;
+}
+
+.hc-ca-export-btn ::deep .k-svg-icon,
+.hc-ca-export-btn ::deep svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* ========== CHARTS CONTAINER ========== */
+.hc-ca-charts {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+}
+
+/* ========== CARD ========== */
+.hc-ca-card {
+    background: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.0001);
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04), 0px 2px 6px -1px rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.hc-ca-card-header {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.hc-ca-card-title {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 150%;
+    color: #232A36;
+    margin: 0;
+}
+
+.hc-ca-card-subtitle {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 142%;
+    color: #4A5666;
+    margin: 0;
+}
+
+.hc-ca-card-body {
+    padding: 10px 20px 20px;
+}
+
+.hc-ca-chart-area {
+    background: linear-gradient(179.48deg, rgba(255, 255, 255, 0) 0.02%, rgba(255, 255, 255, 0.2) 49.56%, rgba(255, 255, 255, 0.4) 74.34%);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+/* ========== BOTTOM ROW ========== */
+.hc-ca-bottom-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    width: 100%;
+}
+
+/* ========== GAUGE CARD ========== */
+.hc-ca-gauge-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 0 20px 20px;
+    flex: 1;
+    justify-content: flex-end;
+}
+
+.hc-ca-gauge-label-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    color: #3D3D3D;
+    text-align: center;
+}
+
+.hc-ca-gauge-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.hc-ca-gauge-legend-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.hc-ca-gauge-legend-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.hc-ca-legend-dot {
+    width: 15px;
+    height: 15px;
+    border-radius: 9999px;
+    flex-shrink: 0;
+}
+
+.hc-ca-legend-label {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 142%;
+    color: #232A36;
+}
+
+.hc-ca-legend-range {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 142%;
+    color: #232A36;
+}
+
+/* ========== DONUT CENTER ALIGN ========== */
+.hc-ca-donut-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 20px 20px;
+}
+
+/* Donut custom legend */
+.hc-ca-donut-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    padding-top: 8px;
+}
+.hc-ca-donut-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.hc-ca-donut-legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.hc-ca-donut-legend-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    color: #4A5666;
+}
+
+/* ========== CHART OVERRIDES ========== */
+.hc-ca-card ::deep .k-chart {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1440px) {
+    .hc-ca-heading h1 {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .hc-ca-toolbar {
+        flex-wrap: wrap;
+    }
+
+    .hc-ca-heading h1 {
+        font-size: 32px;
+    }
+
+    .hc-ca-card-body {
+        padding: 10px 16px 16px;
+    }
+}
+
+@media (max-width: 960px) {
+    .hc-ca-bottom-row {
+        grid-template-columns: 1fr;
+    }
+
+    .hc-ca-heading h1 {
+        font-size: 28px;
+    }
+
+    .hc-ca-controls {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 640px) {
+    .hc-ca-heading h1 {
+        font-size: 24px;
+    }
+
+    .hc-ca-heading p {
+        font-size: 14px;
+    }
+
+    .hc-ca-card-header {
+        padding: 16px;
+    }
+
+    .hc-ca-card-body {
+        padding: 8px 12px 12px;
+    }
+
+    .hc-ca-bottom-row {
+        gap: 20px;
+    }
+
+    .hc-ca-charts {
+        gap: 20px;
+    }
+}

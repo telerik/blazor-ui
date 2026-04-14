@@ -1,0 +1,364 @@
+/* ========== HEADING ========== */
+.hc-heading { display: flex; flex-direction: column; gap: 8px; width: 100%; position: relative; z-index: 1; }
+.hc-heading h1 {
+    font-weight: 600; font-size: 42px; line-height: 120%;
+    color: #232A36; margin: 0;
+}
+.hc-heading p {
+    font-weight: 400; font-size: 16px; line-height: 150%;
+    color: #4A5666; margin: 0;
+}
+
+/* ========== MAIN 2-COL ========== */
+.hc-main {
+    display: flex;
+    gap: 32px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+.hc-left { display: flex; flex-direction: column; flex: 1 1 70%; min-width: 0; }
+.hc-right { display: flex; flex-direction: column; width: 30%; min-width: min(320px, 100%); }
+
+/* ========== CARDS ========== */
+.hc-card {
+    background: #FFFFFF;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04), 0px 2px 6px -1px rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    padding: 24px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.hc-card-title {
+    font-weight: 700; font-size: 24px; line-height: 150%;
+    color: #232A36; margin: 0 0 20px 0;
+}
+
+/* ========== SCHEDULER OVERRIDES ========== */
+.hc-scheduler-wrapper ::deep .k-scheduler {
+    border-radius: 16px;
+    border: 1px solid rgba(23, 56, 99, 0.06);
+    font-family: 'Poppins', sans-serif;
+    box-shadow: none;
+}
+.hc-scheduler-wrapper ::deep .k-scheduler .k-scheduler-toolbar {
+    background: #FFFFFF;
+    border-bottom: 1px solid rgba(23, 56, 99, 0.06);
+    padding: 10px 16px;
+}
+/* Soften grid lines */
+.hc-scheduler-wrapper ::deep .k-scheduler .k-scheduler-cell,
+.hc-scheduler-wrapper ::deep .k-scheduler td,
+.hc-scheduler-wrapper ::deep .k-scheduler th {
+    border-color: #F0F0F0;
+}
+.hc-scheduler-wrapper ::deep .k-scheduler .k-scheduler-head {
+    border-color: #F0F0F0;
+}
+.hc-scheduler-wrapper ::deep .k-scheduler .k-scheduler-times td {
+    font-size: 13px;
+    color: #94A3B8;
+    font-weight: 400;
+}
+/* Date header */
+.hc-scheduler-wrapper ::deep .k-scheduler .k-scheduler-header th {
+    font-size: 13px;
+    color: #64748B;
+    font-weight: 500;
+    border-color: #F0F0F0;
+}
+/* Event styling */
+.hc-scheduler-wrapper ::deep .k-scheduler .k-event {
+    background: #E0E0FF;
+    border-left: 4px solid #7B7FDE;
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+    color: #383BA8;
+    border-radius: 10px;
+    font-size: 13px;
+    box-shadow: 0 1px 3px rgba(99, 102, 251, 0.08);
+}
+.hc-scheduler-wrapper ::deep .k-scheduler .k-event:hover {
+    background: #D2D2FF;
+}
+.hc-scheduler-wrapper ::deep .k-scheduler .k-event .k-event-template {
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    padding: 4px 8px;
+}
+/* Custom event content */
+.hc-event-title {
+    font-weight: 600;
+    font-size: 13px;
+    color: #383BA8;
+    line-height: 1.4;
+}
+.hc-event-meta {
+    font-size: 11px;
+    font-weight: 400;
+    color: #6366FB;
+    opacity: 0.8;
+    margin-top: 2px;
+}
+/* View selector — segmented control */
+.hc-scheduler-wrapper ::deep .k-scheduler .k-scheduler-views {
+    background: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 9999px;
+    padding: 2px;
+    gap: 0;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+.hc-scheduler-wrapper ::deep .k-scheduler .k-scheduler-views .k-button {
+    border-radius: 9999px !important;
+    border: none !important;
+    background: transparent !important;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 5px 14px;
+    color: #64748B;
+    box-shadow: none !important;
+    min-width: auto;
+    line-height: 1.4;
+}
+.hc-scheduler-wrapper ::deep .k-scheduler .k-scheduler-views .k-button.k-selected {
+    background: #FFFFFF !important;
+    color: #232A36;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08) !important;
+}
+.hc-scheduler-wrapper ::deep .k-scheduler .k-scheduler-views .k-button:hover:not(.k-selected) {
+    background: rgba(255, 255, 255, 0.5) !important;
+    color: #232A36;
+}
+/* Navigation buttons */
+.hc-scheduler-wrapper ::deep .k-scheduler .k-scheduler-navigation .k-button {
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #64748B;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+.hc-scheduler-wrapper ::deep .k-scheduler .k-scheduler-navigation .k-button:hover {
+    color: #232A36;
+    background: rgba(255, 255, 255, 0.4) !important;
+}
+.hc-scheduler-wrapper ::deep .k-scheduler .k-nav-current {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: #232A36;
+}
+/* AllDay row */
+.hc-scheduler-wrapper ::deep .k-scheduler .k-scheduler-head .k-scheduler-group:first-child {
+    border-color: #F0F0F0;
+}
+/* Hide built-in footer */
+.hc-scheduler-wrapper ::deep .k-scheduler .k-scheduler-footer {
+    display: none;
+}
+/* Footer */
+.hc-scheduler-footer {
+    display: flex;
+    justify-content: flex-start;
+    padding: 16px 0 0;
+}
+.hc-scheduler-footer-btn {
+    font-family: 'Poppins', sans-serif;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    background: transparent;
+    color: #334155;
+    border: 1px solid #CBD5E1;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+.hc-scheduler-footer-btn:hover {
+    background: rgba(35, 42, 54, 0.04);
+    border-color: #94A3B8;
+}
+.hc-scheduler-footer-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* ========== RIGHT COL — DAILY TASKS ========== */
+.hc-right-card {
+    background: #FFFFFF;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04), 0px 2px 6px -1px rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    max-height: 690px;
+    position: relative;
+    z-index: 1;
+}
+
+.hc-tasks-header {
+    padding: 24px 24px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.hc-tasks-header-title {
+    font-weight: 700; font-size: 24px; line-height: 150%;
+    color: #232A36; margin: 0; flex-shrink: 0;
+}
+
+.hc-tasks-search {
+    display: flex;
+    align-items: center;
+    padding: 2px 8px;
+    flex: 1;
+    height: 36px;
+    background: #FFFFFF;
+    border: 1px solid rgba(23, 56, 99, 0.08);
+    border-radius: 9999px;
+    gap: 4px;
+}
+.hc-tasks-search-icon { display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; color: #4A5666; }
+.hc-tasks-search-icon ::deep svg { width: 16px; height: 16px; }
+.hc-tasks-search input {
+    border: none; outline: none; background: transparent;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px; color: #232A36; width: 100%; padding: 2px 4px;
+}
+.hc-tasks-search input::placeholder { color: #4A5666; }
+
+.hc-tasks-add-btn {
+    height: 36px; min-width: 36px; max-width: 36px;
+    background: #334155; border: 1px solid #334155;
+    border-radius: 9999px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: #FFFFFF; flex-shrink: 0;
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: max-width 0.3s ease-in-out, padding 0.3s ease-in-out, gap 0.3s ease-in-out, background 0.2s ease;
+}
+.hc-tasks-add-btn:hover {
+    background: #1e293b;
+    max-width: 160px;
+    padding: 0 14px 0 10px;
+    gap: 6px;
+}
+.hc-tasks-add-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+.hc-tasks-add-btn-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px; font-weight: 500;
+    color: #FFFFFF;
+    opacity: 0;
+    max-width: 0;
+    overflow: hidden;
+    transition: opacity 0.25s ease-in-out 0.05s, max-width 0.3s ease-in-out;
+}
+.hc-tasks-add-btn:hover .hc-tasks-add-btn-text {
+    opacity: 1;
+    max-width: 100px;
+}
+
+/* Task list */
+.hc-tasks-list {
+    padding: 0 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.hc-task-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: #FFFFFF;
+    border: 1px solid rgba(23, 56, 99, 0.06);
+    border-radius: 12px;
+    transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+.hc-task-item:hover {
+    border-color: rgba(99, 102, 251, 0.15);
+    box-shadow: 0px 8px 20px rgba(0, 100, 200, 0.1);
+}
+
+.hc-task-checkbox {
+    width: 22px; height: 22px; min-width: 22px;
+    border: 2px solid #CBD5E1;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    background: #FFFFFF;
+    appearance: none; -webkit-appearance: none;
+    transition: all 0.15s ease;
+}
+.hc-task-checkbox:checked {
+    background: #334155;
+    border-color: #334155;
+}
+.hc-task-checkbox:checked::after {
+    content: '';
+    width: 10px; height: 6px;
+    border-left: 2px solid #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
+    transform: rotate(-45deg);
+    margin-top: -2px;
+}
+
+.hc-task-text {
+    flex: 1;
+    font-size: 15px;
+    line-height: 150%;
+    color: #232A36;
+}
+.hc-task-text.completed {
+    text-decoration: line-through;
+    color: #94A3B8;
+}
+
+.hc-priority-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    font-size: 12px; line-height: 133%;
+    white-space: nowrap;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+.hc-priority-high { background: #FEE2E2; border: 1px solid #FCA5A5; color: #991B1B; }
+.hc-priority-medium { background: #FEF3C7; border: 1px solid #FCD34D; color: #92400E; }
+.hc-priority-low { background: #D1FAE5; border: 1px solid #6EE7B7; color: #065F46; }
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1200px) {
+    .hc-main { flex-direction: column; }
+    .hc-left { flex: 1 1 auto; }
+    .hc-right { width: 100%; min-width: 0; }
+    .hc-right-card { height: auto; max-height: 650px; }
+}
+
+@media (max-width: 960px) {
+    .hc-heading h1 { font-size: 32px; }
+}
+
+@media (max-width: 640px) {
+    .hc-heading h1 { font-size: 26px; }
+    .hc-heading p { font-size: 14px; }
+    .hc-card { padding: 16px; }
+    .hc-card-title { font-size: 20px; margin-bottom: 16px; }
+    .hc-tasks-header-title { font-size: 20px; }
+    .hc-tasks-header { flex-wrap: wrap; }
+}

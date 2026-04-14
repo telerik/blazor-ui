@@ -271,3 +271,231 @@ h1:focus {
 .hc-dashboard.hc-transparent .hc-task-item {
     background: rgba(255, 255, 255, 0.7) !important;
 }
+
+/* ========== MODAL DIALOGS (global — TelerikWindow portals outside scoped CSS) ========== */
+.hc-modal.k-window {
+    border-radius: 20px !important;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0px 12px 40px rgba(0, 0, 0, 0.12), 0px 4px 12px rgba(0, 0, 0, 0.06);
+}
+.hc-modal .k-window-titlebar {
+    padding: 24px 28px 16px;
+    background: #FFFFFF;
+    border-bottom: none;
+    border-radius: 20px 20px 0 0;
+}
+.hc-modal .k-window-titlebar .k-window-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #232A36;
+}
+.hc-modal .k-window-titlebar .k-window-action {
+    color: #94A3B8;
+    opacity: 0.7;
+}
+.hc-modal .k-window-titlebar .k-window-action:hover {
+    color: #232A36;
+    opacity: 1;
+    background: transparent;
+}
+.hc-modal .k-window-content {
+    padding: 0;
+    border-radius: 0 0 20px 20px;
+}
+.hc-modal-body {
+    padding: 0 28px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.hc-modal-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.hc-modal-label {
+    font-weight: 500;
+    font-size: 14px;
+    color: #232A36;
+}
+.hc-modal .k-dropdownlist,
+.hc-modal .k-multiselect,
+.hc-modal .k-textbox {
+    border-radius: 10px !important;
+    background: #F9FAFB;
+    border: 1px solid rgba(23, 56, 99, 0.12);
+}
+.hc-modal .k-dropdownlist:focus-within,
+.hc-modal .k-multiselect:focus-within,
+.hc-modal .k-textbox:focus-within {
+    border-color: rgba(99, 102, 251, 0.4);
+    box-shadow: 0 0 0 2px rgba(99, 102, 251, 0.1);
+}
+/* TelerikTextArea inside modal */
+.hc-modal-textarea {
+    border-radius: 10px !important;
+    background: #F9FAFB;
+    border: 1px solid rgba(23, 56, 99, 0.12);
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: #232A36;
+    padding: 10px 14px;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 120px;
+    resize: vertical;
+}
+.hc-modal-textarea:focus-within,
+.hc-modal-textarea:focus {
+    border-color: rgba(99, 102, 251, 0.4);
+    box-shadow: 0 0 0 2px rgba(99, 102, 251, 0.1);
+}
+.hc-modal-textarea .k-input-inner {
+    min-height: 160px;
+}
+/* Native text input inside modal (Schedule) */
+.hc-modal-input {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: #232A36;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: #F9FAFB;
+    border: 1px solid rgba(23, 56, 99, 0.12);
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+.hc-modal-input:focus {
+    border-color: rgba(99, 102, 251, 0.4);
+    box-shadow: 0 0 0 2px rgba(99, 102, 251, 0.1);
+}
+/* Modal popup overrides (DropDown/MultiSelect popups inside modals) */
+.hc-modal-popup.k-animation-container {
+    border-radius: 10px;
+    overflow: hidden;
+}
+.hc-modal-popup .k-list-content,
+.hc-modal-popup .k-popup {
+    border-radius: 10px;
+}
+/* Lab test checklist inside modal */
+.hc-lab-checklist {
+    max-height: 250px;
+    overflow-y: auto;
+    border: 1px solid rgba(23, 56, 99, 0.08);
+    border-radius: 10px;
+    background: #FFFFFF;
+}
+.hc-lab-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(23, 56, 99, 0.06);
+    transition: box-shadow 0.2s ease-in-out;
+}
+.hc-lab-row:last-child {
+    border-bottom: none;
+}
+.hc-lab-row:hover {
+    box-shadow: 0px 8px 20px rgba(0, 100, 200, 0.1);
+    z-index: 1;
+    position: relative;
+}
+.hc-lab-row-selected {
+    background: rgba(99, 102, 251, 0.04);
+}
+.hc-lab-check {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    border-radius: 50%;
+    border: 2px solid #CBD5E1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+.hc-lab-check svg {
+    width: 12px;
+    height: 12px;
+}
+.hc-lab-checked {
+    background: #334155;
+    border-color: #334155;
+}
+.hc-lab-name {
+    font-size: 14px;
+    color: #232A36;
+    line-height: 150%;
+}
+/* Modal action buttons */
+.hc-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 4px;
+}
+.hc-modal-btn {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s ease;
+}
+.hc-modal-btn-secondary {
+    background: transparent;
+    color: #4A5666;
+}
+.hc-modal-btn-secondary:hover {
+    background: rgba(35, 42, 54, 0.06);
+}
+.hc-modal-btn-primary {
+    background: #334155;
+    color: #FFFFFF;
+    padding: 10px 28px;
+}
+.hc-modal-btn-primary:hover {
+    background: #1e293b;
+}
+/* Priority segmented control inside modal (Schedule) */
+.hc-priority-seg {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px;
+    background: linear-gradient(0deg, rgba(35, 42, 54, 0.08), rgba(35, 42, 54, 0.08)), #ECEFF3;
+    border-radius: 9999px;
+    align-self: flex-start;
+}
+.hc-priority-seg-btn {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px 16px;
+    border: none;
+    background: transparent;
+    color: #4A5666;
+    cursor: pointer;
+    border-radius: 9999px;
+    transition: background 0.15s, color 0.15s;
+}
+.hc-priority-seg-btn:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+.hc-priority-seg-btn.active {
+    background: #FFFFFF;
+    color: #232A36;
+}
+
+/* ========== DROPDOWN POPUP (global — Clinical Analytics dropdown portals outside scoped CSS) ========== */
+.hc-ca-dropdown-popup.k-animation-container .k-list-container,
+.hc-ca-dropdown-popup .k-list-container {
+    border-radius: 16px;
+}
