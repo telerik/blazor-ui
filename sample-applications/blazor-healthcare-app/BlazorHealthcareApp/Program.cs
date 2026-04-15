@@ -11,8 +11,10 @@ builder.Services.AddRazorComponents()
 
 // ========== Application Services ==========
 builder.Services.AddScoped<PatientService>();
-builder.Services.AddScoped<HomeService>();
-builder.Services.AddScoped<ScheduleService>();
+builder.Services.AddScoped<AppointmentService>();
+builder.Services.AddScoped<TaskService>();
+builder.Services.AddScoped<AlertService>();
+builder.Services.AddScoped<StaffService>();
 builder.Services.AddScoped<AnalyticsService>();
 
 var app = builder.Build();

@@ -1,17 +1,20 @@
 ﻿@inherits LayoutComponentBase
 @inject NavigationManager Nav
+@inject PatientService PatientService
 
 <TelerikRootComponent>
-    <div class="hc-dashboard @(isTransparentMode ? "hc-transparent" : "")">
+    <div class="hc-dashboard @(IsTransparentMode ? "hc-transparent" : "")">
         <!-- ========== APPBAR ========== -->
-        <div class="hc-appbar">
-            <div class="hc-appbar-left">
+        <TelerikAppBar Class="hc-appbar">
+            <AppBarSection Class="hc-appbar-sides">
                 <a href="/" class="hc-logo">
                     <img src="images/Logo1.svg" alt="Logoipsum" class="hc-logo-icon" />
                 </a>
-            </div>
+            </AppBarSection>
 
-            <div class="hc-appbar-center">
+            <AppBarSpacer />
+
+            <AppBarSection Class="hc-appbar-center">
                 <div class="hc-segmented">
                     <a href="/" class="hc-segment @(ActiveSegment == "home" ? "active" : "")">
                         <TelerikSvgIcon Icon="@SvgIcon.Home" />
@@ -30,83 +33,94 @@
                         <span>Clinical Analytics</span>
                     </a>
                 </div>
-            </div>
+            </AppBarSection>
 
-            <div class="hc-appbar-right">
-                <div class="hc-search">
-                    <TelerikAutoComplete Data="@SearchPatients"
-                                         @bind-Value="@searchText"
-                                         ValueField="Name"
-                                         Filterable="true"
-                                         FilterOperator="@StringFilterOperator.Contains"
-                                         Placeholder="Search patient name or ID"
-                                         Width="100%"
-                                         ShowPrefixSeparator="false"
-                                         OnChange="@OnSearchPatientSelected">
-                        <AutoCompletePrefixTemplate>
-                            <TelerikSvgIcon Icon="@SvgIcon.Search" />
-                        </AutoCompletePrefixTemplate>
-                        <AutoCompleteSettings>
-                            <AutoCompletePopupSettings Class="hc-search-popup" Height="auto" MaxHeight="300px" />
-                        </AutoCompleteSettings>
-                    </TelerikAutoComplete>
-                </div>
+            <AppBarSpacer />
 
-                <button class="hc-icon-btn" title="Toggle theme" @onclick="ToggleTransparency">
-                    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <mask id="interlockMask">
-                                <rect width="16" height="16" fill="white"/>
-                                <circle cx="6" cy="10" r="1.5" fill="black"/>
-                            </mask>
-                        </defs>
-                        <circle cx="10" cy="10" r="4" stroke="#232A36" stroke-width="1.5"/>
-                        <circle cx="6" cy="6" r="4" stroke="#232A36" stroke-width="1.5" mask="url(#interlockMask)"/>
-                    </svg>
-                </button>
-
-                <div class="hc-notif-wrapper">
-                    <button class="hc-icon-btn" title="Notifications" @onclick="ToggleNotifications" @onclick:stopPropagation="true">
-                        <TelerikSvgIcon Icon="@SvgIcon.Bell" />
-                    </button>
-                    <div class="hc-notif-badge"></div>
-
-                    @if (isNotificationOpen)
-                    {
-                        <div class="hc-notif-popup" @onclick:stopPropagation="true">
-                            <div class="hc-notif-popup-header">
-                                <span class="hc-notif-popup-title">Notifications</span>
-                                <button class="hc-notif-mark-read" @onclick="MarkAllRead">Mark all read</button>
-                            </div>
-                            @foreach (var notif in Notifications)
-                            {
-                                <div class="hc-notif-item">
-                                    <div class="hc-notif-item-icon">
-                                        <TelerikSvgIcon Icon="@SvgIcon.Bell" />
-                                    </div>
-                                    <div class="hc-notif-item-text">
-                                        <span class="hc-notif-item-title">@notif.Title</span>
-                                        <span class="hc-notif-item-desc">@notif.Description</span>
-                                    </div>
-                                    <span class="hc-notif-item-time">@notif.Time</span>
-                                </div>
-                            }
-                        </div>
-                    }
-                </div>
-
-                <div class="hc-separator"></div>
-
-                <button class="hc-avatar-btn" @onclick="ToggleProfile" title="Profile">
-                    <div class="hc-avatar">
-                        <img src="images/dr-carter.jpg" alt="Dr. Carter" style="width:100%;height:100%;object-fit:cover;" />
+            <AppBarSection Class="hc-appbar-sides">
+                <div class="hc-appbar-actions">
+                    <div class="hc-search">
+                        <TelerikAutoComplete Data="@SearchPatients"
+                                             @bind-Value="@SearchText"
+                                             ValueField="Name"
+                                             Filterable="true"
+                                             FilterOperator="@StringFilterOperator.Contains"
+                                             Placeholder="Search patient name or ID"
+                                             Width="100%"
+                                             ShowPrefixSeparator="false"
+                                             OnChange="@OnSearchPatientSelected">
+                            <AutoCompletePrefixTemplate>
+                                <TelerikSvgIcon Icon="@SvgIcon.Search" />
+                            </AutoCompletePrefixTemplate>
+                            <AutoCompleteSettings>
+                                <AutoCompletePopupSettings Class="hc-search-popup" Height="auto" MaxHeight="300px" />
+                            </AutoCompleteSettings>
+                        </TelerikAutoComplete>
                     </div>
-                </button>
-            </div>
-        </div>
+
+                    <button class="hc-icon-btn" title="Toggle theme" @onclick="ToggleTransparency">
+                        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <mask id="interlockMask">
+                                    <rect width="16" height="16" fill="white"/>
+                                    <circle cx="6" cy="10" r="1.5" fill="black"/>
+                                </mask>
+                            </defs>
+                            <circle cx="10" cy="10" r="4" stroke="#232A36" stroke-width="1.5"/>
+                            <circle cx="6" cy="6" r="4" stroke="#232A36" stroke-width="1.5" mask="url(#interlockMask)"/>
+                        </svg>
+                    </button>
+
+                    <div class="hc-notif-wrapper">
+                        <button class="hc-notif-btn" id="notif-anchor" title="Notifications">
+                            <TelerikSvgIcon Icon="@SvgIcon.Bell" />
+                            @if (Notifications.Any())
+                            {
+                                <TelerikBadge Class="hc-notif-badge"
+                                              Rounded="@ThemeConstants.Badge.Rounded.Full" />
+                            }
+                        </button>
+
+                        <TelerikPopover @ref="@PopoverRef"
+                                        AnchorSelector="#notif-anchor"
+                                        ShowOn="@PopoverShowOn.Click"
+                                        Class="hc-notif-popover"
+                                        AnimationType="@AnimationType.None">
+                            <PopoverContent>
+                                <div class="hc-notif-popup-header">
+                                    <span class="hc-notif-popup-title">Notifications</span>
+                                    <button class="hc-notif-mark-read" @onclick="MarkAllRead">Mark all read</button>
+                                </div>
+                                @foreach (var notif in Notifications)
+                                {
+                                    <div class="hc-notif-item">
+                                        <div class="hc-notif-item-icon">
+                                            <TelerikSvgIcon Icon="@SvgIcon.Bell" />
+                                        </div>
+                                        <div class="hc-notif-item-text">
+                                            <span class="hc-notif-item-title">@notif.Title</span>
+                                            <span class="hc-notif-item-desc">@notif.Description</span>
+                                        </div>
+                                        <span class="hc-notif-item-time">@notif.Time</span>
+                                    </div>
+                                }
+                            </PopoverContent>
+                        </TelerikPopover>
+                    </div>
+
+                    <div class="hc-separator"></div>
+
+                    <button class="hc-avatar-btn" @onclick="ToggleProfile" title="Profile">
+                        <div class="hc-avatar">
+                            <img src="images/dr-carter.jpg" alt="Dr. Carter" style="width:100%;height:100%;object-fit:cover;" />
+                        </div>
+                    </button>
+                </div>
+            </AppBarSection>
+        </TelerikAppBar>
 
         <!-- ========== PROFILE MODAL ========== -->
-        <TelerikWindow @bind-Visible="@isProfileOpen" Modal="true" Width="450px" Class="hc-profile-modal">
+        <TelerikWindow @bind-Visible="@IsProfileOpen" Modal="true" Width="450px" Class="hc-profile-modal">
             <WindowTitle>
                 Profile Management
             </WindowTitle>
@@ -135,23 +149,40 @@
                         <span>@((MarkupString)"&bull;") Please change your password every two weeks</span>
                     </div>
 
-                    <div class="hc-pm-field">
-                        <label class="hc-pm-label">Full Name</label>
-                        <TelerikTextBox @bind-Value="@profileName" PlaceHolder="Enter your name" />
-                    </div>
-                    <div class="hc-pm-field">
-                        <label class="hc-pm-label">Email Address</label>
-                        <TelerikTextBox @bind-Value="@profileEmail" PlaceHolder="Enter your email" />
-                    </div>
-                    <div class="hc-pm-field">
-                        <label class="hc-pm-label">Phone Number</label>
-                        <TelerikTextBox @bind-Value="@profilePhone" PlaceHolder="Enter your phone" />
-                    </div>
-
-                    <div class="hc-pm-actions">
-                        <button class="hc-pm-btn hc-pm-btn-clear" @onclick="() => isProfileOpen = false">Clear</button>
-                        <button class="hc-pm-btn hc-pm-btn-submit" @onclick="() => isProfileOpen = false">Submit</button>
-                    </div>
+                    <TelerikForm Model="@ProfileData" Class="hc-pm-form" ColumnSpacing="0">
+                        <FormItems>
+                            <FormItem Field="@nameof(ProfileModel.FullName)" LabelText="Full Name">
+                                <Template>
+                                    <label for="pm-fullname" class="hc-pm-label">Full Name</label>
+                                    <div class="k-form-field-wrap">
+                                        <TelerikTextBox @bind-Value="@ProfileData.FullName" PlaceHolder="Enter your name" Id="pm-fullname" />
+                                    </div>
+                                </Template>
+                            </FormItem>
+                            <FormItem Field="@nameof(ProfileModel.Email)" LabelText="Email Address">
+                                <Template>
+                                    <label for="pm-email" class="hc-pm-label">Email Address</label>
+                                    <div class="k-form-field-wrap">
+                                        <TelerikTextBox @bind-Value="@ProfileData.Email" PlaceHolder="Enter your email" Id="pm-email" />
+                                    </div>
+                                </Template>
+                            </FormItem>
+                            <FormItem Field="@nameof(ProfileModel.Phone)" LabelText="Phone Number">
+                                <Template>
+                                    <label for="pm-phone" class="hc-pm-label">Phone Number</label>
+                                    <div class="k-form-field-wrap">
+                                        <TelerikTextBox @bind-Value="@ProfileData.Phone" PlaceHolder="Enter your phone" Id="pm-phone" />
+                                    </div>
+                                </Template>
+                            </FormItem>
+                        </FormItems>
+                        <FormButtons>
+                            <div class="hc-pm-actions">
+                                <button type="button" class="hc-pm-btn hc-pm-btn-clear" @onclick="() => IsProfileOpen = false">Clear</button>
+                                <button type="button" class="hc-pm-btn hc-pm-btn-submit" @onclick="() => IsProfileOpen = false">Submit</button>
+                            </div>
+                        </FormButtons>
+                    </TelerikForm>
                 </div>
             </WindowContent>
         </TelerikWindow>
@@ -170,80 +201,73 @@
 </TelerikRootComponent>
 
 @code {
-    private string ActiveSegment = "home";
-    private bool isNotificationOpen;
-    private bool isProfileOpen;
-    private bool isTransparentMode;
+    #region Fields
 
-    private void ToggleTransparency() => isTransparentMode = !isTransparentMode;
+    private string ActiveSegment { get; set; } = "home";
+    private bool IsProfileOpen { get; set; }
+    private bool IsTransparentMode { get; set; }
+    private TelerikPopover? PopoverRef { get; set; }
 
-    private List<NotificationItem> Notifications = new()
+    private List<NotificationItem> Notifications { get; set; } = new()
     {
         new() { Title = "Follow-up Reminder", Description = "A follow-up consultation is recom...", Time = "5 min ago" },
         new() { Title = "Extended Request", Description = "Based on Emma's current conditi...", Time = "35 min ago" },
         new() { Title = "Medication Check", Description = "Ensure patient is taking medications...", Time = "1 h ago" },
     };
 
-    private void ToggleNotifications()
+    private ProfileModel ProfileData { get; set; } = new()
     {
-        isNotificationOpen = !isNotificationOpen;
-        if (isNotificationOpen) isProfileOpen = false;
+        FullName = "Emily Carter",
+        Email = "drcarter@email.com",
+        Phone = "+(555) 776-90-84",
+    };
+
+    private string SearchText { get; set; } = "";
+    private List<PatientModel> SearchPatients { get; set; } = new();
+
+    #endregion
+
+    #region Lifecycle
+
+    protected override void OnInitialized()
+    {
+        SearchPatients = PatientService.GetPatients();
+        UpdateActiveSegment();
+        Nav.LocationChanged += OnLocationChanged;
     }
-    private void MarkAllRead() => isNotificationOpen = false;
+
+    #endregion
+
+    #region UI Toggles
+
+    private void ToggleTransparency() => IsTransparentMode = !IsTransparentMode;
+
+    private void MarkAllRead() => PopoverRef?.Hide();
 
     private void ToggleProfile()
     {
-        isProfileOpen = !isProfileOpen;
-        if (isProfileOpen) isNotificationOpen = false;
+        IsProfileOpen = !IsProfileOpen;
+        if (IsProfileOpen) PopoverRef?.Hide();
     }
 
-    private string profileName = "Emily Carter";
-    private string profileEmail = "drcarter@email.com";
-    private string profilePhone = "+(555) 776-90-84";
+    #endregion
 
-    /* ========== SEARCH ========== */
-    private string searchText = "";
-
-    private List<SearchPatientItem> SearchPatients = new()
-    {
-        new() { Id = 1, Name = "James Wilson" },
-        new() { Id = 2, Name = "Sophia Martinez" },
-        new() { Id = 3, Name = "Daniel Thompson" },
-        new() { Id = 4, Name = "Ava Patel" },
-        new() { Id = 5, Name = "Michael O'Connor" },
-        new() { Id = 6, Name = "Emily Chen" },
-        new() { Id = 7, Name = "Alexander Novak" },
-    };
+    #region Search
 
     private void OnSearchPatientSelected()
     {
-        if (string.IsNullOrWhiteSpace(searchText)) return;
-        var match = SearchPatients.FirstOrDefault(p => p.Name == searchText);
+        if (string.IsNullOrWhiteSpace(SearchText)) return;
+        var match = SearchPatients.FirstOrDefault(p => p.Name == SearchText);
         if (match != null)
         {
-            searchText = "";
+            SearchText = "";
             Nav.NavigateTo($"/patient/{match.Id}");
         }
     }
 
-    public class SearchPatientItem
-    {
-        public int Id { get; set; }
-        public string Name { get; set; } = "";
-    }
+    #endregion
 
-    public class NotificationItem
-    {
-        public string Title { get; set; } = "";
-        public string Description { get; set; } = "";
-        public string Time { get; set; } = "";
-    }
-
-    protected override void OnInitialized()
-    {
-        UpdateActiveSegment();
-        Nav.LocationChanged += OnLocationChanged;
-    }
+    #region Navigation
 
     private void OnLocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
     {
@@ -269,4 +293,17 @@
     {
         Nav.LocationChanged -= OnLocationChanged;
     }
+
+    #endregion
+
+    #region Models
+
+    public class ProfileModel
+    {
+        public string FullName { get; set; } = "";
+        public string Email { get; set; } = "";
+        public string Phone { get; set; } = "";
+    }
+
+    #endregion
 }

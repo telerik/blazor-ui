@@ -173,24 +173,32 @@ h1:focus {
     font-size: 14px;
     color: #383BA8;
 }
-.hc-pm-field {
+.hc-pm-form.k-form {
+    gap: 0;
+    padding: 0;
+}
+.hc-pm-form .k-form-field {
     display: flex;
     flex-direction: column;
     gap: 6px;
     margin-bottom: 16px;
+}
+.hc-pm-form .k-form-buttons {
+    padding: 0;
+    margin: 0;
 }
 .hc-pm-label {
     font-weight: 500;
     font-size: 14px;
     color: #232A36;
 }
-.hc-pm-field .k-textbox {
+.hc-pm-form .k-textbox {
     border-radius: 10px;
     border: 1px solid rgba(23, 56, 99, 0.12);
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
 }
-.hc-pm-field .k-textbox:focus-within {
+.hc-pm-form .k-textbox:focus-within {
     border-color: rgba(99, 102, 251, 0.4);
     box-shadow: 0 0 0 2px rgba(99, 102, 251, 0.1);
 }
@@ -221,6 +229,92 @@ h1:focus {
     color: #FFFFFF;
 }
 .hc-pm-btn-submit:hover { background: #1e293b; }
+
+/* ========== NOTIFICATION POPOVER (global — TelerikPopover portals outside scoped CSS) ========== */
+.hc-notif-popover.k-popover {
+    width: 360px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.1), 0px 1px 4px rgba(0, 0, 0, 0.06);
+    font-family: 'Poppins', sans-serif;
+}
+.hc-notif-popover .k-popover-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.hc-notif-popover .k-popover-callout {
+    display: none;
+}
+.hc-notif-popover .hc-notif-popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+.hc-notif-popover .hc-notif-popup-title {
+    font-weight: 700;
+    font-size: 18px;
+    color: #232A36;
+}
+.hc-notif-popover .hc-notif-mark-read {
+    background: none;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    color: #4A5666;
+    cursor: pointer;
+    padding: 0;
+}
+.hc-notif-popover .hc-notif-mark-read:hover { color: #232A36; }
+.hc-notif-popover .hc-notif-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-top: 1px solid rgba(23, 56, 99, 0.06);
+}
+.hc-notif-popover .hc-notif-item:first-of-type { border-top: none; }
+.hc-notif-popover .hc-notif-item-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #E2E8F0 0%, #CBD5E1 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4A5666;
+}
+.hc-notif-popover .hc-notif-item-icon .k-svg-icon { width: 18px; height: 18px; }
+.hc-notif-popover .hc-notif-item-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+.hc-notif-popover .hc-notif-item-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #232A36;
+    line-height: 142%;
+}
+.hc-notif-popover .hc-notif-item-desc {
+    font-size: 13px;
+    color: #4A5666;
+    line-height: 142%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.hc-notif-popover .hc-notif-item-time {
+    font-size: 12px;
+    color: #94A3B8;
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding-top: 2px;
+}
 
 /* ========== SEARCH AUTOCOMPLETE (global — popup portals outside scoped CSS) ========== */
 .hc-search-popup.k-animation-container .k-list-container,
@@ -268,7 +362,8 @@ h1:focus {
 .hc-dashboard.hc-transparent .hc-ca-card,
 .hc-dashboard.hc-transparent .hc-ai-panel,
 .hc-dashboard.hc-transparent .hc-chat-wrapper,
-.hc-dashboard.hc-transparent .hc-task-item {
+.hc-dashboard.hc-transparent .hc-task-item,
+.hc-dashboard.hc-transparent .hc-appbar.k-appbar {
     background: rgba(255, 255, 255, 0.7) !important;
 }
 

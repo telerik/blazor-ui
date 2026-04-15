@@ -4,14 +4,6 @@ namespace BlazorHealthcareApp.Services;
 
 public class AnalyticsService
 {
-    public List<PatientOption> GetPatientOptions() => new()
-    {
-        new() { Id = 1, DisplayText = "James Wilson (P-104582)" },
-        new() { Id = 2, DisplayText = "Sophia Martinez (P-203847)" },
-        new() { Id = 3, DisplayText = "Michael O'Connor (P-301928)" },
-        new() { Id = 4, DisplayText = "Ava Patel (P-409283)" },
-    };
-
     public int GetRiskScore() => 50;
 
     public List<VitalDataPoint> GetVitalsData() => new()

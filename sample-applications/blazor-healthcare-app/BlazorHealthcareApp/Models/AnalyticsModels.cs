@@ -1,11 +1,5 @@
 namespace BlazorHealthcareApp.Models;
 
-public class PatientOption
-{
-    public int Id { get; set; }
-    public string DisplayText { get; set; } = "";
-}
-
 public class VitalDataPoint
 {
     public string Month { get; set; } = "";

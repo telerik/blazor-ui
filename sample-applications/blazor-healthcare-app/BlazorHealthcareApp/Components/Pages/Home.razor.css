@@ -154,7 +154,7 @@
 .hc-grid-wrapper ::deep .k-grid .k-master-row:nth-child(odd) td {
     background: #FFFFFF;
 }
-.hc-grid-wrapper ::deep .k-grid .k-grid-content { overflow-y: auto; max-height: 440px; }
+.hc-grid-wrapper ::deep .k-grid .k-grid-content { overflow-y: hidden; }
 .hc-grid-wrapper ::deep .k-grid .k-grid-header { padding-right: 0 !important; }
 .hc-grid-wrapper ::deep .k-grid .k-pager { display: none !important; }
 

@@ -1,6 +1,7 @@
 ﻿@page "/clinical-analytics"
 @rendermode InteractiveServer
 @inject AnalyticsService AnalyticsService
+@inject PatientService PatientService
 
 <!-- ========== TOOLBAR ========== -->
 <div class="hc-ca-toolbar">
@@ -11,9 +12,21 @@
     <div class="hc-ca-controls">
         <TelerikDropDownList Data="@Patients"
                              @bind-Value="@SelectedPatientId"
-                             TextField="DisplayText"
+                             TextField="Name"
                              ValueField="Id"
                              Width="249px">
+            <ValueTemplate>
+                @{
+                    var p = (PatientModel)context;
+                }
+                @p.Name (P-@p.Id.ToString("D6"))
+            </ValueTemplate>
+            <ItemTemplate>
+                @{
+                    var p = (PatientModel)context;
+                }
+                @p.Name (P-@p.Id.ToString("D6"))
+            </ItemTemplate>
             <DropDownListSettings>
                 <DropDownListPopupSettings Class="hc-ca-dropdown-popup" />
             </DropDownListSettings>
@@ -371,18 +384,24 @@
 </div>
 
 @code {
+    #region Fields
+
     private int SelectedPatientId { get; set; } = 1;
 
-    private List<PatientOption> Patients { get; set; } = new();
+    private List<PatientModel> Patients { get; set; } = new();
     private int RiskScoreValue { get; set; }
     private List<VitalDataPoint> VitalsData { get; set; } = new();
     private List<AlertTimeData> AlertsOverTimeData { get; set; } = new();
     private List<HealthMetricPoint> HealthMetricsData { get; set; } = new();
     private List<AlertCategoryData> AlertsByCategoryData { get; set; } = new();
 
+    #endregion
+
+    #region Lifecycle
+
     protected override void OnInitialized()
     {
-        Patients             = AnalyticsService.GetPatientOptions();
+        Patients             = PatientService.GetPatients();
         RiskScoreValue       = AnalyticsService.GetRiskScore();
         VitalsData           = AnalyticsService.GetVitalsData();
         AlertsOverTimeData   = AnalyticsService.GetAlertsOverTime();
@@ -390,5 +409,11 @@
         AlertsByCategoryData = AnalyticsService.GetAlertsByCategory();
     }
 
+    #endregion
+
+    #region Event Handlers
+
     private void OnExportClick() { }
+
+    #endregion
 }

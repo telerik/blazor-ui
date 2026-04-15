@@ -10,7 +10,7 @@
         <p>Monitor patient trends, vitals, lab results, and risk levels in one place</p>
     </div>
     <div class="hc-heading-actions">
-        <button class="hc-btn-primary @(isAIPanelOpen ? "hc-btn-ai-active" : "")" @onclick="ToggleAIPanel">
+        <button class="hc-btn-primary @(IsAIPanelOpen ? "hc-btn-ai-active" : "")" @onclick="ToggleAIPanel">
             <svg viewBox="0 0 16 16" fill="none"><path d="M8 2L9.1 5.5H12.8L9.85 7.7L10.9 11.2L8 9L5.1 11.2L6.15 7.7L3.2 5.5H6.9L8 2Z" stroke="white" stroke-width="1.2" fill="none" stroke-linejoin="round"/></svg>
             AI Assistance
         </button>
@@ -75,8 +75,8 @@
                             var p = (PatientModel)context;
                             var chipClass = p.Status switch
                             {
-                                "Critical" => "hc-chip-critical",
-                                "Monitoring" => "hc-chip-monitoring",
+                                PatientStatus.Critical => "hc-chip-critical",
+                                PatientStatus.Monitoring => "hc-chip-monitoring",
                                 _ => "hc-chip-stable"
                             };
                         }
@@ -121,7 +121,7 @@
             </GridColumns>
         </TelerikGrid>
     </div>    <!-- AI ASSISTANT SIDE PANEL -->
-    @if (isAIPanelOpen)
+    @if (IsAIPanelOpen)
     {
         <div class="hc-ai-panel">
             <div class="hc-ai-panel-header">
@@ -137,10 +137,10 @@
                 </button>
             </div>
 
-            <TelerikChat @ref="aiChatRef"
-                         Data="@aiChatData"
+            <TelerikChat @ref="AiChatRef"
+                         Data="@AiChatData"
                          AuthorId="@("user")"
-                         Suggestions="@aiChatSuggestions"
+                         Suggestions="@AiChatSuggestions"
                          OnSendMessage="@OnAIChatSendMessage"
                          OnSuggestionClick="@OnAIChatSuggestionClick"
                          Placeholder="Type a message"
@@ -164,30 +164,38 @@
 </div>
 
 @code {
-    private int PageSize = 10;
-    private int CurrentPage = 1;
+    #region Fields
 
-    private bool isAIPanelOpen;
-    private TelerikChat<AIChatMessage> aiChatRef = null!;
-    private List<AIChatMessage> aiChatData = new();
-    private List<string> aiChatSuggestions = new() { "Summarize patient history", "Highlight risk" };
+    private int PageSize { get; set; } = 10;
+    private int CurrentPage { get; set; } = 1;
 
-    private List<PatientModel> PatientData = new();
+    private bool IsAIPanelOpen { get; set; }
+    private TelerikChat<AIChatMessage> AiChatRef { get; set; } = null!;
+    private List<AIChatMessage> AiChatData { get; set; } = new();
+    private List<string> AiChatSuggestions { get; set; } = new() { "Summarize patient history", "Highlight risk" };
+
+    private List<PatientModel> PatientData { get; set; } = new();
+
+    #endregion
+
+    #region Lifecycle
 
     protected override void OnInitialized()
     {
         PatientData = PatientService.GetPatients();
     }
 
-    // ========== AI SIDE PANEL ==========
+    #endregion
+
+    #region AI Side Panel
 
     private void ToggleAIPanel()
     {
-        isAIPanelOpen = !isAIPanelOpen;
-        if (!isAIPanelOpen)
+        IsAIPanelOpen = !IsAIPanelOpen;
+        if (!IsAIPanelOpen)
         {
-            aiChatData.Clear();
-            aiChatSuggestions = new() { "Summarize patient history", "Highlight risk" };
+            AiChatData.Clear();
+            AiChatSuggestions = new() { "Summarize patient history", "Highlight risk" };
         }
     }
 
@@ -201,24 +209,24 @@
             _                           => suggestion
         };
 
-        aiChatData.Add(new AIChatMessage { Id = Guid.NewGuid().ToString(), Text = userText, AuthorId = "user", AuthorName = "Dr. Carter", Timestamp = DateTime.Now });
-        aiChatSuggestions = new();
+        AiChatData.Add(new AIChatMessage { Id = Guid.NewGuid().ToString(), Text = userText, AuthorId = "user", AuthorName = "Dr. Carter", Timestamp = DateTime.Now });
+        AiChatSuggestions = new();
 
         var typingMsg = new AIChatMessage { Id = "typing", Text = "", AuthorId = "ai", AuthorName = "AI Assistant", IsTyping = true, Timestamp = DateTime.Now };
-        aiChatData.Add(typingMsg);
+        AiChatData.Add(typingMsg);
         StateHasChanged();
 
         await Task.Delay(1200);
-        aiChatData.Remove(typingMsg);
+        AiChatData.Remove(typingMsg);
 
         var response = suggestion switch
         {
-            "Summarize patient history" => $"You currently have {PatientData.Count} patients across multiple wards. {PatientData.Count(p => p.Status == "Critical")} patients are in critical status, {PatientData.Count(p => p.Status == "Monitoring")} are being monitored, and {PatientData.Count(p => p.Status == "Stable")} are stable. Key focus areas: Cardiology ({PatientData.Count(p => p.Ward == "Cardiology")} patients) and Neurology ({PatientData.Count(p => p.Ward == "Neurology")} patients).",
+            "Summarize patient history" => $"You currently have {PatientData.Count} patients across multiple wards. {PatientData.Count(p => p.Status == PatientStatus.Critical)} patients are in critical status, {PatientData.Count(p => p.Status == PatientStatus.Monitoring)} are being monitored, and {PatientData.Count(p => p.Status == PatientStatus.Stable)} are stable. Key focus areas: Cardiology ({PatientData.Count(p => p.Ward == "Cardiology")} patients) and Neurology ({PatientData.Count(p => p.Ward == "Neurology")} patients).",
             "Highlight risk"            => BuildHighRiskResponse(),
             _                           => "I'm sorry, I don't have information for that query."
         };
 
-        aiChatData.Add(new AIChatMessage { Id = Guid.NewGuid().ToString(), Text = response, AuthorId = "ai", AuthorName = "AI Assistant", Timestamp = DateTime.Now });
+        AiChatData.Add(new AIChatMessage { Id = Guid.NewGuid().ToString(), Text = response, AuthorId = "ai", AuthorName = "AI Assistant", Timestamp = DateTime.Now });
     }
 
     private async Task OnAIChatSendMessage(ChatSendMessageEventArgs args)
@@ -226,22 +234,22 @@
         var text = args.Message?.Trim();
         if (string.IsNullOrEmpty(text)) return;
 
-        aiChatData.Add(new AIChatMessage { Id = Guid.NewGuid().ToString(), Text = text, AuthorId = "user", AuthorName = "Dr. Carter", Timestamp = DateTime.Now });
-        aiChatSuggestions = new();
+        AiChatData.Add(new AIChatMessage { Id = Guid.NewGuid().ToString(), Text = text, AuthorId = "user", AuthorName = "Dr. Carter", Timestamp = DateTime.Now });
+        AiChatSuggestions = new();
 
         var typingMsg = new AIChatMessage { Id = "typing", Text = "", AuthorId = "ai", AuthorName = "AI Assistant", IsTyping = true, Timestamp = DateTime.Now };
-        aiChatData.Add(typingMsg);
+        AiChatData.Add(typingMsg);
         StateHasChanged();
 
         await Task.Delay(1000);
-        aiChatData.Remove(typingMsg);
+        AiChatData.Remove(typingMsg);
 
         var lower = text.ToLowerInvariant();
         string response;
         if (lower.Contains("risk") || lower.Contains("critical") || lower.Contains("high-risk"))
             response = BuildHighRiskResponse();
         else if (lower.Contains("summary") || lower.Contains("summarize") || lower.Contains("list") || lower.Contains("overview"))
-            response = $"You currently have {PatientData.Count} patients across multiple wards. {PatientData.Count(p => p.Status == "Critical")} patients are in critical status, {PatientData.Count(p => p.Status == "Monitoring")} are being monitored, and {PatientData.Count(p => p.Status == "Stable")} are stable.";
+            response = $"You currently have {PatientData.Count} patients across multiple wards. {PatientData.Count(p => p.Status == PatientStatus.Critical)} patients are in critical status, {PatientData.Count(p => p.Status == PatientStatus.Monitoring)} are being monitored, and {PatientData.Count(p => p.Status == PatientStatus.Stable)} are stable.";
         else if (lower.Contains("allerg"))
         {
             var withAllergies = PatientData.Where(p => p.Allergies.Any()).ToList();
@@ -250,12 +258,12 @@
         else
             response = "I can help with patient summaries, risk analysis, allergy checks, and clinical insights. Try asking about a specific topic!";
 
-        aiChatData.Add(new AIChatMessage { Id = Guid.NewGuid().ToString(), Text = response, AuthorId = "ai", AuthorName = "AI Assistant", Timestamp = DateTime.Now });
+        AiChatData.Add(new AIChatMessage { Id = Guid.NewGuid().ToString(), Text = response, AuthorId = "ai", AuthorName = "AI Assistant", Timestamp = DateTime.Now });
     }
 
     private string BuildHighRiskResponse()
     {
-        var critical = PatientData.Where(p => p.Status == "Critical").ToList();
+        var critical = PatientData.Where(p => p.Status == PatientStatus.Critical).ToList();
         if (!critical.Any()) return "No patients currently in critical status. All patients are stable or being monitored.";
 
         var lines = critical.Select(p =>
@@ -267,4 +275,6 @@
 
         return $"Based on current vitals and status, {critical.Count} patient(s) show elevated risk levels:\n\n" + string.Join("\n", lines) + "\n\nRecommend frequent monitoring and immediate clinical review.";
     }
+
+    #endregion
 }

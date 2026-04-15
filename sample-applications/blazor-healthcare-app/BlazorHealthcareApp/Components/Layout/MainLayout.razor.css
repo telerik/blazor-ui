@@ -39,12 +39,8 @@
     width: 100%;
 }
 
-/* ========== APPBAR ========== */
-.hc-appbar {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+/* ========== APPBAR (TelerikAppBar overrides) ========== */
+::deep .hc-appbar.k-appbar {
     padding: 16px 24px;
     width: 100%;
     background: #FFFFFF;
@@ -53,17 +49,19 @@
     border-radius: 85px;
     position: relative;
     z-index: 2;
+    gap: 0;
 }
 
-.hc-appbar-left { display: flex; align-items: center; flex-shrink: 0; z-index: 1; }
-.hc-appbar-center {
+.hc-appbar-actions { display: flex; align-items: center; gap: 12px; }
+
+::deep .hc-appbar-center.k-appbar-section {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    display: flex;
-    justify-content: center;
 }
-.hc-appbar-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; z-index: 1; }
+::deep .hc-appbar-sides.k-appbar-section {
+    z-index: 1;
+}
 
 /* Logo */
 .hc-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
@@ -125,100 +123,29 @@
 .hc-icon-btn:hover { background: rgba(35, 42, 54, 0.06); }
 .hc-icon-btn svg, .hc-icon-btn .k-svg-icon { width: 16px; height: 16px; }
 
-.hc-notif-wrapper { position: relative; width: 30px; height: 30px; }
-.hc-notif-badge {
-    position: absolute; width: 10px; height: 10px; right: 2px; top: 2px;
-    background: #334155; border: 1px solid #334155; border-radius: 9999px;
+.hc-notif-wrapper { position: relative; }
+.hc-notif-btn {
+    display: flex; align-items: center; justify-content: center;
+    width: 30px; height: 30px;
+    border: none; background: transparent; cursor: pointer;
+    border-radius: 9999px; color: #232A36; padding: 0;
+    position: relative;
+}
+.hc-notif-btn:hover { background: rgba(35, 42, 54, 0.06); }
+::deep .hc-notif-badge.k-badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 10px;
+    height: 10px;
+    min-width: 10px;
+    padding: 0;
+    background: #334155;
+    border: 1px solid #334155;
     pointer-events: none;
 }
 
-/* Notification popup */
-.hc-notif-popup {
-    position: absolute;
-    top: calc(100% + 12px);
-    right: -12px;
-    width: 360px;
-    background: #FFFFFF;
-    border-radius: 20px;
-    box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.1), 0px 1px 4px rgba(0, 0, 0, 0.06);
-    z-index: 1000;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-.hc-notif-popup-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-}
-.hc-notif-popup-title {
-    font-weight: 700;
-    font-size: 18px;
-    color: #232A36;
-}
-.hc-notif-mark-read {
-    background: none;
-    border: none;
-    font-family: 'Poppins', sans-serif;
-    font-size: 13px;
-    color: #4A5666;
-    cursor: pointer;
-    padding: 0;
-}
-.hc-notif-mark-read:hover { color: #232A36; }
-
-.hc-notif-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 12px 0;
-    border-top: 1px solid rgba(23, 56, 99, 0.06);
-}
-.hc-notif-item:first-of-type { border-top: none; }
-
-.hc-notif-item-icon {
-    width: 40px;
-    height: 40px;
-    min-width: 40px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, #E2E8F0 0%, #CBD5E1 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #4A5666;
-}
-.hc-notif-item-icon .k-svg-icon { width: 18px; height: 18px; }
-
-.hc-notif-item-text {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    min-width: 0;
-}
-.hc-notif-item-title {
-    font-weight: 600;
-    font-size: 14px;
-    color: #232A36;
-    line-height: 142%;
-}
-.hc-notif-item-desc {
-    font-size: 13px;
-    color: #4A5666;
-    line-height: 142%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.hc-notif-item-time {
-    font-size: 12px;
-    color: #94A3B8;
-    white-space: nowrap;
-    flex-shrink: 0;
-    padding-top: 2px;
-}
+/* Notification popover styles are in app.css (TelerikPopover portals outside scoped CSS) */
 
 .hc-separator { width: 1px; height: 20px; background: rgba(23, 56, 99, 0.08); }
 
@@ -251,29 +178,28 @@
 @media (max-width: 960px) {
     .hc-dashboard { padding: 20px 20px; gap: 20px; }
     .hc-body-wrapper { gap: 20px; }
-    .hc-appbar {
+    ::deep .hc-appbar.k-appbar {
         flex-wrap: wrap;
         gap: 12px;
         border-radius: 24px;
         padding: 12px 16px;
         justify-content: center;
     }
-    .hc-appbar-center {
+    ::deep .hc-appbar-center.k-appbar-section {
         position: static;
         transform: none;
         flex: 1 1 100%;
         order: 3;
+        display: flex;
         justify-content: center;
     }
-    .hc-appbar-left { flex: 0 0 auto; }
-    .hc-appbar-right { flex: 1 1 auto; justify-content: flex-end; }
     .hc-search { width: 200px; }
 }
 
 @media (max-width: 640px) {
     .hc-dashboard { padding: 16px 12px; gap: 16px; }
     .hc-body-wrapper { gap: 16px; }
-    .hc-appbar {
+    ::deep .hc-appbar.k-appbar {
         border-radius: 16px;
         padding: 10px 12px;
         gap: 10px;
