@@ -31,8 +31,7 @@
                      @bind-Page="@CurrentPage"
                      Sortable="true"
                      Resizable="true"
-                     FilterMode="@GridFilterMode.FilterRow"
-                     Height="100%">
+                     FilterMode="@GridFilterMode.FilterRow">
             <GridSettings>
                 <GridPagerSettings PageSizes="@(new List<int?> { 5, 10, 20 })" InputType="@PagerInputType.Buttons" ButtonCount="5" />
             </GridSettings>
@@ -123,7 +122,6 @@
 
     <!-- AI ASSISTANT SIDE PANEL -->
     <AIChat @bind-IsOpen="IsAIPanelOpen"
-            PatientId="0"
             WrapperClass="hc-ai-panel"
             Title="AI Assistant"
             Subtitle="Patient Discovery Insights" />

@@ -40,7 +40,7 @@
 
 /* ========== MAIN CONTENT ========== */
 .hc-patients-main {
-    display: flex; gap: 0; width: 100%; position: relative, z-index: 1;
+    display: flex; gap: 0; width: 100%; position: relative; z-index: 1;
     min-height: 0; flex: 1;
 }
 
@@ -53,7 +53,6 @@
     border: 1px solid rgba(23, 56, 99, 0.08);
     overflow: hidden;
     position: relative; z-index: 1;
-    transition: flex 0.3s ease;
 }
 
 /* ========== GRID OVERRIDES ========== */
@@ -176,22 +175,25 @@
 /* ========== RESPONSIVE ========== */
 @media (max-width: 1200px) {
     .hc-patients-main { flex-direction: column; }
-    .hc-ai-panel {
-        width: 100%; max-width: 100%; min-width: 0;
-        margin-left: 0; margin-top: 16px;
+    .hc-patients-main ::deep .hc-ai-panel {
+        width: 100% !important; max-width: 100% !important; min-width: 0 !important;
+        margin-left: 0 !important; margin-top: 0 !important; margin-bottom: 16px !important;
         border-radius: 16px;
         max-height: 500px;
+        order: -1 !important;
     }
     .hc-grid-card { border-radius: 16px; }
 }
 
 @media (max-width: 960px) {
     .hc-heading h1 { font-size: 32px; }
-    /* Hide Blood Type (col 5) and Ward (col 6) */
+    /* Hide Blood Type (col 5) and Ward (col 6) — collapse col + cells in both tables */
     .hc-grid-card ::deep .k-grid-header col:nth-child(5),
     .hc-grid-card ::deep .k-grid-header col:nth-child(6),
     .hc-grid-card ::deep .k-grid-table col:nth-child(5),
-    .hc-grid-card ::deep .k-grid-table col:nth-child(6) { width: 0; }
+    .hc-grid-card ::deep .k-grid-table col:nth-child(6),
+    .hc-grid-card ::deep .k-grid-content col:nth-child(5),
+    .hc-grid-card ::deep .k-grid-content col:nth-child(6) { display: none; }
     .hc-grid-card ::deep .k-grid th:nth-child(5),
     .hc-grid-card ::deep .k-grid th:nth-child(6),
     .hc-grid-card ::deep .k-grid td:nth-child(5),
@@ -210,7 +212,9 @@
     .hc-grid-card ::deep .k-grid-header col:nth-child(4),
     .hc-grid-card ::deep .k-grid-header col:nth-child(7),
     .hc-grid-card ::deep .k-grid-table col:nth-child(4),
-    .hc-grid-card ::deep .k-grid-table col:nth-child(7) { width: 0; }
+    .hc-grid-card ::deep .k-grid-table col:nth-child(7),
+    .hc-grid-card ::deep .k-grid-content col:nth-child(4),
+    .hc-grid-card ::deep .k-grid-content col:nth-child(7) { display: none; }
     .hc-grid-card ::deep .k-grid th:nth-child(4),
     .hc-grid-card ::deep .k-grid th:nth-child(7),
     .hc-grid-card ::deep .k-grid td:nth-child(4),
