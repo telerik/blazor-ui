@@ -65,7 +65,8 @@
 
 /* Logo */
 .hc-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
-.hc-logo-icon { height: 32px; width: auto; }
+.hc-logo-full { height: 32px; width: auto; }
+.hc-logo-icon-only { height: 32px; width: auto; display: none; }
 .hc-logo-text { font-weight: 600; font-size: 18px; color: #232A36; }
 
 /* Segmented control */
@@ -163,51 +164,102 @@
 
 /* Profile modal styles moved to app.css (TelerikWindow portals outside scoped CSS) */
 
+/* ========== HAMBURGER MENU (hidden by default, shown at <=576px) ========== */
+.hc-hamburger-wrapper { display: none; align-items: center; gap: 8px; position: relative; }
+
+/* Mobile search toggle buttons (hidden by default, shown at <=576px) */
+.hc-search-icon-btn { display: none !important; }
+.hc-search-close-btn { display: none !important; }
+
+.hc-hamburger-btn {
+    display: flex; align-items: center; justify-content: center;
+    width: 30px; height: 30px;
+    border: none; background: transparent; cursor: pointer;
+    border-radius: 9999px; color: #232A36; padding: 0;
+}
+.hc-hamburger-btn:hover { background: rgba(35, 42, 54, 0.06); }
+.hc-hamburger-btn svg { width: 18px; height: 18px; }
+
+.hc-mobile-menu-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 99;
+}
+
+.hc-mobile-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 180px;
+    background: #FFFFFF;
+    border: 1px solid rgba(23, 56, 99, 0.08);
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.12);
+    border-radius: 12px;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    z-index: 100;
+}
+
+.hc-mobile-menu-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px; font-weight: 400;
+    color: #232A36;
+    cursor: pointer;
+}
+.hc-mobile-menu-item:hover { background: rgba(35, 42, 54, 0.06); text-decoration: none; color: #232A36; }
+.hc-mobile-menu-item.active { background: #F1F5F9; font-weight: 500; }
+.hc-mobile-menu-item .k-svg-icon, .hc-mobile-menu-item svg { width: 16px; height: 16px; }
+
 /* ========== RESPONSIVE ========== */
 
-@media (max-width: 1440px) {
-    .hc-dashboard { padding: 32px 60px; }
-}
-
-@media (max-width: 1200px) {
-    .hc-dashboard { padding: 24px 32px; gap: 24px; }
-    .hc-body-wrapper { gap: 24px; }
-    .hc-segment span { font-size: 14px; }
-}
-
-@media (max-width: 960px) {
-    .hc-dashboard { padding: 20px 20px; gap: 20px; }
-    .hc-body-wrapper { gap: 20px; }
-    ::deep .hc-appbar.k-appbar {
-        flex-wrap: wrap;
-        gap: 12px;
-        border-radius: 24px;
-        padding: 12px 16px;
-        justify-content: center;
-    }
-    ::deep .hc-appbar-center.k-appbar-section {
-        position: static;
-        transform: none;
-        flex: 1 1 100%;
-        order: 3;
-        display: flex;
-        justify-content: center;
-    }
+/* 1441–1759px — reduce search width to avoid segment overlap */
+@media (min-width: 1441px) and (max-width: 1759px) {
     .hc-search { width: 200px; }
 }
 
-@media (max-width: 640px) {
-    .hc-dashboard { padding: 16px 12px; gap: 16px; }
+/* ≤1440px — icon-only segments, search icon, full logo */
+@media (max-width: 1440px) {
+    .hc-dashboard { padding: 32px 60px; gap: 24px; }
+    .hc-body-wrapper { gap: 24px; }
+    ::deep .hc-appbar.k-appbar {
+        overflow: visible !important;
+    }
+    /* Hide full search, show search icon */
+    .hc-search { display: none; }
+    .hc-search-icon-btn { display: flex !important; }
+    .hc-separator { display: none; }
+    .hc-appbar-actions { gap: 8px; }
+}
+
+/* ≤899px — icon-only logo, tighter padding */
+@media (max-width: 899px) {
+    .hc-dashboard { padding: 24px 16px; gap: 16px; }
     .hc-body-wrapper { gap: 16px; }
     ::deep .hc-appbar.k-appbar {
-        border-radius: 16px;
-        padding: 10px 12px;
+        border-radius: 20px;
+        padding: 12px 12px;
         gap: 10px;
     }
-    .hc-segmented { overflow-x: auto; max-width: 100%; }
-    .hc-segment { padding: 6px 10px; font-size: 13px; gap: 4px; }
-    .hc-search { width: 160px; }
-    .hc-search input { font-size: 14px; }
+    .hc-appbar-actions { gap: 6px; }
+    /* Swap full logo for icon-only */
+    .hc-logo-full { display: none; }
+    .hc-logo-icon-only { display: block !important; height: 28px; }
+}
+
+/* ≤576px — hamburger replaces segmented control */
+@media (max-width: 576px) {
+    .hc-dashboard { padding: 12px 12px 12px 12px; gap: 12px; }
+    .hc-body-wrapper { gap: 12px; }
+    ::deep .hc-appbar.k-appbar {
+        border-radius: 16px;
+    }
+    .hc-hamburger-wrapper { display: flex; }
 }
 
 #blazor-error-ui {

@@ -594,3 +594,141 @@ h1:focus {
 .hc-ca-dropdown-popup .k-list-container {
     border-radius: 16px;
 }
+
+/* ========== COMPACT APPBAR LAYOUT (global — scoped ::deep can't override Telerik flex) ========== */
+@media (max-width: 1440px) {
+    .hc-appbar.k-appbar,
+    .k-appbar.hc-appbar {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        flex-direction: row !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
+        padding: 8px 16px !important;
+        gap: 8px !important;
+        overflow: visible !important;
+    }
+    /* Kill spacers */
+    .hc-appbar .k-appbar-spacer,
+    .k-appbar.hc-appbar .k-appbar-spacer,
+    .hc-appbar.k-appbar .k-appbar-spacer {
+        display: none !important;
+        width: 0 !important;
+        min-width: 0 !important;
+        flex: 0 0 0px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    /* Hide center nav section (re-shown at 577+ with icon-only) */
+    .hc-appbar .hc-appbar-center,
+    .hc-appbar .hc-appbar-center.k-appbar-section {
+        display: none !important;
+    }
+    /* First section: logo + hamburger — no grow, flush left */
+    .hc-appbar .k-appbar-section.hc-appbar-sides:first-child,
+    .hc-appbar.k-appbar > .k-appbar-section:first-child {
+        flex: 0 0 auto !important;
+        order: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    /* Last section: actions — fill remaining space, push right */
+    .hc-appbar .k-appbar-section.hc-appbar-sides:last-child,
+    .hc-appbar.k-appbar > .k-appbar-section:last-child {
+        flex: 1 1 auto !important;
+        order: 0 !important;
+        display: flex !important;
+        justify-content: flex-end !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* ---- Search expanded state ---- */
+    .hc-search-active .hc-appbar .k-appbar-section:first-child,
+    .hc-search-active .hc-appbar.k-appbar > .k-appbar-section:first-child {
+        display: none !important;
+    }
+    .hc-search-active .hc-appbar .hc-appbar-center,
+    .hc-search-active .hc-appbar .hc-appbar-center.k-appbar-section {
+        display: none !important;
+    }
+    .hc-search-active .hc-appbar .k-appbar-section.hc-appbar-sides:last-child,
+    .hc-search-active .hc-appbar.k-appbar > .k-appbar-section:last-child {
+        flex: 1 1 100% !important;
+    }
+    .hc-search-active .hc-appbar-actions > .hc-icon-btn,
+    .hc-search-active .hc-appbar-actions > .hc-notif-wrapper,
+    .hc-search-active .hc-appbar-actions > .hc-separator,
+    .hc-search-active .hc-appbar-actions > .hc-avatar-btn {
+        display: none !important;
+    }
+    .hc-search-active .hc-appbar-actions > .hc-search-close-btn {
+        display: flex !important;
+    }
+    .hc-search-active .hc-appbar-actions > .hc-search {
+        display: flex !important;
+        flex: 1 !important;
+        width: auto !important;
+        order: -1 !important;
+    }
+    .hc-search-active .hc-appbar-actions {
+        flex: 1 !important;
+        width: 100% !important;
+    }
+    .hc-search-active .hc-search {
+        border: none !important;
+        background: transparent !important;
+    }
+}
+
+/* 577–1440px: icon-only segments, centered, no hamburger */
+@media (min-width: 577px) and (max-width: 1440px) {
+    /* Show the segmented nav centered */
+    .hc-appbar .hc-appbar-center,
+    .hc-appbar .hc-appbar-center.k-appbar-section {
+        display: flex !important;
+        position: absolute !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        flex: 0 0 auto !important;
+        order: 0 !important;
+        justify-content: center !important;
+    }
+    /* Hide hamburger — segments are visible */
+    .hc-hamburger-wrapper {
+        display: none !important;
+    }
+    /* Icon-only segments: hide text */
+    .hc-segment span {
+        display: none !important;
+    }
+    .hc-segment {
+        padding: 8px !important;
+        gap: 0 !important;
+    }
+    /* Make sure segment icons are visible */
+    .hc-segment .k-svg-icon,
+    .hc-segment svg {
+        width: 16px !important;
+        height: 16px !important;
+        display: inline-flex !important;
+    }
+}
+
+/* ========== VIEW PROFILE ICON-ONLY (≤899px) ========== */
+@media (max-width: 899px) {
+    .hc-view-profile-btn.k-button .k-button-text {
+        display: none !important;
+    }
+}
+
+/* ========== 1441–1759px: hide "View profile" text, prevent segment/search overlap ========== */
+@media (min-width: 1441px) and (max-width: 1759px) {
+    .hc-view-profile-btn.k-button .k-button-text {
+        display: none !important;
+    }
+    .hc-segment {
+        padding: 7px 10px !important;
+        font-size: 14px !important;
+    }
+}

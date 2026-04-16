@@ -102,6 +102,8 @@
     display: flex; align-items: center; justify-content: center;
     color: #6366FB;
     transition: opacity 0.3s ease, filter 0.3s ease;
+    pointer-events: none;
+    z-index: 0;
 }
 .hc-qa-card:hover .hc-qa-icon {
     opacity: 0.7;
@@ -194,9 +196,10 @@
 
 .hc-patient-row {
     display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 12px;
 }
 
-.hc-patient-info { display: flex; align-items: center; gap: 12px; }
+.hc-patient-info { display: flex; align-items: center; gap: 12px; min-width: 0; flex: 1; }
 
 .hc-patient-avatar {
     width: 72px; height: 72px; border-radius: 50%;
@@ -325,34 +328,60 @@
 
 /* ========== RESPONSIVE ========== */
 
-@media (max-width: 1200px) {
+@media (max-width: 1440px) {
     .hc-main { flex-direction: column; }
     .hc-left { flex: 1 1 auto; }
     .hc-right { width: 100%; min-width: 0; }
     .hc-right-card { height: auto; }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 899px) {
     .hc-heading h1 { font-size: 32px; }
     .hc-quick-actions { flex-wrap: wrap; }
-    .hc-qa-card { flex: 1 1 calc(50% - 11px); min-width: 200px; }
+    .hc-qa-card { flex: 0 1 calc(50% - 11px); min-width: 200px; }
     .hc-patient-row { flex-wrap: wrap; gap: 12px; }
     .hc-appt-time-block { align-items: flex-start; }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 576px) {
+    /* Typography */
     .hc-heading h1 { font-size: 26px; }
     .hc-heading p { font-size: 14px; }
+
+    /* Cards */
     .hc-card { padding: 16px; }
     .hc-card-title { font-size: 20px; margin-bottom: 16px; }
+
+    /* Quick Actions */
     .hc-quick-actions { gap: 12px; }
     .hc-qa-card { flex: 1 1 100%; min-width: 0; }
-    .hc-appt-header { flex-wrap: wrap; gap: 12px; }
+
+    /* View Schedule button below title */
+    .hc-appt-header { flex-direction: column; align-items: flex-start; gap: 12px; }
     .hc-view-schedule-btn { font-size: 14px; padding: 6px 12px; }
+
+    /* Right column */
     .hc-right-section-header { font-size: 20px; }
+
+    /* Patient avatar + name */
     .hc-patient-avatar { width: 56px; height: 56px; font-size: 20px; }
     .hc-patient-name { font-size: 18px; }
+
+    /* Icon-only View Profile button */
+    .hc-view-profile-btn ::deep .k-button-text { display: none; }
+
+    /* Appointment time below name */
+    .hc-patient-row { flex-direction: column; align-items: flex-start; }
+    .hc-appt-time-block { align-items: flex-start; }
+
+    /* Icon-only Details button */
+    .hc-details-btn { font-size: 0; gap: 0; padding: 2px 4px; }
+    .hc-details-btn ::deep svg { width: 16px; height: 16px; }
+
+    /* Info cards */
     .hc-info-card { padding: 12px; gap: 12px; }
+
+    /* FAB + chat */
     .hc-fab { width: 56px; height: 56px; bottom: 24px; right: 24px; }
     .hc-fab svg { width: 20px; height: 20px; }
     .hc-chat-wrapper { width: calc(100vw - 32px); right: 16px; bottom: 96px; height: 70vh; }
