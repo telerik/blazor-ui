@@ -6,28 +6,48 @@ public class AnalyticsService
 {
     public int GetRiskScore() => 50;
 
-    public List<VitalDataPoint> GetVitalsData() => new()
+    public int GetRiskScore(int patientId)
     {
-        new() { Month = "Jan", SystolicBP = 25, DiastolicBP = 10, HeartRate = 13, SpO2 = 10, Temperature = 8,  Pulse = 2  },
-        new() { Month = "Feb", SystolicBP = 24, DiastolicBP = 14, HeartRate = 15, SpO2 = 15, Temperature = 7,  Pulse = 9  },
-        new() { Month = "Mar", SystolicBP = 27, DiastolicBP = 20, HeartRate = 33, SpO2 = 15, Temperature = 10, Pulse = 11 },
-        new() { Month = "Apr", SystolicBP = 25, DiastolicBP = 18, HeartRate = 20, SpO2 = 20, Temperature = 8,  Pulse = 13 },
-        new() { Month = "May", SystolicBP = 30, DiastolicBP = 13, HeartRate = 17, SpO2 = 16, Temperature = 13, Pulse = 12 },
-    };
+        var rng = new Random(patientId * 31);
+        return 30 + rng.Next(0, 50);
+    }
 
-    public List<AlertTimeData> GetAlertsOverTime() => new()
+    public List<VitalDataPoint> GetVitalsData() => GetVitalsData(1);
+
+    public List<VitalDataPoint> GetVitalsData(int patientId)
     {
-        new() { Month = "Jan", Critical = 5,  Warning = 4, Info = 18 },
-        new() { Month = "Feb", Critical = 8,  Warning = 7, Info = 11 },
-        new() { Month = "Mar", Critical = 7,  Warning = 10, Info = 5 },
-        new() { Month = "Apr", Critical = 10, Warning = 3, Info = 17 },
-        new() { Month = "May", Critical = 7,  Warning = 5, Info = 15 },
-        new() { Month = "Jun", Critical = 4,  Warning = 2, Info = 8  },
-        new() { Month = "Jul", Critical = 7,  Warning = 6, Info = 15 },
-        new() { Month = "Aug", Critical = 8,  Warning = 8, Info = 12 },
-        new() { Month = "Sep", Critical = 9,  Warning = 3, Info = 20 },
-        new() { Month = "Oct", Critical = 4,  Warning = 3, Info = 6  },
-    };
+        var rng = new Random(patientId * 37);
+        int Vary(int val) => Math.Max(0, val + rng.Next(-3, 4));
+        return new()
+        {
+            new() { Month = "Jan", SystolicBP = Vary(25), DiastolicBP = Vary(10), HeartRate = Vary(13), SpO2 = Vary(10), Temperature = Vary(8),  Pulse = Vary(2)  },
+            new() { Month = "Feb", SystolicBP = Vary(24), DiastolicBP = Vary(14), HeartRate = Vary(15), SpO2 = Vary(15), Temperature = Vary(7),  Pulse = Vary(9)  },
+            new() { Month = "Mar", SystolicBP = Vary(27), DiastolicBP = Vary(20), HeartRate = Vary(25), SpO2 = Vary(15), Temperature = Vary(10), Pulse = Vary(11) },
+            new() { Month = "Apr", SystolicBP = Vary(25), DiastolicBP = Vary(18), HeartRate = Vary(20), SpO2 = Vary(20), Temperature = Vary(8),  Pulse = Vary(13) },
+            new() { Month = "May", SystolicBP = Vary(30), DiastolicBP = Vary(13), HeartRate = Vary(17), SpO2 = Vary(16), Temperature = Vary(13), Pulse = Vary(12) },
+        };
+    }
+
+    public List<AlertTimeData> GetAlertsOverTime() => GetAlertsOverTime(1);
+
+    public List<AlertTimeData> GetAlertsOverTime(int patientId)
+    {
+        var rng = new Random(patientId * 41);
+        int Vary(int val) => Math.Max(0, val + rng.Next(-2, 3));
+        return new()
+        {
+            new() { Month = "Jan", Critical = Vary(5),  Warning = Vary(4),  Info = Vary(18) },
+            new() { Month = "Feb", Critical = Vary(8),  Warning = Vary(7),  Info = Vary(11) },
+            new() { Month = "Mar", Critical = Vary(7),  Warning = Vary(10), Info = Vary(5)  },
+            new() { Month = "Apr", Critical = Vary(10), Warning = Vary(3),  Info = Vary(17) },
+            new() { Month = "May", Critical = Vary(7),  Warning = Vary(5),  Info = Vary(15) },
+            new() { Month = "Jun", Critical = Vary(4),  Warning = Vary(2),  Info = Vary(8)  },
+            new() { Month = "Jul", Critical = Vary(7),  Warning = Vary(6),  Info = Vary(15) },
+            new() { Month = "Aug", Critical = Vary(8),  Warning = Vary(8),  Info = Vary(12) },
+            new() { Month = "Sep", Critical = Vary(9),  Warning = Vary(3),  Info = Vary(20) },
+            new() { Month = "Oct", Critical = Vary(4),  Warning = Vary(3),  Info = Vary(6)  },
+        };
+    }
 
     public List<HealthMetricPoint> GetHealthMetrics() => new()
     {
@@ -40,13 +60,20 @@ public class AnalyticsService
         new() { Month = "Apr", Glucose = 112, Cholesterol = 212, Hemoglobin = 13.9, Creatinine = 1.1, Bilirubin = 0.8 },
     };
 
-    public List<AlertCategoryData> GetAlertsByCategory() => new()
+    public List<AlertCategoryData> GetAlertsByCategory() => GetAlertsByCategory(1);
+
+    public List<AlertCategoryData> GetAlertsByCategory(int patientId)
     {
-        new() { Category = "Arrhythmia",           Value = 12, Color = "#FF6358" },
-        new() { Category = "Hypertension",         Value = 18, Color = "#FFE162" },
-        new() { Category = "High Cholesterol",     Value = 25, Color = "#4CD180" },
-        new() { Category = "Medication Adherence", Value = 34, Color = "#4B5FFA" },
-        new() { Category = "Inflammation",         Value = 43, Color = "#AC58FF" },
-        new() { Category = "Cardiac Risk",         Value = 51, Color = "#FF5892" },
-    };
+        var rng = new Random(patientId * 53);
+        int Vary(int val) => Math.Max(1, val + rng.Next(-5, 6));
+        return new()
+        {
+            new() { Category = "Arrhythmia",           Value = Vary(12), Color = "#FF6358" },
+            new() { Category = "Hypertension",         Value = Vary(18), Color = "#FFE162" },
+            new() { Category = "High Cholesterol",     Value = Vary(25), Color = "#4CD180" },
+            new() { Category = "Medication Adherence", Value = Vary(34), Color = "#4B5FFA" },
+            new() { Category = "Inflammation",         Value = Vary(43), Color = "#AC58FF" },
+            new() { Category = "Cardiac Risk",         Value = Vary(51), Color = "#FF5892" },
+        };
+    }
 }

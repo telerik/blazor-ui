@@ -188,9 +188,11 @@
         </TelerikWindow>
 
         <!-- ========== PAGE CONTENT ========== -->
-        <div class="hc-body-wrapper">
-            @Body
-        </div>
+        <CascadingValue Value="@PopupCoord">
+            <div class="hc-body-wrapper">
+                @Body
+            </div>
+        </CascadingValue>
     </div>
 
     <div id="blazor-error-ui" data-nosnippet>
@@ -207,6 +209,7 @@
     private bool IsProfileOpen { get; set; }
     private bool IsTransparentMode { get; set; }
     private TelerikPopover? PopoverRef { get; set; }
+    private PopupCoordinator PopupCoord { get; set; } = new();
 
     private List<NotificationItem> Notifications { get; set; } = new()
     {
@@ -234,6 +237,14 @@
         SearchPatients = PatientService.GetPatients();
         UpdateActiveSegment();
         Nav.LocationChanged += OnLocationChanged;
+        PopupCoord.OnPagePopupOpened += OnPagePopupOpened;
+    }
+
+    private void OnPagePopupOpened()
+    {
+        PopoverRef?.Hide();
+        IsProfileOpen = false;
+        InvokeAsync(StateHasChanged);
     }
 
     #endregion
@@ -247,7 +258,11 @@
     private void ToggleProfile()
     {
         IsProfileOpen = !IsProfileOpen;
-        if (IsProfileOpen) PopoverRef?.Hide();
+        if (IsProfileOpen)
+        {
+            PopoverRef?.Hide();
+            PopupCoord.NotifyLayoutPopupOpened();
+        }
     }
 
     #endregion
@@ -292,6 +307,7 @@
     public void Dispose()
     {
         Nav.LocationChanged -= OnLocationChanged;
+        PopupCoord.OnPagePopupOpened -= OnPagePopupOpened;
     }
 
     #endregion

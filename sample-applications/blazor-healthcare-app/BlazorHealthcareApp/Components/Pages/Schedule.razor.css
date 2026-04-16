@@ -30,6 +30,7 @@
     z-index: 1;
     display: flex;
     flex-direction: column;
+    flex: 1;
 }
 
 .hc-card-title {
@@ -200,7 +201,8 @@
     border-radius: 16px;
     display: flex;
     flex-direction: column;
-    max-height: 690px;
+    flex: 1;
+    overflow: hidden;
     position: relative;
     z-index: 1;
 }
@@ -227,14 +229,15 @@
     border-radius: 9999px;
     gap: 4px;
 }
-.hc-tasks-search-icon { display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; color: #4A5666; }
-.hc-tasks-search-icon ::deep svg { width: 16px; height: 16px; }
-.hc-tasks-search input {
-    border: none; outline: none; background: transparent;
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px; color: #232A36; width: 100%; padding: 2px 4px;
+.hc-tasks-search ::deep .k-input {
+    border: none; background: transparent; box-shadow: none;
+    height: 100%; min-height: 0;
 }
-.hc-tasks-search input::placeholder { color: #4A5666; }
+.hc-tasks-search ::deep .k-input-inner {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px; color: #232A36; padding: 2px 4px;
+}
+.hc-tasks-search ::deep .k-input-inner::placeholder { color: #4A5666; }
 
 .hc-tasks-add-btn {
     height: 36px; min-width: 36px; max-width: 36px;
@@ -270,14 +273,24 @@
     max-width: 100px;
 }
 
-/* Task list */
-.hc-tasks-list {
+/* Task list (TelerikListView) */
+::deep .hc-tasks-listview {
+    border: none;
+    background: transparent;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+::deep .hc-tasks-listview .k-listview-content {
     padding: 0 16px 16px;
     display: flex;
     flex-direction: column;
     gap: 8px;
     overflow-y: auto;
     flex: 1;
+    min-height: 0;
 }
 
 .hc-task-item {
@@ -295,27 +308,18 @@
     box-shadow: 0px 8px 20px rgba(0, 100, 200, 0.1);
 }
 
-.hc-task-checkbox {
+::deep .hc-task-checkbox.k-checkbox {
     width: 22px; height: 22px; min-width: 22px;
     border: 2px solid #CBD5E1;
     border-radius: 50%;
     cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
     background: #FFFFFF;
-    appearance: none; -webkit-appearance: none;
     transition: all 0.15s ease;
 }
-.hc-task-checkbox:checked {
+::deep .hc-task-checkbox.k-checkbox:checked {
     background: #334155;
     border-color: #334155;
-}
-.hc-task-checkbox:checked::after {
-    content: '';
-    width: 10px; height: 6px;
-    border-left: 2px solid #FFFFFF;
-    border-bottom: 2px solid #FFFFFF;
-    transform: rotate(-45deg);
-    margin-top: -2px;
+    color: #FFFFFF;
 }
 
 .hc-task-text {

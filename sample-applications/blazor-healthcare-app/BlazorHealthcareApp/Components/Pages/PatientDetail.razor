@@ -38,14 +38,14 @@
                     <span class="hc-pd-name">@Patient.Name</span>
                 </div>
                 @{
-                    var chipClass = Patient.Status switch
+                    var chipColor = Patient.Status switch
                     {
-                        PatientStatus.Critical => "hc-pd-chip-critical",
-                        PatientStatus.Monitoring => "hc-pd-chip-monitoring",
-                        _ => "hc-pd-chip-stable"
+                        PatientStatus.Critical => ThemeConstants.Chip.ThemeColor.Error,
+                        PatientStatus.Monitoring => ThemeConstants.Chip.ThemeColor.Warning,
+                        _ => ThemeConstants.Chip.ThemeColor.Success
                     };
                 }
-                <span class="hc-pd-chip @chipClass">@Patient.Status</span>
+                <TelerikChip Text="@Patient.Status.ToString()" ThemeColor="@chipColor" Selectable="false" FillMode="@ThemeConstants.Chip.FillMode.Solid" Rounded="@ThemeConstants.Chip.Rounded.Full" />
             </div>
             <div>
                 <div class="hc-pd-basic-title">Basic Information</div>
@@ -138,9 +138,7 @@
         </div>
         <div class="hc-pd-lab-grid">
             <TelerikGrid Data="@LabResults"
-                         TItem="LabResultRow"
-                         Sortable="true"
-                         Pageable="false">
+                         Sortable="true">
                 <GridColumns>
                     <GridColumn Field="@nameof(LabResultRow.Test)" Title="Test">
                         <HeaderTemplate>
@@ -164,14 +162,14 @@
                         <Template>
                             @{
                                 var lab = (LabResultRow)context;
-                                var labChip = lab.Status switch
+                                var labChipColor = lab.Status switch
                                 {
-                                    PatientStatus.Critical => "hc-pd-lab-critical",
-                                    PatientStatus.Monitoring => "hc-pd-lab-monitoring",
-                                    _ => "hc-pd-lab-stable"
+                                    PatientStatus.Critical => ThemeConstants.Chip.ThemeColor.Error,
+                                    PatientStatus.Monitoring => ThemeConstants.Chip.ThemeColor.Warning,
+                                    _ => ThemeConstants.Chip.ThemeColor.Success
                                 };
                             }
-                            <span class="hc-pd-lab-chip @labChip">@lab.Status</span>
+                            <TelerikChip Text="@lab.Status.ToString()" ThemeColor="@labChipColor" Selectable="false" FillMode="@ThemeConstants.Chip.FillMode.Solid" Rounded="@ThemeConstants.Chip.Rounded.Full" />
                         </Template>
                     </GridColumn>
                     <GridColumn Field="@nameof(LabResultRow.Note)" Title="Note">

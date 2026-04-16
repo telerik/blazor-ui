@@ -53,35 +53,6 @@
     font-family: 'Poppins', sans-serif;
 }
 
-/* Export button pill */
-.hc-ca-export-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    padding: 4px 12px;
-    background: #F3F5F7;
-    border: 1px solid rgba(23, 56, 99, 0.08);
-    border-radius: 9999px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    color: #232A36;
-    cursor: pointer;
-    white-space: nowrap;
-    height: 34px;
-}
-
-.hc-ca-export-btn:hover {
-    background: #E8EAED;
-}
-
-.hc-ca-export-btn ::deep .k-svg-icon,
-.hc-ca-export-btn ::deep svg {
-    width: 16px;
-    height: 16px;
-}
-
 /* ========== CHARTS CONTAINER ========== */
 .hc-ca-charts {
     display: flex;

@@ -1,5 +1,7 @@
 ﻿@page "/clinical-analytics"
 @rendermode InteractiveServer
+@implements IAsyncDisposable
+@inject IJSRuntime JS
 @inject AnalyticsService AnalyticsService
 @inject PatientService PatientService
 
@@ -11,7 +13,8 @@
     </div>
     <div class="hc-ca-controls">
         <TelerikDropDownList Data="@Patients"
-                             @bind-Value="@SelectedPatientId"
+                             Value="@SelectedPatientId"
+                             ValueChanged="@((int id) => OnPatientChanged(id))"
                              TextField="Name"
                              ValueField="Id"
                              Width="249px">
@@ -31,10 +34,6 @@
                 <DropDownListPopupSettings Class="hc-ca-dropdown-popup" />
             </DropDownListSettings>
         </TelerikDropDownList>
-        <button class="hc-ca-export-btn" @onclick="OnExportClick">
-            <TelerikSvgIcon Icon="@SvgIcon.Download" />
-            <span>Export</span>
-        </button>
     </div>
 </div>
 
@@ -199,90 +198,6 @@
         </div>
     </div>
 
-    <!-- ===== PATIENT HEALTH METRICS OVER TIME (Area Chart) ===== -->
-    <div class="hc-ca-card">
-        <div class="hc-ca-card-header">
-            <h2 class="hc-ca-card-title">Patient Health Metrics Over Time</h2>
-            <p class="hc-ca-card-subtitle">Long-term tracking of key lab results and health indicators</p>
-        </div>
-        <div class="hc-ca-card-body">
-            <div class="hc-ca-chart-area">
-                <TelerikChart Height="400px">
-                    <ChartSeriesItems>
-                        <ChartSeries Type="ChartSeriesType.Area"
-                                     Data="@HealthMetricsData"
-                                     Field="Glucose"
-                                     CategoryField="Month"
-                                     Name="Glucose (mg/dL)"
-                                     Color="#4477FF"
-                                     Style="@ChartSeriesStyle.Smooth"
-                                     Opacity="0.15">
-                            <ChartSeriesLine Color="#4477FF" Width="2" Style="@ChartSeriesLineStyle.Smooth" />
-                        </ChartSeries>
-                        <ChartSeries Type="ChartSeriesType.Area"
-                                     Data="@HealthMetricsData"
-                                     Field="Cholesterol"
-                                     CategoryField="Month"
-                                     Name="Cholesterol (mg/dL)"
-                                     Color="#7B5CFA"
-                                     Style="@ChartSeriesStyle.Smooth"
-                                     Opacity="0.15">
-                            <ChartSeriesLine Color="#7B5CFA" Width="2" Style="@ChartSeriesLineStyle.Smooth" />
-                        </ChartSeries>
-                        <ChartSeries Type="ChartSeriesType.Area"
-                                     Data="@HealthMetricsData"
-                                     Field="Hemoglobin"
-                                     CategoryField="Month"
-                                     Name="Hemoglobin (g/dL)"
-                                     Color="#00B87A"
-                                     Style="@ChartSeriesStyle.Smooth"
-                                     Opacity="0.15">
-                            <ChartSeriesLine Color="#00B87A" Width="2" Style="@ChartSeriesLineStyle.Smooth" />
-                        </ChartSeries>
-                        <ChartSeries Type="ChartSeriesType.Area"
-                                     Data="@HealthMetricsData"
-                                     Field="Creatinine"
-                                     CategoryField="Month"
-                                     Name="Creatinine (mg/dL)"
-                                     Color="#FF9F43"
-                                     Style="@ChartSeriesStyle.Smooth"
-                                     Opacity="0.15">
-                            <ChartSeriesLine Color="#FF9F43" Width="2" Style="@ChartSeriesLineStyle.Smooth" />
-                        </ChartSeries>
-                        <ChartSeries Type="ChartSeriesType.Area"
-                                     Data="@HealthMetricsData"
-                                     Field="Bilirubin"
-                                     CategoryField="Month"
-                                     Name="Bilirubin (mg/dL)"
-                                     Color="#FF4757"
-                                     Style="@ChartSeriesStyle.Smooth"
-                                     Opacity="0.15">
-                            <ChartSeriesLine Color="#FF4757" Width="2" Style="@ChartSeriesLineStyle.Smooth" />
-                        </ChartSeries>
-                    </ChartSeriesItems>
-                    <ChartCategoryAxes>
-                        <ChartCategoryAxis>
-                            <ChartCategoryAxisLabels Font="12px Poppins, sans-serif" Color="#94A3B8" />
-                            <ChartCategoryAxisMajorGridLines Visible="false" />
-                            <ChartCategoryAxisLine Visible="false" />
-                        </ChartCategoryAxis>
-                    </ChartCategoryAxes>
-                    <ChartValueAxes>
-                        <ChartValueAxis Min="0" Max="220" MajorUnit="55">
-                            <ChartValueAxisLabels Font="12px Poppins, sans-serif" Color="#94A3B8" />
-                            <ChartValueAxisMajorGridLines Color="#F0F0F0" DashType="@DashType.Dot" />
-                            <ChartValueAxisLine Visible="false" />
-                        </ChartValueAxis>
-                    </ChartValueAxes>
-                    <ChartLegend Position="ChartLegendPosition.Bottom">
-                        <ChartLegendLabels Font="13px Poppins, sans-serif" Color="#4A5666" />
-                    </ChartLegend>
-                    <ChartTooltip Visible="true" Shared="true" />
-                </TelerikChart>
-            </div>
-        </div>
-    </div>
-
     <!-- ===== BOTTOM ROW: DONUT + GAUGE ===== -->
     <div class="hc-ca-bottom-row">
 
@@ -392,8 +307,9 @@
     private int RiskScoreValue { get; set; }
     private List<VitalDataPoint> VitalsData { get; set; } = new();
     private List<AlertTimeData> AlertsOverTimeData { get; set; } = new();
-    private List<HealthMetricPoint> HealthMetricsData { get; set; } = new();
     private List<AlertCategoryData> AlertsByCategoryData { get; set; } = new();
+
+    private DotNetObjectReference<Clinical_Analytics>? _dotNetRef;
 
     #endregion
 
@@ -401,19 +317,55 @@
 
     protected override void OnInitialized()
     {
-        Patients             = PatientService.GetPatients();
-        RiskScoreValue       = AnalyticsService.GetRiskScore();
-        VitalsData           = AnalyticsService.GetVitalsData();
-        AlertsOverTimeData   = AnalyticsService.GetAlertsOverTime();
-        HealthMetricsData    = AnalyticsService.GetHealthMetrics();
-        AlertsByCategoryData = AnalyticsService.GetAlertsByCategory();
+        Patients = PatientService.GetPatients();
+        LoadChartData();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _dotNetRef = DotNetObjectReference.Create(this);
+            await JS.InvokeVoidAsync("resizeHelper.addListener", _dotNetRef);
+        }
     }
 
     #endregion
 
     #region Event Handlers
 
-    private void OnExportClick() { }
+    private void OnPatientChanged(int id)
+    {
+        SelectedPatientId = id;
+        LoadChartData();
+    }
+
+    [JSInvokable]
+    public void OnWindowResized()
+    {
+        StateHasChanged();
+    }
+
+    #endregion
+
+    #region Helpers
+
+    private void LoadChartData()
+    {
+        RiskScoreValue       = AnalyticsService.GetRiskScore(SelectedPatientId);
+        VitalsData           = AnalyticsService.GetVitalsData(SelectedPatientId);
+        AlertsOverTimeData   = AnalyticsService.GetAlertsOverTime(SelectedPatientId);
+        AlertsByCategoryData = AnalyticsService.GetAlertsByCategory(SelectedPatientId);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_dotNetRef is not null)
+        {
+            await JS.InvokeVoidAsync("resizeHelper.removeListener");
+            _dotNetRef.Dispose();
+        }
+    }
 
     #endregion
 }

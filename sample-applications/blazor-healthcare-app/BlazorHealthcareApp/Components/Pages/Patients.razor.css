@@ -115,7 +115,7 @@
 .hc-sort-arrow {
     display: inline-flex; align-items: center; margin-left: 2px; opacity: 0.45;
 }
-.hc-sort-arrow svg { width: 10px, height: 10px; }
+.hc-sort-arrow svg { width: 10px; height: 10px; }
 
 .hc-grid-card ::deep .k-grid .k-pager {
     border-top: 1px solid rgba(23, 56, 99, 0.08);
@@ -166,133 +166,6 @@
 .hc-view-btn:hover { background: #E2E8F0; }
 .hc-view-btn svg { width: 14px; height: 14px; }
 
-/* ========== AI SIDE PANEL ========== */
-.hc-ai-panel {
-    width: 380px; min-width: 340px; max-width: 380px;
-    background: #FFFFFF;
-    border: 1px solid rgba(23, 56, 99, 0.08);
-    border-radius: 16px;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04), 0px 2px 6px -1px rgba(0, 0, 0, 0.06);
-    display: flex; flex-direction: column;
-    overflow: hidden;
-    margin-left: 16px;
-    position: relative; z-index: 1;
-}
-.hc-ai-panel-header {
-    padding: 14px 20px;
-    background: #FFFFFF;
-    color: #232A36;
-    display: flex; align-items: center; gap: 10px;
-    flex-shrink: 0;
-    border-bottom: 1px solid rgba(23, 56, 99, 0.08);
-}
-.hc-ai-panel-header-icon {
-    width: 24px; height: 24px; min-width: 24px;
-    display: flex; align-items: center; justify-content: center;
-}
-.hc-ai-panel-header-icon svg { width: 20px; height: 20px; }
-.hc-ai-panel-header-text { display: flex; flex-direction: column; flex: 1; }
-.hc-ai-panel-header-title { font-weight: 700; font-size: 15px; line-height: 140%; color: #232A36; }
-.hc-ai-panel-header-sub { display: none; }
-.hc-ai-panel-close {
-    background: none; border: none; cursor: pointer;
-    color: #94A3B8;
-    width: 32px; height: 32px;
-    display: flex; align-items: center; justify-content: center;
-    border-radius: 8px;
-    transition: background 0.2s ease, color 0.2s ease;
-}
-.hc-ai-panel-close:hover { background: rgba(35, 42, 54, 0.06); color: #232A36; }
-.hc-ai-panel-close svg { width: 16px; height: 16px; }
-
-.hc-ai-panel-welcome {
-    text-align: center;
-    padding: 24px 20px 8px;
-    display: flex; flex-direction: column; align-items: center; gap: 8px;
-}
-.hc-ai-panel-welcome-date {
-    font-size: 12px; color: #94A3B8;
-    background: #F1F5F9; border-radius: 9999px;
-    padding: 4px 12px;
-}
-.hc-ai-panel-welcome-greeting {
-    font-size: 14px; color: #232A36; line-height: 160%;
-}
-.hc-ai-panel-welcome-greeting strong { display: block; font-size: 16px; margin-bottom: 4px; }
-
-/* TelerikChat overrides for patients AI panel */
-.hc-ai-panel ::deep .k-chat {
-    border: none;
-    border-radius: 0 0 16px 16px;
-    font-family: 'Poppins', sans-serif;
-    background: #FFFFFF;
-}
-.hc-ai-panel ::deep .k-chat .k-message-list {
-    background: #FFFFFF;
-}
-.hc-ai-panel ::deep .k-chat .k-bubble {
-    border-radius: 16px;
-    font-size: 14px;
-    line-height: 160%;
-    font-family: 'Poppins', sans-serif;
-}
-.hc-ai-panel ::deep .k-chat .k-message-group-receiver .k-bubble {
-    background: #F8FAFC;
-    border: 1px solid rgba(23, 56, 99, 0.08);
-    color: #232A36;
-    border-bottom-left-radius: 4px;
-}
-.hc-ai-panel ::deep .k-chat .k-message-group-sender .k-bubble {
-    background: #2D3655;
-    border: none;
-    color: #FFFFFF;
-    border-bottom-right-radius: 4px;
-}
-.hc-ai-panel ::deep .k-chat .k-quick-replies .k-quick-reply {
-    border-radius: 9999px;
-    padding: 8px 14px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 13px;
-    color: #334155;
-    border: 1px solid rgba(23, 56, 99, 0.12);
-    background: #FFFFFF;
-}
-.hc-ai-panel ::deep .k-chat .k-quick-replies .k-quick-reply:hover {
-    background: #F1F5F9;
-    border-color: rgba(99, 102, 251, 0.3);
-}
-.hc-ai-panel ::deep .k-chat .k-message-box-wrapper {
-    border-top: 1px solid rgba(23, 56, 99, 0.08);
-    padding: 8px 12px;
-}
-.hc-ai-panel ::deep .k-chat .k-prompt-box {
-    font-family: 'Poppins', sans-serif;
-    border: 1px solid rgba(23, 56, 99, 0.12);
-    border-radius: 12px;
-    background: #F9FAFB;
-}
-.hc-ai-panel ::deep .k-chat .k-prompt-box:focus-within {
-    border-color: rgba(99, 102, 251, 0.4);
-    box-shadow: 0 0 0 2px rgba(99, 102, 251, 0.1);
-}
-.hc-ai-panel ::deep .k-chat .k-prompt-box-textarea.k-input-inner {
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
-    color: #232A36;
-}
-.hc-ai-panel ::deep .k-chat .k-suggestion {
-    border-radius: 9999px;
-}
-.hc-ai-panel ::deep .k-chat .k-message-author {
-    display: none;
-}
-.hc-ai-panel ::deep .k-chat .k-timestamp {
-    display: none;
-}
-.hc-ai-panel ::deep .k-chat .k-no-avatar {
-    margin-left: 0;
-}
-
 /* Active AI button state */
 .hc-btn-ai-active {
     background: linear-gradient(135deg, #AC58FF 0%, #4B5FFA 100%) !important;
@@ -314,6 +187,17 @@
 
 @media (max-width: 960px) {
     .hc-heading h1 { font-size: 32px; }
+    /* Hide Blood Type (col 5) and Ward (col 6) */
+    .hc-grid-card ::deep .k-grid-header col:nth-child(5),
+    .hc-grid-card ::deep .k-grid-header col:nth-child(6),
+    .hc-grid-card ::deep .k-grid-table col:nth-child(5),
+    .hc-grid-card ::deep .k-grid-table col:nth-child(6) { width: 0; }
+    .hc-grid-card ::deep .k-grid th:nth-child(5),
+    .hc-grid-card ::deep .k-grid th:nth-child(6),
+    .hc-grid-card ::deep .k-grid td:nth-child(5),
+    .hc-grid-card ::deep .k-grid td:nth-child(6),
+    .hc-grid-card ::deep .k-filter-row th:nth-child(5),
+    .hc-grid-card ::deep .k-filter-row th:nth-child(6) { display: none; }
 }
 
 @media (max-width: 640px) {
@@ -322,4 +206,15 @@
     .hc-heading p { font-size: 14px; }
     .hc-heading-actions { width: 100%; }
     .hc-btn-primary, .hc-btn-secondary { flex: 1; justify-content: center; font-size: 14px; padding: 8px 14px; }
+    /* Also hide Gender (col 4) and Diagnosis (col 7) */
+    .hc-grid-card ::deep .k-grid-header col:nth-child(4),
+    .hc-grid-card ::deep .k-grid-header col:nth-child(7),
+    .hc-grid-card ::deep .k-grid-table col:nth-child(4),
+    .hc-grid-card ::deep .k-grid-table col:nth-child(7) { width: 0; }
+    .hc-grid-card ::deep .k-grid th:nth-child(4),
+    .hc-grid-card ::deep .k-grid th:nth-child(7),
+    .hc-grid-card ::deep .k-grid td:nth-child(4),
+    .hc-grid-card ::deep .k-grid td:nth-child(7),
+    .hc-grid-card ::deep .k-filter-row th:nth-child(4),
+    .hc-grid-card ::deep .k-filter-row th:nth-child(7) { display: none; }
 }

@@ -16,6 +16,7 @@ builder.Services.AddScoped<TaskService>();
 builder.Services.AddScoped<AlertService>();
 builder.Services.AddScoped<StaffService>();
 builder.Services.AddScoped<AnalyticsService>();
+builder.Services.AddScoped<AIChatService>();
 
 var app = builder.Build();
 

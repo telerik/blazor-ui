@@ -48,10 +48,7 @@
             <div class="hc-tasks-header">
                 <div class="hc-tasks-header-title">Daily Tasks</div>
                 <div class="hc-tasks-search">
-                    <div class="hc-tasks-search-icon">
-                        <TelerikSvgIcon Icon="@SvgIcon.Search" />
-                    </div>
-                    <input type="text" placeholder="Search tasks" />
+                    <TelerikTextBox @bind-Value="@TaskSearch" Placeholder="Search tasks" Class="hc-tasks-search-input" />
                 </div>
                 <button class="hc-tasks-add-btn" title="Add task" @onclick="OpenAddTaskModal">
                     <svg viewBox="0 0 16 16" fill="none"><line x1="3.33" y1="8" x2="12.67" y2="8" stroke="white" stroke-width="1.33" stroke-linecap="round"/><line x1="8" y1="3.33" x2="8" y2="12.67" stroke="white" stroke-width="1.33" stroke-linecap="round"/></svg>
@@ -59,19 +56,18 @@
                 </button>
             </div>
 
-            <div class="hc-tasks-list">
-                @foreach (var task in DailyTasks)
-                {
+            <TelerikListView Data="@FilteredTasks" Class="hc-tasks-listview">
+                <Template>
+                    @{
+                        var task = context;
+                    }
                     <div class="hc-task-item">
-                        <input type="checkbox"
-                               class="hc-task-checkbox"
-                               checked="@task.IsCompleted"
-                               @onchange="() => ToggleTask(task)" />
+                        <TelerikCheckBox @bind-Value="@task.IsCompleted" Class="hc-task-checkbox" />
                         <span class="hc-task-text @(task.IsCompleted ? "completed" : "")">@task.Title</span>
                         <span class="hc-priority-badge hc-priority-@task.Priority.ToString().ToLowerInvariant()">@task.Priority</span>
                     </div>
-                }
-            </div>
+                </Template>
+            </TelerikListView>
 
 
         </div>
@@ -90,7 +86,7 @@
         <div class="hc-modal-body">
             <div class="hc-modal-field">
                 <label class="hc-modal-label">Task Name</label>
-                <input type="text" class="hc-modal-input" @bind="NewTaskName" placeholder="Enter task name" />
+                <TelerikTextBox @bind-Value="@NewTaskName" Placeholder="Enter task name" Width="100%" />
             </div>
             <div class="hc-modal-field">
                 <label class="hc-modal-label">Priority</label>
@@ -102,7 +98,7 @@
             </div>
             <div class="hc-modal-field">
                 <label class="hc-modal-label">Description</label>
-                <textarea class="hc-modal-textarea" @bind="NewTaskDescription" placeholder="Enter task description"></textarea>
+                <TelerikTextArea @bind-Value="@NewTaskDescription" Placeholder="Enter task description" Width="100%" Class="hc-modal-textarea" />
             </div>
             <div class="hc-modal-actions">
                 <button class="hc-modal-btn hc-modal-btn-secondary" @onclick="CloseAddTaskModal">Discard</button>
@@ -122,6 +118,11 @@
 
     private List<Appointment> SchedulerAppointments { get; set; } = new();
     private List<TaskItem> DailyTasks { get; set; } = new();
+    private string TaskSearch { get; set; } = "";
+
+    private List<TaskItem> FilteredTasks => string.IsNullOrWhiteSpace(TaskSearch)
+        ? DailyTasks
+        : DailyTasks.Where(t => t.Title.Contains(TaskSearch, StringComparison.OrdinalIgnoreCase)).ToList();
 
     private bool IsAddTaskModalOpen { get; set; }
     private string NewTaskName { get; set; } = "";
@@ -141,8 +142,6 @@
     #endregion
 
     #region Task Methods
-
-    private void ToggleTask(TaskItem task) => task.IsCompleted = !task.IsCompleted;
 
     private void OpenAddTaskModal()
     {

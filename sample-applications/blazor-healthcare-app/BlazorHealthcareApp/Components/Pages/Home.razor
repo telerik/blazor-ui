@@ -95,9 +95,7 @@
                     </a>
                 </div>
                 <div class="hc-grid-wrapper" style="flex: 1;">
-                    <TelerikGrid Data="@Appointments"
-                                 Pageable="false"
-                                 Sortable="false">
+                    <TelerikGrid Data="@Appointments">
                         <GridColumns>
                             <GridColumn Title="Time" Width="120px">
                             <Template>
@@ -146,10 +144,7 @@
                             <div class="hc-patient-name-block">
                                 <div class="hc-patient-name-row">
                                     <span class="hc-patient-name">James Wilson</span>
-                                    <button class="hc-view-profile-btn" @onclick="GoToPatientProfile">
-                                        <TelerikSvgIcon Icon="@SvgIcon.HyperlinkOpen" />
-                                        View profile
-                                    </button>
+                                    <TelerikButton OnClick="@GoToPatientProfile" Class="hc-view-profile-btn" FillMode="@ThemeConstants.Button.FillMode.Flat" Icon="@SvgIcon.HyperlinkOpen">View profile</TelerikButton>
                                 </div>
                                 <span class="hc-patient-detail">44 years, Male</span>
                             </div>
@@ -340,63 +335,12 @@
     </WindowContent>
 </TelerikWindow>
 
-<!-- ========== AI FAB ========== -->
-<button class="hc-fab" @onclick="ToggleAIChat" title="AI Assistant">
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M21 11.5C21.0034 12.8199 20.6951 14.1219 20.1 15.3C19.3944 16.7118 18.3098 17.8992 16.9674 18.7293C15.6251 19.5594 14.0782 19.9994 12.5 20C11.1801 20.0035 9.87812 19.6951 8.7 19.1L3 21L4.9 15.3C4.30493 14.1219 3.99656 12.8199 4 11.5C4.00061 9.92179 4.44061 8.37488 5.27072 7.03258C6.10083 5.69028 7.28825 4.6056 8.7 3.90003C9.87812 3.30496 11.1801 2.99659 12.5 3.00003H13C15.0843 3.11502 17.053 3.99479 18.5291 5.47089C20.0052 6.94699 20.885 8.91568 21 11V11.5Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-</button>
-
-@if (IsAIChatOpen)
-{
-    <div class="hc-chat-wrapper">
-        <!-- Header -->
-        <div class="hc-chat-header">
-            <div class="hc-chat-header-icon">
-                <svg viewBox="0 0 20 20" fill="none"><path d="M10 1l1.5 4.5L16 7l-4.5 1.5L10 13l-1.5-4.5L4 7l4.5-1.5L10 1z" fill="#7C5CFC" opacity="0.9"/><path d="M15 11l1 3 3 1-3 1-1 3-1-3-3-1 3-1 1-3z" fill="#7C5CFC" opacity="0.7"/><path d="M4 12l.75 2.25L7 15l-2.25.75L4 18l-.75-2.25L1 15l2.25-.75L4 12z" fill="#7C5CFC" opacity="0.5"/></svg>
-            </div>
-            <div class="hc-chat-header-text">
-                <span class="hc-chat-header-title">AI Assistant</span>
-                <span class="hc-chat-header-sub">Powered by Clinical Insights</span>
-            </div>
-            <button class="hc-chat-close" @onclick="ToggleAIChat">
-                <svg viewBox="0 0 16 16" fill="none"><path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-        </div>
-
-        <TelerikChat @ref="ChatRef"
-                     Data="@ChatData"
-                     AuthorId="@("user")"
-                     Suggestions="@ChatSuggestions"
-                     OnSendMessage="@OnChatSendMessage"
-                     OnSuggestionClick="@OnChatSuggestionClick"
-                     Placeholder="Type a message"
-                     Height="100%"
-                     EnableSpeechToText="true"
-                     EnableFileUpload="true">
-            <ChatSettings>
-                <ChatTextAreaSettings Mode="@PromptBoxMode.MultiLine" Rows="3" MaxTextAreaHeight="120px" />
-            </ChatSettings>
-            <NoDataTemplate>
-                <div class="hc-chat-welcome">
-                    <span class="hc-chat-welcome-date">@DateTime.Now.ToString("dddd, MMMM dd, yyyy")</span>
-                    <div class="hc-chat-welcome-greeting">
-                        <strong>@("\U0001F44B") Hello! I'm your AI Assistant.</strong>
-                        I can help you with your daily clinical tasks, patient information, and quick actions. Try one of the suggestions below!
-                    </div>
-                </div>
-            </NoDataTemplate>
-        </TelerikChat>
-    </div>
-}
+<!-- ========== AI CHAT ========== -->
+<AIChat ShowFab="true"
+        WrapperClass="hc-chat-wrapper" />
 
 @code {
     #region Fields
-
-    private bool IsAIChatOpen { get; set; }
-    private TelerikChat<AIChatMessage> ChatRef { get; set; } = null!;
-    private List<AIChatMessage> ChatData { get; set; } = new();
-    private List<string> ChatSuggestions { get; set; } = new() { "Summary for next patient", "Provide lab results" };
 
     private void GoToPatientProfile() => Nav.NavigateTo("/patient/1");
 
@@ -459,81 +403,6 @@
         if (diff.TotalMinutes < 60) return $"{(int)diff.TotalMinutes} min ago";
         if (diff.TotalHours < 24) return $"{(int)diff.TotalHours} h ago";
         return $"{(int)diff.TotalDays} d ago";
-    }
-
-    #endregion
-
-    #region AI Chat
-
-    private void ToggleAIChat()
-    {
-        IsAIChatOpen = !IsAIChatOpen;
-        if (!IsAIChatOpen)
-        {
-            ChatData.Clear();
-            ChatSuggestions = new() { "Summary for next patient", "Provide lab results" };
-        }
-    }
-
-    private async Task OnChatSuggestionClick(ChatSuggestionClickEventArgs args)
-    {
-        var suggestion = args.Suggestion;
-        var userText = suggestion switch
-        {
-            "Summary for next patient" => "Can you summarize the next patient?",
-            "Provide lab results"      => "Provide lab results for next patient",
-            _                          => suggestion
-        };
-
-        ChatData.Add(new AIChatMessage { Id = Guid.NewGuid().ToString(), Text = userText, AuthorId = "user", AuthorName = "Dr. Carter", Timestamp = DateTime.Now });
-        ChatSuggestions = new();
-
-        var typingMsg = new AIChatMessage { Id = "typing", Text = "", AuthorId = "ai", AuthorName = "AI Assistant", IsTyping = true, Timestamp = DateTime.Now };
-        ChatData.Add(typingMsg);
-        StateHasChanged();
-
-        await Task.Delay(1200);
-        ChatData.Remove(typingMsg);
-
-        var response = suggestion switch
-        {
-            "Summary for next patient" => "James Wilson (P-104582) is a 45-year-old male admitted for hypertensive crisis. Vitals are stabilizing, but BP remains slightly elevated at 145/95. No known allergies.",
-            "Provide lab results"      => "Lab results for James Wilson (collected 03/28/2026): CBC: WBC 11.2 (H), RBC 4.8, Hgb 14.1, Plt 245. CMP: Glucose 98, BUN 18, Creatinine 1.0. CRP: 2.4 mg/L (normal). Chest X-ray: Mild bronchial thickening noted.",
-            _                          => "I'm sorry, I don't have information for that query."
-        };
-
-        ChatData.Add(new AIChatMessage { Id = Guid.NewGuid().ToString(), Text = response, AuthorId = "ai", AuthorName = "AI Assistant", Timestamp = DateTime.Now });
-    }
-
-    private async Task OnChatSendMessage(ChatSendMessageEventArgs args)
-    {
-        var text = args.Message?.Trim();
-        if (string.IsNullOrEmpty(text)) return;
-
-        ChatData.Add(new AIChatMessage { Id = Guid.NewGuid().ToString(), Text = text, AuthorId = "user", AuthorName = "Dr. Carter", Timestamp = DateTime.Now });
-        ChatSuggestions = new();
-
-        var typingMsg = new AIChatMessage { Id = "typing", Text = "", AuthorId = "ai", AuthorName = "AI Assistant", IsTyping = true, Timestamp = DateTime.Now };
-        ChatData.Add(typingMsg);
-        StateHasChanged();
-
-        await Task.Delay(1000);
-        ChatData.Remove(typingMsg);
-
-        var lower = text.ToLowerInvariant();
-        string response;
-        if (lower.Contains("summary") || lower.Contains("next patient") || lower.Contains("summarize"))
-            response = "James Wilson (P-104582) is a 45-year-old male admitted for hypertensive crisis. Vitals are stabilizing, but BP remains slightly elevated at 145/95. No known allergies.";
-        else if (lower.Contains("lab") || lower.Contains("result"))
-            response = "Lab results for James Wilson (collected 03/28/2026): CBC: WBC 11.2 (H), RBC 4.8, Hgb 14.1, Plt 245. CMP: Glucose 98, BUN 18, Creatinine 1.0. CRP: 2.4 mg/L (normal). Chest X-ray: Mild bronchial thickening noted.";
-        else if (lower.Contains("how many") || lower.Contains("patient") && lower.Contains("today"))
-            response = "You have 9 patients scheduled today: 3 Complete, 1 In Progress, 3 Upcoming, 2 Cancelled. Next patient: James Wilson at 11:00 AM.";
-        else if (lower.Contains("allerg"))
-            response = "2 patients with known allergies today: Ava Patel \u2013 Shellfish allergy (10:30 AM, In Progress), James Wilson \u2013 Penicillin allergy (11:00 AM, Upcoming). Please verify allergy bands before administering medication.";
-        else
-            response = "I can help with patient summaries, lab results, scheduling, and allergy information. Try asking about a specific topic!";
-
-        ChatData.Add(new AIChatMessage { Id = Guid.NewGuid().ToString(), Text = response, AuthorId = "ai", AuthorName = "AI Assistant", Timestamp = DateTime.Now });
     }
 
     #endregion

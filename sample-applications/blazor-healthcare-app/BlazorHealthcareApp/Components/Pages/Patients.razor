@@ -26,7 +26,6 @@
     <!-- GRID CARD -->
     <div class="hc-grid-card">
         <TelerikGrid Data="@PatientData"
-                     TItem="PatientModel"
                      Pageable="true"
                      @bind-PageSize="@PageSize"
                      @bind-Page="@CurrentPage"
@@ -120,47 +119,14 @@
                 </GridColumn>
             </GridColumns>
         </TelerikGrid>
-    </div>    <!-- AI ASSISTANT SIDE PANEL -->
-    @if (IsAIPanelOpen)
-    {
-        <div class="hc-ai-panel">
-            <div class="hc-ai-panel-header">
-                <div class="hc-ai-panel-header-icon">
-                    <svg viewBox="0 0 20 20" fill="none"><path d="M10 1l1.5 4.5L16 7l-4.5 1.5L10 13l-1.5-4.5L4 7l4.5-1.5L10 1z" fill="#7C5CFC" opacity="0.9"/><path d="M15 11l1 3 3 1-3 1-1 3-1-3-3-1 3-1 1-3z" fill="#7C5CFC" opacity="0.7"/><path d="M4 12l.75 2.25L7 15l-2.25.75L4 18l-.75-2.25L1 15l2.25-.75L4 12z" fill="#7C5CFC" opacity="0.5"/></svg>
-                </div>
-                <div class="hc-ai-panel-header-text">
-                    <span class="hc-ai-panel-header-title">AI Assistant</span>
-                    <span class="hc-ai-panel-header-sub">Patient Discovery Insights</span>
-                </div>
-                <button class="hc-ai-panel-close" @onclick="ToggleAIPanel">
-                    <svg viewBox="0 0 16 16" fill="none"><path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                </button>
-            </div>
+    </div>
 
-            <TelerikChat @ref="AiChatRef"
-                         Data="@AiChatData"
-                         AuthorId="@("user")"
-                         Suggestions="@AiChatSuggestions"
-                         OnSendMessage="@OnAIChatSendMessage"
-                         OnSuggestionClick="@OnAIChatSuggestionClick"
-                         Placeholder="Type a message"
-                         Height="100%"
-                         EnableFileUpload="true">
-                <ChatSettings>
-                    <ChatTextAreaSettings Mode="@PromptBoxMode.MultiLine" Rows="3" MaxTextAreaHeight="120px" />
-                </ChatSettings>
-                <NoDataTemplate>
-                    <div class="hc-ai-panel-welcome">
-                        <span class="hc-ai-panel-welcome-date">@DateTime.Now.ToString("dddd, MMMM dd, yyyy")</span>
-                        <div class="hc-ai-panel-welcome-greeting">
-                            <strong>@("\U0001F44B") Hello! I'm your AI Assistant.</strong>
-                            I can help you with your daily clinical tasks, patient information, and quick actions. Try one of the suggestions below!
-                        </div>
-                    </div>
-                </NoDataTemplate>
-            </TelerikChat>
-        </div>
-    }
+    <!-- AI ASSISTANT SIDE PANEL -->
+    <AIChat @bind-IsOpen="IsAIPanelOpen"
+            PatientId="0"
+            WrapperClass="hc-ai-panel"
+            Title="AI Assistant"
+            Subtitle="Patient Discovery Insights" />
 </div>
 
 @code {
@@ -170,9 +136,6 @@
     private int CurrentPage { get; set; } = 1;
 
     private bool IsAIPanelOpen { get; set; }
-    private TelerikChat<AIChatMessage> AiChatRef { get; set; } = null!;
-    private List<AIChatMessage> AiChatData { get; set; } = new();
-    private List<string> AiChatSuggestions { get; set; } = new() { "Summarize patient history", "Highlight risk" };
 
     private List<PatientModel> PatientData { get; set; } = new();
 
@@ -192,88 +155,6 @@
     private void ToggleAIPanel()
     {
         IsAIPanelOpen = !IsAIPanelOpen;
-        if (!IsAIPanelOpen)
-        {
-            AiChatData.Clear();
-            AiChatSuggestions = new() { "Summarize patient history", "Highlight risk" };
-        }
-    }
-
-    private async Task OnAIChatSuggestionClick(ChatSuggestionClickEventArgs args)
-    {
-        var suggestion = args.Suggestion;
-        var userText = suggestion switch
-        {
-            "Summarize patient history" => "Can you summarize the patient list?",
-            "Highlight risk"            => "Identify high-risk patients",
-            _                           => suggestion
-        };
-
-        AiChatData.Add(new AIChatMessage { Id = Guid.NewGuid().ToString(), Text = userText, AuthorId = "user", AuthorName = "Dr. Carter", Timestamp = DateTime.Now });
-        AiChatSuggestions = new();
-
-        var typingMsg = new AIChatMessage { Id = "typing", Text = "", AuthorId = "ai", AuthorName = "AI Assistant", IsTyping = true, Timestamp = DateTime.Now };
-        AiChatData.Add(typingMsg);
-        StateHasChanged();
-
-        await Task.Delay(1200);
-        AiChatData.Remove(typingMsg);
-
-        var response = suggestion switch
-        {
-            "Summarize patient history" => $"You currently have {PatientData.Count} patients across multiple wards. {PatientData.Count(p => p.Status == PatientStatus.Critical)} patients are in critical status, {PatientData.Count(p => p.Status == PatientStatus.Monitoring)} are being monitored, and {PatientData.Count(p => p.Status == PatientStatus.Stable)} are stable. Key focus areas: Cardiology ({PatientData.Count(p => p.Ward == "Cardiology")} patients) and Neurology ({PatientData.Count(p => p.Ward == "Neurology")} patients).",
-            "Highlight risk"            => BuildHighRiskResponse(),
-            _                           => "I'm sorry, I don't have information for that query."
-        };
-
-        AiChatData.Add(new AIChatMessage { Id = Guid.NewGuid().ToString(), Text = response, AuthorId = "ai", AuthorName = "AI Assistant", Timestamp = DateTime.Now });
-    }
-
-    private async Task OnAIChatSendMessage(ChatSendMessageEventArgs args)
-    {
-        var text = args.Message?.Trim();
-        if (string.IsNullOrEmpty(text)) return;
-
-        AiChatData.Add(new AIChatMessage { Id = Guid.NewGuid().ToString(), Text = text, AuthorId = "user", AuthorName = "Dr. Carter", Timestamp = DateTime.Now });
-        AiChatSuggestions = new();
-
-        var typingMsg = new AIChatMessage { Id = "typing", Text = "", AuthorId = "ai", AuthorName = "AI Assistant", IsTyping = true, Timestamp = DateTime.Now };
-        AiChatData.Add(typingMsg);
-        StateHasChanged();
-
-        await Task.Delay(1000);
-        AiChatData.Remove(typingMsg);
-
-        var lower = text.ToLowerInvariant();
-        string response;
-        if (lower.Contains("risk") || lower.Contains("critical") || lower.Contains("high-risk"))
-            response = BuildHighRiskResponse();
-        else if (lower.Contains("summary") || lower.Contains("summarize") || lower.Contains("list") || lower.Contains("overview"))
-            response = $"You currently have {PatientData.Count} patients across multiple wards. {PatientData.Count(p => p.Status == PatientStatus.Critical)} patients are in critical status, {PatientData.Count(p => p.Status == PatientStatus.Monitoring)} are being monitored, and {PatientData.Count(p => p.Status == PatientStatus.Stable)} are stable.";
-        else if (lower.Contains("allerg"))
-        {
-            var withAllergies = PatientData.Where(p => p.Allergies.Any()).ToList();
-            response = $"{withAllergies.Count} patients have known allergies: " + string.Join("; ", withAllergies.Select(p => $"{p.Name} ({string.Join(", ", p.Allergies)})")) + ". Verify allergy bands before administering medication.";
-        }
-        else
-            response = "I can help with patient summaries, risk analysis, allergy checks, and clinical insights. Try asking about a specific topic!";
-
-        AiChatData.Add(new AIChatMessage { Id = Guid.NewGuid().ToString(), Text = response, AuthorId = "ai", AuthorName = "AI Assistant", Timestamp = DateTime.Now });
-    }
-
-    private string BuildHighRiskResponse()
-    {
-        var critical = PatientData.Where(p => p.Status == PatientStatus.Critical).ToList();
-        if (!critical.Any()) return "No patients currently in critical status. All patients are stable or being monitored.";
-
-        var lines = critical.Select(p =>
-            $"\u2022 {p.Name} ({p.Age}{(p.Gender == "Male" ? "M" : "F")}, {p.Ward}) \u2014 {p.Diagnosis}. " +
-            (p.BpSystolic > 140 ? $"BP {p.BpSystolic}/{p.BpDiastolic} (elevated). " : "") +
-            (p.HeartRate > 100 ? $"HR {p.HeartRate} bpm (tachycardia). " : "") +
-            (p.O2Saturation < 95 ? $"SpO\u2082 {p.O2Saturation}% (low). " : "")
-        );
-
-        return $"Based on current vitals and status, {critical.Count} patient(s) show elevated risk levels:\n\n" + string.Join("\n", lines) + "\n\nRecommend frequent monitoring and immediate clinical review.";
     }
 
     #endregion
