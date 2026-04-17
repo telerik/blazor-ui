@@ -199,6 +199,89 @@
     </div>
 
     <!-- ===== BOTTOM ROW: DONUT + GAUGE ===== -->
+
+    <!-- ===== PATIENT HEALTH METRICS OVER TIME (Area Chart) ===== -->
+    <div class="hc-ca-card">
+        <div class="hc-ca-card-header">
+            <h2 class="hc-ca-card-title">Patient Health Metrics Over Time</h2>
+            <p class="hc-ca-card-subtitle">Long-term tracking of key lab results and health indicators</p>
+        </div>
+        <div class="hc-ca-card-body">
+            <div class="hc-ca-chart-area">
+                <TelerikChart Height="340px">
+                    <ChartSeriesItems>
+                        <ChartSeries Type="ChartSeriesType.Area"
+                                     Name="Glucose (mg/dL)"
+                                     Data="@HealthMetricsData"
+                                     Field="Glucose"
+                                     CategoryField="Month"
+                                     Color="#4B5FFA"
+                                     Opacity="0.15"
+                                     Style="ChartSeriesStyle.Smooth">
+                            <ChartSeriesLine Style="ChartSeriesLineStyle.Smooth" Width="2" />
+                        </ChartSeries>
+                        <ChartSeries Type="ChartSeriesType.Area"
+                                     Name="Cholesterol (mg/dL)"
+                                     Data="@HealthMetricsData"
+                                     Field="Cholesterol"
+                                     CategoryField="Month"
+                                     Color="#AC58FF"
+                                     Opacity="0.15"
+                                     Style="ChartSeriesStyle.Smooth">
+                            <ChartSeriesLine Style="ChartSeriesLineStyle.Smooth" Width="2" />
+                        </ChartSeries>
+                        <ChartSeries Type="ChartSeriesType.Area"
+                                     Name="Hemoglobin (g/dL)"
+                                     Data="@HealthMetricsData"
+                                     Field="Hemoglobin"
+                                     CategoryField="Month"
+                                     Color="#4CD180"
+                                     Opacity="0.15"
+                                     Style="ChartSeriesStyle.Smooth">
+                            <ChartSeriesLine Style="ChartSeriesLineStyle.Smooth" Width="2" />
+                        </ChartSeries>
+                        <ChartSeries Type="ChartSeriesType.Area"
+                                     Name="Creatinine (mg/dL)"
+                                     Data="@HealthMetricsData"
+                                     Field="Creatinine"
+                                     CategoryField="Month"
+                                     Color="#FFE162"
+                                     Opacity="0.15"
+                                     Style="ChartSeriesStyle.Smooth">
+                            <ChartSeriesLine Style="ChartSeriesLineStyle.Smooth" Width="2" />
+                        </ChartSeries>
+                        <ChartSeries Type="ChartSeriesType.Area"
+                                     Name="Bilirubin (mg/dL)"
+                                     Data="@HealthMetricsData"
+                                     Field="Bilirubin"
+                                     CategoryField="Month"
+                                     Color="#FF6358"
+                                     Opacity="0.15"
+                                     Style="ChartSeriesStyle.Smooth">
+                            <ChartSeriesLine Style="ChartSeriesLineStyle.Smooth" Width="2" />
+                        </ChartSeries>
+                    </ChartSeriesItems>
+                    <ChartCategoryAxes>
+                        <ChartCategoryAxis>
+                            <ChartCategoryAxisMajorGridLines Visible="false" />
+                        </ChartCategoryAxis>
+                    </ChartCategoryAxes>
+                    <ChartValueAxes>
+                        <ChartValueAxis Min="0" Max="220">
+                            <ChartValueAxisLabels />
+                            <ChartValueAxisMajorGridLines Color="rgba(23,56,99,0.08)" DashType="DashType.Dot" />
+                        </ChartValueAxis>
+                    </ChartValueAxes>
+                    <ChartLegend Position="ChartLegendPosition.Bottom">
+                        <ChartLegendLabels />
+                    </ChartLegend>
+                    <ChartTooltip Visible="true" />
+                </TelerikChart>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== BOTTOM ROW CONTENT: DONUT + GAUGE ===== -->
     <div class="hc-ca-bottom-row">
 
         <!-- ALERTS BY CATEGORY (Donut Chart) -->
@@ -308,6 +391,7 @@
     private List<VitalDataPoint> VitalsData { get; set; } = new();
     private List<AlertTimeData> AlertsOverTimeData { get; set; } = new();
     private List<AlertCategoryData> AlertsByCategoryData { get; set; } = new();
+    private List<HealthMetricPoint> HealthMetricsData { get; set; } = new();
 
     private DotNetObjectReference<Clinical_Analytics>? _dotNetRef;
 
@@ -356,6 +440,7 @@
         VitalsData           = AnalyticsService.GetVitalsData(SelectedPatientId);
         AlertsOverTimeData   = AnalyticsService.GetAlertsOverTime(SelectedPatientId);
         AlertsByCategoryData = AnalyticsService.GetAlertsByCategory(SelectedPatientId);
+        HealthMetricsData    = AnalyticsService.GetHealthMetrics(SelectedPatientId);
     }
 
     public async ValueTask DisposeAsync()

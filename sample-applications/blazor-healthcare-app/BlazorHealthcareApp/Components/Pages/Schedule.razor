@@ -22,7 +22,7 @@
                         }
                         <div>
                             <div class="hc-event-title">@apt.Title</div>
-                            <div class="hc-event-meta">@apt.Start.ToString("h:mm")–@apt.End.ToString("h:mm tt") · @apt.Room</div>
+                            <div class="hc-event-meta">@apt.Start.ToString("h:mm tt")–@apt.End.ToString("h:mm tt") · @apt.Room</div>
                         </div>
                     </ItemTemplate>
                     <SchedulerViews>
@@ -135,7 +135,7 @@
 
     protected override void OnInitialized()
     {
-        SchedulerAppointments = AppointmentService.GetAllAppointments();
+        SchedulerAppointments = AppointmentService.GetSchedulerAppointments();
         DailyTasks            = TaskService.GetDailyTasks();
     }
 

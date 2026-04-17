@@ -49,16 +49,23 @@ public class AnalyticsService
         };
     }
 
-    public List<HealthMetricPoint> GetHealthMetrics() => new()
+    public List<HealthMetricPoint> GetHealthMetrics() => GetHealthMetrics(1);
+
+    public List<HealthMetricPoint> GetHealthMetrics(int patientId)
     {
-        new() { Month = "Oct", Glucose = 95,  Cholesterol = 180, Hemoglobin = 13.5, Creatinine = 1.0, Bilirubin = 0.8 },
-        new() { Month = "Nov", Glucose = 98,  Cholesterol = 185, Hemoglobin = 13.2, Creatinine = 1.1, Bilirubin = 0.9 },
-        new() { Month = "Dec", Glucose = 102, Cholesterol = 192, Hemoglobin = 13.8, Creatinine = 1.0, Bilirubin = 0.7 },
-        new() { Month = "Jan", Glucose = 105, Cholesterol = 198, Hemoglobin = 14.0, Creatinine = 1.2, Bilirubin = 0.8 },
-        new() { Month = "Feb", Glucose = 108, Cholesterol = 202, Hemoglobin = 13.6, Creatinine = 1.1, Bilirubin = 0.9 },
-        new() { Month = "Mar", Glucose = 110, Cholesterol = 208, Hemoglobin = 14.2, Creatinine = 1.0, Bilirubin = 0.7 },
-        new() { Month = "Apr", Glucose = 112, Cholesterol = 212, Hemoglobin = 13.9, Creatinine = 1.1, Bilirubin = 0.8 },
-    };
+        var rng = new Random(patientId * 59);
+        double Vary(double val) => Math.Round(val + (rng.NextDouble() * 10 - 5), 1);
+        return new()
+        {
+            new() { Month = "Oct", Glucose = Vary(95),  Cholesterol = Vary(180), Hemoglobin = Vary(13.5), Creatinine = Vary(1.0), Bilirubin = Vary(0.8) },
+            new() { Month = "Nov", Glucose = Vary(98),  Cholesterol = Vary(185), Hemoglobin = Vary(13.2), Creatinine = Vary(1.1), Bilirubin = Vary(0.9) },
+            new() { Month = "Dec", Glucose = Vary(102), Cholesterol = Vary(192), Hemoglobin = Vary(13.8), Creatinine = Vary(1.0), Bilirubin = Vary(0.7) },
+            new() { Month = "Jan", Glucose = Vary(105), Cholesterol = Vary(198), Hemoglobin = Vary(14.0), Creatinine = Vary(1.2), Bilirubin = Vary(0.8) },
+            new() { Month = "Feb", Glucose = Vary(108), Cholesterol = Vary(202), Hemoglobin = Vary(13.6), Creatinine = Vary(1.1), Bilirubin = Vary(0.9) },
+            new() { Month = "Mar", Glucose = Vary(110), Cholesterol = Vary(208), Hemoglobin = Vary(14.2), Creatinine = Vary(1.0), Bilirubin = Vary(0.7) },
+            new() { Month = "Apr", Glucose = Vary(112), Cholesterol = Vary(212), Hemoglobin = Vary(13.9), Creatinine = Vary(1.1), Bilirubin = Vary(0.8) },
+        };
+    }
 
     public List<AlertCategoryData> GetAlertsByCategory() => GetAlertsByCategory(1);
 
