@@ -120,6 +120,9 @@
                         <TelerikPopover @ref="@PopoverRef"
                                         AnchorSelector="#notif-anchor"
                                         ShowOn="@PopoverShowOn.Click"
+                                        Position="@PopoverPosition.Bottom"
+                                        Collision="@PopoverCollision.Flip"
+                                        Offset="8"
                                         Class="hc-notif-popover"
                                         AnimationType="@AnimationType.None">
                             <PopoverContent>

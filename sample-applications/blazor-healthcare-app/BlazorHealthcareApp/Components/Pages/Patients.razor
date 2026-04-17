@@ -14,7 +14,7 @@
             <svg viewBox="0 0 16 16" fill="none"><path d="M8 2L9.1 5.5H12.8L9.85 7.7L10.9 11.2L8 9L5.1 11.2L6.15 7.7L3.2 5.5H6.9L8 2Z" stroke="white" stroke-width="1.2" fill="none" stroke-linejoin="round"/></svg>
             AI Assistance
         </button>
-        <button class="hc-btn-secondary">
+        <button class="hc-btn-secondary" @onclick="ExportToExcel">
             <svg viewBox="0 0 16 16" fill="none"><path d="M8 10V2M8 10L5 7M8 10L11 7" stroke="#232A36" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12V13C2 13.55 2.45 14 3 14H13C13.55 14 14 13.55 14 13V12" stroke="#232A36" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Export
         </button>
@@ -25,7 +25,8 @@
 <div class="hc-patients-main">
     <!-- GRID CARD -->
     <div class="hc-grid-card">
-        <TelerikGrid Data="@PatientData"
+        <TelerikGrid @ref="@GridRef"
+                     Data="@PatientData"
                      Pageable="true"
                      @bind-PageSize="@PageSize"
                      @bind-Page="@CurrentPage"
@@ -35,6 +36,9 @@
             <GridSettings>
                 <GridPagerSettings PageSizes="@(new List<int?> { 5, 10, 20 })" InputType="@PagerInputType.Buttons" ButtonCount="5" />
             </GridSettings>
+            <GridExport>
+                <GridExcelExport FileName="Patients" AllPages="true" />
+            </GridExport>
             <GridColumns>
                 <GridColumn Field="@nameof(PatientModel.Name)" Title="Patient Name">
                     <HeaderTemplate>
@@ -135,6 +139,8 @@
 
     private bool IsAIPanelOpen { get; set; }
 
+    private TelerikGrid<PatientModel> GridRef { get; set; } = null!;
+
     private List<PatientModel> PatientData { get; set; } = new();
 
     #endregion
@@ -144,6 +150,15 @@
     protected override void OnInitialized()
     {
         PatientData = PatientService.GetPatients();
+    }
+
+    #endregion
+
+    #region Export
+
+    private async Task ExportToExcel()
+    {
+        await GridRef.SaveAsExcelFileAsync();
     }
 
     #endregion

@@ -237,6 +237,9 @@ h1:focus {
     box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.1), 0px 1px 4px rgba(0, 0, 0, 0.06);
     font-family: 'Poppins', sans-serif;
 }
+.k-animation-container:has(.hc-notif-popover) {
+    transform: translateX(calc(-50% + 15px));
+}
 .hc-notif-popover .k-popover-body {
     padding: 20px;
     display: flex;
