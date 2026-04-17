@@ -123,11 +123,14 @@
     font-size: 14px; color: #4A5666;
     padding: 8px 16px;
 }
-.hc-grid-card ::deep .k-pager .k-pager-numbers .k-button.k-selected {
-    background: #334155; color: #FFFFFF; border-color: #334155;
+.hc-grid-card ::deep .k-pager .k-pager-numbers .k-button {
+    color: #232A36;
 }
-.hc-grid-card ::deep .k-selected td,
-.hc-grid-card ::deep .k-selected .k-table-td {
+.hc-grid-card ::deep .k-pager .k-pager-numbers .k-button.k-selected {
+    background: #334155 !important; color: #FFFFFF !important; border-color: #334155 !important;
+}
+.hc-grid-card ::deep .k-grid-container .k-selected td,
+.hc-grid-card ::deep .k-grid-container .k-selected .k-table-td {
     background: rgba(99, 102, 251, 0.08) !important;
 }
 
