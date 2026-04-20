@@ -10,5 +10,6 @@ public class AlertService
         new() { Text = "Blood pressure high – James Carter",       Timestamp = DateTime.Now.AddMinutes(-15) },
         new() { Text = "Glucose levels elevated – Daniel Rivera",  Timestamp = DateTime.Now.AddMinutes(-15) },
         new() { Text = "High cholesterol detected – Ava Thompson", Timestamp = DateTime.Now.AddMinutes(-15) },
+        new() { Text = "Low hemoglobin – Maria Gonzalez",          Timestamp = DateTime.Now.AddMinutes(-10) },
     };
 }

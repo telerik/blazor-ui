@@ -18,7 +18,7 @@
     z-index: 1;
 }
 .hc-left { display: flex; flex-direction: column; flex: 1 1 70%; min-width: 0; }
-.hc-right { display: flex; flex-direction: column; width: 30%; min-width: min(320px, 100%); }
+.hc-right { width: 30%; min-width: min(320px, 100%); position: relative; }
 
 /* ========== CARDS ========== */
 .hc-card {
@@ -30,7 +30,6 @@
     z-index: 1;
     display: flex;
     flex-direction: column;
-    flex: 1;
 }
 
 .hc-card-title {
@@ -82,6 +81,7 @@
     border-radius: 10px;
     font-size: 13px;
     box-shadow: 0 1px 3px rgba(99, 102, 251, 0.08);
+    padding: 4px 8px;
 }
 .hc-scheduler-wrapper ::deep .k-scheduler .k-event:hover {
     background: #D2D2FF;
@@ -89,7 +89,16 @@
 .hc-scheduler-wrapper ::deep .k-scheduler .k-event .k-event-template {
     font-family: 'Poppins', sans-serif;
     font-size: 13px;
-    padding: 4px 8px;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.hc-scheduler-wrapper ::deep .k-scheduler .k-event .k-event-actions {
+    display: none !important;
+}
+.hc-scheduler-wrapper ::deep .k-scheduler .k-event .k-event-title {
+    padding: 0 !important;
+    margin: 0 !important;
+    text-indent: 0 !important;
 }
 /* Custom event content */
 .hc-event-title {
@@ -201,9 +210,12 @@
     border-radius: 16px;
     display: flex;
     flex-direction: column;
-    flex: 1;
     overflow: hidden;
-    position: relative;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     z-index: 1;
 }
 
@@ -350,8 +362,8 @@
 @media (max-width: 1200px) {
     .hc-main { flex-direction: column; }
     .hc-left { flex: 1 1 auto; }
-    .hc-right { width: 100%; min-width: 0; }
-    .hc-right-card { height: auto; max-height: 650px; }
+    .hc-right { width: 100%; min-width: 0; position: static; }
+    .hc-right-card { position: static; max-height: 650px; }
 }
 
 @media (max-width: 960px) {
