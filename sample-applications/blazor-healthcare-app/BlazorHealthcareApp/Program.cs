@@ -20,6 +20,8 @@ builder.Services.AddScoped<AIChatService>();
 
 var app = builder.Build();
 
+app.UsePathBase("/blazor-healthcare/");
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -31,6 +33,8 @@ app.UseStatusCodePagesWithReExecute("/not-found", createScopeForStatusCodePages:
 app.UseHttpsRedirection();
 
 app.UseAntiforgery();
+
+app.MapBlazorHub("/blazor-healthcare/_blazor");
 
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
