@@ -7,7 +7,7 @@
         <!-- ========== APPBAR ========== -->
         <TelerikAppBar Class="hc-appbar">
             <AppBarSection Class="hc-appbar-sides">
-                <a href="/" class="hc-logo">
+                <a href="./" class="hc-logo">
                     <img src="images/Logo1.svg" alt="Logoipsum" class="hc-logo-full" />
                     <img src="images/Logo1-icon.svg" alt="Logoipsum" class="hc-logo-icon-only" />
                 </a>
@@ -21,19 +21,19 @@
                     {
                         <div class="hc-mobile-menu-overlay" @onclick="ToggleMobileMenu"></div>
                         <nav class="hc-mobile-menu">
-                            <a href="/" class="hc-mobile-menu-item @(ActiveSegment == "home" ? "active" : "")" @onclick="ToggleMobileMenu">
+                            <a href="./" class="hc-mobile-menu-item @(ActiveSegment == "home" ? "active" : "")" @onclick="ToggleMobileMenu">
                                 <TelerikSvgIcon Icon="@SvgIcon.Home" />
                                 <span>Home</span>
                             </a>
-                            <a href="/schedule" class="hc-mobile-menu-item @(ActiveSegment == "schedule" ? "active" : "")" @onclick="ToggleMobileMenu">
+                            <a href="./schedule" class="hc-mobile-menu-item @(ActiveSegment == "schedule" ? "active" : "")" @onclick="ToggleMobileMenu">
                                 <TelerikSvgIcon Icon="@SvgIcon.Calendar" />
                                 <span>Schedule</span>
                             </a>
-                            <a href="/patients" class="hc-mobile-menu-item @(ActiveSegment == "patients" ? "active" : "")" @onclick="ToggleMobileMenu">
+                            <a href="./patients" class="hc-mobile-menu-item @(ActiveSegment == "patients" ? "active" : "")" @onclick="ToggleMobileMenu">
                                 <TelerikSvgIcon Icon="@SvgIcon.User" />
                                 <span>Patients</span>
                             </a>
-                            <a href="/clinical-analytics" class="hc-mobile-menu-item @(ActiveSegment == "clinical-analytics" ? "active" : "")" @onclick="ToggleMobileMenu">
+                            <a href="./clinical-analytics" class="hc-mobile-menu-item @(ActiveSegment == "clinical-analytics" ? "active" : "")" @onclick="ToggleMobileMenu">
                                 <TelerikSvgIcon Icon="@SvgIcon.ChartColumnStacked" />
                                 <span>Clinical Analytics</span>
                             </a>
@@ -46,19 +46,19 @@
 
             <AppBarSection Class="hc-appbar-center">
                 <div class="hc-segmented">
-                    <a href="/" class="hc-segment @(ActiveSegment == "home" ? "active" : "")">
+                    <a href="./" class="hc-segment @(ActiveSegment == "home" ? "active" : "")">
                         <TelerikSvgIcon Icon="@SvgIcon.Home" />
                         <span>Home</span>
                     </a>
-                    <a href="/schedule" class="hc-segment @(ActiveSegment == "schedule" ? "active" : "")">
+                    <a href="./schedule" class="hc-segment @(ActiveSegment == "schedule" ? "active" : "")">
                         <TelerikSvgIcon Icon="@SvgIcon.Calendar" />
                         <span>Schedule</span>
                     </a>
-                    <a href="/patients" class="hc-segment @(ActiveSegment == "patients" ? "active" : "")">
+                    <a href="./patients" class="hc-segment @(ActiveSegment == "patients" ? "active" : "")">
                         <TelerikSvgIcon Icon="@SvgIcon.User" />
                         <span>Patients</span>
                     </a>
-                    <a href="/clinical-analytics" class="hc-segment @(ActiveSegment == "clinical-analytics" ? "active" : "")">
+                    <a href="./clinical-analytics" class="hc-segment @(ActiveSegment == "clinical-analytics" ? "active" : "")">
                         <TelerikSvgIcon Icon="@SvgIcon.ChartColumnStacked" />
                         <span>Clinical Analytics</span>
                     </a>
@@ -345,15 +345,15 @@
 
     private void UpdateActiveSegment()
     {
-        var path = new Uri(Nav.Uri).AbsolutePath.TrimEnd('/').ToLowerInvariant();
+        var path = new Uri(Nav.Uri).Segments.Last().ToLowerInvariant();
+
         ActiveSegment = path switch
         {
-            "" or "/" => "home",
-            "/schedule" => "schedule",
-            "/patients" => "patients",
-            "/clinical-analytics" => "clinical-analytics",
-            _ when path.StartsWith("/patient/") => "patients",
-            _ => ""
+            "schedule" => "schedule",
+            "patients" => "patients",
+            "clinical-analytics" => "clinical-analytics",
+            _ when Nav.Uri.Contains("/patient/") => "patients",
+            _ => "home"
         };
     }
 
