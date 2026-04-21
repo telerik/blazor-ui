@@ -1,0 +1,886 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+html, body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+a, .btn-link {
+    color: #006bb7;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+.content {
+    padding-top: 1.1rem;
+}
+
+h1:focus {
+    outline: none;
+}
+
+.valid.modified:not([type=checkbox]) {
+    outline: 1px solid #26b050;
+}
+
+.invalid {
+    outline: 1px solid #e50000;
+}
+
+.validation-message {
+    color: #e50000;
+}
+
+.blazor-error-boundary {
+    background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTYiIGhlaWdodD0iNDkiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIG92ZXJmbG93PSJoaWRkZW4iPjxkZWZzPjxjbGlwUGF0aCBpZD0iY2xpcDAiPjxyZWN0IHg9IjIzNSIgeT0iNTEiIHdpZHRoPSI1NiIgaGVpZ2h0PSI0OSIvPjwvY2xpcFBhdGg+PC9kZWZzPjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMCkiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMzUgLTUxKSI+PHBhdGggZD0iTTI2My41MDYgNTFDMjY0LjcxNyA1MSAyNjUuODEzIDUxLjQ4MzcgMjY2LjYwNiA1Mi4yNjU4TDI2Ny4wNTIgNTIuNzk4NyAyNjcuNTM5IDUzLjYyODMgMjkwLjE4NSA5Mi4xODMxIDI5MC41NDUgOTIuNzk1IDI5MC42NTYgOTIuOTk2QzI5MC44NzcgOTMuNTEzIDI5MSA5NC4wODE1IDI5MSA5NC42NzgyIDI5MSA5Ny4wNjUxIDI4OS4wMzggOTkgMjg2LjYxNyA5OUwyNDAuMzgzIDk5QzIzNy45NjMgOTkgMjM2IDk3LjA2NTEgMjM2IDk0LjY3ODIgMjM2IDk0LjM3OTkgMjM2LjAzMSA5NC4wODg2IDIzNi4wODkgOTMuODA3MkwyMzYuMzM4IDkzLjAxNjIgMjM2Ljg1OCA5Mi4xMzE0IDI1OS40NzMgNTMuNjI5NCAyNTkuOTYxIDUyLjc5ODUgMjYwLjQwNyA1Mi4yNjU4QzI2MS4yIDUxLjQ4MzcgMjYyLjI5NiA1MSAyNjMuNTA2IDUxWk0yNjMuNTg2IDY2LjAxODNDMjYwLjczNyA2Ni4wMTgzIDI1OS4zMTMgNjcuMTI0NSAyNTkuMzEzIDY5LjMzNyAyNTkuMzEzIDY5LjYxMDIgMjU5LjMzMiA2OS44NjA4IDI1OS4zNzEgNzAuMDg4N0wyNjEuNzk1IDg0LjAxNjEgMjY1LjM4IDg0LjAxNjEgMjY3LjgyMSA2OS43NDc1QzI2Ny44NiA2OS43MzA5IDI2Ny44NzkgNjkuNTg3NyAyNjcuODc5IDY5LjMxNzkgMjY3Ljg3OSA2Ny4xMTgyIDI2Ni40NDggNjYuMDE4MyAyNjMuNTg2IDY2LjAxODNaTTI2My41NzYgODYuMDU0N0MyNjEuMDQ5IDg2LjA1NDcgMjU5Ljc4NiA4Ny4zMDA1IDI1OS43ODYgODkuNzkyMSAyNTkuNzg2IDkyLjI4MzcgMjYxLjA0OSA5My41Mjk1IDI2My41NzYgOTMuNTI5NSAyNjYuMTE2IDkzLjUyOTUgMjY3LjM4NyA5Mi4yODM3IDI2Ny4zODcgODkuNzkyMSAyNjcuMzg3IDg3LjMwMDUgMjY2LjExNiA4Ni4wNTQ3IDI2My41NzYgODYuMDU0N1oiIGZpbGw9IiNGRkU1MDAiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvZz48L3N2Zz4=) no-repeat 1rem/1.8rem, #b32121;
+    padding: 1rem 1rem 1rem 3.7rem;
+    color: white;
+}
+
+    .blazor-error-boundary::after {
+        content: "An error has occurred."
+    }
+
+.darker-border-checkbox.form-check-input {
+    border-color: #929292;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+    color: var(--bs-secondary-color);
+    text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+    text-align: start;
+}
+
+/* ========== PROFILE MODAL (global — TelerikWindow portals outside scoped CSS) ========== */
+.hc-profile-modal.k-window {
+    border-radius: 20px !important;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0px 12px 40px rgba(0, 0, 0, 0.12), 0px 4px 12px rgba(0, 0, 0, 0.06);
+}
+.hc-profile-modal .k-window-titlebar {
+    padding: 20px 24px 12px;
+    background: #FFFFFF !important;
+    background-color: #FFFFFF !important;
+    border-bottom: none !important;
+    border-bottom-width: 0 !important;
+    box-shadow: none !important;
+}
+.hc-profile-modal .k-window-titlebar .k-window-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: #232A36;
+}
+.hc-profile-modal .k-window-titlebar .k-window-action {
+    color: #4A5666;
+    border-radius: 8px;
+}
+.hc-profile-modal .k-window-titlebar .k-window-action:hover {
+    background: rgba(35, 42, 54, 0.06);
+    color: #232A36;
+}
+.hc-profile-modal .k-window-content {
+    padding: 0;
+    background: #FFFFFF;
+}
+.hc-pm-body {
+    display: flex;
+    flex-direction: column;
+    padding: 0 24px 24px;
+    gap: 0;
+    font-family: 'Poppins', sans-serif;
+}
+.hc-pm-section-label {
+    font-weight: 500;
+    font-size: 14px;
+    color: #4A5666;
+    margin-bottom: 12px;
+}
+.hc-pm-photo-area {
+    width: 100%;
+    height: 260px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #E2E8F0 0%, #CBD5E1 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+.hc-pm-photo {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    font-weight: 600;
+    color: #94A3B8;
+}
+.hc-pm-upload-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: #334155;
+    border: none;
+    border-radius: 10px;
+    color: #FFFFFF;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    margin-bottom: 24px;
+}
+.hc-pm-upload-btn:hover { background: #1e293b; }
+.hc-pm-upload-btn .k-svg-icon,
+.hc-pm-upload-btn svg { width: 16px; height: 16px; }
+.hc-pm-section-title {
+    font-weight: 600;
+    font-size: 16px;
+    color: #232A36;
+    margin-bottom: 16px;
+}
+.hc-pm-policy {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 16px;
+    background: #F0F0FF;
+    border-left: 3px solid #7B7FDE;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: #383BA8;
+    line-height: 160%;
+}
+.hc-pm-policy strong {
+    font-weight: 600;
+    font-size: 14px;
+    color: #383BA8;
+}
+.hc-pm-form.k-form {
+    gap: 0;
+    padding: 0;
+}
+.hc-pm-form .k-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+.hc-pm-form .k-form-buttons {
+    padding: 0;
+    margin: 0;
+}
+.hc-pm-label {
+    font-weight: 500;
+    font-size: 14px;
+    color: #232A36;
+}
+.hc-pm-form .k-textbox {
+    border-radius: 10px;
+    border: 1px solid rgba(23, 56, 99, 0.12);
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+}
+.hc-pm-form .k-textbox:focus-within {
+    border-color: rgba(99, 102, 251, 0.4);
+    box-shadow: 0 0 0 2px rgba(99, 102, 251, 0.1);
+}
+.hc-pm-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 8px;
+    padding-top: 16px;
+}
+.hc-pm-btn {
+    padding: 10px 24px;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+.hc-pm-btn-clear {
+    background: #F1F5F9;
+    color: #4A5666;
+}
+.hc-pm-btn-clear:hover { background: #E2E8F0; }
+.hc-pm-btn-submit {
+    background: #334155;
+    color: #FFFFFF;
+}
+.hc-pm-btn-submit:hover { background: #1e293b; }
+
+/* ========== NOTIFICATION POPOVER (global — TelerikPopover portals outside scoped CSS) ========== */
+.hc-notif-popover.k-popover {
+    width: 360px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.1), 0px 1px 4px rgba(0, 0, 0, 0.06);
+    font-family: 'Poppins', sans-serif;
+}
+.k-animation-container:has(.hc-notif-popover) {
+    transform: translateX(calc(-50% + 15px));
+}
+.hc-notif-popover .k-popover-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.hc-notif-popover .k-popover-callout {
+    display: none;
+}
+.hc-notif-popover .hc-notif-popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+.hc-notif-popover .hc-notif-popup-title {
+    font-weight: 700;
+    font-size: 18px;
+    color: #232A36;
+}
+.hc-notif-popover .hc-notif-mark-read {
+    background: none;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    color: #4A5666;
+    cursor: pointer;
+    padding: 0;
+}
+.hc-notif-popover .hc-notif-mark-read:hover { color: #232A36; }
+.hc-notif-popover .hc-notif-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-top: 1px solid rgba(23, 56, 99, 0.06);
+}
+.hc-notif-popover .hc-notif-item:first-of-type { border-top: none; }
+.hc-notif-popover .hc-notif-item-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #E2E8F0 0%, #CBD5E1 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4A5666;
+}
+.hc-notif-popover .hc-notif-item-icon .k-svg-icon { width: 18px; height: 18px; }
+.hc-notif-popover .hc-notif-item-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+.hc-notif-popover .hc-notif-item-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #232A36;
+    line-height: 142%;
+}
+.hc-notif-popover .hc-notif-item-desc {
+    font-size: 13px;
+    color: #4A5666;
+    line-height: 142%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.hc-notif-popover .hc-notif-item-time {
+    font-size: 12px;
+    color: #94A3B8;
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding-top: 2px;
+}
+
+/* ========== AI CHAT POPUP (global — TelerikPopup portals outside scoped CSS) ========== */
+.hc-chat-popup.k-animation-container {
+    z-index: 1100 !important;
+    border-radius: 20px;
+    overflow: hidden;
+}
+.hc-chat-popup .k-child-animation-container,
+.hc-chat-popup .k-popup {
+    height: 100%;
+}
+.hc-chat-popup .k-popup {
+    background: #FFFFFF;
+    border-radius: 20px;
+    box-shadow: 0px 12px 48px rgba(0, 0, 0, 0.16), 0px 4px 16px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    border: none;
+}
+
+/* ========== AI CHAT PANEL (global — shared between popup and inline modes) ========== */
+.hc-aichat-panel {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+}
+.hc-chat-popup .hc-aichat-panel {
+    height: 100%;
+}
+
+/* Header */
+.hc-aichat-panel .hc-aichat-header {
+    padding: 14px 20px;
+    background: #FFFFFF;
+    color: #232A36;
+    display: flex; align-items: center; gap: 10px;
+    flex-shrink: 0;
+    border-bottom: 1px solid rgba(23, 56, 99, 0.08);
+}
+.hc-aichat-panel .hc-aichat-header-icon {
+    width: 24px; height: 24px; min-width: 24px;
+    display: flex; align-items: center; justify-content: center;
+}
+.hc-aichat-panel .hc-aichat-header-icon svg { width: 20px; height: 20px; }
+.hc-aichat-panel .hc-aichat-header-text { display: flex; flex-direction: column; flex: 1; }
+.hc-aichat-panel .hc-aichat-header-title { font-weight: 700; font-size: 15px; line-height: 140%; color: #232A36; }
+.hc-aichat-panel .hc-aichat-header-sub { display: none; }
+.hc-aichat-panel .hc-aichat-close {
+    background: none; border: none; cursor: pointer;
+    color: #94A3B8;
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 8px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+.hc-aichat-panel .hc-aichat-close:hover { background: rgba(35, 42, 54, 0.06); color: #232A36; }
+.hc-aichat-panel .hc-aichat-close svg { width: 16px; height: 16px; }
+
+/* Welcome template */
+.hc-aichat-panel .hc-aichat-welcome {
+    text-align: center;
+    padding: 24px 20px 8px;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.hc-aichat-panel .hc-aichat-welcome-date {
+    font-size: 12px; color: #94A3B8;
+    background: #F1F5F9; border-radius: 9999px;
+    padding: 4px 12px;
+}
+.hc-aichat-panel .hc-aichat-welcome-greeting {
+    font-size: 14px; color: #232A36; line-height: 160%;
+}
+.hc-aichat-panel .hc-aichat-welcome-greeting strong { display: block; font-size: 16px; margin-bottom: 4px; }
+
+/* TelerikChat overrides */
+.hc-aichat-panel .k-chat {
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    background: #FFFFFF;
+    flex: 1;
+    min-height: 0;
+}
+.hc-aichat-panel .k-chat .k-message-list {
+    background: #FFFFFF;
+}
+.hc-aichat-panel .k-chat .k-bubble {
+    border-radius: 16px;
+    font-size: 14px;
+    line-height: 160%;
+    font-family: 'Poppins', sans-serif;
+}
+.hc-aichat-panel .k-chat .k-message-group-receiver .k-bubble {
+    background: #F8FAFC;
+    border: 1px solid rgba(23, 56, 99, 0.08);
+    color: #232A36;
+    border-bottom-left-radius: 4px;
+}
+.hc-aichat-panel .k-chat .k-message-group-sender .k-bubble {
+    background: #2D3655;
+    border: none;
+    color: #FFFFFF;
+    border-bottom-right-radius: 4px;
+}
+.hc-aichat-panel .k-chat .k-quick-replies .k-quick-reply {
+    border-radius: 9999px;
+    padding: 8px 14px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    color: #334155;
+    border: 1px solid rgba(23, 56, 99, 0.12);
+    background: #FFFFFF;
+    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.hc-aichat-panel .k-chat .k-quick-replies .k-quick-reply:hover {
+    background: #F1F5F9;
+    border-color: rgba(99, 102, 251, 0.3);
+    box-shadow: 0px 2px 8px rgba(99, 102, 251, 0.1);
+}
+.hc-aichat-panel .k-chat .k-message-box-wrapper {
+    border-top: 1px solid rgba(23, 56, 99, 0.08);
+    padding: 8px 12px;
+}
+.hc-aichat-panel .k-chat .k-prompt-box {
+    font-family: 'Poppins', sans-serif;
+    border: 1px solid rgba(23, 56, 99, 0.12);
+    border-radius: 12px;
+    background: #F9FAFB;
+}
+.hc-aichat-panel .k-chat .k-prompt-box:focus-within {
+    border-color: rgba(99, 102, 251, 0.4);
+    box-shadow: 0 0 0 2px rgba(99, 102, 251, 0.1);
+}
+.hc-aichat-panel .k-chat .k-prompt-box-textarea.k-input-inner {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: #232A36;
+}
+.hc-aichat-panel .k-chat .k-suggestion {
+    border-radius: 9999px;
+}
+.hc-aichat-panel .k-chat .k-message-author {
+    display: none;
+}
+.hc-aichat-panel .k-chat .k-timestamp {
+    display: none;
+}
+.hc-aichat-panel .k-chat .k-no-avatar {
+    margin-left: 0;
+}
+
+/* ========== SEARCH AUTOCOMPLETE (global — popup portals outside scoped CSS) ========== */
+.hc-search-popup.k-animation-container .k-list-container,
+.hc-search-popup .k-list-container {
+    border-radius: 16px;
+}
+.hc-search .k-autocomplete,
+.hc-search .k-input {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    height: 100%;
+}
+.hc-search .k-autocomplete .k-input-inner,
+.hc-search .k-input .k-input-inner {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    color: #232A36;
+    padding: 4px 8px;
+}
+.hc-search .k-autocomplete .k-input-inner::placeholder,
+.hc-search .k-input .k-input-inner::placeholder {
+    color: #4A5666;
+}
+.hc-search .k-clear-value {
+    color: #94A3B8;
+}
+.hc-search .k-input-prefix {
+    color: #4A5666;
+}
+.hc-search .k-input-prefix .k-svg-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* ========== TRANSPARENT MODE (toggled via appbar button) ========== */
+.hc-dashboard.hc-transparent .hc-card,
+.hc-dashboard.hc-transparent .hc-right-card,
+.hc-dashboard.hc-transparent .hc-info-card,
+.hc-dashboard.hc-transparent .hc-grid-card,
+.hc-dashboard.hc-transparent .hc-pd-header-card,
+.hc-dashboard.hc-transparent .hc-pd-card,
+.hc-dashboard.hc-transparent .hc-ca-card,
+.hc-dashboard.hc-transparent .hc-ai-panel,
+.hc-dashboard.hc-transparent .hc-chat-wrapper,
+.hc-dashboard.hc-transparent .hc-task-item,
+.hc-dashboard.hc-transparent .hc-appbar.k-appbar {
+    background: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* ========== MODAL DIALOGS (global — TelerikWindow portals outside scoped CSS) ========== */
+.hc-modal.k-window {
+    border-radius: 20px !important;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0px 12px 40px rgba(0, 0, 0, 0.12), 0px 4px 12px rgba(0, 0, 0, 0.06);
+}
+.hc-modal .k-window-titlebar {
+    padding: 24px 28px 16px;
+    background: #FFFFFF;
+    border-bottom: none;
+    border-radius: 20px 20px 0 0;
+}
+.hc-modal .k-window-titlebar .k-window-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #232A36;
+}
+.hc-modal .k-window-titlebar .k-window-action {
+    color: #94A3B8;
+    opacity: 0.7;
+}
+.hc-modal .k-window-titlebar .k-window-action:hover {
+    color: #232A36;
+    opacity: 1;
+    background: transparent;
+}
+.hc-modal .k-window-content {
+    padding: 0;
+    border-radius: 0 0 20px 20px;
+}
+.hc-modal-body {
+    padding: 0 28px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.hc-modal-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.hc-modal-label {
+    font-weight: 500;
+    font-size: 14px;
+    color: #232A36;
+}
+.hc-modal .k-dropdownlist,
+.hc-modal .k-multiselect,
+.hc-modal .k-textbox {
+    border-radius: 10px !important;
+    background: #F9FAFB;
+    border: 1px solid rgba(23, 56, 99, 0.12);
+}
+.hc-modal .k-dropdownlist:focus-within,
+.hc-modal .k-multiselect:focus-within,
+.hc-modal .k-textbox:focus-within {
+    border-color: rgba(99, 102, 251, 0.4);
+    box-shadow: 0 0 0 2px rgba(99, 102, 251, 0.1);
+}
+/* TelerikTextArea inside modal */
+.hc-modal-textarea {
+    border-radius: 10px !important;
+    background: #F9FAFB;
+    border: 1px solid rgba(23, 56, 99, 0.12);
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: #232A36;
+    padding: 10px 14px;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 120px;
+    resize: vertical;
+}
+.hc-modal-textarea:focus-within,
+.hc-modal-textarea:focus {
+    border-color: rgba(99, 102, 251, 0.4);
+    box-shadow: 0 0 0 2px rgba(99, 102, 251, 0.1);
+}
+.hc-modal-textarea .k-input-inner {
+    min-height: 160px;
+}
+/* Native text input inside modal (Schedule) */
+.hc-modal-input {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: #232A36;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: #F9FAFB;
+    border: 1px solid rgba(23, 56, 99, 0.12);
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+.hc-modal-input:focus {
+    border-color: rgba(99, 102, 251, 0.4);
+    box-shadow: 0 0 0 2px rgba(99, 102, 251, 0.1);
+}
+/* Modal popup overrides (DropDown/MultiSelect popups inside modals) */
+.hc-modal-popup.k-animation-container {
+    border-radius: 10px;
+    overflow: hidden;
+}
+.hc-modal-popup .k-list-content,
+.hc-modal-popup .k-popup {
+    border-radius: 10px;
+}
+/* Lab test checklist inside modal */
+.hc-lab-checklist {
+    max-height: 250px;
+    overflow-y: auto;
+    border: 1px solid rgba(23, 56, 99, 0.08);
+    border-radius: 10px;
+    background: #FFFFFF;
+}
+.hc-lab-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(23, 56, 99, 0.06);
+    transition: box-shadow 0.2s ease-in-out;
+}
+.hc-lab-row:last-child {
+    border-bottom: none;
+}
+.hc-lab-row:hover {
+    box-shadow: 0px 8px 20px rgba(0, 100, 200, 0.1);
+    z-index: 1;
+    position: relative;
+}
+.hc-lab-row-selected {
+    background: rgba(99, 102, 251, 0.04);
+}
+.hc-lab-check {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    border-radius: 50%;
+    border: 2px solid #CBD5E1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+.hc-lab-check svg {
+    width: 12px;
+    height: 12px;
+}
+.hc-lab-checked {
+    background: #334155;
+    border-color: #334155;
+}
+.hc-lab-name {
+    font-size: 14px;
+    color: #232A36;
+    line-height: 150%;
+}
+/* Modal action buttons */
+.hc-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 4px;
+}
+.hc-modal-btn {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s ease;
+}
+.hc-modal-btn-secondary {
+    background: transparent;
+    color: #4A5666;
+}
+.hc-modal-btn-secondary:hover {
+    background: rgba(35, 42, 54, 0.06);
+}
+.hc-modal-btn-primary {
+    background: #334155;
+    color: #FFFFFF;
+    padding: 10px 28px;
+}
+.hc-modal-btn-primary:hover {
+    background: #1e293b;
+}
+/* Priority segmented control inside modal (Schedule) */
+.hc-priority-seg {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px;
+    background: linear-gradient(0deg, rgba(35, 42, 54, 0.08), rgba(35, 42, 54, 0.08)), #ECEFF3;
+    border-radius: 9999px;
+    align-self: flex-start;
+}
+.hc-priority-seg-btn {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px 16px;
+    border: none;
+    background: transparent;
+    color: #4A5666;
+    cursor: pointer;
+    border-radius: 9999px;
+    transition: background 0.15s, color 0.15s;
+}
+.hc-priority-seg-btn:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+.hc-priority-seg-btn.active {
+    background: #FFFFFF;
+    color: #232A36;
+}
+
+/* ========== DROPDOWN POPUP (global — Clinical Analytics dropdown portals outside scoped CSS) ========== */
+.hc-ca-dropdown-popup.k-animation-container .k-list-container,
+.hc-ca-dropdown-popup .k-list-container {
+    border-radius: 16px;
+}
+
+/* ========== COMPACT APPBAR LAYOUT (global — scoped ::deep can't override Telerik flex) ========== */
+@media (max-width: 1440px) {
+    .hc-appbar.k-appbar,
+    .k-appbar.hc-appbar {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        flex-direction: row !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
+        padding: 8px 16px !important;
+        gap: 8px !important;
+        overflow: visible !important;
+    }
+    /* Kill spacers */
+    .hc-appbar .k-appbar-spacer,
+    .k-appbar.hc-appbar .k-appbar-spacer,
+    .hc-appbar.k-appbar .k-appbar-spacer {
+        display: none !important;
+        width: 0 !important;
+        min-width: 0 !important;
+        flex: 0 0 0px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    /* Hide center nav section (re-shown at 577+ with icon-only) */
+    .hc-appbar .hc-appbar-center,
+    .hc-appbar .hc-appbar-center.k-appbar-section {
+        display: none !important;
+    }
+    /* First section: logo + hamburger — no grow, flush left */
+    .hc-appbar .k-appbar-section.hc-appbar-sides:first-child,
+    .hc-appbar.k-appbar > .k-appbar-section:first-child {
+        flex: 0 0 auto !important;
+        order: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    /* Last section: actions — fill remaining space, push right */
+    .hc-appbar .k-appbar-section.hc-appbar-sides:last-child,
+    .hc-appbar.k-appbar > .k-appbar-section:last-child {
+        flex: 1 1 auto !important;
+        order: 0 !important;
+        display: flex !important;
+        justify-content: flex-end !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* ---- Search expanded state ---- */
+    .hc-search-active .hc-appbar .k-appbar-section:first-child,
+    .hc-search-active .hc-appbar.k-appbar > .k-appbar-section:first-child {
+        display: none !important;
+    }
+    .hc-search-active .hc-appbar .hc-appbar-center,
+    .hc-search-active .hc-appbar .hc-appbar-center.k-appbar-section {
+        display: none !important;
+    }
+    .hc-search-active .hc-appbar .k-appbar-section.hc-appbar-sides:last-child,
+    .hc-search-active .hc-appbar.k-appbar > .k-appbar-section:last-child {
+        flex: 1 1 100% !important;
+    }
+    .hc-search-active .hc-appbar-actions > .hc-icon-btn,
+    .hc-search-active .hc-appbar-actions > .hc-notif-wrapper,
+    .hc-search-active .hc-appbar-actions > .hc-separator,
+    .hc-search-active .hc-appbar-actions > .hc-avatar-btn {
+        display: none !important;
+    }
+    .hc-search-active .hc-appbar-actions > .hc-search-close-btn {
+        display: flex !important;
+    }
+    .hc-search-active .hc-appbar-actions > .hc-search {
+        display: flex !important;
+        flex: 1 !important;
+        width: auto !important;
+        order: -1 !important;
+    }
+    .hc-search-active .hc-appbar-actions {
+        flex: 1 !important;
+        width: 100% !important;
+    }
+    .hc-search-active .hc-search {
+        border: none !important;
+        background: transparent !important;
+    }
+}
+
+/* 577–1440px: icon-only segments, centered, no hamburger */
+@media (min-width: 577px) and (max-width: 1440px) {
+    /* Show the segmented nav centered */
+    .hc-appbar .hc-appbar-center,
+    .hc-appbar .hc-appbar-center.k-appbar-section {
+        display: flex !important;
+        position: absolute !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        flex: 0 0 auto !important;
+        order: 0 !important;
+        justify-content: center !important;
+    }
+    /* Hide hamburger — segments are visible */
+    .hc-hamburger-wrapper {
+        display: none !important;
+    }
+    /* Icon-only segments: hide text */
+    .hc-segment span {
+        display: none !important;
+    }
+    .hc-segment {
+        padding: 8px !important;
+        gap: 0 !important;
+    }
+    /* Make sure segment icons are visible */
+    .hc-segment .k-svg-icon,
+    .hc-segment svg {
+        width: 16px !important;
+        height: 16px !important;
+        display: inline-flex !important;
+    }
+}
+
+/* ========== VIEW PROFILE ICON-ONLY (≤899px) ========== */
+@media (max-width: 899px) {
+    .hc-view-profile-btn.k-button .k-button-text {
+        display: none !important;
+    }
+}
+
+/* ========== 1441–1759px: hide "View profile" text, prevent segment/search overlap ========== */
+@media (min-width: 1441px) and (max-width: 1759px) {
+    .hc-view-profile-btn.k-button .k-button-text {
+        display: none !important;
+    }
+    .hc-segment {
+        padding: 7px 10px !important;
+        font-size: 14px !important;
+    }
+}

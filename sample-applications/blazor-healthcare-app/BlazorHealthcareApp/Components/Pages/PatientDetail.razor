@@ -1,0 +1,258 @@
+@page "/patient/{PatientId:int}"
+@rendermode InteractiveServer
+@inject NavigationManager Nav
+@inject PatientService PatientService
+
+<div class="hc-pd-page">
+@if (Patient != null)
+{
+    <!-- ========== BREADCRUMB ========== -->
+    <div class="hc-pd-breadcrumb">
+        <a href="/patients">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M6.5 12L2.5 8L6.5 4" stroke="currentColor" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Patients
+        </a>
+        <span class="hc-pd-breadcrumb-sep">&gt;</span>
+        <span class="hc-pd-breadcrumb-current">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M3 5H13M3 8H9M3 11H11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Patient Profile
+        </span>
+    </div>
+
+    <!-- ========== HEADER — 3 CARDS ========== -->
+    <div class="hc-pd-header">
+        <!-- Basic Information -->
+        <div class="hc-pd-header-card">
+            <div class="hc-pd-profile-row">
+                <div class="hc-pd-profile-left">
+                    <div class="hc-pd-avatar">
+                        @if (!string.IsNullOrEmpty(Patient.ImageUrl))
+                        {
+                            <img src="@Patient.ImageUrl" alt="@Patient.Name" style="width:100%;height:100%;object-fit:cover;border-radius:9999px;" />
+                        }
+                        else
+                        {
+                            @Patient.Initials
+                        }
+                    </div>
+                    <span class="hc-pd-name">@Patient.Name</span>
+                </div>
+                @{
+                    var chipColor = Patient.Status switch
+                    {
+                        PatientStatus.Critical => ThemeConstants.Chip.ThemeColor.Error,
+                        PatientStatus.Monitoring => ThemeConstants.Chip.ThemeColor.Warning,
+                        _ => ThemeConstants.Chip.ThemeColor.Success
+                    };
+                }
+                <TelerikChip Text="@Patient.Status.ToString()" ThemeColor="@chipColor" Selectable="false" FillMode="@ThemeConstants.Chip.FillMode.Solid" Rounded="@ThemeConstants.Chip.Rounded.Full" />
+            </div>
+            <div>
+                <div class="hc-pd-basic-title">Basic Information</div>
+                <div class="hc-pd-basic-grid" style="margin-top: 8px;">
+                    <div class="hc-pd-basic-row">
+                        <span class="hc-pd-basic-label">Patient ID</span>
+                        <span class="hc-pd-basic-value">P-@Patient.Id.ToString("D6")</span>
+                    </div>
+                    <div class="hc-pd-basic-row">
+                        <span class="hc-pd-basic-label">Age/Gender</span>
+                        <span class="hc-pd-basic-value">@Patient.Age years, @Patient.Gender</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Vitals -->
+        <div class="hc-pd-header-card">
+            <div class="hc-pd-vitals-title">Recent Vitals</div>
+            <div class="hc-pd-vitals-grid">
+                <div class="hc-pd-vitals-row">
+                    <span class="hc-pd-vitals-label">Heart Rate</span>
+                    <span class="hc-pd-vitals-value">@Patient.HeartRate bpm</span>
+                </div>
+                <div class="hc-pd-vitals-row">
+                    <span class="hc-pd-vitals-label">Blood Pressure</span>
+                    <span class="hc-pd-vitals-value">@Patient.BpSystolic/@Patient.BpDiastolic</span>
+                </div>
+                <div class="hc-pd-vitals-row">
+                    <span class="hc-pd-vitals-label">Temperature</span>
+                    <span class="hc-pd-vitals-value">@Patient.Temperature</span>
+                </div>
+                <div class="hc-pd-vitals-row">
+                    <span class="hc-pd-vitals-label">O2 Saturation</span>
+                    <span class="hc-pd-vitals-value @(Patient.O2Saturation < 95 ? "hc-pd-vitals-value-critical" : "")">@(Patient.O2Saturation)%</span>
+                </div>
+                <div class="hc-pd-vitals-row">
+                    <span class="hc-pd-vitals-label">Respiratory Rate</span>
+                    <span class="hc-pd-vitals-value">@Patient.RespiratoryRate breaths/min</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admission Details -->
+        <div class="hc-pd-header-card">
+            <div class="hc-pd-admission-title">Admission Details</div>
+            <div class="hc-pd-admission-grid">
+                <div class="hc-pd-admission-row">
+                    <span class="hc-pd-admission-label">Department</span>
+                    <span class="hc-pd-admission-value">@Patient.Department</span>
+                </div>
+                <div class="hc-pd-admission-row">
+                    <span class="hc-pd-admission-label">Ward</span>
+                    <span class="hc-pd-admission-value">@Patient.Ward</span>
+                </div>
+                <div class="hc-pd-admission-row">
+                    <span class="hc-pd-admission-label">Room</span>
+                    <span class="hc-pd-admission-value">@Patient.Room</span>
+                </div>
+                <div class="hc-pd-admission-row">
+                    <span class="hc-pd-admission-label">Admission Date</span>
+                    <span class="hc-pd-admission-value">@Patient.AdmissionDate.ToString("MMM d, yyyy")</span>
+                </div>
+                <div class="hc-pd-admission-row">
+                    <span class="hc-pd-admission-label">Assigned Nurse</span>
+                    <span class="hc-pd-admission-value">@Patient.AssignedNurse</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== PATIENT NOTE (full width) ========== -->
+    <div class="hc-pd-card">
+        <div class="hc-pd-card-header">
+            <h3 class="hc-pd-card-title">Patient Note</h3>
+            <button class="hc-pd-save-btn">
+                <svg viewBox="0 0 16 16" fill="none"><path d="M12.67 2H3.33C2.6 2 2 2.6 2 3.33V12.67C2 13.4 2.6 14 3.33 14H12.67C13.4 14 14 13.4 14 12.67V3.33C14 2.6 13.4 2 12.67 2Z" stroke="#232A36" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M11.33 14V9.33H4.67V14" stroke="#232A36" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4.67 2V5.33H10" stroke="#232A36" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Save
+            </button>
+        </div>
+        <div class="hc-pd-editor-wrapper">
+            <TelerikEditor @bind-Value="@EditorValue" Height="260px" Tools="@EditorTools" />
+        </div>
+    </div>
+
+    <!-- ========== LAB RESULTS (full width) ========== -->
+    <div class="hc-pd-card">
+        <div class="hc-pd-card-header">
+            <h3 class="hc-pd-card-title">Recent Lab Results</h3>
+        </div>
+        <div class="hc-pd-lab-grid">
+            <TelerikGrid Data="@LabResults"
+                         Sortable="true">
+                <GridColumns>
+                    <GridColumn Field="@nameof(LabResultRow.Test)" Title="Test">
+                        <HeaderTemplate>
+                            Test
+                        </HeaderTemplate>
+                    </GridColumn>
+                    <GridColumn Field="@nameof(LabResultRow.Result)" Title="Result">
+                        <HeaderTemplate>
+                            Result
+                        </HeaderTemplate>
+                    </GridColumn>
+                    <GridColumn Field="@nameof(LabResultRow.Reference)" Title="Reference">
+                        <HeaderTemplate>
+                            Reference
+                        </HeaderTemplate>
+                    </GridColumn>
+                    <GridColumn Field="@nameof(LabResultRow.Status)" Title="Status">
+                        <HeaderTemplate>
+                            Status
+                        </HeaderTemplate>
+                        <Template>
+                            @{
+                                var lab = (LabResultRow)context;
+                                var labChipColor = lab.Status switch
+                                {
+                                    PatientStatus.Critical => ThemeConstants.Chip.ThemeColor.Error,
+                                    PatientStatus.Monitoring => ThemeConstants.Chip.ThemeColor.Warning,
+                                    _ => ThemeConstants.Chip.ThemeColor.Success
+                                };
+                            }
+                            <TelerikChip Text="@lab.Status.ToString()" ThemeColor="@labChipColor" Selectable="false" FillMode="@ThemeConstants.Chip.FillMode.Solid" Rounded="@ThemeConstants.Chip.Rounded.Full" />
+                        </Template>
+                    </GridColumn>
+                    <GridColumn Field="@nameof(LabResultRow.Note)" Title="Note">
+                        <HeaderTemplate>
+                            Note
+                        </HeaderTemplate>
+                    </GridColumn>
+                </GridColumns>
+            </TelerikGrid>
+        </div>
+    </div>
+}
+</div>
+
+@code {
+    #region Parameters
+
+    [Parameter] public int PatientId { get; set; }
+
+    #endregion
+
+    #region Fields
+
+    private PatientDetailModel? Patient { get; set; }
+    private string EditorValue { get; set; } = "";
+    private List<LabResultRow> LabResults { get; set; } = new();
+
+    private List<IEditorTool> EditorTools { get; set; } = new List<IEditorTool>()
+    {
+        new Telerik.Blazor.Components.Editor.EditorButtonGroup(
+            new Telerik.Blazor.Components.Editor.Bold(),
+            new Telerik.Blazor.Components.Editor.Italic(),
+            new Telerik.Blazor.Components.Editor.Underline(),
+            new Telerik.Blazor.Components.Editor.Strikethrough()
+        ),
+        new Telerik.Blazor.Components.Editor.FontFamily(),
+        new Telerik.Blazor.Components.Editor.FontSize(),
+        new Telerik.Blazor.Components.Editor.EditorButtonGroup(
+            new Telerik.Blazor.Components.Editor.AlignLeft(),
+            new Telerik.Blazor.Components.Editor.AlignCenter(),
+            new Telerik.Blazor.Components.Editor.AlignRight(),
+            new Telerik.Blazor.Components.Editor.AlignJustify()
+        ),
+        new Telerik.Blazor.Components.Editor.Format(),
+    };
+
+    #endregion
+
+    #region Lifecycle
+
+    protected override void OnInitialized()
+    {
+        Patient = PatientService.GetPatientDetail(PatientId);
+        if (Patient is null)
+        {
+            Nav.NavigateTo("/patients");
+            return;
+        }
+
+        EditorValue = "<p>Patient reports mild chest discomfort experienced earlier in the morning during light physical activity. " +
+            "The pain was described as a brief pressure sensation lasting approximately 3\u20134 minutes and resolved without intervention. " +
+            "No associated symptoms such as shortness of breath, dizziness, or nausea were reported.</p>" +
+            "<p>Vital signs remain stable, and the patient appears comfortable at rest. Blood pressure slightly elevated but consistent " +
+            "with previous readings. ECG results reviewed and show normal sinus rhythm with no acute abnormalities.</p>" +
+            "<p>Patient advised to avoid strenuous activity until further evaluation is completed. Continue monitoring vital signs and " +
+            "assess for any recurrence of chest discomfort. Follow-up consultation with cardiology scheduled for later today.</p>" +
+            "<p>Patient denies any new symptoms and remains stable under observation with no further episodes reported.</p>";
+
+        LabResults = new List<LabResultRow>
+        {
+            new() { Test = "C-Reactive Protein (CRP)",  Result = "18 mg/L",    Reference = "<5.0",    Status = PatientStatus.Critical,   Note = "Significant inflammatory elevation" },
+            new() { Test = "LDL Cholesterol",           Result = "162 mg/dL",  Reference = "<100",    Status = PatientStatus.Monitoring, Note = "Above target for cardiac risk patients" },
+            new() { Test = "Troponin I",                Result = "0.03 ng/mL", Reference = "<0.004",  Status = PatientStatus.Critical,   Note = "Borderline - serial monitoring ordered" },
+            new() { Test = "Hemoglobin A1c",            Result = "5.5%",       Reference = "<5.7",    Status = PatientStatus.Monitoring, Note = "Pre-diabetic range" },
+            new() { Test = "eGFR (Kidney Function)",    Result = "78 mL/min",  Reference = ">60",     Status = PatientStatus.Stable,     Note = "Adequate renal function" },
+            new() { Test = "Potassium",                 Result = "3.9 mEq/L",  Reference = "3.5-5.0", Status = PatientStatus.Monitoring, Note = "Within normal limits" },
+            new() { Test = "C-Reactive Protein (CRP)",  Result = "20 mg/L",    Reference = "<5.9",    Status = PatientStatus.Stable,     Note = "Borderline - serial monitoring ordered" },
+            new() { Test = "Hemoglobin A1c",            Result = "178 mg/DI",  Reference = "<0.03",   Status = PatientStatus.Critical,   Note = "Above target for cardiac risk patients" },
+            new() { Test = "eGFR (Kidney Function)",    Result = "6.7%",       Reference = "<100",    Status = PatientStatus.Critical,   Note = "Significant inflammatory elevation" },
+            new() { Test = "LDL Cholesterol",           Result = "162 mg/dL",  Reference = "4.5-6.0", Status = PatientStatus.Monitoring, Note = "Pre-diabetic range" },
+            new() { Test = "C-Reactive Protein (CRP)",  Result = "18 mg/L",    Reference = "<5.0",    Status = PatientStatus.Critical,   Note = "Significant inflammatory elevation" },
+        };
+    }
+
+    #endregion
+}

@@ -1,0 +1,227 @@
+/* ========== HEADING ========== */
+.hc-heading {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 16px; width: 100%; position: relative; z-index: 1; flex-wrap: wrap;
+}
+.hc-heading-text { display: flex; flex-direction: column; gap: 8px; }
+.hc-heading h1 {
+    font-weight: 600; font-size: 42px; line-height: 120%;
+    color: #232A36; margin: 0;
+}
+.hc-heading p {
+    font-weight: 400; font-size: 16px; line-height: 150%;
+    color: #4A5666; margin: 0;
+}
+.hc-heading-actions { display: flex; gap: 12px; align-items: center; flex-shrink: 0; }
+
+.hc-btn-primary {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 20px;
+    background: #334155; border: 1px solid #334155;
+    border-radius: 9999px; color: #FFFFFF;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px; font-weight: 400; line-height: 150%;
+    cursor: pointer; white-space: nowrap;
+}
+.hc-btn-primary:hover { background: #1e293b; }
+.hc-btn-primary svg { width: 16px; height: 16px; }
+
+.hc-btn-secondary {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 20px;
+    background: #F3F5F7; border: 1px solid rgba(23, 56, 99, 0.08);
+    border-radius: 9999px; color: #232A36;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px; font-weight: 400; line-height: 150%;
+    cursor: pointer; white-space: nowrap;
+}
+.hc-btn-secondary:hover { background: #E2E8F0; }
+.hc-btn-secondary svg { width: 16px; height: 16px; }
+
+/* ========== MAIN CONTENT ========== */
+.hc-patients-main {
+    display: flex; gap: 0; width: 100%; position: relative; z-index: 1;
+    min-height: 0; flex: 1;
+}
+
+/* ========== GRID CARD ========== */
+.hc-grid-card {
+    flex: 1; min-width: 0;
+    background: #FFFFFF;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04), 0px 2px 6px -1px rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    border: 1px solid rgba(23, 56, 99, 0.08);
+    overflow: hidden;
+    position: relative; z-index: 1;
+}
+
+/* ========== GRID OVERRIDES ========== */
+.hc-grid-card ::deep .k-grid {
+    border: none; font-family: 'Poppins', sans-serif;
+}
+.hc-grid-card ::deep .k-grid-header .k-header,
+.hc-grid-card ::deep .k-grid-header .k-table-th {
+    background: #F9FAFB !important;
+    border-bottom: 1px solid rgba(23, 56, 99, 0.08);
+    border-right: none;
+    font-weight: 700; font-size: 14px; color: #232A36;
+    padding: 14px 16px;
+    white-space: nowrap;
+}
+.hc-grid-card ::deep .k-grid-header {
+    border-bottom: 1px solid rgba(23, 56, 99, 0.08);
+}
+.hc-grid-card ::deep .k-filter-row,
+.hc-grid-card ::deep .k-filter-row .k-table-th {
+    background: #F9FAFB !important;
+    border-bottom: 1px solid rgba(23, 56, 99, 0.08);
+    border-right: none;
+    padding: 8px 16px;
+}
+.hc-grid-card ::deep .k-filter-row .k-filtercell .k-filtercell-wrapper {
+    gap: 4px;
+}
+.hc-grid-card ::deep .k-filter-row input.k-input-inner {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px; color: #232A36;
+    padding: 4px 8px;
+}
+.hc-grid-card ::deep .k-grid td,
+.hc-grid-card ::deep .k-grid .k-table-td {
+    padding: 8px 16px !important;
+    font-size: 14px; color: #232A36;
+    border-bottom: none !important;
+    border-right: none;
+    vertical-align: middle;
+}
+.hc-grid-card ::deep .k-master-row { height: 48px; }
+.hc-grid-card ::deep .k-master-row:nth-child(even) td,
+.hc-grid-card ::deep .k-master-row:nth-child(even) .k-table-td {
+    background: rgba(56, 66, 80, 0.05);
+}
+.hc-grid-card ::deep .k-master-row:nth-child(odd) td,
+.hc-grid-card ::deep .k-master-row:nth-child(odd) .k-table-td {
+    background: #FFFFFF;
+}
+.hc-grid-card ::deep .k-master-row:hover td,
+.hc-grid-card ::deep .k-master-row:hover .k-table-td {
+    background: rgba(99, 102, 251, 0.06) !important;
+}
+.hc-grid-card ::deep .k-grid-content { overflow-y: auto; }
+.hc-grid-card ::deep .k-grid-header { padding-right: 0 !important; }
+
+/* Custom sort arrow in header */
+.hc-sort-arrow {
+    display: inline-flex; align-items: center; margin-left: 2px; opacity: 0.45;
+}
+.hc-sort-arrow svg { width: 10px; height: 10px; }
+
+.hc-grid-card ::deep .k-grid .k-pager {
+    border-top: 1px solid rgba(23, 56, 99, 0.08);
+    background: #FFFFFF;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px; color: #4A5666;
+    padding: 8px 16px;
+}
+.hc-grid-card ::deep .k-pager .k-pager-numbers .k-button {
+    color: #232A36;
+}
+.hc-grid-card ::deep .k-pager .k-pager-numbers .k-button.k-selected {
+    background: #334155 !important; color: #FFFFFF !important; border-color: #334155 !important;
+}
+.hc-grid-card ::deep .k-grid-container .k-selected td,
+.hc-grid-card ::deep .k-grid-container .k-selected .k-table-td {
+    background: rgba(99, 102, 251, 0.08) !important;
+}
+
+/* ========== PATIENT NAME CELL ========== */
+.hc-patient-cell { display: flex; align-items: center; gap: 10px; }
+.hc-avatar-sm {
+    width: 32px; height: 32px; min-width: 32px; border-radius: 9999px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex; align-items: center; justify-content: center;
+    color: #FFFFFF; font-weight: 600; font-size: 12px;
+    overflow: hidden;
+}
+.hc-patient-cell-name { font-weight: 400; font-size: 14px; color: #232A36; white-space: nowrap; }
+
+/* ========== STATUS CHIPS ========== */
+.hc-chip {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 4px 12px; border-radius: 9999px;
+    font-size: 12px; font-weight: 500; line-height: 133%; white-space: nowrap;
+    border: 1px solid;
+}
+.hc-chip-critical { background: #FCDDDA; border-color: #F76F60; color: #7A0C00; }
+.hc-chip-monitoring { background: #FFF4D3; border-color: #FFD760; color: #5E4700; }
+.hc-chip-stable { background: #DCF0D3; border-color: #81D15F; color: #1C5A00; }
+
+/* ========== VIEW PROFILE BUTTON ========== */
+.hc-view-btn {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 6px 14px;
+    background: #F3F5F7; border: 1px solid rgba(23, 56, 99, 0.08);
+    border-radius: 9999px; cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px; color: #232A36; white-space: nowrap;
+}
+.hc-view-btn:hover { background: #E2E8F0; }
+.hc-view-btn svg { width: 14px; height: 14px; }
+
+/* Active AI button state */
+.hc-btn-ai-active {
+    background: linear-gradient(135deg, #AC58FF 0%, #4B5FFA 100%) !important;
+    border-color: transparent !important;
+    color: #FFFFFF !important;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1200px) {
+    .hc-patients-main { flex-direction: column; }
+    .hc-patients-main ::deep .hc-ai-panel {
+        width: 100% !important; max-width: 100% !important; min-width: 0 !important;
+        margin-left: 0 !important; margin-top: 0 !important; margin-bottom: 16px !important;
+        border-radius: 16px;
+        max-height: 500px;
+        order: -1 !important;
+    }
+    .hc-grid-card { border-radius: 16px; }
+}
+
+@media (max-width: 960px) {
+    .hc-heading h1 { font-size: 32px; }
+    /* Hide Blood Type (col 5) and Ward (col 6) — collapse col + cells in both tables */
+    .hc-grid-card ::deep .k-grid-header col:nth-child(5),
+    .hc-grid-card ::deep .k-grid-header col:nth-child(6),
+    .hc-grid-card ::deep .k-grid-table col:nth-child(5),
+    .hc-grid-card ::deep .k-grid-table col:nth-child(6),
+    .hc-grid-card ::deep .k-grid-content col:nth-child(5),
+    .hc-grid-card ::deep .k-grid-content col:nth-child(6) { display: none; }
+    .hc-grid-card ::deep .k-grid th:nth-child(5),
+    .hc-grid-card ::deep .k-grid th:nth-child(6),
+    .hc-grid-card ::deep .k-grid td:nth-child(5),
+    .hc-grid-card ::deep .k-grid td:nth-child(6),
+    .hc-grid-card ::deep .k-filter-row th:nth-child(5),
+    .hc-grid-card ::deep .k-filter-row th:nth-child(6) { display: none; }
+}
+
+@media (max-width: 640px) {
+    .hc-heading { gap: 12px; }
+    .hc-heading h1 { font-size: 26px; }
+    .hc-heading p { font-size: 14px; }
+    .hc-heading-actions { width: 100%; }
+    .hc-btn-primary, .hc-btn-secondary { flex: 1; justify-content: center; font-size: 14px; padding: 8px 14px; }
+    /* Also hide Gender (col 4) and Diagnosis (col 7) */
+    .hc-grid-card ::deep .k-grid-header col:nth-child(4),
+    .hc-grid-card ::deep .k-grid-header col:nth-child(7),
+    .hc-grid-card ::deep .k-grid-table col:nth-child(4),
+    .hc-grid-card ::deep .k-grid-table col:nth-child(7),
+    .hc-grid-card ::deep .k-grid-content col:nth-child(4),
+    .hc-grid-card ::deep .k-grid-content col:nth-child(7) { display: none; }
+    .hc-grid-card ::deep .k-grid th:nth-child(4),
+    .hc-grid-card ::deep .k-grid th:nth-child(7),
+    .hc-grid-card ::deep .k-grid td:nth-child(4),
+    .hc-grid-card ::deep .k-grid td:nth-child(7),
+    .hc-grid-card ::deep .k-filter-row th:nth-child(4),
+    .hc-grid-card ::deep .k-filter-row th:nth-child(7) { display: none; }
+}

@@ -1,0 +1,284 @@
+/* ========== BASE / DASHBOARD CONTAINER ========== */
+.hc-dashboard {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 40px 120px;
+    gap: 32px;
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: #FFFFFF;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.hc-dashboard * { box-sizing: border-box; }
+
+.hc-dashboard::before {
+    content: '';
+    position: absolute;
+    width: 3000px;
+    height: 1200px;
+    left: -400px;
+    top: -100px;
+    background: conic-gradient(from 269.87deg at 47.29% 49.93%, #F2E0EA 0deg, #EAE2F0 166.15deg, #E4E3F4 226.73deg, #D8DAF2 308.08deg, #DEE4F6 351.35deg, #F2E0EA 360deg);
+    filter: blur(80px);
+    transform: rotate(-15.79deg);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* z-index layering — applied explicitly to elements MainLayout renders */
+.hc-body-wrapper {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+}
+
+/* ========== APPBAR (TelerikAppBar overrides) ========== */
+::deep .hc-appbar.k-appbar {
+    padding: 16px 24px;
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.0001);
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.05), 0px 4px 12px -2px rgba(0, 0, 0, 0.08);
+    border-radius: 85px;
+    position: relative;
+    z-index: 2;
+    gap: 0;
+}
+
+.hc-appbar-actions { display: flex; align-items: center; gap: 12px; }
+
+::deep .hc-appbar-center.k-appbar-section {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+::deep .hc-appbar-sides.k-appbar-section {
+    z-index: 1;
+}
+
+/* Logo */
+.hc-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.hc-logo-full { height: 32px; width: auto; }
+.hc-logo-icon-only { height: 32px; width: auto; display: none; }
+.hc-logo-text { font-weight: 600; font-size: 18px; color: #232A36; }
+
+/* Segmented control */
+.hc-segmented {
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    background: linear-gradient(0deg, rgba(35, 42, 54, 0.08), rgba(35, 42, 54, 0.08)), #ECEFF3;
+    border-radius: 800px;
+}
+
+.hc-segment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 12px;
+    gap: 8px;
+    border-radius: 9999px;
+    background: transparent;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%;
+    color: #232A36;
+}
+.hc-segment:hover { background: rgba(255, 255, 255, 0.5); text-decoration: none; color: #232A36; }
+.hc-segment.active { background: #FFFFFF; }
+.hc-segment .k-svg-icon, .hc-segment svg { width: 16px; height: 16px; }
+
+/* Search */
+.hc-search {
+    display: flex;
+    align-items: center;
+    padding: 2px 8px;
+    width: 272px;
+    max-width: 100%;
+    height: 40px;
+    background: #FFFFFF;
+    border: 1px solid rgba(23, 56, 99, 0.08);
+    border-radius: 9999px;
+    gap: 4px;
+}
+
+/* Icon buttons */
+.hc-icon-btn {
+    display: flex; align-items: center; justify-content: center;
+    width: 30px; height: 30px;
+    border: none; background: transparent; cursor: pointer;
+    border-radius: 9999px; color: #232A36; padding: 0;
+}
+.hc-icon-btn:hover { background: rgba(35, 42, 54, 0.06); }
+.hc-icon-btn svg, .hc-icon-btn .k-svg-icon { width: 16px; height: 16px; }
+
+.hc-notif-wrapper { position: relative; }
+.hc-notif-btn {
+    display: flex; align-items: center; justify-content: center;
+    width: 30px; height: 30px;
+    border: none; background: transparent; cursor: pointer;
+    border-radius: 9999px; color: #232A36; padding: 0;
+    position: relative;
+}
+.hc-notif-btn:hover { background: rgba(35, 42, 54, 0.06); }
+::deep .hc-notif-badge.k-badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 10px;
+    height: 10px;
+    min-width: 10px;
+    padding: 0;
+    background: #334155;
+    border: 1px solid #334155;
+    pointer-events: none;
+}
+
+/* Notification popover styles are in app.css (TelerikPopover portals outside scoped CSS) */
+
+.hc-separator { width: 1px; height: 20px; background: rgba(23, 56, 99, 0.08); }
+
+.hc-avatar-btn {
+    background: none; border: none; cursor: pointer; padding: 0; border-radius: 9999px;
+}
+
+.hc-avatar {
+    width: 40px; height: 40px; border-radius: 9999px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex; align-items: center; justify-content: center;
+    color: #FFFFFF; font-weight: 600; font-size: 14px;
+    overflow: hidden;
+}
+
+/* Profile modal styles moved to app.css (TelerikWindow portals outside scoped CSS) */
+
+/* ========== HAMBURGER MENU (hidden by default, shown at <=576px) ========== */
+.hc-hamburger-wrapper { display: none; align-items: center; gap: 8px; position: relative; }
+
+/* Mobile search toggle buttons (hidden by default, shown at <=576px) */
+.hc-search-icon-btn { display: none !important; }
+.hc-search-close-btn { display: none !important; }
+
+.hc-hamburger-btn {
+    display: flex; align-items: center; justify-content: center;
+    width: 30px; height: 30px;
+    border: none; background: transparent; cursor: pointer;
+    border-radius: 9999px; color: #232A36; padding: 0;
+}
+.hc-hamburger-btn:hover { background: rgba(35, 42, 54, 0.06); }
+.hc-hamburger-btn svg { width: 18px; height: 18px; }
+
+.hc-mobile-menu-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 99;
+}
+
+.hc-mobile-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 180px;
+    background: #FFFFFF;
+    border: 1px solid rgba(23, 56, 99, 0.08);
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.12);
+    border-radius: 12px;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    z-index: 100;
+}
+
+.hc-mobile-menu-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px; font-weight: 400;
+    color: #232A36;
+    cursor: pointer;
+}
+.hc-mobile-menu-item:hover { background: rgba(35, 42, 54, 0.06); text-decoration: none; color: #232A36; }
+.hc-mobile-menu-item.active { background: #F1F5F9; font-weight: 500; }
+.hc-mobile-menu-item .k-svg-icon, .hc-mobile-menu-item svg { width: 16px; height: 16px; }
+
+/* ========== RESPONSIVE ========== */
+
+/* 1441–1759px — reduce search width to avoid segment overlap */
+@media (min-width: 1441px) and (max-width: 1759px) {
+    .hc-search { width: 200px; }
+}
+
+/* ≤1440px — icon-only segments, search icon, full logo */
+@media (max-width: 1440px) {
+    .hc-dashboard { padding: 32px 60px; gap: 24px; }
+    .hc-body-wrapper { gap: 24px; }
+    ::deep .hc-appbar.k-appbar {
+        overflow: visible !important;
+    }
+    /* Hide full search, show search icon */
+    .hc-search { display: none; }
+    .hc-search-icon-btn { display: flex !important; }
+    .hc-separator { display: none; }
+    .hc-appbar-actions { gap: 8px; }
+}
+
+/* ≤899px — icon-only logo, tighter padding */
+@media (max-width: 899px) {
+    .hc-dashboard { padding: 24px 16px; gap: 16px; }
+    .hc-body-wrapper { gap: 16px; }
+    ::deep .hc-appbar.k-appbar {
+        border-radius: 20px;
+        padding: 12px 12px;
+        gap: 10px;
+    }
+    .hc-appbar-actions { gap: 6px; }
+    /* Swap full logo for icon-only */
+    .hc-logo-full { display: none; }
+    .hc-logo-icon-only { display: block !important; height: 28px; }
+}
+
+/* ≤576px — hamburger replaces segmented control */
+@media (max-width: 576px) {
+    .hc-dashboard { padding: 12px 12px 12px 12px; gap: 12px; }
+    .hc-body-wrapper { gap: 12px; }
+    ::deep .hc-appbar.k-appbar {
+        border-radius: 16px;
+    }
+    .hc-hamburger-wrapper { display: flex; }
+}
+
+#blazor-error-ui {
+    color-scheme: light only;
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }

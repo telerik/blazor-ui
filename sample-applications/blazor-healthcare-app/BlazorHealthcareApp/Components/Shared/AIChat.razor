@@ -1,0 +1,240 @@
+@namespace BlazorHealthcareApp.Components.Shared
+@inject AIChatService ChatService
+@inject PatientService PatientService
+
+<!-- ========== AI FAB (optional) ========== -->
+@if (ShowFab)
+{
+    <button class="hc-fab" id="hc-ai-fab" @onclick="Toggle" title="AI Assistant">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 11.5C21.0034 12.8199 20.6951 14.1219 20.1 15.3C19.3944 16.7118 18.3098 17.8992 16.9674 18.7293C15.6251 19.5594 14.0782 19.9994 12.5 20C11.1801 20.0035 9.87812 19.6951 8.7 19.1L3 21L4.9 15.3C4.30493 14.1219 3.99656 12.8199 4 11.5C4.00061 9.92179 4.44061 8.37488 5.27072 7.03258C6.10083 5.69028 7.28825 4.6056 8.7 3.90003C9.87812 3.30496 11.1801 2.99659 12.5 3.00003H13C15.0843 3.11502 17.053 3.99479 18.5291 5.47089C20.0052 6.94699 20.885 8.91568 21 11V11.5Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+
+    <TelerikPopup @ref="@PopupRef"
+                  AnchorSelector="#hc-ai-fab"
+                  Class="hc-chat-popup"
+                  Width="400px"
+                  Height="560px"
+                  HorizontalAlign="@PopupHorizontalAlign.Right"
+                  AnchorHorizontalAlign="@PopupAnchorHorizontalAlign.Right"
+                  VerticalAlign="@PopupVerticalAlign.Bottom"
+                  AnchorVerticalAlign="@PopupAnchorVerticalAlign.Top"
+                  VerticalOffset="12"
+                  AnimationType="@AnimationType.None">
+        <div class="hc-aichat-panel">
+            <!-- Header -->
+            <div class="hc-aichat-header">
+                <div class="hc-aichat-header-icon">
+                    <svg viewBox="0 0 20 20" fill="none"><path d="M10 1l1.5 4.5L16 7l-4.5 1.5L10 13l-1.5-4.5L4 7l4.5-1.5L10 1z" fill="#7C5CFC" opacity="0.9"/><path d="M15 11l1 3 3 1-3 1-1 3-1-3-3-1 3-1 1-3z" fill="#7C5CFC" opacity="0.7"/><path d="M4 12l.75 2.25L7 15l-2.25.75L4 18l-.75-2.25L1 15l2.25-.75L4 12z" fill="#7C5CFC" opacity="0.5"/></svg>
+                </div>
+                <div class="hc-aichat-header-text">
+                    <span class="hc-aichat-header-title">@Title</span>
+                    <span class="hc-aichat-header-sub">@Subtitle</span>
+                </div>
+                <button class="hc-aichat-close" @onclick="Toggle">
+                    <svg viewBox="0 0 16 16" fill="none"><path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+            </div>
+
+            <TelerikChat @ref="ChatRef"
+                         Data="@ChatData"
+                         AuthorId="@("user")"
+                         Suggestions="@ChatSuggestions"
+                         OnSendMessage="@OnSendMessage"
+                         OnSuggestionClick="@OnSuggestionClick"
+                         Placeholder="Type a message"
+                         Height="100%"
+                         EnableFileUpload="true">
+                <ChatSettings>
+                    <ChatTextAreaSettings Mode="@PromptBoxMode.MultiLine" Rows="3" MaxTextAreaHeight="120px" />
+                </ChatSettings>
+                <NoDataTemplate>
+                    <div class="hc-aichat-welcome">
+                        <span class="hc-aichat-welcome-date">@DateTime.Now.ToString("dddd, MMMM dd, yyyy")</span>
+                        <div class="hc-aichat-welcome-greeting">
+                            <strong>@("\U0001F44B") Hello! I'm your AI Assistant.</strong>
+                            I can help you with your daily clinical tasks, patient information, and quick actions. Try one of the suggestions below!
+                        </div>
+                    </div>
+                </NoDataTemplate>
+            </TelerikChat>
+        </div>
+    </TelerikPopup>
+}
+
+<!-- ========== CHAT PANEL (inline) ========== -->
+@if (!ShowFab && IsOpen)
+{
+    <div class="@WrapperClass hc-aichat-panel">
+        <!-- Header -->
+        <div class="hc-aichat-header">
+            <div class="hc-aichat-header-icon">
+                <svg viewBox="0 0 20 20" fill="none"><path d="M10 1l1.5 4.5L16 7l-4.5 1.5L10 13l-1.5-4.5L4 7l4.5-1.5L10 1z" fill="#7C5CFC" opacity="0.9"/><path d="M15 11l1 3 3 1-3 1-1 3-1-3-3-1 3-1 1-3z" fill="#7C5CFC" opacity="0.7"/><path d="M4 12l.75 2.25L7 15l-2.25.75L4 18l-.75-2.25L1 15l2.25-.75L4 12z" fill="#7C5CFC" opacity="0.5"/></svg>
+            </div>
+            <div class="hc-aichat-header-text">
+                <span class="hc-aichat-header-title">@Title</span>
+                <span class="hc-aichat-header-sub">@Subtitle</span>
+            </div>
+            <button class="hc-aichat-close" @onclick="Toggle">
+                <svg viewBox="0 0 16 16" fill="none"><path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+        </div>
+
+        <TelerikChat @ref="ChatRef"
+                     Data="@ChatData"
+                     AuthorId="@("user")"
+                     Suggestions="@ChatSuggestions"
+                     OnSendMessage="@OnSendMessage"
+                     OnSuggestionClick="@OnSuggestionClick"
+                     Placeholder="Type a message"
+                     EnableFileUpload="true">
+            <ChatSettings>
+                <ChatTextAreaSettings Mode="@PromptBoxMode.MultiLine" Rows="3" MaxTextAreaHeight="120px" />
+            </ChatSettings>
+            <NoDataTemplate>
+                <div class="hc-aichat-welcome">
+                    <span class="hc-aichat-welcome-date">@DateTime.Now.ToString("dddd, MMMM dd, yyyy")</span>
+                    <div class="hc-aichat-welcome-greeting">
+                        <strong>@("\U0001F44B") Hello! I'm your AI Assistant.</strong>
+                        I can help you with your daily clinical tasks, patient information, and quick actions. Try one of the suggestions below!
+                    </div>
+                </div>
+            </NoDataTemplate>
+        </TelerikChat>
+    </div>
+}
+
+@code {
+    #region Parameters
+
+    [Parameter] public string Title { get; set; } = "AI Assistant";
+    [Parameter] public string Subtitle { get; set; } = "Powered by Clinical Insights";
+    [Parameter] public int? PatientId { get; set; }
+    [Parameter] public bool ShowFab { get; set; }
+    [Parameter] public string WrapperClass { get; set; } = "hc-chat-wrapper";
+
+    [Parameter] public bool IsOpen { get; set; }
+    [Parameter] public EventCallback<bool> IsOpenChanged { get; set; }
+
+    [CascadingParameter] public PopupCoordinator? Coordinator { get; set; }
+
+    #endregion
+
+    #region Fields
+
+    private TelerikChat<AIChatMessage>? ChatRef { get; set; }
+    private TelerikPopup? PopupRef { get; set; }
+    private List<AIChatMessage> ChatData { get; set; } = new();
+    private List<string> ChatSuggestions { get; set; } = new();
+    private List<PatientModel>? Patients { get; set; }
+
+    #endregion
+
+    #region Lifecycle
+
+    protected override void OnInitialized()
+    {
+        ChatSuggestions = ChatService.GetSuggestions(PatientId);
+
+        if (PatientId != null)
+        {
+            Patients = PatientService.GetPatients();
+        }
+
+        if (Coordinator != null)
+        {
+            Coordinator.OnLayoutPopupOpened += OnLayoutPopupOpened;
+        }
+    }
+
+    private void OnLayoutPopupOpened()
+    {
+        if (IsOpen)
+        {
+            IsOpen = false;
+            IsOpenChanged.InvokeAsync(false);
+            PopupRef?.Hide();
+            InvokeAsync(StateHasChanged);
+        }
+    }
+
+    public void Dispose()
+    {
+        if (Coordinator != null)
+        {
+            Coordinator.OnLayoutPopupOpened -= OnLayoutPopupOpened;
+        }
+    }
+
+    #endregion
+
+    #region Toggle
+
+    private async Task Toggle()
+    {
+        IsOpen = !IsOpen;
+        await IsOpenChanged.InvokeAsync(IsOpen);
+
+        if (IsOpen)
+        {
+            PopupRef?.Show();
+            Coordinator?.NotifyPagePopupOpened();
+        }
+        else
+        {
+            PopupRef?.Hide();
+            Reset();
+        }
+    }
+
+    private void Reset()
+    {
+        ChatData.Clear();
+        ChatSuggestions = ChatService.GetSuggestions(PatientId);
+    }
+
+    #endregion
+
+    #region Chat Handlers
+
+    private async Task OnSuggestionClick(ChatSuggestionClickEventArgs args)
+    {
+        var suggestion = args.Suggestion;
+        var userText = ChatService.GetSuggestionUserText(suggestion);
+
+        ChatData.Add(new AIChatMessage { Id = Guid.NewGuid().ToString(), Text = userText, AuthorId = "user", AuthorName = "Dr. Carter", Timestamp = DateTime.Now });
+        ChatSuggestions = new();
+
+        var typingMsg = new AIChatMessage { Id = "typing", Text = "", AuthorId = "ai", AuthorName = "AI Assistant", IsTyping = true, Timestamp = DateTime.Now };
+        ChatData.Add(typingMsg);
+        ChatRef?.Refresh();
+
+        await Task.Delay(1200);
+        ChatData.Remove(typingMsg);
+
+        var response = ChatService.GetSuggestionResponse(suggestion, Patients);
+        ChatData.Add(new AIChatMessage { Id = Guid.NewGuid().ToString(), Text = response, AuthorId = "ai", AuthorName = "AI Assistant", Timestamp = DateTime.Now });
+    }
+
+    private async Task OnSendMessage(ChatSendMessageEventArgs args)
+    {
+        var text = args.Message?.Trim();
+        if (string.IsNullOrEmpty(text)) return;
+
+        ChatData.Add(new AIChatMessage { Id = Guid.NewGuid().ToString(), Text = text, AuthorId = "user", AuthorName = "Dr. Carter", Timestamp = DateTime.Now });
+        ChatSuggestions = new();
+
+        var typingMsg = new AIChatMessage { Id = "typing", Text = "", AuthorId = "ai", AuthorName = "AI Assistant", IsTyping = true, Timestamp = DateTime.Now };
+        ChatData.Add(typingMsg);
+        ChatRef?.Refresh();
+
+        await Task.Delay(1000);
+        ChatData.Remove(typingMsg);
+
+        var response = ChatService.GetFreeTextResponse(text, Patients);
+        ChatData.Add(new AIChatMessage { Id = Guid.NewGuid().ToString(), Text = response, AuthorId = "ai", AuthorName = "AI Assistant", Timestamp = DateTime.Now });
+    }
+
+    #endregion
+}

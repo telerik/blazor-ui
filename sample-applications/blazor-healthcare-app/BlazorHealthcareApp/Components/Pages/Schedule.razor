@@ -1,0 +1,176 @@
+﻿@page "/schedule"
+@rendermode InteractiveServer
+@inject AppointmentService AppointmentService
+@inject TaskService TaskService
+
+<!-- ========== MAIN 2-COL ========== -->
+<div class="hc-main">
+    <!-- LEFT COLUMN — Scheduler -->
+    <div class="hc-left">
+        <div class="hc-card">
+            <div class="hc-scheduler-wrapper" style="flex: 1;">
+                <TelerikScheduler Data="@SchedulerAppointments"
+                                  @bind-Date="@SelectedDate"
+                                  @bind-View="@CurrentView"
+                                  Height="600px"
+                                  AllowCreate="false"
+                                  AllowUpdate="false"
+                                  AllowDelete="false">
+                    <ItemTemplate>
+                        @{
+                            var apt = (Appointment)(object)context;
+                        }
+                        <div>
+                            <div class="hc-event-title">@apt.Title</div>
+                            <div class="hc-event-meta">@apt.Start.ToString("h:mm tt")–@apt.End.ToString("h:mm tt") · @apt.Room</div>
+                        </div>
+                    </ItemTemplate>
+                    <SchedulerViews>
+                        <SchedulerDayView StartTime="@DayStart" EndTime="@DayEnd" WorkDayStart="@DayStart" WorkDayEnd="@DayEnd" />
+                        <SchedulerWeekView StartTime="@DayStart" EndTime="@DayEnd" WorkDayStart="@DayStart" WorkDayEnd="@DayEnd" />
+                        <SchedulerMonthView />
+                        <SchedulerAgendaView />
+                    </SchedulerViews>
+                </TelerikScheduler>
+            </div>
+            <div class="hc-scheduler-footer">
+                <button class="hc-scheduler-footer-btn">
+                    <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="#334155" stroke-width="1.2"/><line x1="2" y1="5.5" x2="14" y2="5.5" stroke="#334155" stroke-width="1.2"/><line x1="5.5" y1="2" x2="5.5" y2="5.5" stroke="#334155" stroke-width="1.2"/><line x1="10.5" y1="2" x2="10.5" y2="5.5" stroke="#334155" stroke-width="1.2"/></svg>
+                    View Schedule
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT COLUMN — Daily Tasks -->
+    <div class="hc-right">
+        <div class="hc-right-card">
+            <div class="hc-tasks-header">
+                <div class="hc-tasks-header-title">Daily Tasks</div>
+                <div class="hc-tasks-search">
+                    <TelerikTextBox @bind-Value="@TaskSearch" Placeholder="Search tasks" Class="hc-tasks-search-input" />
+                </div>
+                <button class="hc-tasks-add-btn" title="Add task" @onclick="OpenAddTaskModal">
+                    <svg viewBox="0 0 16 16" fill="none"><line x1="3.33" y1="8" x2="12.67" y2="8" stroke="white" stroke-width="1.33" stroke-linecap="round"/><line x1="8" y1="3.33" x2="8" y2="12.67" stroke="white" stroke-width="1.33" stroke-linecap="round"/></svg>
+                    <span class="hc-tasks-add-btn-text">Add Task</span>
+                </button>
+            </div>
+
+            <TelerikListView Data="@FilteredTasks" Class="hc-tasks-listview">
+                <Template>
+                    @{
+                        var task = context;
+                    }
+                    <div class="hc-task-item">
+                        <TelerikCheckBox @bind-Value="@task.IsCompleted" Class="hc-task-checkbox" />
+                        <span class="hc-task-text @(task.IsCompleted ? "completed" : "")">@task.Title</span>
+                        <span class="hc-priority-badge hc-priority-@task.Priority.ToString().ToLowerInvariant()">@task.Priority</span>
+                    </div>
+                </Template>
+            </TelerikListView>
+
+
+        </div>
+    </div>
+</div>
+
+<!-- ========== ADD TASK MODAL ========== -->
+<TelerikWindow @bind-Visible="@IsAddTaskModalOpen" Modal="true" Width="520px" Class="hc-modal">
+    <WindowTitle>
+        <strong>Add Task</strong>
+    </WindowTitle>
+    <WindowActions>
+        <WindowAction Name="Close" />
+    </WindowActions>
+    <WindowContent>
+        <div class="hc-modal-body">
+            <div class="hc-modal-field">
+                <label class="hc-modal-label">Task Name</label>
+                <TelerikTextBox @bind-Value="@NewTaskName" Placeholder="Enter task name" Width="100%" />
+            </div>
+            <div class="hc-modal-field">
+                <label class="hc-modal-label">Priority</label>
+                <div class="hc-priority-seg">
+                    <button class="hc-priority-seg-btn @(NewTaskPriority == TaskPriority.Low ? "active" : "")" @onclick="SetPriorityLow">Low</button>
+                    <button class="hc-priority-seg-btn @(NewTaskPriority == TaskPriority.Medium ? "active" : "")" @onclick="SetPriorityMedium">Medium</button>
+                    <button class="hc-priority-seg-btn @(NewTaskPriority == TaskPriority.High ? "active" : "")" @onclick="SetPriorityHigh">High</button>
+                </div>
+            </div>
+            <div class="hc-modal-field">
+                <label class="hc-modal-label">Description</label>
+                <TelerikTextArea @bind-Value="@NewTaskDescription" Placeholder="Enter task description" Width="100%" Class="hc-modal-textarea" />
+            </div>
+            <div class="hc-modal-actions">
+                <button class="hc-modal-btn hc-modal-btn-secondary" @onclick="CloseAddTaskModal">Discard</button>
+                <button class="hc-modal-btn hc-modal-btn-primary" @onclick="AddTask">Add task</button>
+            </div>
+        </div>
+    </WindowContent>
+</TelerikWindow>
+
+@code {
+    #region Fields
+
+    private DateTime SelectedDate { get; set; } = new DateTime(2026, 3, 10);
+    private SchedulerView CurrentView { get; set; } = SchedulerView.Day;
+    private DateTime DayStart { get; set; } = new DateTime(2000, 1, 1, 7, 0, 0);
+    private DateTime DayEnd { get; set; } = new DateTime(2000, 1, 1, 17, 0, 0);
+
+    private List<Appointment> SchedulerAppointments { get; set; } = new();
+    private List<TaskItem> DailyTasks { get; set; } = new();
+    private string TaskSearch { get; set; } = "";
+
+    private List<TaskItem> FilteredTasks => string.IsNullOrWhiteSpace(TaskSearch)
+        ? DailyTasks
+        : DailyTasks.Where(t => t.Title.Contains(TaskSearch, StringComparison.OrdinalIgnoreCase)).ToList();
+
+    private bool IsAddTaskModalOpen { get; set; }
+    private string NewTaskName { get; set; } = "";
+    private TaskPriority NewTaskPriority { get; set; } = TaskPriority.Low;
+    private string NewTaskDescription { get; set; } = "";
+
+    #endregion
+
+    #region Lifecycle
+
+    protected override void OnInitialized()
+    {
+        SchedulerAppointments = AppointmentService.GetSchedulerAppointments();
+        DailyTasks            = TaskService.GetDailyTasks();
+    }
+
+    #endregion
+
+    #region Task Methods
+
+    private void OpenAddTaskModal()
+    {
+        NewTaskName        = "Review insurance authorization requests";
+        NewTaskPriority    = TaskPriority.Low;
+        NewTaskDescription = "Review and evaluate incoming insurance authorization requests to ensure all information is accurate, complete, and compliant with relevant policies and guidelines before proceeding with approval or further action.";
+        IsAddTaskModalOpen = true;
+    }
+
+    private void CloseAddTaskModal() => IsAddTaskModalOpen = false;
+
+    private void SetPriorityLow()    => NewTaskPriority = TaskPriority.Low;
+    private void SetPriorityMedium() => NewTaskPriority = TaskPriority.Medium;
+    private void SetPriorityHigh()   => NewTaskPriority = TaskPriority.High;
+
+    private void AddTask()
+    {
+        if (!string.IsNullOrWhiteSpace(NewTaskName))
+        {
+            DailyTasks.Add(new TaskItem
+            {
+                Id          = DailyTasks.Count + 1,
+                Title       = NewTaskName,
+                IsCompleted = false,
+                Priority    = NewTaskPriority,
+            });
+        }
+        IsAddTaskModalOpen = false;
+    }
+
+    #endregion
+}

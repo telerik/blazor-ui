@@ -1,0 +1,40 @@
+/* ========== FAB BUTTON ========== */
+.hc-fab {
+    position: fixed; bottom: 40px; right: 40px;
+    z-index: 1000;
+    width: 68px; height: 68px;
+    background: linear-gradient(135deg, #AC58FF 0%, #4B5FFA 100%);
+    box-shadow: 0px 10px 12px rgba(0, 0, 0, 0.16), 0px 4px 16px rgba(0, 0, 0, 0.12);
+    border-radius: 9999px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; border: none; color: #FFFFFF;
+}
+.hc-fab:hover { filter: brightness(1.1); }
+.hc-fab svg { width: 24px; height: 24px; }
+
+/* ========== WRAPPER: HOME (fixed bottom-right) ========== */
+.hc-chat-wrapper {
+    position: fixed; bottom: 120px; right: 40px;
+    width: 400px; height: 560px;
+    background: #FFFFFF;
+    border-radius: 20px;
+    box-shadow: 0px 12px 48px rgba(0, 0, 0, 0.16), 0px 4px 16px rgba(0, 0, 0, 0.08);
+    z-index: 1100;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ========== WRAPPER: PATIENTS (inline side panel) ========== */
+.hc-ai-panel {
+    width: 380px; min-width: 340px; max-width: 380px;
+    background: #FFFFFF;
+    border: 1px solid rgba(23, 56, 99, 0.08);
+    border-radius: 16px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04), 0px 2px 6px -1px rgba(0, 0, 0, 0.06);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    margin-left: 16px;
+    position: relative; z-index: 1;
+    align-self: stretch;
+}

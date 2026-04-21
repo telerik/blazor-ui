@@ -1,0 +1,174 @@
+﻿@page "/patients"
+@rendermode InteractiveServer
+@inject NavigationManager Nav
+@inject PatientService PatientService
+
+<!-- ========== HEADING ========== -->
+<div class="hc-heading">
+    <div class="hc-heading-text">
+        <h1>Patients</h1>
+        <p>Monitor patient trends, vitals, lab results, and risk levels in one place</p>
+    </div>
+    <div class="hc-heading-actions">
+        <button class="hc-btn-primary @(IsAIPanelOpen ? "hc-btn-ai-active" : "")" @onclick="ToggleAIPanel">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M8 2L9.1 5.5H12.8L9.85 7.7L10.9 11.2L8 9L5.1 11.2L6.15 7.7L3.2 5.5H6.9L8 2Z" stroke="white" stroke-width="1.2" fill="none" stroke-linejoin="round"/></svg>
+            AI Assistance
+        </button>
+        <button class="hc-btn-secondary" @onclick="ExportToExcel">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M8 10V2M8 10L5 7M8 10L11 7" stroke="#232A36" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12V13C2 13.55 2.45 14 3 14H13C13.55 14 14 13.55 14 13V12" stroke="#232A36" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Export
+        </button>
+    </div>
+</div>
+
+<!-- ========== MAIN: GRID + DRILLDOWN ========== -->
+<div class="hc-patients-main">
+    <!-- GRID CARD -->
+    <div class="hc-grid-card">
+        <TelerikGrid @ref="@GridRef"
+                     Data="@PatientData"
+                     Pageable="true"
+                     @bind-PageSize="@PageSize"
+                     @bind-Page="@CurrentPage"
+                     Sortable="true"
+                     Resizable="true"
+                     FilterMode="@GridFilterMode.FilterRow">
+            <GridSettings>
+                <GridPagerSettings PageSizes="@(new List<int?> { 5, 10, 20 })" InputType="@PagerInputType.Buttons" ButtonCount="5" />
+            </GridSettings>
+            <GridExport>
+                <GridExcelExport FileName="Patients" AllPages="true" />
+            </GridExport>
+            <GridColumns>
+                <GridColumn Field="@nameof(PatientModel.Name)" Title="Patient Name">
+                    <HeaderTemplate>
+                        Patient Name
+                    </HeaderTemplate>
+                    <Template>
+                        @{
+                            var p = (PatientModel)context;
+                        }
+                        <div class="hc-patient-cell">
+                            <div class="hc-avatar-sm">
+                                @if (!string.IsNullOrEmpty(p.ImageUrl))
+                                {
+                                    <img src="@p.ImageUrl" alt="@p.Name" style="width:100%;height:100%;object-fit:cover;border-radius:9999px;" />
+                                }
+                                else
+                                {
+                                    @p.Initials
+                                }
+                            </div>
+                            <span class="hc-patient-cell-name">@p.Name</span>
+                        </div>
+                    </Template>
+                </GridColumn>
+                <GridColumn Field="@nameof(PatientModel.Age)" Title="Age">
+                    <HeaderTemplate>
+                        Age
+                    </HeaderTemplate>
+                </GridColumn>
+                <GridColumn Field="@nameof(PatientModel.Status)" Title="Status">
+                    <HeaderTemplate>
+                        Status
+                    </HeaderTemplate>
+                    <Template>
+                        @{
+                            var p = (PatientModel)context;
+                            var chipClass = p.Status switch
+                            {
+                                PatientStatus.Critical => "hc-chip-critical",
+                                PatientStatus.Monitoring => "hc-chip-monitoring",
+                                _ => "hc-chip-stable"
+                            };
+                        }
+                        <span class="hc-chip @chipClass">@p.Status</span>
+                    </Template>
+                </GridColumn>
+                <GridColumn Field="@nameof(PatientModel.Gender)" Title="Gender">
+                    <HeaderTemplate>
+                        Gender
+                    </HeaderTemplate>
+                </GridColumn>
+                <GridColumn Field="@nameof(PatientModel.BloodType)" Title="Blood Type">
+                    <HeaderTemplate>
+                        Blood Type
+                    </HeaderTemplate>
+                </GridColumn>
+                <GridColumn Field="@nameof(PatientModel.Ward)" Title="Ward">
+                    <HeaderTemplate>
+                        Ward
+                    </HeaderTemplate>
+                </GridColumn>
+                <GridColumn Field="@nameof(PatientModel.Diagnosis)" Title="Diagnosis">
+                    <HeaderTemplate>
+                        Diagnosis
+                    </HeaderTemplate>
+                </GridColumn>
+                <GridColumn Field="@nameof(PatientModel.Id)" Title="Actions" Filterable="false" Sortable="false">
+                    <HeaderTemplate>
+                        Actions
+                    </HeaderTemplate>
+                    <Template>
+                        @{
+                            var p = (PatientModel)context;
+                            var profileUrl = $"/patient/{p.Id}";
+                        }
+                        <button class="hc-view-btn" @onclick="@(() => Nav.NavigateTo(profileUrl))" @onclick:stopPropagation="true">
+                            <svg viewBox="0 0 16 16" fill="none"><path d="M1 8C1 8 3.5 3 8 3C12.5 3 15 8 15 8C15 8 12.5 13 8 13C3.5 13 1 8 1 8Z" stroke="#232A36" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="8" r="2.5" stroke="#232A36" stroke-width="1.2"/></svg>
+                            View Profile
+                        </button>
+                    </Template>
+                </GridColumn>
+            </GridColumns>
+        </TelerikGrid>
+    </div>
+
+    <!-- AI ASSISTANT SIDE PANEL -->
+    <AIChat @bind-IsOpen="IsAIPanelOpen"
+            WrapperClass="hc-ai-panel"
+            Title="AI Assistant"
+            Subtitle="Patient Discovery Insights" />
+</div>
+
+@code {
+    #region Fields
+
+    private int PageSize { get; set; } = 10;
+    private int CurrentPage { get; set; } = 1;
+
+    private bool IsAIPanelOpen { get; set; }
+
+    private TelerikGrid<PatientModel> GridRef { get; set; } = null!;
+
+    private List<PatientModel> PatientData { get; set; } = new();
+
+    #endregion
+
+    #region Lifecycle
+
+    protected override void OnInitialized()
+    {
+        PatientData = PatientService.GetPatients();
+    }
+
+    #endregion
+
+    #region Export
+
+    private async Task ExportToExcel()
+    {
+        await GridRef.SaveAsExcelFileAsync();
+    }
+
+    #endregion
+
+    #region AI Side Panel
+
+    private void ToggleAIPanel()
+    {
+        IsAIPanelOpen = !IsAIPanelOpen;
+    }
+
+    #endregion
+}
