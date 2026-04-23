@@ -147,6 +147,30 @@
                         </TelerikPopover>
                     </div>
 
+                    <button class="hc-icon-btn" id="github-anchor" title="Get the Source Code">
+                        <svg viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8 0.198C3.582 0.198 0 3.78 0 8.198c0 3.535 2.292 6.533 5.471 7.592.4.073.547-.174.547-.386 0-.19-.007-.693-.01-1.36-2.226.483-2.695-1.073-2.695-1.073-.364-.924-.889-1.17-.889-1.17-.726-.496.055-.486.055-.486.803.056 1.226.824 1.226.824.713 1.222 1.872.869 2.328.664.073-.517.279-.869.508-1.069-1.777-.202-3.644-.888-3.644-3.953 0-.874.312-1.588.823-2.147-.082-.203-.357-1.016.079-2.117 0 0 .671-.215 2.2.82A7.66 7.66 0 018 4.066c.68.003 1.364.092 2.003.27 1.527-1.035 2.198-.82 2.198-.82.437 1.101.162 1.914.08 2.117.512.56.822 1.273.822 2.147 0 3.073-1.87 3.749-3.652 3.947.287.247.543.735.543 1.481 0 1.07-.01 1.932-.01 2.195 0 .214.145.463.55.385C13.71 14.728 16 11.731 16 8.198 16 3.78 12.418 0.198 8 0.198z"/>
+                        </svg>
+                    </button>
+
+                    <TelerikPopover AnchorSelector="#github-anchor"
+                                    ShowOn="@PopoverShowOn.Click"
+                                    Position="@PopoverPosition.Bottom"
+                                    Collision="@PopoverCollision.Flip"
+                                    Offset="8"
+                                    Class="hc-github-popover"
+                                    AnimationType="@AnimationType.None">
+                        <PopoverContent>
+                            <a class="hc-github-link" href="https://github.com/telerik/blazor-ui/tree/master/sample-applications/blazor-healthcare-app" target="_blank" rel="noopener noreferrer">
+                                <svg viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8 0.198C3.582 0.198 0 3.78 0 8.198c0 3.535 2.292 6.533 5.471 7.592.4.073.547-.174.547-.386 0-.19-.007-.693-.01-1.36-2.226.483-2.695-1.073-2.695-1.073-.364-.924-.889-1.17-.889-1.17-.726-.496.055-.486.055-.486.803.056 1.226.824 1.226.824.713 1.222 1.872.869 2.328.664.073-.517.279-.869.508-1.069-1.777-.202-3.644-.888-3.644-3.953 0-.874.312-1.588.823-2.147-.082-.203-.357-1.016.079-2.117 0 0 .671-.215 2.2.82A7.66 7.66 0 018 4.066c.68.003 1.364.092 2.003.27 1.527-1.035 2.198-.82 2.198-.82.437 1.101.162 1.914.08 2.117.512.56.822 1.273.822 2.147 0 3.073-1.87 3.749-3.652 3.947.287.247.543.735.543 1.481 0 1.07-.01 1.932-.01 2.195 0 .214.145.463.55.385C13.71 14.728 16 11.731 16 8.198 16 3.78 12.418 0.198 8 0.198z"/>
+                                </svg>
+                                <span>Get the Source Code</span>
+                            </a>
+                            <span class="hc-github-copyright">Copyright &copy; 2026 Progress Software. All rights reserved.</span>
+                        </PopoverContent>
+                    </TelerikPopover>
+
                     <div class="hc-separator"></div>
 
                     <button class="hc-avatar-btn" @onclick="ToggleProfile" title="Profile">
