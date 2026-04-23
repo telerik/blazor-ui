@@ -319,6 +319,52 @@ h1:focus {
     padding-top: 2px;
 }
 
+/* ========== GITHUB POPOVER (global — TelerikPopover portals outside scoped CSS) ========== */
+.hc-github-popover.k-popover {
+    width: 250px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.1), 0px 1px 4px rgba(0, 0, 0, 0.06);
+    font-family: 'Poppins', sans-serif;
+}
+.k-animation-container:has(.hc-github-popover) {
+    transform: translateX(calc(-50% + 15px));
+}
+.hc-github-popover .k-popover-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+.hc-github-popover .k-popover-callout {
+    display: none;
+}
+.hc-github-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #232A36;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 142%;
+}
+.hc-github-link:hover {
+    text-decoration: underline;
+    color: #232A36;
+}
+.hc-github-link svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+.hc-github-copyright {
+    font-size: 12px;
+    color: #94A3B8;
+    text-align: center;
+    line-height: 142%;
+}
+
 /* ========== AI CHAT POPUP (global — TelerikPopup portals outside scoped CSS) ========== */
 .hc-chat-popup.k-animation-container {
     z-index: 1100 !important;
