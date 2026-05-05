@@ -625,6 +625,9 @@ h1:focus {
     border-color: rgba(99, 102, 251, 0.4);
     box-shadow: 0 0 0 2px rgba(99, 102, 251, 0.1);
 }
+.hc-modal-textarea > textarea {
+    height: 100%;
+}
 /* TelerikTextArea inside modal */
 .hc-modal-textarea {
     border-radius: 10px !important;

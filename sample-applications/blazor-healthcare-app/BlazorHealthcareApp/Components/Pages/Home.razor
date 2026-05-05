@@ -245,7 +245,7 @@
             </div>
             <div class="hc-modal-field">
                 <label class="hc-modal-label">Clinical Note</label>
-                <TelerikTextArea @bind-Value="@NoteText" Width="100%" PlaceHolder="Add clinical notes, observations, treatment plans, etc." Class="hc-modal-textarea" />
+                <TelerikTextArea @bind-Value="@NoteText" Width="100%" PlaceHolder="Add clinical notes, observations, treatment plans, etc." ResizeMode="@TextAreaResizeMode.None" Class="hc-modal-textarea k-h-full" />
             </div>
             <div class="hc-modal-actions">
                 <button class="hc-modal-btn hc-modal-btn-secondary" @onclick="() => IsNoteModalOpen = false">Discard</button>
@@ -325,7 +325,7 @@
             </div>
             <div class="hc-modal-field">
                 <label class="hc-modal-label">Description</label>
-                <TelerikTextArea @bind-Value="@MessageText" Width="100%" PlaceHolder="Write your message here..." Class="hc-modal-textarea" />
+                <TelerikTextArea @bind-Value="@MessageText" Width="100%" ResizeMode="@TextAreaResizeMode.None" PlaceHolder="Write your message here..." Class="hc-modal-textarea k-h-full" />
             </div>
             <div class="hc-modal-actions">
                 <button class="hc-modal-btn hc-modal-btn-secondary" @onclick="() => IsMessageModalOpen = false">Discard</button>
