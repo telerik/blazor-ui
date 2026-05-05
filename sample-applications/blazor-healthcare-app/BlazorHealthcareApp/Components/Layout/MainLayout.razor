@@ -241,8 +241,8 @@
                         </FormItems>
                         <FormButtons>
                             <div class="hc-pm-actions">
-                                <button type="button" class="hc-pm-btn hc-pm-btn-clear" @onclick="() => IsProfileOpen = false">Clear</button>
-                                <button type="button" class="hc-pm-btn hc-pm-btn-submit" @onclick="() => IsProfileOpen = false">Submit</button>
+                                <button type="button" class="hc-pm-btn hc-pm-btn-clear" @onclick="ClearProfileForm">Clear</button>
+                                <button type="button" class="hc-pm-btn hc-pm-btn-submit" @onclick="SubmitProfile">Submit</button>
                             </div>
                         </FormButtons>
                     </TelerikForm>
@@ -337,6 +337,12 @@
         IsProfileOpen = !IsProfileOpen;
         if (IsProfileOpen)
         {
+            ProfileData = new ProfileModel
+            {
+                FullName = "Emily Carter",
+                Email = "drcarter@email.com",
+                Phone = "+(555) 776-90-84",
+            };
             PopoverRef?.Hide();
             PopupCoord.NotifyLayoutPopupOpened();
         }
@@ -385,6 +391,22 @@
     {
         Nav.LocationChanged -= OnLocationChanged;
         PopupCoord.OnPagePopupOpened -= OnPagePopupOpened;
+    }
+
+    #endregion
+
+    #region Profile Methods
+
+    private void ClearProfileForm()
+    {
+        ProfileData.FullName = "";
+        ProfileData.Email = "";
+        ProfileData.Phone = "";
+    }
+
+    private void SubmitProfile()
+    {
+        IsProfileOpen = false;
     }
 
     #endregion

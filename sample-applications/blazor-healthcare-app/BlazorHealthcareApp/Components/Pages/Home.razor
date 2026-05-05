@@ -158,7 +158,7 @@
                         </div>
                     </div>
 
-                    <div class="hc-info-card">
+                    <div class="hc-info-card" @onclick="() => IsReasonForVisitOpen = true" style="cursor:pointer;"> 
                         <div class="hc-info-icon hc-info-icon-blue">
                             <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="3" y="5" width="16" height="14" rx="2" stroke="#6098F2" stroke-width="2"/>
@@ -172,7 +172,7 @@
                             <span class="hc-info-label">Reason for visit</span>
                             <div class="hc-info-desc-row">
                                 <span class="hc-info-desc">Persistent cough and chest congestion</span>
-                                <button class="hc-details-btn">
+                                <button class="hc-details-btn" @onclick="() => IsReasonForVisitOpen = true" @onclick:stopPropagation="true">
                                     Details
                                     <TelerikSvgIcon Icon="@SvgIcon.ChevronRight" />
                                 </button>
@@ -180,7 +180,7 @@
                         </div>
                     </div>
 
-                    <div class="hc-info-card">
+                    <div class="hc-info-card" @onclick="() => IsAllergyAlertOpen = true" style="cursor:pointer;">
                         <div class="hc-info-icon hc-info-icon-yellow">
                             <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="11" cy="11" r="9" stroke="#FFD760" stroke-width="2"/>
@@ -191,7 +191,7 @@
                             <span class="hc-info-label">Allergy Alert</span>
                             <div class="hc-info-desc-row">
                                 <span class="hc-info-desc">Penicillin</span>
-                                <button class="hc-details-btn">
+                                <button class="hc-details-btn" @onclick="() => IsAllergyAlertOpen = true" @onclick:stopPropagation="true">
                                     Details
                                     <TelerikSvgIcon Icon="@SvgIcon.ChevronRight" />
                                 </button>
@@ -207,12 +207,12 @@
                 <div class="hc-alerts-list">
                     @foreach (var alert in DailyAlerts)
                     {
-                        <div class="hc-alert-box">
+                        <div class="hc-alert-box" @onclick="() => OpenAlertDialog(alert)" style="cursor:pointer;">
                             <div class="hc-alert-content">
                                 <span class="hc-alert-text">@alert.Text</span>
                                 <div class="hc-alert-meta">
                                     <span class="hc-alert-time">@GetRelativeTime(alert.Timestamp)</span>
-                                    <button class="hc-review-btn">
+                                    <button class="hc-review-btn" @onclick="() => OpenAlertDialog(alert)" @onclick:stopPropagation="true">
                                         Review
                                         <svg viewBox="0 0 16 16" fill="none"><path d="M5 3L10 8L5 13" stroke="#334155" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                     </button>
@@ -335,6 +335,234 @@
     </WindowContent>
 </TelerikWindow>
 
+<!-- ========== ALLERGY ALERT DIALOG ========== -->
+<TelerikWindow @bind-Visible="@IsAllergyAlertOpen" Modal="true" Width="700px" Class="hc-detail-dialog">
+    <WindowTitle>
+        <span class="hc-dlg-title">⚠️ Critical Allergy Alert</span>
+    </WindowTitle>
+    <WindowActions>
+        <WindowAction Name="Close" />
+    </WindowActions>
+    <WindowContent>
+        <div class="hc-dlg-content">
+            <div class="hc-dlg-section">
+                <h3 class="hc-dlg-section-label">Patient & Allergen</h3>
+                <div class="hc-dlg-info-grid">
+                    <div class="hc-dlg-info-item">
+                        <span class="hc-dlg-info-label">Patient Name:</span>
+                        <span class="hc-dlg-info-value">Isabella Rossi</span>
+                    </div>
+                    <div class="hc-dlg-info-item">
+                        <span class="hc-dlg-info-label">Patient ID:</span>
+                        <span class="hc-dlg-info-value">P-102563</span>
+                    </div>
+                    <div class="hc-dlg-info-item">
+                        <span class="hc-dlg-info-label">Allergen:</span>
+                        <span class="hc-dlg-info-value">Penicillin</span>
+                    </div>
+                    <div class="hc-dlg-info-item">
+                        <span class="hc-dlg-info-label">First Reported:</span>
+                        <span class="hc-dlg-info-value">March 2018</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hc-dlg-section">
+                <h3 class="hc-dlg-section-label">Severity & Reaction Type</h3>
+                <div class="hc-dlg-info-grid">
+                    <div class="hc-dlg-info-item">
+                        <span class="hc-dlg-info-label">Severity Level:</span>
+                        <span class="hc-dlg-info-value hc-dlg-value-critical">Severe</span>
+                    </div>
+                    <div class="hc-dlg-info-item">
+                        <span class="hc-dlg-info-label">Reaction Type:</span>
+                        <span class="hc-dlg-info-value hc-dlg-value-critical">Anaphylaxis</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hc-dlg-section">
+                <h3 class="hc-dlg-section-label">Reported Symptoms</h3>
+                <ul class="hc-dlg-list">
+                    <li class="hc-dlg-list-item">Difficulty breathing and wheezing</li>
+                    <li class="hc-dlg-list-item">Severe skin rash and hives</li>
+                    <li class="hc-dlg-list-item">Swelling of face, lips, and throat</li>
+                    <li class="hc-dlg-list-item">Rapid pulse and dizziness</li>
+                    <li class="hc-dlg-list-item">Loss of consciousness (reported in initial episode)</li>
+                </ul>
+            </div>
+
+            <div class="hc-dlg-section">
+                <h3 class="hc-dlg-section-label">Cross-Reactivities (Avoid)</h3>
+                <ul class="hc-dlg-list">
+                    <li class="hc-dlg-list-item">Amoxicillin</li>
+                    <li class="hc-dlg-list-item">Ampicillin</li>
+                    <li class="hc-dlg-list-item">Other beta-lactam antibiotics</li>
+                    <li class="hc-dlg-list-item">Possibly cephalosporins (use with caution)</li>
+                </ul>
+            </div>
+
+            <div class="hc-dlg-section">
+                <h3 class="hc-dlg-section-label">Safe Alternatives</h3>
+                <ul class="hc-dlg-list">
+                    <li class="hc-dlg-list-item">Fluoroquinolones (e.g., Levofloxacin, Ciprofloxacin)</li>
+                    <li class="hc-dlg-list-item">Macrolides (e.g., Azithromycin, Clarithromycin)</li>
+                    <li class="hc-dlg-list-item">Tetracyclines (e.g., Doxycycline)</li>
+                    <li class="hc-dlg-list-item">Vancomycin for severe infections</li>
+                </ul>
+            </div>
+
+            <div class="hc-dlg-section">
+                <h3 class="hc-dlg-section-label">Additional Notes</h3>
+                <p class="hc-dlg-text-block">Patient carries EpiPen at all times. Family members are trained in emergency response. Allergy documented in all medical records and patient wears medical alert bracelet.</p>
+            </div>
+        </div>
+
+        <div class="hc-dlg-actions">
+            <button class="hc-modal-btn hc-modal-btn-secondary" @onclick="() => IsAllergyAlertOpen = false">Close</button>
+            <button class="hc-modal-btn hc-modal-btn-primary" @onclick="() => IsAllergyAlertOpen = false">Acknowledge</button>
+        </div>
+    </WindowContent>
+</TelerikWindow>
+
+<!-- ========== REASON FOR VISIT DIALOG ========== -->
+<TelerikWindow @bind-Visible="@IsReasonForVisitOpen" Modal="true" Width="700px" Class="hc-detail-dialog">
+    <WindowTitle>
+        <span class="hc-dlg-title">Visit Details</span>
+    </WindowTitle>
+    <WindowActions>
+        <WindowAction Name="Close" />
+    </WindowActions>
+    <WindowContent>
+        <div class="hc-dlg-content">
+            <div class="hc-dlg-section">
+                <h3 class="hc-dlg-section-label">Patient & Appointment</h3>
+                <div class="hc-dlg-info-grid">
+                    <div class="hc-dlg-info-item">
+                        <span class="hc-dlg-info-label">Patient Name:</span>
+                        <span class="hc-dlg-info-value">Isabella Rossi</span>
+                    </div>
+                    <div class="hc-dlg-info-item">
+                        <span class="hc-dlg-info-label">Patient ID:</span>
+                        <span class="hc-dlg-info-value">P-102563</span>
+                    </div>
+                    <div class="hc-dlg-info-item">
+                        <span class="hc-dlg-info-label">Appointment:</span>
+                        <span class="hc-dlg-info-value">May 8, 2026 at 11:00 AM</span>
+                    </div>
+                    <div class="hc-dlg-info-item">
+                        <span class="hc-dlg-info-label">Visit Type:</span>
+                        <span class="hc-dlg-info-value">Cardiology Follow-up</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hc-dlg-section">
+                <h3 class="hc-dlg-section-label">Primary Concern</h3>
+                <span class="hc-dlg-concern-badge">Persistent cough and chest congestion</span>
+            </div>
+
+            <div class="hc-dlg-section">
+                <h3 class="hc-dlg-section-label">Background</h3>
+                <p class="hc-dlg-text-block">Patient has been experiencing persistent dry cough and mild chest congestion for approximately 2 weeks. Symptoms worsen at night and with physical exertion. No fever or significant weight loss reported. Previous history of mild asthma in childhood.</p>
+            </div>
+
+            <div class="hc-dlg-section">
+                <h3 class="hc-dlg-section-label">Previous Visits</h3>
+                <ul class="hc-dlg-list">
+                    <li class="hc-dlg-list-item"><strong>Jan 15, 2026:</strong> Annual cardiac check-up — all vitals normal</li>
+                    <li class="hc-dlg-list-item"><strong>Sep 22, 2025:</strong> Follow-up on elevated cholesterol — medication adjusted</li>
+                    <li class="hc-dlg-list-item"><strong>Mar 10, 2025:</strong> Routine blood work and ECG — no abnormalities</li>
+                </ul>
+            </div>
+
+            <div class="hc-dlg-section">
+                <h3 class="hc-dlg-section-label">Visit Objectives</h3>
+                <ul class="hc-dlg-list">
+                    <li class="hc-dlg-list-item">Evaluate persistent cough and determine underlying cause</li>
+                    <li class="hc-dlg-list-item">Review current medication regimen for potential side effects</li>
+                    <li class="hc-dlg-list-item">Order chest X-ray and pulmonary function test if indicated</li>
+                    <li class="hc-dlg-list-item">Assess cardiovascular status and update treatment plan</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="hc-dlg-actions">
+            <button class="hc-modal-btn hc-modal-btn-secondary" @onclick="() => IsReasonForVisitOpen = false">Close</button>
+            <button class="hc-modal-btn hc-modal-btn-primary" @onclick="() => IsReasonForVisitOpen = false">Start Visit</button>
+        </div>
+    </WindowContent>
+</TelerikWindow>
+
+<!-- ========== ALERT REVIEW DIALOG ========== -->
+<TelerikWindow @bind-Visible="@IsAlertDialogOpen" Modal="true" Width="700px" Class="hc-detail-dialog">
+    <WindowTitle>
+        <span class="hc-dlg-title">Clinical Alert Details</span>
+    </WindowTitle>
+    <WindowActions>
+        <WindowAction Name="Close" />
+    </WindowActions>
+    <WindowContent>
+        @if (SelectedAlert != null)
+        {
+            <div class="hc-dlg-content">
+                <div class="hc-dlg-section">
+                    <h3 class="hc-dlg-section-label">Patient Information</h3>
+                    <div class="hc-dlg-info-grid">
+                        <div class="hc-dlg-info-item">
+                            <span class="hc-dlg-info-label">Patient Name:</span>
+                            <span class="hc-dlg-info-value">@SelectedAlert.Patient</span>
+                        </div>
+                        <div class="hc-dlg-info-item">
+                            <span class="hc-dlg-info-label">Patient ID:</span>
+                            <span class="hc-dlg-info-value">@SelectedAlert.PatientId</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hc-dlg-section">
+                    <h3 class="hc-dlg-section-label">Condition</h3>
+                    <span class="hc-dlg-concern-badge @(SelectedAlert.Priority == "High" ? "hc-dlg-badge-high" : "")">@SelectedAlert.Condition</span>
+                </div>
+
+                <div class="hc-dlg-section">
+                    <h3 class="hc-dlg-section-label">Lab Values</h3>
+                    <div class="hc-dlg-info-grid">
+                        <div class="hc-dlg-info-item">
+                            <span class="hc-dlg-info-label">Current Value:</span>
+                            <span class="hc-dlg-info-value hc-dlg-value-critical">@SelectedAlert.Value</span>
+                        </div>
+                        <div class="hc-dlg-info-item">
+                            <span class="hc-dlg-info-label">Normal Range:</span>
+                            <span class="hc-dlg-info-value">@SelectedAlert.NormalRange</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hc-dlg-section">
+                    <h3 class="hc-dlg-section-label">Details</h3>
+                    <p class="hc-dlg-text-block">@SelectedAlert.Details</p>
+                </div>
+
+                <div class="hc-dlg-section">
+                    <h3 class="hc-dlg-section-label">Recommended Actions</h3>
+                    <ul class="hc-dlg-list">
+                        @foreach (var rec in SelectedAlert.Recommendations)
+                        {
+                            <li class="hc-dlg-list-item">@rec</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <div class="hc-dlg-actions">
+                <button class="hc-modal-btn hc-modal-btn-secondary" @onclick="() => IsAlertDialogOpen = false">Close</button>
+                <button class="hc-modal-btn hc-modal-btn-primary" @onclick="() => IsAlertDialogOpen = false">Acknowledge</button>
+            </div>
+        }
+    </WindowContent>
+</TelerikWindow>
+
 <!-- ========== AI CHAT ========== -->
 <AIChat ShowFab="true"
         WrapperClass="hc-chat-wrapper" />
@@ -348,6 +576,12 @@
     private bool IsNoteModalOpen { get; set; }
     private bool IsTestModalOpen { get; set; }
     private bool IsMessageModalOpen { get; set; }
+
+    // Detail dialog state
+    private bool IsAllergyAlertOpen { get; set; }
+    private bool IsReasonForVisitOpen { get; set; }
+    private bool IsAlertDialogOpen { get; set; }
+    private DailyAlert? SelectedAlert { get; set; }
 
     // Modal form data
     private string SelectedPatient { get; set; } = "James Wilson (P-000001)";
@@ -403,6 +637,12 @@
         if (diff.TotalMinutes < 60) return $"{(int)diff.TotalMinutes} min ago";
         if (diff.TotalHours < 24) return $"{(int)diff.TotalHours} h ago";
         return $"{(int)diff.TotalDays} d ago";
+    }
+
+    private void OpenAlertDialog(DailyAlert alert)
+    {
+        SelectedAlert = alert;
+        IsAlertDialogOpen = true;
     }
 
     #endregion

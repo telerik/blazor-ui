@@ -49,7 +49,7 @@ public class PatientService
 
     public List<PatientModel> GetPatients()
     {
-        return new List<PatientModel>
+            return new List<PatientModel>
         {
             new() { Id = 1, Name = "James Wilson", Initials = "JW", Age = 44, Status = PatientStatus.Monitoring, Gender = "Male", BloodType = "A+", Ward = "General", Diagnosis = "Persistent cough",
                 ImageUrl = GetImageUrl("James Wilson"),

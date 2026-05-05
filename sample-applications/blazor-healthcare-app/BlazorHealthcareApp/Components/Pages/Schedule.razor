@@ -15,7 +15,8 @@
                                   Height="600px"
                                   AllowCreate="false"
                                   AllowUpdate="false"
-                                  AllowDelete="false">
+                                  AllowDelete="false"
+                                  OnItemClick="@OnSchedulerItemClick">
                     <ItemTemplate>
                         @{
                             var apt = (Appointment)(object)context;
@@ -61,7 +62,7 @@
                     @{
                         var task = context;
                     }
-                    <div class="hc-task-item">
+                    <div class="hc-task-item" @onclick="() => OpenEditTaskModal(task)" style="cursor:pointer;">
                         <TelerikCheckBox @bind-Value="@task.IsCompleted" Class="hc-task-checkbox" />
                         <span class="hc-task-text @(task.IsCompleted ? "completed" : "")">@task.Title</span>
                         <span class="hc-priority-badge hc-priority-@task.Priority.ToString().ToLowerInvariant()">@task.Priority</span>
@@ -74,10 +75,10 @@
     </div>
 </div>
 
-<!-- ========== ADD TASK MODAL ========== -->
+<!-- ========== ADD/EDIT TASK MODAL ========== -->
 <TelerikWindow @bind-Visible="@IsAddTaskModalOpen" Modal="true" Width="520px" Class="hc-modal">
     <WindowTitle>
-        <strong>Add Task</strong>
+        <strong>@TaskDialogTitle</strong>
     </WindowTitle>
     <WindowActions>
         <WindowAction Name="Close" />
@@ -102,9 +103,54 @@
             </div>
             <div class="hc-modal-actions">
                 <button class="hc-modal-btn hc-modal-btn-secondary" @onclick="CloseAddTaskModal">Discard</button>
-                <button class="hc-modal-btn hc-modal-btn-primary" @onclick="AddTask">Add task</button>
+                <button class="hc-modal-btn hc-modal-btn-primary" @onclick="SaveTask">@TaskSaveButtonText</button>
             </div>
         </div>
+    </WindowContent>
+</TelerikWindow>
+
+<!-- ========== EVENT DETAIL DIALOG ========== -->
+<TelerikWindow @bind-Visible="@IsEventDetailOpen" Modal="true" Width="420px" Class="hc-event-dialog">
+    <WindowTitle>
+        @if (SelectedAppointment != null)
+        {
+            <span>@SelectedAppointment.Description - @SelectedAppointment.PatientName</span>
+        }
+    </WindowTitle>
+    <WindowActions>
+        <WindowAction Name="Close" />
+    </WindowActions>
+    <WindowContent>
+        @if (SelectedAppointment != null)
+        {
+            <div class="hc-evt-content">
+                <p class="hc-evt-section-label">Appointment time</p>
+
+                <div class="hc-evt-detail-row">
+                    <TelerikSvgIcon Icon="@SvgIcon.Calendar" />
+                    <span>@FormatDialogDate(SelectedAppointment.Start)</span>
+                </div>
+
+                <div class="hc-evt-detail-row">
+                    <TelerikSvgIcon Icon="@SvgIcon.Clock" />
+                    <span>@FormatDialogTime(SelectedAppointment.Start, SelectedAppointment.End)</span>
+                </div>
+
+                <div class="hc-evt-detail-row">
+                    <TelerikSvgIcon Icon="@SvgIcon.MapMarkerTarget" />
+                    <span>@SelectedAppointment.Room</span>
+                </div>
+
+                <div class="hc-evt-detail-row">
+                    <TelerikSvgIcon Icon="@SvgIcon.User" />
+                    <span>In-person visit</span>
+                </div>
+            </div>
+
+            <div class="hc-evt-actions">
+                <button class="hc-evt-close-btn" @onclick="() => IsEventDetailOpen = false">Close</button>
+            </div>
+        }
     </WindowContent>
 </TelerikWindow>
 
@@ -126,8 +172,16 @@
 
     private bool IsAddTaskModalOpen { get; set; }
     private string NewTaskName { get; set; } = "";
-    private TaskPriority NewTaskPriority { get; set; } = TaskPriority.Low;
+    private TaskPriority NewTaskPriority { get; set; } = TaskPriority.Medium;
     private string NewTaskDescription { get; set; } = "";
+    private TaskItem? EditingTask { get; set; }
+
+    private string TaskDialogTitle => EditingTask != null ? "Edit Task" : "Add Task";
+    private string TaskSaveButtonText => EditingTask != null ? "Save changes" : "Add task";
+
+    // Event detail dialog
+    private bool IsEventDetailOpen { get; set; }
+    private Appointment? SelectedAppointment { get; set; }
 
     #endregion
 
@@ -145,31 +199,81 @@
 
     private void OpenAddTaskModal()
     {
-        NewTaskName        = "Review insurance authorization requests";
-        NewTaskPriority    = TaskPriority.Low;
-        NewTaskDescription = "Review and evaluate incoming insurance authorization requests to ensure all information is accurate, complete, and compliant with relevant policies and guidelines before proceeding with approval or further action.";
+        EditingTask        = null;
+        NewTaskName        = "";
+        NewTaskPriority    = TaskPriority.Medium;
+        NewTaskDescription = "";
         IsAddTaskModalOpen = true;
     }
 
-    private void CloseAddTaskModal() => IsAddTaskModalOpen = false;
+    private void OpenEditTaskModal(TaskItem task)
+    {
+        EditingTask        = task;
+        NewTaskName        = task.Title;
+        NewTaskPriority    = task.Priority;
+        NewTaskDescription = "";
+        IsAddTaskModalOpen = true;
+    }
+
+    private void CloseAddTaskModal()
+    {
+        IsAddTaskModalOpen = false;
+        EditingTask        = null;
+        NewTaskName        = "";
+        NewTaskPriority    = TaskPriority.Medium;
+        NewTaskDescription = "";
+    }
 
     private void SetPriorityLow()    => NewTaskPriority = TaskPriority.Low;
     private void SetPriorityMedium() => NewTaskPriority = TaskPriority.Medium;
     private void SetPriorityHigh()   => NewTaskPriority = TaskPriority.High;
 
-    private void AddTask()
+    private void SaveTask()
     {
-        if (!string.IsNullOrWhiteSpace(NewTaskName))
+        if (string.IsNullOrWhiteSpace(NewTaskName))
+            return;
+
+        if (EditingTask != null)
         {
-            DailyTasks.Add(new TaskItem
+            EditingTask.Title    = NewTaskName;
+            EditingTask.Priority = NewTaskPriority;
+        }
+        else
+        {
+            var newTask = new TaskItem
             {
-                Id          = DailyTasks.Count + 1,
+                Id          = DailyTasks.Count > 0 ? DailyTasks.Max(t => t.Id) + 1 : 1,
                 Title       = NewTaskName,
                 IsCompleted = false,
                 Priority    = NewTaskPriority,
-            });
+            };
+            DailyTasks = new List<TaskItem> { newTask }.Concat(DailyTasks).ToList();
         }
-        IsAddTaskModalOpen = false;
+
+        CloseAddTaskModal();
+    }
+
+    #endregion
+
+    #region Event Detail Dialog
+
+    private void OnSchedulerItemClick(SchedulerItemClickEventArgs args)
+    {
+        SelectedAppointment = args.Item as Appointment;
+        if (SelectedAppointment != null)
+        {
+            IsEventDetailOpen = true;
+        }
+    }
+
+    private string FormatDialogDate(DateTime date)
+    {
+        return date.ToString("ddd, MMMM d, yyyy");
+    }
+
+    private string FormatDialogTime(DateTime start, DateTime end)
+    {
+        return $"{start:h:mm tt} - {end:h:mm tt}";
     }
 
     #endregion

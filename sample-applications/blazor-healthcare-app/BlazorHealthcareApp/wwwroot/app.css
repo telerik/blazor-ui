@@ -933,3 +933,212 @@ h1:focus {
         font-size: 14px !important;
     }
 }
+
+/* ========== DETAIL DIALOGS (Allergy Alert, Reason for Visit) ========== */
+.hc-detail-dialog.k-window {
+    border-radius: 16px !important;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.07), 0px 20px 48px -8px rgba(0, 0, 0, 0.11);
+}
+.hc-detail-dialog .k-window-titlebar {
+    padding: 20px 24px 16px;
+    background: #FFFFFF !important;
+    border-bottom: 1px solid rgba(23, 56, 99, 0.08) !important;
+    border-radius: 16px 16px 0 0;
+}
+.hc-detail-dialog .k-window-titlebar .k-window-title {
+    font-family: 'Poppins', sans-serif;
+}
+.hc-detail-dialog .k-window-titlebar .k-window-action {
+    color: #4A5666;
+    border-radius: 8px;
+}
+.hc-detail-dialog .k-window-titlebar .k-window-action:hover {
+    background: rgba(35, 42, 54, 0.06);
+    color: #232A36;
+}
+.hc-detail-dialog .k-window-content {
+    padding: 0;
+    background: #FFFFFF;
+}
+.hc-dlg-title {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 150%;
+    color: #232A36;
+}
+.hc-dlg-content {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+.hc-dlg-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.hc-dlg-section-label {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 150%;
+    color: #232A36;
+    margin: 0;
+}
+.hc-dlg-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 16px;
+    background: #F8FAFC;
+    border: 1px solid rgba(23, 56, 99, 0.08);
+    border-radius: 10px;
+}
+.hc-dlg-info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.hc-dlg-info-label {
+    font-size: 13px;
+    line-height: 142%;
+    color: #64748B;
+    font-weight: 500;
+}
+.hc-dlg-info-value {
+    font-size: 15px;
+    line-height: 150%;
+    color: #1E293B;
+    font-weight: 600;
+}
+.hc-dlg-value-critical {
+    color: #DC2626;
+    font-size: 17px;
+    font-weight: 700;
+}
+.hc-dlg-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.hc-dlg-list-item {
+    font-size: 14px;
+    line-height: 150%;
+    color: #475569;
+    padding: 10px 14px;
+    background: #F8FAFC;
+    border-left: 3px solid #94A3B8;
+    border-radius: 6px;
+}
+.hc-dlg-text-block {
+    font-size: 14px;
+    line-height: 160%;
+    color: #475569;
+    padding: 16px;
+    background: #F8FAFC;
+    border: 1px solid rgba(23, 56, 99, 0.08);
+    border-radius: 10px;
+    margin: 0;
+}
+.hc-dlg-concern-badge {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #FFF4D3;
+    color: #5E4700;
+    border: 1px solid #FFD760;
+    border-radius: 9999px;
+    font-size: 14px;
+    font-weight: 500;
+    align-self: flex-start;
+}
+.hc-dlg-badge-high {
+    background: #FCDDDA;
+    color: #7A0C00;
+    border-color: #F76F60;
+}
+.hc-dlg-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 16px 24px 20px;
+    border-top: 1px solid rgba(23, 56, 99, 0.08);
+}
+
+/* ========== EVENT DETAIL DIALOG (Schedule page) ========== */
+.hc-event-dialog.k-window {
+    border-radius: 16px !important;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.07), 0px 20px 48px -8px rgba(0, 0, 0, 0.11);
+}
+.hc-event-dialog .k-window-titlebar {
+    padding: 20px 20px 16px;
+    background: #FFFFFF !important;
+    border-bottom: 1px solid rgba(23, 56, 99, 0.08) !important;
+    border-radius: 16px 16px 0 0;
+}
+.hc-event-dialog .k-window-titlebar .k-window-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.4;
+    color: #1E1B4B;
+}
+.hc-event-dialog .k-window-titlebar .k-window-action {
+    display: none;
+}
+.hc-event-dialog .k-window-content {
+    padding: 0;
+    background: #FFFFFF;
+}
+.hc-evt-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.hc-evt-section-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #9CA3AF;
+    margin: 0;
+}
+.hc-evt-detail-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    color: #232A36;
+}
+.hc-evt-detail-row .k-svg-icon {
+    color: #6B7280;
+    flex-shrink: 0;
+}
+.hc-evt-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 16px 20px;
+    border-top: 1px solid rgba(23, 56, 99, 0.08);
+    border-radius: 0 0 16px 16px;
+}
+.hc-evt-close-btn {
+    padding: 8px 20px;
+    border: 1px solid rgba(23, 56, 99, 0.12);
+    border-radius: 9999px;
+    background: #FFFFFF;
+    color: #374151;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+.hc-evt-close-btn:hover {
+    background: #F3F5F7;
+}
