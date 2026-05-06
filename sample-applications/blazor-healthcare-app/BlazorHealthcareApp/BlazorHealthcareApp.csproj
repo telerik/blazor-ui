@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Telerik.UI.for.Blazor" />
+    <ProjectReference Include="..\..\..\..\blazor\Telerik.Blazor\Telerik.Blazor.csproj" />
   </ItemGroup>
 
 </Project>

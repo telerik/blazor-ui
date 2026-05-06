@@ -17,7 +17,8 @@
                              ValueChanged="@((int id) => OnPatientChanged(id))"
                              TextField="Name"
                              ValueField="Id"
-                             Width="249px">
+                             Width="249px"
+                             EnableWebMcpTools="true">
             <ValueTemplate>
                 @{
                     var p = (PatientModel)context;

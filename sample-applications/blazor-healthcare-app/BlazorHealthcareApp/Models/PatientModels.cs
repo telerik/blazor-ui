@@ -8,6 +8,7 @@ public class PatientModel
     public string ImageUrl { get; set; } = "";
     public int Age { get; set; }
     public PatientStatus Status { get; set; }
+    public string StatusText => Status.ToString();
     public string Gender { get; set; } = "";
     public string BloodType { get; set; } = "";
     public string Ward { get; set; } = "";

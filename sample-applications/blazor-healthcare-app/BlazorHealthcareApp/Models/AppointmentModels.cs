@@ -11,4 +11,5 @@ public class Appointment
     public DateTime End { get; set; }
     public bool IsAllDay { get; set; }
     public AppointmentStatus Status { get; set; }
+    public string StatusText => Status.ToString();
 }

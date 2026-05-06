@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <base href="/blazor-healthcare/" />
     <ResourcePreloader />
     <link rel="stylesheet" href="https://blazor.cdn.telerik.com/blazor/13.1.0/kendo-theme-default/swatches/default-main.css" />
-    <script src="https://blazor.cdn.telerik.com/blazor/13.1.0/telerik-blazor.min.js" defer></script>
+    @* <script src="https://blazor.cdn.telerik.com/blazor/13.1.0/telerik-blazor.min.js" defer></script> *@
+    <script type="module" src="http://localhost:3124/main-vite.js"></script>
     <link rel="stylesheet" href="@Assets["lib/bootstrap/css/bootstrap.min.css"]" />
     <link rel="stylesheet" href="@Assets["app.css"]" />
     <link rel="stylesheet" href="@Assets["BlazorHealthcareApp.styles.css"]" />
@@ -17,12 +17,12 @@
 </head>
 
 <body class="k-body">
-    <Routes @rendermode="@InteractiveServer" />
+    <Routes @rendermode="@(new InteractiveServerRenderMode(prerender: false))" />
     <script src="_framework/blazor.web.js" autostart="false"></script>
     <script src="js/resize-helper.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            Blazor.start();
+        Blazor.start();
         });
     </script>
 </body>

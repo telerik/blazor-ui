@@ -13,10 +13,24 @@
                                   @bind-Date="@SelectedDate"
                                   @bind-View="@CurrentView"
                                   Height="600px"
-                                  AllowCreate="false"
+                                  AllowCreate="true"
                                   AllowUpdate="false"
                                   AllowDelete="false"
-                                  OnItemClick="@OnSchedulerItemClick">
+                                  OnCreate="@OnSchedulerCreate"
+                                  OnItemClick="@OnSchedulerItemClick"
+                                  EnableWebMcpTools="true">
+                    <SchedulerSettings>
+                        <SchedulerWebMcpSettings Name="Appointments">
+                            <SchedulerWebMcpTools>
+                                <SchedulerWebMcpTool Command="@SchedulerWebMcpToolCommand.Create"
+                                                     Description="Schedule a new patient appointment. Specify the title (patient name and reason), start date/time, and end date/time." />
+                                <SchedulerWebMcpTool Command="@SchedulerWebMcpToolCommand.Navigate"
+                                                     Description="Navigate the appointment calendar to a specific date to view that day's schedule." />
+                                <SchedulerWebMcpTool Command="@SchedulerWebMcpToolCommand.ChangeView"
+                                                     Description="Switch the schedule between Day, Week, Month, and Agenda views." />
+                            </SchedulerWebMcpTools>
+                        </SchedulerWebMcpSettings>
+                    </SchedulerSettings>
                     <ItemTemplate>
                         @{
                             var apt = (Appointment)(object)context;
@@ -63,7 +77,7 @@
                         var task = context;
                     }
                     <div class="hc-task-item" @onclick="() => OpenEditTaskModal(task)" style="cursor:pointer;">
-                        <TelerikCheckBox @bind-Value="@task.IsCompleted" Class="hc-task-checkbox" />
+                        <TelerikCheckBox @bind-Value="@task.IsCompleted" Class="hc-task-checkbox" EnableWebMcpTools="true" />
                         <span class="hc-task-text @(task.IsCompleted ? "completed" : "")">@task.Title</span>
                         <span class="hc-priority-badge hc-priority-@task.Priority.ToString().ToLowerInvariant()">@task.Priority</span>
                     </div>
@@ -251,6 +265,17 @@
         }
 
         CloseAddTaskModal();
+    }
+
+    #endregion
+
+    #region Scheduler Create
+
+    private void OnSchedulerCreate(SchedulerCreateEventArgs args)
+    {
+        var appointment = (Appointment)args.Item;
+        appointment.Id = SchedulerAppointments.Count > 0 ? SchedulerAppointments.Max(a => a.Id) + 1 : 1;
+        SchedulerAppointments.Add(appointment);
     }
 
     #endregion

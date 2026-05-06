@@ -32,12 +32,39 @@
                      @bind-Page="@CurrentPage"
                      Sortable="true"
                      Resizable="true"
-                     FilterMode="@GridFilterMode.FilterRow">
+                     FilterMode="@GridFilterMode.FilterRow"
+                     EnableWebMcpTools="true"
+                     HighlightedItems="@HighlightedPatients">
             <GridSettings>
                 <GridPagerSettings PageSizes="@(new List<int?> { 5, 10, 20 })" InputType="@PagerInputType.Buttons" ButtonCount="5" />
+                <GridWebMcpSettings Name="Patients">
+                    <GridWebMcpTools>
+                        <GridWebMcpTool Command="@GridWebMcpToolCommand.Filter"
+                                        Description="Filter patient records by column — Status (Critical, Monitoring, Stable), Ward (Cardiology, Neurology, etc.), Age, Gender, Blood Type, or Diagnosis." />
+                        <GridWebMcpTool Command="@GridWebMcpToolCommand.ClearFilter"
+                                        Description="Clear all active filters and show the full patient list." />
+                        <GridWebMcpTool Command="@GridWebMcpToolCommand.Sort"
+                                        Description="Sort patient records by a column such as Age, Name, Status, or Ward." />
+                        <GridWebMcpTool Command="@GridWebMcpToolCommand.ClearSort"
+                                        Description="Remove all sorting from the patient list." />
+                        <GridWebMcpTool Command="@GridWebMcpToolCommand.ExportExcel"
+                                        Description="Export the patient records to an Excel (.xlsx) file." />
+                        <GridWebMcpTool Command="@GridWebMcpToolCommand.ExportPdf"
+                                        Description="Export the current patient view (including active filters) to a PDF file." />
+                        <GridWebMcpTool Command="@GridWebMcpToolCommand.Page"
+                                        Description="Navigate to a specific page in the patient records." />
+                        <GridWebMcpTool Command="@GridWebMcpToolCommand.PageSize"
+                                        Description="Change how many patients are displayed per page (5, 10, or 20)." />
+                        <GridWebMcpTool Command="@GridWebMcpToolCommand.Highlight"
+                                        Description="Highlight patient rows matching specific criteria for visual emphasis." />
+                        <GridWebMcpTool Command="@GridWebMcpToolCommand.ClearHighlight"
+                                        Description="Clear all highlighted patient rows." />
+                    </GridWebMcpTools>
+                </GridWebMcpSettings>
             </GridSettings>
             <GridExport>
                 <GridExcelExport FileName="Patients" AllPages="true" />
+                <GridPdfExport FileName="Patients" AllPages="false" />
             </GridExport>
             <GridColumns>
                 <GridColumn Field="@nameof(PatientModel.Name)" Title="Patient Name">
@@ -68,7 +95,7 @@
                         Age
                     </HeaderTemplate>
                 </GridColumn>
-                <GridColumn Field="@nameof(PatientModel.Status)" Title="Status">
+                <GridColumn Field="@nameof(PatientModel.StatusText)" Title="Status">
                     <HeaderTemplate>
                         Status
                     </HeaderTemplate>
@@ -142,6 +169,8 @@
     private TelerikGrid<PatientModel> GridRef { get; set; } = null!;
 
     private List<PatientModel> PatientData { get; set; } = new();
+
+    private List<PatientModel> HighlightedPatients { get; set; } = new List<PatientModel>();
 
     #endregion
 

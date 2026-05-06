@@ -95,7 +95,24 @@
                     </a>
                 </div>
                 <div class="hc-grid-wrapper" style="flex: 1;">
-                    <TelerikGrid Data="@Appointments">
+                    <TelerikGrid Data="@Appointments"
+                                 Sortable="true"
+                                 FilterMode="@GridFilterMode.FilterRow"
+                                 EnableWebMcpTools="true">
+                        <GridSettings>
+                            <GridWebMcpSettings Name="TodayAppointments">
+                                <GridWebMcpTools>
+                                    <GridWebMcpTool Command="@GridWebMcpToolCommand.Filter"
+                                                    Description="Filter today's appointments by column — Patient Name, Status (Complete, InProgress, Upcoming, Cancelled), Reason, or Room." />
+                                    <GridWebMcpTool Command="@GridWebMcpToolCommand.ClearFilter"
+                                                    Description="Clear all filters and show all of today's appointments." />
+                                    <GridWebMcpTool Command="@GridWebMcpToolCommand.Sort"
+                                                    Description="Sort today's appointments by a column such as Time, Patient Name, or Status." />
+                                    <GridWebMcpTool Command="@GridWebMcpToolCommand.ClearSort"
+                                                    Description="Remove sorting from today's appointments." />
+                                </GridWebMcpTools>
+                            </GridWebMcpSettings>
+                        </GridSettings>
                         <GridColumns>
                             <GridColumn Title="Time" Width="120px">
                             <Template>
@@ -107,7 +124,7 @@
                         </GridColumn>
                             <GridColumn Field="@nameof(Appointment.PatientName)" Title="Patient Name" Width="160px" />
                             <GridColumn Field="@nameof(Appointment.Description)" Title="Reason" />
-                            <GridColumn Field="@nameof(Appointment.Status)" Title="Status" Width="150px">
+                            <GridColumn Field="@nameof(Appointment.StatusText)" Title="Status" Width="150px">
                                 <Template>
                                     @{
                                         var appt = (Appointment)context;
@@ -226,7 +243,19 @@
     </div>
 
 <!-- ========== QUICK ACTION MODALS ========== -->
-<TelerikWindow @bind-Visible="@IsNoteModalOpen" Modal="true" Width="520px" Class="hc-modal">
+<TelerikWindow @bind-Visible="@IsNoteModalOpen" Modal="true" Width="520px" Class="hc-modal" EnableWebMcpTools="true">
+    <WindowSettings>
+        <WindowWebMcpSettings Name="ClinicalNote">
+            <WindowWebMcpTools>
+                <WindowWebMcpTool Command="@WindowWebMcpToolCommand.Open"
+                                  Description="Open the New Clinical Note dialog to add notes, observations, or treatment plans for a patient." />
+                <WindowWebMcpTool Command="@WindowWebMcpToolCommand.Close"
+                                  Description="Close the Clinical Note dialog." />
+                <WindowWebMcpTool Command="@WindowWebMcpToolCommand.Minimize" Enabled="false" />
+                <WindowWebMcpTool Command="@WindowWebMcpToolCommand.Maximize" Enabled="false" />
+            </WindowWebMcpTools>
+        </WindowWebMcpSettings>
+    </WindowSettings>
     <WindowTitle>
         <strong>New Clinical Note</strong>
     </WindowTitle>
@@ -255,7 +284,19 @@
     </WindowContent>
 </TelerikWindow>
 
-<TelerikWindow @bind-Visible="@IsTestModalOpen" Modal="true" Width="520px" Class="hc-modal">
+<TelerikWindow @bind-Visible="@IsTestModalOpen" Modal="true" Width="520px" Class="hc-modal" EnableWebMcpTools="true">
+    <WindowSettings>
+        <WindowWebMcpSettings Name="LabTests">
+            <WindowWebMcpTools>
+                <WindowWebMcpTool Command="@WindowWebMcpToolCommand.Open"
+                                  Description="Open the Request Lab Tests dialog to order laboratory tests for a patient." />
+                <WindowWebMcpTool Command="@WindowWebMcpToolCommand.Close"
+                                  Description="Close the Lab Tests request dialog." />
+                <WindowWebMcpTool Command="@WindowWebMcpToolCommand.Minimize" Enabled="false" />
+                <WindowWebMcpTool Command="@WindowWebMcpToolCommand.Maximize" Enabled="false" />
+            </WindowWebMcpTools>
+        </WindowWebMcpSettings>
+    </WindowSettings>
     <WindowTitle>
         <strong>Request Lab Tests</strong>
     </WindowTitle>
@@ -302,7 +343,19 @@
     </WindowContent>
 </TelerikWindow>
 
-<TelerikWindow @bind-Visible="@IsMessageModalOpen" Modal="true" Width="520px" Class="hc-modal">
+<TelerikWindow @bind-Visible="@IsMessageModalOpen" Modal="true" Width="520px" Class="hc-modal" EnableWebMcpTools="true">
+    <WindowSettings>
+        <WindowWebMcpSettings Name="MessageNurse">
+            <WindowWebMcpTools>
+                <WindowWebMcpTool Command="@WindowWebMcpToolCommand.Open"
+                                  Description="Open the Message Nurse dialog to send a communication to a nurse." />
+                <WindowWebMcpTool Command="@WindowWebMcpToolCommand.Close"
+                                  Description="Close the Message Nurse dialog." />
+                <WindowWebMcpTool Command="@WindowWebMcpToolCommand.Minimize" Enabled="false" />
+                <WindowWebMcpTool Command="@WindowWebMcpToolCommand.Maximize" Enabled="false" />
+            </WindowWebMcpTools>
+        </WindowWebMcpSettings>
+    </WindowSettings>
     <WindowTitle>
         <strong>Message Nurse</strong>
     </WindowTitle>
