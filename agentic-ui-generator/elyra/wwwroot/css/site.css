@@ -58,7 +58,7 @@ a {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(280px, 30vw);
     gap: 1rem;
-    align-items: start;
+    align-items: stretch;
 }
 
 .dashboard-main.sidebar-collapsed {
@@ -511,12 +511,12 @@ a {
     flex-wrap: wrap;
 }
 
-.chip-active,
-.chip-idle {
+button.k-button.chip-active,
+button.k-button.chip-idle {
     border-radius: 999px !important;
 }
 
-.chip-active {
+button.k-button.chip-active {
     background: rgba(0, 200, 150, 0.28) !important;
     border-color: rgba(0, 200, 150, 0.45) !important;
     color: #b7ffe9 !important;
@@ -631,10 +631,9 @@ a {
     padding: 0.85rem;
     display: grid;
     gap: 0.7rem;
-    position: sticky;
-    top: 1.1rem;
-    max-height: calc(100vh - 2.2rem);
-    overflow: auto;
+    align-content: start;
+    min-height: 0;
+    overflow-y: auto;
     background: linear-gradient(180deg, rgba(27, 35, 66, 0.64), rgba(16, 26, 50, 0.74)) !important;
     border-left: 1px solid rgba(129, 116, 255, 0.26);
     box-shadow: inset 1px 0 0 rgba(138, 124, 255, 0.2), -10px 0 26px rgba(39, 44, 88, 0.22);
@@ -655,13 +654,14 @@ a {
     height: 1.7rem;
     border-radius: 999px !important;
     border: 1px solid rgba(132, 147, 196, 0.3) !important;
+    align-items: baseline;
 }
 
 .ai-sidebar-collapsed {
     padding: 0.55rem 0.45rem;
     gap: 0.45rem;
     overflow: hidden;
-    max-height: calc(100vh - 2.2rem);
+    max-height: calc(100vh - 11.2rem);
 }
 
 .ai-sidebar-collapsed .ai-header {
