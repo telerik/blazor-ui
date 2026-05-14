@@ -1,0 +1,587 @@
+﻿@page "/"
+@using elyra.Services.AiQuery
+@using elyra.Services.AiInsights
+@using elyra.Services.DemoData
+@using System.Diagnostics
+@using Telerik.Blazor.Components
+@inject elyra.Services.ThemeState ThemeState
+@implements IAsyncDisposable
+
+<PageTitle>Elyra Dashboard</PageTitle>
+
+<main class="dashboard-page">
+    <TopBar LiveModeEnabled="@LiveModeEnabled"
+            IsDarkMode="@ThemeState.IsDarkMode"
+            OnThemeModeChanged="HandleThemeModeChangedAsync"
+            OnLiveModeChanged="HandleLiveModeChangedAsync" />
+    <AiPromptConsole OnPromptRequest="HandleAskPromptRequestAsync"
+                     SuggestedPrompts="@VisibleSuggestedPrompts" />
+
+    <section class="dashboard-main @(IsSidebarCollapsed ? "sidebar-collapsed" : string.Empty)">
+        <div class="dashboard-left">
+            <KpiCardsSection Metrics="@Kpis" />
+            <SmartGridSection Transactions="@VisibleTransactions"
+                              HighlightedTransactionIds="@FlaggedTransactionIds"
+                              PromptSuggestions="@VisibleSuggestedPrompts"
+                              OnSemanticSearch="HandleSemanticSearchAsync"
+                              OnPromptRequest="HandleGridPromptRequestAsync"
+                              OnCurrentViewChanged="HandleCurrentViewChangedAsync" />
+        </div>
+        <AiAssistantSidebar Conversation="@Conversation"
+                            QueryResponse="@LatestQueryResponse"
+                            LatestTelemetry="@LatestTelemetry"
+                            Insights="@Insights"
+                            IsCollapsed="@IsSidebarCollapsed"
+                            OnToggleCollapsed="ToggleSidebarCollapsedAsync"
+                            OnSummarizeCurrentView="SummarizeCurrentViewAsync"
+                            OnDetectAnomalies="DetectAnomaliesAsync" />
+    </section>
+</main>
+
+@code {
+    private readonly List<TransactionRecord> AllTransactions = [];
+    private IReadOnlyList<TransactionRecord> VisibleTransactions = Array.Empty<TransactionRecord>();
+    private IReadOnlyList<TransactionRecord> CurrentGridView = Array.Empty<TransactionRecord>();
+    private AiQueryResponse? LatestQueryResponse;
+    private AiRunTelemetry? LatestTelemetry;
+    private readonly List<AiInsightMessage> Insights = [];
+    private IReadOnlySet<string> FlaggedTransactionIds = new HashSet<string>();
+    private AiQueryInterpretation? ActiveQueryInterpretation;
+    private bool LiveModeEnabled = true;
+    private bool IsSidebarCollapsed;
+    private int _liveSequence = 184200;
+    private CancellationTokenSource? _liveModeCts;
+    private CancellationTokenSource? _suggestionRotationCts;
+    private const int SuggestionWindowSize = 4;
+    private const int SuggestionRotationSeconds = 20;
+    private int _columnPromptStartIndex;
+    private int _analyticsPromptIndex;
+    private int _thresholdPromptIndex;
+    private readonly List<KpiMetric> Kpis = [];
+    private static readonly IReadOnlyList<string> ColumnPrompts =
+    [
+        "show recent transaction ids",
+        "show merchant hotspots",
+        "show top merchants by volume",
+        "show largest amounts",
+        "show transactions by currency",
+        "show GBP transactions by amount",
+        "show USD transactions by amount",
+        "show failed transactions",
+        "show card acquirer transactions",
+        "show open banking transactions",
+        "show faster payments transactions",
+        "show high risk transactions",
+        "show risk score view",
+        "show most recent transactions",
+        "show latest transactions",
+        "show timestamp order"
+    ];
+
+    private static readonly IReadOnlyList<string> AnalyticsPrompts =
+    [
+        "why did failures increase",
+        "why have failures increased",
+        "why are failed payments up",
+        "explain failed payment spike",
+        "what caused failed transactions to rise",
+        "why did failure rate spike",
+        "why are failures rising",
+        "why did failed transactions increase",
+        "what is driving failed payments up",
+        "explain why failures are up",
+        "why did failed payments spike today",
+        "explain why failed transactions are rising"
+    ];
+
+    private static readonly IReadOnlyList<string> MerchantRiskPrompts =
+    [
+        "top risky merchants",
+        "show top risky merchants",
+        "show riskiest merchants",
+        "show highest risk merchants"
+    ];
+
+    private static readonly IReadOnlyList<string> WorstTransactionPrompts =
+    [
+        "show me the worst transactions in the last month",
+        "show worst transactions last month",
+        "show riskiest transactions in the last week",
+        "show highest risk payments today",
+        "show worst payments in the past 30 days"
+    ];
+
+    private static readonly IReadOnlyList<string> ThresholdPrompts =
+    [
+        "show failed > £3k",
+        "show failed over £4k",
+        "show failed above £2.5k",
+        "show failed > £5k",
+        "show failed over £6k",
+        "show failed above £1.2k",
+        "show failed > 2k",
+        "show failed above 750",
+        "show failed over £8k",
+        "show failed above £9.5k",
+        "show failed > £10k"
+    ];
+
+    private static readonly IReadOnlyList<string> RotatingAnalyticsPrompts =
+        AnalyticsPrompts.Concat(MerchantRiskPrompts).Concat(WorstTransactionPrompts).ToList();
+
+    private IReadOnlyList<string> VisibleSuggestedPrompts = Array.Empty<string>();
+
+    private readonly List<AiChatMessage> Conversation =
+    [
+        CreateMessage("user", "User", "Why did failed payments increase today?"),
+        CreateMessage("assistant", "Elyra AI", "Failure rate is up 1.8% mostly from card acquirer retries at Camden Mobility Co and Manchester Tech Supplies in the last 2 hours."),
+        CreateMessage("user", "User", "Any fraud patterns I should know?"),
+        CreateMessage("assistant", "Elyra AI", "Three failed Faster Payments over £3k have risk scores above 75. Sheffield Telecom Retail is the strongest anomaly cluster.")
+    ];
+
+    protected override void OnInitialized()
+    {
+        AllTransactions.AddRange(TransactionDataFactory.GenerateSeedData(DateTime.Now, 520));
+        _liveSequence = ExtractHighestSequence(AllTransactions);
+        VisibleTransactions = AllTransactions;
+        CurrentGridView = VisibleTransactions;
+        RebuildKpis();
+        VisibleSuggestedPrompts = BuildVisibleSuggestedPrompts();
+        StartSuggestionRotation();
+        if (LiveModeEnabled)
+        {
+            StartLiveMode();
+        }
+    }
+
+    private Task HandleAskPromptRequestAsync(AIPromptPromptRequestEventArgs args) =>
+        ProcessPromptAsync(args.Prompt);
+
+    private Task HandleCurrentViewChangedAsync(IReadOnlyList<TransactionRecord> rows)
+    {
+        CurrentGridView = rows;
+        return Task.CompletedTask;
+    }
+
+    private Task HandleChatPromptAsync(string prompt) => ProcessPromptAsync(prompt);
+
+    private Task HandleSemanticSearchAsync(GridSmartBoxSemanticSearchEventArgs args)
+    {
+        if (string.IsNullOrWhiteSpace(args.Text))
+        {
+            ResetGridContext();
+            return Task.CompletedTask;
+        }
+
+        return ProcessPromptAsync(args.Text, appendConversation: false);
+    }
+
+    private Task HandleGridPromptRequestAsync(GridSmartBoxAIAssistantPromptRequestEventArgs args) =>
+        ProcessPromptAsync(args.Text, appendConversation: false);
+
+    private Task HandleLiveModeChangedAsync(bool isEnabled)
+    {
+        if (LiveModeEnabled == isEnabled)
+        {
+            return Task.CompletedTask;
+        }
+
+        LiveModeEnabled = isEnabled;
+        if (LiveModeEnabled)
+        {
+            StartLiveMode();
+        }
+        else
+        {
+            StopLiveMode();
+        }
+
+        return Task.CompletedTask;
+    }
+
+    private Task HandleThemeModeChangedAsync(bool isDarkMode)
+    {
+        ThemeState.IsDarkMode = isDarkMode;
+        return Task.CompletedTask;
+    }
+
+    private Task ToggleSidebarCollapsedAsync()
+    {
+        IsSidebarCollapsed = !IsSidebarCollapsed;
+        return Task.CompletedTask;
+    }
+
+    private Task SummarizeCurrentViewAsync()
+    {
+        var summary = AiInsightsEngine.SummarizeCurrentView(CurrentGridView, DateTime.Now);
+        Insights.Insert(0, summary);
+        TrimInsights();
+        return Task.CompletedTask;
+    }
+
+    private Task DetectAnomaliesAsync()
+    {
+        var anomalyResult = AiInsightsEngine.DetectAnomalies(CurrentGridView, DateTime.Now);
+        FlaggedTransactionIds = anomalyResult.FlaggedTransactionIds;
+        Insights.Insert(0, anomalyResult.Insight);
+        TrimInsights();
+        return Task.CompletedTask;
+    }
+
+    private void TrimInsights()
+    {
+        while (Insights.Count > 8)
+        {
+            Insights.RemoveAt(Insights.Count - 1);
+        }
+    }
+
+    private void StartLiveMode()
+    {
+        StopLiveMode();
+        _liveModeCts = new CancellationTokenSource();
+        _ = RunLiveModeLoopAsync(_liveModeCts.Token);
+    }
+
+    private void StopLiveMode()
+    {
+        if (_liveModeCts is null)
+        {
+            return;
+        }
+
+        _liveModeCts.Cancel();
+        _liveModeCts.Dispose();
+        _liveModeCts = null;
+    }
+
+    private void StartSuggestionRotation()
+    {
+        StopSuggestionRotation();
+        _suggestionRotationCts = new CancellationTokenSource();
+        _ = RunSuggestionRotationLoopAsync(_suggestionRotationCts.Token);
+    }
+
+    private void StopSuggestionRotation()
+    {
+        if (_suggestionRotationCts is null)
+        {
+            return;
+        }
+
+        _suggestionRotationCts.Cancel();
+        _suggestionRotationCts.Dispose();
+        _suggestionRotationCts = null;
+    }
+
+    private async Task RunSuggestionRotationLoopAsync(CancellationToken cancellationToken)
+    {
+        using var timer = new PeriodicTimer(TimeSpan.FromSeconds(SuggestionRotationSeconds));
+        while (!cancellationToken.IsCancellationRequested &&
+               await timer.WaitForNextTickAsync(cancellationToken))
+        {
+            await InvokeAsync(() =>
+            {
+                _columnPromptStartIndex = (_columnPromptStartIndex + 2) % ColumnPrompts.Count;
+                _analyticsPromptIndex = (_analyticsPromptIndex + 1) % RotatingAnalyticsPrompts.Count;
+                _thresholdPromptIndex = (_thresholdPromptIndex + 1) % ThresholdPrompts.Count;
+                VisibleSuggestedPrompts = BuildVisibleSuggestedPrompts();
+                StateHasChanged();
+            });
+        }
+    }
+
+    private IReadOnlyList<string> BuildVisibleSuggestedPrompts()
+    {
+        var prompts = new List<string>(SuggestionWindowSize);
+        AddPromptIfUnique(prompts, ColumnPrompts[_columnPromptStartIndex % ColumnPrompts.Count]);
+        AddPromptIfUnique(prompts, ColumnPrompts[(_columnPromptStartIndex + 1) % ColumnPrompts.Count]);
+        AddPromptIfUnique(prompts, RotatingAnalyticsPrompts[_analyticsPromptIndex % RotatingAnalyticsPrompts.Count]);
+        AddPromptIfUnique(prompts, ThresholdPrompts[_thresholdPromptIndex % ThresholdPrompts.Count]);
+
+        if (prompts.Count < SuggestionWindowSize)
+        {
+            foreach (var prompt in ColumnPrompts.Concat(RotatingAnalyticsPrompts).Concat(ThresholdPrompts))
+            {
+                AddPromptIfUnique(prompts, prompt);
+                if (prompts.Count >= SuggestionWindowSize)
+                {
+                    break;
+                }
+            }
+        }
+
+        return prompts;
+    }
+
+    private static void AddPromptIfUnique(List<string> prompts, string prompt)
+    {
+        if (!prompts.Contains(prompt, StringComparer.OrdinalIgnoreCase))
+        {
+            prompts.Add(prompt);
+        }
+    }
+
+    private async Task RunLiveModeLoopAsync(CancellationToken cancellationToken)
+    {
+        using var timer = new PeriodicTimer(TimeSpan.FromSeconds(4));
+        while (!cancellationToken.IsCancellationRequested && await timer.WaitForNextTickAsync(cancellationToken))
+        {
+            await InvokeAsync(() =>
+            {
+                InjectLiveTransaction();
+                StateHasChanged();
+            });
+        }
+    }
+
+    private void InjectLiveTransaction()
+    {
+        _liveSequence++;
+        var now = DateTime.Now;
+        var transaction = TransactionDataFactory.CreateLiveTransaction(now, _liveSequence);
+        AllTransactions.Insert(0, transaction);
+
+        if (ActiveQueryInterpretation is not null)
+        {
+            var execution = AiQueryExecutor.Execute(ActiveQueryInterpretation, AllTransactions, now);
+            VisibleTransactions = execution.Rows;
+        }
+        else
+        {
+            VisibleTransactions = AllTransactions;
+        }
+
+        RebuildKpis();
+        AddLiveNotableEvent(transaction, now);
+    }
+
+    private void AddLiveNotableEvent(TransactionRecord transaction, DateTime now)
+    {
+        Insights.Insert(0, new AiInsightMessage
+        {
+            Timestamp = now,
+            Title = "Live Feed",
+            Severity = "info",
+            Message = $"{transaction.TransactionId} ingested for {transaction.Merchant} via {transaction.Channel} ({transaction.Country}) at £{transaction.Amount:N2}."
+        });
+
+        var isNotable = transaction.Status == "Failed" &&
+                        (transaction.RiskScore >= 82 || transaction.Amount >= 4500m || transaction.RetryCount >= 2);
+        if (isNotable)
+        {
+            Insights.Insert(0, new AiInsightMessage
+            {
+                Timestamp = now,
+                Title = "Live Event",
+                Severity = "warning",
+                Message = $"{transaction.TransactionId} ({transaction.Merchant}) flagged: {transaction.DeclineReason}, " +
+                          $"issuer code {transaction.IssuerResponseCode}, retry {transaction.RetryCount}, channel {transaction.Channel}."
+            });
+        }
+        TrimInsights();
+    }
+
+    private void RebuildKpis()
+    {
+        Kpis.Clear();
+
+        var ordered = AllTransactions.OrderByDescending(x => x.Timestamp).ToList();
+        var currentWindow = ordered.Take(120).ToList();
+        var previousWindow = ordered.Skip(120).Take(120).ToList();
+
+        Kpis.Add(new KpiMetric
+        {
+            Label = "Total Volume",
+            Value = $"£{currentWindow.Sum(x => x.Amount):N0}",
+            Delta = FormatDelta(
+                currentWindow.Sum(x => x.Amount),
+                previousWindow.Sum(x => x.Amount)),
+            Positive = IsPositiveDelta(
+                currentWindow.Sum(x => x.Amount),
+                previousWindow.Sum(x => x.Amount)),
+            ProgressPercent = ToProgressPercent(currentWindow.Sum(x => x.Amount), 500_000m, 900_000m)
+        });
+
+        Kpis.Add(new KpiMetric
+        {
+            Label = "Successful Payments",
+            Value = currentWindow.Count(x => x.Status == "Successful").ToString(),
+            Delta = FormatDelta(
+                currentWindow.Count(x => x.Status == "Successful"),
+                previousWindow.Count(x => x.Status == "Successful")),
+            Positive = IsPositiveDelta(
+                currentWindow.Count(x => x.Status == "Successful"),
+                previousWindow.Count(x => x.Status == "Successful")),
+            ProgressPercent = ToProgressPercent(currentWindow.Count(x => x.Status == "Successful"), 40m, 100m)
+        });
+
+        Kpis.Add(new KpiMetric
+        {
+            Label = "Failed Transactions",
+            Value = currentWindow.Count(x => x.Status == "Failed").ToString(),
+            Delta = FormatDelta(
+                currentWindow.Count(x => x.Status == "Failed"),
+                previousWindow.Count(x => x.Status == "Failed")),
+            Positive = !IsPositiveDelta(
+                currentWindow.Count(x => x.Status == "Failed"),
+                previousWindow.Count(x => x.Status == "Failed")),
+            ProgressPercent = ToProgressPercent(currentWindow.Count(x => x.Status == "Failed"), 5m, 35m)
+        });
+
+        Kpis.Add(new KpiMetric
+        {
+            Label = "Avg. Processing Time",
+            Value = $"{currentWindow.Average(x => x.ProcessingTimeSeconds):N1}s",
+            Delta = FormatDelta(
+                currentWindow.Average(x => x.ProcessingTimeSeconds),
+                previousWindow.Count == 0 ? currentWindow.Average(x => x.ProcessingTimeSeconds) : previousWindow.Average(x => x.ProcessingTimeSeconds)),
+            Positive = !IsPositiveDelta(
+                currentWindow.Average(x => x.ProcessingTimeSeconds),
+                previousWindow.Count == 0 ? currentWindow.Average(x => x.ProcessingTimeSeconds) : previousWindow.Average(x => x.ProcessingTimeSeconds)),
+            ProgressPercent = ToProgressPercent(currentWindow.Average(x => x.ProcessingTimeSeconds), 0.5m, 3.8m, inverse: true)
+        });
+
+        Kpis.Add(new KpiMetric
+        {
+            Label = "Fraud Alerts",
+            Value = currentWindow.Count(x => x.RiskScore >= 85 || x.DeclineReason == "Suspected fraud").ToString(),
+            Delta = FormatDelta(
+                currentWindow.Count(x => x.RiskScore >= 85 || x.DeclineReason == "Suspected fraud"),
+                previousWindow.Count(x => x.RiskScore >= 85 || x.DeclineReason == "Suspected fraud")),
+            Positive = !IsPositiveDelta(
+                currentWindow.Count(x => x.RiskScore >= 85 || x.DeclineReason == "Suspected fraud"),
+                previousWindow.Count(x => x.RiskScore >= 85 || x.DeclineReason == "Suspected fraud")),
+            ProgressPercent = ToProgressPercent(currentWindow.Count(x => x.RiskScore >= 85 || x.DeclineReason == "Suspected fraud"), 2m, 20m)
+        });
+
+        var netSettlementCurrent = currentWindow.Where(x => x.Status == "Successful").Sum(x => x.Amount);
+        var netSettlementPrevious = previousWindow.Where(x => x.Status == "Successful").Sum(x => x.Amount);
+        Kpis.Add(new KpiMetric
+        {
+            Label = "Net Settlement",
+            Value = $"£{netSettlementCurrent:N0}",
+            Delta = FormatDelta(netSettlementCurrent, netSettlementPrevious),
+            Positive = IsPositiveDelta(netSettlementCurrent, netSettlementPrevious),
+            ProgressPercent = ToProgressPercent(netSettlementCurrent, 350_000m, 800_000m)
+        });
+    }
+
+    private static int ExtractHighestSequence(IEnumerable<TransactionRecord> transactions)
+    {
+        return transactions
+            .Select(x => x.TransactionId.Split('-').LastOrDefault())
+            .Select(x => int.TryParse(x, out var value) ? value : 0)
+            .DefaultIfEmpty(184200)
+            .Max();
+    }
+
+    private static bool IsPositiveDelta(decimal current, decimal previous) => current >= previous;
+
+    private Task ProcessPromptAsync(
+        string prompt,
+        Action<AiQueryResponse>? applyOutput = null,
+        bool appendConversation = true)
+    {
+        if (string.IsNullOrWhiteSpace(prompt))
+        {
+            return Task.CompletedTask;
+        }
+
+        var now = DateTime.Now;
+        var stopwatch = Stopwatch.StartNew();
+        var interpretation = AiQueryParser.Parse(prompt);
+        var executionResult = AiQueryExecutor.Execute(interpretation, AllTransactions, now);
+
+        ActiveQueryInterpretation = interpretation;
+        VisibleTransactions = executionResult.Rows;
+        CurrentGridView = executionResult.Rows;
+        FlaggedTransactionIds = new HashSet<string>();
+        LatestQueryResponse = AiQueryResponseFormatter.Format(interpretation, executionResult);
+        stopwatch.Stop();
+        LatestTelemetry = new AiRunTelemetry
+        {
+            DurationMs = (int)stopwatch.ElapsedMilliseconds,
+            IsFallback = LatestQueryResponse.IsFallback,
+            Intent = interpretation.Intent.ToString(),
+            Timestamp = now
+        };
+        RebuildKpis();
+
+        applyOutput?.Invoke(LatestQueryResponse);
+
+        if (appendConversation)
+        {
+            Conversation.Add(CreateMessage("user", "User", interpretation.Prompt));
+            Conversation.Add(CreateMessage("assistant", "Elyra AI", BuildPromptOutput(LatestQueryResponse)));
+        }
+
+        return Task.CompletedTask;
+    }
+
+    private void ResetGridContext()
+    {
+        ActiveQueryInterpretation = null;
+        VisibleTransactions = AllTransactions;
+        CurrentGridView = VisibleTransactions;
+        FlaggedTransactionIds = new HashSet<string>();
+        LatestQueryResponse = null;
+        RebuildKpis();
+    }
+
+    private static string BuildPromptOutput(AiQueryResponse response)
+    {
+        if (!response.IsFallback || response.Suggestions.Count == 0)
+        {
+            return response.Summary;
+        }
+
+        return $"{response.Summary} Suggested prompts: {string.Join(", ", response.Suggestions)}.";
+    }
+
+    private static AiChatMessage CreateMessage(string authorId, string authorName, string text) =>
+        new()
+        {
+            AuthorId = authorId,
+            AuthorName = authorName,
+            Text = text,
+            Timestamp = DateTime.Now
+        };
+
+    private static string FormatDelta(decimal current, decimal previous)
+    {
+        if (previous == 0m)
+        {
+            return current == 0m ? "0.0%" : "+100.0%";
+        }
+
+        var percent = (current - previous) / previous * 100m;
+        var sign = percent >= 0 ? "+" : string.Empty;
+        return $"{sign}{percent:N1}%";
+    }
+
+    private static int ToProgressPercent(decimal value, decimal min, decimal max, bool inverse = false)
+    {
+        if (max <= min)
+        {
+            return 50;
+        }
+
+        var normalized = (value - min) / (max - min);
+        normalized = Math.Clamp(normalized, 0m, 1m);
+        if (inverse)
+        {
+            normalized = 1m - normalized;
+        }
+
+        return (int)Math.Round(normalized * 100m);
+    }
+
+    public ValueTask DisposeAsync()
+    {
+        StopLiveMode();
+        StopSuggestionRotation();
+        return ValueTask.CompletedTask;
+    }
+
+}

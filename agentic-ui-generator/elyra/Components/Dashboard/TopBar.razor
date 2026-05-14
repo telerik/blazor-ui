@@ -1,0 +1,55 @@
+<header class="elyra-topbar glass-panel">
+    <div class="brand-wrap">
+        <div class="logo-pill">EL</div>
+        <div>
+            <div class="brand-title">Elyra</div>
+            <div class="brand-subline">Real-time transaction intelligence</div>
+        </div>
+        <span class="telerik-badge">Powered by Telerik Blazor</span>
+    </div>
+
+    <div class="topbar-actions">
+        <button type="button"
+                class="theme-toggle-btn"
+                aria-label="Toggle theme"
+                @onclick="ToggleThemeAsync">
+            <span class="theme-toggle-icon">@(IsDarkMode ? "☀" : "☾")</span>
+            <span>@(IsDarkMode ? "Light mode" : "Dark mode")</span>
+        </button>
+        <label class="live-toggle">
+            <input type="checkbox"
+                   checked="@LiveModeEnabled"
+                   @onchange="OnLiveModeToggleChanged" />
+            <span>Simulated Live</span>
+        </label>
+        <button class="icon-btn" aria-label="Notifications">🔔</button>
+        <div class="avatar">AN</div>
+    </div>
+</header>
+
+@code {
+    [Parameter]
+    public bool LiveModeEnabled { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OnLiveModeChanged { get; set; }
+
+    [Parameter]
+    public bool IsDarkMode { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OnThemeModeChanged { get; set; }
+
+    private async Task OnLiveModeToggleChanged(ChangeEventArgs args)
+    {
+        var isEnabled = args.Value switch
+        {
+            bool boolValue => boolValue,
+            string text when bool.TryParse(text, out var parsed) => parsed,
+            _ => false
+        };
+        await OnLiveModeChanged.InvokeAsync(isEnabled);
+    }
+
+    private Task ToggleThemeAsync() => OnThemeModeChanged.InvokeAsync(!IsDarkMode);
+}
