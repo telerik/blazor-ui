@@ -1,0 +1,23 @@
+@using System.Globalization
+
+<section class="kpi-grid">
+    @foreach (var metric in Metrics)
+    {
+        <article class="kpi-card glass-panel">
+            <div class="kpi-header">
+                <span>@metric.Label</span>
+                <span class="delta @(metric.Positive ? "delta-positive" : "delta-negative")">@metric.Delta</span>
+            </div>
+            <div class="kpi-value">@metric.Value</div>
+            <div class="mini-track">
+                <div class="mini-bar @(metric.Positive ? "bar-positive" : "bar-negative")"
+                     style="@($"width:{metric.ProgressPercent.ToString(CultureInfo.InvariantCulture)}%;")"></div>
+            </div>
+        </article>
+    }
+</section>
+
+@code {
+    [Parameter]
+    public IReadOnlyList<KpiMetric> Metrics { get; set; } = Array.Empty<KpiMetric>();
+}

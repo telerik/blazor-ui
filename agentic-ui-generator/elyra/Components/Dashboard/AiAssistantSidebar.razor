@@ -1,0 +1,154 @@
+<aside class="ai-sidebar glass-panel @(IsCollapsed ? "ai-sidebar-collapsed" : string.Empty)">
+    <div class="ai-header">
+        <h2>Elyra AI</h2>
+        @if (!IsCollapsed)
+        {
+            <span class="status-dot">Live</span>
+        }
+        <TelerikButton FillMode="@ThemeConstants.Button.FillMode.Flat"
+                       Size="@ThemeConstants.Button.Size.Small"
+                       Class="sidebar-collapse-btn"
+                       AriaLabel="@(IsCollapsed ? "Expand AI sidebar" : "Collapse AI sidebar")"
+                       OnClick="ToggleCollapsedAsync">
+            @(IsCollapsed ? "»" : "«")
+        </TelerikButton>
+    </div>
+
+    @if (!IsCollapsed && QueryResponse is not null)
+    {
+        <div class="ai-result-card @(QueryResponse.IsFallback ? "ai-result-fallback" : "ai-result-success")">
+            <div class="ai-result-title">AI Result</div>
+            <p class="ai-result-prompt">“@QueryResponse.Prompt”</p>
+            <p class="ai-result-summary">@QueryResponse.Summary</p>
+            @if (QueryResponse.Suggestions.Count > 0)
+            {
+                <div class="ai-result-suggestions">
+                    @foreach (var suggestion in QueryResponse.Suggestions)
+                    {
+                        <span>@suggestion</span>
+                    }
+                </div>
+            }
+        </div>
+    }
+
+    @if (!IsCollapsed)
+    {
+        <div class="ai-run-card">
+            <div class="ai-run-title">AI Run Details</div>
+            @if (LatestTelemetry is null)
+            {
+                <p class="ai-run-empty">Run a prompt to view model and performance telemetry.</p>
+            }
+            else
+            {
+                <dl class="ai-run-grid">
+                    <dt>Engine</dt>
+                    <dd>@LatestTelemetry.Engine</dd>
+                    <dt>Model</dt>
+                    <dd>@LatestTelemetry.Model</dd>
+                    <dt>Latency</dt>
+                    <dd>@LatestTelemetry.DurationMs ms</dd>
+                    <dt>Tokens</dt>
+                    <dd>N/A (deterministic pipeline)</dd>
+                    <dt>Intent</dt>
+                    <dd>@LatestTelemetry.Intent</dd>
+                    <dt>Result</dt>
+                    <dd>@(LatestTelemetry.IsFallback ? "Fallback" : "Mapped")</dd>
+                    <dt>Executed</dt>
+                    <dd>@LatestTelemetry.Timestamp.ToString("HH:mm:ss")</dd>
+                </dl>
+            }
+        </div>
+    }
+
+    @if (!IsCollapsed)
+    {
+        <div class="ai-activity-card">
+            <div class="ai-run-title">AI Activity</div>
+            @if (RecentAssistantMessages.Count == 0)
+            {
+                <p class="ai-run-empty">No assistant findings yet.</p>
+            }
+            else
+            {
+                <div class="ai-activity-list">
+                    @foreach (var item in RecentAssistantMessages)
+                    {
+                        <div class="ai-activity-item">
+                            <div class="ai-activity-meta">@item.Timestamp.ToString("HH:mm:ss")</div>
+                            <p>@item.Text</p>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    }
+
+    @if (!IsCollapsed)
+    {
+        <div class="insights-thread">
+            @foreach (var insight in Insights)
+            {
+                <div class="insight-card @(insight.Severity == "warning" ? "insight-warning" : "insight-info")">
+                    <div class="insight-head">
+                        <span>@insight.Title</span>
+                        <span>@insight.Timestamp.ToString("HH:mm:ss")</span>
+                    </div>
+                    <p>@insight.Message</p>
+                </div>
+            }
+        </div>
+    }
+
+    @if (!IsCollapsed)
+    {
+        <div class="ai-actions">
+            <TelerikButton ThemeColor="@ThemeConstants.Button.ThemeColor.Primary"
+                           Class="ai-action-btn"
+                           OnClick="@(async () => await OnSummarizeCurrentView.InvokeAsync())">
+                Summarize current view
+            </TelerikButton>
+            <TelerikButton FillMode="@ThemeConstants.Button.FillMode.Outline"
+                           Class="ai-action-btn"
+                           OnClick="@(async () => await OnDetectAnomalies.InvokeAsync())">
+                Detect anomalies
+            </TelerikButton>
+        </div>
+    }
+</aside>
+
+@code {
+    [Parameter]
+    public IReadOnlyList<AiChatMessage> Conversation { get; set; } = Array.Empty<AiChatMessage>();
+
+    [Parameter]
+    public AiQueryResponse? QueryResponse { get; set; }
+
+    [Parameter]
+    public AiRunTelemetry? LatestTelemetry { get; set; }
+
+    [Parameter]
+    public IReadOnlyList<AiInsightMessage> Insights { get; set; } = Array.Empty<AiInsightMessage>();
+
+    [Parameter]
+    public EventCallback OnSummarizeCurrentView { get; set; }
+
+    [Parameter]
+    public EventCallback OnDetectAnomalies { get; set; }
+
+    [Parameter]
+    public bool IsCollapsed { get; set; }
+
+    [Parameter]
+    public EventCallback OnToggleCollapsed { get; set; }
+
+    private IReadOnlyList<AiChatMessage> RecentAssistantMessages =>
+        Conversation
+            .Where(x => x.AuthorId == "assistant")
+            .OrderByDescending(x => x.Timestamp)
+            .Take(4)
+            .ToList();
+
+    private Task ToggleCollapsedAsync() => OnToggleCollapsed.InvokeAsync();
+}

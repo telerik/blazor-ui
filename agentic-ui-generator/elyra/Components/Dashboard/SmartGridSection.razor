@@ -1,0 +1,238 @@
+@using System.Globalization
+
+<section class="grid-shell glass-panel">
+    <div class="grid-toolbar">
+        <div class="toolbar-headline">Transaction Command Center</div>
+        <TelerikTextBox Value="@_filterText"
+                        ValueChanged="OnFilterTextChanged"
+                        Placeholder="Filter with AI…"
+                        Width="100%" />
+        <div class="chip-row">
+            @foreach (var chip in QuickChips)
+            {
+                <TelerikButton Class="@GetChipClass(chip)"
+                               Size="@ThemeConstants.Button.Size.Small"
+                               OnClick="@(async () => await ToggleChip(chip))">
+                    @chip
+                </TelerikButton>
+            }
+        </div>
+    </div>
+
+    <TelerikGrid Data="@FilteredTransactions"
+                 Pageable="true"
+                 PageSize="8"
+                 Height="min(540px, 62vh)"
+                 Sortable="true"
+                 Resizable="true"
+                 Class="txn-grid">
+        <GridToolBar>
+            <GridToolBarSmartBoxTool>
+                <GridToolBarSmartBoxToolSettings>
+                    <GridToolBarSmartBoxToolAIAssistantSettings OnPromptRequest="HandleAIPromptRequestAsync"
+                                                                PromptSuggestions="@AIPromptSuggestions"
+                                                                Placeholder="Ask the grid to focus the riskiest transactions"
+                                                                EnableSpeechToText="true">
+                        <AIPromptSpeechToTextButtonSettings Lang="en-GB" />
+                    </GridToolBarSmartBoxToolAIAssistantSettings>
+                    <GridToolBarSmartBoxToolSemanticSearchSettings OnSearch="HandleSemanticSearchAsync"
+                                                                   Placeholder="Semantic search transactions..."
+                                                                   DebounceDelay="600">
+                    </GridToolBarSmartBoxToolSemanticSearchSettings>
+                    <GridToolBarSmartBoxToolSearchSettings Enabled="false">
+                    </GridToolBarSmartBoxToolSearchSettings>
+                </GridToolBarSmartBoxToolSettings>
+            </GridToolBarSmartBoxTool>
+            <GridToolBarSpacerTool />
+            <GridToolBarExcelExportTool>
+                Export Excel
+            </GridToolBarExcelExportTool>
+            <GridToolBarCsvExportTool>
+                Export CSV
+            </GridToolBarCsvExportTool>
+        </GridToolBar>
+        <GridExport>
+            <GridExcelExport FileName="elyra-transactions" />
+            <GridCsvExport FileName="elyra-transactions" />
+        </GridExport>
+        <GridColumns>
+            <GridColumn Title="Transaction ID">
+                <Template Context="item">
+                    @{
+                        var row = (TransactionRecord)item;
+                        var isFlagged = HighlightedTransactionIds.Contains(row.TransactionId);
+                    }
+                    <span class="txn-id @(isFlagged ? "txn-id-flagged" : string.Empty)">
+                        @row.TransactionId
+                        @if (isFlagged)
+                        {
+                            <span class="txn-flag-pill">Flagged</span>
+                        }
+                    </span>
+                </Template>
+            </GridColumn>
+            <GridColumn Field="@nameof(TransactionRecord.Merchant)" Title="Merchant" />
+            <GridColumn Title="Amount">
+                <Template Context="item">
+                    @{
+                        var row = (TransactionRecord)item;
+                    }
+                    <span class="amount">£@row.Amount.ToString("N2", CultureInfo.InvariantCulture)</span>
+                </Template>
+            </GridColumn>
+            <GridColumn Field="@nameof(TransactionRecord.Currency)" Title="Currency" />
+            <GridColumn Title="Status">
+                <Template Context="item">
+                    @{
+                        var row = (TransactionRecord)item;
+                    }
+                    <span class="status-chip @GetStatusClass(row.Status)">@row.Status</span>
+                </Template>
+            </GridColumn>
+            <GridColumn Field="@nameof(TransactionRecord.PaymentRail)" Title="Payment Rail" />
+            <GridColumn Title="Risk Score">
+                <Template Context="item">
+                    @{
+                        var row = (TransactionRecord)item;
+                    }
+                    <div class="risk-cell">
+                        <span>@row.RiskScore</span>
+                        <div class="risk-track">
+                            <div class="risk-bar @GetRiskClass(row.RiskScore)"
+                                 style="@($"width:{row.RiskScore.ToString(CultureInfo.InvariantCulture)}%;")"></div>
+                        </div>
+                    </div>
+                </Template>
+            </GridColumn>
+            <GridColumn Field="@nameof(TransactionRecord.Timestamp)"
+                        Title="Timestamp"
+                        DisplayFormat="{0:dd MMM HH:mm}" />
+        </GridColumns>
+    </TelerikGrid>
+</section>
+
+@code {
+    private readonly string[] QuickChips = ["Failed today", "High value", "Fraud flagged"];
+    private string _filterText = string.Empty;
+    private string? _activeChip;
+
+    [Parameter]
+    public IReadOnlyList<TransactionRecord> Transactions { get; set; } = Array.Empty<TransactionRecord>();
+
+    [Parameter]
+    public EventCallback<IReadOnlyList<TransactionRecord>> OnCurrentViewChanged { get; set; }
+
+    [Parameter]
+    public IReadOnlySet<string> HighlightedTransactionIds { get; set; } = new HashSet<string>();
+
+    [Parameter]
+    public IReadOnlyList<string> PromptSuggestions { get; set; } = Array.Empty<string>();
+
+    [Parameter]
+    public EventCallback<GridSmartBoxSemanticSearchEventArgs> OnSemanticSearch { get; set; }
+
+    [Parameter]
+    public EventCallback<GridSmartBoxAIAssistantPromptRequestEventArgs> OnPromptRequest { get; set; }
+
+    private IEnumerable<TransactionRecord> FilteredTransactions =>
+        Transactions.Where(FilterByText).Where(FilterByChip);
+
+    private List<string> AIPromptSuggestions => PromptSuggestions.ToList();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+        {
+            return;
+        }
+
+        await PublishCurrentViewAsync();
+    }
+
+    private async Task OnFilterTextChanged(string value)
+    {
+        _filterText = value;
+        await PublishCurrentViewAsync();
+    }
+
+    private async Task ToggleChip(string chip)
+    {
+        _activeChip = _activeChip == chip ? null : chip;
+        await PublishCurrentViewAsync();
+    }
+
+    private string GetChipClass(string chip) => _activeChip == chip ? "chip-active" : "chip-idle";
+
+    private bool FilterByText(TransactionRecord row)
+    {
+        if (string.IsNullOrWhiteSpace(_filterText))
+        {
+            return true;
+        }
+
+        var query = _filterText.Trim().ToLowerInvariant();
+        if (query.Contains("failed"))
+        {
+            return row.Status == "Failed";
+        }
+
+        if (query.Contains("fraud") || query.Contains("risk"))
+        {
+            return row.RiskScore >= 70;
+        }
+
+        if (query.Contains("high"))
+        {
+            return row.Amount >= 3000m;
+        }
+
+        return row.TransactionId.Contains(query, StringComparison.OrdinalIgnoreCase)
+            || row.Merchant.Contains(query, StringComparison.OrdinalIgnoreCase)
+            || row.PaymentRail.Contains(query, StringComparison.OrdinalIgnoreCase)
+            || row.Status.Contains(query, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private bool FilterByChip(TransactionRecord row) =>
+        _activeChip switch
+        {
+            "Failed today" => row.Status == "Failed" && row.Timestamp.Date == DateTime.Today,
+            "High value" => row.Amount >= 3000m,
+            "Fraud flagged" => row.RiskScore >= 70,
+            _ => true
+        };
+
+    private static string GetStatusClass(string status) =>
+        status switch
+        {
+            "Successful" => "status-success",
+            "Failed" => "status-failed",
+            "Pending" => "status-pending",
+            _ => "status-neutral"
+        };
+
+    private static string GetRiskClass(int score) =>
+        score switch
+        {
+            >= 80 => "risk-high",
+            >= 50 => "risk-medium",
+            _ => "risk-low"
+        };
+
+    private async Task PublishCurrentViewAsync()
+    {
+        if (!OnCurrentViewChanged.HasDelegate)
+        {
+            return;
+        }
+
+        var rows = FilteredTransactions.ToList();
+        await OnCurrentViewChanged.InvokeAsync(rows);
+    }
+
+    private Task HandleSemanticSearchAsync(GridSmartBoxSemanticSearchEventArgs args) =>
+        OnSemanticSearch.InvokeAsync(args);
+
+    private Task HandleAIPromptRequestAsync(GridSmartBoxAIAssistantPromptRequestEventArgs args) =>
+        OnPromptRequest.InvokeAsync(args);
+
+}

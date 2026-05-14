@@ -1,0 +1,128 @@
+@using System.Threading
+@implements IAsyncDisposable
+
+<section class="prompt-console glass-panel">
+    <div class="prompt-console-head">
+        <h2 class="prompt-console-title">Ask Elyra anything</h2>
+        <span class="prompt-engine-pill">Telerik AI prompt + safe parser</span>
+    </div>
+
+    <div class="prompt-console-body">
+        <TelerikAIPrompt Prompt="@_prompt"
+                         PromptChanged="OnPromptChangedAsync"
+                         PromptSuggestions="@PromptSuggestions"
+                         EnableSpeechToText="true"
+                         OnPromptRequest="HandlePromptRequestAsync">
+            <AIPromptViews>
+                <AIPromptPromptView>
+                    <FooterTemplate></FooterTemplate>
+                </AIPromptPromptView>
+            </AIPromptViews>
+            <AIPromptSettings>
+                <AIPromptSpeechToTextButtonSettings FillMode="@ThemeConstants.Button.FillMode.Outline" />
+            </AIPromptSettings>
+        </TelerikAIPrompt>
+    </div>
+</section>
+
+@code {
+    private static readonly TimeSpan DebounceDelay = TimeSpan.FromSeconds(2);
+
+    private string _prompt = string.Empty;
+    private CancellationTokenSource? _debounceCts;
+
+    [Parameter]
+    public IReadOnlyList<string> SuggestedPrompts { get; set; } = Array.Empty<string>();
+
+    [Parameter]
+    public EventCallback<AIPromptPromptRequestEventArgs> OnPromptRequest { get; set; }
+
+    private List<string> PromptSuggestions => SuggestedPrompts.ToList();
+
+    private void CancelDebounce()
+    {
+        try
+        {
+            _debounceCts?.Cancel();
+        }
+        catch (ObjectDisposedException)
+        {
+            // ignored
+        }
+
+        _debounceCts?.Dispose();
+        _debounceCts = null;
+    }
+
+    private async Task OnPromptChangedAsync(string value)
+    {
+        _prompt = value ?? string.Empty;
+        var trimmed = _prompt.Trim();
+        CancelDebounce();
+
+        if (string.IsNullOrEmpty(trimmed))
+        {
+            return;
+        }
+
+        if (IsPresetSuggestion(trimmed))
+        {
+            await CommitPromptAsync(trimmed);
+            return;
+        }
+
+        _debounceCts = new CancellationTokenSource();
+        var token = _debounceCts.Token;
+
+        try
+        {
+            await Task.Delay(DebounceDelay, token);
+        }
+        catch (OperationCanceledException)
+        {
+            return;
+        }
+
+        if (token.IsCancellationRequested)
+        {
+            return;
+        }
+
+        var latest = (_prompt ?? string.Empty).Trim();
+        if (string.IsNullOrEmpty(latest))
+        {
+            return;
+        }
+
+        await CommitPromptAsync(latest);
+    }
+
+    private bool IsPresetSuggestion(string trimmed) =>
+        SuggestedPrompts.Any(s => string.Equals(s, trimmed, StringComparison.Ordinal));
+
+    private async Task CommitPromptAsync(string trimmed)
+    {
+        var args = new AIPromptPromptRequestEventArgs { Prompt = trimmed };
+        await HandlePromptRequestAsync(args);
+    }
+
+    private async Task HandlePromptRequestAsync(AIPromptPromptRequestEventArgs args)
+    {
+        CancelDebounce();
+
+        if (string.IsNullOrWhiteSpace(args.Prompt))
+        {
+            args.IsCancelled = true;
+            return;
+        }
+
+        await OnPromptRequest.InvokeAsync(args);
+        _prompt = args.Prompt;
+    }
+
+    public ValueTask DisposeAsync()
+    {
+        CancelDebounce();
+        return ValueTask.CompletedTask;
+    }
+}

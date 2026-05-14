@@ -1,0 +1,32 @@
+﻿@inherits LayoutComponentBase
+@inject elyra.Services.ThemeState ThemeState
+@inject IJSRuntime JS
+@implements IDisposable
+
+<PageTitle>Elyra</PageTitle>
+
+<div class="dashboard-layout">
+    <TelerikRootComponent>
+        @Body
+    </TelerikRootComponent>
+</div>
+
+@code {
+    protected override void OnInitialized() => ThemeState.OnChange += OnThemeChanged;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("elyraSetBodyTheme", ThemeState.IsDarkMode);
+        }
+    }
+
+    private async void OnThemeChanged()
+    {
+        await JS.InvokeVoidAsync("elyraSetBodyTheme", ThemeState.IsDarkMode);
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose() => ThemeState.OnChange -= OnThemeChanged;
+}
