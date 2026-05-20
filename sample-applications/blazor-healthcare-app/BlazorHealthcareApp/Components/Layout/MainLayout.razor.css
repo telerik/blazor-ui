@@ -65,8 +65,8 @@
 
 /* Logo */
 .hc-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
-.hc-logo-full { height: 32px; width: auto; }
-.hc-logo-icon-only { height: 32px; width: auto; display: none; }
+.hc-logo-full { height: 40px; width: auto; }
+.hc-logo-icon-only { height: 40px; width: auto; display: none; }
 .hc-logo-text { font-weight: 600; font-size: 18px; color: #232A36; }
 
 /* Segmented control */
