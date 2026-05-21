@@ -8,9 +8,9 @@ A full-featured healthcare dashboard built with [Telerik UI for Blazor](https://
 
 The app is organized into four main views:
 
-- **Patients** — A searchable, sortable, and filterable grid of patients with vitals, risk levels, and lab results. Includes an AI Assistant panel and Excel export.
-- **Patient Profile** — Detailed view of an individual patient showing basic information, recent vitals (heart rate, blood pressure, O₂ saturation, temperature), a rich-text editor for clinical notes, and lab results.
-- **Schedule** — A multi-view scheduler (day, week, month, agenda) for managing appointments, paired with a daily task list that supports search and inline task creation.
+- **Patients** — A searchable, sortable, and filterable Grid of patients with vitals, risk levels, and lab results. Includes an AI Assistant panel and Excel export.
+- **Patient Profile** — Detailed view of an individual patient showing basic information, recent vitals (heart rate, blood pressure, oxygen saturation, temperature), a rich-text editor for clinical notes, and lab results.
+- **Schedule** — A multi-view Scheduler (day, week, month, agenda) for managing appointments, paired with a daily task list that supports search and inline task creation.
 - **Clinical Analytics** — Charts tracking patient vitals over time (systolic/diastolic BP, heart rate, SpO₂, temperature), alert distribution, and a risk assessment gauge.
 
 <div align="center" style="margin: 25px 0;">
@@ -52,22 +52,11 @@ git clone https://github.com/telerik/blazor-ui.git
 # 2. Navigate to the project folder
 cd sample-applications/blazor-healthcare-app/BlazorHealthcareApp
 
-# 3. Restore dependencies
-dotnet restore
-
-# 4. Run the application
+# 3. Run the application
 dotnet run
 ```
 
 Navigate to `https://localhost:7253/`. The app supports hot reload during development.
-
-## Build
-
-```bash
-dotnet build
-```
-
-Build artifacts are stored in the `bin/` directory.
 
 ## Additional Links
 
