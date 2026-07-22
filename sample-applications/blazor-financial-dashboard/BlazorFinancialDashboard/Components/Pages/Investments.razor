@@ -49,11 +49,11 @@
 </UICard>
 
 <UICard Title="Stock Chart">
-<TelerikTabStrip @bind-ActiveTabIndex="@TabStripActiveTabIndex" Class="no-content-padding">
+<TelerikTabStrip @bind-ActiveTabId="@TabStripActiveTabId" Class="no-content-padding">
 
     @foreach (var stockChartItem in StockChartData)
     {
-        <TabStripTab Title="@stockChartItem.Value.Name" @key="@stockChartItem">
+        <TabStripTab Title="@stockChartItem.Value.Name" Id="@GetTabId(stockChartItem.Key)" @key="@stockChartItem">
             <TelerikStockChart @ref="stockChartItem.Value.StockChartRef"
                                DateField="@nameof(StockPoint.Date)"
                                Width="96%"
@@ -122,7 +122,12 @@
 
     private TelerikChart? PieChartRef { get; set; }
 
-    private int TabStripActiveTabIndex { get; set; }
+    private string TabStripActiveTabId { get; set; } = GetTabId(0);
+
+    private static string GetTabId(int key) => $"tab-{key}";
+
+    private int GetActiveTabKey() =>
+        int.TryParse(TabStripActiveTabId.Replace("tab-", ""), out int key) ? key : 0;
 
     private Dictionary<int, InvestmentStockChart> StockChartData { get; set; } = new()
     {
@@ -147,7 +152,7 @@
     public override Task OnViewPortResize()
     {
         PieChartRef?.Refresh();
-        StockChartData[TabStripActiveTabIndex].StockChartRef?.Refresh();
+        StockChartData[GetActiveTabKey()].StockChartRef?.Refresh();
 
         return base.OnViewPortResize();
     }
