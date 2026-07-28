@@ -80,7 +80,7 @@
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     <PackageVersion Include="Swashbuckle.AspNetCore.Filters" Version="6.0.0" />
     <!-- Telerik (UI + Documents) -->
-    <PackageVersion Include="Telerik.UI.for.Blazor" Version="13.1.0" />
+    <PackageVersion Include="Telerik.UI.for.Blazor" Version="14.1.0" />
     <PackageVersion Include="Telerik.DataSource" Version="4.0.1" />
     <PackageVersion Include="Telerik.Documents.Core" Version="2025.3.806" />
     <PackageVersion Include="Telerik.Documents.Fixed" Version="2025.3.806" />

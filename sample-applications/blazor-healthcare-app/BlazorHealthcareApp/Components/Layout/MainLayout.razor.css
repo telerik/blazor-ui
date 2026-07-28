@@ -54,11 +54,6 @@
 
 .hc-appbar-actions { display: flex; align-items: center; gap: 12px; }
 
-::deep .hc-appbar-center.k-appbar-section {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-}
 ::deep .hc-appbar-sides.k-appbar-section {
     z-index: 1;
 }
@@ -141,8 +136,8 @@
     height: 10px;
     min-width: 10px;
     padding: 0;
-    background: #334155;
-    border: 1px solid #334155;
+    border: 1px solid var(--kendo-color-primary);
+    background-color: var(--kendo-color-primary);
     pointer-events: none;
 }
 

@@ -77,28 +77,24 @@
     border-bottom: 1px solid rgba(23, 56, 99, 0.08);
     border-right: none;
     padding: 8px 16px;
+    font-size: 14px;
 }
 .hc-grid-card ::deep .k-filter-row .k-filtercell .k-filtercell-wrapper {
     gap: 4px;
+    align-items: center;
 }
 .hc-grid-card ::deep .k-filter-row input.k-input-inner {
     font-family: 'Poppins', sans-serif;
-    font-size: 14px; color: #232A36;
-    padding: 4px 8px;
+    color: #232A36;
 }
 .hc-grid-card ::deep .k-grid td,
 .hc-grid-card ::deep .k-grid .k-table-td {
     padding: 8px 16px !important;
     font-size: 14px; color: #232A36;
-    border-bottom: none !important;
     border-right: none;
     vertical-align: middle;
 }
 .hc-grid-card ::deep .k-master-row { height: 48px; }
-.hc-grid-card ::deep .k-master-row:nth-child(even) td,
-.hc-grid-card ::deep .k-master-row:nth-child(even) .k-table-td {
-    background: rgba(56, 66, 80, 0.05);
-}
 .hc-grid-card ::deep .k-master-row:nth-child(odd) td,
 .hc-grid-card ::deep .k-master-row:nth-child(odd) .k-table-td {
     background: #FFFFFF;
