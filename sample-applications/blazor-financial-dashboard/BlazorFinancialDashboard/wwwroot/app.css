@@ -74,12 +74,27 @@ body {
     border-right: 1px solid var(--kendo-color-border);
 }
 
+.k-overlay {
+    background-color: #000;
+}
+
 /* Top AppBar */
 
 div.appbar-top {
     box-shadow: none;
     padding-block: var(--kendo-spacing-6\.5);
     padding-inline: var(--kendo-spacing-15);
+}
+
+.appbar-top.k-appbar.k-appbar-base {
+    background-color: transparent;
+}
+
+.appbar-top .k-appbar-section:last-child button {
+    border-color: var(--kendo-color-light, #F7F3FA);
+    color: var(--kendo-color-on-light, #1D1B20);
+    background-color: var(--kendo-color-light, #F7F3FA);
+    background-image: none;
 }
 
 .search-textbox.k-input {
@@ -109,7 +124,6 @@ div.appbar-top {
 }
 
 /* Main Content */
-
 #drawer-content-wrapper {
     max-width: 1140px;
     min-height: 100vh;
@@ -217,8 +231,11 @@ div.appbar-bottom.narrow {
     cursor: pointer;
 }
 
-/* Investements */
+.k-prompt-view .k-actions-horizontal button {
+    padding: 9px 10px 9px 10px;
+}
 
+/* Investements */
 .asset {
     line-height: 1.5;
 }
