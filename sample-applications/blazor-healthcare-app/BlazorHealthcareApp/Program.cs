@@ -21,6 +21,7 @@ builder.Services.AddScoped<AIChatService>();
 var app = builder.Build();
 
 app.UsePathBase("/blazor-healthcare/");
+app.UseRouting();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -29,12 +30,10 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-app.UseStatusCodePagesWithReExecute("/not-found", createScopeForStatusCodePages: true);
 app.UseHttpsRedirection();
+app.UseStatusCodePagesWithReExecute("/not-found", createScopeForStatusCodePages: true);
 
 app.UseAntiforgery();
-
-app.MapBlazorHub("/blazor-healthcare/_blazor");
 
 app.MapStaticAssets();
 app.MapRazorComponents<App>()

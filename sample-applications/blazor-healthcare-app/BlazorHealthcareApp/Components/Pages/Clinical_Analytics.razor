@@ -48,7 +48,7 @@
         </div>
         <div class="hc-ca-card-body">
             <div class="hc-ca-chart-area">
-                <TelerikChart Height="340px">
+                <TelerikChart @ref="VitalsChart" Height="340px">
                     <ChartSeriesItems>
                         <ChartSeries Type="ChartSeriesType.Line"
                                      Name="Systolic BP"
@@ -148,7 +148,7 @@
         </div>
         <div class="hc-ca-card-body">
             <div class="hc-ca-chart-area">
-                <TelerikChart Height="340px">
+                <TelerikChart @ref="AlertsOverTimeChart" Height="340px">
                     <ChartSeriesItems>
                         <ChartSeries Type="ChartSeriesType.Column"
                                      Name="Critical"
@@ -208,7 +208,7 @@
         </div>
         <div class="hc-ca-card-body">
             <div class="hc-ca-chart-area">
-                <TelerikChart Height="340px">
+                <TelerikChart @ref="HealthMetricsChart" Height="340px">
                     <ChartSeriesItems>
                         <ChartSeries Type="ChartSeriesType.Area"
                                      Name="Glucose (mg/dL)"
@@ -291,7 +291,7 @@
                 <p class="hc-ca-card-subtitle">Distribution of alerts by clinical category</p>
             </div>
             <div class="hc-ca-donut-body">
-                <TelerikChart Height="370px" Width="100%">
+                <TelerikChart @ref="AlertsByCategoryChart" Height="370px" Width="100%">
                     <ChartSeriesItems>
                         <ChartSeries Type="ChartSeriesType.Donut"
                                      Data="@AlertsByCategoryData"
@@ -333,7 +333,7 @@
                 <p class="hc-ca-card-subtitle">Patient health risk assessment</p>
             </div>
             <div class="hc-ca-gauge-wrapper">
-                <TelerikArcGauge Width="302px" Height="160px">
+                <TelerikArcGauge @ref="RiskGauge" Width="302px" Height="160px">
                     <ArcGaugeScales>
                         <ArcGaugeScale Min="0" Max="100" StartAngle="0" EndAngle="180">
                             <ArcGaugeScaleLabels Visible="false" />
@@ -393,7 +393,12 @@
     private List<AlertCategoryData> AlertsByCategoryData { get; set; } = new();
     private List<HealthMetricPoint> HealthMetricsData { get; set; } = new();
 
-    private DotNetObjectReference<Clinical_Analytics>? _dotNetRef;
+    private DotNetObjectReference<Clinical_Analytics>? DotNetRef;
+    private TelerikChart? VitalsChart;
+    private TelerikChart? AlertsOverTimeChart;
+    private TelerikChart? HealthMetricsChart;
+    private TelerikChart? AlertsByCategoryChart;
+    private TelerikArcGauge? RiskGauge;
 
     #endregion
 
@@ -409,8 +414,8 @@
     {
         if (firstRender)
         {
-            _dotNetRef = DotNetObjectReference.Create(this);
-            await JS.InvokeVoidAsync("resizeHelper.addListener", _dotNetRef);
+            DotNetRef = DotNetObjectReference.Create(this);
+            await JS.InvokeVoidAsync("resizeHelper.addListener", DotNetRef);
         }
     }
 
@@ -425,9 +430,14 @@
     }
 
     [JSInvokable]
-    public void OnWindowResized()
+    public async void OnWindowResized()
     {
-        StateHasChanged();
+        await Task.Delay(20);
+        VitalsChart?.Refresh();
+        AlertsOverTimeChart?.Refresh();
+        HealthMetricsChart?.Refresh();
+        AlertsByCategoryChart?.Refresh();
+        RiskGauge?.Refresh();
     }
 
     #endregion
@@ -436,19 +446,19 @@
 
     private void LoadChartData()
     {
-        RiskScoreValue       = AnalyticsService.GetRiskScore(SelectedPatientId);
-        VitalsData           = AnalyticsService.GetVitalsData(SelectedPatientId);
-        AlertsOverTimeData   = AnalyticsService.GetAlertsOverTime(SelectedPatientId);
+        RiskScoreValue = AnalyticsService.GetRiskScore(SelectedPatientId);
+        VitalsData = AnalyticsService.GetVitalsData(SelectedPatientId);
+        AlertsOverTimeData = AnalyticsService.GetAlertsOverTime(SelectedPatientId);
         AlertsByCategoryData = AnalyticsService.GetAlertsByCategory(SelectedPatientId);
-        HealthMetricsData    = AnalyticsService.GetHealthMetrics(SelectedPatientId);
+        HealthMetricsData = AnalyticsService.GetHealthMetrics(SelectedPatientId);
     }
 
     public async ValueTask DisposeAsync()
     {
-        if (_dotNetRef is not null)
+        if (DotNetRef is not null)
         {
             await JS.InvokeVoidAsync("resizeHelper.removeListener");
-            _dotNetRef.Dispose();
+            DotNetRef.Dispose();
         }
     }
 

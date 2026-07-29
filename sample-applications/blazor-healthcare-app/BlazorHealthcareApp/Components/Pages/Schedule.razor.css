@@ -86,6 +86,15 @@
 .hc-scheduler-wrapper ::deep .k-scheduler .k-event:hover {
     background: #D2D2FF;
 }
+/* Keep selected-event appearance consistent with custom non-selected styling.
+   Meridian's .k-event.k-selected has higher specificity than .k-event and would
+   otherwise override the custom background/border with theme secondary colors. */
+.hc-scheduler-wrapper ::deep .k-scheduler .k-event.k-selected {
+    background: #D2D2FF;
+    border-left: 4px solid #7B7FDE;
+    color: #383BA8;
+    box-shadow: none;
+}
 .hc-scheduler-wrapper ::deep .k-scheduler .k-event .k-event-template {
     font-family: 'Poppins', sans-serif;
     font-size: 13px;
