@@ -4,14 +4,14 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using Telerik.Documents.ImageUtils;
-using Telerik.Windows.Documents.Common.FormatProviders;
-using Telerik.Windows.Documents.Extensibility;
-using Telerik.Windows.Documents.Flow.FormatProviders.Pdf;
-using Telerik.Windows.Documents.Flow.FormatProviders.Docx;
-using Telerik.Windows.Documents.Flow.FormatProviders.Html;
-using Telerik.Windows.Documents.Flow.FormatProviders.Rtf;
-using Telerik.Windows.Documents.Flow.FormatProviders.Txt;
-using Telerik.Windows.Documents.Flow.Model;
+using Telerik.Documents.Common.FormatProviders;
+using Telerik.Documents.Extensibility;
+using Telerik.Documents.Flow.FormatProviders.Pdf;
+using Telerik.Documents.Flow.FormatProviders.Docx;
+using Telerik.Documents.Flow.FormatProviders.Html;
+using Telerik.Documents.Flow.FormatProviders.Rtf;
+using Telerik.Documents.Flow.FormatProviders.Txt;
+using Telerik.Documents.Flow.Model;
 
 namespace EditorImportExport.Data
 {
@@ -36,7 +36,7 @@ namespace EditorImportExport.Data
                 HtmlFormatProvider provider = new HtmlFormatProvider();
                 provider.ExportSettings.StylesExportMode = StylesExportMode.Inline;
                 provider.ExportSettings.DocumentExportLevel = DocumentExportLevel.Fragment;
-                string html = provider.Export(document);
+                string html = provider.Export(document, null);
 
                 // get only the <body> contents
                 int bodyStart = html.IndexOf("<body>") + "<body>".Length;
@@ -68,7 +68,7 @@ namespace EditorImportExport.Data
             {
                 // Prepare a document with the HTML content.
                 HtmlFormatProvider provider = new HtmlFormatProvider();
-                RadFlowDocument document = provider.Import(htmlContent);
+                RadFlowDocument document = provider.Import(htmlContent, null);
 
                 // Enable conversion of non-JPG images to JPG.
                 // https://docs.telerik.com/devtools/document-processing/libraries/radpdfprocessing/cross-platform/images
@@ -81,7 +81,7 @@ namespace EditorImportExport.Data
                 byte[]? exportFileBytes = null;
                 using (MemoryStream ms = new MemoryStream())
                 {
-                    exportProvider.Export(document, ms);
+                    exportProvider.Export(document, ms, null);
                     exportFileBytes = ms.ToArray();
                 }
 
@@ -114,7 +114,7 @@ namespace EditorImportExport.Data
 
             using (FileStream input = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
-                document = fileFormatProvider.Import(input);
+                document = fileFormatProvider.Import(input, null);
             }
 
             return document;

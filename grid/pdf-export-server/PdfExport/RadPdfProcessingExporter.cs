@@ -1,17 +1,17 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
 using System.IO;
-using Telerik.Windows.Documents.Fixed.FormatProviders.Pdf;
-using Telerik.Windows.Documents.Fixed.FormatProviders.Pdf.Export;
-using Telerik.Windows.Documents.Fixed.Model;
-using Telerik.Windows.Documents.Fixed.Model.ColorSpaces;
-using Telerik.Windows.Documents.Fixed.Model.Editing;
-using Telerik.Windows.Documents.Fixed.Model.Editing.Flow;
-using Telerik.Windows.Documents.Fixed.Model.Fonts;
-using Telerik.Windows.Documents.Fixed.Model.Graphics;
-using Telerik.Windows.Documents.Fixed.Model.Editing.Tables;
+using Telerik.Documents.Fixed.FormatProviders.Pdf;
+using Telerik.Documents.Fixed.FormatProviders.Pdf.Export;
+using Telerik.Documents.Fixed.Model;
+using Telerik.Documents.Fixed.Model.ColorSpaces;
+using Telerik.Documents.Fixed.Model.Editing;
+using Telerik.Documents.Fixed.Model.Editing.Flow;
+using Telerik.Documents.Fixed.Model.Fonts;
+using Telerik.Documents.Fixed.Model.Graphics;
+using Telerik.Documents.Fixed.Model.Editing.Tables;
 using System.Threading.Tasks;
 using Telerik.DataSource;
 using Telerik.DataSource.Extensions;
@@ -30,7 +30,7 @@ namespace PdfExport
             byte[] fileBytes = null;
             using (MemoryStream ms = new MemoryStream())
             {
-                provider.Export(document, ms);
+                provider.Export(document, ms, null);
                 fileBytes = ms.ToArray();
             }
 
