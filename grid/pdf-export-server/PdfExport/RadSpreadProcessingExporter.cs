@@ -1,23 +1,24 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
 using System.IO;
-using Telerik.Windows.Documents.Fixed.FormatProviders.Pdf;
-using Telerik.Windows.Documents.Fixed.FormatProviders.Pdf.Export;
-using Telerik.Windows.Documents.Fixed.Model;
-using Telerik.Windows.Documents.Fixed.Model.ColorSpaces;
-using Telerik.Windows.Documents.Fixed.Model.Editing;
-using Telerik.Windows.Documents.Fixed.Model.Editing.Flow;
-using Telerik.Windows.Documents.Fixed.Model.Fonts;
-using Telerik.Windows.Documents.Fixed.Model.Graphics;
-using Telerik.Windows.Documents.Fixed.Model.Editing.Tables;
-using Telerik.Windows.Documents.Spreadsheet.Model;
+using Telerik.Documents.Fixed.FormatProviders.Pdf;
+using Telerik.Documents.Fixed.FormatProviders.Pdf.Export;
+using Telerik.Documents.Fixed.Model;
+using Telerik.Documents.Fixed.Model.ColorSpaces;
+using Telerik.Documents.Fixed.Model.Editing;
+using Telerik.Documents.Fixed.Model.Editing.Flow;
+using Telerik.Documents.Fixed.Model.Fonts;
+using Telerik.Documents.Fixed.Model.Graphics;
+using Telerik.Documents.Fixed.Model.Editing.Tables;
+using Telerik.Documents.Spreadsheet.Model;
 using Telerik.DataSource;
 using Telerik.DataSource.Extensions;
 using System.Threading.Tasks;
 using System.Reflection;
 using Telerik.Documents.Common.Model;
+using Telerik.Documents.Media;
 
 namespace PdfExport
 {
@@ -44,7 +45,7 @@ namespace PdfExport
             var fieldsList = typeParameterType.GetProperties();
 
             //some styling for the cells - borders in this example
-            ThemableColor black = new ThemableColor(Telerik.Documents.Media.Color.FromArgb(0, 0, 0, 0));
+            ThemableColor black = new ThemableColor(Color.FromArgb(0, 0, 0, 0));
             CellBorders desiredBorders = new CellBorders(
                     new CellBorder(CellBorderStyle.Medium, black),   // Left border 
                     new CellBorder(CellBorderStyle.Medium, black),   // Top border 
@@ -96,12 +97,12 @@ namespace PdfExport
             workbook.ResumeLayoutUpdate();
 
             //convert the excel workbook to a pdf
-            var pdfFormatProvider = new Telerik.Windows.Documents.Spreadsheet.FormatProviders.Pdf.PdfFormatProvider();
+            var pdfFormatProvider = new Telerik.Documents.Spreadsheet.FormatProviders.Pdf.PdfFormatProvider();
 
             byte[] fileBytes = null;
             using (MemoryStream ms = new MemoryStream())
             {
-                pdfFormatProvider.Export(workbook, ms);
+                pdfFormatProvider.Export(workbook, ms, null);
                 fileBytes = ms.ToArray();
             }
 
