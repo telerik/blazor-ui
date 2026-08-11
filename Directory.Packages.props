@@ -82,15 +82,15 @@
     <!-- Telerik (UI + Documents) -->
     <PackageVersion Include="Telerik.UI.for.Blazor" Version="13.1.0" />
     <PackageVersion Include="Telerik.DataSource" Version="4.0.1" />
-    <PackageVersion Include="Telerik.Documents.Core" Version="2026.3.805" />
-    <PackageVersion Include="Telerik.Documents.Fixed" Version="2026.3.805" />
-    <PackageVersion Include="Telerik.Documents.Flow" Version="2026.3.805" />
-    <PackageVersion Include="Telerik.Documents.Flow.FormatProviders.Pdf" Version="2026.3.805" />
-    <PackageVersion Include="Telerik.Documents.ImageUtils" Version="2026.3.805" />
-    <PackageVersion Include="Telerik.Documents.Spreadsheet" Version="2026.3.805" />
-    <PackageVersion Include="Telerik.Documents.Spreadsheet.FormatProviders.OpenXml" Version="2026.3.805" />
-    <PackageVersion Include="Telerik.Documents.Spreadsheet.FormatProviders.Pdf" Version="2026.3.805" />
-    <PackageVersion Include="Telerik.Documents.SpreadsheetStreaming" Version="2026.3.805" />
-    <PackageVersion Include="Telerik.Zip" Version="2026.3.805" />
+    <PackageVersion Include="Telerik.Documents.Core" Version="2026.3.810" />
+    <PackageVersion Include="Telerik.Documents.Fixed" Version="2026.3.810" />
+    <PackageVersion Include="Telerik.Documents.Flow" Version="2026.3.810" />
+    <PackageVersion Include="Telerik.Documents.Flow.FormatProviders.Pdf" Version="2026.3.810" />
+    <PackageVersion Include="Telerik.Documents.ImageUtils" Version="2026.3.810" />
+    <PackageVersion Include="Telerik.Documents.Spreadsheet" Version="2026.3.810" />
+    <PackageVersion Include="Telerik.Documents.Spreadsheet.FormatProviders.OpenXml" Version="2026.3.810" />
+    <PackageVersion Include="Telerik.Documents.Spreadsheet.FormatProviders.Pdf" Version="2026.3.810" />
+    <PackageVersion Include="Telerik.Documents.SpreadsheetStreaming" Version="2026.3.810" />
+    <PackageVersion Include="Telerik.Zip" Version="2026.3.810" />
   </ItemGroup>
 </Project>
