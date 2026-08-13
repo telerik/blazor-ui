@@ -4,49 +4,57 @@ This sample project demonstrates how you can use the <a href="https://learn.micr
 
 ## Requirements
 
-There are a few key points and changes to a standard project with relation to the Telerik components:
+All general guidance from the [Microsoft documentation](https://learn.microsoft.com/en-us/aspnet/core/blazor/webassembly-lazy-load-assemblies) applies. The Telerik-related specifics are:
 
-1. Move the `<TelerikRootComponent>` to a layout that is used only on pages that have the Telerik assemblies loaded.
+* List the following assemblies in the "client" `.csproj` file to be lazy loaded.
 
-1. Mark the assemblies you want to lazy-load in the `.csproj` file of the WebAssembly project. This will prevent them from being loaded automatically initially.
+````XML.skip-repl
+<ItemGroup>
+    <!-- Components and data binding -->
+    <BlazorWebAssemblyLazyLoad Include="Telerik.Blazor.wasm" />
+    <BlazorWebAssemblyLazyLoad Include="Telerik.DataSource.wasm" />
+    <BlazorWebAssemblyLazyLoad Include="System.Data.Common.wasm" />
+    <BlazorWebAssemblyLazyLoad Include="System.Linq.Queryable.wasm" />
+    <!-- Icons -->
+    <BlazorWebAssemblyLazyLoad Include="Telerik.SvgIcons.wasm" />
+    <BlazorWebAssemblyLazyLoad Include="Telerik.FontIcons.wasm" />
+    <!-- PivotGrid -->
+    <BlazorWebAssemblyLazyLoad Include="Telerik.Pivot.Core.wasm" />
+    <BlazorWebAssemblyLazyLoad Include="Telerik.Pivot.DataProviders.Xmla.wasm" />
+    <!-- Scheduler -->
+    <BlazorWebAssemblyLazyLoad Include="Telerik.Recurrence.wasm" />
+    <!-- Excel export -->
+    <BlazorWebAssemblyLazyLoad Include="Telerik.Documents.SpreadsheetStreaming.wasm" />
+    <BlazorWebAssemblyLazyLoad Include="Telerik.Zip.wasm" />
+    <!-- PDF export (only for version 8.0.0 and above) -->
+    <BlazorWebAssemblyLazyLoad Include="Telerik.Documents.Spreadsheet.FormatProviders.Pdf.wasm" />
+</ItemGroup>
+````
 
-    The following snippet from `LazyLoadTelerikComponents.Client.csproj` shows the Telerik assemblies for version `4.6.0`. Common assemblies (such as `System.*`) may already be loaded and in use, so you may want to remove them from the list.
+* If using Telerik UI for Blazor version 8 or above, reference the `Telerik.Licensing` NuGet package explicitly in the client project that uses Telerik UI for Blazor, and the main startup project. This assembly cannot be lazy loaded due to runtime license verification.
+* The assembly requirements depend on component usage, and not on feature usage. For example, both icon assemblies are always required, as our components render icons internally and must be aware of both types of icons. The assemblies, which are related to Excel and PDF export, are always required when using a Grid. `Telerik.Recurrence.wasm` is required only when using the Scheduler.
+* Move the [`<TelerikRootComponent>`](https://www.telerik.com/blazor-ui/documentation/components/rootcomponent/overview) to a layout that is used only on pages that have the Telerik assemblies loaded.
+* Lazy loading of assemblies does not support dynamic service injection. As a result, remove the Telerik service registration (`builder.Services.AddTelerikBlazor();`) from `Program.cs`. If you are using [localization for the Telerik Blazor components](https://www.telerik.com/blazor-ui/documentation/globalization/localization), define the the localization service for the Telerik components with the `Localizer` parameter of the `<TelerikRootComponent>`. The key thing is to instantiate the localization service inline. It cannot be injected as a variable from the `@code { }` block, because that will throw runtime errors.
 
-    **LazyLoadTelerikComponents.Client.csproj**
-    
-        <ItemGroup>
-            <!-- Components and data binding -->
-            <BlazorWebAssemblyLazyLoad Include="Telerik.Blazor.dll" />
-            <BlazorWebAssemblyLazyLoad Include="Telerik.DataSource.dll" />
-            <BlazorWebAssemblyLazyLoad Include="System.Data.Common.dll" />
-            <BlazorWebAssemblyLazyLoad Include="System.Linq.Queryable.dll" />
-            <!-- Icons -->
-            <BlazorWebAssemblyLazyLoad Include="Telerik.SvgIcons.dll" />
-            <BlazorWebAssemblyLazyLoad Include="Telerik.FontIcons.dll" />
-            <!-- PivotGrid -->
-            <BlazorWebAssemblyLazyLoad Include="Telerik.Pivot.Core.dll" />
-            <BlazorWebAssemblyLazyLoad Include="Telerik.Pivot.DataProviders.Xmla.dll" />
-            <!-- Scheduler -->
-            <BlazorWebAssemblyLazyLoad Include="Telerik.Recurrence.dll" />
-            <!-- Excel export -->
-            <BlazorWebAssemblyLazyLoad Include="Telerik.Documents.SpreadsheetStreaming.dll" />
-            <BlazorWebAssemblyLazyLoad Include="Telerik.Zip.dll" />
-        </ItemGroup>
+````RAZOR
+@using LazyLoadTelerikComponents.Shared.Services
 
-1. They lazy loading of assemblies at the correct time is the app's responsibility. If an assembly is not loaded when required, the app will throw `System.IO.FileNotFoundException: Could not load file or assembly ...`. The loading code is in the `OnNavigateAsync` event handler of the `<Router>`. You can also define an optional loading screen inside the `<Router>` with `<Navigating>`. See `LazyLoadTelerikComponents/Client/App.razor`.
+<TelerikRootComponent Localizer="@( new SampleResxLocalizer() )">
+    ...
+</TelerikRootComponent>
+````
 
-1. Remove the Telerik service registration from `Program.cs`.
+Overall, the lazy loading of assemblies at the correct time is a responsibility of the application. If an assembly is not loaded when required, the app will throw `System.IO.FileNotFoundException: Could not load file or assembly ...`. The loading code is in the `OnNavigateAsync` event handler of the `<Router>`. You can also define an optional loading screen inside the `<Router>` with a `<Navigating>` tag.
 
-1. If you are using <a href="https://docs.telerik.com/blazor-ui/globalization/localization" target="_blank">localization for the Telerik Blazor components</a>, move the localization service for the Telerik components from `Program.cs` to the `Localizer` parameter of the `<TelerikRootComponent>` (example available in the sample project). The key thing is to instantiate the variable locally - it cannot be injected or present in the `@code { }` block as that will throw runtime errors.
+### .NET Specifics
 
-> The last two items are required because lazy loading of assemblies does not support dynamic service injection, you can read more about that framework limitation in <a href="https://github.com/dotnet/aspnetcore/issues/27331#issuecomment-718870305" target="_blank">this Microsoft GitHub Issue</a>. This means that you cannot `inject` services that depend on or inherit code that will be lazy-loaded, nor can you use them as fields in the view-model of a component.
+The following tips apply to WebAssembly apps that use specific .NET versions:
 
-## Notes
+* (.NET 7 and below) Use `.dll` instead of `.wasm` in the `.csproj` file and the `OnNavigateAsync` event handler.
+* (.NET 8 and 9) [Register the lazy loader service manually](https://github.com/dotnet/aspnetcore/issues/51966) in the "server" `Program.cs`. Otherwise, you may get a `InvalidOperationException: Cannot provide a value for property 'AssemblyLoader' on type '...Routes'. There is no registered service of type 'Microsoft.AspNetCore.Components.WebAssembly.Services.LazyAssemblyLoader'.`
 
-* You need at least .NET 5 and Telerik UI for Blazor version 2.19.0.
+````C#
+using Microsoft.AspNetCore.Components.WebAssembly.Services;
 
-* You cannot use the same localization service that the Telerik components use internally (and that you pass to them) for your own localization (such as Grid command button texts). This limitation comes from the same limitation of injecting dynamic services described above.
-
-    * This means you cannot inject it yourself, or add an extra cascading parameter for it - it will throw runtime errors when the blazor app initializes.
-    
-    * Localization of button texts is a part of the application (page), so it is up to the application to implement it. You can use the built-in string localizer from the framework on a per-page basis, like any other razor component. There is an example of this in the sample project (uses the `Microsoft.Extensions.Localization` package and local `.resx` files next to the page in question).
+builder.Services.AddScoped(typeof(LazyAssemblyLoader));
+````
