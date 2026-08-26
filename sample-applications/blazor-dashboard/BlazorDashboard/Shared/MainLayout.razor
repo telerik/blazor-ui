@@ -3,14 +3,15 @@
 
 <TelerikRootComponent>
 	<div class="row">
-		<div id="top-bar" class="top-bar col-xs-12 bg-dark d-md-none"></div>
+		<header id="top-bar" class="top-bar col-xs-12 bg-dark d-md-none">
+			<button type="button" class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="@expandNavMenu" @onclick="@ToggleNavMenu">
+				<TelerikSvgIcon Icon="@SvgIcon.Menu" />
+			</button>
+		</header>
 		@if (IsNavAllowed())
 		{
 			<div id="nav"
 				 class="col-xs-3 bg-dark text-white py-5 @( expandNavMenu ? "expand" : "" )">
-				<span id="nav-toggle" class="nav-toggle d-md-none" @onclick="@ToggleNavMenu">
-					<TelerikSvgIcon Icon="@SvgIcon.Menu" />
-				</span>
 				<h1 id="app-title">Blazor UI</h1>
 				<p id="app-subtitle">Sample Dashboard</p>
 				<hr />
@@ -22,11 +23,20 @@
 					<li class="nav-item" id="issues">
 						<NavLink class="nav-link" href="issues">Issues</NavLink>
 					</li>
+					<li class="nav-item" id="notifications">
+						<NavLink class="nav-link" href="notifications">Notifications</NavLink>
+					</li>
 				</ul>
 				<p class="h4 mt-5">Account</p>
 				<ul class="nav nav-pills flex-column">
 					<li class="nav-item" id="profile">
 						<NavLink class="nav-link" href="profile">My Profile</NavLink>
+					</li>
+					<li class="nav-item" id="settings">
+						<NavLink class="nav-link" href="settings">Settings</NavLink>
+					</li>
+					<li class="nav-item" id="help">
+						<NavLink class="nav-link" href="help">Help &amp; Support</NavLink>
 					</li>
 					<li class="nav-item" id="signin">
 						<NavLink class="nav-link" href="signin">Sign Out</NavLink>
@@ -44,7 +54,7 @@
 				</div>
 			</div>
 		}
-		<main class="col-xs p-4 py-5">
+		<main class="col-xs p-4 py-5" id="main-content">
 			@Body
 		</main>
 	</div>

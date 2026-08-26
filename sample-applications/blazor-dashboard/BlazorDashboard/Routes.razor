@@ -3,7 +3,16 @@
         <RouteView RouteData="routeData" DefaultLayout="typeof(MainLayout)" />
     </Found>
     <NotFound>
-        <h1>Page not found</h1>
-        <p>Sorry, but there's nothing here!</p>
+        <LayoutView Layout="typeof(MainLayout)">
+            <section class="empty-state" aria-labelledby="not-found-title">
+                <h1 id="not-found-title">Page not found</h1>
+                <p>The page you requested is unavailable or may have moved.</p>
+                <TelerikButton ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)" OnClick="@(() => Navigation.NavigateTo("dashboard"))">Return to dashboard</TelerikButton>
+            </section>
+        </LayoutView>
     </NotFound>
 </Router>
+
+@code {
+    [Inject] private NavigationManager Navigation { get; set; } = default!;
+}

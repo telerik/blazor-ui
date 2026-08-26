@@ -1,0 +1,66 @@
+@page "/notifications"
+
+<section class="content-page" aria-labelledby="notifications-title">
+    <header class="page-header">
+        <div>
+            <p class="page-eyebrow">Project activity</p>
+            <h1 id="notifications-title">Notifications</h1>
+            <p class="text-muted">Recent changes that need your attention.</p>
+        </div>
+        @if (notifications.Any(x => !x.IsRead))
+        {
+            <TelerikButton OnClick="@MarkAllRead">Mark all as read</TelerikButton>
+        }
+    </header>
+
+    @if (notifications.Any())
+    {
+        <ol class="notification-list" aria-label="Recent notifications">
+            @foreach (var notification in notifications)
+            {
+                <li class="notification-item @(notification.IsRead ? "" : "notification-item--unread")">
+                    <div>
+                        <strong>@notification.Title</strong>
+                        <p>@notification.Message</p>
+                    </div>
+                    <time datetime="@notification.Time.ToString("O")">@notification.Time.ToString("ddd, dd MMM · HH:mm")</time>
+                </li>
+            }
+        </ol>
+    }
+    else
+    {
+        <div class="empty-state">
+            <h2>You are all caught up</h2>
+            <p>New activity from your issues will appear here.</p>
+            <TelerikButton ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)" OnClick="@(() => Navigation.NavigateTo("issues"))">View issues</TelerikButton>
+        </div>
+    }
+</section>
+
+@code {
+    [Inject] private NavigationManager Navigation { get; set; } = default!;
+
+    private readonly List<NotificationItem> notifications =
+    [
+        new("Issue #184 was assigned to you", "Maya Patel assigned a high-severity rendering regression.", DateTime.Now.AddMinutes(-28)),
+        new("New comment on issue #177", "Andre Lewis requested an update on the filter toolbar behavior.", DateTime.Now.AddHours(-3)),
+        new("Weekly project summary is ready", "Open issues decreased by 12% compared with last week.", DateTime.Now.AddDays(-1), true)
+    ];
+
+    private void MarkAllRead()
+    {
+        foreach (var notification in notifications)
+        {
+            notification.IsRead = true;
+        }
+    }
+
+    private sealed class NotificationItem(string title, string message, DateTime time, bool isRead = false)
+    {
+        public string Title { get; } = title;
+        public string Message { get; } = message;
+        public DateTime Time { get; } = time;
+        public bool IsRead { get; set; } = isRead;
+    }
+}

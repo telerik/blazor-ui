@@ -29,9 +29,12 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-12">
 			<div class="card">
-				<h3 class="card-header">Active Issues</h3>
+				<div class="card-header dashboard__widget-header">
+					<h3>Issue overview</h3>
+					<span class="text-muted small">Updated @DateTime.Now.ToString("t")</span>
+				</div>
 				<div class="card-body">
 
 					<div class="row">
@@ -70,14 +73,14 @@
 					</div>
 
 
-					<h3 class="card-header">All issues</h3>
+					<h3 class="dashboard__section-title">Issue activity</h3>
 					<div class="all-issues">
 						<AllIssuesChart Data="@IssuesList"></AllIssuesChart>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="col-md-4">
+		<div class="col-lg-4">
 			<div class="card issue-types">
 				<h4 class="card-header">Issue Types</h4>
 				<div class="card-body">
@@ -89,7 +92,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-8">
+		<div class="col-lg-8">
 			<div class="card">
 				<h4 class="card-header">Types Distribution</h4>
 				<div class="card-body">
@@ -160,7 +163,7 @@
 
     private MarkupString GetCloseRate()
     {
-        double rate = ((double)ClosedIssues.Count() / (double)IssuesList.Count());
+        double rate = IssuesList.Any() ? (double)ClosedIssues.Count() / IssuesList.Count() : 0;
         return new MarkupString(string.Format("{0:P0}", rate));
     }
 }

@@ -20,11 +20,11 @@ namespace BlazorDashboard.Models
 		{
 			get
 			{
-				return this.ClosedOn.HasValue;
+				return !this.ClosedOn.HasValue;
 			}
 			set
 			{
-				if (!this.ClosedOn.HasValue)
+				if (!value && !this.ClosedOn.HasValue)
 				{
 					this.ClosedOn = DateTime.Now;
 				}

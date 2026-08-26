@@ -1,0 +1,70 @@
+@page "/settings"
+
+<section class="settings-page" aria-labelledby="settings-title">
+    <header class="page-header">
+        <div>
+            <p class="page-eyebrow">Account</p>
+            <h1 id="settings-title">Settings &amp; preferences</h1>
+            <p class="text-muted">Manage how the issue dashboard keeps you informed.</p>
+        </div>
+    </header>
+
+    <EditForm Model="@preferences" OnValidSubmit="@Save">
+        <DataAnnotationsValidator />
+        <div class="card settings-form">
+            <div class="card-body">
+                <h2>Notifications</h2>
+                <div class="settings-option">
+                    <InputCheckbox id="assigned-issues" @bind-Value="preferences.AssignedIssues" />
+                    <label for="assigned-issues">Notify me when an issue is assigned to me</label>
+                </div>
+                <div class="settings-option">
+                    <InputCheckbox id="weekly-summary" @bind-Value="preferences.WeeklySummary" />
+                    <label for="weekly-summary">Email a weekly issue summary</label>
+                </div>
+                <div class="settings-option">
+                    <InputCheckbox id="browser-alerts" @bind-Value="preferences.BrowserAlerts" />
+                    <label for="browser-alerts">Show browser alerts for high-severity issues</label>
+                </div>
+                <div class="form-group mt-4">
+                    <label for="default-range">Default dashboard range</label>
+                    <TelerikDropDownList Id="default-range" Data="@ranges" @bind-Value="preferences.DefaultRange" />
+                </div>
+            </div>
+            <div class="card-footer settings-actions">
+                <TelerikButton ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)" ButtonType="ButtonType.Submit">Save preferences</TelerikButton>
+                <TelerikButton OnClick="@Reset">Cancel</TelerikButton>
+            </div>
+        </div>
+    </EditForm>
+
+    @if (saved)
+    {
+        <p class="settings-saved" role="status">Settings saved.</p>
+    }
+</section>
+
+@code {
+    private readonly List<string> ranges = ["1 Month", "2 Weeks", "1 Week"];
+    private Preferences preferences = new();
+    private bool saved;
+
+    private void Save()
+    {
+        saved = true;
+    }
+
+    private void Reset()
+    {
+        preferences = new();
+        saved = false;
+    }
+
+    private sealed class Preferences
+    {
+        public bool AssignedIssues { get; set; } = true;
+        public bool WeeklySummary { get; set; } = true;
+        public bool BrowserAlerts { get; set; } = true;
+        public string DefaultRange { get; set; } = "1 Month";
+    }
+}

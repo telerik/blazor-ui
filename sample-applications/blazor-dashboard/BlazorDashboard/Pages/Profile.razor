@@ -28,7 +28,7 @@
 				<div class="card-body">
 					<div class="row">
 						<div class="col-md-3 text-xs-center">
-							<img src="@user.AvatarUrl" style="max-width: 100%" class="img-circle mx-auto" />
+							<img src="@user.AvatarUrl" alt="@($"{user.Name}'s avatar")" style="max-width: 100%" class="img-circle mx-auto" />
 						</div>
 						<div class="col-md-9">
 							<EditForm Model="@user" OnValidSubmit="@OnUpdateClick">
@@ -83,7 +83,7 @@
 						You will immediately lose access to your repositories and all other information associated with your account.
 						<strong>This cannot be undone!</strong>
 					</p>
-					<TelerikButton Class="dangerButton" OnClick="@OnDeleteClick">Delete Account</TelerikButton>
+					<TelerikButton Class="dangerButton" OnClick="@OnDeleteClick" ThemeColor="@(ThemeConstants.Button.ThemeColor.Error)">Delete Account</TelerikButton>
 				</div>
 			</div>
 		</div>
@@ -150,7 +150,7 @@
 			<p>Account deletion cannot be undone!</p>
 			<div>
 				<TelerikButton OnClick="@( () => visibleDeleteWindow = false )" Class="floatButton50">Cancel</TelerikButton>
-				<TelerikButton OnClick="@DeleteAccount" ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)" Class="floatButton50">Delete Account</TelerikButton>
+				<TelerikButton OnClick="@DeleteAccount" ThemeColor="@(ThemeConstants.Button.ThemeColor.Error)" Class="floatButton50">Delete Account</TelerikButton>
 			</div>
 		</WindowContent>
 	</TelerikWindow>
@@ -173,7 +173,7 @@
 			Id = 5746515,
 			AvatarUrl = "https://avatars1.githubusercontent.com/u/5746515?v=4",
 			Company = "Progress Software",
-			PublicEmail = "",
+			PublicEmail = "marin.bratanov@progress.com",
 			Location = "",
 			Login = "marin-bratanov",
 			Name = "Marin Bratanov",
