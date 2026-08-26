@@ -1,4 +1,4 @@
-// Default theme variables here
+@use "@progress/kendo-theme-meridian/scss/index.scss" as meridian;
 
 @import "./variables";
 @import "./typography";
@@ -12,7 +12,7 @@
 }
 
 .yellow {
-    color: #ffa600;
+    color: var(--kendo-color-warning);
 }
 
 html body {
@@ -33,15 +33,15 @@ html body {
     background-position: center center;
     vertical-align: middle;
     line-height: 32px;
-    box-shadow: inset 0 0 1px #999, inset 0 0 10px rgba(0, 0, 0, 0.2);
-    margin-left: 5px;
+    box-shadow: var(--kendo-elevation-1);
+    margin-left: var(--kendo-spacing-1);
 }
 
 .employee-name {
     display: inline-block;
     vertical-align: middle;
     line-height: 32px;
-    padding-left: 10px;
+    padding-left: var(--kendo-spacing-2\.5);
 }
 
 html, body, app {
@@ -55,7 +55,7 @@ html, body, app {
 }
 
 .k-grid-content .k-rating-container .k-rating-item .k-icon {
-    font-size: 16px;
+    font-size: var(--kendo-icon-size);
 }
 
 .k-grid-content .k-rating-container {
@@ -69,8 +69,8 @@ html, body, app {
 .card-header-wrapper {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 1rem;
-    gap: 1rem;
+    margin-bottom: var(--kendo-spacing-4);
+    gap: var(--kendo-spacing-4);
 }
 
 .card-header-wrapper .k-card-actions{
@@ -144,7 +144,7 @@ div.k-form-buttons button{
 }
 
 .info-component {
-    background-color: #151950;
+    background-color: var(--kendo-color-inverse);
     overflow: hidden;
 
     & a {
@@ -191,13 +191,13 @@ div.k-form-buttons button{
 .source-code {
     height: 60px;
     width: 60%;
-    color: #528dee;
+    color: var(--kendo-color-info);
     display: inline-flex;
     align-items: flex-start;
 
     & a {
-        color: #528dee;
-        font-size: 20px;
+        color: var(--kendo-color-info);
+        font-size: var(--kendo-font-size-lg);
         display: inline-flex;
 
         & img {
@@ -336,7 +336,7 @@ div.k-form-buttons button{
         text-align: center;
         align-items: center;
 
-        & .k-i-success {
+        & .k-svg-icon {
             font-size: 30px;
         }
     }
@@ -353,12 +353,12 @@ div.k-form-buttons button{
 .ddl-separator {
     height: 14px;
     margin: 0 4px;
-    border-left: 1px solid #424242;
+    border-left: 1px solid var(--kendo-color-border);
 }
 
 .text-content {
-    font-size: 14px;
-    line-height: 20px;
+    font-size: var(--kendo-font-size-sm);
+    line-height: var(--kendo-line-height-md);
 }
 
 span.k-dropdownlist .k-input-inner {

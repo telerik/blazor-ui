@@ -1,12 +1,9 @@
 window.themeChooser = {
-    themeVersion: "13.0.0",
+    themeVersion: "14.5.0",
     themeList: [
-        { themeValue: "default-ocean-blue", mainTheme:"default", isSwatch: true },
-        { themeValue: "default", mainTheme: "default", isSwatch: false },
-        { themeValue: "bootstrap", mainTheme: "bootrstrap", isSwatch: false },
-        { themeValue: "material", mainTheme: "material", isSwatch: false },
+        { themeValue: "meridian-main", mainTheme: "meridian", isSwatch: true },
     ],
-    defaultTheme: { themeValue: "default-ocean-blue", mainTheme: "default", isSwatch: true },
+    defaultTheme: { themeValue: "meridian-main", mainTheme: "meridian", isSwatch: true },
     getTheme: function () {
         let themeSetting = JSON.parse(window.localStorage.getItem('ThemeSetting')) || {};
         return themeSetting;
@@ -21,26 +18,17 @@ window.themeChooser = {
         this.changeTheme(theme);
     },
     changeTheme: function (theme) {
-        // Build the new css link
         let oldLink = document.getElementById("theme");
-        let cdnParts = ["https://blazor.cdn.telerik.com/blazor/", this.themeVersion, "/kendo-theme-"];
-
-        if (theme.isSwatch) {
-            cdnParts.push(`${theme.mainTheme}/swatches/${theme.themeValue}.css`);
-        } else {
-            cdnParts.push(`${theme.themeValue || this.defaultTheme}/all.css`);
-        }
-        
         let head = document.getElementsByTagName("head")[0];
         let newLink = document.createElement("link");
         newLink.setAttribute("id", "theme");
         newLink.setAttribute("rel", "stylesheet");
         newLink.setAttribute("type", "text/css");
-        newLink.setAttribute("href", cdnParts.join(""));
+        newLink.setAttribute("href", `https://blazor.cdn.telerik.com/blazor/${this.themeVersion}/kendo-theme-meridian/all.css`);
 
         // Wait for new styles to load and only then remove the only ones
         newLink.onload = () => {
-            head.querySelector("#theme").remove();
+            oldLink.remove();
 
             // Components such as the chart and the scheduler need
             // to be re-rendered in order to show the new theme colors
@@ -62,7 +50,7 @@ window.themeChooser = {
             }
         };
 
-        head.appendChild(newLink);
+        head.insertBefore(newLink, oldLink);
     },
     init: function () {
         let themeSetting = this.getTheme() || this.defaultTheme;

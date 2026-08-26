@@ -3,7 +3,7 @@
     height: auto;
 
     .k-drawer {
-        box-shadow: 0 0 10px rgba(0,0,0,.2);
+        box-shadow: var(--kendo-elevation-4);
         border-right-width: 0 !important;
     }
 }
@@ -15,7 +15,7 @@
         font-size: 1em;
         padding: 1em;
         font-weight: bold;
-        color: $info;
+        color: var(--kendo-color-info);
     }
 
     & > header {
@@ -25,7 +25,7 @@
         padding: 1em;
 
         & > img {
-            border: 2px solid $success;
+            border: 2px solid var(--kendo-color-success);
             margin: 1em;
             max-width: 96px;
         }

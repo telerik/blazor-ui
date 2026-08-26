@@ -1,54 +1,48 @@
-// Global variables here
-
-$base-theme: Default;
-$skin-name: MINTY-DASHBOARD;
-$swatch-name: Default;
-$border-radius: 2px;
-$primary: #7378d9;
-$info: #528dee;
-$success: #5abf90;
-$warning: #ffd452;
-$error: #F26666;
-$text-color: #060E40;
-$body-bg: #F2F2F2;
-$body-text: #060E40;
-$base-bg: #F2F2F2;
-$hovered-text: #060E40;
-$hovered-bg: #F2F2F2;
-$selected-text: #F2F2F2;
-$selected-bg: #528dee;
-$series-a: #F26666;
-$series-b: #ffd452;
-$series-c: #5abf90;
-$series-d: #52bdee;
-$series-e: #528dee;
-$series-f: #7378d9;
-$background-color: scale-color($primary, $saturation: -55%, $lightness: 65%);
-$checkbox-bg: #ffffff;
-$link-color: $info;
-$primary-contrast: #fff;
-$base-bg: #fff;
-
+// Brand customizations are applied to Meridian's semantic base tokens.
 $isDarkTheme: false !default;
-@if ($isDarkTheme) {
-    $text-color: #ffffff;
-    $body-bg: #2f3640;
-    $body-text: #ffffff;
-    $base-bg: #282f36;
-    $hovered-text: #ffffff;
-    $hovered-bg: #40444f;
-    $selected-text: #ffffff;
-    $selected-bg: #528dee;
-    $background-color: scale-color($primary, $saturation: -55%, $lightness: 25%);
-    $checkbox-bg: #f5f5f5;
+
+:root {
+    --kendo-color-primary: #7378d9;
+    --kendo-color-info: #528dee;
+    --kendo-color-success: #5abf90;
+    --kendo-color-warning: #ffd452;
+    --kendo-color-error: #f26666;
+    --kendo-color-app-surface: #f2f2f2;
+    --kendo-color-on-app-surface: #060e40;
+    --kendo-color-surface: #ffffff;
+    --kendo-color-series-a: #f26666;
+    --kendo-color-series-b: #ffd452;
+    --kendo-color-series-c: #5abf90;
+    --kendo-color-series-d: #52bdee;
+    --kendo-color-series-e: #528dee;
+    --kendo-color-series-f: #7378d9;
+    --kendo-font-family: "Roboto", var(--kendo-font-family-sans-serif);
+    --kendo-border-radius-base: 2px;
+    --kendo-translucency-base: 24%;
 }
 
+@if $isDarkTheme {
+    :root {
+        --kendo-color-app-surface: #2f3640;
+        --kendo-color-on-app-surface: #ffffff;
+        --kendo-color-surface: #282f36;
+    }
+}
 
-$tiger-team: $error;
-$lemon-team: $warning;
-$organic-team: $success;
-$ocean-team: $primary;
-
-$pager-number-selected-opacity: 1;
-$pager-number-selected-bg: rgba($primary, $pager-number-selected-opacity);
-$pager-number-selected-text: $body-bg;
+$primary: var(--kendo-color-primary);
+$info: var(--kendo-color-info);
+$success: var(--kendo-color-success);
+$warning: var(--kendo-color-warning);
+$error: var(--kendo-color-error);
+$text-color: var(--kendo-color-on-app-surface);
+$body-bg: var(--kendo-color-app-surface);
+$body-text: var(--kendo-color-on-app-surface);
+$base-bg: var(--kendo-color-surface);
+$hovered-text: var(--kendo-color-on-app-surface);
+$hovered-bg: var(--kendo-color-surface-alt);
+$selected-text: var(--kendo-color-on-primary);
+$selected-bg: var(--kendo-color-primary);
+$background-color: var(--kendo-color-primary-subtle);
+$checkbox-bg: var(--kendo-color-surface-alt);
+$link-color: var(--kendo-color-info);
+$primary-contrast: var(--kendo-color-on-primary);

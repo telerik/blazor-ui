@@ -35,15 +35,15 @@
         flex: 1 0 auto;
         flex-direction: column;
         align-items: flex-start;
-        margin-left: 25px;
+        margin-left: var(--kendo-spacing-6);
     }
 
     .k-avatar {
         display: block;
         width: 40px;
         height: 40px;
-        margin: 0 25px;
-        box-shadow: 0 0 0px 1px $primary-contrast;
+        margin: 0 var(--kendo-spacing-6);
+        box-shadow: var(--kendo-elevation-1);
 
         img {
             width: 40px;
@@ -60,9 +60,9 @@
         }
 
         .vl {
-            border-left: 1px solid $primary-contrast;
+            border-left: 1px solid var(--kendo-color-on-primary);
             height: 25px;
-            margin: 6px 15px;
+            margin: var(--kendo-spacing-1\.5) var(--kendo-spacing-4);
         }
     }
 }

@@ -20,14 +20,11 @@
 </TelerikDropDownList>
 
 @code {
-    string SelectedTheme = "default-ocean-blue";
+    string SelectedTheme = "meridian-main";
 
     IEnumerable<ThemeSetting> Themes => new List<ThemeSetting>
     {
-        new ThemeSetting { ThemeText = "Ocean Blue", ThemeValue = "default-ocean-blue", IsSwatch = true, MainTheme = "default" },
-        new ThemeSetting { ThemeText = "Default", ThemeValue = "default", IsSwatch = false, MainTheme = "default" },
-        new ThemeSetting { ThemeText = "Bootstrap", ThemeValue = "bootstrap", IsSwatch = false, MainTheme = "bootstrap" },
-        new ThemeSetting { ThemeText = "Material", ThemeValue = "material", IsSwatch = false, MainTheme = "material" }
+        new ThemeSetting { ThemeText = "Meridian", ThemeValue = "meridian-main", IsSwatch = true, MainTheme = "meridian" }
     };
 
     async Task HandleThemeSelected(string value)
@@ -40,6 +37,6 @@
     {
         var theme = await js.InvokeAsync<ThemeSetting>("themeChooser.getTheme");
 
-        SelectedTheme = string.IsNullOrEmpty(theme.ThemeValue) ? "default-ocean-blue" : theme.ThemeValue;
+        SelectedTheme = Themes.Any(t => t.ThemeValue == theme.ThemeValue) ? theme.ThemeValue : "meridian-main";
     }
 }
