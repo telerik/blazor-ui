@@ -245,7 +245,7 @@ div.k-form-buttons button{
     }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 767.98px) {
     .image-container {
         display: none;
     }
@@ -274,7 +274,7 @@ div.k-form-buttons button{
     }
 }
 
-@media (max-width: 1270px){
+@media (max-width: 1199.98px){
     .source-code,
     .content-container {
         width: 100%;
@@ -290,7 +290,7 @@ div.k-form-buttons button{
     }
 }
 
-@media (min-width: 800px) and (max-width: 1270px) {
+@media (min-width: 768px) and (max-width: 1199.98px) {
     .banner {
         & h1 {
             font-size: 36px;
@@ -381,4 +381,67 @@ span.k-dropdownlist .k-input-inner {
 
 .k-popup.k-grid-columnmenu-popup {
     width: 260px;
+}
+
+.app-page {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.app-page__intro {
+    color: var(--kendo-color-subtle);
+    margin: 0 0 var(--kendo-spacing-6);
+}
+
+.notification-list {
+    display: grid;
+    gap: var(--kendo-spacing-4);
+}
+
+.notification-item {
+    border: 1px solid var(--kendo-color-border);
+    border-radius: var(--kendo-border-radius-md);
+    padding: var(--kendo-spacing-4);
+}
+
+.notification-item__header {
+    align-items: baseline;
+    display: flex;
+    gap: var(--kendo-spacing-3);
+    justify-content: space-between;
+}
+
+.notification-item__time {
+    color: var(--kendo-color-subtle);
+    font-size: var(--kendo-font-size-sm);
+    white-space: nowrap;
+}
+
+.page-state {
+    padding: var(--kendo-spacing-8);
+    text-align: center;
+}
+
+.support-success,
+.not-found-page {
+    padding: var(--kendo-spacing-12) var(--kendo-spacing-6);
+    text-align: center;
+}
+
+.support-success h3,
+.not-found-page h2 {
+    margin-bottom: var(--kendo-spacing-4);
+}
+
+@media (max-width: 575.98px) {
+    .notification-item__header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: var(--kendo-spacing-1);
+    }
+
+    .app-page .k-button {
+        min-height: 44px;
+    }
 }

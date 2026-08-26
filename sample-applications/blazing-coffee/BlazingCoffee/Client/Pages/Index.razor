@@ -15,7 +15,18 @@
                 </TelerikButtonGroup>
         </div>
     </CardHeader>
-    @if (employees != null)
+    @if (IsLoading)
+    {
+        <div class="page-state" role="status">Loading employee directory...</div>
+    }
+    else if (!string.IsNullOrEmpty(LoadError))
+    {
+        <div class="page-state" role="alert">
+            <p>@LoadError</p>
+            <TelerikButton OnClick="@LoadEmployeesAsync">Try again</TelerikButton>
+        </div>
+    }
+    else if (employees.Count > 0)
     {
         <TelerikGrid Data="employees"
                  SelectionMode="GridSelectionMode.Multiple"
@@ -106,6 +117,13 @@
         </GridColumns>
     </TelerikGrid>
     }
+    else
+    {
+        <div class="page-state">
+            <p>No employees match this team filter.</p>
+            <TelerikButton OnClick="@LoadEmployeesAsync">Refresh directory</TelerikButton>
+        </div>
+    }
     </CardContainer>
 
 @code {
@@ -115,6 +133,8 @@
     public int Page { get; set; } = 1;
     public bool SingleTeamSelected { get; set; }
     public bool AllTeamsSelected { get; set; } = true;
+    private bool IsLoading { get; set; } = true;
+    private string LoadError { get; set; }
 
     protected override void OnInitialized()
     {
@@ -125,7 +145,26 @@
 
     protected override async Task OnInitializedAsync()
     {
-        employees = (await Http.GetFromJsonAsync<Employee[]>("api/employees")).ToList();
+        await LoadEmployeesAsync();
+    }
+
+    private async Task LoadEmployeesAsync()
+    {
+        IsLoading = true;
+        LoadError = null;
+
+        try
+        {
+            employees = (await Http.GetFromJsonAsync<Employee[]>("api/employees") ?? Array.Empty<Employee>()).ToList();
+        }
+        catch (HttpRequestException)
+        {
+            LoadError = "The employee directory could not be loaded. Check your connection and try again.";
+        }
+        finally
+        {
+            IsLoading = false;
+        }
     }
 
     private void OnCellRender(GridCellRenderEventArgs args)

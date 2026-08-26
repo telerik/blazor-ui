@@ -24,7 +24,18 @@
             </div>
         </div>
     </CardHeader>
-    @if (Data?.Count() > 0)
+    @if (IsLoading)
+    {
+        <div class="page-state" role="status">Loading sales report...</div>
+    }
+    else if (!string.IsNullOrEmpty(LoadError))
+    {
+        <div class="page-state" role="alert">
+            <p>@LoadError</p>
+            <TelerikButton OnClick="@GetChartData">Try again</TelerikButton>
+        </div>
+    }
+    else if (Data?.Count() > 0)
     {
         <TelerikChart Height="400px">
             <ChartLegend Position="ChartLegendPosition.Bottom" Spacing="100"  Orientation="ChartLegendOrientation.Horizontal" Background="#f4f5f8">
@@ -81,6 +92,12 @@
 
         </TelerikChart>
     }
+    else
+    {
+        <div class="page-state">
+            <p>No sales data matches the selected date range.</p>
+        </div>
+    }
     </CardContainer>
 
 @code {
@@ -92,6 +109,8 @@
 
     public bool TrendChartType { get; set; } = true;
     public bool VolumeChartType { get; set; }
+    private bool IsLoading { get; set; } = true;
+    private string LoadError { get; set; }
 
     public string GetParsedDate(object category)
     {
@@ -108,9 +127,23 @@
 
     async Task GetChartData()
     {
+        IsLoading = true;
+        LoadError = null;
         var apiBase = "api/sales/RegionalSalesByDate";
         var apiURL = $"{apiBase}/{StartValue?.ToString("s", CultureInfo.InvariantCulture)}/{EndValue?.ToString("s", CultureInfo.InvariantCulture)}";
-        Data = await Http.GetFromJsonAsync<SalesByDateViewModel[]>(apiURL);
+
+        try
+        {
+            Data = await Http.GetFromJsonAsync<SalesByDateViewModel[]>(apiURL);
+        }
+        catch (HttpRequestException)
+        {
+            LoadError = "The sales report could not be loaded. Check your connection and try again.";
+        }
+        finally
+        {
+            IsLoading = false;
+        }
     }
 
     void StartValueChangedHandler(DateTime? currStart)

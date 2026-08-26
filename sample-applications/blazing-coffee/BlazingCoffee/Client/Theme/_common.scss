@@ -54,7 +54,7 @@ a:not([href]):not([class]) {
     }
 }
 
-@media (min-width: 480px) {
+@media (min-width: 576px) {
     .dashboard-page {
         .k-grid-toolbar .k-textbox {
             margin-bottom: 0;
@@ -105,7 +105,7 @@ a:not([href]):not([class]) {
     }
 }
 
-@media (min-width: 480px) {
+@media (min-width: 576px) {
     .planning-page {
         .card-container {
             grid-template-columns: repeat(2, 1fr);
@@ -122,7 +122,7 @@ a:not([href]):not([class]) {
     }
 }
 
-@media (min-width: 960px) {
+@media (min-width: 992px) {
     .planning-page {
         .card-container {
             grid-template-columns: repeat(3, 1fr);
@@ -130,7 +130,7 @@ a:not([href]):not([class]) {
     }
 }
 
-@media (min-width: 1360px) {
+@media (min-width: 1400px) {
     .planning-page {
         .card-container {
             grid-template-columns: repeat(5, 1fr);
@@ -175,7 +175,7 @@ a:not([href]):not([class]) {
     }
 }
 
-@media (min-width: 480px) {
+@media (min-width: 576px) {
     .profile-page {
         .k-form .k-form-field {
             display: flex;
