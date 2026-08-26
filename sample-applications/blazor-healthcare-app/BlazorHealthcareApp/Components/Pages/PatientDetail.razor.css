@@ -7,16 +7,16 @@
 /* ========== BREADCRUMB ========== */
 .hc-pd-breadcrumb {
     display: flex; align-items: center; gap: 8px;
-    font-size: 14px; color: #4A5666; width: 100%;
+    font-size: 14px; color: var(--kendo-color-subtle); width: 100%;
     position: relative; z-index: 1;
 }
 .hc-pd-breadcrumb a {
-    color: #4A5666; text-decoration: none; display: flex; align-items: center; gap: 4px;
+    color: var(--kendo-color-subtle); text-decoration: none; display: flex; align-items: center; gap: 4px;
 }
-.hc-pd-breadcrumb a:hover { color: #232A36; }
+.hc-pd-breadcrumb a:hover { color: var(--kendo-color-on-app-surface); }
 .hc-pd-breadcrumb svg { width: 14px; height: 14px; }
-.hc-pd-breadcrumb-sep { color: #94A3B8; }
-.hc-pd-breadcrumb-current { color: #232A36; font-weight: 500; display: flex; align-items: center; gap: 4px; }
+.hc-pd-breadcrumb-sep { color: var(--kendo-color-subtle); }
+.hc-pd-breadcrumb-current { color: var(--kendo-color-on-app-surface); font-weight: 500; display: flex; align-items: center; gap: 4px; }
 .hc-pd-breadcrumb-current svg { width: 14px; height: 14px; }
 
 /* ========== HEADER ROW (3 cards) ========== */
@@ -25,9 +25,9 @@
     width: 100%; position: relative; z-index: 1;
 }
 .hc-pd-header-card {
-    background: #FFFFFF;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04), 0px 2px 6px -1px rgba(0, 0, 0, 0.06);
-    border-radius: 16px;
+    background: var(--kendo-color-surface-alt);
+    box-shadow: var(--kendo-elevation-1);
+    border-radius: var(--kendo-border-radius-xxl);
     padding: 20px 24px;
     display: flex; flex-direction: column; gap: 14px;
 }
@@ -36,42 +36,42 @@
 .hc-pd-profile-row { display: flex; align-items: center; gap: 14px; justify-content: space-between; }
 .hc-pd-profile-left { display: flex; align-items: center; gap: 12px; }
 .hc-pd-avatar {
-    width: 56px; height: 56px; min-width: 56px; border-radius: 9999px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    width: 56px; height: 56px; min-width: 56px; border-radius: var(--kendo-border-radius-full);
+    background: linear-gradient(135deg, var(--kendo-color-secondary) 0%, var(--kendo-color-tertiary) 100%);
     display: flex; align-items: center; justify-content: center;
-    color: #FFFFFF; font-weight: 600; font-size: 20px;
+    color: var(--kendo-color-surface-alt); font-weight: 600; font-size: 20px;
     overflow: hidden; flex-shrink: 0;
 }
 .hc-pd-profile-info { display: flex; flex-direction: column; gap: 3px; }
-.hc-pd-name { font-weight: 600; font-size: 18px; color: #232A36; line-height: 130%; }
+.hc-pd-name { font-weight: 600; font-size: 18px; color: var(--kendo-color-on-app-surface); line-height: 130%; }
 
 
-.hc-pd-basic-title { font-weight: 700; font-size: 14px; color: #232A36; margin: 0; }
+.hc-pd-basic-title { font-weight: 700; font-size: 14px; color: var(--kendo-color-on-app-surface); margin: 0; }
 .hc-pd-basic-grid { display: flex; flex-direction: column; gap: 6px; }
 .hc-pd-basic-row { display: flex; justify-content: space-between; align-items: center; }
-.hc-pd-basic-label { font-size: 14px; color: #4A5666; }
-.hc-pd-basic-value { font-size: 14px; color: #232A36; font-weight: 500; }
+.hc-pd-basic-label { font-size: 14px; color: var(--kendo-color-subtle); }
+.hc-pd-basic-value { font-size: 14px; color: var(--kendo-color-on-app-surface); font-weight: 500; }
 
 /* Vitals header card */
-.hc-pd-vitals-title { font-weight: 700; font-size: 14px; color: #232A36; margin: 0; }
+.hc-pd-vitals-title { font-weight: 700; font-size: 14px; color: var(--kendo-color-on-app-surface); margin: 0; }
 .hc-pd-vitals-grid { display: flex; flex-direction: column; gap: 6px; }
 .hc-pd-vitals-row { display: flex; justify-content: space-between; align-items: center; }
-.hc-pd-vitals-label { font-size: 13px; color: #4A5666; }
-.hc-pd-vitals-value { font-size: 13px; font-weight: 500; color: #232A36; }
-.hc-pd-vitals-value-critical { color: #E53E3E; }
+.hc-pd-vitals-label { font-size: 13px; color: var(--kendo-color-subtle); }
+.hc-pd-vitals-value { font-size: 13px; font-weight: 500; color: var(--kendo-color-on-app-surface); }
+.hc-pd-vitals-value-critical { color: var(--kendo-color-error); }
 
 /* Admission card */
-.hc-pd-admission-title { font-weight: 700; font-size: 14px; color: #232A36; margin: 0; }
+.hc-pd-admission-title { font-weight: 700; font-size: 14px; color: var(--kendo-color-on-app-surface); margin: 0; }
 .hc-pd-admission-grid { display: flex; flex-direction: column; gap: 6px; }
 .hc-pd-admission-row { display: flex; justify-content: space-between; align-items: center; }
-.hc-pd-admission-label { font-size: 13px; color: #4A5666; }
-.hc-pd-admission-value { font-size: 13px; color: #232A36; font-weight: 500; }
+.hc-pd-admission-label { font-size: 13px; color: var(--kendo-color-subtle); }
+.hc-pd-admission-value { font-size: 13px; color: var(--kendo-color-on-app-surface); font-weight: 500; }
 
 /* ========== CARDS ========== */
 .hc-pd-card {
-    background: #FFFFFF;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04), 0px 2px 6px -1px rgba(0, 0, 0, 0.06);
-    border-radius: 16px;
+    background: var(--kendo-color-surface-alt);
+    box-shadow: var(--kendo-elevation-1);
+    border-radius: var(--kendo-border-radius-xxl);
     padding: 24px;
     position: relative; z-index: 1;
     width: 100%;
@@ -80,34 +80,34 @@
     display: flex; justify-content: space-between; align-items: center;
     margin-bottom: 16px;
 }
-.hc-pd-card-title { font-weight: 700; font-size: 18px; color: #232A36; margin: 0; }
+.hc-pd-card-title { font-weight: 700; font-size: 18px; color: var(--kendo-color-on-app-surface); margin: 0; }
 
 .hc-pd-save-btn {
     display: inline-flex; align-items: center; gap: 6px;
     padding: 8px 16px;
-    background: #F3F5F7; border: 1px solid rgba(23, 56, 99, 0.08);
-    border-radius: 9999px; cursor: pointer;
-    font-family: 'Poppins', sans-serif;
-    font-size: 13px; color: #232A36; white-space: nowrap;
+    background: var(--kendo-color-base); border: 1px solid rgba(23, 56, 99, 0.08);
+    border-radius: var(--kendo-border-radius-full); cursor: pointer;
+    font-family: var(--kendo-font-family);
+    font-size: 13px; color: var(--kendo-color-on-app-surface); white-space: nowrap;
 }
-.hc-pd-save-btn:hover { background: #E2E8F0; }
+.hc-pd-save-btn:hover { background: var(--kendo-color-base-hover); }
 .hc-pd-save-btn svg { width: 14px; height: 14px; }
 
 /* ========== EDITOR OVERRIDES ========== */
 .hc-pd-page .hc-pd-editor-wrapper ::deep .k-editor {
     border: 1px solid rgba(23, 56, 99, 0.08);
-    border-radius: 16px;
-    font-family: 'Poppins', sans-serif;
+    border-radius: var(--kendo-border-radius-xxl);
+    font-family: var(--kendo-font-family);
     overflow: hidden;
 }
 .hc-pd-page .hc-pd-editor-wrapper ::deep .k-editor .k-editor-toolbar {
-    background: #F9FAFB;
+    background: var(--kendo-color-surface);
     border-bottom: 1px solid rgba(23, 56, 99, 0.08);
     padding: 8px 12px;
 }
 .hc-pd-page .hc-pd-editor-wrapper ::deep .k-editor .k-editable-area {
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px; color: #232A36;
+    font-family: var(--kendo-font-family);
+    font-size: 14px; color: var(--kendo-color-on-app-surface);
     line-height: 170%;
 }
 
@@ -116,16 +116,16 @@
 /* ========== LAB RESULTS GRID ========== */
 .hc-pd-page .hc-pd-lab-grid ::deep .k-grid {
     border: 1px solid rgba(23, 56, 99, 0.08);
-    border-radius: 16px;
-    font-family: 'Poppins', sans-serif;
+    border-radius: var(--kendo-border-radius-xxl);
+    font-family: var(--kendo-font-family);
     overflow: hidden;
 }
 .hc-pd-page .hc-pd-lab-grid ::deep .k-grid-header .k-header,
 .hc-pd-page .hc-pd-lab-grid ::deep .k-grid-header .k-table-th {
-    background: #F9FAFB !important;
+    background: var(--kendo-color-surface) !important;
     border-bottom: 1px solid rgba(23, 56, 99, 0.08);
     border-right: none;
-    font-weight: 700; font-size: 13px; color: #232A36;
+    font-weight: 700; font-size: 13px; color: var(--kendo-color-on-app-surface);
     padding: 12px 16px;
 }
 .hc-pd-page .hc-pd-lab-grid ::deep .k-grid-header {
@@ -134,7 +134,7 @@
 .hc-pd-page .hc-pd-lab-grid ::deep .k-grid td,
 .hc-pd-page .hc-pd-lab-grid ::deep .k-grid .k-table-td {
     padding: 10px 16px !important;
-    font-size: 14px; color: #232A36;
+    font-size: 14px; color: var(--kendo-color-on-app-surface);
     border-bottom: 1px solid rgba(23, 56, 99, 0.04);
     border-right: none;
     vertical-align: middle;

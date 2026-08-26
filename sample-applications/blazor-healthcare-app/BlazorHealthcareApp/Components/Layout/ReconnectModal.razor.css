@@ -27,14 +27,14 @@
     padding: 2rem;
     border: 0;
     border-radius: 0.5rem;
-    box-shadow: 0 3px 6px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--kendo-elevation-5);
     opacity: 0;
-    transition: display 0.5s allow-discrete, overlay 0.5s allow-discrete;
-    animation: components-reconnect-modal-fadeOutOpacity 0.5s both;
+    transition: display var(--kendo-duration-moderate) var(--kendo-easing-standard) allow-discrete, overlay var(--kendo-duration-moderate) var(--kendo-easing-standard) allow-discrete;
+    animation: components-reconnect-modal-fadeOutOpacity var(--kendo-duration-moderate) both;
     &[open]
 
 {
-    animation: components-reconnect-modal-slideUp 1.5s cubic-bezier(.05, .89, .25, 1.02) 0.3s, components-reconnect-modal-fadeInOpacity 0.5s ease-in-out 0.3s;
+    animation: components-reconnect-modal-slideUp var(--kendo-duration-leisurely) var(--kendo-easing-stretchy) var(--kendo-duration-speedy), components-reconnect-modal-fadeInOpacity var(--kendo-duration-moderate) var(--kendo-easing-standard) var(--kendo-duration-speedy);
     animation-fill-mode: both;
 }
 
@@ -42,7 +42,7 @@
 
 #components-reconnect-modal::backdrop {
     background-color: rgba(0, 0, 0, 0.4);
-    animation: components-reconnect-modal-fadeInOpacity 0.5s ease-in-out;
+    animation: components-reconnect-modal-fadeInOpacity var(--kendo-duration-moderate) var(--kendo-easing-standard);
     opacity: 1;
 }
 
@@ -93,7 +93,7 @@
     background-color: #6b9ed2;
     color: white;
     padding: 4px 24px;
-    border-radius: 4px;
+    border-radius: var(--kendo-border-radius-sm);
 }
 
     #components-reconnect-modal button:hover {

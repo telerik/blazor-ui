@@ -6,36 +6,36 @@
 .hc-heading-text { display: flex; flex-direction: column; gap: 8px; }
 .hc-heading h1 {
     font-weight: 600; font-size: 42px; line-height: 120%;
-    color: #232A36; margin: 0;
+    color: var(--kendo-color-on-app-surface); margin: 0;
 }
 .hc-heading p {
     font-weight: 400; font-size: 16px; line-height: 150%;
-    color: #4A5666; margin: 0;
+    color: var(--kendo-color-subtle); margin: 0;
 }
 .hc-heading-actions { display: flex; gap: 12px; align-items: center; flex-shrink: 0; }
 
 .hc-btn-primary {
     display: inline-flex; align-items: center; gap: 6px;
     padding: 10px 20px;
-    background: #334155; border: 1px solid #334155;
-    border-radius: 9999px; color: #FFFFFF;
-    font-family: 'Poppins', sans-serif;
+    background: var(--kendo-color-primary); border: 1px solid var(--kendo-color-primary);
+    border-radius: var(--kendo-border-radius-full); color: var(--kendo-color-surface-alt);
+    font-family: var(--kendo-font-family);
     font-size: 16px; font-weight: 400; line-height: 150%;
     cursor: pointer; white-space: nowrap;
 }
-.hc-btn-primary:hover { background: #1e293b; }
+.hc-btn-primary:hover { background: var(--kendo-color-primary-hover); }
 .hc-btn-primary svg { width: 16px; height: 16px; }
 
 .hc-btn-secondary {
     display: inline-flex; align-items: center; gap: 6px;
     padding: 10px 20px;
-    background: #F3F5F7; border: 1px solid rgba(23, 56, 99, 0.08);
-    border-radius: 9999px; color: #232A36;
-    font-family: 'Poppins', sans-serif;
+    background: var(--kendo-color-base); border: 1px solid rgba(23, 56, 99, 0.08);
+    border-radius: var(--kendo-border-radius-full); color: var(--kendo-color-on-app-surface);
+    font-family: var(--kendo-font-family);
     font-size: 16px; font-weight: 400; line-height: 150%;
     cursor: pointer; white-space: nowrap;
 }
-.hc-btn-secondary:hover { background: #E2E8F0; }
+.hc-btn-secondary:hover { background: var(--kendo-color-base-hover); }
 .hc-btn-secondary svg { width: 16px; height: 16px; }
 
 /* ========== MAIN CONTENT ========== */
@@ -47,9 +47,9 @@
 /* ========== GRID CARD ========== */
 .hc-grid-card {
     flex: 1; min-width: 0;
-    background: #FFFFFF;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04), 0px 2px 6px -1px rgba(0, 0, 0, 0.06);
-    border-radius: 16px;
+    background: var(--kendo-color-surface-alt);
+    box-shadow: var(--kendo-elevation-1);
+    border-radius: var(--kendo-border-radius-xxl);
     border: 1px solid rgba(23, 56, 99, 0.08);
     overflow: hidden;
     position: relative; z-index: 1;
@@ -57,14 +57,14 @@
 
 /* ========== GRID OVERRIDES ========== */
 .hc-grid-card ::deep .k-grid {
-    border: none; font-family: 'Poppins', sans-serif;
+    border: none; font-family: var(--kendo-font-family);
 }
 .hc-grid-card ::deep .k-grid-header .k-header,
 .hc-grid-card ::deep .k-grid-header .k-table-th {
-    background: #F9FAFB !important;
+    background: var(--kendo-color-surface) !important;
     border-bottom: 1px solid rgba(23, 56, 99, 0.08);
     border-right: none;
-    font-weight: 700; font-size: 14px; color: #232A36;
+    font-weight: 700; font-size: 14px; color: var(--kendo-color-on-app-surface);
     padding: 14px 16px;
     white-space: nowrap;
 }
@@ -73,7 +73,7 @@
 }
 .hc-grid-card ::deep .k-filter-row,
 .hc-grid-card ::deep .k-filter-row .k-table-th {
-    background: #F9FAFB !important;
+    background: var(--kendo-color-surface) !important;
     border-bottom: 1px solid rgba(23, 56, 99, 0.08);
     border-right: none;
     padding: 8px 16px;
@@ -84,20 +84,20 @@
     align-items: center;
 }
 .hc-grid-card ::deep .k-filter-row input.k-input-inner {
-    font-family: 'Poppins', sans-serif;
-    color: #232A36;
+    font-family: var(--kendo-font-family);
+    color: var(--kendo-color-on-app-surface);
 }
 .hc-grid-card ::deep .k-grid td,
 .hc-grid-card ::deep .k-grid .k-table-td {
     padding: 8px 16px !important;
-    font-size: 14px; color: #232A36;
+    font-size: 14px; color: var(--kendo-color-on-app-surface);
     border-right: none;
     vertical-align: middle;
 }
 .hc-grid-card ::deep .k-master-row { height: 48px; }
 .hc-grid-card ::deep .k-master-row:nth-child(odd) td,
 .hc-grid-card ::deep .k-master-row:nth-child(odd) .k-table-td {
-    background: #FFFFFF;
+    background: var(--kendo-color-surface-alt);
 }
 .hc-grid-card ::deep .k-master-row:hover td,
 .hc-grid-card ::deep .k-master-row:hover .k-table-td {
@@ -114,16 +114,16 @@
 
 .hc-grid-card ::deep .k-grid .k-pager {
     border-top: 1px solid rgba(23, 56, 99, 0.08);
-    background: #FFFFFF;
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px; color: #4A5666;
+    background: var(--kendo-color-surface-alt);
+    font-family: var(--kendo-font-family);
+    font-size: 14px; color: var(--kendo-color-subtle);
     padding: 8px 16px;
 }
 .hc-grid-card ::deep .k-pager .k-pager-numbers .k-button {
-    color: #232A36;
+    color: var(--kendo-color-on-app-surface);
 }
 .hc-grid-card ::deep .k-pager .k-pager-numbers .k-button.k-selected {
-    background: #334155 !important; color: #FFFFFF !important; border-color: #334155 !important;
+    background: var(--kendo-color-primary) !important; color: var(--kendo-color-surface-alt) !important; border-color: var(--kendo-color-primary) !important;
 }
 .hc-grid-card ::deep .k-grid-container .k-selected td,
 .hc-grid-card ::deep .k-grid-container .k-selected .k-table-td {
@@ -133,42 +133,42 @@
 /* ========== PATIENT NAME CELL ========== */
 .hc-patient-cell { display: flex; align-items: center; gap: 10px; }
 .hc-avatar-sm {
-    width: 32px; height: 32px; min-width: 32px; border-radius: 9999px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    width: 32px; height: 32px; min-width: 32px; border-radius: var(--kendo-border-radius-full);
+    background: linear-gradient(135deg, var(--kendo-color-secondary) 0%, var(--kendo-color-tertiary) 100%);
     display: flex; align-items: center; justify-content: center;
-    color: #FFFFFF; font-weight: 600; font-size: 12px;
+    color: var(--kendo-color-surface-alt); font-weight: 600; font-size: 12px;
     overflow: hidden;
 }
-.hc-patient-cell-name { font-weight: 400; font-size: 14px; color: #232A36; white-space: nowrap; }
+.hc-patient-cell-name { font-weight: 400; font-size: 14px; color: var(--kendo-color-on-app-surface); white-space: nowrap; }
 
 /* ========== STATUS CHIPS ========== */
 .hc-chip {
     display: inline-flex; align-items: center; justify-content: center;
-    padding: 4px 12px; border-radius: 9999px;
+    padding: 4px 12px; border-radius: var(--kendo-border-radius-full);
     font-size: 12px; font-weight: 500; line-height: 133%; white-space: nowrap;
     border: 1px solid;
 }
-.hc-chip-critical { background: #FCDDDA; border-color: #F76F60; color: #7A0C00; }
-.hc-chip-monitoring { background: #FFF4D3; border-color: #FFD760; color: #5E4700; }
-.hc-chip-stable { background: #DCF0D3; border-color: #81D15F; color: #1C5A00; }
+.hc-chip-critical { background: var(--kendo-color-error-subtle); border-color: var(--kendo-color-error-emphasis); color: var(--kendo-color-error-on-subtle); }
+.hc-chip-monitoring { background: var(--kendo-color-warning-subtle); border-color: var(--kendo-color-warning-emphasis); color: var(--kendo-color-warning-on-subtle); }
+.hc-chip-stable { background: var(--kendo-color-success-subtle); border-color: var(--kendo-color-success-emphasis); color: var(--kendo-color-success-on-subtle); }
 
 /* ========== VIEW PROFILE BUTTON ========== */
 .hc-view-btn {
     display: inline-flex; align-items: center; gap: 4px;
     padding: 6px 14px;
-    background: #F3F5F7; border: 1px solid rgba(23, 56, 99, 0.08);
-    border-radius: 9999px; cursor: pointer;
-    font-family: 'Poppins', sans-serif;
-    font-size: 13px; color: #232A36; white-space: nowrap;
+    background: var(--kendo-color-base); border: 1px solid rgba(23, 56, 99, 0.08);
+    border-radius: var(--kendo-border-radius-full); cursor: pointer;
+    font-family: var(--kendo-font-family);
+    font-size: 13px; color: var(--kendo-color-on-app-surface); white-space: nowrap;
 }
-.hc-view-btn:hover { background: #E2E8F0; }
+.hc-view-btn:hover { background: var(--kendo-color-base-hover); }
 .hc-view-btn svg { width: 14px; height: 14px; }
 
 /* Active AI button state */
 .hc-btn-ai-active {
-    background: linear-gradient(135deg, #AC58FF 0%, #4B5FFA 100%) !important;
+    background: linear-gradient(135deg, var(--kendo-color-tertiary) 0%, var(--kendo-color-secondary) 100%) !important;
     border-color: transparent !important;
-    color: #FFFFFF !important;
+    color: var(--kendo-color-surface-alt) !important;
 }
 
 /* ========== RESPONSIVE ========== */
@@ -177,11 +177,11 @@
     .hc-patients-main ::deep .hc-ai-panel {
         width: 100% !important; max-width: 100% !important; min-width: 0 !important;
         margin-left: 0 !important; margin-top: 0 !important; margin-bottom: 16px !important;
-        border-radius: 16px;
+        border-radius: var(--kendo-border-radius-xxl);
         max-height: 500px;
         order: -1 !important;
     }
-    .hc-grid-card { border-radius: 16px; }
+    .hc-grid-card { border-radius: var(--kendo-border-radius-xxl); }
 }
 
 @media (max-width: 960px) {
