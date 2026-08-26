@@ -39,7 +39,7 @@
                               CloseField="@( nameof(StockIntervalDetails.Close) )"
                               HighField="@( nameof(StockIntervalDetails.High) )"
                               LowField="@( nameof(StockIntervalDetails.Low) )"
-                              DownColor="#FF6358"
+                              DownColor="var(--kendo-color-error)"
                               Color="@GetSeriesColor(MainChartType)">
             </StockChartSeries>
             <StockChartSeries Type="@StockChartSeriesType.Column" Data="@ChartData"
@@ -92,7 +92,7 @@ else
                          Field="@( nameof(StockIntervalDetails.Close) )"
                          CategoryField="@( nameof(StockIntervalDetails.Date) )"
                          Style="@ChartSeriesStyle.Smooth"
-                         Color="@( MainChartType == ChartSeriesType.Line ? "#2D73F5" : "#007BFF" )">
+                         Color="var(--kendo-color-secondary)">
                 <ChartSeriesLine Style="@ChartSeriesLineStyle.Smooth" />
             </ChartSeries>
             @if (MainChartType == ChartSeriesType.Line)
@@ -221,14 +221,14 @@ else
         switch (chartType)
         {
             case ChartSeriesType.Candlestick:
-                return "#5CB85C";
+                return "var(--kendo-color-success)";
             case ChartSeriesType.Area:
             case ChartSeriesType.Line:
-                return "#007BFF";
+                return "var(--kendo-color-secondary)";
             default:
                 break;
         }
-        return "#007BFF";
+        return "var(--kendo-color-secondary)";
     }
 
     DateTime GetNavigatorStart()
