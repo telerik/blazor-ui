@@ -10,7 +10,7 @@
 @using System.Threading
 
 <div class="dashboard">
-	<div class="mb-4 k-hstack">
+	<div class="dashboard__header">
 		<div>
 			<h2>
 				<span class="small text-uppercase text-muted d-block">Statistics</span>
@@ -18,7 +18,7 @@
 				- @DateTime.Now.ToString("ddd, dd MMM yyyy")
 			</h2>
 		</div>
-		<div class="k-spacer"></div>
+		<div class="dashboard__header-spacer"></div>
 		<div>
 			<TelerikDropDownList Width="300px" Data="@DateFilterData" TextField="Text" ValueField="Value" @bind-Value="@timeRange"
                                  OnChange="@LoadIssuesData">
@@ -41,7 +41,7 @@
 								<strong>@IssuesList.Count()</strong>
 								<small>Active issues</small>
 							</span>
-							<IssuesBreakDownCharts ChartData="@IssuesList" SeriesColor="#888"></IssuesBreakDownCharts>
+							<IssuesBreakDownCharts ChartData="@IssuesList" SeriesColor="var(--kendo-color-subtle)"></IssuesBreakDownCharts>
 						</div>
 
 						<div class="col-sm-12 col-md-6 col-lg text-success closed-issues">
@@ -49,7 +49,7 @@
 								<strong>@ClosedIssues.Count()</strong>
 								<small>Closed issues</small>
 							</span>
-							<IssuesBreakDownCharts ChartData="@ClosedIssues" SeriesColor="#27c46d"></IssuesBreakDownCharts>
+							<IssuesBreakDownCharts ChartData="@ClosedIssues" SeriesColor="var(--kendo-color-success)"></IssuesBreakDownCharts>
 						</div>
 
 						<div class="col-sm-12 col-md-6 col-lg text-danger open-issues">
@@ -57,7 +57,7 @@
 								<strong>@OpenIssues.Count()</strong>
 								<small>Open issues</small>
 							</span>
-							<IssuesBreakDownCharts ChartData="@OpenIssues" SeriesColor="#CF3268"></IssuesBreakDownCharts>
+							<IssuesBreakDownCharts ChartData="@OpenIssues" SeriesColor="var(--kendo-color-error)"></IssuesBreakDownCharts>
 						</div>
 
 						<div class="col-sm-12 col-md-6 col-lg close-rate">

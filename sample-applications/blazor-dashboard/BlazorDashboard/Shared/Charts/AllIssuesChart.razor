@@ -3,11 +3,11 @@
 
 	<TelerikChart>
 		<ChartSeriesItems>
-			<ChartSeries Type="ChartSeriesType.Column" Name="Closed Issues" Data="@(Data.Where(x => x.IsOpen == false))" Color="#27c46d" Gap="0.6"
+			<ChartSeries Type="ChartSeriesType.Column" Name="Closed Issues" Data="@(Data.Where(x => x.IsOpen == false))" Color="var(--kendo-color-success)" Gap="0.6"
 								Field="@nameof(Issue.Id)" Aggregate="@ChartSeriesAggregate.Count" CategoryField="@nameof(Issue.CreatedOn)">
 				<ChartSeriesStack Enabled="true" />
 			</ChartSeries>
-			<ChartSeries Type="ChartSeriesType.Column" Name="Open Issues" Data="@(Data.Where(x => x.IsOpen == true))" Color="#CF3268"
+			<ChartSeries Type="ChartSeriesType.Column" Name="Open Issues" Data="@(Data.Where(x => x.IsOpen == true))" Color="var(--kendo-color-error)"
 								Field="@nameof(Issue.Id)" Aggregate="@ChartSeriesAggregate.Count" CategoryField="@nameof(Issue.CreatedOn)">
 			</ChartSeries>
 		</ChartSeriesItems>

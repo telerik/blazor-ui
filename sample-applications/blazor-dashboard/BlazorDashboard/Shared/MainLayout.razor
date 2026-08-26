@@ -7,9 +7,9 @@
 		@if (IsNavAllowed())
 		{
 			<div id="nav"
-				 class="col-xs-3 bg-dark text-white py-5 k-vstack @( expandNavMenu ? "expand" : "" )">
+				 class="col-xs-3 bg-dark text-white py-5 @( expandNavMenu ? "expand" : "" )">
 				<span id="nav-toggle" class="nav-toggle d-md-none" @onclick="@ToggleNavMenu">
-					<span class="k-icon k-i-hamburger"></span>
+					<TelerikSvgIcon Icon="@SvgIcon.Menu" />
 				</span>
 				<h1 id="app-title">Blazor UI</h1>
 				<p id="app-subtitle">Sample Dashboard</p>

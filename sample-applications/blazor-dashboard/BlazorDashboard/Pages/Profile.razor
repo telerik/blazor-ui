@@ -5,7 +5,7 @@
 
 @if (user != null)
 {
-	<div class="k-hstack">
+	<div class="profile__header">
 		<div>
 			<h2>
 				<span class="small text-uppercase text-muted d-block">Account</span>
@@ -13,7 +13,7 @@
 				- @user.Name
 			</h2>
 		</div>
-		<div class="k-spacer">
+		<div class="profile__header-spacer">
 		</div>
 		<div>
 			<TelerikButton OnClick="@OnSignOutClick">Sign out</TelerikButton>

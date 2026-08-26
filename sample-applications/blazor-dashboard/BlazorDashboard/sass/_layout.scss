@@ -1,30 +1,3 @@
-﻿// Common
-.k-hbox,
-.k-vbox {
-    display: flex;
-}
-
-.k-ihbox,
-.k-ivbox {
-    display: inline-flex;
-}
-
-.k-hbox,
-.k-ihbox {
-    flex-direction: row;
-}
-
-.k-vbox,
-.k-ivbox {
-    flex-direction: column;
-}
-
-.k-flex,
-.k-spacer {
-    flex: 1;
-}
-
-
 // Undo
 .k-widget .row,
 .k-widget [class^="col-"] {
@@ -66,10 +39,12 @@ kendo-tabstrip {
 
 // Nav
 #nav {
-    padding-left: $grid-gutter-width * 1.5;
-    padding-right: $grid-gutter-width * 1.5;
+    padding-left: var(--kendo-spacing-7\.5);
+    padding-right: var(--kendo-spacing-7\.5);
     width: 320px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
     flex-basis: auto;
     flex-grow: 0;
     position: relative;
@@ -82,8 +57,8 @@ kendo-tabstrip {
 
     #app-title::after {
         content: "";
-        width: $spacer * 1.5;
-        border-bottom: 2px solid $primary;
+        width: var(--kendo-spacing-6);
+        border-bottom: 2px solid var(--kendo-color-primary);
         position: absolute;
         left: 0;
         top: $font-size-h1 + $font-size-h2 + ( $spacer * 1.5 );
@@ -96,21 +71,21 @@ kendo-tabstrip {
     }
 
     .h4 {
-        font-size: $font-size-xs;
-        font-weight: 400;
+        font-size: var(--kendo-font-size-xs);
+        font-weight: var(--kendo-font-weight-normal);
         text-transform: uppercase;
         opacity: .3;
     }
 
     .nav-pills {
-        margin-left: -( $grid-gutter-width * 1.5 );
-        margin-right: -( $grid-gutter-width * 1.5 );
-        font-size: 1.125rem;
+        margin-left: calc(-1 * var(--kendo-spacing-7\.5));
+        margin-right: calc(-1 * var(--kendo-spacing-7\.5));
+        font-size: var(--kendo-font-size-lg);
     }
 
     .nav-pills .nav-link {
-        padding-left: $grid-gutter-width * 1.5;
-        padding-right: $grid-gutter-width * 1.5;
+        padding-left: var(--kendo-spacing-7\.5);
+        padding-right: var(--kendo-spacing-7\.5);
     }
 
     .nav-pills .nav-link:not(.active) {
@@ -120,27 +95,27 @@ kendo-tabstrip {
 
 #app-title {
     margin: 0;
-    font-weight: normal;
+    font-weight: var(--kendo-font-weight-normal);
     text-transform: uppercase;
 }
 
 #app-subtitle {
     margin: 0;
-    font-size: $font-size-xs;
-    font-weight: 100;
+    font-size: var(--kendo-font-size-xs);
+    font-weight: var(--kendo-font-weight-thin);
     text-transform: uppercase;
     opacity: .75;
 }
 
 #copy {
-    color: #9195a2;
-    font-size: $font-size-sm;
+    color: var(--kendo-color-subtle);
+    font-size: var(--kendo-font-size-sm);
     position: relative;
 }
 
 #copy::after {
     content: "";
-    width: $spacer * 1.5;
+    width: var(--kendo-spacing-6);
     border-top: 2px solid;
     position: absolute;
     left: 0;
@@ -148,9 +123,9 @@ kendo-tabstrip {
 }
 
 .top-bar {
-    padding: .25em;
-    font-size: 32px;
-    line-height: 1;
+    padding: var(--kendo-spacing-1);
+    font-size: calc(var(--kendo-icon-size) * 2);
+    line-height: var(--kendo-line-height-xs);
 
     &:before {
         content: ".";
@@ -159,9 +134,9 @@ kendo-tabstrip {
 }
 
 .nav-toggle {
-    padding: .25em;
+    padding: var(--kendo-spacing-1);
     background: inherit;
-    font-size: 32px;
+    font-size: calc(var(--kendo-icon-size) * 2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -183,7 +158,7 @@ kendo-tabstrip {
         top: 0;
         left: 0;
         bottom: 0;
-        box-shadow: 0 $spacer $spacer rgba( $dark, .5 );
+        box-shadow: var(--kendo-elevation-4);
     }
 
     #nav.expand {
@@ -216,7 +191,7 @@ main {
 
 
     .card {
-        margin-top: $spacer * 1.5;
+        margin-top: var(--kendo-spacing-6);
     }
 
     .card-block {
@@ -253,12 +228,12 @@ main {
         strong {
             font-size: 4em;
             line-height: 1;
-            font-weight: 100;
+            font-weight: var(--kendo-font-weight-thin);
             display: block;
         }
 
         small {
-            font-size: .875em;
+            font-size: var(--kendo-font-size-sm);
             text-transform: uppercase;
             display: block;
         }
@@ -271,7 +246,7 @@ main {
 
     .close-rate {
         .k-chart {
-            padding-top: 6px;
+            padding-top: var(--kendo-spacing-1\.5);
         }
     }
 
@@ -304,8 +279,8 @@ main {
 
 
     .badge {
-        margin-right: .5em;
-        color: $white;
+        margin-right: var(--kendo-spacing-2);
+        color: var(--kendo-color-on-primary);
     }
 
     img {
@@ -315,8 +290,8 @@ main {
     .issue-status {
         display: inline-block;
         vertical-align: middle;
-        width: 16px;
-        height: 16px;
+        width: var(--kendo-icon-size);
+        height: var(--kendo-icon-size);
     }
 
     .issue-open {
@@ -339,8 +314,8 @@ main {
     width: 100vw;
     height: 100vh;
     box-sizing: border-box;
-    color: #ffffff;
-    background-color: #111111;
+    color: var(--kendo-color-on-inverse);
+    background-color: var(--kendo-color-inverse);
     background-image: url( "../assets/login-left-bg.png" ), url( "../assets/login-right-bg.png" );
     background-position: left center, right bottom;
     background-repeat: no-repeat;
@@ -365,12 +340,15 @@ main {
 
 /*other styles*/
 .container {
-    margin: 40px;
+    margin: var(--kendo-spacing-10);
 }
 
 html, body {
     height: 100%;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--kendo-font-family);
+    font-size: var(--kendo-font-size);
+    color: var(--kendo-color-on-app-surface);
+    background-color: var(--kendo-color-app-surface);
 }
 
 body {
@@ -378,7 +356,7 @@ body {
 }
 
 span.active {
-    background-color: gray;
+    background-color: var(--kendo-color-base-emphasis);
 }
 
 .col-xs {
@@ -391,19 +369,20 @@ span.active {
     flex: 0 0 100%;
 }
 
-.nav-toggle .k-i-hamburger {
-    font-size: 32px;
+.nav-toggle .k-svg-icon {
+    width: calc(var(--kendo-icon-size) * 2);
+    height: calc(var(--kendo-icon-size) * 2);
 }
 
 .k-textbox-container label {
-    font-size: 18px;
-    line-height: 18px;
-    font-weight: 500;
+    font-size: var(--kendo-font-size-lg);
+    line-height: var(--kendo-line-height-sm);
+    font-weight: var(--kendo-font-weight-medium);
 }
 
 .form-group .k-textbox-container {
     width: 100%;
-    padding-top: 28px;
+    padding-top: var(--kendo-spacing-7);
 }
 
 .k-state-empty:not(.k-state-focused) label {
@@ -412,7 +391,7 @@ span.active {
 }
 
 .validation-message {
-    color: $red;
+    color: var(--kendo-color-error);
 }
 
 .floatButton50 {
@@ -421,12 +400,12 @@ span.active {
 }
 
 button.k-button.dangerButton {
-    background-color: $red;
-    border-color: $red;
+    background-color: var(--kendo-color-error);
+    border-color: var(--kendo-color-error);
 }
 
 .h2, .h3, .h4, .h5, h2, h3, h4, h5  {
-    font-size: 1.25rem;
+    font-size: var(--kendo-font-size-xl);
 }
 
 .active-issues,
@@ -446,8 +425,21 @@ button.k-button.dangerButton {
 
 span.comp-label {
     strong, small {
-        padding-left: 1rem;
+        padding-left: var(--kendo-spacing-4);
     }
+}
+
+.dashboard__header,
+.profile__header {
+    display: flex;
+    align-items: center;
+    gap: var(--kendo-spacing-4);
+    margin-bottom: var(--kendo-spacing-4);
+}
+
+.dashboard__header-spacer,
+.profile__header-spacer {
+    flex: 1;
 }
 
 .col-sm.text-sm-right .k-dropdownlist .k-input-inner {
