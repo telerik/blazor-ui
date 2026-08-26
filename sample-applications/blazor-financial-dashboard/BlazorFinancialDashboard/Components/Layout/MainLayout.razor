@@ -5,7 +5,7 @@
 @inject SearchService SearchService
 @inject UserService UserService
 
-<TelerikMediaQuery Media="(min-width: 1201px)" OnChange="@( (bool matches) => IsOverMaxWidth = matches )" />
+<TelerikMediaQuery Media="(min-width: 1200px)" OnChange="@( (bool matches) => IsOverMaxWidth = matches )" />
 <TelerikMediaQuery Media="(min-width: 992px)" OnChange="@( (bool matches) => IsLargeScreen = matches )" />
 <TelerikMediaQuery Media="(min-width: 768px)" OnChange="@( (bool matches) => IsMediumOrLargeScreen = matches )" />
 
@@ -61,6 +61,13 @@
                                    OnClick="@GoToAIAssistantPage">AI Assistant</TelerikButton>
                 </AppBarSection>
                 <AppBarSection>
+                    <TelerikButton FillMode="@ThemeConstants.Button.FillMode.Flat"
+                                   OnClick="@GoToNotificationsPage"
+                                   AriaLabel="View 3 unread notifications">
+                        Notifications (3)
+                    </TelerikButton>
+                </AppBarSection>
+                <AppBarSection>
                     <CultureChooser />
                 </AppBarSection>
             </TelerikAppBar>
@@ -110,6 +117,8 @@
         new NavItem("Investments", SvgIconsNS.SvgIcon.Dollar, "/blazor-financial-dashboard/investments"),
         new NavItem("Analytics", SvgIconsNS.SvgIcon.ChartColumnStacked, "/blazor-financial-dashboard/analytics"),
         new NavItem("AI Assistant", SvgIconsNS.SvgIcon.Sparkles, "/blazor-financial-dashboard/ai-assistant"),
+        new NavItem("Notifications", SvgIconsNS.SvgIcon.Bell, "/blazor-financial-dashboard/notifications"),
+        new NavItem("Help & Support", SvgIconsNS.SvgIcon.QuestionCircle, "/blazor-financial-dashboard/help"),
         new NavItem(),
         new NavItem("Settings", SvgIconsNS.SvgIcon.Gear, "/blazor-financial-dashboard/settings")
     };
@@ -142,6 +151,13 @@
         NavItem aiAssistantItem = DrawerData.First(i => i.Url == "/blazor-financial-dashboard/ai-assistant");
         DrawerSelectedItem = aiAssistantItem;
         NavManager.NavigateTo(aiAssistantItem.Url);
+    }
+
+    private void GoToNotificationsPage()
+    {
+        NavItem notificationsItem = DrawerData.First(i => i.Url == "/blazor-financial-dashboard/notifications");
+        DrawerSelectedItem = notificationsItem;
+        NavManager.NavigateTo(notificationsItem.Url);
     }
 
     private void SelectDrawerItem()
