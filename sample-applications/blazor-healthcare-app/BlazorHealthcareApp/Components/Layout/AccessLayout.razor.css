@@ -1,0 +1,2 @@
+.hc-access-layout { align-items: center; background: var(--kendo-color-surface); box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; min-height: 100vh; padding: var(--kendo-spacing-6); }
+.hc-access-brand { margin-bottom: var(--kendo-spacing-8); }.hc-access-brand img { height: 40px; max-width: 100%; }

@@ -37,6 +37,10 @@
                                 <TelerikSvgIcon Icon="@SvgIcon.ChartColumnStacked" />
                                 <span>Clinical Analytics</span>
                             </a>
+                            <a href="./care" class="hc-mobile-menu-item @(ActiveSegment == "care" ? "active" : "")" @onclick="ToggleMobileMenu">
+                                <TelerikSvgIcon Icon="@SvgIcon.Folder" />
+                                <span>Care Center</span>
+                            </a>
                         </nav>
                     }
                 </div>
@@ -61,6 +65,10 @@
                     <a href="./clinical-analytics" class="hc-segment @(ActiveSegment == "clinical-analytics" ? "active" : "")">
                         <TelerikSvgIcon Icon="@SvgIcon.ChartColumnStacked" />
                         <span>Clinical Analytics</span>
+                    </a>
+                    <a href="./care" class="hc-segment @(ActiveSegment == "care" ? "active" : "")">
+                        <TelerikSvgIcon Icon="@SvgIcon.Folder" />
+                        <span>Care Center</span>
                     </a>
                 </div>
             </AppBarSection>
@@ -376,6 +384,7 @@
             "schedule" => "schedule",
             "patients" => "patients",
             "clinical-analytics" => "clinical-analytics",
+            "care" or "labs" or "messages" or "providers" or "notifications" or "help" or "settings" or "profile" or "intake" => "care",
             _ when Nav.Uri.Contains("/patient/") => "patients",
             _ => "home"
         };

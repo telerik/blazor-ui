@@ -240,17 +240,12 @@
 
         LabResults = new List<LabResultRow>
         {
-            new() { Test = "C-Reactive Protein (CRP)",  Result = "18 mg/L",    Reference = "<5.0",    Status = PatientStatus.Critical,   Note = "Significant inflammatory elevation" },
-            new() { Test = "LDL Cholesterol",           Result = "162 mg/dL",  Reference = "<100",    Status = PatientStatus.Monitoring, Note = "Above target for cardiac risk patients" },
-            new() { Test = "Troponin I",                Result = "0.03 ng/mL", Reference = "<0.004",  Status = PatientStatus.Critical,   Note = "Borderline - serial monitoring ordered" },
-            new() { Test = "Hemoglobin A1c",            Result = "5.5%",       Reference = "<5.7",    Status = PatientStatus.Monitoring, Note = "Pre-diabetic range" },
-            new() { Test = "eGFR (Kidney Function)",    Result = "78 mL/min",  Reference = ">60",     Status = PatientStatus.Stable,     Note = "Adequate renal function" },
-            new() { Test = "Potassium",                 Result = "3.9 mEq/L",  Reference = "3.5-5.0", Status = PatientStatus.Monitoring, Note = "Within normal limits" },
-            new() { Test = "C-Reactive Protein (CRP)",  Result = "20 mg/L",    Reference = "<5.9",    Status = PatientStatus.Stable,     Note = "Borderline - serial monitoring ordered" },
-            new() { Test = "Hemoglobin A1c",            Result = "178 mg/DI",  Reference = "<0.03",   Status = PatientStatus.Critical,   Note = "Above target for cardiac risk patients" },
-            new() { Test = "eGFR (Kidney Function)",    Result = "6.7%",       Reference = "<100",    Status = PatientStatus.Critical,   Note = "Significant inflammatory elevation" },
-            new() { Test = "LDL Cholesterol",           Result = "162 mg/dL",  Reference = "4.5-6.0", Status = PatientStatus.Monitoring, Note = "Pre-diabetic range" },
-            new() { Test = "C-Reactive Protein (CRP)",  Result = "18 mg/L",    Reference = "<5.0",    Status = PatientStatus.Critical,   Note = "Significant inflammatory elevation" },
+            new() { Test = "Troponin I",             Result = "0.03 ng/mL", Reference = "<0.04",      Status = PatientStatus.Monitoring, Note = "Repeat test ordered in three hours" },
+            new() { Test = "C-Reactive Protein",     Result = "18 mg/L",    Reference = "<5",         Status = PatientStatus.Monitoring, Note = "Elevated; correlate with clinical findings" },
+            new() { Test = "LDL Cholesterol",         Result = "162 mg/dL", Reference = "<100",       Status = PatientStatus.Monitoring, Note = "Above target for cardiac-risk patients" },
+            new() { Test = "Hemoglobin A1c",          Result = "5.5%",      Reference = "<5.7%",      Status = PatientStatus.Stable,     Note = "Within non-diabetic range" },
+            new() { Test = "eGFR",                    Result = "78 mL/min", Reference = ">=60",        Status = PatientStatus.Stable,     Note = "Adequate renal function" },
+            new() { Test = "Potassium",               Result = "3.9 mEq/L", Reference = "3.5-5.0",     Status = PatientStatus.Stable,     Note = "Within reference range" },
         };
     }
 
