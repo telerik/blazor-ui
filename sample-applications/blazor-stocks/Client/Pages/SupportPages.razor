@@ -1,0 +1,108 @@
+@page "/markets"
+@page "/trade"
+@page "/transactions"
+@page "/accounts"
+@page "/billing"
+@page "/settings"
+@page "/notifications"
+@page "/help"
+@page "/login"
+@page "/register"
+@page "/verify-identity"
+@page "/404"
+@inject NavigationManager Navigation
+
+<section class="finance-page">
+    @switch (Page)
+    {
+        case "markets":
+            <div class="page-heading">
+                <div><h1>Markets</h1><p>Screen market opportunities with current prices and daily performance.</p></div>
+                <TelerikTextBox @bind-Value="Search" Placeholder="Search ticker or company" Width="280px" />
+            </div>
+            <div class="summary-grid">
+                @foreach (var index in MarketIndices)
+                {
+                    <dl class="summary-card"><dt>@index.Name</dt><dd>@index.Value <span class="@index.ChangeClass">@index.Change</span></dd></dl>
+                }
+            </div>
+            <div class="finance-toolbar">
+                <strong>Stock screener</strong>
+                <span>Results are sortable. Use the ticker search to narrow the list.</span>
+            </div>
+            <TelerikGrid Data="@Quotes" Sortable="true" Pageable="true" PageSize="5">
+                <GridColumns>
+                    <GridColumn Field="@nameof(Quote.Symbol)" Title="Ticker" />
+                    <GridColumn Field="@nameof(Quote.Name)" Title="Company" />
+                    <GridColumn Field="@nameof(Quote.Price)" Title="Price" />
+                    <GridColumn Field="@nameof(Quote.Change)" Title="Daily change" />
+                    <GridColumn Field="@nameof(Quote.MarketCap)" Title="Market cap" />
+                </GridColumns>
+            </TelerikGrid>
+            break;
+        case "trade":
+            <div class="page-heading"><div><h1>Trade</h1><p>Review the order details before submitting a market order.</p></div></div>
+            <div class="support-grid">
+                <article class="support-card"><h2>Order entry</h2><p>Symbol</p><TelerikTextBox @bind-Value="OrderSymbol" Width="100%" /><p class="mt-3">Quantity</p><TelerikNumericTextBox @bind-Value="Quantity" Width="100%" /><TelerikButton ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)" Class="mt-3">Review buy order</TelerikButton></article>
+                <article class="support-card"><h2>Position summary</h2><p>ACME · 18 shares</p><strong class="positive-change">+$84.60 (+4.2%)</strong><p class="mt-3">Market orders execute at the best available price. Review the estimated total before confirmation.</p></article>
+            </div>
+            break;
+        case "transactions":
+            <div class="page-heading"><div><h1>Transaction history</h1><p>A complete record of executed orders, dividends, and transfers.</p></div><TelerikButton>Export CSV</TelerikButton></div>
+            <div class="summary-grid"><dl class="summary-card"><dt>Total bought</dt><dd>$8,240.00</dd></dl><dl class="summary-card"><dt>Total sold</dt><dd>$3,186.45</dd></dl><dl class="summary-card"><dt>Dividends received</dt><dd>$126.32</dd></dl></div>
+            <TelerikGrid Data="@Transactions" Sortable="true" Pageable="true" PageSize="5"><GridColumns><GridColumn Field="@nameof(Transaction.Date)" Title="Date" /><GridColumn Field="@nameof(Transaction.Type)" /><GridColumn Field="@nameof(Transaction.Symbol)" /><GridColumn Field="@nameof(Transaction.Amount)" Title="Amount" /><GridColumn Field="@nameof(Transaction.Status)" /></GridColumns></TelerikGrid>
+            break;
+        case "accounts":
+            <div class="page-heading"><div><h1>Accounts</h1><p>Manage balances, linked banks, and funding activity.</p></div><TelerikButton ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)">Deposit funds</TelerikButton></div>
+            <div class="summary-grid"><dl class="summary-card"><dt>Individual account</dt><dd>$16,941.28</dd><p>Buying power: $4,200.00</p></dl><dl class="summary-card"><dt>Linked bank</dt><dd>•••• 4821</dd><p>Verified · Northstar Bank</p></dl></div>
+            break;
+        case "billing":
+            <div class="page-heading"><div><h1>Billing</h1><p>Manage your subscription and payment method.</p></div><TelerikButton ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)">Upgrade plan</TelerikButton></div>
+            <div class="support-grid"><article class="support-card"><h2>Investor Plus</h2><p>$12.00/month · Next billing date: September 26, 2026</p></article><article class="support-card"><h2>Payment method</h2><p>Visa ending in 4821 · Expires 09/28</p><TelerikButton>Update payment method</TelerikButton></article></div>
+            break;
+        case "settings":
+            <div class="page-heading"><div><h1>Settings</h1><p>Profile, security, notification, and display preferences.</p></div></div>
+            <div class="support-grid"><article class="support-card"><h2>Trade notifications</h2><p>Execution confirmations and price alerts are enabled.</p><TelerikButton>Manage notifications</TelerikButton></article><article class="support-card"><h2>Security</h2><p>Two-factor authentication is active.</p><TelerikButton>Review security</TelerikButton></article></div>
+            break;
+        case "notifications":
+            <div class="page-heading"><div><h1>Notifications</h1><p>Recent account and market activity.</p></div><TelerikButton>Mark all read</TelerikButton></div>
+            <ul class="notification-list"><li><strong>Order filled: 10 ACME shares</strong><br /><time>Today, 10:42 AM</time></li><li><strong>Price alert: Solaris Systems reached $148.00</strong><br /><time>Today, 9:18 AM</time></li><li><strong>Dividend received: $42.18</strong><br /><time>Monday, 4:05 PM</time></li></ul>
+            break;
+        case "help":
+            <div class="page-heading"><div><h1>Help and support</h1><p>Search trading, account, billing, security, and tax guidance.</p></div></div>
+            <TelerikTextBox @bind-Value="Search" Placeholder="Search help topics" Width="100%" />
+            <div class="support-grid mt-4"><article class="support-card"><h2>Trading</h2><p>Understand market, limit, and stop orders before placing a trade.</p></article><article class="support-card"><h2>Contact support</h2><p>Our investment support team responds within one business day.</p><TelerikButton ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)">Start a request</TelerikButton></article></div>
+            break;
+        case "verify-identity":
+            <div class="page-heading"><div><h1>Verify your identity</h1><p>Step 1 of 3 · Confirm your account details to unlock funding and trading.</p></div></div>
+            <article class="support-card">
+                <h2>Personal details</h2>
+                <p>Identity verification protects your account and is required before your first trade.</p>
+                <TelerikTextBox @bind-Value="Email" Placeholder="Legal name" Width="100%" />
+                <TelerikButton ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)" Class="mt-3">Continue to address</TelerikButton>
+            </article>
+            break;
+        case "404":
+            <div class="empty-state"><h1>Page not found</h1><p>The page you requested is unavailable.</p><NavLink href="" class="k-button k-button-solid k-button-md k-button-solid-primary">Go to Portfolio</NavLink></div>
+            break;
+        default:
+            <div class="empty-state"><h1>@(Page == "register" ? "Create your account" : "Sign in")</h1><p>Access your portfolio securely to monitor markets and manage investments.</p><TelerikTextBox @bind-Value="Email" Placeholder="Email address" Width="100%" /><TelerikButton ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)" Class="mt-3">Continue</TelerikButton></div>
+            break;
+    }
+</section>
+
+@code {
+    string Search { get; set; } = string.Empty;
+    string OrderSymbol { get; set; } = "ACME";
+    string Email { get; set; } = string.Empty;
+    decimal? Quantity { get; set; } = 10;
+    string Page => new Uri(Navigation.Uri).AbsolutePath.Trim('/').ToLowerInvariant();
+
+    List<IndexSummary> MarketIndices { get; } = [new("S&P 500", "5,478.22", "+0.62%", "positive-change"), new("NASDAQ", "17,912.64", "+0.84%", "positive-change"), new("DOW", "40,824.91", "-0.18%", "negative-change")];
+    List<Quote> Quotes { get; } = [new("ACME", "Acme Technologies", "$184.22", "+2.14%", "$486B"), new("SOLR", "Solaris Systems", "$148.00", "-0.73%", "$92B"), new("NOVA", "Nova Health", "$76.42", "+1.08%", "$38B"), new("LUMA", "Luma Energy", "$54.18", "-0.34%", "$19B"), new("VCTR", "Vector Logistics", "$119.85", "+0.41%", "$44B")];
+    List<Transaction> Transactions { get; } = [new("Aug 26, 2026", "Buy", "ACME", "$1,842.20", "Completed"), new("Aug 12, 2026", "Dividend", "NOVA", "$42.18", "Completed"), new("Jul 28, 2026", "Sell", "LUMA", "$1,344.25", "Completed"), new("Jul 5, 2026", "Deposit", "—", "$2,500.00", "Completed")];
+
+    record IndexSummary(string Name, string Value, string Change, string ChangeClass);
+    record Quote(string Symbol, string Name, string Price, string Change, string MarketCap);
+    record Transaction(string Date, string Type, string Symbol, string Amount, string Status);
+}

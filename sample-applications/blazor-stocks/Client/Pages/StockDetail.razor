@@ -1,0 +1,44 @@
+@page "/stocks/{Ticker}"
+@using Telerik.Blazor.Components
+
+<section class="finance-page">
+    <NavLink href="markets" class="k-button k-button-flat k-button-md k-button-flat-primary mb-4">Back to Markets</NavLink>
+    <div class="page-heading">
+        <div>
+            <h1>@Ticker · Acme Technologies</h1>
+            <p>NASDAQ · Market open</p>
+        </div>
+        <div class="text-end">
+            <strong class="price-display">$184.22</strong><br />
+            <span class="positive-change">↑ +$3.86 (+2.14%) today</span>
+        </div>
+    </div>
+    <div class="support-grid stock-detail-grid">
+        <article class="support-card">
+            <div class="finance-toolbar"><strong>Price performance</strong><span>1D · 1W · 1M · 1Y</span></div>
+            <TelerikChart Height="320px">
+                <ChartSeriesItems>
+                    <ChartSeries Type="ChartSeriesType.Line" Data="@PriceHistory" Field="@nameof(PricePoint.Value)" CategoryField="@nameof(PricePoint.Day)" Color="var(--kendo-color-series-a)" />
+                </ChartSeriesItems>
+            </TelerikChart>
+        </article>
+        <aside class="support-card trade-panel">
+            <h2>Trade @Ticker</h2>
+            <p>Current position: 18 shares · Average cost $162.40</p>
+            <TelerikNumericTextBox @bind-Value="Quantity" Width="100%" />
+            <TelerikButton ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)" Class="mt-3">Review buy order</TelerikButton>
+            <p class="mt-3">Estimated total: $@((Quantity * 184.22m)?.ToString("N2"))</p>
+        </aside>
+    </div>
+    <div class="support-grid">
+        <article class="support-card"><h2>Key statistics</h2><p>Market cap $486B · P/E ratio 28.4 · 52-week range $132.40–$196.85</p></article>
+        <article class="support-card"><h2>Company profile</h2><p>Acme Technologies develops industrial automation platforms for logistics and manufacturing organizations.</p></article>
+    </div>
+</section>
+
+@code {
+    [Parameter] public string Ticker { get; set; } = "ACME";
+    decimal? Quantity { get; set; } = 10;
+    List<PricePoint> PriceHistory { get; } = [new("Mon", 174m), new("Tue", 177m), new("Wed", 175m), new("Thu", 180m), new("Fri", 184.22m)];
+    record PricePoint(string Day, decimal Value);
+}

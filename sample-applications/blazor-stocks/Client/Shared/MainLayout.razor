@@ -10,7 +10,7 @@
     <nav class="navbar navbar-expand-lg py-3 header">
         <div class="container d-flex justify-content-between">
             <div class="title-wrap">
-                <h1 class="header-title">My Stocks Portfolio</h1>
+                <NavLink href="" Match="@NavLinkMatch.All" class="header-title">My Stocks Portfolio</NavLink>
 
                 <div class="d-flex flex-wrap justify-content-between">
                     <TelerikDropDownList Data="@Currencies"
@@ -36,12 +36,27 @@
                 </div>
             </div>
             <div @onclick="@ShowProfile" class="profile-wrapper d-flex flex-column align-self-center"
-                 tabindex="0">
+             tabindex="0" role="button" aria-label="Open profile" @onkeydown="ProfileKeyDown">
                 <div class="profile-image">
 
                 </div>
                 <div class="text-white-50">Collin Johnson</div>
             </div>
+        </div>
+    </nav>
+    <nav class="portfolio-navigation" aria-label="Primary navigation">
+        <div class="container">
+            <NavLink href="" Match="@NavLinkMatch.All">Portfolio</NavLink>
+            <NavLink href="watchlist">Watchlist</NavLink>
+            <NavLink href="markets">Markets</NavLink>
+            <NavLink href="trade">Trade</NavLink>
+            <NavLink href="transactions">Transactions</NavLink>
+            <NavLink href="accounts">Accounts</NavLink>
+            <NavLink href="billing">Billing</NavLink>
+            <NavLink href="settings">Settings</NavLink>
+            <NavLink href="notifications">Notifications <span class="notification-count">3</span></NavLink>
+            <NavLink href="help">Help</NavLink>
+            <span class="market-status"><span aria-hidden="true">●</span> Market open · closes in 2h 38m</span>
         </div>
     </nav>
 
@@ -104,6 +119,14 @@
     {
         ProfileVisible = true;
         await JSRuntime.InvokeVoidAsync("toggleScroll", false);
+    }
+
+    async Task ProfileKeyDown(KeyboardEventArgs args)
+    {
+        if (args.Key is "Enter" or " ")
+        {
+            await ShowProfile();
+        }
     }
 
     // PWA infrastructure
