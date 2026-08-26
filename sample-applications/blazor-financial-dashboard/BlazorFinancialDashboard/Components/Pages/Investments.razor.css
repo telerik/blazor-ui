@@ -1,0 +1,43 @@
+.movers__row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: center;
+    gap: var(--kendo-spacing-4);
+    padding-block: var(--kendo-spacing-2);
+}
+
+.movers__asset,
+.movers__percentage {
+    display: flex;
+    align-items: center;
+    gap: var(--kendo-spacing-2);
+}
+
+.movers__asset-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.movers__asset-name {
+    font-size: var(--kendo-font-size-sm);
+}
+
+.movers__daily-change,
+.movers__percentage {
+    padding-left: var(--kendo-spacing-4);
+    font-weight: var(--kendo-font-weight-medium);
+}
+
+.movers__percentage--positive {
+    color: var(--kendo-color-success);
+}
+
+.movers__percentage--negative {
+    color: var(--kendo-color-error);
+}
+
+.movers__current-value {
+    padding-right: var(--kendo-spacing-2);
+    font-weight: var(--kendo-font-weight-medium);
+    text-align: right;
+}

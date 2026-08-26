@@ -1,0 +1,47 @@
+.uicard {
+    display: flex;
+    grid-column: span 12 / span 12;
+    flex-direction: column;
+    gap: var(--uicard-title-gap);
+    padding: var(--kendo-spacing-4);
+    border-radius: var(--kendo-border-radius-xl);
+    background-color: var(--kendo-color-surface-alt);
+    box-shadow: var(--kendo-elevation-1);
+}
+
+.uicard__header,
+.uicard__content {
+    display: flex;
+    flex-direction: column;
+}
+
+.uicard__header {
+    gap: var(--kendo-spacing-1);
+}
+
+.uicard__subtitle {
+    margin-top: var(--kendo-spacing-3);
+}
+
+.uicard__content {
+    flex: 1;
+    gap: var(--uicard-content-gap);
+}
+
+@media (min-width: 768px) {
+    .uicard--md-4 { grid-column: span 4 / span 4; }
+    .uicard--md-5 { grid-column: span 5 / span 5; }
+    .uicard--md-6 { grid-column: span 6 / span 6; }
+    .uicard--md-7 { grid-column: span 7 / span 7; }
+    .uicard--md-8 { grid-column: span 8 / span 8; }
+    .uicard--md-12 { grid-column: span 12 / span 12; }
+}
+
+@media (min-width: 992px) {
+    .uicard--lg-4 { grid-column: span 4 / span 4; }
+    .uicard--lg-5 { grid-column: span 5 / span 5; }
+    .uicard--lg-6 { grid-column: span 6 / span 6; }
+    .uicard--lg-7 { grid-column: span 7 / span 7; }
+    .uicard--lg-8 { grid-column: span 8 / span 8; }
+    .uicard--lg-12 { grid-column: span 12 / span 12; }
+}

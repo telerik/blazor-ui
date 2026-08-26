@@ -17,10 +17,10 @@
         SubTitle="@Savings.ToString("c2")"
         ColSpanOnLargeScreen="6"
         ColSpanOnMediumScreen="6"
-        ContentClass="k-justify-content-between"
+        ContentClass="savings-card__content"
         ContentGap="3">
     <div class="progressbar-wrapper">
-        <div class="k-d-flex k-justify-content-between">
+        <div class="savings-progress__header">
             <span>Education</span>
             <span>@SavingsEducation.ToString("c2")</span>
         </div>
@@ -29,7 +29,7 @@
         </TelerikProgressBar>
     </div>
     <div class="progressbar-wrapper">
-        <div class="k-d-flex k-justify-content-between">
+        <div class="savings-progress__header">
             <span>Dream Home</span>
             <span>@SavingsDreamHome.ToString("c2")</span>
         </div>
@@ -38,7 +38,7 @@
         </TelerikProgressBar>
     </div>
     <div class="progressbar-wrapper">
-        <div class="k-d-flex k-justify-content-between">
+        <div class="savings-progress__header">
             <span>Car</span>
             <span>@SavingsCar.ToString("c2")</span>
         </div>
@@ -47,7 +47,7 @@
         </TelerikProgressBar>
     </div>
     <div class="progressbar-wrapper">
-        <div class="k-d-flex k-justify-content-between">
+        <div class="savings-progress__header">
             <span>Holidays</span>
             <span>@SavingsHolidays.ToString("c2")</span>
         </div>
@@ -56,7 +56,7 @@
         </TelerikProgressBar>
     </div>
     <div class="progressbar-wrapper">
-        <div class="k-d-flex k-justify-content-between">
+        <div class="savings-progress__header">
             <span>Health Care</span>
             <span>@SavingsHealthCare.ToString("c2")</span>
         </div>
@@ -69,24 +69,24 @@
 <UICard Title="Budget Utilization"
         SubTitle="@( $"{(UsedBudget / TotalBudget).ToString("P0")} of the Budget used" )"
         ColSpanOnMediumScreen="6" ColSpanOnLargeScreen="6" TitleGap="11" ContentGap="11">
-    <TelerikArcGauge Width="260px" Height="140px" Class="k-ml-auto k-mr-auto">
+    <TelerikArcGauge Width="260px" Height="140px" Class="budget-utilization__gauge">
         <ArcGaugePointers>
             <ArcGaugePointer Value="50" Size="12" Color="var(--kendo-color-series-b)" />
         </ArcGaugePointers>
         <ArcGaugeCenterLabel>
             <Template>
-                <div class="center-label k-font-weight-bold">@( (UsedBudget / TotalBudget).ToString("P0") )</div>
+                <div class="center-label budget-utilization__gauge-label">@( (UsedBudget / TotalBudget).ToString("P0") )</div>
             </Template>
         </ArcGaugeCenterLabel>
     </TelerikArcGauge>
-    <div class="k-d-flex k-justify-content-center k-align-items-center k-gap-x-2">
-        <div class="k-d-flex k-flex-1 k-flex-column k-align-items-end k-color-subtle">
-            <span class="k-font-weight-bold">@( TotalBudget.ToString("C2") )</span>
-            <span class="k-text-right">Total budget</span>
+    <div class="budget-utilization__summary">
+        <div class="budget-utilization__amount budget-utilization__amount--end">
+            <span class="budget-utilization__value">@( TotalBudget.ToString("C2") )</span>
+            <span>Total budget</span>
         </div>
-        <span class="k-separator k-separator-vertical k-border-border"></span>
-        <div class="k-d-flex k-flex-1 k-flex-column k-align-items-start k-color-subtle">
-            <span class="k-font-weight-bold">@( UsedBudget.ToString("C2") )</span>
+        <span class="k-separator k-separator-vertical budget-utilization__divider"></span>
+        <div class="budget-utilization__amount">
+            <span class="budget-utilization__value">@( UsedBudget.ToString("C2") )</span>
             <span>Used budget</span>
         </div>
     </div>

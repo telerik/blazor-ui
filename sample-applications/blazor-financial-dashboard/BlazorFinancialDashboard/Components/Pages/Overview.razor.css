@@ -1,0 +1,41 @@
+.savings-card__content {
+    justify-content: space-between;
+}
+
+.savings-progress__header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.budget-utilization__gauge {
+    margin-inline: auto;
+}
+
+.budget-utilization__gauge-label,
+.budget-utilization__value {
+    font-weight: var(--kendo-font-weight-bold);
+}
+
+.budget-utilization__summary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: var(--kendo-spacing-2);
+}
+
+.budget-utilization__amount {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    color: var(--kendo-color-subtle);
+}
+
+.budget-utilization__amount--end {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.budget-utilization__divider {
+    border-color: var(--kendo-color-border);
+}

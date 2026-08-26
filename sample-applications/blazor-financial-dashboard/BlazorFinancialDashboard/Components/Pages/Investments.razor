@@ -27,22 +27,22 @@
     <TelerikListView Data="@ListViewData">
         <Template>
             @{ decimal dailyChangeAmount = (Convert.ToDecimal(context.DailyChange) * context.CurrentValue); }
-            <div class="k-d-grid k-grid-cols-4 k-gap-4 k-align-items-center k-pt-2 k-pb-2">
-                <div class="k-d-flex k-gap-2 k-align-items-center">
+            <div class="movers__row">
+                <div class="movers__asset">
                     <TelerikAvatar Type="@AvatarType.Image">
                         <img src="@( $"images/asset-{context.Symbol.ToLowerInvariant()}.png" )" alt="@context.AssetName" />
                     </TelerikAvatar>
-                    <span class="k-d-flex k-flex-col asset">
+                    <span class="asset movers__asset-details">
                         <strong>@context.Symbol</strong>
-                        <span class="k-font-size-sm">@context.AssetName</span>
+                        <span class="movers__asset-name">@context.AssetName</span>
                     </span>
                 </div>
-                <span class="k-pl-4 k-font-medium">@( dailyChangeAmount.ToString("C2") )</span>
-                <span class="k-pl-4 k-d-flex k-align-items-center @GetChangeColor(context.DailyChange)">
+                <span class="movers__daily-change">@( dailyChangeAmount.ToString("C2") )</span>
+                <span class="movers__percentage @GetChangeColor(context.DailyChange)">
                     <TelerikSvgIcon Icon="@GetChangeIcon(context.DailyChange)" Size="@ThemeConstants.SvgIcon.Size.Small" />
                     @context.DailyChange.ToString("P1")
                 </span>
-                <span class="k-text-right k-pr-2 k-font-medium">@context.CurrentValue.ToString("C2")</span>
+                <span class="movers__current-value">@context.CurrentValue.ToString("C2")</span>
             </div>
         </Template>
     </TelerikListView>
@@ -140,7 +140,7 @@
 
     private string GetChangeColor(double amount)
     {
-        return amount >= 0 ? "k-text-success" : "k-text-error";
+        return amount >= 0 ? "movers__percentage--positive" : "movers__percentage--negative";
     }
 
     private SvgIconsNS.ISvgIcon GetChangeIcon(double amount)

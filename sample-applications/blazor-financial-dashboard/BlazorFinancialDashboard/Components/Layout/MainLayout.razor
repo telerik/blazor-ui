@@ -18,7 +18,7 @@
                MiniMode="true"
                Class="mainlayout-drawer">
     <DrawerContent>
-        <div id="drawer-content-wrapper" class="k-ml-auto k-mr-auto">
+        <div id="drawer-content-wrapper" class="drawer-content">
 
             <TelerikAppBar ThemeColor="@ThemeConstants.AppBar.ThemeColor.Base"
                            Class="appbar-top">
@@ -65,7 +65,7 @@
                 </AppBarSection>
             </TelerikAppBar>
 
-            <main class="k-d-grid k-grid-cols-12 k-gap-4 k-pb-4">
+            <main class="main-layout__content">
                 <CascadingValue Value="@IsLargeScreen" Name="IsLargeScreen">
                     <CascadingValue Value="@IsMediumOrLargeScreen" Name="IsMediumOrLargeScreen">
                         <CascadingValue Value="@this" IsFixed="true">
@@ -78,14 +78,14 @@
             <TelerikAppBar ThemeColor="@ThemeConstants.AppBar.ThemeColor.Base"
                            Class="@( $"appbar-bottom {( IsOverMaxWidth ? "narrow" : string.Empty )}" )">
                 <AppBarSection>
-                    <div class="@( IsOverMaxWidth ? string.Empty : "k-pl-15" )">
-                        <a class="k-d-flex k-align-items-center k-gap-2 k-p-2 k-text-inherit"
+                    <div class="appbar-bottom__content @( IsOverMaxWidth ? string.Empty : "appbar-bottom__content--padded" )">
+                        <a class="appbar-bottom__source-link"
                             href="https://github.com/telerik/blazor-ui/tree/master/sample-applications/blazor-financial-dashboard"
                             target="_blank">
                             <img src="images/github-icon.svg" alt="GitHub logo" /> Get the Source Code
                         </a>
 
-                        <div class="k-p-2">Copyright &copy; @DateTime.Today.Year Progress Software. All rights reserved.</div>
+                        <div class="appbar-bottom__copyright">Copyright &copy; @DateTime.Today.Year Progress Software. All rights reserved.</div>
                     </div>
                 </AppBarSection>
                 <AppBarSpacer />
