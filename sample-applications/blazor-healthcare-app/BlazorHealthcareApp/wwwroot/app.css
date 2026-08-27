@@ -831,7 +831,7 @@ h1:focus {
 }
 
 /* ========== COMPACT APPBAR LAYOUT (global — scoped ::deep can't override Telerik flex) ========== */
-@media (max-width: 1440px) {
+@media (max-width: 1399px) {
     .hc-appbar.k-appbar,
     .k-appbar.hc-appbar {
         display: flex !important;
@@ -916,8 +916,8 @@ h1:focus {
     }
 }
 
-/* 577–1440px: icon-only segments, centered, no hamburger */
-@media (min-width: 577px) and (max-width: 1440px) {
+/* 576–1399px: icon-only segments, centered, no hamburger */
+@media (min-width: 576px) and (max-width: 1399px) {
     /* Show the segmented nav centered */
     .hc-appbar .hc-appbar-center,
     .hc-appbar .hc-appbar-center.k-appbar-section {
@@ -950,15 +950,15 @@ h1:focus {
     }
 }
 
-/* ========== VIEW PROFILE ICON-ONLY (≤899px) ========== */
-@media (max-width: 899px) {
+/* ========== VIEW PROFILE ICON-ONLY (<768px) ========== */
+@media (max-width: 767px) {
     .hc-view-profile-btn.k-button .k-button-text {
         display: none !important;
     }
 }
 
-/* ========== 1441–1759px: hide "View profile" text, prevent segment/search overlap ========== */
-@media (min-width: 1441px) and (max-width: 1759px) {
+/* Content-fit exception: 1400–1759px prevents appbar search/segment overlap. */
+@media (min-width: 1400px) and (max-width: 1759px) {
     .hc-view-profile-btn.k-button .k-button-text {
         display: none !important;
     }

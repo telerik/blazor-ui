@@ -159,10 +159,10 @@
 
 /* Profile modal styles moved to app.css (TelerikWindow portals outside scoped CSS) */
 
-/* ========== HAMBURGER MENU (hidden by default, shown at <=576px) ========== */
+/* ========== HAMBURGER MENU (hidden by default, shown below 576px) ========== */
 .hc-hamburger-wrapper { display: none; align-items: center; gap: 8px; position: relative; }
 
-/* Mobile search toggle buttons (hidden by default, shown at <=576px) */
+/* Mobile search toggle buttons (hidden by default, shown below 576px) */
 .hc-search-icon-btn { display: none !important; }
 .hc-search-close-btn { display: none !important; }
 
@@ -213,13 +213,13 @@
 
 /* ========== RESPONSIVE ========== */
 
-/* 1441–1759px — reduce search width to avoid segment overlap */
-@media (min-width: 1441px) and (max-width: 1759px) {
+/* Content-fit exception: 1400–1759px prevents appbar search/segment overlap. */
+@media (min-width: 1400px) and (max-width: 1759px) {
     .hc-search { width: 200px; }
 }
 
-/* ≤1440px — icon-only segments, search icon, full logo */
-@media (max-width: 1440px) {
+/* <1400px — icon-only segments, search icon, full logo */
+@media (max-width: 1399px) {
     .hc-dashboard { padding: 32px 60px; gap: 24px; }
     .hc-body-wrapper { gap: 24px; }
     ::deep .hc-appbar.k-appbar {
@@ -232,8 +232,8 @@
     .hc-appbar-actions { gap: 8px; }
 }
 
-/* ≤899px — icon-only logo, tighter padding */
-@media (max-width: 899px) {
+/* <768px — icon-only logo, tighter padding */
+@media (max-width: 767px) {
     .hc-dashboard { padding: 24px 16px; gap: 16px; }
     .hc-body-wrapper { gap: 16px; }
     ::deep .hc-appbar.k-appbar {
@@ -247,8 +247,8 @@
     .hc-logo-icon-only { display: block !important; height: 28px; }
 }
 
-/* ≤576px — hamburger replaces segmented control */
-@media (max-width: 576px) {
+/* <576px — hamburger replaces segmented control */
+@media (max-width: 575px) {
     .hc-dashboard { padding: 12px 12px 12px 12px; gap: 12px; }
     .hc-body-wrapper { gap: 12px; }
     ::deep .hc-appbar.k-appbar {

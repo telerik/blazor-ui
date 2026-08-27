@@ -168,11 +168,11 @@
 
 
 /* ========== RESPONSIVE ========== */
-@media (max-width: 1200px) {
+@media (max-width: 1199px) {
     .hc-pd-header { grid-template-columns: 1fr; }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 575px) {
     .hc-pd-name { font-size: 18px; }
     .hc-pd-avatar { width: 48px; height: 48px; min-width: 48px; font-size: 18px; }
     .hc-pd-card { padding: 16px; }

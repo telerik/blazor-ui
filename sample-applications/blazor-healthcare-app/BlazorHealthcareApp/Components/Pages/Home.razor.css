@@ -334,7 +334,7 @@
 
 /* ========== RESPONSIVE ========== */
 
-@media (max-width: 1440px) {
+@media (max-width: 1399px) {
     .hc-main { flex-direction: column; }
     .hc-left { flex: 1 1 auto; }
     .hc-right { width: 100%; min-width: 0; position: static; }
@@ -342,7 +342,7 @@
     .hc-alerts-list { overflow-y: visible; }
 }
 
-@media (max-width: 899px) {
+@media (max-width: 767px) {
     .hc-heading h1 { font-size: 32px; }
     .hc-quick-actions { flex-wrap: wrap; }
     .hc-qa-card { flex: 0 1 calc(50% - 11px); min-width: 200px; }
@@ -350,7 +350,7 @@
     .hc-appt-time-block { align-items: flex-start; }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 575px) {
     /* Typography */
     .hc-heading h1 { font-size: 26px; }
     .hc-heading p { font-size: 14px; }

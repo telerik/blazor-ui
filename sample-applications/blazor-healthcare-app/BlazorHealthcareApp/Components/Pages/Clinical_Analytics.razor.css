@@ -219,13 +219,13 @@
 }
 
 /* ========== RESPONSIVE ========== */
-@media (max-width: 1440px) {
+@media (max-width: 1399px) {
     .hc-ca-heading h1 {
         font-size: 36px;
     }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1199px) {
     .hc-ca-toolbar {
         flex-wrap: wrap;
     }
@@ -239,7 +239,7 @@
     }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 991px) {
     .hc-ca-bottom-row {
         grid-template-columns: 1fr;
     }
@@ -253,7 +253,7 @@
     }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 575px) {
     .hc-ca-heading h1 {
         font-size: 24px;
     }

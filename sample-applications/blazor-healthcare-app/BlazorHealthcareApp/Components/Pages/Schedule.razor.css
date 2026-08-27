@@ -368,18 +368,18 @@
 .hc-priority-low { background: var(--kendo-color-success-subtle); border: 1px solid var(--kendo-color-success-emphasis); color: var(--kendo-color-success-on-subtle); }
 
 /* ========== RESPONSIVE ========== */
-@media (max-width: 1200px) {
+@media (max-width: 1199px) {
     .hc-main { flex-direction: column; }
     .hc-left { flex: 1 1 auto; }
     .hc-right { width: 100%; min-width: 0; position: static; }
     .hc-right-card { position: static; max-height: 650px; }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 991px) {
     .hc-heading h1 { font-size: 32px; }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 575px) {
     .hc-heading h1 { font-size: 26px; }
     .hc-heading p { font-size: 14px; }
     .hc-card { padding: 16px; }

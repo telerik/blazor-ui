@@ -172,7 +172,7 @@
 }
 
 /* ========== RESPONSIVE ========== */
-@media (max-width: 1200px) {
+@media (max-width: 1199px) {
     .hc-patients-main { flex-direction: column; }
     .hc-patients-main ::deep .hc-ai-panel {
         width: 100% !important; max-width: 100% !important; min-width: 0 !important;
@@ -184,7 +184,7 @@
     .hc-grid-card { border-radius: var(--kendo-border-radius-xxl); }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 991px) {
     .hc-heading h1 { font-size: 32px; }
     /* Hide Blood Type (col 5) and Ward (col 6) — collapse col + cells in both tables */
     .hc-grid-card ::deep .k-grid-header col:nth-child(5),
@@ -201,7 +201,7 @@
     .hc-grid-card ::deep .k-filter-row th:nth-child(6) { display: none; }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 575px) {
     .hc-heading { gap: 12px; }
     .hc-heading h1 { font-size: 26px; }
     .hc-heading p { font-size: 14px; }
