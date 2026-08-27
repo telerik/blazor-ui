@@ -13,13 +13,13 @@
 	<div class="dashboard__header">
 		<div>
 			<h2>
-				<span class="small text-uppercase text-muted d-block">Statistics</span>
+				<span class="dashboard__eyebrow">Statistics</span>
 				@IssuesFilter.GetRangeFromNumber(timeRange).ToString("ddd, dd MMM yyyy")
 				- @DateTime.Now.ToString("ddd, dd MMM yyyy")
 			</h2>
 		</div>
 		<div class="dashboard__header-spacer"></div>
-		<div>
+		<div class="dashboard__filter">
 			<TelerikDropDownList Width="300px" Data="@DateFilterData" TextField="Text" ValueField="Value" @bind-Value="@timeRange"
                                  OnChange="@LoadIssuesData">
 				<DropDownListSettings>
@@ -28,43 +28,42 @@
 			</TelerikDropDownList>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-12">
-			<div class="card">
-				<div class="card-header dashboard__widget-header">
+	<div class="dashboard__layout">
+		<section class="dashboard__card dashboard__card--overview">
+				<header class="dashboard__card-header">
 					<h3>Issue overview</h3>
-					<span class="text-muted small">Updated @DateTime.Now.ToString("t")</span>
-				</div>
-				<div class="card-body">
+					<span class="dashboard__muted">Updated @DateTime.Now.ToString("t")</span>
+				</header>
+				<div class="dashboard__card-body">
 
-					<div class="row">
+					<div class="dashboard__metrics">
 
-						<div class="col-sm-12 col-md-6 col-lg active-issues">
-							<span class="comp-label">
+						<div class="dashboard__metric dashboard__metric--active">
+							<span class="dashboard__metric-label">
 								<strong>@IssuesList.Count()</strong>
 								<small>Active issues</small>
 							</span>
 							<IssuesBreakDownCharts ChartData="@IssuesList" SeriesColor="var(--kendo-color-subtle)"></IssuesBreakDownCharts>
 						</div>
 
-						<div class="col-sm-12 col-md-6 col-lg text-success closed-issues">
-							<span class="comp-label">
+						<div class="dashboard__metric dashboard__metric--closed">
+							<span class="dashboard__metric-label">
 								<strong>@ClosedIssues.Count()</strong>
 								<small>Closed issues</small>
 							</span>
 							<IssuesBreakDownCharts ChartData="@ClosedIssues" SeriesColor="var(--kendo-color-success)"></IssuesBreakDownCharts>
 						</div>
 
-						<div class="col-sm-12 col-md-6 col-lg text-danger open-issues">
-							<span class="comp-label">
+						<div class="dashboard__metric dashboard__metric--open">
+							<span class="dashboard__metric-label">
 								<strong>@OpenIssues.Count()</strong>
 								<small>Open issues</small>
 							</span>
 							<IssuesBreakDownCharts ChartData="@OpenIssues" SeriesColor="var(--kendo-color-error)"></IssuesBreakDownCharts>
 						</div>
 
-						<div class="col-sm-12 col-md-6 col-lg close-rate">
-							<span class="comp-label">
+						<div class="dashboard__metric dashboard__metric--rate">
+							<span class="dashboard__metric-label">
 								<strong>@GetCloseRate()</strong>
 								<small>Close rate</small>
 							</span>
@@ -74,32 +73,27 @@
 
 
 					<h3 class="dashboard__section-title">Issue activity</h3>
-					<div class="all-issues">
+					<div class="dashboard__activity-chart">
 						<AllIssuesChart Data="@IssuesList"></AllIssuesChart>
 					</div>
 				</div>
-			</div>
-		</div>
-		<div class="col-lg-4">
-			<div class="card issue-types">
-				<h4 class="card-header">Issue Types</h4>
-				<div class="card-body">
+		</section>
+		<section class="dashboard__card dashboard__card--issue-types">
+				<h3 class="dashboard__card-header">Issue Types</h3>
+				<div class="dashboard__card-body">
 					<IssuesByTypeChart Issues="@IssuesList"></IssuesByTypeChart>
-					<div class="comp-label chart-label">
-						<div class="comp-label chart-label">
+					<div class="dashboard__chart-label">
+						<div class="dashboard__metric-label">
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-		<div class="col-lg-8">
-			<div class="card">
-				<h4 class="card-header">Types Distribution</h4>
-				<div class="card-body">
+		</section>
+		<section class="dashboard__card dashboard__card--distribution">
+				<h3 class="dashboard__card-header">Types Distribution</h3>
+				<div class="dashboard__card-body">
 					<TypeDistributionOverTimeChart Issues="@IssuesList"></TypeDistributionOverTimeChart>
 				</div>
-			</div>
-		</div>
+		</section>
 	</div>
 </div>
 

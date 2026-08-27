@@ -2,8 +2,8 @@
 @inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
 
 <TelerikRootComponent>
-	<div class="row">
-		<header id="top-bar" class="top-bar col-xs-12 bg-dark d-md-none">
+	<div class="app-shell">
+		<header id="top-bar" class="app-shell__topbar">
 			<button type="button" class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="@expandNavMenu" @onclick="@ToggleNavMenu">
 				<TelerikSvgIcon Icon="@SvgIcon.Menu" />
 			</button>
@@ -11,50 +11,50 @@
 		@if (IsNavAllowed())
 		{
 			<div id="nav"
-				 class="col-xs-3 bg-dark text-white py-5 @( expandNavMenu ? "expand" : "" )">
+				 class="app-shell__sidebar @( expandNavMenu ? "expand" : "" )">
 				<h1 id="app-title">Blazor UI</h1>
 				<p id="app-subtitle">Sample Dashboard</p>
 				<hr />
-				<p class="h4 mt-5">Project</p>
-				<ul class="nav nav-pills flex-column">
-					<li class="nav-item" id="dashbaord">
-						<NavLink class="@(IsAtRoot() ? "nav-link active" : "nav-link")" href="dashboard">Dashboard</NavLink>
+				<p class="app-shell__section-title">Project</p>
+				<ul class="app-shell__nav-list">
+					<li class="app-shell__nav-item" id="dashbaord">
+						<NavLink class="@(IsAtRoot() ? "app-shell__nav-link active" : "app-shell__nav-link")" href="dashboard">Dashboard</NavLink>
 					</li>
-					<li class="nav-item" id="issues">
-						<NavLink class="nav-link" href="issues">Issues</NavLink>
+					<li class="app-shell__nav-item" id="issues">
+						<NavLink class="app-shell__nav-link" href="issues">Issues</NavLink>
 					</li>
-					<li class="nav-item" id="notifications">
-						<NavLink class="nav-link" href="notifications">Notifications</NavLink>
-					</li>
-				</ul>
-				<p class="h4 mt-5">Account</p>
-				<ul class="nav nav-pills flex-column">
-					<li class="nav-item" id="profile">
-						<NavLink class="nav-link" href="profile">My Profile</NavLink>
-					</li>
-					<li class="nav-item" id="settings">
-						<NavLink class="nav-link" href="settings">Settings</NavLink>
-					</li>
-					<li class="nav-item" id="help">
-						<NavLink class="nav-link" href="help">Help &amp; Support</NavLink>
-					</li>
-					<li class="nav-item" id="signin">
-						<NavLink class="nav-link" href="signin">Sign Out</NavLink>
+					<li class="app-shell__nav-item" id="notifications">
+						<NavLink class="app-shell__nav-link" href="notifications">Notifications</NavLink>
 					</li>
 				</ul>
-				<div class="py-5"></div>
-				<div id="copy">
+				<p class="app-shell__section-title">Account</p>
+				<ul class="app-shell__nav-list">
+					<li class="app-shell__nav-item" id="profile">
+						<NavLink class="app-shell__nav-link" href="profile">My Profile</NavLink>
+					</li>
+					<li class="app-shell__nav-item" id="settings">
+						<NavLink class="app-shell__nav-link" href="settings">Settings</NavLink>
+					</li>
+					<li class="app-shell__nav-item" id="help">
+						<NavLink class="app-shell__nav-link" href="help">Help &amp; Support</NavLink>
+					</li>
+					<li class="app-shell__nav-item" id="signin">
+						<NavLink class="app-shell__nav-link" href="signin">Sign Out</NavLink>
+					</li>
+				</ul>
+				<div class="app-shell__sidebar-spacer"></div>
+				<div id="copy" class="app-shell__footer">
 					<p>
 						Copyright
 						&copy;
 						@DateTime.Now.Year,<br /><a href="http://www.progress.com">Progress Software Corporation</a> and/or its subsidiaries or affiliates.
 					</p>
 					<p>All Rights Reserved.</p>
-					<p class="py-3"><a href="https://github.com/telerik/blazor-ui/tree/master/sample-applications/blazor-dashboard" target="_blank">Source code</a></p>
+					<p class="app-shell__footer-source"><a href="https://github.com/telerik/blazor-ui/tree/master/sample-applications/blazor-dashboard" target="_blank">Source code</a></p>
 				</div>
 			</div>
 		}
-		<main class="col-xs p-4 py-5" id="main-content">
+		<main class="app-shell__main" id="main-content">
 			@Body
 		</main>
 	</div>

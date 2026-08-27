@@ -5,14 +5,14 @@
         <div>
             <p class="page-eyebrow">Account</p>
             <h1 id="settings-title">Settings &amp; preferences</h1>
-            <p class="text-muted">Manage how the issue dashboard keeps you informed.</p>
+            <p class="page-description">Manage how the issue dashboard keeps you informed.</p>
         </div>
     </header>
 
     <EditForm Model="@preferences" OnValidSubmit="@Save">
         <DataAnnotationsValidator />
-        <div class="card settings-form">
-            <div class="card-body">
+        <div class="settings-card settings-form">
+            <div class="settings-card__body">
                 <h2>Notifications</h2>
                 <div class="settings-option">
                     <InputCheckbox id="assigned-issues" @bind-Value="preferences.AssignedIssues" />
@@ -26,12 +26,12 @@
                     <InputCheckbox id="browser-alerts" @bind-Value="preferences.BrowserAlerts" />
                     <label for="browser-alerts">Show browser alerts for high-severity issues</label>
                 </div>
-                <div class="form-group mt-4">
+                <div class="settings-field">
                     <label for="default-range">Default dashboard range</label>
                     <TelerikDropDownList Id="default-range" Data="@ranges" @bind-Value="preferences.DefaultRange" />
                 </div>
             </div>
-            <div class="card-footer settings-actions">
+            <div class="settings-card__footer settings-actions">
                 <TelerikButton ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)" ButtonType="ButtonType.Submit">Save preferences</TelerikButton>
                 <TelerikButton OnClick="@Reset">Cancel</TelerikButton>
             </div>
