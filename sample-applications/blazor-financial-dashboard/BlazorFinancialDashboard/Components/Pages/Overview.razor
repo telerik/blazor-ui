@@ -2,12 +2,45 @@
 
 @inject TransactionService TransactionService
 @inject PaymentMethodService PaymentMethodService
+@inject AccountService AccountService
+@inject UserService UserService
+@inject InvestmentService InvestmentService
 
 @inject NavigationManager NavigationManager
 
 <PageTitle>Overview</PageTitle>
 
 <h1>Overview</h1>
+
+<UICard Title="Account snapshot" ContentClass="overview-account__content">
+    <div class="overview-account__identity">
+        <div class="overview-account__icon" aria-hidden="true">
+            <TelerikSvgIcon Icon="@SvgIconsNS.SvgIcon.Wallet" Size="@ThemeConstants.SvgIcon.Size.Large" />
+        </div>
+        <div>
+            <strong>@Account.AccountName</strong>
+            <span>@Account.AccountType · @Account.AccountNumber</span>
+        </div>
+        <TelerikBadge ThemeColor="@ThemeConstants.Badge.ThemeColor.Success"
+                      Rounded="@ThemeConstants.Badge.Rounded.Large">
+            @Account.Status
+        </TelerikBadge>
+    </div>
+    <div class="overview-account__metrics">
+        <div>
+            <span>Account balance</span>
+            <strong>@Account.Balance.ToString("C2")</strong>
+        </div>
+        <div>
+            <span>Available cash</span>
+            <strong>@Account.AvailableCash.ToString("C2")</strong>
+        </div>
+        <div>
+            <span>Invested assets</span>
+            <strong>@TotalInvested.ToString("C2")</strong>
+        </div>
+    </div>
+</UICard>
 
 <SummaryCard Title="Earnings" Value="15000" Change="2" />
 <SummaryCard Title="Spendings" Value="50000" Change="1" />
@@ -93,6 +126,31 @@
 </UICard>
 
 <UICard Title="Transactions">
+    @if (IsTransactionsLoading)
+    {
+        <div class="overview-state" role="status" aria-live="polite">
+            <span class="loading-indicator" aria-hidden="true"></span>
+            <strong>Loading recent activity</strong>
+        </div>
+    }
+    else if (TransactionsLoadError)
+    {
+        <div class="overview-state overview-state--error" role="alert">
+            <TelerikSvgIcon Icon="@SvgIconsNS.SvgIcon.WarningCircle" />
+            <strong>Recent activity is unavailable</strong>
+            <TelerikButton OnClick="@LoadTransactions" ThemeColor="@ThemeConstants.Button.ThemeColor.Primary">Try again</TelerikButton>
+        </div>
+    }
+    else if (GridData.Count == 0)
+    {
+        <div class="overview-state" role="status">
+            <TelerikSvgIcon Icon="@SvgIconsNS.SvgIcon.Inbox" />
+            <strong>No recent transactions</strong>
+            <span>There is no recorded activity for this account.</span>
+        </div>
+    }
+    else
+    {
     <TelerikGrid Data="@GridData"
                  TItem="@Transaction"
                  FilterMode="GridFilterMode.FilterMenu"
@@ -157,8 +215,18 @@
                     </TelerikBadge>
                 </Template>
             </GridColumn>
+            <GridColumn Title="Details" HeaderClass="centered-header" TextAlign="@ColumnTextAlign.Center">
+                <Template>
+                    @{ var dataItem = (Transaction)context; }
+                    <TelerikButton FillMode="@ThemeConstants.Button.FillMode.Flat"
+                                   OnClick="@(() => OpenTransactionDetails(dataItem.Id))">
+                        View details
+                    </TelerikButton>
+                </Template>
+            </GridColumn>
         </GridColumns>
     </TelerikGrid>
+    }
 </UICard>
 
 @code {
@@ -175,6 +243,11 @@
     private IEnumerable<Transaction> GridSelectedItems { get; set; } = new List<Transaction>();
 
     private List<PaymentMethod> PaymentMethods { get; set; } = new();
+    private AccountSummary Account { get; set; } = new();
+    private User AppUser { get; set; } = new();
+    private decimal TotalInvested { get; set; }
+    private bool IsTransactionsLoading { get; set; } = true;
+    private bool TransactionsLoadError { get; set; }
 
     [CascadingParameter(Name = "IsLargeScreen")]
     public bool IsLargeScreen { get; set; }
@@ -205,10 +278,36 @@
         return 100 * Convert.ToDouble(value) / Convert.ToDouble(Savings);
     }
 
+    private async Task LoadTransactions()
+    {
+        IsTransactionsLoading = true;
+        TransactionsLoadError = false;
+
+        try
+        {
+            await Task.Delay(220);
+            GridData = await TransactionService.Read();
+        }
+        catch
+        {
+            TransactionsLoadError = true;
+        }
+        finally
+        {
+            IsTransactionsLoading = false;
+        }
+    }
+
+    private void OpenTransactionDetails(int transactionId) =>
+        NavigationManager.NavigateTo($"transactions/{transactionId}");
+
     protected override async Task OnInitializedAsync()
     {
-        GridData = await TransactionService.Read();
+        await LoadTransactions();
         PaymentMethods = await PaymentMethodService.Read();
+        Account = await AccountService.Read();
+        AppUser = await UserService.Read(1);
+        TotalInvested = (await InvestmentService.ReadTotalInvestments()).Sum(item => item.Value);
 
         await base.OnInitializedAsync();
     }

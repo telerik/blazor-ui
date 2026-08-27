@@ -5,6 +5,7 @@ using Telerik.Blazor.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<AIAssistantService>();
+builder.Services.AddSingleton<AccountService>();
 builder.Services.AddScoped<CardService>();
 builder.Services.AddSingleton<InvestmentService>();
 builder.Services.AddSingleton<PaymentMethodService>();

@@ -1,0 +1,203 @@
+.transaction-detail-page {
+    display: grid;
+    grid-column: 1 / -1;
+    gap: var(--kendo-spacing-6);
+}
+
+.transaction-detail-page__heading {
+    display: grid;
+    gap: var(--kendo-spacing-2);
+}
+
+.transaction-detail-page__heading .k-button {
+    justify-self: start;
+    margin-left: calc(var(--kendo-spacing-2) * -1);
+}
+
+.transaction-detail-page__eyebrow {
+    color: var(--kendo-color-subtle);
+    font-size: var(--kendo-font-size-sm);
+    font-weight: var(--kendo-font-weight-medium);
+    letter-spacing: var(--kendo-letter-spacing-wide);
+    text-transform: uppercase;
+}
+
+.transaction-detail-page__intro,
+.transaction-detail-actions p {
+    margin: 0;
+    color: var(--kendo-color-subtle);
+}
+
+.transaction-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--kendo-spacing-4);
+}
+
+.transaction-detail-card__content {
+    gap: var(--kendo-spacing-5);
+}
+
+.transaction-detail-summary {
+    display: grid;
+    gap: var(--kendo-spacing-1);
+    justify-items: start;
+}
+
+.transaction-detail-summary__amount {
+    color: var(--kendo-color-primary-on-surface);
+    font-size: var(--kendo-font-size-xl);
+    font-weight: var(--kendo-font-weight-bold);
+}
+
+.transaction-detail-summary__merchant {
+    font-size: var(--kendo-font-size-lg);
+    font-weight: var(--kendo-font-weight-semibold);
+}
+
+.transaction-detail-summary__category {
+    color: var(--kendo-color-subtle);
+}
+
+.transaction-detail-list {
+    display: grid;
+    gap: var(--kendo-spacing-3);
+    margin: 0;
+}
+
+.transaction-detail-list > div {
+    display: grid;
+    grid-template-columns: minmax(7rem, 0.8fr) minmax(0, 1.2fr);
+    gap: var(--kendo-spacing-4);
+    border-top: 1px solid var(--kendo-color-border);
+    padding-top: var(--kendo-spacing-3);
+}
+
+.transaction-detail-list dt {
+    color: var(--kendo-color-subtle);
+}
+
+.transaction-detail-list dd {
+    margin: 0;
+    font-weight: var(--kendo-font-weight-medium);
+    text-align: right;
+}
+
+.transaction-detail-list__value {
+    overflow-wrap: anywhere;
+}
+
+.account-summary {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: var(--kendo-spacing-3);
+    align-items: center;
+}
+
+.account-summary__icon {
+    display: grid;
+    place-items: center;
+    width: var(--kendo-spacing-10);
+    height: var(--kendo-spacing-10);
+    border-radius: var(--kendo-border-radius-full);
+    background-color: var(--kendo-color-info-subtle);
+    color: var(--kendo-color-info-on-subtle);
+}
+
+.account-summary > div:nth-child(2) {
+    display: grid;
+    gap: var(--kendo-spacing-1);
+}
+
+.account-summary > div:nth-child(2) span {
+    color: var(--kendo-color-subtle);
+    font-size: var(--kendo-font-size-sm);
+}
+
+.transaction-detail-list--compact {
+    margin-top: auto;
+}
+
+.transaction-detail-actions {
+    gap: var(--kendo-spacing-3);
+}
+
+.transaction-detail-actions__buttons,
+.transaction-detail-state__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--kendo-spacing-2);
+}
+
+.transaction-detail-state {
+    display: grid;
+    justify-items: center;
+    gap: var(--kendo-spacing-3);
+    padding: var(--kendo-spacing-12) var(--kendo-spacing-4);
+    border: 1px solid var(--kendo-color-border);
+    border-radius: var(--kendo-border-radius-xl);
+    background-color: var(--kendo-color-surface-alt);
+    color: var(--kendo-color-subtle);
+    text-align: center;
+}
+
+.transaction-detail-state strong {
+    color: var(--kendo-color-primary-on-surface);
+    font-size: var(--kendo-font-size-lg);
+}
+
+.transaction-detail-state--error {
+    border-color: var(--kendo-color-error-emphasis);
+    background-color: var(--kendo-color-error-subtle);
+    color: var(--kendo-color-error-on-subtle);
+}
+
+.transaction-detail-state--error strong {
+    color: var(--kendo-color-error-on-subtle);
+}
+
+.loading-indicator {
+    width: var(--kendo-spacing-6);
+    height: var(--kendo-spacing-6);
+    border: var(--kendo-spacing-1) solid var(--kendo-color-base-emphasis);
+    border-top-color: var(--kendo-color-info);
+    border-radius: var(--kendo-border-radius-full);
+    animation: transaction-detail-spin 800ms linear infinite;
+}
+
+@keyframes transaction-detail-spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 767px) {
+    .transaction-detail-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .transaction-detail-list > div {
+        grid-template-columns: 1fr;
+        gap: var(--kendo-spacing-1);
+    }
+
+    .transaction-detail-list dd {
+        text-align: left;
+    }
+
+    .account-summary {
+        grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    .account-summary .k-badge {
+        grid-column: 2;
+        justify-self: start;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .loading-indicator {
+        animation-duration: 0.01ms;
+        animation-iteration-count: 1;
+    }
+}

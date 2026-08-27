@@ -4,16 +4,55 @@
 
 @inject InvestmentService InvestmentService
 @inject StockPointService StockPointService
+@inject AccountService AccountService
 
 <PageTitle>Investments</PageTitle>
 
 <h1>Investments</h1>
 
-<UICard Title="Total Investments" ColSpanOnLargeScreen="5" ColSpanOnMediumScreen="12">
+<div class="investments-filters" aria-label="Investment filters">
+    <div class="investments-filter">
+        <label for="investment-category">Asset category</label>
+        <TelerikDropDownList Id="investment-category"
+                             Data="@InvestmentFilters"
+                             @bind-Value="@SelectedInvestmentFilter"
+                             AriaLabel="Asset category" />
+    </div>
+    <div class="investments-filter investments-filter--search">
+        <label for="mover-search">Search movers</label>
+        <TelerikTextBox Id="mover-search"
+                        @bind-Value="@MoverSearchTerm"
+                        Placeholder="Symbol or asset name"
+                        AriaLabel="Search movers" />
+    </div>
+</div>
+
+<UICard Title="Total Investments"
+        SubTitle="@($"Account {Account.AccountNumber} · {TotalInvested.ToString("C2")}")"
+        ColSpanOnLargeScreen="5"
+        ColSpanOnMediumScreen="12">
+    @if (ViewState == "loading")
+    {
+        <div class="investments-state" role="status" aria-live="polite"><span class="loading-indicator" aria-hidden="true"></span><strong>Loading allocation</strong></div>
+    }
+    else if (ViewState == "error")
+    {
+        <div class="investments-state investments-state--error" role="alert"><TelerikSvgIcon Icon="@SvgIconsNS.SvgIcon.WarningCircle" /><strong>Allocation is unavailable</strong><TelerikButton OnClick="@LoadInvestments" ThemeColor="@ThemeConstants.Button.ThemeColor.Primary">Try again</TelerikButton></div>
+    }
+    else if (!PieChartData.Any())
+    {
+        <div class="investments-state" role="status"><TelerikSvgIcon Icon="@SvgIconsNS.SvgIcon.Inbox" /><strong>No allocation data</strong><span>Investment categories will appear when holdings are recorded.</span></div>
+    }
+    else if (!VisiblePieChartData.Any())
+    {
+        <div class="investments-state" role="status"><TelerikSvgIcon Icon="@SvgIconsNS.SvgIcon.Search" /><strong>No matching allocation</strong><span>There are no holdings in the selected category.</span><TelerikButton OnClick="@ClearFilters">Clear filters</TelerikButton></div>
+    }
+    else
+    {
     <TelerikChart @ref="@PieChartRef" Height="240px">
         <ChartSeriesItems>
             <ChartSeries Type="@ChartSeriesType.Pie"
-                         Data="@PieChartData"
+                         Data="@VisiblePieChartData"
                          CategoryField="@nameof(TotalInvestment.Category)"
                          Field="@nameof(TotalInvestment.Value)">
                 <ChartSeriesLabels Format="{0:C0}" Visible="true" Position="@ChartSeriesLabelsPosition.InsideEnd" />
@@ -21,10 +60,39 @@
         </ChartSeriesItems>
         <ChartLegend Position="@ChartLegendPosition.Right" />
     </TelerikChart>
+    }
 </UICard>
 
 <UICard Title="Today's Top 5 Movers" ColSpanOnLargeScreen="7" ColSpanOnMediumScreen="12">
-    <TelerikListView Data="@ListViewData">
+    @if (ViewState != "ready")
+    {
+        <div class="investments-state @(ViewState == "error" ? "investments-state--error" : string.Empty)" role="@(ViewState == "error" ? "alert" : "status")">
+            @if (ViewState == "loading")
+            {
+                <span class="loading-indicator" aria-hidden="true"></span><strong>Loading movers</strong>
+            }
+            else if (ViewState == "error")
+            {
+                <TelerikSvgIcon Icon="@SvgIconsNS.SvgIcon.WarningCircle" /><strong>Movers are unavailable</strong><TelerikButton OnClick="@LoadInvestments" ThemeColor="@ThemeConstants.Button.ThemeColor.Primary">Try again</TelerikButton>
+            }
+            else if (!ListViewData.Any())
+            {
+                <TelerikSvgIcon Icon="@SvgIconsNS.SvgIcon.Inbox" /><strong>No movers to show</strong><span>Daily movement will appear when holdings are available.</span>
+            }
+        </div>
+    }
+    else if (!VisibleMovers.Any())
+    {
+        <div class="investments-state" role="status">
+            <TelerikSvgIcon Icon="@SvgIconsNS.SvgIcon.Search" />
+            <strong>No matching movers</strong>
+            <span>Try a different symbol or asset name.</span>
+            <TelerikButton OnClick="@ClearMoverSearch">Clear search</TelerikButton>
+        </div>
+    }
+    else
+    {
+    <TelerikListView Data="@VisibleMovers">
         <Template>
             @{ decimal dailyChangeAmount = (Convert.ToDecimal(context.DailyChange) * context.CurrentValue); }
             <div class="movers__row">
@@ -46,9 +114,29 @@
             </div>
         </Template>
     </TelerikListView>
+    }
 </UICard>
 
 <UICard Title="Stock Chart">
+    @if (ViewState != "ready")
+    {
+        <div class="investments-state @(ViewState == "error" ? "investments-state--error" : string.Empty)" role="@(ViewState == "error" ? "alert" : "status")">
+            @if (ViewState == "loading")
+            {
+                <span class="loading-indicator" aria-hidden="true"></span><strong>Loading price history</strong>
+            }
+            else if (ViewState == "error")
+            {
+                <TelerikSvgIcon Icon="@SvgIconsNS.SvgIcon.WarningCircle" /><strong>Price history is unavailable</strong><TelerikButton OnClick="@LoadInvestments" ThemeColor="@ThemeConstants.Button.ThemeColor.Primary">Try again</TelerikButton>
+            }
+            else if (StockChartData.Values.All(item => !item.StockChartData.Any()))
+            {
+                <TelerikSvgIcon Icon="@SvgIconsNS.SvgIcon.Inbox" /><strong>No price history</strong><span>Historical points will appear when an asset is selected.</span>
+            }
+        </div>
+    }
+    else
+    {
 <TelerikTabStrip @bind-ActiveTabId="@TabStripActiveTabId" Class="no-content-padding">
 
     @foreach (var stockChartItem in StockChartData)
@@ -113,12 +201,31 @@
         </TabStripTab>
     }
 </TelerikTabStrip>
+    }
 
 </UICard>
 
 @code {
     private List<TotalInvestment> PieChartData { get; set; } = new();
     private List<AssetInfo> ListViewData { get; set; } = new();
+    private AccountSummary Account { get; set; } = new();
+    private decimal TotalInvested => PieChartData.Sum(item => item.Value);
+    private string ViewState { get; set; } = "loading";
+    private string SelectedInvestmentFilter { get; set; } = "All assets";
+    private string MoverSearchTerm { get; set; } = string.Empty;
+    private List<string> InvestmentFilters { get; } = new() { "All assets", "Stocks", "Real estate", "Bonds", "Mutual funds", "Cryptocurrency", "Commodities" };
+
+    private IEnumerable<TotalInvestment> VisiblePieChartData =>
+        SelectedInvestmentFilter == "All assets"
+            ? PieChartData
+            : PieChartData.Where(item => item.Category.Equals(SelectedInvestmentFilter, StringComparison.OrdinalIgnoreCase));
+
+    private IEnumerable<AssetInfo> VisibleMovers =>
+        string.IsNullOrWhiteSpace(MoverSearchTerm)
+            ? ListViewData
+            : ListViewData.Where(item =>
+                item.Symbol.Contains(MoverSearchTerm, StringComparison.OrdinalIgnoreCase) ||
+                item.AssetName.Contains(MoverSearchTerm, StringComparison.OrdinalIgnoreCase));
 
     private TelerikChart? PieChartRef { get; set; }
 
@@ -148,6 +255,38 @@
         return amount >= 0 ? new SvgIconsNS.CaretAltUp() : new SvgIconsNS.CaretAltDown();
     }
 
+    private async Task LoadInvestments()
+    {
+        ViewState = "loading";
+        await InvokeAsync(StateHasChanged);
+
+        try
+        {
+            await Task.Delay(260);
+            PieChartData = await InvestmentService.ReadTotalInvestments();
+            ListViewData = await InvestmentService.ReadTopMovers();
+            foreach (var item in StockChartData)
+            {
+                item.Value.StockChartData = await StockPointService.Read();
+            }
+
+            Account = await AccountService.Read();
+            ViewState = "ready";
+        }
+        catch
+        {
+            ViewState = "error";
+        }
+    }
+
+    private void ClearFilters()
+    {
+        SelectedInvestmentFilter = "All assets";
+        MoverSearchTerm = string.Empty;
+    }
+
+    private void ClearMoverSearch() => MoverSearchTerm = string.Empty;
+
     [JSInvokable("OnViewPortResize")]
     public override Task OnViewPortResize()
     {
@@ -159,13 +298,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        PieChartData = await InvestmentService.ReadTotalInvestments();
-        ListViewData = await InvestmentService.ReadTopMovers();
-
-        foreach (var item in StockChartData)
-        {
-            item.Value.StockChartData = await StockPointService.Read();
-        }
+        await LoadInvestments();
 
         await base.OnInitializedAsync();
     }

@@ -17,6 +17,13 @@ namespace BlazorFinancialDashboard.Services
             return Data;
         }
 
+        public async Task<Transaction?> Read(int transactionId)
+        {
+            await Task.CompletedTask;
+
+            return Data.FirstOrDefault(transaction => transaction.Id == transactionId);
+        }
+
         private List<Transaction> GenerateData()
         {
             var rnd = Random.Shared;

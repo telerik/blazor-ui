@@ -3,6 +3,7 @@
 @inject TransactionService TransactionService
 @inject PaymentMethodService PaymentMethodService
 @inject UserService UserService
+@inject NavigationManager NavigationManager
 
 <PageTitle>Transactions</PageTitle>
 
@@ -11,7 +12,34 @@
 <UICard Title="Personal Transactions"
         ColSpanOnLargeScreen="8"
         ColSpanOnMediumScreen="12">
-    <TelerikGrid Data="@GridData"
+    @if (ViewState == "loading")
+    {
+        <div class="transactions-state" role="status" aria-live="polite">
+            <span class="loading-indicator" aria-hidden="true"></span>
+            <strong>Loading transactions</strong>
+            <span>Retrieving the local fixture records…</span>
+        </div>
+    }
+    else if (ViewState == "error")
+    {
+        <div class="transactions-state transactions-state--error" role="alert">
+            <TelerikSvgIcon Icon="@SvgIconsNS.SvgIcon.WarningCircle" Size="@ThemeConstants.SvgIcon.Size.Large" />
+            <strong>Transactions are temporarily unavailable</strong>
+            <span>Nothing was changed. Try the local fixture again when you’re ready.</span>
+            <TelerikButton ThemeColor="@ThemeConstants.Button.ThemeColor.Primary" OnClick="@LoadTransactions">Try again</TelerikButton>
+        </div>
+    }
+    else if (ViewState == "empty")
+    {
+        <div class="transactions-state" role="status">
+            <TelerikSvgIcon Icon="@SvgIconsNS.SvgIcon.Inbox" Size="@ThemeConstants.SvgIcon.Size.Large" />
+            <strong>No transactions yet</strong>
+            <span>Recorded activity will appear here when the account has history.</span>
+        </div>
+    }
+    else
+    {
+        <TelerikGrid Data="@GridData"
                  TItem="@Transaction"
                  FilterMode="GridFilterMode.FilterMenu"
                  Groupable="true"
@@ -58,8 +86,28 @@
                     </TelerikBadge>
                 </Template>
             </GridColumn>
+            <GridColumn Title="Details"
+                        HeaderClass="centered-header"
+                        TextAlign="@ColumnTextAlign.Center">
+                <Template>
+                    @{ var dataItem = (Transaction)context; }
+                    <TelerikButton FillMode="@ThemeConstants.Button.FillMode.Flat"
+                                   Icon="@SvgIconsNS.SvgIcon.ChevronRight"
+                                   OnClick="@(() => OpenTransactionDetails(dataItem.Id))">
+                        View details
+                    </TelerikButton>
+                </Template>
+            </GridColumn>
         </GridColumns>
-    </TelerikGrid>
+        <NoDataTemplate>
+            <div class="transactions-state" role="status">
+                <TelerikSvgIcon Icon="@SvgIconsNS.SvgIcon.Search" Size="@ThemeConstants.SvgIcon.Size.Large" />
+                <strong>No matching transactions</strong>
+                <span>Try a different filter to broaden the results.</span>
+            </div>
+        </NoDataTemplate>
+        </TelerikGrid>
+    }
 </UICard>
 
 <UICard Title="Transaction Details"
@@ -174,6 +222,7 @@
     private User AppUser { get; set; } = null!;
 
     private Transaction? FormModel { get; set; }
+    private string ViewState { get; set; } = "ready";
 
     [CascadingParameter(Name = "IsLargeScreen")]
     public bool IsLargeScreen { get; set; }
@@ -193,6 +242,27 @@
             FormModel = default;
         }
     }
+
+    private async Task LoadTransactions()
+    {
+        ViewState = "loading";
+        await InvokeAsync(StateHasChanged);
+
+        try
+        {
+            await Task.Delay(280);
+            GridData = await TransactionService.Read();
+            ViewState = "ready";
+            FormModel = GridData.FirstOrDefault();
+        }
+        catch
+        {
+            ViewState = "error";
+        }
+    }
+
+    private void OpenTransactionDetails(int transactionId) =>
+        NavigationManager.NavigateTo($"transactions/{transactionId}");
 
     private void OnGridStateInit(GridStateEventArgs<Transaction> args)
     {
@@ -214,14 +284,16 @@
 
     protected override async Task OnInitializedAsync()
     {
-        GridData = await TransactionService.Read();
+        await LoadTransactions();
         PaymentMethods = await PaymentMethodService.Read();
 
         AppUser = await UserService.Read(userId: 1);
 
 
 
-        GridSelectedItems = new List<Transaction>() { GridData.OrderByDescending(t => t.Date).First() };
+        GridSelectedItems = GridData.Count > 0
+            ? new List<Transaction>() { GridData.OrderByDescending(t => t.Date).First() }
+            : new List<Transaction>();
         FormModel = GridData.FirstOrDefault();
 
         await base.OnInitializedAsync();
