@@ -2,6 +2,11 @@ using BlazorHealthcareApp.Components;
 using BlazorHealthcareApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")))
+{
+    builder.Environment.EnvironmentName = Environments.Development;
+}
+builder.WebHost.UseStaticWebAssets();
 
 builder.Services.AddTelerikBlazor();
 
@@ -20,7 +25,7 @@ builder.Services.AddScoped<AIChatService>();
 
 var app = builder.Build();
 
-app.UsePathBase("/blazor-healthcare/");
+app.UsePathBase("/blazor-healthcare");
 app.UseRouting();
 
 // Configure the HTTP request pipeline.

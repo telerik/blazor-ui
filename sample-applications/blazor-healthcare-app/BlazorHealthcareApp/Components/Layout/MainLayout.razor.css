@@ -37,12 +37,16 @@
     flex-direction: column;
     gap: 32px;
     width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
 }
 
 /* ========== APPBAR (TelerikAppBar overrides) ========== */
 ::deep .hc-appbar.k-appbar {
     padding: 16px 24px;
     width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
     background: var(--kendo-color-surface-alt);
     border: 1px solid rgba(255, 255, 255, 0.0001);
     box-shadow: var(--kendo-elevation-1);
