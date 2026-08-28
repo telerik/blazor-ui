@@ -75,6 +75,15 @@ body {
     border-right: 1px solid var(--kendo-color-border);
 }
 
+/* Keep the mini drawer a usable navigation rail with Meridian's metrics. */
+.mainlayout-drawer.k-drawer-mini .k-drawer {
+    width: calc(var(--kendo-spacing-16) + var(--kendo-spacing-2));
+}
+
+.mainlayout-drawer.k-drawer-mini .k-drawer-wrapper {
+    width: 100% !important;
+}
+
 .k-overlay {
     background-color: var(--kendo-color-inverse);
 }
@@ -126,7 +135,9 @@ div.appbar-top {
 
 /* Main Content */
 #drawer-content-wrapper {
+    width: 100%;
     max-width: 1140px;
+    box-sizing: border-box;
     min-height: 100vh;
     display: flex;
     flex-direction: column;

@@ -1,15 +1,20 @@
-﻿<div class="uicard uicard--md-@ColSpanOnMediumScreen uicard--lg-@ColSpanOnLargeScreen"
-     style="@($"--uicard-title-gap: var(--kendo-spacing-{GetSpacingStep(TitleGap)}); --uicard-content-gap: var(--kendo-spacing-{GetSpacingStep(ContentGap)});")">
-    <div class="uicard__header">
-        <h2>@Title</h2>
-        @if (!string.IsNullOrEmpty(SubTitle))
-        {
-            <div class="card-subtitle uicard__subtitle">@SubTitle</div>
-        }
-    </div>
-    <div class="uicard__content @ContentClass">
-        @ChildContent
-    </div>
+<div class="uicard-layout uicard-layout--md-@ColSpanOnMediumScreen uicard-layout--lg-@ColSpanOnLargeScreen">
+    <TelerikCard Class="uicard">
+        <CardHeader>
+            <div class="uicard__header uicard__header--gap-@GetSpacingStep(TitleGap)">
+                <h2>@Title</h2>
+                @if (!string.IsNullOrEmpty(SubTitle))
+                {
+                    <div class="card-subtitle uicard__subtitle">@SubTitle</div>
+                }
+            </div>
+        </CardHeader>
+        <CardBody>
+            <div class="uicard__content uicard__content--gap-@GetSpacingStep(ContentGap) @ContentClass">
+                @ChildContent
+            </div>
+        </CardBody>
+    </TelerikCard>
 </div>
 
 @code {

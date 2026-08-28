@@ -290,6 +290,11 @@
     [JSInvokable("OnViewPortResize")]
     public override Task OnViewPortResize()
     {
+        if (IsDisposed)
+        {
+            return Task.CompletedTask;
+        }
+
         PieChartRef?.Refresh();
         StockChartData[GetActiveTabKey()].StockChartRef?.Refresh();
 
