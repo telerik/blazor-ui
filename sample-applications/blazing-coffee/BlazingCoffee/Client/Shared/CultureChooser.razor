@@ -11,8 +11,8 @@
                      TextField="@nameof(CultureData.Text)"
                      ValueField="@nameof(CultureData.Value)">
     <ValueTemplate>
-        <span class="k-icon">
-            <img src="./img/globe.svg"/>
+        <span class="culture-icon" aria-hidden="true">
+            <img src="./img/globe.svg" alt="" aria-hidden="true"/>
         </span>
         <div class="ddl-separator"></div>
         <span class="text-content">@((context as CultureData).Value.Split("-")[0].ToUpper())</span>

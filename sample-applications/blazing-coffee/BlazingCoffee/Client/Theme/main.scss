@@ -1,4 +1,4 @@
-@use "@progress/kendo-theme-meridian/scss/index.scss" as meridian;
+@use "@progress/kendo-theme-meridian/scss/all.scss" as meridian;
 
 @import "./variables";
 @import "./typography";
@@ -44,6 +44,22 @@ html body {
     padding-left: var(--kendo-spacing-2\.5);
 }
 
+.employee-country-flag {
+    width: 30px;
+    height: auto;
+}
+
+.culture-icon {
+    display: inline-flex;
+    align-items: center;
+    color: var(--kendo-color-on-app-surface);
+
+    img {
+        width: var(--kendo-icon-size);
+        height: var(--kendo-icon-size);
+    }
+}
+
 html, body, app {
     height: 100%;
     margin: 0;
@@ -69,6 +85,7 @@ html, body, app {
 .card-header-wrapper {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: var(--kendo-spacing-4);
     gap: var(--kendo-spacing-4);
 }
@@ -227,7 +244,7 @@ div.k-form-buttons button{
 
 .package-title a {
     font-size: 17px;
-    color: #cccccc;
+    color: var(--kendo-color-inverse-subtle);
     text-transform: uppercase;
 }
 
@@ -376,7 +393,7 @@ span.k-dropdownlist .k-input-inner {
 }
 
 .k-drawer-container.k-drawer-left {
-    min-height: calc(100% - 80px);
+    min-height: calc(100% - 72px);
 }
 
 .k-popup.k-grid-columnmenu-popup {
@@ -403,6 +420,14 @@ span.k-dropdownlist .k-input-inner {
     border: 1px solid var(--kendo-color-border);
     border-radius: var(--kendo-border-radius-md);
     padding: var(--kendo-spacing-4);
+    background-color: var(--kendo-color-surface-alt);
+    box-shadow: var(--kendo-elevation-1);
+}
+
+@media (min-width: 768px) {
+    .notification-item {
+        padding: var(--kendo-spacing-6);
+    }
 }
 
 .notification-item__header {
@@ -423,6 +448,11 @@ span.k-dropdownlist .k-input-inner {
     text-align: center;
 }
 
+.card-component > .k-grid,
+.card-component > .k-form {
+    background-color: var(--kendo-color-surface-alt);
+}
+
 .support-success,
 .not-found-page {
     padding: var(--kendo-spacing-12) var(--kendo-spacing-6);
@@ -434,7 +464,12 @@ span.k-dropdownlist .k-input-inner {
     margin-bottom: var(--kendo-spacing-4);
 }
 
-@media (max-width: 575.98px) {
+@media (max-width: 767.98px) {
+    .card-header-wrapper {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
     .notification-item__header {
         align-items: flex-start;
         flex-direction: column;
@@ -443,5 +478,9 @@ span.k-dropdownlist .k-input-inner {
 
     .app-page .k-button {
         min-height: 44px;
+    }
+
+    .k-drawer-container.k-drawer-left {
+        min-height: calc(100% - 64px);
     }
 }

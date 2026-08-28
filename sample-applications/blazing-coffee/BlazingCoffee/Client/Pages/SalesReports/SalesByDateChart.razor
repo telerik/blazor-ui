@@ -4,11 +4,12 @@
 @inject HttpClient Http
 @inject ITelerikStringLocalizer Localizer
 @page "/sales"
+@page "/dashboard"
 
 <CardContainer>
     <CardHeader>
         <div class="card-header-wrapper">
-            <h3 class="card-title">@Localizer["Reporting"]</h3>
+            <h2 class="card-title">@Localizer["Reporting"]</h2>
                 <TelerikButtonGroup>
                     <ButtonGroupToggleButton @bind-Selected="@TrendChartType" OnClick="ToggleChartType">@Localizer["ButtonGroup_Trend"]</ButtonGroupToggleButton>
                     <ButtonGroupToggleButton @bind-Selected="@VolumeChartType" OnClick="ToggleChartType">@Localizer["ButtonGroup_Volume"]</ButtonGroupToggleButton>
@@ -38,7 +39,7 @@
     else if (Data?.Count() > 0)
     {
         <TelerikChart Height="400px">
-            <ChartLegend Position="ChartLegendPosition.Bottom" Spacing="100"  Orientation="ChartLegendOrientation.Horizontal" Background="#f4f5f8">
+            <ChartLegend Position="ChartLegendPosition.Bottom" Spacing="100" Orientation="ChartLegendOrientation.Horizontal">
                 <ChartLegendPadding Left="50" Right="50"></ChartLegendPadding>
             </ChartLegend>
             <ChartTitle Text="@Localizer["ChartTitle_SalesAndRevenueTotal"]" />

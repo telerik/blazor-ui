@@ -16,9 +16,10 @@ $isDarkTheme: false !default;
     --kendo-color-series-d: #52bdee;
     --kendo-color-series-e: #528dee;
     --kendo-color-series-f: #7378d9;
-    --kendo-font-family: "Roboto", var(--kendo-font-family-sans-serif);
-    --kendo-border-radius-base: 2px;
-    --kendo-translucency-base: 24%;
+    --kendo-border-radius-base: 0.375rem;
+    --kendo-translucency-base: 25%;
+    --kendo-translucency-blur-base: 6px;
+    --kendo-translucency-blur-step: 2px;
 }
 
 @if $isDarkTheme {

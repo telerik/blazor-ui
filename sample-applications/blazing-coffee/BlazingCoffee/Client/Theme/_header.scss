@@ -1,6 +1,6 @@
 ﻿// Header
 .header {
-    height: 80px;
+    height: 72px;
     background-image: url('/blazor-coffee/img/header-bg.png');
     background-blend-mode: luminosity;
     background-color: $primary;
@@ -12,11 +12,34 @@
         justify-content: space-between;
         height: 100%;
         color: $primary-contrast;
+        padding: 0 var(--kendo-spacing-6);
     }
 
-    .menu-button, .settings {
+    .menu-button,
+    .settings {
         flex: 0 0 48px;
         text-align: center;
+    }
+
+    .menu-button .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    .title {
+        display: flex;
+        flex: 1 0 auto;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: var(--kendo-spacing-4);
+
     }
 
     .k-button {
@@ -28,14 +51,6 @@
 
     .k-button:hover {
         background-color: transparent;
-    }
-
-    .title {
-        display: flex;
-        flex: 1 0 auto;
-        flex-direction: column;
-        align-items: flex-start;
-        margin-left: var(--kendo-spacing-6);
     }
 
     .k-avatar {
@@ -52,7 +67,22 @@
     }
 }
 
-@media (min-width: 576px) {
+@media (max-width: 767.98px) {
+    .header {
+        height: 64px;
+
+        .nav-container {
+            padding: 0 var(--kendo-spacing-4);
+        }
+
+        .title {
+            margin-left: var(--kendo-spacing-2);
+
+        }
+    }
+}
+
+@media (min-width: 768px) {
     .header {
         .title {
             flex-direction: row;

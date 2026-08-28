@@ -12,7 +12,9 @@
     <div class="header">
         <div class="nav-container">
             <div class="menu-button">
-                <TelerikButton Icon="@SvgIcon.Menu" OnClick="ToggleMenuDrawer" />
+                <TelerikButton Icon="@SvgIcon.Menu" OnClick="ToggleMenuDrawer">
+                    <span class="visually-hidden">@Localizer["Accessibility_ToggleNavigation"]</span>
+                </TelerikButton>
             </div>
             <div class="title">
                 <h1>@Localizer["Blazing_Coffee_Title"]</h1>
@@ -28,7 +30,7 @@
     <TelerikDrawer @ref="MenuDrawer"
                    Expanded="@Expanded"
                    ExpandedChanged="((bool newValue) => ExpandedChangedHandler(newValue))"
-                   Width="190px" Data="Data" Mode="DrawerMode.Push" Position="DrawerPosition.Start" MiniMode="true">
+                   Width="240px" Data="Data" Mode="DrawerMode.Push" Position="DrawerPosition.Start" MiniMode="true">
         <Template>
             <DrawTemplate Data="context"></DrawTemplate>
         </Template>
@@ -38,7 +40,7 @@
     </TelerikDrawer>
 </TelerikRootComponent>
 
-<TelerikMediaQuery Media="(max-width: 768px)" OnChange="((changed) => WindowWidthSmall = changed)"></TelerikMediaQuery>
+<TelerikMediaQuery Media="(max-width: 767.98px)" OnChange="((changed) => WindowWidthSmall = changed)"></TelerikMediaQuery>
 @code {
     TelerikDrawer<DrawerItem> MenuDrawer { get; set; }
 
@@ -50,17 +52,34 @@
 
     [CascadingParameter] public CoffeeComponentBase DocumentedComponent { get; set; }
 
-    IEnumerable<DrawerItem> Data =>
-    new List<DrawerItem>
+    IEnumerable<DrawerItem> Data
     {
-            new DrawerItem{ Text = Localizer["Drawer_Team"], Icon = SvgIcon.Grid, Url="/blazor-coffee/", Group = "home"},
-            new DrawerItem{ Text = Localizer["Drawer_Dashboard"], Icon = SvgIcon.ChartLineMarkers, Url="/blazor-coffee/sales", Group = "app"},
-            new DrawerItem{ Text = Localizer["Drawer_Profile"], Icon = SvgIcon.User, Url="/blazor-coffee/profile", Group = "app"},
+        get
+        {
+            var items = new List<DrawerItem>
+            {
+            new DrawerItem{ Text = Localizer["Drawer_Dashboard"], Icon = SvgIcon.ChartLineMarkers, Url="/blazor-coffee/dashboard", Group = "home"},
+            new DrawerItem{ Text = Localizer["Drawer_TeamMembers"], Icon = SvgIcon.Grid, Url="/blazor-coffee/", Group = "app", Match = NavLinkMatch.All},
             new DrawerItem{ Text = "Notifications", Icon = SvgIcon.InfoCircle, Url="/blazor-coffee/notifications", Group = "app"},
             new DrawerItem{ Text = "Settings", Icon = SvgIcon.Palette, Url="/blazor-coffee/settings", Group = "app"},
             new DrawerItem{ Text = "Help & Support", Icon = SvgIcon.InfoCircle, Url="/blazor-coffee/support", Group = "ext"},
-            new DrawerItem{ Text = Localizer["Drawer_Info"], Icon = SvgIcon.InfoCircle, Url="/blazor-coffee/information", Group = "ext"}
-    };
+            new DrawerItem{ Text = Localizer["Drawer_InfoShort"], Icon = SvgIcon.InfoCircle, Url="/blazor-coffee/information", Group = "ext"}
+            };
+
+            if (WindowWidthSmall)
+            {
+                items.Insert(2, new DrawerItem
+                {
+                    Text = Localizer["Drawer_Profile"],
+                    Icon = SvgIcon.User,
+                    Url = "/blazor-coffee/profile",
+                    Group = "app"
+                });
+            }
+
+            return items;
+        }
+    }
       
     async Task ToggleMenuDrawer()
     {

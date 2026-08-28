@@ -297,11 +297,23 @@
   <data name="Drawer_Dashboard" xml:space="preserve">
     <value>Табло</value>
   </data>
+  <data name="Accessibility_ToggleNavigation" xml:space="preserve">
+    <value>Превключване на навигацията</value>
+  </data>
+  <data name="Accessibility_OpenProfile" xml:space="preserve">
+    <value>Отвори профила</value>
+  </data>
+  <data name="Drawer_InfoShort" xml:space="preserve">
+    <value>Info</value>
+  </data>
   <data name="Drawer_Info" xml:space="preserve">
     <value>Информация</value>
   </data>
   <data name="Drawer_Profile" xml:space="preserve">
     <value>Профил</value>
+  </data>
+  <data name="Drawer_TeamMembers" xml:space="preserve">
+    <value>Членове на екипа</value>
   </data>
   <data name="Drawer_Team" xml:space="preserve">
     <value>Екип</value>

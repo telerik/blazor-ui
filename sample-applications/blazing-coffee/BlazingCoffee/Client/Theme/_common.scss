@@ -1,7 +1,6 @@
 // Normalization
 body,
-h1,
-body {
+h1 {
     margin: 0;
     padding: 0;
     list-style-type: none;
@@ -54,7 +53,7 @@ a:not([href]):not([class]) {
     }
 }
 
-@media (min-width: 576px) {
+@media (min-width: 768px) {
     .dashboard-page {
         .k-grid-toolbar .k-textbox {
             margin-bottom: 0;
@@ -105,7 +104,7 @@ a:not([href]):not([class]) {
     }
 }
 
-@media (min-width: 576px) {
+@media (min-width: 768px) {
     .planning-page {
         .card-container {
             grid-template-columns: repeat(2, 1fr);
@@ -175,7 +174,7 @@ a:not([href]):not([class]) {
     }
 }
 
-@media (min-width: 576px) {
+@media (min-width: 768px) {
     .profile-page {
         .k-form .k-form-field {
             display: flex;

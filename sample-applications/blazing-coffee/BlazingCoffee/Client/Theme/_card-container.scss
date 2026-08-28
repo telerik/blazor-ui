@@ -1,7 +1,11 @@
 ﻿.card-container {
     background-color: $base-bg;
-    padding: var(--kendo-spacing-10) 0;
+    border: 1px solid var(--kendo-color-border);
+    border-radius: var(--kendo-border-radius-lg);
+    padding: var(--kendo-spacing-4);
+    margin: var(--kendo-spacing-4);
     text-align: center;
+    box-shadow: var(--kendo-elevation-1);
 
     &.grid {
         display: grid;
@@ -11,6 +15,11 @@
     }
 
     .card-title {
+        color: var(--kendo-color-primary-on-surface);
+        font-size: var(--kendo-font-size-lg);
+        font-weight: var(--kendo-font-weight-semibold);
+        line-height: var(--kendo-line-height-md);
+        margin: 0 0 var(--kendo-spacing-4);
     }
 
     .card-buttons {
@@ -37,10 +46,10 @@
     }
 }
 
-@media (min-width: 576px) {
+@media (min-width: 768px) {
     .card-container {
         text-align: initial;
-        padding: var(--kendo-spacing-8);
+        padding: var(--kendo-spacing-6);
 
         &.grid {
             grid-template-columns: repeat(2, 1fr);
@@ -65,11 +74,9 @@
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
     .card-container {
         margin: var(--kendo-spacing-6);
-        border-radius: var(--kendo-border-radius-md);
-        box-shadow: var(--kendo-elevation-1);
 
         &.grid {
             grid-template-columns: repeat(3, 1fr);

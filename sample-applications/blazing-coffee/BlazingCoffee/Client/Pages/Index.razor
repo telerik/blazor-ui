@@ -8,7 +8,7 @@
 <CardContainer>
     <CardHeader>
         <div class="card-header-wrapper">
-            <h3 class="card-title">@Localizer["Employees"]</h3>
+            <h2 class="card-title">@Localizer["Employees"]</h2>
                 <TelerikButtonGroup>
                     <ButtonGroupToggleButton @bind-Selected="@SingleTeamSelected" OnClick="OnButtonGroupClick">@Localizer["ButtonGroup_MyTeam"]</ButtonGroupToggleButton>
                     <ButtonGroupToggleButton @bind-Selected="@AllTeamsSelected" OnClick="OnButtonGroupClick">@Localizer["ButtonGroup_AllTeams"]</ButtonGroupToggleButton>
@@ -70,7 +70,9 @@
                             @{
                                  var employee = context as Employee;
 
-                                <img style="width: 30px;" src="./img/country-flags/@(employee.Country.ToLower()).png" />
+                                <img class="employee-country-flag"
+                                     src="./img/country-flags/@(employee.Country.ToLower()).png"
+                                     alt="@employee.Country" />
                             }
                         </Template>
                     </GridColumn>
@@ -111,7 +113,7 @@
             <GridColumn Title="@Localizer["Employee_Grid_Title_Contacts"]">
                 <Columns>
                     <GridColumn Field="@nameof(Employee.Phone)" Width="130px" Title="@Localizer["Employee_Grid_Title_Phone"]"></GridColumn>
-                    <GridColumn Field="@nameof(Employee.Address)" DisplayFormat="{0:C}" Width="200px" Title="@Localizer["Employee_Grid_Title_Address"]"></GridColumn>
+                    <GridColumn Field="@nameof(Employee.Address)" Width="200px" Title="@Localizer["Employee_Grid_Title_Address"]"></GridColumn>
                 </Columns>
             </GridColumn>
         </GridColumns>
