@@ -7,7 +7,7 @@
 @inject CurrenciesService currenciesService
 
 <TelerikRootComponent>
-    <nav class="navbar navbar-expand-lg py-3 header">
+    <nav class="navbar navbar-expand-lg py-2 header">
         <div class="container d-flex justify-content-between">
             <div class="title-wrap">
                 <NavLink href="" Match="@NavLinkMatch.All" class="header-title">My Stocks Portfolio</NavLink>
@@ -44,22 +44,6 @@
             </div>
         </div>
     </nav>
-    <nav class="portfolio-navigation" aria-label="Primary navigation">
-        <div class="container">
-            <NavLink href="" Match="@NavLinkMatch.All">Portfolio</NavLink>
-            <NavLink href="watchlist">Watchlist</NavLink>
-            <NavLink href="markets">Markets</NavLink>
-            <NavLink href="trade">Trade</NavLink>
-            <NavLink href="transactions">Transactions</NavLink>
-            <NavLink href="accounts">Accounts</NavLink>
-            <NavLink href="billing">Billing</NavLink>
-            <NavLink href="settings">Settings</NavLink>
-            <NavLink href="notifications">Notifications <span class="notification-count">3</span></NavLink>
-            <NavLink href="help">Help</NavLink>
-            <span class="market-status"><span aria-hidden="true">●</span> Market open · closes in 2h 38m</span>
-        </div>
-    </nav>
-
     <main class="container-fluid px-0">
 
         <div class="content px-4">

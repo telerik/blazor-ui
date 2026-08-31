@@ -63,7 +63,8 @@
 
 /* Header */
 .header {
-    height: calc(var(--kendo-spacing-24) * 1.46);
+    box-sizing: border-box;
+    height: 112px;
     background: url('../images/header-bg.svg');
     background-position: bottom;
     background-repeat: no-repeat;
@@ -72,6 +73,7 @@
     .header-title {
         padding-top: var(--kendo-spacing-2);
         font-family: var(--kendo-font-family);
+        font-size: calc(var(--kendo-font-size-xl) + var(--kendo-spacing-2));
         font-weight: var(--kendo-font-weight-light);
         color: var(--kendo-color-on-primary);
         text-decoration: none;
@@ -198,7 +200,12 @@
 
 .k-grid {
     margin-bottom: var(--kendo-spacing-24);
-    border-width: 0;
+    border: var(--kendo-spacing-1px) solid var(--kendo-color-border);
+
+    .k-grid-header th,
+    .k-grid-content td {
+        border-color: var(--kendo-color-border);
+    }
 
     td:first-child {
         text-overflow: unset;
@@ -550,7 +557,7 @@ stocks-grid .k-grid .k-grid-header th.k-header {
     }
 
     .header-title {
-        font-size: 1.8rem
+        font-size: calc(var(--kendo-font-size-xl) + var(--kendo-spacing-2))
     }
 }
 
@@ -560,47 +567,6 @@ stocks-grid .k-grid .k-grid-header th.k-header {
     }
 
     /* FinTech application chrome and supporting-page layouts */
-    .portfolio-navigation {
-        background-color: var(--kendo-color-surface);
-        border-bottom: 1px solid var(--kendo-color-border);
-
-        .container {
-            display: flex;
-            align-items: center;
-            gap: var(--kendo-spacing-2);
-            min-height: calc(var(--kendo-spacing-8) * 1.5);
-            overflow-x: auto;
-            white-space: nowrap;
-        }
-
-        a {
-            color: var(--kendo-color-on-surface);
-            padding: var(--kendo-spacing-2) var(--kendo-spacing-3);
-            text-decoration: none;
-            border-bottom: 2px solid transparent;
-            font-weight: var(--kendo-font-weight-medium);
-        }
-
-        a.active {
-            color: var(--kendo-color-primary-on-surface);
-            border-bottom-color: var(--kendo-color-primary);
-        }
-    }
-
-    .notification-count {
-        background: var(--kendo-color-error);
-        border-radius: var(--kendo-border-radius-full);
-        color: var(--kendo-color-on-error);
-        font-size: var(--kendo-font-size-xs);
-        padding: 0 var(--kendo-spacing-1\.5);
-    }
-
-    .market-status {
-        color: var(--kendo-color-success-on-surface);
-        font-size: var(--kendo-font-size-sm);
-        margin-left: auto;
-    }
-
     .finance-page {
         margin: var(--kendo-spacing-8) auto;
         max-width: calc(var(--kendo-spacing-24) * 10);
@@ -688,9 +654,7 @@ stocks-grid .k-grid .k-grid-header th.k-header {
     }
 
     @media screen and (max-width: 767.98px) {
-        .market-status { display: none; }
         .summary-grid, .support-grid, .page-heading, .finance-toolbar { flex-direction: column; align-items: stretch; }
-        .portfolio-navigation .container { padding: 0 var(--kendo-spacing-3); }
     }
 
     .k-button-group {
