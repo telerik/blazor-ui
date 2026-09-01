@@ -404,6 +404,10 @@ input {
     padding: var(--kendo-spacing-2) 0;
 }
 
+.dashboard__metric .k-chart {
+    height: calc(var(--kendo-spacing-16) * 2);
+}
+
 .dashboard__metric-label {
     display: block;
     user-select: none;
@@ -411,9 +415,9 @@ input {
 
 .dashboard__metric-label strong {
     display: block;
-    font-size: clamp(2.25rem, 4vw, 4rem);
+    font-size: clamp(2rem, 3vw, 3.5rem);
     line-height: var(--kendo-line-height-xs);
-    font-weight: var(--kendo-font-weight-thin);
+    font-weight: var(--kendo-font-weight-bold);
 }
 
 .dashboard__metric-label small {
