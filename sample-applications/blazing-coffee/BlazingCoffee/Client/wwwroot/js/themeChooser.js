@@ -1,9 +1,9 @@
 window.themeChooser = {
-    themeVersion: "13.0.0",
+    themeVersion: "14.1.0",
     themeList: [
         { themeValue: "default-ocean-blue", mainTheme:"default", isSwatch: true },
         { themeValue: "default", mainTheme: "default", isSwatch: false },
-        { themeValue: "bootstrap", mainTheme: "bootrstrap", isSwatch: false },
+        { themeValue: "bootstrap", mainTheme: "bootstrap", isSwatch: false },
         { themeValue: "material", mainTheme: "material", isSwatch: false },
     ],
     defaultTheme: { themeValue: "default-ocean-blue", mainTheme: "default", isSwatch: true },
@@ -12,8 +12,8 @@ window.themeChooser = {
         return themeSetting;
     },
     setTheme: function (theme) {
-        let isValidTheme = this.themeList.filter(t => t.themeValue == theme.themeValue).length;
-        if (!isValidTheme) {
+        let isThemeValid = this.themeList.filter(t => t.themeValue == theme.themeValue).length;
+        if (!isThemeValid) {
             theme = this.defaultTheme;
         }
 
@@ -23,12 +23,12 @@ window.themeChooser = {
     changeTheme: function (theme) {
         // Build the new css link
         let oldLink = document.getElementById("theme");
-        let cdnParts = ["https://blazor.cdn.telerik.com/blazor/", this.themeVersion, "/kendo-theme-"];
+        let themeUrlParts = ["https://unpkg.com/@progress/kendo-theme-", theme.mainTheme, "@", this.themeVersion, "/dist/"];
 
         if (theme.isSwatch) {
-            cdnParts.push(`${theme.mainTheme}/swatches/${theme.themeValue}.css`);
+            themeUrlParts.push(`${theme.themeValue}.css`);
         } else {
-            cdnParts.push(`${theme.themeValue || this.defaultTheme}/all.css`);
+            themeUrlParts.push("all.css");
         }
         
         let head = document.getElementsByTagName("head")[0];
@@ -36,7 +36,7 @@ window.themeChooser = {
         newLink.setAttribute("id", "theme");
         newLink.setAttribute("rel", "stylesheet");
         newLink.setAttribute("type", "text/css");
-        newLink.setAttribute("href", cdnParts.join(""));
+        newLink.setAttribute("href", themeUrlParts.join(""));
 
         // Wait for new styles to load and only then remove the only ones
         newLink.onload = () => {
