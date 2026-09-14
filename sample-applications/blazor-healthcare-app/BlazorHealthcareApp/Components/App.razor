@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="/blazor-healthcare/" />
     <ResourcePreloader />
-    <link rel="stylesheet" href="https://blazor.cdn.telerik.com/blazor/14.1.0/kendo-theme-meridian/swatches/meridian-main.css" />
-    <script src="https://blazor.cdn.telerik.com/blazor/14.1.0/telerik-blazor.min.js" defer></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://unpkg.com/@@progress/kendo-theme-default@14.1.0/dist/default-main.css" />
+    @* <script src="_content/Telerik.UI.for.Blazor/js/telerik-blazor.js" defer></script> *@
+    <script type="module" src="http://localhost:3124/main-vite.js"></script>
+    <link rel="stylesheet" href="@Assets["lib/bootstrap/css/bootstrap.min.css"]" />
     <link rel="stylesheet" href="@Assets["app.css"]" />
     <link rel="stylesheet" href="@Assets["BlazorHealthcareApp.styles.css"]" />
     <ImportMap />
