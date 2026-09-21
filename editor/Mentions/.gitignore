@@ -1,0 +1,2 @@
+# Ignore the built js file for consistent setup
+index.bundle.js
