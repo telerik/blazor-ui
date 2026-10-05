@@ -620,6 +620,24 @@ input {
 }
 
 // Profile
+.profile__header,
+.profile__layout {
+    width: min(100%, 1200px);
+    margin-inline: auto;
+}
+
+.profile__header {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: var(--kendo-spacing-4);
+    margin-bottom: var(--kendo-spacing-6);
+}
+
+.profile__header-spacer {
+    flex: 1 1 0;
+}
+
 .profile__layout {
     display: grid;
     grid-template-columns: minmax(0, 7fr) minmax(18rem, 5fr);
@@ -653,6 +671,8 @@ input {
 
 .profile__form-column {
     min-width: 0;
+    width: 100%;
+    max-width: 22rem;
 }
 
 .profile__field {
@@ -663,6 +683,10 @@ input {
 
 .profile__field--action {
     margin-top: var(--kendo-spacing-5);
+
+    > .k-button {
+        width: 100%;
+    }
 }
 
 .profile__checkbox-label {

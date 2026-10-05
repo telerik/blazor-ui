@@ -24,7 +24,7 @@ namespace BlazorDashboard.DataRetrieval
 					Issue currIssue = new Issue();
 
                     currIssue.Id = ++issueId;
-                    currIssue.Title = _dummyTitle.Substring(rand.Next(5, _dummyTitle.Length)) + currIssue.Id;
+                    currIssue.Title = _issueTitles[rand.Next(0, _issueTitles.Length)] + " #" + currIssue.Id;
 					currIssue.CreatedOn = currTime.AddDays(-i);
 					if (rand.Next(0, 10) % rand.Next(1, 4) == 0)
 					{
@@ -57,7 +57,34 @@ namespace BlazorDashboard.DataRetrieval
 		}
 
 		private static Random rand = new Random();
-		private static string _dummyTitle = "Issue lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+		private static readonly string[] _issueTitles = new string[]
+		{
+			"Grid column resize resets after sorting",
+			"Dropdown list closes unexpectedly on touch devices",
+			"Date picker shows wrong month near year boundaries",
+			"Chart tooltip is clipped inside a scrollable container",
+			"Add keyboard shortcut for opening the filter menu",
+			"Export to Excel ignores custom number formats",
+			"Dark mode: focus outline has insufficient contrast",
+			"Notification popup overlaps the navigation drawer",
+			"Pagination jumps to the first page after editing a row",
+			"Support multi-select in the labels filter",
+			"Form validation message is not announced by screen readers",
+			"Window loses its position after browser resize",
+			"Upload progress bar stays at 100% after cancel",
+			"Improve loading performance of the issues grid",
+			"Tab order is incorrect in the profile form",
+			"Localize built-in messages for the date range selector",
+			"Scheduler shows duplicate events across time zones",
+			"Tree list keeps stale selection after data refresh",
+			"Add option to hide the legend in the donut chart",
+			"Context menu does not close when the page scrolls",
+			"Row drag-and-drop indicator flickers in Safari",
+			"Allow saving custom filter presets",
+			"Autocomplete suggestions lag with large data sets",
+			"Toolbar buttons wrap incorrectly on narrow screens",
+			"Update documentation for the issue details panel"
+		};
 		private static string[] _issueTypes = { "bug", "feature", "enhancement" };
 		private static string[] _severities = { "low", "medium", "high" };
 		private static string[] _componentList = { "grid", "button", "window", "chart", "textbox", "numeric textbox", "dropdownlist", "calendar" };
