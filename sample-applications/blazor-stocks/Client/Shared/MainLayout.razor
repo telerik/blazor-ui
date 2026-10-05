@@ -7,10 +7,10 @@
 @inject CurrenciesService currenciesService
 
 <TelerikRootComponent>
-    <nav class="navbar navbar-expand-lg py-3 header">
+    <nav class="navbar navbar-expand-lg py-2 header">
         <div class="container d-flex justify-content-between">
             <div class="title-wrap">
-                <h1 class="header-title">My Stocks Portfolio</h1>
+                <NavLink href="" Match="@NavLinkMatch.All" class="header-title">My Stocks Portfolio</NavLink>
 
                 <div class="d-flex flex-wrap justify-content-between">
                     <TelerikDropDownList Data="@Currencies"
@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div @onclick="@ShowProfile" class="profile-wrapper d-flex flex-column align-self-center"
-                 tabindex="0">
+             tabindex="0" role="button" aria-label="Open profile" @onkeydown="ProfileKeyDown">
                 <div class="profile-image">
 
                 </div>
@@ -44,7 +44,6 @@
             </div>
         </div>
     </nav>
-
     <main class="container-fluid px-0">
 
         <div class="content px-4">
@@ -104,6 +103,14 @@
     {
         ProfileVisible = true;
         await JSRuntime.InvokeVoidAsync("toggleScroll", false);
+    }
+
+    async Task ProfileKeyDown(KeyboardEventArgs args)
+    {
+        if (args.Key is "Enter" or " ")
+        {
+            await ShowProfile();
+        }
     }
 
     // PWA infrastructure

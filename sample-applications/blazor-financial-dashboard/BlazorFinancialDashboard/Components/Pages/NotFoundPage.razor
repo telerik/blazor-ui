@@ -1,0 +1,19 @@
+@page "/not-found"
+
+@inject NavigationManager NavigationManager
+
+<PageTitle>Page not found</PageTitle>
+
+<h1>Page not found</h1>
+
+<UICard Title="This page is unavailable" ColSpanOnLargeScreen="12" ColSpanOnMediumScreen="12">
+    <div class="empty-state">
+        <p>The address may be incorrect, or the page may have moved.</p>
+        <TelerikButton ThemeColor="@ThemeConstants.Button.ThemeColor.Primary" OnClick="@GoToDashboard">Go to overview</TelerikButton>
+        <a href="help">Get help and support</a>
+    </div>
+</UICard>
+
+@code {
+    private void GoToDashboard() => NavigationManager.NavigateTo("/");
+}

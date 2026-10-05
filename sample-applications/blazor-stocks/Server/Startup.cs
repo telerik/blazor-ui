@@ -42,6 +42,7 @@ namespace BlazorFinancePortfolio.Server
             app.UsePathBase("/blazor-financial-portfolio");
 
             app.UseHttpsRedirection();
+            app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
             app.UseRouting();

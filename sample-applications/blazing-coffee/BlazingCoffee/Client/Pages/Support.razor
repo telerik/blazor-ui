@@ -1,0 +1,74 @@
+@page "/support"
+@using System.ComponentModel.DataAnnotations
+
+<CardContainer Title="Help & Support">
+    <div class="app-page">
+        @if (RequestSubmitted)
+        {
+            <div class="support-success" role="status">
+                <h3>Request received</h3>
+                <p>Our workspace support team will reply to you at @Request.Email within one business day.</p>
+                <TelerikButton OnClick="@StartAnotherRequest">Submit another request</TelerikButton>
+            </div>
+        }
+        else
+        {
+            <p class="app-page__intro">Tell us what you need help with. Include the report or workspace area so we can route your request quickly.</p>
+
+            <TelerikForm Model="@Request" OnValidSubmit="@SubmitRequest">
+                <FormValidation>
+                    <DataAnnotationsValidator />
+                </FormValidation>
+                <FormItems>
+                    <FormItem LabelText="Email address" Field="@nameof(SupportRequest.Email)" />
+                    <FormItem LabelText="Subject" Field="@nameof(SupportRequest.Subject)" />
+                    <FormItem LabelText="Message">
+                        <Template>
+                            <label class="k-form-label" for="support-message">Message</label>
+                            <TelerikTextArea Id="support-message" @bind-Value="@Request.Message" Rows="5" />
+                        </Template>
+                    </FormItem>
+                </FormItems>
+                <FormButtons>
+                    <TelerikButton ButtonType="ButtonType.Submit" ThemeColor="ThemeConstants.Button.ThemeColor.Primary">Send request</TelerikButton>
+                </FormButtons>
+            </TelerikForm>
+        }
+    </div>
+</CardContainer>
+
+@code {
+    private SupportRequest Request { get; set; } = new()
+    {
+        Email = "peter.douglas@progress.com"
+    };
+
+    private bool RequestSubmitted { get; set; }
+
+    private void SubmitRequest()
+    {
+        RequestSubmitted = true;
+    }
+
+    private void StartAnotherRequest()
+    {
+        Request = new SupportRequest
+        {
+            Email = "peter.douglas@progress.com"
+        };
+        RequestSubmitted = false;
+    }
+
+    private sealed class SupportRequest
+    {
+        [Required(ErrorMessage = "Enter the email address where we can reach you.")]
+        [EmailAddress(ErrorMessage = "Enter a valid email address.")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "Add a short subject so we can route your request.")]
+        public string Subject { get; set; }
+
+        [Required(ErrorMessage = "Describe the issue or question.")]
+        public string Message { get; set; }
+    }
+}

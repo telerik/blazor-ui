@@ -75,12 +75,12 @@ public class AnalyticsService
         int Vary(int val) => Math.Max(1, val + rng.Next(-5, 6));
         return new()
         {
-            new() { Category = "Arrhythmia",           Value = Vary(12), Color = "#FF6358" },
-            new() { Category = "Hypertension",         Value = Vary(18), Color = "#FFE162" },
-            new() { Category = "High Cholesterol",     Value = Vary(25), Color = "#4CD180" },
-            new() { Category = "Medication Adherence", Value = Vary(34), Color = "#4B5FFA" },
-            new() { Category = "Inflammation",         Value = Vary(43), Color = "#AC58FF" },
-            new() { Category = "Cardiac Risk",         Value = Vary(51), Color = "#FF5892" },
+            new() { Category = "Arrhythmia",           Value = Vary(12), Color = "var(--kendo-color-series-f)" },
+            new() { Category = "Hypertension",         Value = Vary(18), Color = "var(--kendo-color-series-e)" },
+            new() { Category = "High Cholesterol",     Value = Vary(25), Color = "var(--kendo-color-series-d)" },
+            new() { Category = "Medication Adherence", Value = Vary(34), Color = "var(--kendo-color-series-a)" },
+            new() { Category = "Inflammation",         Value = Vary(43), Color = "var(--kendo-color-series-b)" },
+            new() { Category = "Cardiac Risk",         Value = Vary(51), Color = "var(--kendo-color-series-c)" },
         };
     }
 }

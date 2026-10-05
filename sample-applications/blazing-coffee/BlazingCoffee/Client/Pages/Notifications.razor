@@ -1,0 +1,92 @@
+@page "/notifications"
+@using System.Globalization
+
+<CardContainer Title="Notifications">
+    <div class="app-page">
+        <div class="card-header-wrapper">
+            <p class="app-page__intro">Updates about your team, sales reporting, and workspace preferences.</p>
+            <TelerikButton OnClick="@MarkAllRead" Enabled="@Items.Any(item => !item.IsRead)">Mark all as read</TelerikButton>
+        </div>
+
+        <TelerikListView Data="@Items" Pageable="true" PageSize="5">
+            <Template>
+                @{
+                    var notification = (NotificationItem)context;
+                }
+                <article class="notification-item" aria-label="@notification.Title">
+                    <div class="notification-item__header">
+                        <strong>@notification.Title</strong>
+                        <time class="notification-item__time" datetime="@notification.Timestamp.ToUniversalTime().ToString("O")">
+                            @GetNotificationTime(notification.Timestamp)
+                        </time>
+                    </div>
+                    <p>@notification.Message</p>
+                    <span class="k-badge k-badge-md k-badge-solid @(notification.IsRead ? "k-badge-solid-base" : "k-badge-solid-info")">
+                        @(notification.IsRead ? "Read" : "New")
+                    </span>
+                </article>
+            </Template>
+        </TelerikListView>
+    </div>
+</CardContainer>
+
+@code {
+    private List<NotificationItem> Items { get; } = new()
+    {
+        new() { Title = "August sales report is ready", Message = "Regional revenue is available for your review.", Timestamp = DateTimeOffset.UtcNow.AddMinutes(-12) },
+        new() { Title = "Lemon Team reached its service target", Message = "Customer follow-ups were completed ahead of the weekly goal.", Timestamp = DateTimeOffset.UtcNow.AddDays(-1), IsRead = true },
+        new() { Title = "Profile review reminder", Message = "Confirm your phone number before the September roster is published.", Timestamp = DateTimeOffset.UtcNow.AddDays(-3), IsRead = true },
+        new() { Title = "Coffee tasting scheduled", Message = "The new single-origin selection review begins Friday at 10:00.", Timestamp = DateTimeOffset.UtcNow.AddDays(-8), IsRead = true },
+        new() { Title = "Export completed", Message = "The employee engagement report was downloaded successfully.", Timestamp = DateTimeOffset.UtcNow.AddDays(-10), IsRead = true }
+    };
+
+    private void MarkAllRead()
+    {
+        foreach (var notification in Items)
+        {
+            notification.IsRead = true;
+        }
+    }
+
+    private static string GetNotificationTime(DateTimeOffset timestamp)
+    {
+        var now = DateTimeOffset.Now;
+        var localTimestamp = timestamp.ToLocalTime();
+        var age = now - localTimestamp;
+
+        if (age.TotalMinutes < 1)
+        {
+            return "Just now";
+        }
+
+        if (age.TotalHours < 1)
+        {
+            return $"{Math.Max(1, (int)age.TotalMinutes)} minutes ago";
+        }
+
+        if (localTimestamp.Date == now.Date)
+        {
+            return localTimestamp.ToString("t", CultureInfo.CurrentCulture);
+        }
+
+        if (localTimestamp.Date == now.Date.AddDays(-1))
+        {
+            return "Yesterday";
+        }
+
+        if (age.TotalDays < 7)
+        {
+            return timestamp.ToLocalTime().ToString("dddd", CultureInfo.CurrentCulture);
+        }
+
+        return timestamp.ToLocalTime().ToString("MMMM d", CultureInfo.CurrentCulture);
+    }
+
+    private sealed class NotificationItem
+    {
+        public string Title { get; init; }
+        public string Message { get; init; }
+        public DateTimeOffset Timestamp { get; init; }
+        public bool IsRead { get; set; }
+    }
+}

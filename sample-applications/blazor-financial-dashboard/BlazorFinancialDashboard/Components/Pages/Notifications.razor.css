@@ -1,0 +1,21 @@
+.notifications-page__cards {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--kendo-spacing-4);
+    align-content: start;
+    align-items: start;
+    grid-column: span 12 / span 12;
+    min-width: 0;
+}
+
+.notifications-page__cards ::deep .uicard-layout {
+    width: fit-content;
+    max-width: 100%;
+    justify-self: start;
+}
+
+.notifications-page__cards ::deep .uicard-layout .uicard {
+    min-width: 0;
+    max-width: 100%;
+    flex: 0 1 auto;
+}

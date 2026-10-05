@@ -3,7 +3,7 @@
 
 @foreach (string lbl in CurrIssue.Labels)
 {
-	<span class="badge" style="background-color: @(LabelColors.GetColor(lbl)) ;">@lbl</span>
+	<span class="issue-label @LabelColors.GetClass(lbl)">@lbl</span>
 }
 
 @code {

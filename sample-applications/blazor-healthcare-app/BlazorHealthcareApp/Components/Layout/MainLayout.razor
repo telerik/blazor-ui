@@ -270,7 +270,7 @@
 
     private string ActiveSegment { get; set; } = "home";
     private bool IsProfileOpen { get; set; }
-    private bool IsTransparentMode { get; set; }
+    private bool IsTransparentMode { get; set; } = true;
     private bool IsMobileMenuOpen { get; set; }
     private bool IsMobileSearchOpen { get; set; }
     private TelerikPopover? PopoverRef { get; set; }
@@ -376,6 +376,7 @@
             "schedule" => "schedule",
             "patients" => "patients",
             "clinical-analytics" => "clinical-analytics",
+            "labs" or "messages" or "providers" or "notifications" or "help" or "settings" or "profile" or "intake" => "",
             _ when Nav.Uri.Contains("/patient/") => "patients",
             _ => "home"
         };

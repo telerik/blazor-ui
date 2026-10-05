@@ -1,0 +1,42 @@
+@page "/settings"
+@using static Telerik.Blazor.ThemeConstants.Notification
+
+<TelerikNotification @ref="@NotificationReference" AnimationType="@AnimationType.Fade" />
+
+<CardContainer Title="Settings & Preferences">
+    <div class="app-page">
+        <p class="app-page__intro">Choose how Blazing Coffee keeps you informed about the work that matters to your team.</p>
+
+        <TelerikForm Model="@Preferences" OnValidSubmit="@SavePreferences">
+            <FormItems>
+                <FormItem LabelText="Daily sales summary" Field="@nameof(UserPreferences.DailySalesSummary)" EditorType="FormEditorType.Switch" />
+                <FormItem LabelText="Team activity updates" Field="@nameof(UserPreferences.TeamActivityUpdates)" EditorType="FormEditorType.Switch" />
+                <FormItem LabelText="Monthly profile reminder" Field="@nameof(UserPreferences.ProfileReminder)" EditorType="FormEditorType.Switch" />
+            </FormItems>
+            <FormButtons>
+                <TelerikButton ButtonType="ButtonType.Submit" ThemeColor="ThemeConstants.Button.ThemeColor.Primary">Save preferences</TelerikButton>
+            </FormButtons>
+        </TelerikForm>
+    </div>
+</CardContainer>
+
+@code {
+    private TelerikNotification NotificationReference { get; set; }
+    private UserPreferences Preferences { get; } = new();
+
+    private void SavePreferences()
+    {
+        NotificationReference.Show(new NotificationModel
+        {
+            Text = "Preferences saved",
+            ThemeColor = ThemeColor.Success
+        });
+    }
+
+    private sealed class UserPreferences
+    {
+        public bool DailySalesSummary { get; set; } = true;
+        public bool TeamActivityUpdates { get; set; } = true;
+        public bool ProfileReminder { get; set; }
+    }
+}

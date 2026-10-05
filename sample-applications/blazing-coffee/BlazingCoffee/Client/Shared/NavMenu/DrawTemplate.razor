@@ -4,7 +4,7 @@
     <DrawerNavLink href="@Home.Url" Text="@Home.Text" Icon="@Home.Icon" Match="NavLinkMatch.All" />
     @foreach (var item in Data.Where(item => item.Group == "app"))
     {
-        <DrawerNavLink href="@item.Url" Text="@item.Text" Icon="@item.Icon" />
+        <DrawerNavLink href="@item.Url" Text="@item.Text" Icon="@item.Icon" Match="@item.Match" />
     }
 </ul>
 <footer>
@@ -12,7 +12,7 @@
         <li class="k-drawer-item k-drawer-separator"></li>
         @foreach (DrawerItem item in Data.Where(item => item.Group == "ext"))
         {
-            <DrawerNavLink href="@item.Url" Text="@item.Text" Icon="@item.Icon" />
+            <DrawerNavLink href="@item.Url" Text="@item.Text" Icon="@item.Icon" Match="@item.Match" />
         }
     </ul>
 </footer>

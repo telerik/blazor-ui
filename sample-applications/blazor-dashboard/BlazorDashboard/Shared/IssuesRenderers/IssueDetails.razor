@@ -3,54 +3,58 @@
 
 @if (CurrIssue != null)
 {
-    <div class="row my-4">
-        <div class="col-sm-12">
+    <section class="issue-details__header">
+        <div>
             <span class="k-badge k-badge-md k-badge-pill k-badge-solid @(CurrIssue.IsOpen ? " k-badge-success" : " k-badge-error")">
                 @(CurrIssue.IsOpen ? "Open" : "Closed")
             </span>
-            <h3 class="h1">
+            <h3 class="issue-details__title">
                 @CurrIssue.Title
-                <span class="text-muted">#@CurrIssue.Id</span>
+                <span class="issue-details__id">#@CurrIssue.Id</span>
             </h3>
         </div>
-    </div>
-    <div class="row my-4">
-        <div class="col-sm-2">
-            <span class="small d-block text-muted">Created on</span>
+    </section>
+    <dl class="issue-details__metadata">
+        <div class="issue-details__metadata-item">
+            <dt>Created on</dt>
+            <dd>
             @CurrIssue.CreatedOn.ToString("dd MMMM yyyy")
+            </dd>
         </div>
         @if (CurrIssue.ClosedOn.HasValue)
         {
-            <div class="col-sm-2">
-                <span class="small d-block text-muted">Closed on</span>
+            <div class="issue-details__metadata-item">
+                <dt>Closed on</dt>
+                <dd>
                 @CurrIssue.ClosedOn.Value.ToString("dd MMMM yyyy")
+                </dd>
             </div>
         }
-        <div class="col-sm-2">
-            <span class="small d-block text-muted">Type</span>
-            <span style="color: @(LabelColors.GetColor(CurrIssue.Type.ToString())) ;">@CurrIssue.Type</span>
+        <div class="issue-details__metadata-item">
+            <dt>Type</dt>
+            <dd class="issue-details__value @LabelColors.GetClass(CurrIssue.Type.ToString())">@CurrIssue.Type</dd>
         </div>
-        <div class="col-sm-2">
-            <span class="small d-block text-muted">Severity</span>
-            <span style="color: @(LabelColors.GetColor(CurrIssue.Severity.ToString())) ;">@CurrIssue.Severity</span>
+        <div class="issue-details__metadata-item">
+            <dt>Severity</dt>
+            <dd class="issue-details__value @LabelColors.GetClass(CurrIssue.Severity.ToString())">@CurrIssue.Severity</dd>
         </div>
-    </div>
-    <div class="row my-4">
-        <div class="col-sm-2">
-            <h4 class="small text-muted">Labels</h4>
+    </dl>
+    <section class="issue-details__body">
+        <div class="issue-details__labels">
+            <h4>Labels</h4>
             <LabelsList CurrIssue="@CurrIssue"></LabelsList>
         </div>
-        <div class="col-sm-8">
-            <h4 class="small text-muted">Description</h4>
-            <div>
+        <div class="issue-details__description">
+            <h4>Description</h4>
+            <div class="issue-details__description-content">
                 @(new MarkupString(CurrIssue.Description))
             </div>
         </div>
-    </div>
+    </section>
 }
 else
 {
-    <div class="alert alert-primary" role="alert">
+    <div class="issue-details__notice" role="alert">
         Please select an issue to see its details.
     </div>
 }

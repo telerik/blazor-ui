@@ -9,6 +9,7 @@ public class ResponsiveComponent : ComponentBase, IDisposable, IResponsiveCompon
     IJSRuntime? JSRuntime { get; set; }
     
     protected DotNetObjectReference<ResponsiveComponent>? DotNetRef { get; set; }
+    protected bool IsDisposed { get; private set; }
 
     protected override void OnInitialized()
     {
@@ -24,7 +25,7 @@ public class ResponsiveComponent : ComponentBase, IDisposable, IResponsiveCompon
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        if (firstRender && !IsDisposed)
         {
             await JSRuntime!.InvokeVoidAsync("viewPortResizeObserver.addComponent", DotNetRef);
         }
@@ -34,6 +35,7 @@ public class ResponsiveComponent : ComponentBase, IDisposable, IResponsiveCompon
 
     public void Dispose()
     {
+        IsDisposed = true;
         _ = JSRuntime?.InvokeVoidAsync("viewPortResizeObserver.removeComponent", DotNetRef);
 
         DotNetRef?.Dispose();

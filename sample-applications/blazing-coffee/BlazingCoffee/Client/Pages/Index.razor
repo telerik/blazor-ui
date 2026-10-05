@@ -8,19 +8,31 @@
 <CardContainer>
     <CardHeader>
         <div class="card-header-wrapper">
-            <h3 class="card-title">@Localizer["Employees"]</h3>
+            <h2 class="card-title">@Localizer["Employees"]</h2>
                 <TelerikButtonGroup>
                     <ButtonGroupToggleButton @bind-Selected="@SingleTeamSelected" OnClick="OnButtonGroupClick">@Localizer["ButtonGroup_MyTeam"]</ButtonGroupToggleButton>
                     <ButtonGroupToggleButton @bind-Selected="@AllTeamsSelected" OnClick="OnButtonGroupClick">@Localizer["ButtonGroup_AllTeams"]</ButtonGroupToggleButton>
                 </TelerikButtonGroup>
         </div>
     </CardHeader>
-    @if (employees != null)
+    @if (IsLoading)
+    {
+        <div class="page-state" role="status">Loading employee directory...</div>
+    }
+    else if (!string.IsNullOrEmpty(LoadError))
+    {
+        <div class="page-state" role="alert">
+            <p>@LoadError</p>
+            <TelerikButton OnClick="@LoadEmployeesAsync">Try again</TelerikButton>
+        </div>
+    }
+    else if (employees.Count > 0)
     {
         <TelerikGrid Data="employees"
                  SelectionMode="GridSelectionMode.Multiple"
                  @ref="@Grid"
-                 Height="480px"
+                 Height="calc(100vh - 240px)"
+                 Class="team-grid"
                  Pageable="true"
                  Sortable="true"
                  FilterMode="GridFilterMode.FilterMenu"
@@ -35,7 +47,7 @@
                 <GridCommandButton Command="CsvExport" Icon="@SvgIcon.FileCsv">@Localizer["Grid_CsvExport"]</GridCommandButton>
             </GridToolBarTemplate>
             <GridColumns>
-                <GridCheckboxColumn Width="45px"
+                <GridCheckboxColumn Width="50px"
                     OnCellRender="@((GridCellRenderEventArgs args) => args.Class = "chkb-centered" )"
                     HeaderClass="chkb-centered"
                     Resizable="false" 
@@ -59,7 +71,9 @@
                             @{
                                  var employee = context as Employee;
 
-                                <img style="width: 30px;" src="./img/country-flags/@(employee.Country.ToLower()).png" />
+                                <img class="employee-country-flag"
+                                     src="./img/country-flags/@(employee.Country.ToLower()).png"
+                                     alt="@employee.Country" />
                             }
                         </Template>
                     </GridColumn>
@@ -100,11 +114,18 @@
             <GridColumn Title="@Localizer["Employee_Grid_Title_Contacts"]">
                 <Columns>
                     <GridColumn Field="@nameof(Employee.Phone)" Width="130px" Title="@Localizer["Employee_Grid_Title_Phone"]"></GridColumn>
-                    <GridColumn Field="@nameof(Employee.Address)" DisplayFormat="{0:C}" Width="200px" Title="@Localizer["Employee_Grid_Title_Address"]"></GridColumn>
+                    <GridColumn Field="@nameof(Employee.Address)" Width="200px" Title="@Localizer["Employee_Grid_Title_Address"]"></GridColumn>
                 </Columns>
             </GridColumn>
         </GridColumns>
     </TelerikGrid>
+    }
+    else
+    {
+        <div class="page-state">
+            <p>No employees match this team filter.</p>
+            <TelerikButton OnClick="@LoadEmployeesAsync">Refresh directory</TelerikButton>
+        </div>
     }
     </CardContainer>
 
@@ -115,6 +136,8 @@
     public int Page { get; set; } = 1;
     public bool SingleTeamSelected { get; set; }
     public bool AllTeamsSelected { get; set; } = true;
+    private bool IsLoading { get; set; } = true;
+    private string LoadError { get; set; }
 
     protected override void OnInitialized()
     {
@@ -125,7 +148,26 @@
 
     protected override async Task OnInitializedAsync()
     {
-        employees = (await Http.GetFromJsonAsync<Employee[]>("api/employees")).ToList();
+        await LoadEmployeesAsync();
+    }
+
+    private async Task LoadEmployeesAsync()
+    {
+        IsLoading = true;
+        LoadError = null;
+
+        try
+        {
+            employees = (await Http.GetFromJsonAsync<Employee[]>("api/employees") ?? Array.Empty<Employee>()).ToList();
+        }
+        catch (HttpRequestException)
+        {
+            LoadError = "The employee directory could not be loaded. Check your connection and try again.";
+        }
+        finally
+        {
+            IsLoading = false;
+        }
     }
 
     private void OnCellRender(GridCellRenderEventArgs args)

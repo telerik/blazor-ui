@@ -4,7 +4,7 @@ This sample application showcases how easy it is to plug the Telerik Blazor comp
 
 ## What's Inside
 
-* `Bootstrap` for the layouts
+* semantic, component-scoped SCSS for the layouts
 * the [Telerik Blazor components](https://www.telerik.com/blazor-ui) for the UI elements
 * dummy data, because, at the time of writing, the [Octokit.NET](https://github.com/octokit/octokit.net) package does not work under Blazor due to [issues with async requests](https://github.com/aspnet/AspNetCore/issues/9125)
 

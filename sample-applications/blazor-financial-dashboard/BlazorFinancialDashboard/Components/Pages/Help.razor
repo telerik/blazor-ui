@@ -1,0 +1,67 @@
+@page "/help"
+
+<PageTitle>Help & Support</PageTitle>
+
+<h1>Help & Support</h1>
+
+<UICard Title="Find an answer" ColSpanOnLargeScreen="8" ColSpanOnMediumScreen="12" ContentGap="4">
+    <TelerikTextBox @bind-Value="@SearchTerm"
+                    Placeholder="Search trading, account, billing, and security topics"
+                    AriaLabel="Search help topics"
+                    Width="100%" />
+    <TelerikPanelBar Data="@FilteredFaqs"
+                     ExpandMode="@PanelBarExpandMode.Multiple"
+                     Class="header-cursor-pointer">
+        <PanelBarBindings>
+            <PanelBarBinding>
+                <HeaderTemplate>@(((FaqItem)context).Question)</HeaderTemplate>
+                <ContentTemplate>
+                    <div class="faq-answer">
+                        @(((FaqItem)context).Answer)
+                    </div>
+                </ContentTemplate>
+            </PanelBarBinding>
+        </PanelBarBindings>
+    </TelerikPanelBar>
+</UICard>
+
+<UICard Title="Contact support" ColSpanOnLargeScreen="4" ColSpanOnMediumScreen="12" ContentGap="4">
+    <p class="settings-description">Select a topic so your request reaches the right team. Typical response time is one business day.</p>
+    <TelerikDropDownList Data="@Topics" @bind-Value="@SelectedTopic" AriaLabel="Support topic" />
+    <TelerikTextArea @bind-Value="@Message" Placeholder="Describe what you need help with" AriaLabel="Support request message" Rows="5" />
+    <div class="help-actions">
+        <TelerikButton ThemeColor="@ThemeConstants.Button.ThemeColor.Primary"
+                       FillMode="@ThemeConstants.Button.FillMode.Solid"
+                       OnClick="@SubmitRequest">
+            Send request
+        </TelerikButton>
+    </div>
+    @if (RequestSubmitted)
+    {
+        <p role="status">Request received. Reference: SUP-48291.</p>
+    }
+</UICard>
+
+@code {
+    private string SearchTerm { get; set; } = string.Empty;
+    private string SelectedTopic { get; set; } = "Account access";
+    private string Message { get; set; } = string.Empty;
+    private bool RequestSubmitted { get; set; }
+
+    private readonly List<string> Topics = ["Account access", "Trading", "Billing", "Security", "Tax documents"];
+    private readonly List<FaqItem> Faqs =
+    [
+        new("How do I fund my investment account?", "Open Accounts, select Deposit, choose a verified bank account, and review the transfer before confirming."),
+        new("When do market orders execute?", "Market orders are submitted immediately during market hours and execute at the best available price."),
+        new("How can I update notification preferences?", "Open Settings to manage trade confirmations, price alerts, account activity, and market news.")
+    ];
+
+    private IEnumerable<FaqItem> FilteredFaqs => string.IsNullOrWhiteSpace(SearchTerm)
+        ? Faqs
+        : Faqs.Where(item => item.Question.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase)
+            || item.Answer.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase));
+
+    private void SubmitRequest() => RequestSubmitted = true;
+
+    private sealed record FaqItem(string Question, string Answer);
+}

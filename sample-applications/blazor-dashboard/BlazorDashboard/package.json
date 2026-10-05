@@ -7,7 +7,11 @@
   },
   "devDependencies": {
     "@progress/kendo-theme-tasks": "^1.17.6",
+    "autoprefixer": "^10.5.4",
     "bootstrap": "^5.0.2",
-    "gulp": "^5.0.0"
+    "gulp": "^5.0.0",
+    "postcss": "^8.5.26",
+    "postcss-calc": "^9.0.1",
+    "sass": "^1.102.0"
   }
 }
