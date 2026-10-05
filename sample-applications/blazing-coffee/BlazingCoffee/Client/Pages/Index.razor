@@ -31,7 +31,8 @@
         <TelerikGrid Data="employees"
                  SelectionMode="GridSelectionMode.Multiple"
                  @ref="@Grid"
-                 Height="480px"
+                 Height="calc(100vh - 240px)"
+                 Class="team-grid"
                  Pageable="true"
                  Sortable="true"
                  FilterMode="GridFilterMode.FilterMenu"
@@ -46,7 +47,7 @@
                 <GridCommandButton Command="CsvExport" Icon="@SvgIcon.FileCsv">@Localizer["Grid_CsvExport"]</GridCommandButton>
             </GridToolBarTemplate>
             <GridColumns>
-                <GridCheckboxColumn Width="45px"
+                <GridCheckboxColumn Width="50px"
                     OnCellRender="@((GridCellRenderEventArgs args) => args.Class = "chkb-centered" )"
                     HeaderClass="chkb-centered"
                     Resizable="false" 

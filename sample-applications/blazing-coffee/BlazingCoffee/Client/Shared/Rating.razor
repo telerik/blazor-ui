@@ -4,7 +4,7 @@
     @for (int i = 1; i < 6; i++)
     {
         <span class="k-rating-item" data-value="@i" title="@i">
-            <TelerikSvgIcon Icon="@(i <= Value ? SvgIcon.Star : SvgIcon.StarOutline)" Class="k-icon-md yellow" />
+            <TelerikSvgIcon Icon="SvgIcon.Star" Class="@(i <= Value ? "k-icon-md yellow" : "k-icon-md rating-empty")" />
         </span>
     }
 </span>
