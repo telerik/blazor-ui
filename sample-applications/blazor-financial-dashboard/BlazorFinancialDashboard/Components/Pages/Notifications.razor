@@ -1,39 +1,36 @@
 @page "/notifications"
+@inject NotificationService NotificationService
 
 <PageTitle>Notifications</PageTitle>
 
 <h1>Notifications</h1>
 
-<UICard Title="Account activity" SubTitle="3 unread" ColSpanOnLargeScreen="8" ColSpanOnMediumScreen="12">
-    <div class="status-list">
-        @foreach (var notification in ActivityNotifications)
-        {
-            <article class="status-list__item">
-                <strong>@notification.Title</strong>
-                <p>@notification.Message</p>
-                <span class="status-list__meta">@notification.When</span>
-            </article>
-        }
-    </div>
-</UICard>
+<div class="notifications-page__cards">
+    <UICard Title="Account activity" SubTitle="@UnreadSubTitle" ColSpanOnLargeScreen="8" ColSpanOnMediumScreen="12">
+        <div class="status-list">
+            @foreach (var notification in ActivityNotifications)
+            {
+                <article class="status-list__item">
+                    <strong>@notification.Title</strong>
+                    <p>@notification.Message</p>
+                    <span class="status-list__meta">@notification.When</span>
+                </article>
+            }
+        </div>
+    </UICard>
 
-<UICard Title="Manage notifications" ColSpanOnLargeScreen="4" ColSpanOnMediumScreen="12">
-    <p class="settings-description">Alerts use clear labels and are grouped by activity so important account events are easy to review.</p>
-    <TelerikButton FillMode="@ThemeConstants.Button.FillMode.Outline" OnClick="@MarkAllRead">Mark all as read</TelerikButton>
-</UICard>
+    <UICard Title="Manage notifications" ColSpanOnLargeScreen="4" ColSpanOnMediumScreen="12">
+        <p class="settings-description">Alerts use clear labels and are grouped by activity so important account events are easy to review.</p>
+        <TelerikButton FillMode="@ThemeConstants.Button.FillMode.Outline" Enabled="@(UnreadCount > 0)" OnClick="@MarkAllRead">Mark all as read</TelerikButton>
+    </UICard>
+</div>
 
 @code {
-    private readonly List<AppNotification> ActivityNotifications =
-    [
-        new("Dividend received", "Northstar Utilities paid a $42.18 dividend to your investment account.", "Today, 9:15 AM"),
-        new("Price alert triggered", "Solar Flux reached your target price of $48.00.", "Today, 8:40 AM"),
-        new("Transfer scheduled", "A $750.00 transfer to your brokerage account is scheduled for Aug 28.", "Yesterday")
-    ];
+    private IReadOnlyList<AppNotification> ActivityNotifications => NotificationService.Items;
 
-    private void MarkAllRead()
-    {
-        ActivityNotifications.Clear();
-    }
+    private int UnreadCount => NotificationService.UnreadCount;
 
-    private sealed record AppNotification(string Title, string Message, string When);
+    private string UnreadSubTitle => UnreadCount > 0 ? $"{UnreadCount} unread" : string.Empty;
+
+    private void MarkAllRead() => NotificationService.MarkAllRead();
 }

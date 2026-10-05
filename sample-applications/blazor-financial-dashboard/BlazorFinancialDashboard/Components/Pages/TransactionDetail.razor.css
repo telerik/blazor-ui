@@ -9,9 +9,18 @@
     gap: var(--kendo-spacing-2);
 }
 
-.transaction-detail-page__heading .k-button {
+.transaction-detail-page__heading ::deep .transaction-detail-page__back {
     justify-self: start;
+    width: auto;
     margin-left: calc(var(--kendo-spacing-2) * -1);
+}
+
+.transaction-detail-page ::deep .uicard-layout {
+    grid-column: auto;
+}
+
+.transaction-detail-page__heading h1 {
+    grid-column: auto;
 }
 
 .transaction-detail-page__eyebrow {
@@ -30,6 +39,7 @@
 
 .transaction-detail-grid {
     display: grid;
+    align-items: stretch;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--kendo-spacing-4);
 }
@@ -116,6 +126,7 @@
 
 .transaction-detail-list--compact {
     margin-top: auto;
+    padding-top: var(--kendo-spacing-5);
 }
 
 .transaction-detail-actions {

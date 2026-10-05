@@ -4,26 +4,38 @@
 
 <h1>Help & Support</h1>
 
-<UICard Title="Find an answer" ColSpanOnLargeScreen="8" ColSpanOnMediumScreen="12">
+<UICard Title="Find an answer" ColSpanOnLargeScreen="8" ColSpanOnMediumScreen="12" ContentGap="4">
     <TelerikTextBox @bind-Value="@SearchTerm"
                     Placeholder="Search trading, account, billing, and security topics"
                     AriaLabel="Search help topics"
                     Width="100%" />
-    <TelerikPanelBar Data="@FilteredFaqs" ExpandMode="@PanelBarExpandMode.Multiple">
+    <TelerikPanelBar Data="@FilteredFaqs"
+                     ExpandMode="@PanelBarExpandMode.Multiple"
+                     Class="header-cursor-pointer">
         <PanelBarBindings>
             <PanelBarBinding>
                 <HeaderTemplate>@(((FaqItem)context).Question)</HeaderTemplate>
-                <ContentTemplate>@(((FaqItem)context).Answer)</ContentTemplate>
+                <ContentTemplate>
+                    <div class="faq-answer">
+                        @(((FaqItem)context).Answer)
+                    </div>
+                </ContentTemplate>
             </PanelBarBinding>
         </PanelBarBindings>
     </TelerikPanelBar>
 </UICard>
 
-<UICard Title="Contact support" ColSpanOnLargeScreen="4" ColSpanOnMediumScreen="12">
+<UICard Title="Contact support" ColSpanOnLargeScreen="4" ColSpanOnMediumScreen="12" ContentGap="4">
     <p class="settings-description">Select a topic so your request reaches the right team. Typical response time is one business day.</p>
     <TelerikDropDownList Data="@Topics" @bind-Value="@SelectedTopic" AriaLabel="Support topic" />
     <TelerikTextArea @bind-Value="@Message" Placeholder="Describe what you need help with" AriaLabel="Support request message" Rows="5" />
-    <TelerikButton ThemeColor="@ThemeConstants.Button.ThemeColor.Primary" OnClick="@SubmitRequest">Send request</TelerikButton>
+    <div class="help-actions">
+        <TelerikButton ThemeColor="@ThemeConstants.Button.ThemeColor.Primary"
+                       FillMode="@ThemeConstants.Button.FillMode.Solid"
+                       OnClick="@SubmitRequest">
+            Send request
+        </TelerikButton>
+    </div>
     @if (RequestSubmitted)
     {
         <p role="status">Request received. Reference: SUP-48291.</p>

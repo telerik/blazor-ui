@@ -4,6 +4,8 @@
 @inject NavigationManager NavManager
 @inject SearchService SearchService
 @inject UserService UserService
+@inject NotificationService NotificationService
+@implements IDisposable
 
 <TelerikMediaQuery Media="(min-width: 1200px)" OnChange="@( (bool matches) => IsOverMaxWidth = matches )" />
 <TelerikMediaQuery Media="(min-width: 992px)" OnChange="@( (bool matches) => IsLargeScreen = matches )" />
@@ -23,6 +25,11 @@
             <TelerikAppBar ThemeColor="@ThemeConstants.AppBar.ThemeColor.Base"
                            Class="appbar-top">
                 <AppBarSection>
+                    <TelerikButton Class="appbar-menu-button"
+                                   FillMode="@ThemeConstants.Button.FillMode.Flat"
+                                   Icon="@SvgIconsNS.SvgIcon.Menu"
+                                   AriaLabel="Open navigation menu"
+                                   OnClick="@ToggleDrawer" />
                     <div class="greeting">
                         <TelerikAvatar Width="42px" Height="42px">
                             <img src="images/maria-avatar.jpeg" alt="Maria profile photo" />
@@ -63,8 +70,8 @@
                 <AppBarSection>
                     <TelerikButton FillMode="@ThemeConstants.Button.FillMode.Flat"
                                    OnClick="@GoToNotificationsPage"
-                                   AriaLabel="View 3 unread notifications">
-                        Notifications (3)
+                                   AriaLabel="@NotificationsAriaLabel">
+                        @NotificationsLabel
                     </TelerikButton>
                 </AppBarSection>
                 <AppBarSection>
@@ -124,6 +131,20 @@
     };
 
     private bool DrawerExpanded { get; set; }
+
+    private int UnreadCount => NotificationService.UnreadCount;
+
+    private string NotificationsLabel => UnreadCount > 0 ? $"Notifications ({UnreadCount})" : "Notifications";
+
+    private string NotificationsAriaLabel => UnreadCount > 0
+        ? $"View {UnreadCount} unread notification{(UnreadCount == 1 ? string.Empty : "s")}"
+        : "View notifications";
+
+    private void ToggleDrawer() => DrawerExpanded = !DrawerExpanded;
+
+    private void OnNotificationsChanged() => _ = InvokeAsync(StateHasChanged);
+
+    public void Dispose() => NotificationService.Changed -= OnNotificationsChanged;
 
     private NavItem? DrawerSelectedItem { get; set; }
 
@@ -216,6 +237,8 @@
 
     protected override async Task OnInitializedAsync()
     {
+        NotificationService.Changed += OnNotificationsChanged;
+
         await GetAppUser();
 
         SelectDrawerItem();

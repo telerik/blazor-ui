@@ -8,6 +8,7 @@ builder.Services.AddSingleton<AIAssistantService>();
 builder.Services.AddSingleton<AccountService>();
 builder.Services.AddScoped<CardService>();
 builder.Services.AddSingleton<InvestmentService>();
+builder.Services.AddScoped<NotificationService>();
 builder.Services.AddSingleton<PaymentMethodService>();
 builder.Services.AddSingleton<SearchService>();
 builder.Services.AddSingleton<StockPointService>();

@@ -84,6 +84,10 @@ body {
     width: 100% !important;
 }
 
+.appbar-menu-button {
+    display: none;
+}
+
 .k-overlay {
     background-color: var(--kendo-color-inverse);
 }
@@ -173,7 +177,7 @@ h2 {
 }
 
 .card-subtitle {
-    font-size: var(--kendo-font-size-lg);
+    font-size: var(--kendo-font-size);
     line-height: var(--kendo-line-height-sm);
     letter-spacing: var(--kendo-letter-spacing-wide);
 }
@@ -243,6 +247,10 @@ div.appbar-bottom.narrow {
     cursor: pointer;
 }
 
+.faq-answer {
+    padding: var(--kendo-spacing-4) var(--kendo-spacing-6);
+}
+
 .k-prompt-view .k-actions-horizontal button {
     padding: var(--kendo-spacing-2) var(--kendo-spacing-2\.5);
 }
@@ -310,4 +318,66 @@ div.centered-calendar {
 .empty-state p {
     margin: 0;
     color: var(--kendo-color-subtle);
+}
+
+
+/* Narrow screens: collapse the mini drawer rail and use the full width */
+
+@media (max-width: 767px) {
+    .mainlayout-drawer.k-drawer-mini .k-drawer:not(.k-drawer-expanded) {
+        width: 0;
+        min-width: 0;
+        overflow: hidden;
+        border-right: 0;
+    }
+
+    #drawer-content-wrapper {
+        padding-left: 0;
+    }
+
+    div.appbar-top,
+    div.appbar-top.k-appbar {
+        flex-wrap: wrap;
+        gap: var(--kendo-spacing-2);
+        padding-inline: var(--kendo-spacing-4);
+        padding-block: var(--kendo-spacing-3);
+    }
+
+    .appbar-menu-button {
+        display: inline-flex;
+        margin-inline-end: var(--kendo-spacing-2);
+    }
+
+    .appbar-top .k-appbar-section:first-child {
+        display: flex;
+        align-items: center;
+    }
+
+    main {
+        padding-inline: var(--kendo-spacing-4);
+        min-width: 0;
+    }
+
+    div.appbar-bottom.narrow {
+        margin-inline: var(--kendo-spacing-4);
+    }
+
+    .appbar-bottom .k-appbar-section {
+        min-width: 0;
+        max-width: 100%;
+        white-space: normal;
+    }
+
+    .appbar-bottom .appbar-bottom__content--padded {
+        padding-left: 0 !important;
+    }
+
+    .k-grid .k-table {
+        min-width: 640px;
+    }
+
+    .k-grid .k-grid-content,
+    .k-grid .k-grid-header-wrap {
+        overflow-x: auto;
+    }
 }

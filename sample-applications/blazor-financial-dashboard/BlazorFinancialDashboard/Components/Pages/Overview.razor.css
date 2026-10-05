@@ -1,12 +1,9 @@
-.overview-account__content {
-    gap: var(--kendo-spacing-5);
-}
-
 .overview-account__identity {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
     gap: var(--kendo-spacing-3);
     align-items: center;
+    padding-bottom: var(--kendo-spacing-3);
 }
 
 .overview-account__icon {
@@ -92,7 +89,8 @@
 }
 
 .budget-utilization__gauge {
-    margin-inline: auto;
+    display: flex;
+    justify-content: center;
 }
 
 .budget-utilization__gauge-label,

@@ -12,7 +12,7 @@
 
 <h1>Overview</h1>
 
-<UICard Title="Account snapshot" ContentClass="overview-account__content">
+<UICard Title="Account snapshot" ContentGap="4">
     <div class="overview-account__identity">
         <div class="overview-account__icon" aria-hidden="true">
             <TelerikSvgIcon Icon="@SvgIconsNS.SvgIcon.Wallet" Size="@ThemeConstants.SvgIcon.Size.Large" />
@@ -22,7 +22,8 @@
             <span>@Account.AccountType · @Account.AccountNumber</span>
         </div>
         <TelerikBadge ThemeColor="@ThemeConstants.Badge.ThemeColor.Success"
-                      Rounded="@ThemeConstants.Badge.Rounded.Large">
+                      Rounded="@ThemeConstants.Badge.Rounded.Large"
+                      Class="inline-badge">
             @Account.Status
         </TelerikBadge>
     </div>
@@ -102,7 +103,8 @@
 <UICard Title="Budget Utilization"
         SubTitle="@( $"{(UsedBudget / TotalBudget).ToString("P0")} of the Budget used" )"
         ColSpanOnMediumScreen="6" ColSpanOnLargeScreen="6" TitleGap="11" ContentGap="11">
-    <TelerikArcGauge Width="260px" Height="140px" Class="budget-utilization__gauge">
+    <div class="budget-utilization__gauge">
+    <TelerikArcGauge Width="260px" Height="140px">
         <ArcGaugePointers>
             <ArcGaugePointer Value="50" Size="12" Color="var(--kendo-color-series-b)" />
         </ArcGaugePointers>
@@ -112,6 +114,7 @@
             </Template>
         </ArcGaugeCenterLabel>
     </TelerikArcGauge>
+    </div>
     <div class="budget-utilization__summary">
         <div class="budget-utilization__amount budget-utilization__amount--end">
             <span class="budget-utilization__value">@( TotalBudget.ToString("C2") )</span>

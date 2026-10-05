@@ -35,6 +35,8 @@
 
 .uicard__header h2 {
     margin: 0;
+    font-size: calc(var(--kendo-font-size) * 1.25);
+    font-weight: var(--kendo-font-weight-semibold, 600);
 }
 
 @media (min-width: 768px) {

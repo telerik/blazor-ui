@@ -11,6 +11,8 @@
 <div class="transaction-detail-page">
     <div class="transaction-detail-page__heading">
         <TelerikButton FillMode="@ThemeConstants.Button.FillMode.Flat"
+                       Size="@ThemeConstants.Button.Size.Medium"
+                       Class="transaction-detail-page__back"
                        Icon="@SvgIconsNS.SvgIcon.ChevronLeft"
                        OnClick="@GoToTransactions">
             Back to transactions
@@ -83,7 +85,8 @@
                         <span>Account @Account.AccountNumber</span>
                     </div>
                     <TelerikBadge ThemeColor="@ThemeConstants.Badge.ThemeColor.Success"
-                                  Rounded="@ThemeConstants.Badge.Rounded.Large">
+                                  Rounded="@ThemeConstants.Badge.Rounded.Large"
+                                  Class="inline-badge">
                         @Account.Status
                     </TelerikBadge>
                 </div>

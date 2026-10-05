@@ -43,7 +43,7 @@
                  TItem="@Transaction"
                  FilterMode="GridFilterMode.FilterMenu"
                  Groupable="true"
-                 Height="100%"
+                 Height="720px"
                  Navigable="true"
                  OnStateInit="@OnGridStateInit"
                  Pageable="true"
@@ -87,15 +87,15 @@
                 </Template>
             </GridColumn>
             <GridColumn Title="Details"
+                        Width="90px"
                         HeaderClass="centered-header"
                         TextAlign="@ColumnTextAlign.Center">
                 <Template>
                     @{ var dataItem = (Transaction)context; }
                     <TelerikButton FillMode="@ThemeConstants.Button.FillMode.Flat"
                                    Icon="@SvgIconsNS.SvgIcon.ChevronRight"
-                                   OnClick="@(() => OpenTransactionDetails(dataItem.Id))">
-                        View details
-                    </TelerikButton>
+                                   Title="View details"
+                                   OnClick="@(() => OpenTransactionDetails(dataItem.Id))" />
                 </Template>
             </GridColumn>
         </GridColumns>
