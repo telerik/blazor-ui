@@ -2,8 +2,13 @@
     // These assembly and method names must match the app name and the method in the MainLayout.razor
     const blazorAssembly = 'BlazorFinancePortfolio.Client';
     const blazorInstallMethod = 'InstallPwaPrompt';
-    DotNet.invokeMethodAsync(blazorAssembly, blazorInstallMethod)
-        .then(function () { }, function (er) { setTimeout(showAddToHomeScreen, 1000); });
+    // invokeMethodAsync throws synchronously until the .NET runtime has started
+    try {
+        DotNet.invokeMethodAsync(blazorAssembly, blazorInstallMethod)
+            .then(function () { }, function (er) { setTimeout(showAddToHomeScreen, 1000); });
+    } catch (er) {
+        setTimeout(showAddToHomeScreen, 1000);
+    }
 }
 function OnPwaInstallClick() {
     if (window.PWADeferredPrompt) {
