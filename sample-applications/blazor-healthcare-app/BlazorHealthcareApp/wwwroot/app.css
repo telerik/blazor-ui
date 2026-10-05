@@ -556,6 +556,7 @@ h1:focus {
 .hc-search-popup .k-list-container {
     border-radius: var(--kendo-border-radius-xxl);
 }
+.hc-ca-dropdown-popup .k-list-item-text { white-space: nowrap; }
 .hc-search .k-autocomplete,
 .hc-search .k-input {
     border: none !important;

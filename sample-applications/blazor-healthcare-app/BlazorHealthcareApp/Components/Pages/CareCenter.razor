@@ -1,4 +1,3 @@
-@page "/care"
 @page "/labs"
 @page "/messages"
 @page "/providers"
@@ -13,25 +12,8 @@
 <PageTitle>@Title | Healthcare System</PageTitle>
 
 <div class="hc-center-page">
-    @if (Section == "care")
-    {
-        <header class="hc-center-heading">
-            <div>
-                <h1>Care center</h1>
-                <p>Clinical operations, communication, and staff resources in one place.</p>
-            </div>
-        </header>
-        <div class="hc-center-card-grid">
-            @foreach (var destination in Destinations)
-            {
-                <a class="hc-center-nav-card" href="@destination.Href">
-                    <span class="hc-center-nav-title">@destination.Title</span>
-                    <span>@destination.Description</span>
-                </a>
-            }
-        </div>
-    }
-    else if (Section == "labs")
+    <a class="hc-center-back" href="./">&larr; Back to Home</a>
+    @if (Section == "labs")
     {
         <header class="hc-center-heading">
             <div>
@@ -226,7 +208,7 @@
     {
         "labs" => "Lab & diagnostics", "messages" => "Secure messages", "providers" => "Provider directory",
         "notifications" => "Notifications", "help" => "Help & support", "settings" => "Settings", "profile" => "My profile",
-        "intake" => "New patient intake", _ => "Care center"
+        "intake" => "New patient intake", _ => "Healthcare System"
     };
     private string LabSearch { get; set; } = "";
     private int IntakeStep { get; set; } = 1;
@@ -241,16 +223,6 @@
     private string SelectedSpecialty { get; set; } = "";
     private List<string> DateFormats { get; } = ["MMM d, yyyy", "MM/dd/yyyy", "dd MMM yyyy"];
     private List<string> Specialties { get; } = ["Cardiology", "Family medicine", "Neurology", "Pulmonology"];
-    private List<Destination> Destinations { get; } =
-    [
-        new("Labs & diagnostics", "Review orders and critical results.", "./labs"),
-        new("Secure messages", "Coordinate care with the clinical team.", "./messages"),
-        new("Provider directory", "Find clinicians and specialties.", "./providers"),
-        new("Notifications", "Manage clinical updates and reminders.", "./notifications"),
-        new("Help & support", "Get workflow and IT assistance.", "./help"),
-        new("Settings", "Adjust account and alert preferences.", "./settings"),
-        new("My profile", "Update credentials and contact details.", "./profile")
-    ];
     private List<LabOrder> LabOrders { get; } =
     [
         new("James Wilson", "Troponin I", "STAT", "Resulted", "Today, 9:42 AM"),
@@ -288,7 +260,6 @@
     private void NextStep() { if (IntakeStep < 3) IntakeStep++; else Nav.NavigateTo("./patients"); }
     private void PreviousStep() => IntakeStep--;
     private static string StatusClass(string status) => status.ToLowerInvariant() switch { "critical" or "stat" => "critical", "urgent" => "urgent", _ => "stable" };
-    private sealed record Destination(string Title, string Description, string Href);
     private sealed record LabOrder(string Patient, string Test, string Priority, string Status, string Collected);
     private sealed record MessageItem(string Sender, string Subject, string Preview, string Time);
     private sealed record Provider(string Name, string Credentials, string Specialty, string Department, string Photo);

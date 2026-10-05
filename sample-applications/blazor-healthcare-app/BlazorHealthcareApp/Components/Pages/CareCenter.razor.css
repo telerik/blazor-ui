@@ -8,6 +8,8 @@
 .hc-center-nav-card { color: var(--kendo-color-on-app-surface); display: grid; gap: var(--kendo-spacing-2); min-height: 120px; text-decoration: none; transition: border-color var(--kendo-duration-quick) var(--kendo-easing-standard), box-shadow var(--kendo-duration-quick) var(--kendo-easing-standard); }
 .hc-center-nav-card:hover { border-color: var(--kendo-color-secondary); box-shadow: var(--kendo-elevation-2); }
 .hc-center-nav-title { color: var(--kendo-color-primary); font-size: var(--kendo-font-size-lg); font-weight: 600; }
+.hc-center-back { display: inline-block; margin-bottom: var(--kendo-spacing-3); color: var(--kendo-color-primary); font-weight: 600; text-decoration: none; }
+.hc-center-back:hover { text-decoration: underline; }
 .hc-center-primary-action, .hc-center-secondary-action, .hc-center-danger-action { border-radius: var(--kendo-border-radius-md); cursor: pointer; font: inherit; font-weight: 600; padding: var(--kendo-spacing-3) var(--kendo-spacing-4); text-decoration: none; }
 .hc-center-primary-action { background: var(--kendo-color-primary); border: 1px solid var(--kendo-color-primary); color: var(--kendo-color-on-primary); }
 .hc-center-secondary-action { background: var(--kendo-color-surface-alt); border: 1px solid var(--kendo-color-border); color: var(--kendo-color-primary); }

@@ -38,6 +38,7 @@
     align-items: center;
     gap: 16px;
     flex-shrink: 0;
+    width: min(340px, 100%);
 }
 
 /* DropDown pill style */
@@ -46,7 +47,8 @@
     border: 1px solid rgba(23, 56, 99, 0.08);
     font-family: var(--kendo-font-family);
     font-size: 16px;
-    min-width: 249px;
+    width: 100%;
+    max-width: 340px;
 }
 
 .hc-ca-controls ::deep .k-dropdownlist .k-input-inner {
@@ -254,6 +256,17 @@
 }
 
 @media (max-width: 575px) {
+    .hc-ca-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+    }
+
+    .hc-ca-controls {
+        width: 100%;
+        flex-shrink: 1;
+    }
+
     .hc-ca-heading h1 {
         font-size: 24px;
     }

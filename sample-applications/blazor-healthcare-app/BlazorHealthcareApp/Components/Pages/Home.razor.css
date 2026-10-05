@@ -37,10 +37,10 @@
 }
 
 /* ========== QUICK ACTIONS ========== */
-.hc-quick-actions { display: flex; gap: 22px; }
+.hc-quick-actions { display: flex; flex-wrap: wrap; gap: 22px; }
 
 .hc-qa-card {
-    flex: 1;
+    flex: 1 1 200px;
     background: var(--kendo-color-primary-subtle);
     border: 1px solid rgba(23, 56, 99, 0.08);
     border-radius: var(--kendo-border-radius-xl);
@@ -344,8 +344,6 @@
 
 @media (max-width: 767px) {
     .hc-heading h1 { font-size: 32px; }
-    .hc-quick-actions { flex-wrap: wrap; }
-    .hc-qa-card { flex: 0 1 calc(50% - 11px); min-width: 200px; }
     .hc-patient-row { flex-wrap: wrap; gap: 12px; }
     .hc-appt-time-block { align-items: flex-start; }
 }
@@ -361,7 +359,7 @@
 
     /* Quick Actions */
     .hc-quick-actions { gap: 12px; }
-    .hc-qa-card { flex: 1 1 100%; min-width: 0; }
+    .hc-qa-card { flex: 1 1 100%; }
 
     /* View Schedule button below title */
     .hc-appt-header { flex-direction: column; align-items: flex-start; gap: 12px; }

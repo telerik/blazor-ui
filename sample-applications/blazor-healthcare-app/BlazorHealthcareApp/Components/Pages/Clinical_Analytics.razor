@@ -17,7 +17,7 @@
                              ValueChanged="@((int id) => OnPatientChanged(id))"
                              TextField="Name"
                              ValueField="Id"
-                             Width="249px">
+                             Width="100%">
             <ValueTemplate>
                 @{
                     var p = (PatientModel)context;
@@ -31,7 +31,7 @@
                 @p.Name (P-@p.Id.ToString("D6"))
             </ItemTemplate>
             <DropDownListSettings>
-                <DropDownListPopupSettings Class="hc-ca-dropdown-popup" />
+                <DropDownListPopupSettings Class="hc-ca-dropdown-popup" Width="340px" MinWidth="340px" />
             </DropDownListSettings>
         </TelerikDropDownList>
     </div>
@@ -144,7 +144,7 @@
     <div class="hc-ca-card">
         <div class="hc-ca-card-header">
             <h2 class="hc-ca-card-title">Alerts Over Time</h2>
-            <p class="hc-ca-card-subtitle">Alert count trendy by severity level</p>
+            <p class="hc-ca-card-subtitle">Alert count trends by severity level</p>
         </div>
         <div class="hc-ca-card-body">
             <div class="hc-ca-chart-area">
@@ -303,7 +303,7 @@
                                      StartAngle="90">
                             <ChartSeriesLabels Visible="true"
                                                Position="ChartSeriesLabelsPosition.OutsideEnd"
-                                               Template="#=category#"
+                                               Template="hcDonutLabel"
                                                Background="transparent"
                                                Color="var(--kendo-color-on-app-surface)"
                                                Font="13px Poppins, sans-serif"
@@ -314,12 +314,11 @@
                     <ChartTooltip Visible="true" />
                 </TelerikChart>
                 <div class="hc-ca-donut-legend">
-                    @for (int i = 0; i < AlertsByCategoryData.Count; i++)
+                    @foreach (var item in AlertsByCategoryData)
                     {
-                        var item = AlertsByCategoryData[i];
                         <div class="hc-ca-donut-legend-item">
                             <span class="hc-ca-donut-legend-dot" style="background: @item.Color;"></span>
-                            <span class="hc-ca-donut-legend-text">@i:@((int)item.Value)</span>
+                            <span class="hc-ca-donut-legend-text">@item.Category: @((int)item.Value)</span>
                         </div>
                     }
                 </div>
