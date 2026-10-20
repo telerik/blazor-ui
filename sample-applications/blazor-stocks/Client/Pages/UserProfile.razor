@@ -1,5 +1,3 @@
-﻿@page "/profile"
-
 @using BlazorFinancePortfolio.Models
 @using BlazorFinancePortfolio.Helpers
 
@@ -9,7 +7,7 @@
             <div class="col d-flex justify-content-between align-items-center py-5">
                 <h1>My Portfolio</h1>
 
-                <span @onclick="@CloseProfile" class="k-icon icon-close"></span>
+                <TelerikSvgIcon Icon="@SvgIcon.X" Class="profile-close-icon" @onclick="@CloseProfile" />
             </div>
             <div class=" row d-flex justify-content-between pt-5">
                 <div class="col col-3">

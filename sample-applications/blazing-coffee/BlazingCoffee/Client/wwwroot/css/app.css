@@ -1,0 +1,877 @@
+/* Brand tokens and app styles layered on the built-in Telerik Meridian theme. */
+:root {
+  --kendo-color-primary: #7378d9;
+  --kendo-color-info: #528dee;
+  --kendo-color-success: #5abf90;
+  --kendo-color-warning: #ffd452;
+  --kendo-color-error: #f26666;
+  --kendo-color-app-surface: #f2f2f2;
+  --kendo-color-on-app-surface: #060e40;
+  --kendo-color-surface: #ffffff;
+  --kendo-color-series-a: #f26666;
+  --kendo-color-series-b: #ffd452;
+  --kendo-color-series-c: #5abf90;
+  --kendo-color-series-d: #52bdee;
+  --kendo-color-series-e: #528dee;
+  --kendo-color-series-f: #7378d9;
+  --kendo-border-radius-base: 0.375rem;
+  --kendo-translucency-base: 25%;
+  --kendo-translucency-blur-base: 6px;
+  --kendo-translucency-blur-step: 2px;
+}
+
+body {
+  font-family: var(--kendo-font-family);
+}
+
+h1 {
+  font-size: var(--kendo-font-size-xl);
+  font-weight: var(--kendo-font-weight-semibold);
+  line-height: var(--kendo-line-height-md);
+}
+
+h2 {
+  font-size: var(--kendo-font-size-lg);
+  font-weight: var(--kendo-font-weight-semibold);
+  line-height: var(--kendo-line-height-md);
+}
+
+h3 {
+  font-size: var(--kendo-font-size-md);
+  font-weight: var(--kendo-font-weight-semibold);
+  line-height: var(--kendo-line-height-md);
+}
+
+h4 {
+  font-size: var(--kendo-font-size-md);
+  font-weight: var(--kendo-font-weight-semibold);
+}
+
+h5 {
+  font-size: var(--kendo-font-size-sm);
+  font-weight: var(--kendo-font-weight-semibold);
+}
+
+p {
+  font-size: var(--kendo-font-size-md);
+  line-height: var(--kendo-line-height-md);
+}
+
+a {
+  font-size: inherit;
+}
+
+.header {
+  height: 72px;
+  background-image: url("/blazor-coffee/img/header-bg.png");
+  background-blend-mode: luminosity;
+  background-color: var(--kendo-color-primary);
+}
+.header .nav-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  color: var(--kendo-color-on-primary);
+  padding: 0 var(--kendo-spacing-6);
+}
+.header .menu-button,
+.header .settings {
+  flex: 0 0 48px;
+  text-align: center;
+}
+.header .title {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: var(--kendo-spacing-4);
+}
+.header .k-button {
+  border: none;
+  background-color: transparent;
+  background-image: none;
+  color: var(--kendo-color-on-primary);
+}
+.header .k-button:hover {
+  background-color: transparent;
+}
+.header .k-avatar {
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: 0 var(--kendo-spacing-6);
+  box-shadow: var(--kendo-elevation-1);
+}
+.header .k-avatar img {
+  width: 40px;
+  height: 40px;
+}
+
+@media (max-width: 767.98px) {
+  .header {
+    height: 64px;
+  }
+  .header .nav-container {
+    padding: 0 var(--kendo-spacing-4);
+  }
+  .header .title {
+    margin-left: var(--kendo-spacing-2);
+  }
+}
+@media (min-width: 768px) {
+  .header .title {
+    flex-direction: row;
+    align-items: center;
+  }
+  .header .vl {
+    border-left: 1px solid var(--kendo-color-on-primary);
+    height: 25px;
+    margin: var(--kendo-spacing-1\.5) var(--kendo-spacing-4);
+  }
+}
+.k-drawer-container {
+  background-color: var(--kendo-color-app-surface);
+  height: auto;
+  min-height: calc(100vh - 72px);
+}
+.k-drawer-container .k-drawer {
+  box-shadow: var(--kendo-elevation-4);
+  border-right-width: 0 !important;
+}
+
+.k-drawer-items .title {
+  display: none;
+  text-transform: uppercase;
+  font-size: 1em;
+  padding: var(--kendo-spacing-4);
+  font-weight: bold;
+  color: var(--kendo-color-info);
+}
+.k-drawer-items > header {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--kendo-spacing-4);
+}
+.k-drawer-items > header > img {
+  border: 2px solid var(--kendo-color-success);
+  margin: var(--kendo-spacing-4);
+  max-width: 96px;
+}
+
+/*  Here we capture if the drawer is expanded.
+    If the drawer is in mini-mode, these items
+    are hidden by default.
+*/
+.k-drawer-expanded .k-drawer-items > header, .k-drawer-expanded .k-drawer-items .title {
+  display: flex;
+}
+
+.card-container {
+  background-color: var(--kendo-color-surface);
+  border: 1px solid var(--kendo-color-border);
+  border-radius: var(--kendo-border-radius-lg);
+  padding: var(--kendo-spacing-4);
+  margin: var(--kendo-spacing-4);
+  text-align: center;
+  box-shadow: var(--kendo-elevation-1);
+}
+.card-container.grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  column-gap: var(--kendo-spacing-2\.5);
+  row-gap: var(--kendo-spacing-4);
+}
+.card-container .card-title {
+  color: var(--kendo-color-primary-on-surface);
+  font-size: var(--kendo-font-size-lg);
+  font-weight: var(--kendo-font-weight-semibold);
+  line-height: var(--kendo-line-height-md);
+  margin: 0 0 var(--kendo-spacing-4);
+}
+.card-container .card-buttons .k-button {
+  min-width: 105px;
+}
+.card-container .card-ranges .k-daterangepicker .k-textbox-container, .card-container .card-ranges .k-daterangepicker .k-floating-label-container {
+  padding-top: 0;
+  min-width: 105px;
+}
+.card-container .card-ranges .k-daterangepicker .k-floating-label {
+  display: none;
+}
+.card-container .card-component {
+  grid-column: 1/-1;
+}
+
+@media (min-width: 768px) {
+  .card-container {
+    text-align: initial;
+    padding: var(--kendo-spacing-6);
+  }
+  .card-container.grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .card-container .card-title {
+    grid-column: 1/2;
+    grid-row: 1;
+  }
+  .card-container .card-buttons {
+    text-align: center;
+    grid-column: 1/-1;
+    grid-row: 2;
+  }
+  .card-container .card-ranges {
+    text-align: right;
+    grid-column: 2/3;
+    grid-row: 1;
+  }
+}
+@media (min-width: 992px) {
+  .card-container {
+    margin: var(--kendo-spacing-6);
+  }
+  .card-container.grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .card-container .card-buttons {
+    text-align: center;
+    grid-column: 2/3;
+    grid-row: 1;
+  }
+  .card-container .card-ranges {
+    text-align: right;
+    grid-column: 3/4;
+  }
+  .card-container .card-component {
+    grid-column-start: 1;
+    grid-column-end: -1;
+  }
+}
+body,
+h1 {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+h2,
+h3 {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: var(--kendo-color-info);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--kendo-color-on-primary);
+}
+
+a:not([href]):not([class]), a:not([href]):not([class]):hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container-size {
+  width: 100vw;
+  height: 100vh;
+}
+
+.dashboard-page .card-container:last-of-type {
+  padding-top: 0;
+}
+.dashboard-page .k-grid-toolbar .k-textbox {
+  margin-bottom: 10px;
+}
+
+@media (min-width: 768px) {
+  .dashboard-page .k-grid-toolbar .k-textbox {
+    margin-bottom: 0;
+    float: left;
+  }
+  .dashboard-page .k-grid-toolbar .k-button {
+    float: right;
+  }
+}
+@media (min-width: 768px) {
+  .dashboard-page .card-container:last-of-type {
+    padding-top: 30px;
+  }
+}
+.planning-page .card-container {
+  grid-template-columns: repeat(1, 1fr);
+}
+.planning-page .card-title {
+  grid-column: 1/-1;
+}
+.planning-page .k-hbox {
+  padding: 0 20px;
+  background: transparent;
+}
+.planning-page .k-avatar {
+  width: 41px;
+  height: 41px;
+}
+.planning-page .k-card-title {
+  font-size: 15px;
+  margin-bottom: -6px;
+  text-align: left;
+}
+.planning-page .k-card-subtitle {
+  margin-top: 0;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+.planning-page .disabled {
+  opacity: 0.5;
+}
+
+@media (min-width: 768px) {
+  .planning-page .card-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 768px) {
+  .planning-page .k-hbox {
+    padding: 0;
+    border-width: 0;
+  }
+}
+@media (min-width: 992px) {
+  .planning-page .card-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 1400px) {
+  .planning-page .card-container {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+.profile-page .card-container {
+  text-align: left;
+}
+.profile-page .k-form .k-form-field {
+  display: block;
+  padding: 0 15px;
+}
+.profile-page .k-form-field:first-of-type .k-form-field-wrap {
+  margin: auto;
+}
+.profile-page .k-form-field:first-of-type .k-avatar {
+  margin: 0 auto 1rem;
+}
+.profile-page .k-form.k-form-horizontal .k-label {
+  width: 100%;
+}
+.profile-page hr {
+  margin-top: 1rem;
+  opacity: 0.2;
+}
+.profile-page .k-form .k-form-buttons {
+  justify-content: center;
+}
+.profile-page .k-form .k-form-buttons > * {
+  min-width: 140px;
+}
+
+@media (min-width: 768px) {
+  .profile-page .k-form .k-form-field {
+    display: flex;
+  }
+  .profile-page .k-form-field:first-of-type .k-avatar {
+    margin: 0;
+  }
+  .profile-page .k-form.k-form-horizontal .k-label {
+    width: 25%;
+  }
+}
+@media (min-width: 768px) {
+  .profile-page .k-form {
+    margin: 0 auto;
+    padding: 0;
+  }
+  .profile-page .k-form .k-form-field {
+    padding: 0;
+  }
+}
+.center-cell {
+  text-align: center !important;
+}
+
+#blazor-error-ui .dismiss {
+  cursor: pointer;
+  position: absolute;
+  right: 0.75rem;
+  top: 0.5rem;
+}
+
+.k-rating {
+  pointer-events: none;
+}
+
+.yellow {
+  color: var(--kendo-color-warning);
+}
+
+.rating-empty {
+  color: var(--kendo-color-border);
+  opacity: 0.8;
+}
+
+html body {
+  overflow-y: scroll;
+  overflow-x: auto;
+}
+
+.k-drawer-content {
+  overflow: hidden;
+}
+
+.employee-photo {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-size: 32px 35px;
+  background-position: center center;
+  vertical-align: middle;
+  line-height: 32px;
+  box-shadow: var(--kendo-elevation-1);
+  margin-left: var(--kendo-spacing-1);
+}
+
+.employee-name {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 32px;
+  padding-left: var(--kendo-spacing-2\.5);
+}
+
+.employee-country-flag {
+  width: 30px;
+  height: auto;
+}
+
+.culture-icon {
+  display: inline-flex;
+  align-items: center;
+  color: var(--kendo-color-on-app-surface);
+}
+.culture-icon img {
+  width: var(--kendo-icon-size);
+  height: var(--kendo-icon-size);
+}
+
+html, body, app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.k-grid-content .k-rating-container .k-rating-item {
+  padding: 0;
+}
+
+.k-grid-content .k-rating-container .k-rating-item .k-icon {
+  font-size: var(--kendo-icon-size);
+}
+
+.k-grid-content .k-rating-container {
+  margin: 0;
+}
+
+.k-grid-content .k-progressbar-horizontal {
+  width: 100%;
+}
+
+.card-header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--kendo-spacing-4);
+  gap: var(--kendo-spacing-4);
+}
+
+.card-header-wrapper .k-card-actions {
+  padding: 0;
+}
+
+.card-header-wrapper .k-button-group .k-button,
+div.k-form-buttons button {
+  min-width: 105px;
+  max-height: 30px;
+}
+
+.daterangepicker-no-labels .k-floating-label {
+  display: none;
+}
+
+.daterangepicker-no-labels .k-floating-label-container {
+  padding: 0;
+}
+
+.card-ranges {
+  display: flex;
+  align-items: center;
+}
+.card-ranges .k-icon {
+  margin-right: 5px;
+}
+
+.settings-container {
+  display: flex;
+  align-items: center;
+}
+.settings-container .k-dropdownlist {
+  max-height: 30px;
+  margin-left: 5px;
+}
+
+.profile-form {
+  max-width: 700px;
+  margin: auto;
+}
+.profile-form .k-avatar-image img {
+  width: 80px;
+  height: 80px;
+}
+.profile-form > div.k-form-field {
+  margin-top: 1.5rem;
+}
+.profile-form .k-form-buttons {
+  justify-content: center;
+}
+.profile-form hr {
+  margin-top: 2rem;
+  opacity: 0.2;
+  width: 100%;
+}
+
+.main-content {
+  color: var(--kendo-color-surface);
+}
+.main-content img {
+  object-fit: contain;
+  width: 100%;
+}
+
+.info-component {
+  background-color: var(--kendo-color-inverse);
+  overflow: hidden;
+}
+.info-component a {
+  color: var(--kendo-color-info);
+}
+
+.image-container {
+  width: 40%;
+  min-width: 330px;
+}
+
+.content-container {
+  width: 60%;
+}
+
+.banner {
+  display: flex;
+  max-width: 1200px;
+  margin: auto;
+}
+.banner h1 {
+  font-size: 60px;
+  font-weight: 300;
+  letter-spacing: 0;
+  line-height: 1em;
+}
+.banner h5 {
+  font-size: 21px;
+  line-height: 1.2em;
+}
+.banner p {
+  font-size: 24px;
+}
+.banner .content-container {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.source-code {
+  height: 60px;
+  width: 60%;
+  color: var(--kendo-color-info);
+  display: inline-flex;
+  align-items: flex-start;
+}
+.source-code a {
+  color: var(--kendo-color-info);
+  font-size: var(--kendo-font-size-lg);
+  display: inline-flex;
+}
+.source-code a img {
+  width: 30px;
+  margin-right: 10px;
+}
+
+.section-3 {
+  column-count: 2;
+  margin-top: 40px;
+  padding: 0 15px;
+  text-align: left;
+}
+.section-3 ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.package-item {
+  display: inline-block;
+  margin-top: 20px;
+}
+
+.package-title a {
+  font-size: 17px;
+  color: var(--kendo-color-inverse-subtle);
+  text-transform: uppercase;
+}
+
+.component-link {
+  padding: 5px 0;
+}
+.component-link a {
+  font-size: 20px;
+}
+
+@media (min-width: 992px) {
+  .info-component .section-3 {
+    column-count: 3;
+  }
+}
+@media (max-width: 767.98px) {
+  .image-container {
+    display: none;
+  }
+  .banner h1 {
+    font-size: 28px;
+  }
+  .banner h5 {
+    font-size: 18px;
+  }
+  .banner p {
+    font-size: 20px;
+  }
+  .banner .source-code a img {
+    width: 25px;
+  }
+  .banner .source-code a {
+    font-size: 18px;
+    line-height: 30px;
+  }
+}
+@media (max-width: 1199.98px) {
+  .source-code,
+  .content-container {
+    width: 100%;
+  }
+  .card-header-wrapper .k-button-group .k-button,
+  div.k-form-buttons button {
+    min-width: 50px;
+  }
+  .card-ranges .k-daterangepicker .k-dateinput {
+    width: 8em;
+  }
+}
+@media (min-width: 768px) and (max-width: 1199.98px) {
+  .banner h1 {
+    font-size: 36px;
+  }
+  .banner h5 {
+    font-size: 16px;
+  }
+  .banner p {
+    font-size: 16px;
+  }
+  .banner .source-code a img {
+    width: 28px;
+  }
+  .banner .source-code a {
+    font-size: 16px;
+    line-height: 30px;
+  }
+}
+.component-list {
+  max-width: 1200px;
+  margin: auto;
+}
+.component-list p {
+  font-size: 18px;
+  text-align: left;
+  padding: 0 15px;
+}
+
+.profile-notification {
+  z-index: 1;
+}
+.profile-notification .k-notification-container .k-notification-wrap {
+  width: 300px;
+  height: 50px;
+  font-size: 1.5em;
+  text-align: center;
+  align-items: center;
+}
+.profile-notification .k-notification-container .k-notification-wrap .k-svg-icon {
+  font-size: 30px;
+}
+
+.k-grid-header .k-header.k-first {
+  border-left-width: 1px;
+}
+
+.k-grid-header thead tr:not(:first-child) th[data-field] {
+  border-left-width: 1px;
+}
+
+.ddl-separator {
+  height: 14px;
+  margin: 0 4px;
+  border-left: 1px solid var(--kendo-color-border);
+}
+
+.text-content {
+  font-size: var(--kendo-font-size-sm);
+  line-height: var(--kendo-line-height-md);
+}
+
+span.k-dropdownlist .k-input-inner {
+  padding: 8px;
+}
+
+.k-grid tr .chkb-centered {
+  padding: 10px 14px;
+}
+
+.profile-form .k-form-field.label-centered .k-label {
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 0;
+}
+
+.k-drawer-container.k-drawer-left {
+  min-height: calc(100vh - 72px);
+}
+
+.k-popup.k-grid-columnmenu-popup {
+  width: 260px;
+}
+
+.app-page {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.app-page__intro {
+  color: var(--kendo-color-subtle);
+  margin: 0 0 var(--kendo-spacing-6);
+}
+
+.app-page .k-listview-content {
+  display: grid;
+  gap: var(--kendo-spacing-4);
+}
+
+.notification-item {
+  border: 1px solid var(--kendo-color-border);
+  border-radius: var(--kendo-border-radius-md);
+  padding: var(--kendo-spacing-4);
+  background-color: var(--kendo-color-surface-alt);
+  box-shadow: var(--kendo-elevation-1);
+}
+
+@media (min-width: 768px) {
+  .notification-item {
+    padding: var(--kendo-spacing-6);
+  }
+}
+.notification-item__header {
+  align-items: baseline;
+  display: flex;
+  gap: var(--kendo-spacing-3);
+  justify-content: space-between;
+}
+
+.notification-item__time {
+  color: var(--kendo-color-subtle);
+  font-size: var(--kendo-font-size-sm);
+  white-space: nowrap;
+}
+
+.page-state {
+  padding: var(--kendo-spacing-8);
+  text-align: center;
+}
+
+.card-component > .k-grid,
+.card-component > .k-form {
+  background-color: var(--kendo-color-surface-alt);
+}
+
+.support-success,
+.not-found-page {
+  padding: var(--kendo-spacing-12) var(--kendo-spacing-6);
+  text-align: center;
+}
+
+.support-success h3,
+.not-found-page h2 {
+  margin-bottom: var(--kendo-spacing-4);
+}
+
+@media (max-width: 767.98px) {
+  .card-header-wrapper {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .notification-item__header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: var(--kendo-spacing-1);
+  }
+  .app-page .k-button {
+    min-height: 44px;
+  }
+  .k-drawer-container {
+    min-height: calc(100vh - 64px);
+  }
+}
+
+/* Header: the generic .k-button reset must not recolor the nested picker arrow */
+.header .k-picker .k-input-button {
+    color: var(--kendo-color-on-app-surface);
+}
+
+/* Profile avatar is larger than the 32px Meridian default; the header avatar stays 40px */
+.profile-form .k-avatar {
+    width: 80px;
+    height: 80px;
+    flex-basis: 80px;
+}
+
+/* Grids fit the viewport (header 72px + card chrome) */
+.team-grid {
+    min-height: 360px;
+}
+
+/* Success notifications: white text and icon on the success background */
+.k-notification.k-notification-success,
+.k-notification.k-notification-success .k-notification-content,
+.k-notification.k-notification-success .k-svg-icon {
+    color: #fff;
+}
+
+.k-notification.k-notification-success .k-svg-icon > svg {
+    fill: #fff;
+}

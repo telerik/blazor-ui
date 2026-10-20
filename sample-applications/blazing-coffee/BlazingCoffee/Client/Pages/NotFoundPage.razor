@@ -1,0 +1,18 @@
+@page "/not-found"
+
+<CardContainer>
+    <div class="not-found-page">
+        <h2>We could not find that page</h2>
+        <p>The address may be outdated, or the page may have moved.</p>
+        <TelerikButton ThemeColor="ThemeConstants.Button.ThemeColor.Primary" OnClick="@GoHome">Return to team directory</TelerikButton>
+    </div>
+</CardContainer>
+
+@code {
+    [Inject] private NavigationManager Navigation { get; set; }
+
+    private void GoHome()
+    {
+        Navigation.NavigateTo("/");
+    }
+}

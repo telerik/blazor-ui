@@ -1,0 +1,268 @@
+@page "/labs"
+@page "/messages"
+@page "/providers"
+@page "/notifications"
+@page "/help"
+@page "/settings"
+@page "/profile"
+@page "/intake"
+@rendermode InteractiveServer
+@inject NavigationManager Nav
+
+<PageTitle>@Title | Healthcare System</PageTitle>
+
+<div class="hc-center-page">
+    <a class="hc-center-back" href="./">&larr; Back to Home</a>
+    @if (Section == "labs")
+    {
+        <header class="hc-center-heading">
+            <div>
+                <h1>Lab & diagnostics</h1>
+                <p>Review incoming results and acknowledge critical findings.</p>
+            </div>
+            <a class="hc-center-primary-action" href="./intake">Order lab test</a>
+        </header>
+        <div class="hc-center-alert" role="alert">
+            <strong>Critical result requires review.</strong> Troponin I for James Wilson was posted 12 minutes ago.
+            <button type="button" class="hc-center-text-action">Review result</button>
+        </div>
+        <section class="hc-center-panel">
+            <div class="hc-center-panel-header">
+                <h2>Orders queue</h2>
+                <TelerikTextBox @bind-Value="@LabSearch" Placeholder="Search patient or test" />
+            </div>
+            <TelerikGrid Data="@FilteredLabOrders" Pageable="true" PageSize="8" Sortable="true" Resizable="true">
+                <GridColumns>
+                    <GridColumn Field="@nameof(LabOrder.Patient)" Title="Patient" />
+                    <GridColumn Field="@nameof(LabOrder.Test)" Title="Test" />
+                    <GridColumn Field="@nameof(LabOrder.Priority)" Title="Priority">
+                        <Template>
+                            @{ var order = (LabOrder)context; }
+                            <span class="hc-center-status @StatusClass(order.Priority)">@order.Priority</span>
+                        </Template>
+                    </GridColumn>
+                    <GridColumn Field="@nameof(LabOrder.Status)" Title="Status" />
+                    <GridColumn Field="@nameof(LabOrder.Collected)" Title="Collected" />
+                    <GridColumn Title="Action">
+                        <Template><button type="button" class="hc-center-text-action">Review & acknowledge</button></Template>
+                    </GridColumn>
+                </GridColumns>
+            </TelerikGrid>
+        </section>
+    }
+    else if (Section == "messages")
+    {
+        <header class="hc-center-heading">
+            <div><h1>Secure messages</h1><p>Coordinate follow-up care without leaving the clinical workspace.</p></div>
+            <button type="button" class="hc-center-primary-action">New message</button>
+        </header>
+        <div class="hc-center-split">
+            <section class="hc-center-panel">
+                <div class="hc-center-panel-header"><h2>Inbox</h2><span class="hc-center-count">3 unread</span></div>
+                <TelerikListView Data="@Messages">
+                    <Template>
+                        @{ var message = (MessageItem)context; }
+                        <button type="button" class="hc-center-message">
+                            <span class="hc-center-message-title">@message.Sender</span>
+                            <span class="hc-center-message-time">@message.Time</span>
+                            <span>@message.Subject</span>
+                            <small>@message.Preview</small>
+                        </button>
+                    </Template>
+                </TelerikListView>
+            </section>
+            <section class="hc-center-panel hc-center-conversation">
+                <div class="hc-center-panel-header"><h2>Follow-up for James Wilson</h2><span class="hc-center-status stable">Secure</span></div>
+                <p><strong>Olivia Parker, RN</strong><br />James reported no recurring chest discomfort after discharge instructions were reviewed.</p>
+                <p class="hc-center-reply"><strong>Dr. Carter</strong><br />Thank you. Please confirm his cardiology appointment for Thursday morning.</p>
+                <label for="message-reply">Reply</label>
+                <TelerikTextArea Id="message-reply" Placeholder="Write a secure message" Rows="4" Width="100%" />
+                <button type="button" class="hc-center-primary-action">Send securely</button>
+            </section>
+        </div>
+    }
+    else if (Section == "providers")
+    {
+        <header class="hc-center-heading"><div><h1>Provider directory</h1><p>Find clinical colleagues by specialty, department, and availability.</p></div></header>
+        <div class="hc-center-filter-row">
+            <TelerikDropDownList Data="@Specialties" @bind-Value="@SelectedSpecialty" DefaultText="All specialties" Width="240px" />
+            <TelerikTextBox Placeholder="Search providers" Width="280px" />
+        </div>
+        <div class="hc-center-provider-grid">
+            @foreach (var provider in Providers)
+            {
+                <article class="hc-center-provider-card">
+                    <img src="@provider.Photo" alt="@provider.Name" />
+                    <div><h2>@provider.Name</h2><p>@provider.Credentials · @provider.Specialty</p><p>@provider.Department</p><span class="hc-center-status stable">Accepting patients</span></div>
+                    <button type="button" class="hc-center-text-action">View profile</button>
+                </article>
+            }
+        </div>
+    }
+    else if (Section == "notifications")
+    {
+        <header class="hc-center-heading"><div><h1>Notifications</h1><p>Clinical alerts, follow-ups, and operational updates.</p></div><button type="button" class="hc-center-text-action">Mark all as read</button></header>
+        <section class="hc-center-panel">
+            <TelerikListView Data="@Notifications">
+                <Template>
+                    @{ var notification = (NotificationItem)context; }
+                    <a class="hc-center-notification" href="@notification.Href">
+                        <span class="hc-center-status @StatusClass(notification.Priority)">@notification.Priority</span>
+                        <span><strong>@notification.Title</strong><br />@notification.Description</span>
+                        <time>@notification.Time</time>
+                    </a>
+                </Template>
+            </TelerikListView>
+        </section>
+    }
+    else if (Section == "help")
+    {
+        <header class="hc-center-heading"><div><h1>Help & support</h1><p>Find clinical workflow guidance or contact the IT support desk.</p></div></header>
+        <section class="hc-center-panel hc-center-help">
+            <TelerikTextBox Placeholder="Search support articles" Width="100%" />
+            @foreach (var question in HelpQuestions)
+            {
+                <details>
+                    <summary>@question.Question</summary>
+                    <p>@question.Answer</p>
+                </details>
+            }
+        </section>
+        <section class="hc-center-panel hc-center-support">
+            <h2>Contact IT support</h2>
+            <p>For urgent clinical-system access issues, call extension 8111. For all other requests, submit a ticket.</p>
+            <button type="button" class="hc-center-primary-action">Open support ticket</button>
+        </section>
+    }
+    else if (Section == "settings")
+    {
+        <header class="hc-center-heading"><div><h1>Settings & preferences</h1><p>Manage alerts, display preferences, and account security.</p></div></header>
+        <div class="hc-center-settings">
+            <section class="hc-center-panel">
+                <h2>Notification preferences</h2>
+                <label class="hc-center-toggle"><TelerikCheckBox @bind-Value="@CriticalLabsEnabled" /> Critical lab alerts by secure message</label>
+                <label class="hc-center-toggle"><TelerikCheckBox @bind-Value="@DailyScheduleEnabled" /> Daily schedule summary at 6:30 AM</label>
+                <label class="hc-center-toggle"><TelerikCheckBox @bind-Value="@ReferralEnabled" /> Referral approval reminders</label>
+            </section>
+            <section class="hc-center-panel">
+                <h2>Display</h2>
+                <label for="date-format">Date format</label>
+                <TelerikDropDownList Id="date-format" Data="@DateFormats" @bind-Value="@SelectedDateFormat" Width="100%" />
+                <button type="button" class="hc-center-primary-action">Save preferences</button>
+            </section>
+            <section class="hc-center-panel hc-center-danger-zone">
+                <h2>Security</h2><p>Update your password and active-session preferences from your profile.</p>
+                <button type="button" class="hc-center-danger-action">Sign out other sessions</button>
+            </section>
+        </div>
+    }
+    else if (Section == "profile")
+    {
+        <header class="hc-center-heading"><div><h1>My profile</h1><p>Keep your clinical credentials and contact details current.</p></div></header>
+        <section class="hc-center-intake">
+            <h2>Professional details</h2>
+            <label for="profile-name">Full name</label><TelerikTextBox Id="profile-name" @bind-Value="@ProfileName" Width="100%" />
+            <label for="profile-email">Work email</label><TelerikTextBox Id="profile-email" @bind-Value="@ProfileEmail" Width="100%" />
+            <label for="profile-department">Department</label><TelerikTextBox Id="profile-department" @bind-Value="@ProfileDepartment" Width="100%" />
+            <div class="hc-center-intake-actions"><a class="hc-center-secondary-action" href="./settings">Manage preferences</a><button type="button" class="hc-center-primary-action">Save profile</button></div>
+        </section>
+    }
+    else if (Section == "intake")
+    {
+        <header class="hc-center-heading"><div><h1>New patient intake</h1><p>Register a patient in three guided steps.</p></div><span class="hc-center-step-label">Step @IntakeStep of 3</span></header>
+        <section class="hc-center-intake">
+            <ol class="hc-center-stepper" aria-label="Patient intake progress">
+                <li class="@(IntakeStep >= 1 ? "active" : "")">1. Demographics</li>
+                <li class="@(IntakeStep >= 2 ? "active" : "")">2. Insurance</li>
+                <li class="@(IntakeStep >= 3 ? "active" : "")">3. Medical history</li>
+            </ol>
+            @if (IntakeStep == 1)
+            {
+                <h2>Patient demographics</h2>
+                <label for="patient-name">Full name</label><TelerikTextBox Id="patient-name" Placeholder="Enter legal name" Width="100%" />
+                <label for="patient-dob">Date of birth</label><TelerikDatePicker Id="patient-dob" @bind-Value="@PatientDateOfBirth" Width="100%" />
+                <label for="patient-phone">Phone number</label><TelerikTextBox Id="patient-phone" Placeholder="(555) 555-5555" Width="100%" />
+            }
+            else if (IntakeStep == 2)
+            {
+                <h2>Insurance coverage</h2>
+                <label for="carrier">Insurance carrier</label><TelerikTextBox Id="carrier" Placeholder="Search carrier" Width="100%" />
+                <label for="policy-number">Member ID</label><TelerikTextBox Id="policy-number" Placeholder="Enter member ID" Width="100%" />
+            }
+            else
+            {
+                <h2>Medical history</h2>
+                <label for="history">Relevant medical history</label><TelerikTextArea Id="history" Placeholder="Document known diagnoses, medications, and allergies" Rows="6" Width="100%" />
+            }
+            <div class="hc-center-intake-actions">
+                @if (IntakeStep > 1) { <button type="button" class="hc-center-secondary-action" @onclick="PreviousStep">Back</button> }
+                <button type="button" class="hc-center-primary-action" @onclick="NextStep">@(IntakeStep == 3 ? "Create patient record" : "Continue")</button>
+            </div>
+        </section>
+    }
+</div>
+
+@code {
+    private string Section { get; set; } = "care";
+    private string Title => Section switch
+    {
+        "labs" => "Lab & diagnostics", "messages" => "Secure messages", "providers" => "Provider directory",
+        "notifications" => "Notifications", "help" => "Help & support", "settings" => "Settings", "profile" => "My profile",
+        "intake" => "New patient intake", _ => "Healthcare System"
+    };
+    private string LabSearch { get; set; } = "";
+    private int IntakeStep { get; set; } = 1;
+    private DateTime PatientDateOfBirth { get; set; } = new(1990, 1, 1);
+    private bool CriticalLabsEnabled { get; set; } = true;
+    private bool DailyScheduleEnabled { get; set; } = true;
+    private bool ReferralEnabled { get; set; }
+    private string ProfileName { get; set; } = "Dr. Emily Carter";
+    private string ProfileEmail { get; set; } = "drcarter@healthcare.org";
+    private string ProfileDepartment { get; set; } = "Cardiology";
+    private string SelectedDateFormat { get; set; } = "MMM d, yyyy";
+    private string SelectedSpecialty { get; set; } = "";
+    private List<string> DateFormats { get; } = ["MMM d, yyyy", "MM/dd/yyyy", "dd MMM yyyy"];
+    private List<string> Specialties { get; } = ["Cardiology", "Family medicine", "Neurology", "Pulmonology"];
+    private List<LabOrder> LabOrders { get; } =
+    [
+        new("James Wilson", "Troponin I", "STAT", "Resulted", "Today, 9:42 AM"),
+        new("Maya Patel", "Complete blood count", "Routine", "In process", "Today, 9:18 AM"),
+        new("Samuel Brooks", "Hemoglobin A1c", "Urgent", "Collected", "Today, 8:50 AM"),
+        new("Elena Morales", "Basic metabolic panel", "Routine", "Ordered", "Today, 8:15 AM")
+    ];
+    private IEnumerable<LabOrder> FilteredLabOrders => string.IsNullOrWhiteSpace(LabSearch) ? LabOrders : LabOrders.Where(o => $"{o.Patient} {o.Test}".Contains(LabSearch, StringComparison.OrdinalIgnoreCase));
+    private List<MessageItem> Messages { get; } =
+    [
+        new("Olivia Parker, RN", "Follow-up for James Wilson", "Patient education reviewed; cardiology confirmation needed.", "10:14 AM"),
+        new("Dr. Priya Shah", "Care plan coordination", "Could you review the updated pulmonary consult?", "Yesterday"),
+        new("Referral team", "Authorization approved", "Physical therapy visits have been approved.", "Mon")
+    ];
+    private List<Provider> Providers { get; } =
+    [
+        new("Dr. Priya Shah", "MD", "Cardiology", "Heart & Vascular", "images/dr-carter.jpg"),
+        new("Dr. Mateo Rivera", "DO", "Family medicine", "Primary Care", "images/james-wilson.jpg"),
+        new("Leah Kim", "NP", "Pulmonology", "Respiratory Care", "images/sophia-martinez.jpg")
+    ];
+    private List<NotificationItem> Notifications { get; } =
+    [
+        new("Critical", "Troponin result available", "James Wilson's result is ready for clinical review.", "12 min ago", "./labs"),
+        new("Urgent", "Referral approval needed", "Review the neurology referral for Elena Morales.", "34 min ago", "./patients"),
+        new("Normal", "New secure message", "Olivia Parker, RN replied to your follow-up.", "1 hr ago", "./messages")
+    ];
+    private List<HelpQuestion> HelpQuestions { get; } =
+    [
+        new("How do I acknowledge a critical lab result?", "Open Lab & diagnostics, select Review & acknowledge, then document the follow-up plan."),
+        new("How do I add a patient?", "Open New patient intake and complete the demographics, insurance, and medical-history steps."),
+        new("Where can I update my alerts?", "Open Settings & preferences to choose which clinical updates are sent to you.")
+    ];
+
+    protected override void OnParametersSet() => Section = new Uri(Nav.Uri).AbsolutePath.TrimEnd('/').Split('/').Last().ToLowerInvariant();
+    private void NextStep() { if (IntakeStep < 3) IntakeStep++; else Nav.NavigateTo("./patients"); }
+    private void PreviousStep() => IntakeStep--;
+    private static string StatusClass(string status) => status.ToLowerInvariant() switch { "critical" or "stat" => "critical", "urgent" => "urgent", _ => "stable" };
+    private sealed record LabOrder(string Patient, string Test, string Priority, string Status, string Collected);
+    private sealed record MessageItem(string Sender, string Subject, string Preview, string Time);
+    private sealed record Provider(string Name, string Credentials, string Specialty, string Department, string Photo);
+    private sealed record NotificationItem(string Priority, string Title, string Description, string Time, string Href);
+    private sealed record HelpQuestion(string Question, string Answer);
+}

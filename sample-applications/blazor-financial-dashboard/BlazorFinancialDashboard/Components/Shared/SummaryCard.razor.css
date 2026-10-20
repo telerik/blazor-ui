@@ -1,0 +1,12 @@
+.summary-card__value {
+    padding-top: var(--kendo-spacing-3);
+    font-size: var(--kendo-font-size-lg);
+}
+
+.summary-card__change--positive {
+    color: var(--kendo-color-success-emphasis);
+}
+
+.summary-card__change--negative {
+    color: var(--kendo-color-error-emphasis);
+}

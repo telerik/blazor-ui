@@ -4,7 +4,7 @@
     <ChartSeriesItems>
         <ChartSeries Type="ChartSeriesType.Area" 
                      Data="@(StockData.IntraDayChart.Cast<object>())" 
-                     Color="@(StockData.DayChange >= 0 ? "#5CB85C" : "#D9534F")" />
+                     Color="@(StockData.DayChange >= 0 ? "var(--kendo-color-success)" : "var(--kendo-color-error)")" />
         <ChartLegend Visible="false" />
         <ChartValueAxes>
             <ChartValueAxis Visible="false">

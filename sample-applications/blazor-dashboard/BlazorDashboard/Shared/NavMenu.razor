@@ -1,25 +1,25 @@
-<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">BlazorDashboard</a>
-    <button class="navbar-toggler" @onclick="@ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
+<div class="legacy-nav-menu__topbar">
+    <a class="legacy-nav-menu__brand" href="">BlazorDashboard</a>
+    <button class="legacy-nav-menu__toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="@(!collapseNavMenu)" @onclick="@ToggleNavMenu">
+        <TelerikSvgIcon Icon="@SvgIcon.Menu" />
     </button>
 </div>
 
 <div class="@NavMenuCssClass" @onclick="@ToggleNavMenu">
-    <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
+    <ul class="legacy-nav-menu__list">
+        <li class="legacy-nav-menu__item">
+            <NavLink class="legacy-nav-menu__link" href="" Match="NavLinkMatch.All">
+                Home
             </NavLink>
         </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
+        <li class="legacy-nav-menu__item">
+            <NavLink class="legacy-nav-menu__link" href="counter">
+                Counter
             </NavLink>
         </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+        <li class="legacy-nav-menu__item">
+            <NavLink class="legacy-nav-menu__link" href="fetchdata">
+                Fetch data
             </NavLink>
         </li>
     </ul>
@@ -28,7 +28,7 @@
 @code {
     bool collapseNavMenu = true;
 
-    string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    string NavMenuCssClass => collapseNavMenu ? "legacy-nav-menu__collapsed" : null;
 
     void ToggleNavMenu()
     {

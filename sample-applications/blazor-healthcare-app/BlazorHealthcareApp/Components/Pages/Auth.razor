@@ -1,0 +1,44 @@
+@page "/login"
+@page "/register"
+@layout AccessLayout
+@rendermode InteractiveServer
+@inject NavigationManager Nav
+
+<PageTitle>@(IsRegistration ? "Create account" : "Sign in") | Healthcare System</PageTitle>
+
+<section class="hc-auth-card">
+    @if (IsRegistration)
+    {
+        <h1>Activate your patient account</h1>
+        <p>Enter your activation code to securely create an account for managing your care.</p>
+        <label for="activation-code">Activation code</label>
+        <TelerikTextBox Id="activation-code" Placeholder="Enter code from your care team" Width="100%" />
+        <label for="register-email">Email address</label>
+        <TelerikTextBox Id="register-email" Placeholder="you@example.com" Width="100%" />
+        <label for="register-password">Create password</label>
+        <TelerikTextBox Id="register-password" Placeholder="At least 12 characters" Password="true" Width="100%" />
+        <label class="hc-auth-consent"><TelerikCheckBox @bind-Value="@AcceptedTerms" /> I agree to the privacy policy and terms of use.</label>
+        <button type="button" class="hc-auth-primary" disabled="@(!AcceptedTerms)" @onclick="GoHome">Create account</button>
+        <p class="hc-auth-footer">Already have an account? <a href="./login">Sign in</a></p>
+    }
+    else
+    {
+        <h1>Sign in to Healthcare System</h1>
+        <p>Use your secure account to access clinical tools and patient information.</p>
+        <label for="login-email">Email address</label>
+        <TelerikTextBox Id="login-email" Placeholder="name@healthcare.org" Width="100%" />
+        <label for="login-password">Password</label>
+        <TelerikTextBox Id="login-password" Placeholder="Enter your password" Password="true" Width="100%" />
+        <a class="hc-auth-recovery" href="./help">Forgot password?</a>
+        <button type="button" class="hc-auth-primary" @onclick="GoHome">Sign in</button>
+        <div class="hc-auth-divider">or continue with</div>
+        <button type="button" class="hc-auth-sso">Sign in with your organization</button>
+        <p class="hc-auth-footer">New patient? <a href="./register">Activate your account</a></p>
+    }
+</section>
+
+@code {
+    private bool AcceptedTerms { get; set; }
+    private bool IsRegistration => new Uri(Nav.Uri).AbsolutePath.EndsWith("/register", StringComparison.OrdinalIgnoreCase);
+    private void GoHome() => Nav.NavigateTo("./");
+}

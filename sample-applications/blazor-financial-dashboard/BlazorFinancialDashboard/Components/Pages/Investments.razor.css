@@ -1,0 +1,149 @@
+.investments-filters {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--kendo-spacing-2);
+    margin-block: var(--kendo-spacing-4);
+}
+
+.investments-filter {
+    display: flex;
+    align-items: center;
+    gap: var(--kendo-spacing-2);
+}
+
+.investments-filter label {
+    white-space: nowrap;
+    color: var(--kendo-color-subtle);
+    font-size: var(--kendo-font-size-sm);
+    font-weight: var(--kendo-font-weight-medium);
+}
+
+.investments-filter--search {
+    flex: 0 1 24rem;
+    margin-left: var(--kendo-spacing-4);
+}
+
+.investments-filter--search .k-textbox {
+    flex: 1;
+}
+
+.investments-filter--search .k-input {
+    width: 100%;
+}
+
+.investments-state {
+    min-height: 14rem;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: var(--kendo-spacing-2);
+    padding: var(--kendo-spacing-6);
+    color: var(--kendo-color-subtle);
+    text-align: center;
+}
+
+.investments-state strong {
+    color: var(--kendo-color-on-app-surface);
+}
+
+.investments-state .k-svg-icon {
+    color: var(--kendo-color-primary);
+    font-size: 1.75rem;
+}
+
+.investments-state--error .k-svg-icon {
+    color: var(--kendo-color-error);
+}
+
+.loading-indicator {
+    width: 2rem;
+    height: 2rem;
+    border: 0.2rem solid var(--kendo-color-border-alt);
+    border-top-color: var(--kendo-color-primary);
+    border-radius: 50%;
+    animation: investments-spin 900ms linear infinite;
+}
+
+@keyframes investments-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.movers__row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: center;
+    gap: var(--kendo-spacing-4);
+    padding-block: var(--kendo-spacing-2);
+}
+
+.movers__asset,
+.movers__percentage {
+    display: flex;
+    align-items: center;
+    gap: var(--kendo-spacing-2);
+}
+
+.movers__asset-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.movers__asset-name {
+    font-size: var(--kendo-font-size-sm);
+}
+
+.movers__daily-change,
+.movers__percentage {
+    padding-left: var(--kendo-spacing-4);
+    font-weight: var(--kendo-font-weight-medium);
+}
+
+.movers__percentage--positive {
+    color: var(--kendo-color-success);
+}
+
+.movers__percentage--negative {
+    color: var(--kendo-color-error);
+}
+
+.movers__current-value {
+    padding-right: var(--kendo-spacing-2);
+    font-weight: var(--kendo-font-weight-medium);
+    text-align: right;
+}
+
+@media (max-width: 768px) {
+    .investments-filters {
+        align-items: flex-start;
+    }
+
+    .movers__row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .investments-filter--search {
+        margin-left: 0;
+    }
+
+    .investments-filter {
+        flex: 1 1 16rem;
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+@media (max-width: 390px) {
+    .investments-filter--search {
+        min-width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .loading-indicator {
+        animation: none;
+    }
+}

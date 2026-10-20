@@ -1,6 +1,6 @@
 /* ========== BASE / DASHBOARD CONTAINER ========== */
 .hc-dashboard {
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--kendo-font-family);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -9,7 +9,7 @@
     position: relative;
     width: 100%;
     min-height: 100vh;
-    background: #FFFFFF;
+    background: var(--kendo-color-surface-alt);
     box-sizing: border-box;
     overflow: hidden;
 }
@@ -37,16 +37,20 @@
     flex-direction: column;
     gap: 32px;
     width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
 }
 
 /* ========== APPBAR (TelerikAppBar overrides) ========== */
 ::deep .hc-appbar.k-appbar {
     padding: 16px 24px;
     width: 100%;
-    background: #FFFFFF;
+    max-width: 1440px;
+    margin-inline: auto;
+    background: var(--kendo-color-surface-alt);
     border: 1px solid rgba(255, 255, 255, 0.0001);
-    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.05), 0px 4px 12px -2px rgba(0, 0, 0, 0.08);
-    border-radius: 85px;
+    box-shadow: var(--kendo-elevation-1);
+    border-radius: var(--kendo-border-radius-full);
     position: relative;
     z-index: 2;
     gap: 0;
@@ -62,15 +66,15 @@
 .hc-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
 .hc-logo-full { height: 40px; width: auto; }
 .hc-logo-icon-only { height: 40px; width: auto; display: none; }
-.hc-logo-text { font-weight: 600; font-size: 18px; color: #232A36; }
+.hc-logo-text { font-weight: 600; font-size: 18px; color: var(--kendo-color-on-app-surface); }
 
 /* Segmented control */
 .hc-segmented {
     display: flex;
     align-items: center;
     padding: 2px;
-    background: linear-gradient(0deg, rgba(35, 42, 54, 0.08), rgba(35, 42, 54, 0.08)), #ECEFF3;
-    border-radius: 800px;
+    background: linear-gradient(0deg, rgba(35, 42, 54, 0.08), rgba(35, 42, 54, 0.08)), var(--kendo-color-base-subtle);
+    border-radius: var(--kendo-border-radius-full);
 }
 
 .hc-segment {
@@ -79,20 +83,20 @@
     justify-content: center;
     padding: 7px 12px;
     gap: 8px;
-    border-radius: 9999px;
+    border-radius: var(--kendo-border-radius-full);
     background: transparent;
     text-decoration: none;
     white-space: nowrap;
     cursor: pointer;
     border: none;
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--kendo-font-family);
     font-size: 16px;
     font-weight: 400;
     line-height: 150%;
-    color: #232A36;
+    color: var(--kendo-color-on-app-surface);
 }
-.hc-segment:hover { background: rgba(255, 255, 255, 0.5); text-decoration: none; color: #232A36; }
-.hc-segment.active { background: #FFFFFF; }
+.hc-segment:hover { background: rgba(255, 255, 255, 0.5); text-decoration: none; color: var(--kendo-color-on-app-surface); }
+.hc-segment.active { background: var(--kendo-color-surface-alt); }
 .hc-segment .k-svg-icon, .hc-segment svg { width: 16px; height: 16px; }
 
 /* Search */
@@ -103,9 +107,9 @@
     width: 272px;
     max-width: 100%;
     height: 40px;
-    background: #FFFFFF;
+    background: var(--kendo-color-surface-alt);
     border: 1px solid rgba(23, 56, 99, 0.08);
-    border-radius: 9999px;
+    border-radius: var(--kendo-border-radius-full);
     gap: 4px;
 }
 
@@ -114,7 +118,7 @@
     display: flex; align-items: center; justify-content: center;
     width: 30px; height: 30px;
     border: none; background: transparent; cursor: pointer;
-    border-radius: 9999px; color: #232A36; padding: 0;
+    border-radius: var(--kendo-border-radius-full); color: var(--kendo-color-on-app-surface); padding: 0;
 }
 .hc-icon-btn:hover { background: rgba(35, 42, 54, 0.06); }
 .hc-icon-btn svg, .hc-icon-btn .k-svg-icon { width: 16px; height: 16px; }
@@ -124,7 +128,7 @@
     display: flex; align-items: center; justify-content: center;
     width: 30px; height: 30px;
     border: none; background: transparent; cursor: pointer;
-    border-radius: 9999px; color: #232A36; padding: 0;
+    border-radius: var(--kendo-border-radius-full); color: var(--kendo-color-on-app-surface); padding: 0;
     position: relative;
 }
 .hc-notif-btn:hover { background: rgba(35, 42, 54, 0.06); }
@@ -146,23 +150,23 @@
 .hc-separator { width: 1px; height: 20px; background: rgba(23, 56, 99, 0.08); }
 
 .hc-avatar-btn {
-    background: none; border: none; cursor: pointer; padding: 0; border-radius: 9999px;
+    background: none; border: none; cursor: pointer; padding: 0; border-radius: var(--kendo-border-radius-full);
 }
 
 .hc-avatar {
-    width: 40px; height: 40px; border-radius: 9999px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    width: 40px; height: 40px; border-radius: var(--kendo-border-radius-full);
+    background: linear-gradient(135deg, var(--kendo-color-secondary) 0%, var(--kendo-color-tertiary) 100%);
     display: flex; align-items: center; justify-content: center;
-    color: #FFFFFF; font-weight: 600; font-size: 14px;
+    color: var(--kendo-color-surface-alt); font-weight: 600; font-size: 14px;
     overflow: hidden;
 }
 
 /* Profile modal styles moved to app.css (TelerikWindow portals outside scoped CSS) */
 
-/* ========== HAMBURGER MENU (hidden by default, shown at <=576px) ========== */
+/* ========== HAMBURGER MENU (hidden by default, shown below 576px) ========== */
 .hc-hamburger-wrapper { display: none; align-items: center; gap: 8px; position: relative; }
 
-/* Mobile search toggle buttons (hidden by default, shown at <=576px) */
+/* Mobile search toggle buttons (hidden by default, shown below 576px) */
 .hc-search-icon-btn { display: none !important; }
 .hc-search-close-btn { display: none !important; }
 
@@ -170,7 +174,7 @@
     display: flex; align-items: center; justify-content: center;
     width: 30px; height: 30px;
     border: none; background: transparent; cursor: pointer;
-    border-radius: 9999px; color: #232A36; padding: 0;
+    border-radius: var(--kendo-border-radius-full); color: var(--kendo-color-on-app-surface); padding: 0;
 }
 .hc-hamburger-btn:hover { background: rgba(35, 42, 54, 0.06); }
 .hc-hamburger-btn svg { width: 18px; height: 18px; }
@@ -186,10 +190,10 @@
     top: calc(100% + 8px);
     left: 0;
     min-width: 180px;
-    background: #FFFFFF;
+    background: var(--kendo-color-surface-alt);
     border: 1px solid rgba(23, 56, 99, 0.08);
-    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.12);
-    border-radius: 12px;
+    box-shadow: var(--kendo-elevation-3);
+    border-radius: var(--kendo-border-radius-xl);
     padding: 6px;
     display: flex;
     flex-direction: column;
@@ -200,26 +204,26 @@
 .hc-mobile-menu-item {
     display: flex; align-items: center; gap: 10px;
     padding: 10px 14px;
-    border-radius: 8px;
+    border-radius: var(--kendo-border-radius-lg);
     text-decoration: none;
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--kendo-font-family);
     font-size: 14px; font-weight: 400;
-    color: #232A36;
+    color: var(--kendo-color-on-app-surface);
     cursor: pointer;
 }
-.hc-mobile-menu-item:hover { background: rgba(35, 42, 54, 0.06); text-decoration: none; color: #232A36; }
-.hc-mobile-menu-item.active { background: #F1F5F9; font-weight: 500; }
+.hc-mobile-menu-item:hover { background: rgba(35, 42, 54, 0.06); text-decoration: none; color: var(--kendo-color-on-app-surface); }
+.hc-mobile-menu-item.active { background: var(--kendo-color-primary-subtle); font-weight: 500; }
 .hc-mobile-menu-item .k-svg-icon, .hc-mobile-menu-item svg { width: 16px; height: 16px; }
 
 /* ========== RESPONSIVE ========== */
 
-/* 1441–1759px — reduce search width to avoid segment overlap */
-@media (min-width: 1441px) and (max-width: 1759px) {
+/* Content-fit exception: 1400–1759px prevents appbar search/segment overlap. */
+@media (min-width: 1400px) and (max-width: 1759px) {
     .hc-search { width: 200px; }
 }
 
-/* ≤1440px — icon-only segments, search icon, full logo */
-@media (max-width: 1440px) {
+/* <1400px — icon-only segments, search icon, full logo */
+@media (max-width: 1399px) {
     .hc-dashboard { padding: 32px 60px; gap: 24px; }
     .hc-body-wrapper { gap: 24px; }
     ::deep .hc-appbar.k-appbar {
@@ -232,8 +236,8 @@
     .hc-appbar-actions { gap: 8px; }
 }
 
-/* ≤899px — icon-only logo, tighter padding */
-@media (max-width: 899px) {
+/* <768px — icon-only logo, tighter padding */
+@media (max-width: 767px) {
     .hc-dashboard { padding: 24px 16px; gap: 16px; }
     .hc-body-wrapper { gap: 16px; }
     ::deep .hc-appbar.k-appbar {
@@ -247,12 +251,12 @@
     .hc-logo-icon-only { display: block !important; height: 28px; }
 }
 
-/* ≤576px — hamburger replaces segmented control */
-@media (max-width: 576px) {
+/* <576px — hamburger replaces segmented control */
+@media (max-width: 575px) {
     .hc-dashboard { padding: 12px 12px 12px 12px; gap: 12px; }
     .hc-body-wrapper { gap: 12px; }
     ::deep .hc-appbar.k-appbar {
-        border-radius: 16px;
+        border-radius: var(--kendo-border-radius-xxl);
     }
     .hc-hamburger-wrapper { display: flex; }
 }

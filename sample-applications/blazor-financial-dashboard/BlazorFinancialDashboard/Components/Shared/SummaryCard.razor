@@ -1,6 +1,6 @@
 ﻿<UICard Title="@Title" ColSpanOnMediumScreen="4" ColSpanOnLargeScreen="4" TitleGap="thin">
-    <div class="k-pt-3 k-h5">@Value.ToString("C2")</div>
-    <div><span style="color:var(--kendo-color-@ChangeClass)">@GetFormattedChange()</span> than last month</div>
+    <div class="summary-card__value">@Value.ToString("C2")</div>
+    <div><span class="summary-card__change summary-card__change--@ChangeClass">@GetFormattedChange()</span> than last month</div>
 </UICard>
 
 @code {
@@ -20,6 +20,6 @@
             Change.ToString("p0")
         );
     }
-    
-    private string ChangeClass => Change >= 0 ? "success-emphasis" : "error-emphasis";
+
+    private string ChangeClass => Change >= 0 ? "positive" : "negative";
 }

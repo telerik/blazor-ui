@@ -2,11 +2,11 @@
 .hc-heading { display: flex; flex-direction: column; gap: 8px; width: 100%; position: relative; z-index: 1; }
 .hc-heading h1 {
     font-weight: 600; font-size: 42px; line-height: 120%;
-    color: #232A36; margin: 0;
+    color: var(--kendo-color-on-app-surface); margin: 0;
 }
 .hc-heading p {
     font-weight: 400; font-size: 16px; line-height: 150%;
-    color: #4A5666; margin: 0;
+    color: var(--kendo-color-subtle); margin: 0;
 }
 
 /* ========== MAIN 2-COL ========== */
@@ -22,9 +22,9 @@
 
 /* ========== CARDS ========== */
 .hc-card {
-    background: #FFFFFF;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04), 0px 2px 6px -1px rgba(0, 0, 0, 0.06);
-    border-radius: 16px;
+    background: var(--kendo-color-surface-alt);
+    box-shadow: var(--kendo-elevation-1);
+    border-radius: var(--kendo-border-radius-xxl);
     padding: 24px;
     position: relative;
     z-index: 1;
@@ -34,18 +34,18 @@
 
 .hc-card-title {
     font-weight: 700; font-size: 24px; line-height: 150%;
-    color: #232A36; margin: 0 0 20px 0;
+    color: var(--kendo-color-on-app-surface); margin: 0 0 20px 0;
 }
 
 /* ========== SCHEDULER OVERRIDES ========== */
 .hc-scheduler-wrapper ::deep .k-scheduler {
-    border-radius: 16px;
+    border-radius: var(--kendo-border-radius-xxl);
     border: 1px solid rgba(23, 56, 99, 0.06);
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--kendo-font-family);
     box-shadow: none;
 }
 .hc-scheduler-wrapper ::deep .k-scheduler .k-scheduler-toolbar {
-    background: #FFFFFF;
+    background: var(--kendo-color-surface-alt);
     border-bottom: 1px solid rgba(23, 56, 99, 0.06);
     padding: 10px 16px;
 }
@@ -53,50 +53,50 @@
 .hc-scheduler-wrapper ::deep .k-scheduler .k-scheduler-cell,
 .hc-scheduler-wrapper ::deep .k-scheduler td,
 .hc-scheduler-wrapper ::deep .k-scheduler th {
-    border-color: #F0F0F0;
+    border-color: var(--kendo-color-border);
 }
 .hc-scheduler-wrapper ::deep .k-scheduler .k-scheduler-head {
-    border-color: #F0F0F0;
+    border-color: var(--kendo-color-border);
 }
 .hc-scheduler-wrapper ::deep .k-scheduler .k-scheduler-times td {
     font-size: 13px;
-    color: #94A3B8;
+    color: var(--kendo-color-subtle);
     font-weight: 400;
 }
 /* Date header */
 .hc-scheduler-wrapper ::deep .k-scheduler .k-scheduler-header th {
     font-size: 13px;
-    color: #64748B;
+    color: var(--kendo-color-subtle);
     font-weight: 500;
-    border-color: #F0F0F0;
+    border-color: var(--kendo-color-border);
 }
 /* Event styling */
 .hc-scheduler-wrapper ::deep .k-scheduler .k-event {
-    background: #E0E0FF;
-    border-left: 4px solid #7B7FDE;
+    background: var(--kendo-color-secondary-subtle);
+    border-left: 4px solid var(--kendo-color-secondary-emphasis);
     border-top: none;
     border-right: none;
     border-bottom: none;
-    color: #383BA8;
+    color: var(--kendo-color-secondary-active);
     border-radius: 10px;
     font-size: 13px;
     box-shadow: 0 1px 3px rgba(99, 102, 251, 0.08);
     padding: 4px 8px;
 }
 .hc-scheduler-wrapper ::deep .k-scheduler .k-event:hover {
-    background: #D2D2FF;
+    background: var(--kendo-color-secondary-subtle-active);
 }
 /* Keep selected-event appearance consistent with custom non-selected styling.
    Meridian's .k-event.k-selected has higher specificity than .k-event and would
    otherwise override the custom background/border with theme secondary colors. */
 .hc-scheduler-wrapper ::deep .k-scheduler .k-event.k-selected {
-    background: #D2D2FF;
-    border-left: 4px solid #7B7FDE;
-    color: #383BA8;
+    background: var(--kendo-color-secondary-subtle-active);
+    border-left: 4px solid var(--kendo-color-secondary-emphasis);
+    color: var(--kendo-color-secondary-active);
     box-shadow: none;
 }
 .hc-scheduler-wrapper ::deep .k-scheduler .k-event .k-event-template {
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--kendo-font-family);
     font-size: 13px;
     padding: 0 !important;
     margin: 0 !important;
@@ -113,13 +113,13 @@
 .hc-event-title {
     font-weight: 600;
     font-size: 13px;
-    color: #383BA8;
+    color: var(--kendo-color-secondary-active);
     line-height: 1.4;
 }
 .hc-event-meta {
     font-size: 11px;
     font-weight: 400;
-    color: #6366FB;
+    color: var(--kendo-color-secondary);
     opacity: 0.8;
     margin-top: 2px;
 }
@@ -127,56 +127,56 @@
 .hc-scheduler-wrapper ::deep .k-scheduler .k-scheduler-views {
     background: rgba(255, 255, 255, 0.45);
     border: 1px solid rgba(255, 255, 255, 0.6);
-    border-radius: 9999px;
+    border-radius: var(--kendo-border-radius-full);
     padding: 2px;
     gap: 0;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 .hc-scheduler-wrapper ::deep .k-scheduler .k-scheduler-views .k-button {
-    border-radius: 9999px !important;
+    border-radius: var(--kendo-border-radius-full) !important;
     border: none !important;
     background: transparent !important;
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--kendo-font-family);
     font-size: 13px;
     font-weight: 500;
     padding: 5px 14px;
-    color: #64748B;
+    color: var(--kendo-color-subtle);
     box-shadow: none !important;
     min-width: auto;
     line-height: 1.4;
 }
 .hc-scheduler-wrapper ::deep .k-scheduler .k-scheduler-views .k-button.k-selected {
-    background: #FFFFFF !important;
-    color: #232A36;
+    background: var(--kendo-color-surface-alt) !important;
+    color: var(--kendo-color-on-app-surface);
     box-shadow: 0 1px 3px rgba(0,0,0,0.08) !important;
 }
 .hc-scheduler-wrapper ::deep .k-scheduler .k-scheduler-views .k-button:hover:not(.k-selected) {
     background: rgba(255, 255, 255, 0.5) !important;
-    color: #232A36;
+    color: var(--kendo-color-on-app-surface);
 }
 /* Navigation buttons */
 .hc-scheduler-wrapper ::deep .k-scheduler .k-scheduler-navigation .k-button {
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--kendo-font-family);
     font-size: 13px;
     font-weight: 500;
-    color: #64748B;
+    color: var(--kendo-color-subtle);
     border: none !important;
     background: transparent !important;
     box-shadow: none !important;
 }
 .hc-scheduler-wrapper ::deep .k-scheduler .k-scheduler-navigation .k-button:hover {
-    color: #232A36;
+    color: var(--kendo-color-on-app-surface);
     background: rgba(255, 255, 255, 0.4) !important;
 }
 .hc-scheduler-wrapper ::deep .k-scheduler .k-nav-current {
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--kendo-font-family);
     font-weight: 500;
     font-size: 14px;
-    color: #232A36;
+    color: var(--kendo-color-on-app-surface);
 }
 /* AllDay row */
 .hc-scheduler-wrapper ::deep .k-scheduler .k-scheduler-head .k-scheduler-group:first-child {
-    border-color: #F0F0F0;
+    border-color: var(--kendo-color-border);
 }
 /* Hide built-in footer */
 .hc-scheduler-wrapper ::deep .k-scheduler .k-scheduler-footer {
@@ -189,23 +189,23 @@
     padding: 16px 0 0;
 }
 .hc-scheduler-footer-btn {
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--kendo-font-family);
     display: inline-flex;
     align-items: center;
     gap: 6px;
     padding: 10px 20px;
     background: transparent;
-    color: #334155;
-    border: 1px solid #CBD5E1;
-    border-radius: 12px;
+    color: var(--kendo-color-primary);
+    border: 1px solid var(--kendo-color-primary-emphasis);
+    border-radius: var(--kendo-border-radius-xl);
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    transition: background 0.2s ease, border-color 0.2s ease;
+    transition: background var(--kendo-duration-rapid) var(--kendo-easing-standard), border-color var(--kendo-duration-rapid) var(--kendo-easing-standard);
 }
 .hc-scheduler-footer-btn:hover {
     background: rgba(35, 42, 54, 0.04);
-    border-color: #94A3B8;
+    border-color: var(--kendo-color-subtle);
 }
 .hc-scheduler-footer-btn svg {
     width: 14px;
@@ -214,9 +214,9 @@
 
 /* ========== RIGHT COL — DAILY TASKS ========== */
 .hc-right-card {
-    background: #FFFFFF;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04), 0px 2px 6px -1px rgba(0, 0, 0, 0.06);
-    border-radius: 16px;
+    background: var(--kendo-color-surface-alt);
+    box-shadow: var(--kendo-elevation-1);
+    border-radius: var(--kendo-border-radius-xxl);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -236,7 +236,7 @@
 }
 .hc-tasks-header-title {
     font-weight: 700; font-size: 24px; line-height: 150%;
-    color: #232A36; margin: 0; flex-shrink: 0;
+    color: var(--kendo-color-on-app-surface); margin: 0; flex-shrink: 0;
 }
 
 .hc-tasks-search {
@@ -245,9 +245,9 @@
     padding: 2px 8px;
     flex: 1;
     height: 36px;
-    background: #FFFFFF;
+    background: var(--kendo-color-surface-alt);
     border: 1px solid rgba(23, 56, 99, 0.08);
-    border-radius: 9999px;
+    border-radius: var(--kendo-border-radius-full);
     gap: 4px;
 }
 .hc-tasks-search ::deep .k-input {
@@ -255,25 +255,25 @@
     height: 100%; min-height: 0;
 }
 .hc-tasks-search ::deep .k-input-inner {
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px; color: #232A36; padding: 2px 4px;
+    font-family: var(--kendo-font-family);
+    font-size: 14px; color: var(--kendo-color-on-app-surface); padding: 2px 4px;
 }
-.hc-tasks-search ::deep .k-input-inner::placeholder { color: #4A5666; }
+.hc-tasks-search ::deep .k-input-inner::placeholder { color: var(--kendo-color-subtle); }
 
 .hc-tasks-add-btn {
     height: 36px; min-width: 36px; max-width: 36px;
-    background: #334155; border: 1px solid #334155;
-    border-radius: 9999px;
+    background: var(--kendo-color-primary); border: 1px solid var(--kendo-color-primary);
+    border-radius: var(--kendo-border-radius-full);
     display: flex; align-items: center; justify-content: center;
-    cursor: pointer; color: #FFFFFF; flex-shrink: 0;
+    cursor: pointer; color: var(--kendo-color-surface-alt); flex-shrink: 0;
     gap: 0;
     padding: 0;
     overflow: hidden;
     white-space: nowrap;
-    transition: max-width 0.3s ease-in-out, padding 0.3s ease-in-out, gap 0.3s ease-in-out, background 0.2s ease;
+    transition: max-width var(--kendo-duration-speedy) var(--kendo-easing-standard), padding var(--kendo-duration-speedy) var(--kendo-easing-standard), gap var(--kendo-duration-speedy) var(--kendo-easing-standard), background var(--kendo-duration-rapid) var(--kendo-easing-standard);
 }
 .hc-tasks-add-btn:hover {
-    background: #1e293b;
+    background: var(--kendo-color-primary-hover);
     max-width: 160px;
     padding: 0 14px 0 10px;
     gap: 6px;
@@ -281,13 +281,13 @@
 .hc-tasks-add-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
 
 .hc-tasks-add-btn-text {
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--kendo-font-family);
     font-size: 14px; font-weight: 500;
-    color: #FFFFFF;
+    color: var(--kendo-color-surface-alt);
     opacity: 0;
     max-width: 0;
     overflow: hidden;
-    transition: opacity 0.25s ease-in-out 0.05s, max-width 0.3s ease-in-out;
+    transition: opacity var(--kendo-duration-swift) var(--kendo-easing-standard) var(--kendo-duration-immediate), max-width var(--kendo-duration-speedy) var(--kendo-easing-standard);
 }
 .hc-tasks-add-btn:hover .hc-tasks-add-btn-text {
     opacity: 1;
@@ -319,10 +319,10 @@
     align-items: center;
     gap: 12px;
     padding: 14px 16px;
-    background: #FFFFFF;
+    background: var(--kendo-color-surface-alt);
     border: 1px solid rgba(23, 56, 99, 0.06);
-    border-radius: 12px;
-    transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    border-radius: var(--kendo-border-radius-xl);
+    transition: box-shadow var(--kendo-duration-speedy) var(--kendo-easing-standard), border-color var(--kendo-duration-speedy) var(--kendo-easing-standard);
 }
 .hc-task-item:hover {
     border-color: rgba(99, 102, 251, 0.15);
@@ -331,55 +331,55 @@
 
 ::deep .hc-task-checkbox.k-checkbox {
     width: 22px; height: 22px; min-width: 22px;
-    border: 2px solid #CBD5E1;
+    border: 2px solid var(--kendo-color-primary-emphasis);
     border-radius: 50%;
     cursor: pointer;
-    background: #FFFFFF;
-    transition: all 0.15s ease;
+    background: var(--kendo-color-surface-alt);
+    transition: all var(--kendo-duration-quick) var(--kendo-easing-standard);
 }
 ::deep .hc-task-checkbox.k-checkbox:checked {
-    background: #334155;
-    border-color: #334155;
-    color: #FFFFFF;
+    background: var(--kendo-color-primary);
+    border-color: var(--kendo-color-primary);
+    color: var(--kendo-color-surface-alt);
 }
 
 .hc-task-text {
     flex: 1;
     font-size: 15px;
     line-height: 150%;
-    color: #232A36;
+    color: var(--kendo-color-on-app-surface);
 }
 .hc-task-text.completed {
     text-decoration: line-through;
-    color: #94A3B8;
+    color: var(--kendo-color-subtle);
 }
 
 .hc-priority-badge {
     display: inline-flex; align-items: center; justify-content: center;
     padding: 4px 10px;
-    border-radius: 9999px;
+    border-radius: var(--kendo-border-radius-full);
     font-size: 12px; line-height: 133%;
     white-space: nowrap;
     font-weight: 500;
     flex-shrink: 0;
 }
-.hc-priority-high { background: #FEE2E2; border: 1px solid #FCA5A5; color: #991B1B; }
-.hc-priority-medium { background: #FEF3C7; border: 1px solid #FCD34D; color: #92400E; }
-.hc-priority-low { background: #D1FAE5; border: 1px solid #6EE7B7; color: #065F46; }
+.hc-priority-high { background: var(--kendo-color-error-subtle); border: 1px solid var(--kendo-color-error-emphasis); color: var(--kendo-color-error-on-subtle); }
+.hc-priority-medium { background: var(--kendo-color-warning-subtle); border: 1px solid var(--kendo-color-warning-emphasis); color: var(--kendo-color-warning-on-subtle); }
+.hc-priority-low { background: var(--kendo-color-success-subtle); border: 1px solid var(--kendo-color-success-emphasis); color: var(--kendo-color-success-on-subtle); }
 
 /* ========== RESPONSIVE ========== */
-@media (max-width: 1200px) {
+@media (max-width: 1199px) {
     .hc-main { flex-direction: column; }
     .hc-left { flex: 1 1 auto; }
     .hc-right { width: 100%; min-width: 0; position: static; }
     .hc-right-card { position: static; max-height: 650px; }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 991px) {
     .hc-heading h1 { font-size: 32px; }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 575px) {
     .hc-heading h1 { font-size: 26px; }
     .hc-heading p { font-size: 14px; }
     .hc-card { padding: 16px; }

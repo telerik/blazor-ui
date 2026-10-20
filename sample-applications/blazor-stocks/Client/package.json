@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "gulp sass"
+    "build": "node node_modules/sass/sass.js --style=compressed --no-source-map --load-path=node_modules Styles/styles.scss wwwroot/css/styles.css"
   },
   "devDependencies": {
-    "@progress/kendo-theme-tasks": "^1.17.6",
+    "@progress/kendo-svg-icons": "5.4.0",
+    "@progress/kendo-theme-meridian": "14.5.0",
     "bootstrap": "^5.0.2",
-    "gulp": "^5.0.0"
+    "sass": "1.93.2"
   }
 }

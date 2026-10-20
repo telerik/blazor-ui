@@ -1,0 +1,147 @@
+.overview-account__identity {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: var(--kendo-spacing-3);
+    align-items: center;
+    padding-bottom: var(--kendo-spacing-3);
+}
+
+.overview-account__icon {
+    display: grid;
+    place-items: center;
+    width: var(--kendo-spacing-10);
+    height: var(--kendo-spacing-10);
+    border-radius: var(--kendo-border-radius-full);
+    background-color: var(--kendo-color-info-subtle);
+    color: var(--kendo-color-info-on-subtle);
+}
+
+.overview-account__identity > div:nth-child(2) {
+    display: grid;
+    gap: var(--kendo-spacing-1);
+}
+
+.overview-account__identity span,
+.overview-account__metrics span {
+    color: var(--kendo-color-subtle);
+    font-size: var(--kendo-font-size-sm);
+}
+
+.overview-account__metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--kendo-spacing-4);
+}
+
+.overview-account__metrics > div {
+    display: grid;
+    gap: var(--kendo-spacing-1);
+    border-top: 1px solid var(--kendo-color-border);
+    padding-top: var(--kendo-spacing-3);
+}
+
+.overview-account__metrics strong {
+    color: var(--kendo-color-primary-on-surface);
+    font-size: var(--kendo-font-size-lg);
+}
+
+.overview-state {
+    display: grid;
+    justify-items: center;
+    gap: var(--kendo-spacing-2);
+    min-height: 12rem;
+    place-content: center;
+    color: var(--kendo-color-subtle);
+    text-align: center;
+}
+
+.overview-state strong {
+    color: var(--kendo-color-primary-on-surface);
+}
+
+.overview-state--error {
+    border: 1px solid var(--kendo-color-error-emphasis);
+    border-radius: var(--kendo-border-radius-lg);
+    background-color: var(--kendo-color-error-subtle);
+    color: var(--kendo-color-error-on-subtle);
+}
+
+.loading-indicator {
+    width: var(--kendo-spacing-6);
+    height: var(--kendo-spacing-6);
+    border: var(--kendo-spacing-1) solid var(--kendo-color-base-emphasis);
+    border-top-color: var(--kendo-color-info);
+    border-radius: var(--kendo-border-radius-full);
+    animation: overview-spin 800ms linear infinite;
+}
+
+@keyframes overview-spin {
+    to { transform: rotate(360deg); }
+}
+
+.savings-card__content {
+    justify-content: space-between;
+}
+
+.savings-progress__header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.budget-utilization__gauge {
+    display: flex;
+    justify-content: center;
+}
+
+.budget-utilization__gauge-label,
+.budget-utilization__value {
+    font-weight: var(--kendo-font-weight-bold);
+}
+
+.budget-utilization__summary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: var(--kendo-spacing-2);
+}
+
+.budget-utilization__amount {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    color: var(--kendo-color-subtle);
+}
+
+.budget-utilization__amount--end {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.budget-utilization__divider {
+    border-color: var(--kendo-color-border);
+}
+
+@media (max-width: 767px) {
+    .overview-account__metrics {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .overview-account__identity {
+        grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    .overview-account__identity .k-badge {
+        grid-column: 2;
+        justify-self: start;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .loading-indicator {
+        animation-duration: 0.01ms;
+        animation-iteration-count: 1;
+    }
+}

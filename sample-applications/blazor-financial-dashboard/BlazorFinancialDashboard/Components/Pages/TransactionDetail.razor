@@ -1,0 +1,158 @@
+﻿@page "/transactions/{TransactionId:int}"
+
+@inject TransactionService TransactionService
+@inject PaymentMethodService PaymentMethodService
+@inject UserService UserService
+@inject AccountService AccountService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Transaction details</PageTitle>
+
+<div class="transaction-detail-page">
+    <div class="transaction-detail-page__heading">
+        <TelerikButton FillMode="@ThemeConstants.Button.FillMode.Flat"
+                       Size="@ThemeConstants.Button.Size.Medium"
+                       Class="transaction-detail-page__back"
+                       Icon="@SvgIconsNS.SvgIcon.ChevronLeft"
+                       OnClick="@GoToTransactions">
+            Back to transactions
+        </TelerikButton>
+        <span class="transaction-detail-page__eyebrow">Transaction reference #@TransactionId</span>
+        <h1>Transaction details</h1>
+        <p class="transaction-detail-page__intro">Review the recorded activity and its connected account context. No account changes can be made from this showcase.</p>
+    </div>
+
+    @if (IsLoading)
+    {
+        <div class="transaction-detail-state" role="status" aria-live="polite">
+            <span class="loading-indicator" aria-hidden="true"></span>
+            <strong>Loading transaction details</strong>
+            <span>Retrieving the local fixture record…</span>
+        </div>
+    }
+    else if (LoadError)
+    {
+        <div class="transaction-detail-state transaction-detail-state--error" role="alert">
+            <TelerikSvgIcon Icon="@SvgIconsNS.SvgIcon.WarningCircle" Size="@ThemeConstants.SvgIcon.Size.Large" />
+            <strong>We couldn’t load this transaction</strong>
+            <span>The local fixture may be unavailable. Try again or return to the transaction list.</span>
+            <div class="transaction-detail-state__actions">
+                <TelerikButton ThemeColor="@ThemeConstants.Button.ThemeColor.Primary" OnClick="@LoadTransaction">Try again</TelerikButton>
+                <TelerikButton FillMode="@ThemeConstants.Button.FillMode.Flat" OnClick="@GoToTransactions">Return to transactions</TelerikButton>
+            </div>
+        </div>
+    }
+    else if (Transaction is null)
+    {
+        <div class="transaction-detail-state" role="status">
+            <TelerikSvgIcon Icon="@SvgIconsNS.SvgIcon.Search" Size="@ThemeConstants.SvgIcon.Size.Large" />
+            <strong>Transaction not found</strong>
+            <span>There isn’t a local fixture record for reference #@TransactionId.</span>
+            <TelerikButton ThemeColor="@ThemeConstants.Button.ThemeColor.Primary" OnClick="@GoToTransactions">View transactions</TelerikButton>
+        </div>
+    }
+    else
+    {
+        <div class="transaction-detail-grid">
+            <UICard Title="Activity summary" ContentClass="transaction-detail-card__content">
+                <div class="transaction-detail-summary">
+                    <div class="transaction-detail-summary__amount">@Transaction.Amount.ToString("C2")</div>
+                    <div class="transaction-detail-summary__merchant">@Transaction.Merchant</div>
+                    <div class="transaction-detail-summary__category">@Transaction.Category</div>
+                    <TelerikBadge ThemeColor="@Transaction.GetStatusThemeColor()"
+                                  Rounded="@ThemeConstants.Badge.Rounded.Large"
+                                  Size="@ThemeConstants.Badge.Size.Large"
+                                  Class="inline-badge">
+                        @Transaction.Status.ToString()
+                    </TelerikBadge>
+                </div>
+                <dl class="transaction-detail-list">
+                    <div><dt>Date and time</dt><dd>@Transaction.Date.ToString("f")</dd></div>
+                    <div><dt>Reference</dt><dd>#@Transaction.Id</dd></div>
+                    <div><dt>Payment method</dt><dd>@PaymentMethodName</dd></div>
+                    <div><dt>Transaction hash</dt><dd class="transaction-detail-list__value">@Transaction.Hash</dd></div>
+                </dl>
+            </UICard>
+
+            <UICard Title="Related account" ContentClass="transaction-detail-card__content">
+                <div class="account-summary">
+                    <div class="account-summary__icon" aria-hidden="true">
+                        <TelerikSvgIcon Icon="@SvgIconsNS.SvgIcon.Wallet" Size="@ThemeConstants.SvgIcon.Size.Large" />
+                    </div>
+                    <div>
+                        <strong>@Account.AccountName</strong>
+                        <span>@Account.AccountType</span>
+                        <span>Account @Account.AccountNumber</span>
+                    </div>
+                    <TelerikBadge ThemeColor="@ThemeConstants.Badge.ThemeColor.Success"
+                                  Rounded="@ThemeConstants.Badge.Rounded.Large"
+                                  Class="inline-badge">
+                        @Account.Status
+                    </TelerikBadge>
+                </div>
+                <dl class="transaction-detail-list transaction-detail-list--compact">
+                    <div><dt>Available cash</dt><dd>@Account.AvailableCash.ToString("C2")</dd></div>
+                    <div><dt>Account balance</dt><dd>@Account.Balance.ToString("C2")</dd></div>
+                    <div><dt>Account holder</dt><dd>@AppUser.FirstName @AppUser.LastName</dd></div>
+                </dl>
+            </UICard>
+        </div>
+
+        <UICard Title="Contextual actions" ContentClass="transaction-detail-actions">
+            <p>These read-only shortcuts help you continue reviewing related information.</p>
+            <div class="transaction-detail-actions__buttons">
+                <TelerikButton ThemeColor="@ThemeConstants.Button.ThemeColor.Primary" OnClick="@GoToTransactions">View all transactions</TelerikButton>
+                <TelerikButton FillMode="@ThemeConstants.Button.FillMode.Outline" OnClick="@GoToOverview">Open account overview</TelerikButton>
+                <TelerikButton FillMode="@ThemeConstants.Button.FillMode.Flat" OnClick="@GoToHelp">Contact support</TelerikButton>
+            </div>
+        </UICard>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public int TransactionId { get; set; }
+
+    private Transaction? Transaction { get; set; }
+    private PaymentMethod? PaymentMethod { get; set; }
+    private User AppUser { get; set; } = new();
+    private AccountSummary Account { get; set; } = new();
+    private bool IsLoading { get; set; } = true;
+    private bool LoadError { get; set; }
+    private string PaymentMethodName => PaymentMethod?.Name ?? "Unavailable";
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await LoadTransaction();
+    }
+
+    private async Task LoadTransaction()
+    {
+        IsLoading = true;
+        LoadError = false;
+        Transaction = null;
+
+        try
+        {
+            await Task.Delay(180);
+            Transaction = await TransactionService.Read(TransactionId);
+            PaymentMethod = Transaction is null
+                ? null
+                : (await PaymentMethodService.Read()).FirstOrDefault(x => x.Id == Transaction.PaymentMethodId);
+            AppUser = await UserService.Read(1);
+            Account = await AccountService.Read();
+        }
+        catch
+        {
+            LoadError = true;
+        }
+        finally
+        {
+            IsLoading = false;
+        }
+    }
+
+    private void GoToTransactions() => NavigationManager.NavigateTo("transactions");
+    private void GoToOverview() => NavigationManager.NavigateTo(string.Empty);
+    private void GoToHelp() => NavigationManager.NavigateTo("help");
+}

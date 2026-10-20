@@ -1,0 +1,26 @@
+.drawer-content {
+    margin-inline: auto;
+}
+
+.main-layout__content {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--kendo-spacing-4);
+    padding-bottom: var(--kendo-spacing-4);
+}
+
+.appbar-bottom__content--padded {
+    padding-left: var(--kendo-spacing-15);
+}
+
+.appbar-bottom__source-link {
+    display: flex;
+    align-items: center;
+    gap: var(--kendo-spacing-2);
+    padding: var(--kendo-spacing-2);
+    color: inherit;
+}
+
+.appbar-bottom__copyright {
+    padding: var(--kendo-spacing-2);
+}

@@ -54,8 +54,14 @@
     </TelerikForm>
 </UICard>
 
-<UICard Title="Calendar" ColSpanOnLargeScreen="5" ColSpanOnMediumScreen="6">
-    <TelerikCalendar Size="@ThemeConstants.Calendar.Size.Small" Class="centered-calendar" />
+<UICard Title="Notification Preferences" ColSpanOnLargeScreen="5" ColSpanOnMediumScreen="6">
+    <p class="settings-description">Choose which account activity requires an immediate alert.</p>
+    <div class="preference-list">
+        <label><TelerikCheckBox @bind-Value="@TradeConfirmations" /> Trade confirmations</label>
+        <label><TelerikCheckBox @bind-Value="@PriceAlerts" /> Price alerts</label>
+        <label><TelerikCheckBox @bind-Value="@AccountActivity" /> Account activity</label>
+        <label><TelerikCheckBox @bind-Value="@MarketNews" /> Market news</label>
+    </div>
 </UICard>
 
 @* <UICard Title="Weather" ColSpanOnLargeScreen="4" ColSpanOnMediumScreen="6"></UICard> *@
@@ -77,6 +83,10 @@
     public MainLayout? MainLayoutRef { get; set; }
 
     private TelerikNotification? NotificationRef { get; set; }
+    private bool TradeConfirmations { get; set; } = true;
+    private bool PriceAlerts { get; set; } = true;
+    private bool AccountActivity { get; set; } = true;
+    private bool MarketNews { get; set; }
 
     private async Task OnUserFormSubmit()
     {

@@ -1,0 +1,48 @@
+.transactions-state {
+    display: grid;
+    justify-items: center;
+    gap: var(--kendo-spacing-3);
+    min-height: 14rem;
+    place-content: center;
+    padding: var(--kendo-spacing-6);
+    border: 1px dashed var(--kendo-color-border-alt);
+    border-radius: var(--kendo-border-radius-lg);
+    background-color: var(--kendo-color-surface);
+    color: var(--kendo-color-subtle);
+    text-align: center;
+}
+
+.transactions-state strong {
+    color: var(--kendo-color-primary-on-surface);
+    font-size: var(--kendo-font-size-lg);
+}
+
+.transactions-state--error {
+    border-color: var(--kendo-color-error-emphasis);
+    background-color: var(--kendo-color-error-subtle);
+    color: var(--kendo-color-error-on-subtle);
+}
+
+.transactions-state--error strong {
+    color: var(--kendo-color-error-on-subtle);
+}
+
+.loading-indicator {
+    width: var(--kendo-spacing-6);
+    height: var(--kendo-spacing-6);
+    border: var(--kendo-spacing-1) solid var(--kendo-color-base-emphasis);
+    border-top-color: var(--kendo-color-info);
+    border-radius: var(--kendo-border-radius-full);
+    animation: transactions-spin 800ms linear infinite;
+}
+
+@keyframes transactions-spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .loading-indicator {
+        animation-duration: 0.01ms;
+        animation-iteration-count: 1;
+    }
+}

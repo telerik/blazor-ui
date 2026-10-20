@@ -5,68 +5,63 @@
 
 @if (user != null)
 {
-	<div class="k-hstack">
+	<div class="profile__header">
 		<div>
 			<h2>
-				<span class="small text-uppercase text-muted d-block">Account</span>
+				<span class="profile__eyebrow">Account</span>
 				@user.Login
 				- @user.Name
 			</h2>
 		</div>
-		<div class="k-spacer">
+		<div class="profile__header-spacer">
 		</div>
 		<div>
 			<TelerikButton OnClick="@OnSignOutClick">Sign out</TelerikButton>
 		</div>
 	</div>
 
-	<div class="row">
-		<div class="col-md-7">
+	<div class="profile__layout">
+		<div class="profile__primary-column">
 
-			<div class="card" id="profile">
-				<h3 class="card-header">Public Profile</h3>
-				<div class="card-body">
-					<div class="row">
-						<div class="col-md-3 text-xs-center">
-							<img src="@user.AvatarUrl" style="max-width: 100%" class="img-circle mx-auto" />
+			<section class="profile__card" id="profile">
+				<h3 class="profile__card-header">Public Profile</h3>
+				<div class="profile__card-body">
+					<div class="profile__details">
+						<div class="profile__avatar-wrap">
+							<img src="@user.AvatarUrl" alt="@($"{user.Name}'s avatar")" class="profile__avatar" />
 						</div>
-						<div class="col-md-9">
+						<div class="profile__form-column">
 							<EditForm Model="@user" OnValidSubmit="@OnUpdateClick">
 								<DataAnnotationsValidator />
-								<div class="form-group">
+								<div class="profile__field">
 									<label for="username">User Name</label>
-									<br />
-									<TelerikTextBox Width="12.4em" @bind-Value="user.Login" Name="username" />
+									<TelerikTextBox Width="100%" @bind-Value="user.Login" Name="username" />
 									<ValidationMessage For="@(() => user.Login)"></ValidationMessage>
 								</div>
-								<div class="form-group">
+								<div class="profile__field">
 									<label for="real-name">Real Name</label>
-									<br />
-									<TelerikTextBox Width="12.4em" @bind-Value="user.Name" Name="real-name" />
+									<TelerikTextBox Width="100%" @bind-Value="user.Name" Name="real-name" />
 									<ValidationMessage For="@(() => user.Name)"></ValidationMessage>
 								</div>
-								<div class="form-group">
+								<div class="profile__field">
 									<label for="email">Email</label>
-									<br />
-									<TelerikTextBox Width="12.4em" @bind-Value="user.PublicEmail" Name="email" />
+									<TelerikTextBox Width="100%" @bind-Value="user.PublicEmail" Name="email" />
 									<ValidationMessage For="@(() => user.PublicEmail)"></ValidationMessage>
 								</div>
-								<div class="form-group">
-									<label class="form-check-label h6">
+								<div class="profile__field">
+									<label class="profile__checkbox-label">
 										<InputCheckbox @bind-Value="user.PrivateEmail" /> Keep my email address private
 									</label>
 								</div>
-								<div class="form-group">
+								<div class="profile__field">
 									<label for="company">Company</label>
-									<br />
-									<TelerikTextBox Width="12.4em" @bind-Value="user.Company" Name="company" />
+									<TelerikTextBox Width="100%" @bind-Value="user.Company" Name="company" />
 								</div>
-								<div class="form-group">
+								<div class="profile__field">
 									<label for="location">Location</label>
-									<br />
-									<TelerikTextBox Width="12.4em" @bind-Value="user.Location" Name="location" />
+									<TelerikTextBox Width="100%" @bind-Value="user.Location" Name="location" />
 								</div>
-								<div class="form-group mt-4">
+								<div class="profile__field profile__field--action">
 									<TelerikButton ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)">Update profile</TelerikButton>
 								</div>
 							</EditForm>
@@ -74,26 +69,26 @@
 
 					</div>
 				</div>
-			</div>
+			</section>
 
-			<div class="card" id="delete-account">
-				<h3 class="card-header">Delete Account</h3>
-				<div class="card-body">
+			<section class="profile__card" id="delete-account">
+				<h3 class="profile__card-header">Delete Account</h3>
+				<div class="profile__card-body">
 					<p>
 						You will immediately lose access to your repositories and all other information associated with your account.
 						<strong>This cannot be undone!</strong>
 					</p>
-					<TelerikButton Class="dangerButton" OnClick="@OnDeleteClick">Delete Account</TelerikButton>
+					<TelerikButton Class="dangerButton" OnClick="@OnDeleteClick" ThemeColor="@(ThemeConstants.Button.ThemeColor.Error)">Delete Account</TelerikButton>
 				</div>
-			</div>
+			</section>
 		</div>
-		<div class="col-md-5">
+		<div class="profile__secondary-column">
 
-			<div class="card" id="notifications">
-				<h3 class="card-header">Notifications</h3>
-				<div class="card-body">
-					<h4 class="h6">Automatically watch repositories?</h4>
-					<p class="text-muted">
+			<section class="profile__card" id="notifications">
+				<h3 class="profile__card-header">Notifications</h3>
+				<div class="profile__card-body">
+					<h4 class="profile__subheading">Automatically watch repositories?</h4>
+					<p class="profile__muted">
 						<label>
 							<input type="checkbox" />
 							When you are given push access to a repository, automatically receive notifications for it.
@@ -108,27 +103,27 @@
 						Receive updates to any repositories via email?
 					</label>
 				</div>
-			</div>
-			<div class="card" id="password">
-				<h3 class="card-header">Update password</h3>
-				<div class="card-body">
-					<div class="form-group">
-						<label class="h6">Old password</label>
-						<input type="password" class="form-control" />
+			</section>
+			<section class="profile__card" id="password">
+				<h3 class="profile__card-header">Update password</h3>
+				<div class="profile__card-body">
+					<div class="profile__field">
+						<label class="profile__subheading">Old password</label>
+						<input type="password" class="profile__input" />
 					</div>
-					<div class="form-group">
-						<label class="h6">New password</label>
-						<input type="password" class="form-control" />
+					<div class="profile__field">
+						<label class="profile__subheading">New password</label>
+						<input type="password" class="profile__input" />
 					</div>
-					<div class="form-group">
-						<label class="h6">Confirm password</label>
-						<input type="password" class="form-control" />
+					<div class="profile__field">
+						<label class="profile__subheading">Confirm password</label>
+						<input type="password" class="profile__input" />
 					</div>
-					<div class="form-group mt-4">
+					<div class="profile__field profile__field--action">
 						<TelerikButton>Change password</TelerikButton>
 					</div>
 				</div>
-			</div>
+			</section>
 		</div>
 	</div>
 
@@ -137,7 +132,7 @@
 		<WindowTitle>Thank you!</WindowTitle>
 		<WindowContent>
 			<p>Your profile has been successfully updated.</p>
-			<TelerikButton OnClick="@( () => visibleSuccesWindow = false )" ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)" Class="btn-block">OK</TelerikButton>
+			<TelerikButton OnClick="@( () => visibleSuccesWindow = false )" ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)" Class="profile__window-action profile__window-action--full">OK</TelerikButton>
 		</WindowContent>
 	</TelerikWindow>
 
@@ -149,8 +144,8 @@
 		<WindowContent>
 			<p>Account deletion cannot be undone!</p>
 			<div>
-				<TelerikButton OnClick="@( () => visibleDeleteWindow = false )" Class="floatButton50">Cancel</TelerikButton>
-				<TelerikButton OnClick="@DeleteAccount" ThemeColor="@(ThemeConstants.Button.ThemeColor.Primary)" Class="floatButton50">Delete Account</TelerikButton>
+				<TelerikButton OnClick="@( () => visibleDeleteWindow = false )" Class="profile__window-action">Cancel</TelerikButton>
+				<TelerikButton OnClick="@DeleteAccount" ThemeColor="@(ThemeConstants.Button.ThemeColor.Error)" Class="profile__window-action">Delete Account</TelerikButton>
 			</div>
 		</WindowContent>
 	</TelerikWindow>
@@ -173,7 +168,7 @@
 			Id = 5746515,
 			AvatarUrl = "https://avatars1.githubusercontent.com/u/5746515?v=4",
 			Company = "Progress Software",
-			PublicEmail = "",
+			PublicEmail = "marin.bratanov@progress.com",
 			Location = "",
 			Login = "marin-bratanov",
 			Name = "Marin Bratanov",

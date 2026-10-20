@@ -27,11 +27,19 @@ viewPortResizeObserver = {
     },
 
     notifyServer: function(e) {
-        clearTimeout(viewPortResizeObserver.timeoutId);
+        clearTimeout(viewPortResizeObserver.timeOutId);
 
-        viewPortResizeObserver.timeoutId = window.setTimeout(function() {
-            viewPortResizeObserver.dotNetRefs.forEach(dotNetRef => {
-                dotNetRef.invokeMethodAsync(viewPortResizeObserver.serverMethodName);
+        viewPortResizeObserver.timeOutId = window.setTimeout(function() {
+            viewPortResizeObserver.dotNetRefs.slice().forEach(dotNetRef => {
+                dotNetRef.invokeMethodAsync(viewPortResizeObserver.serverMethodName).catch(error => {
+                    // Blazor can dispose a component while a debounced resize is pending.
+                    if (String(error).includes("There is no tracked object with id")) {
+                        viewPortResizeObserver.removeComponent(dotNetRef);
+                        return;
+                    }
+
+                    console.error("Viewport resize notification failed.", error);
+                });
             });
         }, viewPortResizeObserver.resizeDebounceDelay);
     },
@@ -44,6 +52,8 @@ viewPortResizeObserver = {
 
     destroy() {
         window.removeEventListener("resize", viewPortResizeObserver.notifyServer);
+        clearTimeout(viewPortResizeObserver.timeOutId);
+        viewPortResizeObserver.dotNetRefs = [];
     }
 };
 

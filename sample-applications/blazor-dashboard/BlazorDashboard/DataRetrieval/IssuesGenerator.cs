@@ -24,7 +24,7 @@ namespace BlazorDashboard.DataRetrieval
 					Issue currIssue = new Issue();
 
                     currIssue.Id = ++issueId;
-                    currIssue.Title = _dummyTitle.Substring(rand.Next(5, _dummyTitle.Length)) + currIssue.Id;
+                    currIssue.Title = _issueTitles[rand.Next(0, _issueTitles.Length)] + " #" + currIssue.Id;
 					currIssue.CreatedOn = currTime.AddDays(-i);
 					if (rand.Next(0, 10) % rand.Next(1, 4) == 0)
 					{
@@ -47,7 +47,7 @@ namespace BlazorDashboard.DataRetrieval
 					currIssue.Labels.Add(rand.Next(0, 20) % 6 == 0 ? "appearance" : "functionality");
 					currIssue.Labels.Add(currIssue.IsOpen ? "open" : "closed");
 
-					currIssue.Description = "<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: 'Open Sans', Arial, sans-serif;\"><strong>Lorem ipsum </strong>dolor sit amet, consectetur adipiscing elit. Nam eget diam et ipsum vulputate porta. Duis non venenatis odio, ut sagittis mi. Nam et pellentesque dolor. Pellentesque ornare neque ac feugiat convallis:</p><ul>	<li style =\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: 'Open Sans', Arial, sans-serif;\"> Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. </li><li style =\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: 'Open Sans', Arial, sans-serif; \">In ac eros eget elit laoreet congue vitae vel quam. </li><li style =\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: 'Open Sans', Arial, sans-serif; \">Suspendisse potenti. </li><li style =\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: 'Open Sans', Arial, sans-serif; \">Fusce vitae magna maximus, ornare turpis quis, porttitor velit. Nam ac condimentum massa, vitae tristique nulla.</li></ul><h5 style =\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: 'Open Sans', Arial, sans-serif; \">Vestibulum vitae ante egestas, sollicitudin justo a, pulvinar turpis.</h5><p style =\"margin: 0px 0px 15px; padding: 0px; text-align: justify; font-family: 'Open Sans', Arial, sans-serif; \"> Sed at condimentum turpis. Mauris fermentum, felis non euismod sagittis, nisl dui bibendum urna, vel iaculis mi nunc dictum turpis. In sodales at sapien eget pellentesque.</p>";
+					currIssue.Description = "<p><strong>Lorem ipsum </strong>dolor sit amet, consectetur adipiscing elit. Nam eget diam et ipsum vulputate porta. Duis non venenatis odio, ut sagittis mi. Nam et pellentesque dolor. Pellentesque ornare neque ac feugiat convallis:</p><ul><li>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</li><li>In ac eros eget elit laoreet congue vitae vel quam.</li><li>Suspendisse potenti.</li><li>Fusce vitae magna maximus, ornare turpis quis, porttitor velit. Nam ac condimentum massa, vitae tristique nulla.</li></ul><h5>Vestibulum vitae ante egestas, sollicitudin justo a, pulvinar turpis.</h5><p>Sed at condimentum turpis. Mauris fermentum, felis non euismod sagittis, nisl dui bibendum urna, vel iaculis mi nunc dictum turpis. In sodales at sapien eget pellentesque.</p>";
 
 					issueList.Add(currIssue);
 				}
@@ -57,7 +57,34 @@ namespace BlazorDashboard.DataRetrieval
 		}
 
 		private static Random rand = new Random();
-		private static string _dummyTitle = "Issue lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+		private static readonly string[] _issueTitles = new string[]
+		{
+			"Grid column resize resets after sorting",
+			"Dropdown list closes unexpectedly on touch devices",
+			"Date picker shows wrong month near year boundaries",
+			"Chart tooltip is clipped inside a scrollable container",
+			"Add keyboard shortcut for opening the filter menu",
+			"Export to Excel ignores custom number formats",
+			"Dark mode: focus outline has insufficient contrast",
+			"Notification popup overlaps the navigation drawer",
+			"Pagination jumps to the first page after editing a row",
+			"Support multi-select in the labels filter",
+			"Form validation message is not announced by screen readers",
+			"Window loses its position after browser resize",
+			"Upload progress bar stays at 100% after cancel",
+			"Improve loading performance of the issues grid",
+			"Tab order is incorrect in the profile form",
+			"Localize built-in messages for the date range selector",
+			"Scheduler shows duplicate events across time zones",
+			"Tree list keeps stale selection after data refresh",
+			"Add option to hide the legend in the donut chart",
+			"Context menu does not close when the page scrolls",
+			"Row drag-and-drop indicator flickers in Safari",
+			"Allow saving custom filter presets",
+			"Autocomplete suggestions lag with large data sets",
+			"Toolbar buttons wrap incorrectly on narrow screens",
+			"Update documentation for the issue details panel"
+		};
 		private static string[] _issueTypes = { "bug", "feature", "enhancement" };
 		private static string[] _severities = { "low", "medium", "high" };
 		private static string[] _componentList = { "grid", "button", "window", "chart", "textbox", "numeric textbox", "dropdownlist", "calendar" };

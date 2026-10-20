@@ -7,27 +7,17 @@ namespace BlazorDashboard.DataRetrieval
 {
 	public static class LabelColors
 	{
-		public static string GetColor(string label)
+		public static string GetClass(string label)
 		{
 			label = label.ToLowerInvariant();
-			if (Colors.ContainsKey(label))
+			return label switch
 			{
-				return Colors[label];
-			}
-			else
-			{
-				return "#1ca8dd";
-			}
+				"bug" or "high" => "issue-label--error",
+				"feature" or "enhancement" => "issue-label--success",
+				"low" => "issue-label--warning",
+				"medium" => "issue-label--tertiary",
+				_ => "issue-label--info"
+			};
 		}
-
-		internal static Dictionary<string, string> Colors = new Dictionary<string, string>()
-		{
-			{ "bug", "#cf3257"},
-			{ "feature", "#2e7d32"},
-			{ "enhancement", "#00c853"},
-			{ "low", "#ff9800"},
-			{ "medium", "#ff5d2a"},
-			{ "high", "#d50000"}
-		};
 	}
 }

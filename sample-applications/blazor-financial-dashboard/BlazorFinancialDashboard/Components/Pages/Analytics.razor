@@ -163,6 +163,11 @@
     [JSInvokable("OnViewPortResize")]
     public override Task OnViewPortResize()
     {
+        if (IsDisposed)
+        {
+            return Task.CompletedTask;
+        }
+
         ChartRef?.Refresh();
 
         return base.OnViewPortResize();

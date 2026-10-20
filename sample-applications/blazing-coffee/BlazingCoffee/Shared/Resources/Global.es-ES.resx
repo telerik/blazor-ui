@@ -279,11 +279,23 @@
   <data name="Drawer_Dashboard" xml:space="preserve">
     <value>Tablero</value>
   </data>
+  <data name="Accessibility_ToggleNavigation" xml:space="preserve">
+    <value>Alternar navegación</value>
+  </data>
+  <data name="Accessibility_OpenProfile" xml:space="preserve">
+    <value>Abrir perfil</value>
+  </data>
+  <data name="Drawer_InfoShort" xml:space="preserve">
+    <value>Info</value>
+  </data>
   <data name="Drawer_Info" xml:space="preserve">
     <value>Información</value>
   </data>
   <data name="Drawer_Profile" xml:space="preserve">
     <value>Perfil</value>
+  </data>
+  <data name="Drawer_TeamMembers" xml:space="preserve">
+    <value>Miembros del equipo</value>
   </data>
   <data name="Drawer_Team" xml:space="preserve">
     <value>Equipo</value>

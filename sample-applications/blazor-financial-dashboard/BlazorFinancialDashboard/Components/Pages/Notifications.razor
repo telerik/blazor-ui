@@ -1,0 +1,36 @@
+@page "/notifications"
+@inject NotificationService NotificationService
+
+<PageTitle>Notifications</PageTitle>
+
+<h1>Notifications</h1>
+
+<div class="notifications-page__cards">
+    <UICard Title="Account activity" SubTitle="@UnreadSubTitle" ColSpanOnLargeScreen="8" ColSpanOnMediumScreen="12">
+        <div class="status-list">
+            @foreach (var notification in ActivityNotifications)
+            {
+                <article class="status-list__item">
+                    <strong>@notification.Title</strong>
+                    <p>@notification.Message</p>
+                    <span class="status-list__meta">@notification.When</span>
+                </article>
+            }
+        </div>
+    </UICard>
+
+    <UICard Title="Manage notifications" ColSpanOnLargeScreen="4" ColSpanOnMediumScreen="12">
+        <p class="settings-description">Alerts use clear labels and are grouped by activity so important account events are easy to review.</p>
+        <TelerikButton FillMode="@ThemeConstants.Button.FillMode.Outline" Enabled="@(UnreadCount > 0)" OnClick="@MarkAllRead">Mark all as read</TelerikButton>
+    </UICard>
+</div>
+
+@code {
+    private IReadOnlyList<AppNotification> ActivityNotifications => NotificationService.Items;
+
+    private int UnreadCount => NotificationService.UnreadCount;
+
+    private string UnreadSubTitle => UnreadCount > 0 ? $"{UnreadCount} unread" : string.Empty;
+
+    private void MarkAllRead() => NotificationService.MarkAllRead();
+}

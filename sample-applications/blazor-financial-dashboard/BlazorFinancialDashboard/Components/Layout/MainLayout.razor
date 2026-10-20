@@ -4,8 +4,10 @@
 @inject NavigationManager NavManager
 @inject SearchService SearchService
 @inject UserService UserService
+@inject NotificationService NotificationService
+@implements IDisposable
 
-<TelerikMediaQuery Media="(min-width: 1201px)" OnChange="@( (bool matches) => IsOverMaxWidth = matches )" />
+<TelerikMediaQuery Media="(min-width: 1200px)" OnChange="@( (bool matches) => IsOverMaxWidth = matches )" />
 <TelerikMediaQuery Media="(min-width: 992px)" OnChange="@( (bool matches) => IsLargeScreen = matches )" />
 <TelerikMediaQuery Media="(min-width: 768px)" OnChange="@( (bool matches) => IsMediumOrLargeScreen = matches )" />
 
@@ -18,11 +20,16 @@
                MiniMode="true"
                Class="mainlayout-drawer">
     <DrawerContent>
-        <div id="drawer-content-wrapper" class="k-ml-auto k-mr-auto">
+        <div id="drawer-content-wrapper" class="drawer-content">
 
             <TelerikAppBar ThemeColor="@ThemeConstants.AppBar.ThemeColor.Base"
                            Class="appbar-top">
                 <AppBarSection>
+                    <TelerikButton Class="appbar-menu-button"
+                                   FillMode="@ThemeConstants.Button.FillMode.Flat"
+                                   Icon="@SvgIconsNS.SvgIcon.Menu"
+                                   AriaLabel="Open navigation menu"
+                                   OnClick="@ToggleDrawer" />
                     <div class="greeting">
                         <TelerikAvatar Width="42px" Height="42px">
                             <img src="images/maria-avatar.jpeg" alt="Maria profile photo" />
@@ -61,11 +68,18 @@
                                    OnClick="@GoToAIAssistantPage">AI Assistant</TelerikButton>
                 </AppBarSection>
                 <AppBarSection>
+                    <TelerikButton FillMode="@ThemeConstants.Button.FillMode.Flat"
+                                   OnClick="@GoToNotificationsPage"
+                                   AriaLabel="@NotificationsAriaLabel">
+                        @NotificationsLabel
+                    </TelerikButton>
+                </AppBarSection>
+                <AppBarSection>
                     <CultureChooser />
                 </AppBarSection>
             </TelerikAppBar>
 
-            <main class="k-d-grid k-grid-cols-12 k-gap-4 k-pb-4">
+            <main class="main-layout__content">
                 <CascadingValue Value="@IsLargeScreen" Name="IsLargeScreen">
                     <CascadingValue Value="@IsMediumOrLargeScreen" Name="IsMediumOrLargeScreen">
                         <CascadingValue Value="@this" IsFixed="true">
@@ -78,14 +92,14 @@
             <TelerikAppBar ThemeColor="@ThemeConstants.AppBar.ThemeColor.Base"
                            Class="@( $"appbar-bottom {( IsOverMaxWidth ? "narrow" : string.Empty )}" )">
                 <AppBarSection>
-                    <div class="@( IsOverMaxWidth ? string.Empty : "k-pl-15" )">
-                        <a class="k-d-flex k-align-items-center k-gap-2 k-p-2 k-text-inherit"
+                    <div class="appbar-bottom__content @( IsOverMaxWidth ? string.Empty : "appbar-bottom__content--padded" )">
+                        <a class="appbar-bottom__source-link"
                             href="https://github.com/telerik/blazor-ui/tree/master/sample-applications/blazor-financial-dashboard"
                             target="_blank">
                             <img src="images/github-icon.svg" alt="GitHub logo" /> Get the Source Code
                         </a>
 
-                        <div class="k-p-2">Copyright &copy; @DateTime.Today.Year Progress Software. All rights reserved.</div>
+                        <div class="appbar-bottom__copyright">Copyright &copy; @DateTime.Today.Year Progress Software. All rights reserved.</div>
                     </div>
                 </AppBarSection>
                 <AppBarSpacer />
@@ -110,11 +124,27 @@
         new NavItem("Investments", SvgIconsNS.SvgIcon.Dollar, "/blazor-financial-dashboard/investments"),
         new NavItem("Analytics", SvgIconsNS.SvgIcon.ChartColumnStacked, "/blazor-financial-dashboard/analytics"),
         new NavItem("AI Assistant", SvgIconsNS.SvgIcon.Sparkles, "/blazor-financial-dashboard/ai-assistant"),
+        new NavItem("Notifications", SvgIconsNS.SvgIcon.Bell, "/blazor-financial-dashboard/notifications"),
+        new NavItem("Help & Support", SvgIconsNS.SvgIcon.QuestionCircle, "/blazor-financial-dashboard/help"),
         new NavItem(),
         new NavItem("Settings", SvgIconsNS.SvgIcon.Gear, "/blazor-financial-dashboard/settings")
     };
 
     private bool DrawerExpanded { get; set; }
+
+    private int UnreadCount => NotificationService.UnreadCount;
+
+    private string NotificationsLabel => UnreadCount > 0 ? $"Notifications ({UnreadCount})" : "Notifications";
+
+    private string NotificationsAriaLabel => UnreadCount > 0
+        ? $"View {UnreadCount} unread notification{(UnreadCount == 1 ? string.Empty : "s")}"
+        : "View notifications";
+
+    private void ToggleDrawer() => DrawerExpanded = !DrawerExpanded;
+
+    private void OnNotificationsChanged() => _ = InvokeAsync(StateHasChanged);
+
+    public void Dispose() => NotificationService.Changed -= OnNotificationsChanged;
 
     private NavItem? DrawerSelectedItem { get; set; }
 
@@ -142,6 +172,13 @@
         NavItem aiAssistantItem = DrawerData.First(i => i.Url == "/blazor-financial-dashboard/ai-assistant");
         DrawerSelectedItem = aiAssistantItem;
         NavManager.NavigateTo(aiAssistantItem.Url);
+    }
+
+    private void GoToNotificationsPage()
+    {
+        NavItem notificationsItem = DrawerData.First(i => i.Url == "/blazor-financial-dashboard/notifications");
+        DrawerSelectedItem = notificationsItem;
+        NavManager.NavigateTo(notificationsItem.Url);
     }
 
     private void SelectDrawerItem()
@@ -200,6 +237,8 @@
 
     protected override async Task OnInitializedAsync()
     {
+        NotificationService.Changed += OnNotificationsChanged;
+
         await GetAppUser();
 
         SelectDrawerItem();

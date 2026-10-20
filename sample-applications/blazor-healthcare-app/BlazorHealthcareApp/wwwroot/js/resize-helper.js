@@ -24,3 +24,7 @@ window.resizeHelper = {
         this._dotNetRef = null;
     }
 };
+
+window.hcDonutLabel = function (e) {
+    return Math.round(e.percentage * 100) + '%';
+};

@@ -1,15 +1,20 @@
-﻿<div class="uicard k-col-span-12 k-col-span-md-@ColSpanOnMediumScreen k-col-span-lg-@ColSpanOnLargeScreen
-            k-d-flex k-flex-col k-gap-@TitleGap k-p-4 k-bg-surface-alt k-rounded-xl">
-    <div class="k-d-flex k-flex-col k-gap-1">
-        <h2>@Title</h2>
-        @if (!string.IsNullOrEmpty(SubTitle))
-        {
-            <div class="card-subtitle k-mt-3">@SubTitle</div>
-        }
-    </div>
-    <div class="k-flex-1 k-d-flex k-flex-col k-gap-@ContentGap @ContentClass">
-        @ChildContent
-    </div>
+<div class="uicard-layout uicard-layout--md-@ColSpanOnMediumScreen uicard-layout--lg-@ColSpanOnLargeScreen">
+    <TelerikCard Class="uicard">
+        <CardHeader>
+            <div class="uicard__header uicard__header--gap-@GetSpacingStep(TitleGap)">
+                <h2>@Title</h2>
+                @if (!string.IsNullOrEmpty(SubTitle))
+                {
+                    <div class="card-subtitle uicard__subtitle">@SubTitle</div>
+                }
+            </div>
+        </CardHeader>
+        <CardBody>
+            <div class="uicard__content uicard__content--gap-@GetSpacingStep(ContentGap) @ContentClass">
+                @ChildContent
+            </div>
+        </CardBody>
+    </TelerikCard>
 </div>
 
 @code {
@@ -36,4 +41,6 @@
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    private static string GetSpacingStep(string step) => step == "thin" ? "2" : step;
 }

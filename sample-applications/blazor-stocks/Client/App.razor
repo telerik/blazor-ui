@@ -4,7 +4,13 @@
     </Found>
     <NotFound>
         <LayoutView Layout="@typeof(MainLayout)">
-            <p>Sorry, there's nothing at this address.</p>
+            <section class="empty-state" aria-labelledby="not-found-title">
+                <h1 id="not-found-title">Page not found</h1>
+                <p>The page you requested is unavailable. Return to your portfolio.</p>
+                <div class="empty-state-actions">
+                    <NavLink href="" class="k-button k-button-solid k-button-md k-button-solid-primary">Go to Portfolio</NavLink>
+                </div>
+            </section>
         </LayoutView>
     </NotFound>
 </Router>

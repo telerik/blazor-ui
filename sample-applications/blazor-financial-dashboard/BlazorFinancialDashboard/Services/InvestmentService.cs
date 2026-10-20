@@ -7,16 +7,6 @@ public class InvestmentService
     private List<TotalInvestment> TotalInvestments { get; set; } = new();
     private List<AssetInfo> TopMovers { get; set; } = new();
 
-    private readonly string[] InvestmentCategories = [ "Stocks", "Real Estates", "Bonds", "Mutual Funds", "Crypto Currency", "Commodities" ];
-    private readonly Dictionary<string, string> Assets = new()
-    {
-        { "BTC", "Bitcoin" },
-        { "ETH", "Etherium" },
-        { "XRP", "Ripple" },
-        { "TTH", "Theter" },
-        { "UNI", "Unicorn" }
-    };
-
     public async Task<List<TotalInvestment>> ReadTotalInvestments()
     {
         await Task.CompletedTask;
@@ -33,24 +23,23 @@ public class InvestmentService
 
     public InvestmentService()
     {
-        for (var i = 0; i < InvestmentCategories.Length; i++)
+        TotalInvestments = new List<TotalInvestment>
         {
-            TotalInvestments.Add(new TotalInvestment()
-            {
-                Category = InvestmentCategories[i],
-                Value = Random.Shared.Next(10_000, 100_000)
-            });
-        }
+            new() { Category = "Stocks", Value = 68_200 },
+            new() { Category = "Real estate", Value = 42_500 },
+            new() { Category = "Bonds", Value = 28_000 },
+            new() { Category = "Mutual funds", Value = 31_500 },
+            new() { Category = "Cryptocurrency", Value = 14_200 },
+            new() { Category = "Commodities", Value = 18_000 }
+        };
 
-        for (var i = 0; i < Assets.Count; i++)
+        TopMovers = new List<AssetInfo>
         {
-            TopMovers.Add(new AssetInfo()
-            {
-                Symbol = Assets.ElementAt(i).Key,
-                AssetName = Assets.ElementAt(i).Value,
-                CurrentValue = Random.Shared.Next(10_000, 100_000) * 1.23m,
-                DailyChange = Random.Shared.Next(-33, 33) * 0.01
-            });
-        }
+            new AssetInfo { Symbol = "BTC", AssetName = "Bitcoin", CurrentValue = 68_420.25m, DailyChange = 0.032 },
+            new AssetInfo { Symbol = "ETH", AssetName = "Ethereum", CurrentValue = 12_840.50m, DailyChange = 0.018 },
+            new AssetInfo { Symbol = "XRP", AssetName = "Ripple", CurrentValue = 4_280.10m, DailyChange = -0.009 },
+            new AssetInfo { Symbol = "TTH", AssetName = "Tether", CurrentValue = 2_120.00m, DailyChange = 0.001 },
+            new AssetInfo { Symbol = "UNI", AssetName = "Uniswap", CurrentValue = 1_860.75m, DailyChange = -0.014 }
+        };
     }
 }
