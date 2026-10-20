@@ -74,7 +74,6 @@
     border-radius: var(--kendo-border-radius-xxl);
     padding: 24px;
     position: relative; z-index: 1;
-    width: 100%;
 }
 .hc-pd-card-header {
     display: flex; justify-content: space-between; align-items: center;

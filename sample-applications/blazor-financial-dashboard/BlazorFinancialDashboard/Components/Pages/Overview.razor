@@ -222,8 +222,9 @@
                 <Template>
                     @{ var dataItem = (Transaction)context; }
                     <TelerikButton FillMode="@ThemeConstants.Button.FillMode.Flat"
-                                   OnClick="@(() => OpenTransactionDetails(dataItem.Id))">
-                        View details
+                                   OnClick="@(() => OpenTransactionDetails(dataItem.Id))"
+                                   Icon="@SvgIconsNS.SvgIcon.Eye">
+                        View
                     </TelerikButton>
                 </Template>
             </GridColumn>
