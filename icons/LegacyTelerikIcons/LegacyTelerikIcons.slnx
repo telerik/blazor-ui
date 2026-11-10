@@ -1,0 +1,4 @@
+<Solution>
+  <Project DefaultStartup="true" Path="LegacyTelerikIcons/LegacyTelerikIcons.csproj" />
+  <Project Path="TelerikSvgIcons4/TelerikSvgIcons4.csproj" />
+</Solution>

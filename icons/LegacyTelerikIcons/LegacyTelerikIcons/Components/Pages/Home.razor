@@ -1,0 +1,52 @@
+﻿@page "/"
+@using TelerikSvgIcons4
+
+<PageTitle>Home</PageTitle>
+
+<h1>Legacy v4 Telerik Icons</h1>
+
+This sample app shows how to use v4 Telerik icons with a Telerik UI for Blazor version that depends on v5 icons.
+
+<ul>
+    <li><strong>Telerik UI for Blazor</strong> version: @(typeof(TelerikRootComponent).Assembly.GetName().Version)</li>
+    <li><strong>Telerik.SvgIcons</strong> version: @(typeof(ISvgIcon).Assembly.GetName().Version)</li>
+    <li><strong>TelerikSvgIcons4</strong> version: @(typeof(TelerikSvgIcons4.SvgIcon4).Assembly.GetName().Version)</li>
+</ul>
+
+<h2>Using v4 Icons via TelerikSvgIconsV4Service</h2>
+
+<TelerikButton Icon="@SvgIcon.Bold" />
+<TelerikButton Icon="@SvgIcon.Italic" />
+<TelerikButton Icon="@SvgIcon.Underline" />
+<TelerikButton Icon="@SvgIcon.Image" />
+
+<TelerikEditor @bind-Value="@EditorValue"
+               Height="120px" />
+
+<h2>Using v5 Icons</h2>
+
+<p>To render built-in v5 Telerik SVG icons while <strong>TelerikSvgIconsV4Service</strong> is active, use the <strong>TelerikSvgIcon</strong> component.</p>
+
+<TelerikSvgIcon Icon="@SvgIcon.Bold" />
+
+<TelerikSvgIcon Icon="@SvgIcon.Italic" />
+
+<TelerikSvgIcon Icon="@SvgIcon.Underline" />
+
+<TelerikSvgIcon Icon="@SvgIcon.Image" />
+
+<h2>Using v4 Icons</h2>
+
+<p><strong>TelerikSvgIconsV4Service</strong> does not run for standalone SVG icons. Set a legacy icon reference directly to display it.</p>
+
+<TelerikSvgIcon Icon="@SvgIcon4.Bold" />
+
+<TelerikSvgIcon Icon="@SvgIcon4.Italic" />
+
+<TelerikSvgIcon Icon="@SvgIcon4.Underline" />
+
+<TelerikSvgIcon Icon="@SvgIcon4.Image" />
+
+@code {
+    private string EditorValue { get; set; } = "<p>Telerik Editor for Blazor<p>";
+}
