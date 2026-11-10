@@ -6,7 +6,7 @@ The icons in versions 4 and 5 use different styling. This sample app shows how t
 
 ## Application Structure
 
-The application is based on the [Using Legacy v4 SVG Icons with New Telerik UI for Blazor Versions](https://www.telerik.com/blazor-ui/documentation/knowledge-base/icons-using-legacy-v4-svg-icons-with-new-telerik-ui-for-blazor-versions) knowledge base article.
+The application is based on the [Use Legacy v4 SVG Icons with New Telerik UI for Blazor Versions](https://www.telerik.com/blazor-ui/documentation/knowledge-base/icons-use-legacy-v4-svg-icons-with-new-telerik-ui-for-blazor-versions) knowledge base article.
 
 The solution consists of two projects:
 
