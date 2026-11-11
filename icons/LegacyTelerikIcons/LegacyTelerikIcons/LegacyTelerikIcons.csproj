@@ -10,8 +10,8 @@
   <ItemGroup>
     <PackageReference Include="Telerik.UI.for.Blazor" VersionOverride="*" />
     <!-- Either include the NuGet package or the TelerikSvgIcons4, not both -->
-    <!-- <PackageReference Include="TelerikSvgIcons4" VersionOverride="4.12.0" /> -->
-    <ProjectReference Include="../TelerikSvgIcons4/TelerikSvgIcons4.csproj" />
+    <PackageReference Include="TelerikSvgIcons4" VersionOverride="4.12.0" />
+    <!-- <ProjectReference Include="../TelerikSvgIcons4/TelerikSvgIcons4.csproj" /> -->
 
     <!-- Icon package references are only necessary to show the workaround with Telerik UI for Blazor 15.2.0 or earlier -->
     <PackageReference Include="Telerik.SvgIcons" VersionOverride="5.*" />
