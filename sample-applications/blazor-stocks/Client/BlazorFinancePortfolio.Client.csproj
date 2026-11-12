@@ -4,6 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
         <AssemblyName>$(AssemblyName.Replace(' ', '_'))</AssemblyName>
+        <NullabilityInfoContextSupport>true</NullabilityInfoContextSupport>
     </PropertyGroup>
 
     <ItemGroup>
