@@ -8,6 +8,7 @@ namespace BlazorDashboard.Models
 	public class IssuesByTypeChartModel
 	{
 		public int IssueCount { get; set; }
+		public double Share { get; set; }
 		public string CategoryName { get; set; }
 	}
 }

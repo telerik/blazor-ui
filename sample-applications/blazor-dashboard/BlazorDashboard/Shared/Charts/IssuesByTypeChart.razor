@@ -4,8 +4,8 @@
 <TelerikChart>
     <ChartSeriesItems>
         <ChartSeries Type="ChartSeriesType.Donut" Data="@ChartData" HoleSize="60"
-                        Field="@nameof(IssuesByTypeChartModel.IssueCount)" CategoryField="@nameof(IssuesByTypeChartModel.CategoryName)">
-            <ChartSeriesLabels Visible="true" Position="ChartSeriesLabelsPosition.Center" Template="#=Math.round(percentage * 100)#%" Background="transparent"></ChartSeriesLabels>
+                        Field="@nameof(IssuesByTypeChartModel.Share)" CategoryField="@nameof(IssuesByTypeChartModel.CategoryName)">
+            <ChartSeriesLabels Visible="true" Position="ChartSeriesLabelsPosition.Center" Format="{0:P0}" Background="transparent"></ChartSeriesLabels>
 			<ChartSeriesTooltip Visible="true">
 				<Template>
 					@{ 
@@ -60,5 +60,8 @@
 			CategoryName = "SEV: High",
 			IssueCount = IssuesFilter.GetHighSevBugs(Issues).Count()
 		});
+
+		var total = ChartData.Sum(x => x.IssueCount);
+		ChartData.ForEach(x => x.Share = (double)x.IssueCount / total);
 	}
 }

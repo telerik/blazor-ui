@@ -63,7 +63,7 @@
                         <ChartSeriesItems>
                             <ChartSeries Type="ChartSeriesType.Pie" Data="@Stocks"
                                          Field="@nameof(Stock.Price)" CategoryField="@nameof(Stock.Symbol)">
-                                <ChartSeriesLabels Template="@( $"#=category#\n{SelectedCurrency.Sign}#=value#" )" Visible="@ChartLabelsVisible" />
+                                <ChartSeriesLabels Format="@($"{SelectedCurrency.Sign}{{0}}")" Visible="@ChartLabelsVisible" />
                             </ChartSeries>
                         </ChartSeriesItems>
 
