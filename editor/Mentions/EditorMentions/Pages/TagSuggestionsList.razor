@@ -1,0 +1,23 @@
+﻿@using EditorMentions.Models
+<div class="suggestion-item-list">
+    @if (Items == null || !Items.Any())
+    {
+        <div class="suggestion-item">
+            No tags
+        </div>
+    }
+    else
+    {
+        @foreach (var item in Items)
+        {
+            <div class="suggestion-item">
+                @item.Text
+            </div>
+        }
+    }
+</div>
+
+@code {
+    [Parameter]
+    public IEnumerable<Tag> Items { get; set; }
+}
