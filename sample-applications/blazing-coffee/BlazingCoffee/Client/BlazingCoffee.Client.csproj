@@ -12,6 +12,7 @@
 
   <PropertyGroup>
     <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
+    <NullabilityInfoContextSupport>true</NullabilityInfoContextSupport>
   </PropertyGroup>
 
   <!-- PWA -->
