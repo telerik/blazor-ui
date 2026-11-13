@@ -5,12 +5,12 @@
   "display": "standalone",
   "icons": [
     {
-      "src": "/blazor-financial-portfolio/default-icon-192x192.png",
+      "src": "/blazor-financial-portfolio/web-app-manifest-192x192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "/blazor-financial-portfolio/default-icon-512x512.png",
+      "src": "/blazor-financial-portfolio/web-app-manifest-512x512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
