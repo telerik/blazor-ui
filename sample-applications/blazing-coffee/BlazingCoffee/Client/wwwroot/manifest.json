@@ -7,7 +7,7 @@
   "theme_color": "#03173d",
   "icons": [
     {
-      "src": "/blazor-coffee/icon-512.png",
+      "src": "/blazor-coffee/web-app-manifest-512x512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
