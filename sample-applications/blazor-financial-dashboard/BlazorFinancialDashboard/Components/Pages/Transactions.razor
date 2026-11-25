@@ -81,7 +81,7 @@
                     <TelerikBadge ThemeColor="@dataItem.GetStatusThemeColor()"
                                   Rounded="@ThemeConstants.Badge.Rounded.Large"
                                   Size="@ThemeConstants.Badge.Size.Large"
-                                  Class="inline-badge">
+                                  Position="@BadgePosition.Inline">
                         @dataItem.Status.ToString()
                     </TelerikBadge>
                 </Template>
@@ -132,7 +132,7 @@
                             <TelerikBadge ThemeColor="@FormModel.GetStatusThemeColor()"
                                           Rounded="@ThemeConstants.Badge.Rounded.Large"
                                           Size="@ThemeConstants.Badge.Size.Large"
-                                          Class="inline-badge">
+                                          Position="@BadgePosition.Inline">
                                 @FormModel.Status.ToString()
                             </TelerikBadge>
                         </div>

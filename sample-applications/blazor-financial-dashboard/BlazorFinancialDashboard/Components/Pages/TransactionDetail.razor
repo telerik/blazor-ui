@@ -62,7 +62,7 @@
                     <TelerikBadge ThemeColor="@Transaction.GetStatusThemeColor()"
                                   Rounded="@ThemeConstants.Badge.Rounded.Large"
                                   Size="@ThemeConstants.Badge.Size.Large"
-                                  Class="inline-badge">
+                                  Position="@BadgePosition.Inline">
                         @Transaction.Status.ToString()
                     </TelerikBadge>
                 </div>
@@ -86,7 +86,7 @@
                     </div>
                     <TelerikBadge ThemeColor="@ThemeConstants.Badge.ThemeColor.Success"
                                   Rounded="@ThemeConstants.Badge.Rounded.Large"
-                                  Class="inline-badge">
+                                  Position="@BadgePosition.Inline">
                         @Account.Status
                     </TelerikBadge>
                 </div>
