@@ -219,11 +219,6 @@ h2 {
     min-height: calc(var(--kendo-font-size) * 4);
 }
 
-.k-badge.inline-badge {
-    position: static;
-    transform: none;
-}
-
 /* Bottom AppBar */
 
 div.appbar-bottom {
